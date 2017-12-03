@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xmux/calendarpage.dart';
 import 'package:xmux/enginepage.dart';
 import 'package:xmux/messagepage.dart';
 import 'package:xmux/idpage.dart';
@@ -33,7 +34,7 @@ class HomePageState extends State<HomePage> {
             child: new TickerMode(
               enabled: _currentIndex == 2,
               child: new Scaffold(
-                body: new Text("3"),
+                body: new CalendarPage(),
               ),
             ),
           ),
