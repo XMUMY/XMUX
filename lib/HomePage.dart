@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/enginepage.dart';
 import 'package:xmux/messagepage.dart';
+import 'package:xmux/idpage.dart';
 
 var setter;
 
@@ -41,7 +42,7 @@ class HomePageState extends State<HomePage> {
             child: new TickerMode(
               enabled: _currentIndex == 3,
               child: new Scaffold(
-                body: new Text("4"),
+                body: new IDPage(),
               ),
             ),
           ),

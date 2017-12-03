@@ -12,13 +12,15 @@ class _MessagePageState extends State<MessagePage> {
   final List<Message> _messages = <Message>[];
 
   void _handleSubmitted(String text) {
-    _textController.clear();
-    Message message = new Message(
-      text: text,
-    );
-    setState(() {
-      _messages.insert(0, message);
-    });
+    if (text.isNotEmpty) {
+      _textController.clear();
+      Message message = new Message(
+        text: text,
+      );
+      setState(() {
+        _messages.insert(0, message);
+      });
+    }
   }
 
 
@@ -33,6 +35,7 @@ class _MessagePageState extends State<MessagePage> {
                 children: <Widget>[
                   new Flexible(
                       child: new TextField(
+                        autofocus: false,
                         controller: _textController,
                         onSubmitted: _handleSubmitted,
                         decoration: new InputDecoration.collapsed(
