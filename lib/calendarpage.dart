@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:xmux/main.dart';
+import 'package:xmux/Events/LoginEvent.dart';
 
 class CalendarPage extends StatefulWidget {
 
@@ -14,7 +15,7 @@ class CalendarPage extends StatefulWidget {
 
 class _CalendarPageState extends State<CalendarPage> {
 
-  var classes, data;
+  var data;
   String id, password;
 
   Future<File> _getFile(String name) async {
@@ -36,18 +37,22 @@ class _CalendarPageState extends State<CalendarPage> {
           "id": id,
           "pass": password,
         });
-    setState((){
+    setState(() {
       data = JSON.decode(response.body);
     });
   }
 
   @override
   void initState() {
-    _readFile("login.dat").then((String str){
+    _readFile("login.dat").then((String str) {
       Map loginInfo = JSON.decode(str);
       id = loginInfo["id"];
       password = loginInfo["campus"];
-    }).then((Null){
+      _getClasses();
+    });
+    loginEventBus.on(LoginEvent).listen((LoginEvent e) {
+      id = e.id;
+      password = e.campusIdPassword;
       _getClasses();
     });
   }

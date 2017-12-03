@@ -1,6 +1,9 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/homepage.dart';
 import 'package:xmux/engine/inputconstructor.dart';
+
+EventBus loginEventBus = new EventBus();
 
 void main() {
   runApp(

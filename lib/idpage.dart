@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:xmux/Events/LoginEvent.dart';
+import 'package:xmux/main.dart';
 
 
 class IDPage extends StatefulWidget {
@@ -118,6 +120,8 @@ class _IDPageState extends State<IDPage> {
                   _saveLoginInfo(JSON.encode(infoMap));
                   Scaffold.of(context).showSnackBar(
                       new SnackBar(content: new Text("Success!")));
+                  loginEventBus.fire(new LoginEvent(
+                      infoMap["id"], infoMap["campus"], infoMap["epayment"]));
                 }
                 else
                   Scaffold.of(context).showSnackBar(
