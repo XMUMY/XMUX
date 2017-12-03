@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/engine/result.dart';
+import 'package:xmux/engine/wolframresult.dart';
 
 Color enginePageColor = Colors.orange;
 String engineTitle = "Wolfram Engine";
@@ -35,7 +35,7 @@ class _EnginePageState extends State<EnginePage> {
                 children: <Widget>[
                   new Flexible(
                       child: new TextField(
-                        autofocus: true,
+                        autofocus: false,
                         controller: _inputTextController,
                         onSubmitted: null,
                         decoration: new InputDecoration.collapsed(

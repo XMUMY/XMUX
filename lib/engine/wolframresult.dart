@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/enginepage.dart';
+import 'package:xmux/config.dart';
+import 'package:xmux/engine/enginepage.dart';
 
-String wolframAppID = "";
-
-class WolframResult extends StatefulWidget {
+class WolframResult extends StatelessWidget {
   final String inputString;
 
-  WolframResult(this.inputString, {Key key}) :super(key: key);
-
-  @override
-  _WolframResultState createState() => new _WolframResultState(inputString);
-}
-
-class _WolframResultState extends State<WolframResult> {
-  final String inputString;
-
-  _WolframResultState(this.inputString);
+  WolframResult(this.inputString);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +21,7 @@ class _WolframResultState extends State<WolframResult> {
             new Image(
                 image: new NetworkImage(
                     "http://api.wolframalpha.com/v1/simple?appid=" +
-                        wolframAppID +
+                        WolframConfig.appID +
                         "&i=" + Uri.encodeComponent(inputString) +
                         "&fontsize=18&width=400")),
           ],

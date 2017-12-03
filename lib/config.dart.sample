@@ -1,0 +1,3 @@
+class WolframConfig {
+  static String appID = "";
+}

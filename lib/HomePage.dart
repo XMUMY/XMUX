@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/calendarpage.dart';
-import 'package:xmux/enginepage.dart';
-import 'package:xmux/messagepage.dart';
+import 'package:xmux/engine/enginepage.dart';
+import 'package:xmux/message/messagepage.dart';
 import 'package:xmux/idpage.dart';
 
 var setter;
@@ -23,7 +23,7 @@ class HomePageState extends State<HomePage> {
         children: <Widget>[
           new Offstage(
             offstage: _currentIndex != 0,
-            child: new MessagePage(),
+            child: new MessageScreen(),
           ),
           new Offstage(
             offstage: _currentIndex != 1,

@@ -27,6 +27,8 @@ class _IDPageState extends State<IDPage> {
           "id": _usernameController.text,
           "pass": _idPasswordController.text
         });
+    if (response.statusCode  >= 500)
+      return false;
     var resJson = JSON.decode(response.body);
     return (resJson["periods"] as List<String>).isNotEmpty;
   }
@@ -39,8 +41,12 @@ class _IDPageState extends State<IDPage> {
           "id": _usernameController.text,
           "pass": _epaymentPasswordController.text
         });
-    var resJson = JSON.decode(response.body);
-    return (resJson as List<String>).isNotEmpty;
+    var resJson = JSON.decode(response.body) as Map<String, dynamic>;
+    if (resJson["error"]!=null) {
+      Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("TOS")));
+      return false;
+    }
+    return (resJson["data"] as List<String>).isNotEmpty;
   }
 
   Future<File> _getFile() async {
