@@ -7,43 +7,41 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xmux/Events/LoginEvent.dart';
 import 'package:xmux/main.dart';
 
-
-class IDPage extends StatefulWidget {
-  IDPage({Key key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  LoginPage({Key key}) : super(key: key);
 
   @override
-  State createState() => new _IDPageState();
+  State createState() => new _LoginPageState();
 }
 
-class _IDPageState extends State<IDPage> {
-
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = new TextEditingController();
-  final TextEditingController _idPasswordController = new TextEditingController();
-  final TextEditingController _epaymentPasswordController = new TextEditingController();
+  final TextEditingController _idPasswordController =
+      new TextEditingController();
+  final TextEditingController _epaymentPasswordController =
+      new TextEditingController();
 
   Future<bool> _authCampusID() async {
-    var response = await http.post("https://xmux.azurewebsites.net/ac",
-        body: {
-          "id": _usernameController.text,
-          "pass": _idPasswordController.text
-        });
-    if (response.statusCode  >= 500)
-      return false;
+    var response = await http.post("https://xmux.azurewebsites.net/ac", body: {
+      "id": _usernameController.text,
+      "pass": _idPasswordController.text
+    });
+    if (response.statusCode >= 500) return false;
     var resJson = JSON.decode(response.body);
     return (resJson["periods"] as List<String>).isNotEmpty;
   }
 
   Future<bool> _authEPayment(bool idauth) async {
-    if (!idauth)
-      return false;
     var response = await http.post("https://xmux.azurewebsites.net/bill",
         body: {
           "id": _usernameController.text,
           "pass": _epaymentPasswordController.text
         });
     var resJson = JSON.decode(response.body) as Map<String, dynamic>;
-    if (resJson["error"]!=null) {
-      Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("TOS")));
+    if (resJson["error"] != null) {
+      Scaffold
+          .of(context)
+          .showSnackBar(new SnackBar(content: new Text("LoginError: TOS")));
       return false;
     }
     return (resJson["data"] as List<String>).isNotEmpty;
@@ -61,12 +59,14 @@ class _IDPageState extends State<IDPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text("Me"),),
+      appBar: new AppBar(
+        title: new Text("Login"),
+      ),
       body: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           new Container(
-            margin: const EdgeInsets.only(right: 20.0),
+            margin: const EdgeInsets.only(right: 15.0),
             child: new Column(
               children: <Widget>[
                 new TextField(
@@ -105,9 +105,7 @@ class _IDPageState extends State<IDPage> {
             child: new Container(
               height: 30.0,
               decoration: new BoxDecoration(
-                color: Theme
-                    .of(context)
-                    .accentColor,
+                color: Theme.of(context).accentColor,
               ),
               child: new Center(
                   child: new Text("Sign In",
@@ -128,16 +126,15 @@ class _IDPageState extends State<IDPage> {
                       new SnackBar(content: new Text("Success!")));
                   loginEventBus.fire(new LoginEvent(
                       infoMap["id"], infoMap["campus"], infoMap["epayment"]));
-                }
-                else
-                  Scaffold.of(context).showSnackBar(
-                      new SnackBar(content: new Text("Failed!")));
+                } else
+                  Scaffold
+                      .of(context)
+                      .showSnackBar(new SnackBar(content: new Text("Failed!")));
               });
             },
           ),
         ],
       ),
-
     );
   }
 }

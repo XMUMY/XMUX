@@ -1,8 +1,8 @@
-# xmux
+# XMUX
+XMUX is a powerful mobile application for everyone in Xiamen University Malaysia.
 
-XMUX Client by Flutter
+## Warning
+This project is is still under heavy, **initial** development, and is therefore missing key functionality, contains bugs, etc.  
 
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](http://flutter.io/).
+## License
+This project is licensed under the GPLv3 License - see the LICENSE.md file for details.

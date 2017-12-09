@@ -9,3 +9,4 @@ packages
 pubspec.lock
 .flutter-plugins
 lib/config.dart
+android/app/google-services.json
