@@ -4,7 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-import 'timetable.dart';
+import 'package:xmux/calendar/assignment.dart';
+import 'package:xmux/calendar/exams.dart';
+import 'package:xmux/calendar/payment.dart';
+import 'package:xmux/calendar/timetable.dart';
 import 'package:xmux/main.dart';
 import 'package:xmux/Events/LoginEvent.dart';
 
@@ -14,9 +17,8 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-
-  var data;
-  String id, password;
+  var classesData, examsData, paymentData, assData;
+  String id, password, ePassword;
 
   Future<File> _getFile(String name) async {
     String dir = (await getApplicationDocumentsDirectory()).path;
@@ -37,7 +39,40 @@ class _CalendarPageState extends State<CalendarPage> {
       "pass": password,
     });
     setState(() {
-      data = JSON.decode(response.body);
+      classesData = JSON.decode(response.body);
+    });
+  }
+
+  Future<Null> _getExams() async {
+    var response =
+        await http.post("https://xmux.azurewebsites.net/exam", body: {
+      "id": id,
+      "pass": password,
+    });
+    setState(() {
+      examsData = JSON.decode(response.body);
+    });
+  }
+
+  Future<Null> _getPayment() async {
+    var response =
+        await http.post("https://xmux.azurewebsites.net/bill", body: {
+      "id": id,
+      "pass": ePassword,
+    });
+    setState(() {
+      paymentData = JSON.decode(response.body);
+    });
+  }
+
+  Future<Null> _getAssignment() async {
+    var response = await http
+        .post("https://xmux.azurewebsites.net/moodle/assignment", body: {
+      "id": id,
+      "pass": password,
+    });
+    setState(() {
+      assData = JSON.decode(response.body);
     });
   }
 
@@ -45,14 +80,17 @@ class _CalendarPageState extends State<CalendarPage> {
   void initState() {
     _readFile("login.dat").then((String str) {
       Map loginInfo = JSON.decode(str);
-      id = loginInfo["id"];
-      password = loginInfo["campus"];
-      _getClasses();
+      loginEventBus.fire(new LoginEvent(
+          loginInfo["id"], loginInfo["campus"], loginInfo["epayment"]));
     });
     loginEventBus.on(LoginEvent).listen((LoginEvent e) {
       id = e.id;
       password = e.campusIdPassword;
+      ePassword = e.ePaymentPassword;
       _getClasses();
+      _getExams();
+      _getPayment();
+      _getAssignment();
     });
   }
 
@@ -64,30 +102,27 @@ class _CalendarPageState extends State<CalendarPage> {
       child: new Scaffold(
         appBar: new AppBar(
           title: const Text('Calendar'),
-          bottom: new TabBar(
-              tabs: <Tab>[
-                new Tab(
-                  text: "Classes",
-                ),
-                new Tab(
-                  text: "Exams",
-                ),
-                new Tab(
-                  text: "Payment",
-                ),
-                new Tab(
-                  text: "ToDo",
-                ),
-              ]),
+          bottom: new TabBar(isScrollable: true, tabs: <Tab>[
+            new Tab(
+              text: "Classes",
+            ),
+            new Tab(
+              text: "Exams",
+            ),
+            new Tab(
+              text: "Payment",
+            ),
+            new Tab(
+              text: "Assignment",
+            ),
+          ]),
         ),
-        body: new TabBarView(
-            children: <Widget>[
-              data == null ? new _ErrorPage(): new ClassesPage(data),
-              new _ErrorPage(),
-              new _ErrorPage(),
-              new _ErrorPage(),
-            ]
-        ),
+        body: new TabBarView(children: <Widget>[
+          classesData == null ? new _ErrorPage() : new ClassesPage(classesData),
+          examsData == null ? new _ErrorPage() : new ExamsPage(examsData),
+          paymentData == null ? new _ErrorPage() : new PaymentPage(paymentData),
+          assData == null ? new _ErrorPage() : new AssignmentPage(assData),
+        ]),
       ),
     );
   }
@@ -108,11 +143,11 @@ class _ErrorPage extends StatelessWidget {
               new Icon(
                 Icons.error,
                 size: 60.0,
-                color: Theme
-                    .of(context)
-                    .errorColor,
+                color: Theme.of(context).errorColor,
               ),
-              new Divider(height: 20.0,),
+              new Divider(
+                height: 20.0,
+              ),
               new Text(
                 "Oh ! Nothing is here !\n\nPlease check:\n You are logined successfully.\nYour have connected to internet.",
                 textAlign: TextAlign.center,

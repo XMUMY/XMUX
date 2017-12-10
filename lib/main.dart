@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
+import 'package:xmux/InitPage.dart';
 import 'package:xmux/engine/inputconstructor.dart';
 import 'package:xmux/homepage.dart';
 
@@ -17,6 +19,14 @@ final ThemeData defaultTheme = new ThemeData(
 );
 
 void main() {
+  mainFunc();
+}
+
+Future mainFunc() async {
+  runApp(new InitPage());
+
+  await new Future.delayed(const Duration(seconds: 2), () => "1");
+
   runApp(
     new MaterialApp(
       title: 'XMUX',
@@ -28,4 +38,3 @@ void main() {
     ),
   );
 }
-

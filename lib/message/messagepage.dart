@@ -1,22 +1,25 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:xmux/Events/LoginEvent.dart';
+import 'package:xmux/main.dart';
 
-final googleSignIn = new GoogleSignIn();
 final analytics = new FirebaseAnalytics();
 final auth = FirebaseAuth.instance;
 var reference;
+FirebaseUser user;
 
 @override
 class ChatMessage extends StatelessWidget {
@@ -38,21 +41,24 @@ class ChatMessage extends StatelessWidget {
               margin: const EdgeInsets.only(right: 16.0),
               child: new CircleAvatar(
                   backgroundImage:
-                      new NetworkImage(snapshot.value['senderPhotoUrl'])),
+                  new NetworkImage(snapshot.value['senderPhotoUrl'])),
             ),
             new Expanded(
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   new Text(snapshot.value['senderName'],
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .subhead),
                   new Container(
                     margin: const EdgeInsets.only(top: 5.0),
                     child: snapshot.value['imageUrl'] != null
                         ? new Image.network(
-                            snapshot.value['imageUrl'],
-                            width: 250.0,
-                          )
+                      snapshot.value['imageUrl'],
+                      width: 250.0,
+                    )
                         : new Text(snapshot.value['text']),
                   ),
                 ],
@@ -74,36 +80,52 @@ class ChatScreenState extends State<ChatScreen> {
   final TextEditingController _textController = new TextEditingController();
   bool _isComposing = false;
 
-  Future<bool> _ensureLoggedIn(bool force) async {
-    GoogleSignInAccount user = googleSignIn.currentUser;
-    if (user != null) return true;
-    user = await googleSignIn.signInSilently();
-    if (user == null) {
-      if (force) {
-        user = await googleSignIn.signIn();
+  String email, pass;
 
-        analytics.logLogin();
-      } else
-        return false;
+  Future<bool> _ensureLoggedIn() async {
+    if (email == null) {
+      Scaffold
+          .of(context)
+          .showSnackBar(new SnackBar(content: new Text("Please Log in !")));
+      return false;
     }
     if (await auth.currentUser() == null) {
-      GoogleSignInAuthentication credentials =
-      await googleSignIn.currentUser.authentication;
-      await auth.signInWithGoogle(
-        idToken: credentials.idToken,
-        accessToken: credentials.accessToken,
-      );
-      reference = FirebaseDatabase.instance.reference().child('messages');
+      user =
+      await auth.signInWithEmailAndPassword(email: email, password: pass);
+      setState(() {
+        reference = FirebaseDatabase.instance.reference().child('messages');
+      });
+      return true;
     }
+    reference = FirebaseDatabase.instance.reference().child('messages');
+    if (user == null) user = await auth.currentUser();
     return true;
   }
 
+  Future<File> _getFile(String name) async {
+    String dir = (await getApplicationDocumentsDirectory()).path;
+    return new File('$dir/$name');
+  }
+
+  Future<String> _readFile(String name) async {
+    return await (await _getFile(name)).readAsString();
+  }
+
   @override
-  Future<dynamic> initState() async {
-    if (await _ensureLoggedIn(false))
-      this.setState(() {
-        reference = FirebaseDatabase.instance.reference().child('messages');
-      });
+  void initState() {
+    _readFile("login.dat").then((String str) async {
+      Map loginInfo = JSON.decode(str);
+      email = (loginInfo["id"] as String).toLowerCase() + "@xmu.edu.my";
+      pass = loginInfo["campus"];
+      user =
+      await auth.signInWithEmailAndPassword(email: email, password: pass);
+      await _ensureLoggedIn();
+    });
+    loginEventBus.on(LoginEvent).listen((LoginEvent e) {
+      email = (e.id as String).toLowerCase() + "@xmu.edu.my";
+      pass = e.campusIdPassword;
+      _ensureLoggedIn();
+    });
   }
 
   @override
@@ -112,27 +134,31 @@ class ChatScreenState extends State<ChatScreen> {
         appBar: new AppBar(
           title: new Text("Messages"),
           elevation:
-              Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
+          Theme
+              .of(context)
+              .platform == TargetPlatform.iOS ? 0.0 : 4.0,
         ),
         body: new Column(children: <Widget>[
           new Flexible(
             child: reference == null
                 ? new Container()
                 : new FirebaseAnimatedList(
-                    query: reference,
-                    sort: (a, b) => b.key.compareTo(a.key),
-                    padding: new EdgeInsets.all(8.0),
-                    reverse: true,
-                    itemBuilder: (_, DataSnapshot snapshot,
-                        Animation<double> animation) {
-                      return new ChatMessage(
-                          snapshot: snapshot, animation: animation);
-                    },
-                  ),
+              query: reference,
+              sort: (a, b) => b.key.compareTo(a.key),
+              padding: new EdgeInsets.all(8.0),
+              reverse: true,
+              itemBuilder: (_, DataSnapshot snapshot,
+                  Animation<double> animation) {
+                return new ChatMessage(
+                    snapshot: snapshot, animation: animation);
+              },
+            ),
           ),
           new Divider(height: 1.0),
           new Container(
-            decoration: new BoxDecoration(color: Theme.of(context).cardColor),
+            decoration: new BoxDecoration(color: Theme
+                .of(context)
+                .cardColor),
             child: _buildTextComposer(),
           ),
         ]));
@@ -140,7 +166,9 @@ class ChatScreenState extends State<ChatScreen> {
 
   Widget _buildTextComposer() {
     return new IconTheme(
-      data: new IconThemeData(color: Theme.of(context).accentColor),
+      data: new IconThemeData(color: Theme
+          .of(context)
+          .accentColor),
       child: new Container(
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
           child: new Row(children: <Widget>[
@@ -149,15 +177,16 @@ class ChatScreenState extends State<ChatScreen> {
               child: new IconButton(
                   icon: new Icon(Icons.photo_camera),
                   onPressed: () async {
-                    await _ensureLoggedIn(true);
-                    File imageFile = await ImagePicker.pickImage();
-                    int random = new Random().nextInt(100000);
-                    StorageReference ref = FirebaseStorage.instance
-                        .ref()
-                        .child("image_$random.jpg");
-                    StorageUploadTask uploadTask = ref.put(imageFile);
-                    Uri downloadUrl = (await uploadTask.future).downloadUrl;
-                    _sendMessage(imageUrl: downloadUrl.toString());
+                    if (await _ensureLoggedIn()) {
+                      File imageFile = await ImagePicker.pickImage();
+                      int random = new Random().nextInt(100000);
+                      StorageReference ref = FirebaseStorage.instance
+                          .ref()
+                          .child("image_$random.jpg");
+                      StorageUploadTask uploadTask = ref.put(imageFile);
+                      Uri downloadUrl = (await uploadTask.future).downloadUrl;
+                      _sendMessage(imageUrl: downloadUrl.toString());
+                    }
                   }),
             ),
             new Flexible(
@@ -170,29 +199,33 @@ class ChatScreenState extends State<ChatScreen> {
                 },
                 onSubmitted: _handleSubmitted,
                 decoration:
-                    new InputDecoration.collapsed(hintText: "Send a message"),
+                new InputDecoration.collapsed(hintText: "Send a message"),
               ),
             ),
             new Container(
                 margin: new EdgeInsets.symmetric(horizontal: 4.0),
-                child: Theme.of(context).platform == TargetPlatform.iOS
+                child: Theme
+                    .of(context)
+                    .platform == TargetPlatform.iOS
                     ? new CupertinoButton(
-                        child: new Text("Send"),
-                        onPressed: _isComposing
-                            ? () => _handleSubmitted(_textController.text)
-                            : null,
-                      )
+                  child: new Text("Send"),
+                  onPressed: _isComposing
+                      ? () => _handleSubmitted(_textController.text)
+                      : null,
+                )
                     : new IconButton(
-                        icon: new Icon(Icons.send),
-                        onPressed: _isComposing
-                            ? () => _handleSubmitted(_textController.text)
-                            : null,
-                      )),
+                  icon: new Icon(Icons.send),
+                  onPressed: _isComposing
+                      ? () => _handleSubmitted(_textController.text)
+                      : null,
+                )),
           ]),
-          decoration: Theme.of(context).platform == TargetPlatform.iOS
+          decoration: Theme
+              .of(context)
+              .platform == TargetPlatform.iOS
               ? new BoxDecoration(
-                  border:
-                      new Border(top: new BorderSide(color: Colors.grey[200])))
+              border:
+              new Border(top: new BorderSide(color: Colors.grey[200])))
               : null),
     );
   }
@@ -202,19 +235,15 @@ class ChatScreenState extends State<ChatScreen> {
     setState(() {
       _isComposing = false;
     });
-    await _ensureLoggedIn(true);
-    this.setState(() {
-      reference = FirebaseDatabase.instance.reference().child('messages');
-    });
-    _sendMessage(text: text);
+    if (await _ensureLoggedIn()) _sendMessage(text: text);
   }
 
   void _sendMessage({String text, String imageUrl}) {
     reference.push().set({
       'text': text,
       'imageUrl': imageUrl,
-      'senderName': googleSignIn.currentUser.displayName,
-      'senderPhotoUrl': googleSignIn.currentUser.photoUrl,
+      'senderName': user.displayName,
+      'senderPhotoUrl': user.photoUrl,
     });
     analytics.logEvent(name: 'send_message');
   }

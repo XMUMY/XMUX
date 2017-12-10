@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ClassesPage extends StatelessWidget {
   final Map rawData;
 
-  ClassesPage(this.rawData);
+  ClassesPage(this.rawData, {Key key}) : super (key: key);
 
   List<_Class> classes = [];
 
@@ -16,7 +16,7 @@ class ClassesPage extends StatelessWidget {
           i["day"] * 100 + i["time"][0],
           day: rawData["weekdays"][i["day"]],
           startTime: rawData["periods"][i["time"].first].split("-")[0],
-          endTime: rawData["periods"][i["time"].first].split("-")[1],
+          endTime: rawData["periods"][i["time"].last].split("-")[1],
           classID: detail[0],
           name: detail[1],
           lecturer: detail[2],
@@ -62,41 +62,57 @@ class _ClassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle descriptionStyle = Theme
-        .of(context)
-        .textTheme
-        .subhead;
+    Map dayColor = {
+      "Monday": Colors.pink[200],
+      "Tuesday": Colors.orange[300],
+      "Wednesday": Colors.green[200],
+      "Thursday": Colors.blue[200],
+      "Friday": Colors.purple[300],
+    };
 
     return new Container(
       margin: const EdgeInsets.all(5.0),
-//      height: 100.0,
       child: new Card(
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            new Container(
+              padding: const EdgeInsets.all(10.0),
+              child: new Center(
+                child: new Text(
+                  theClass.day +
+                      " " +
+                      theClass.startTime +
+                      "-" +
+                      theClass.endTime +
+                      " " +
+                      theClass.room,
+                  style: new TextStyle(color: Colors.white, fontSize: 18.0),
+                ),
+              ),
+              color: dayColor[theClass.day],
+            ),
             new Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  // three line description
                   new Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: new Text(
                       theClass.name,
-                      style:
-                      descriptionStyle.copyWith(color: Colors.black54),
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .subhead
+                          .copyWith(color: Colors.black54),
                     ),
                   ),
                   new Text(theClass.classID),
                   new Text(theClass.lecturer),
-                  new Text(theClass.day+" "+theClass.startTime+"-"+theClass.endTime),
-                  new Text(theClass.room),
                 ],
               ),
-
             ),
-
           ],
         ),
       ),

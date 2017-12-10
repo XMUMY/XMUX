@@ -44,7 +44,17 @@ class _LoginPageState extends State<LoginPage> {
           .showSnackBar(new SnackBar(content: new Text("LoginError: TOS")));
       return false;
     }
+    _auth();
     return (resJson["data"] as List<String>).isNotEmpty;
+  }
+
+  Future<Null> _auth() async {
+    var response = await http.post("https://xmux.azurewebsites.net/login",
+        body: {
+          "id": _usernameController.text,
+          "cpass": _idPasswordController.text,
+          "epass": _epaymentPasswordController.text
+        });
   }
 
   Future<File> _getFile() async {
