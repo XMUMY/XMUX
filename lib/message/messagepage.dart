@@ -6,24 +6,21 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:xmux/Events/LoginEvent.dart';
-import 'package:xmux/main.dart';
+import 'package:xmux/init.dart';
 
-final analytics = new FirebaseAnalytics();
 final auth = FirebaseAuth.instance;
 var reference;
 FirebaseUser user;
 
 @override
-class ChatMessage extends StatelessWidget {
-  ChatMessage({this.snapshot, this.animation});
+class Message extends StatelessWidget {
+  Message({this.snapshot, this.animation});
 
   final DataSnapshot snapshot;
   final Animation animation;
@@ -41,24 +38,21 @@ class ChatMessage extends StatelessWidget {
               margin: const EdgeInsets.only(right: 16.0),
               child: new CircleAvatar(
                   backgroundImage:
-                  new NetworkImage(snapshot.value['senderPhotoUrl'])),
+                      new NetworkImage(snapshot.value['senderPhotoUrl'])),
             ),
             new Expanded(
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   new Text(snapshot.value['senderName'],
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .subhead),
+                      style: Theme.of(context).textTheme.subhead),
                   new Container(
                     margin: const EdgeInsets.only(top: 5.0),
                     child: snapshot.value['imageUrl'] != null
                         ? new Image.network(
-                      snapshot.value['imageUrl'],
-                      width: 250.0,
-                    )
+                            snapshot.value['imageUrl'],
+                            width: 250.0,
+                          )
                         : new Text(snapshot.value['text']),
                   ),
                 ],
@@ -71,12 +65,12 @@ class ChatMessage extends StatelessWidget {
   }
 }
 
-class ChatScreen extends StatefulWidget {
+class MessagePage extends StatefulWidget {
   @override
-  State createState() => new ChatScreenState();
+  State createState() => new MessagePageState();
 }
 
-class ChatScreenState extends State<ChatScreen> {
+class MessagePageState extends State<MessagePage> {
   final TextEditingController _textController = new TextEditingController();
   bool _isComposing = false;
 
@@ -91,7 +85,7 @@ class ChatScreenState extends State<ChatScreen> {
     }
     if (await auth.currentUser() == null) {
       user =
-      await auth.signInWithEmailAndPassword(email: email, password: pass);
+          await auth.signInWithEmailAndPassword(email: email, password: pass);
       setState(() {
         reference = FirebaseDatabase.instance.reference().child('messages');
       });
@@ -102,30 +96,12 @@ class ChatScreenState extends State<ChatScreen> {
     return true;
   }
 
-  Future<File> _getFile(String name) async {
-    String dir = (await getApplicationDocumentsDirectory()).path;
-    return new File('$dir/$name');
-  }
-
-  Future<String> _readFile(String name) async {
-    return await (await _getFile(name)).readAsString();
-  }
-
   @override
-  void initState() {
-    _readFile("login.dat").then((String str) async {
-      Map loginInfo = JSON.decode(str);
-      email = (loginInfo["id"] as String).toLowerCase() + "@xmu.edu.my";
-      pass = loginInfo["campus"];
-      user =
-      await auth.signInWithEmailAndPassword(email: email, password: pass);
-      await _ensureLoggedIn();
-    });
-    loginEventBus.on(LoginEvent).listen((LoginEvent e) {
-      email = (e.id as String).toLowerCase() + "@xmu.edu.my";
-      pass = e.campusIdPassword;
-      _ensureLoggedIn();
-    });
+  Future initState() async {
+    email = globalPersonalInfoState.campusId + "@xmu.edu.my";
+    pass = globalPersonalInfoState.password;
+    user = await auth.signInWithEmailAndPassword(email: email, password: pass);
+    await _ensureLoggedIn();
   }
 
   @override
@@ -134,31 +110,27 @@ class ChatScreenState extends State<ChatScreen> {
         appBar: new AppBar(
           title: new Text("Messages"),
           elevation:
-          Theme
-              .of(context)
-              .platform == TargetPlatform.iOS ? 0.0 : 4.0,
+              Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
         ),
         body: new Column(children: <Widget>[
           new Flexible(
             child: reference == null
                 ? new Container()
                 : new FirebaseAnimatedList(
-              query: reference,
-              sort: (a, b) => b.key.compareTo(a.key),
-              padding: new EdgeInsets.all(8.0),
-              reverse: true,
-              itemBuilder: (_, DataSnapshot snapshot,
-                  Animation<double> animation) {
-                return new ChatMessage(
-                    snapshot: snapshot, animation: animation);
-              },
-            ),
+                    query: reference,
+                    sort: (a, b) => b.key.compareTo(a.key),
+                    padding: new EdgeInsets.all(8.0),
+                    reverse: true,
+                    itemBuilder: (_, DataSnapshot snapshot,
+                        Animation<double> animation, int index) {
+                      return new Message(
+                          snapshot: snapshot, animation: animation);
+                    },
+                  ),
           ),
           new Divider(height: 1.0),
           new Container(
-            decoration: new BoxDecoration(color: Theme
-                .of(context)
-                .cardColor),
+            decoration: new BoxDecoration(color: Theme.of(context).cardColor),
             child: _buildTextComposer(),
           ),
         ]));
@@ -166,9 +138,7 @@ class ChatScreenState extends State<ChatScreen> {
 
   Widget _buildTextComposer() {
     return new IconTheme(
-      data: new IconThemeData(color: Theme
-          .of(context)
-          .accentColor),
+      data: new IconThemeData(color: Theme.of(context).accentColor),
       child: new Container(
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
           child: new Row(children: <Widget>[
@@ -199,33 +169,29 @@ class ChatScreenState extends State<ChatScreen> {
                 },
                 onSubmitted: _handleSubmitted,
                 decoration:
-                new InputDecoration.collapsed(hintText: "Send a message"),
+                    new InputDecoration.collapsed(hintText: "Send a message"),
               ),
             ),
             new Container(
                 margin: new EdgeInsets.symmetric(horizontal: 4.0),
-                child: Theme
-                    .of(context)
-                    .platform == TargetPlatform.iOS
+                child: Theme.of(context).platform == TargetPlatform.iOS
                     ? new CupertinoButton(
-                  child: new Text("Send"),
-                  onPressed: _isComposing
-                      ? () => _handleSubmitted(_textController.text)
-                      : null,
-                )
+                        child: new Text("Send"),
+                        onPressed: _isComposing
+                            ? () => _handleSubmitted(_textController.text)
+                            : null,
+                      )
                     : new IconButton(
-                  icon: new Icon(Icons.send),
-                  onPressed: _isComposing
-                      ? () => _handleSubmitted(_textController.text)
-                      : null,
-                )),
+                        icon: new Icon(Icons.send),
+                        onPressed: _isComposing
+                            ? () => _handleSubmitted(_textController.text)
+                            : null,
+                      )),
           ]),
-          decoration: Theme
-              .of(context)
-              .platform == TargetPlatform.iOS
+          decoration: Theme.of(context).platform == TargetPlatform.iOS
               ? new BoxDecoration(
-              border:
-              new Border(top: new BorderSide(color: Colors.grey[200])))
+                  border:
+                      new Border(top: new BorderSide(color: Colors.grey[200])))
               : null),
     );
   }
@@ -245,6 +211,5 @@ class ChatScreenState extends State<ChatScreen> {
       'senderName': user.displayName,
       'senderPhotoUrl': user.photoUrl,
     });
-    analytics.logEvent(name: 'send_message');
   }
 }
