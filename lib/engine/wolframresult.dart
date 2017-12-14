@@ -22,10 +22,10 @@ class WolframResult extends StatelessWidget {
                 image: new NetworkImage(
                     "http://api.wolframalpha.com/v1/simple?appid=" +
                         WolframConfig.appID +
-                        "&i=" + Uri.encodeComponent(inputString) +
+                        "&i=" +
+                        Uri.encodeComponent(inputString) +
                         "&fontsize=18&width=400")),
           ],
-        )
-    );
+        ));
   }
 }

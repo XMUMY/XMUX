@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ClassesPage extends StatelessWidget {
   final Map rawData;
 
-  ClassesPage(this.rawData, {Key key}) : super (key: key);
+  ClassesPage(this.rawData, {Key key}) : super(key: key);
 
   List<_Class> classes = [];
 
@@ -43,7 +43,8 @@ class _Class {
   final int id;
   final String day, startTime, endTime, classID, name, lecturer, room, period;
 
-  _Class(this.id, {
+  _Class(
+    this.id, {
     @required this.day,
     @required this.startTime,
     @required this.endTime,

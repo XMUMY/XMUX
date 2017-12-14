@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class PaymentPage extends StatelessWidget {
   final Map rawData;
 
-  PaymentPage(this.rawData, {Key key}) : super (key: key);
+  PaymentPage(this.rawData, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

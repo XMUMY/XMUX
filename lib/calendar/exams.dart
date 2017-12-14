@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ExamsPage extends StatelessWidget {
   final Map rawData;
 
-  ExamsPage(this.rawData, {Key key}) : super (key: key);
+  ExamsPage(this.rawData, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

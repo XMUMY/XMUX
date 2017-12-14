@@ -5,15 +5,15 @@ Color enginePageColor = Colors.orange;
 String engineTitle = "Wolfram Engine";
 
 class EnginePage extends StatefulWidget {
-  EnginePage({Key key}) :super(key: key);
+  EnginePage({Key key}) : super(key: key);
 
   @override
   _EnginePageState createState() => new _EnginePageState();
 }
 
 class _EnginePageState extends State<EnginePage> {
-
-  final TextEditingController _inputTextController = new TextEditingController();
+  final TextEditingController _inputTextController =
+      new TextEditingController();
 
   Widget buildWolframPage() {
     return new Scaffold(
@@ -35,28 +35,24 @@ class _EnginePageState extends State<EnginePage> {
                 children: <Widget>[
                   new Flexible(
                       child: new TextField(
-                        autofocus: false,
-                        controller: _inputTextController,
-                        onSubmitted: null,
-                        decoration: new InputDecoration.collapsed(
-                            hintText: 'Push SEND button to use constructor'
-                        ),
-                        onChanged: (string) {},
-                      )
-                  ),
+                    autofocus: false,
+                    controller: _inputTextController,
+                    onSubmitted: null,
+                    decoration: new InputDecoration.collapsed(
+                        hintText: 'Push SEND button to use constructor'),
+                    onChanged: (string) {},
+                  )),
                   new IconButton(
                     icon: new Icon(Icons.send),
                     onPressed: () {
                       if (_inputTextController.text.isEmpty)
                         Navigator.of(context).pushNamed("/engine/constructor");
                       else
-                        Navigator.of(context).push(
-                            new MaterialPageRoute<Null>(
-                              builder: (BuildContext context) {
-                                return new WolframResult(
-                                    _inputTextController.text);
-                              },
-                            ));
+                        Navigator.of(context).push(new MaterialPageRoute<Null>(
+                          builder: (BuildContext context) {
+                            return new WolframResult(_inputTextController.text);
+                          },
+                        ));
                     },
                   ),
                 ],
@@ -74,7 +70,6 @@ class _EnginePageState extends State<EnginePage> {
       appBar: new AppBar(
         title: new Text(engineTitle),
         backgroundColor: enginePageColor,
-
       ),
       body: buildWolframPage(),
     );

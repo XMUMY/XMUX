@@ -14,7 +14,11 @@ class _CalendarPageState extends State<CalendarPage> {
   String id, password, ePassword;
 
   @override
-  void initState() {}
+  void initState() {
+    updateEventBus.on(CalendarState).listen((CalendarState e) {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

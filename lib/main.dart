@@ -12,19 +12,17 @@ void main() {
 Future mainFunc() async {
   runApp(new InitPage());
 
-  if (await init())
-    runMainApp();
+  if (await init()) runMainApp();
 }
 
-void runMainApp(){
+void runMainApp() {
   runApp(
     new MaterialApp(
       title: 'XMUX',
       home: new HomePage(),
       theme: defaultTheme,
       routes: <String, WidgetBuilder>{
-        "/engine/constructor": (
-            BuildContext context) => new InputConstructor(),
+        "/engine/constructor": (BuildContext context) => new InputConstructor(),
       },
     ),
   );
