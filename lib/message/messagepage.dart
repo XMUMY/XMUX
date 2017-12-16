@@ -85,11 +85,11 @@ class MessagePageState extends State<MessagePage> {
       user =
           await auth.signInWithEmailAndPassword(email: email, password: pass);
       setState(() {
-        reference = FirebaseDatabase.instance.reference().child('messages');
+        reference = FirebaseDatabase.instance.reference().child('messages_beta');
       });
       return true;
     }
-    reference = FirebaseDatabase.instance.reference().child('messages');
+    reference = FirebaseDatabase.instance.reference().child('messages_beta');
     if (user == null) user = await auth.currentUser();
     return true;
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AssignmentPage extends StatelessWidget {
   final List rawData;
@@ -16,9 +17,9 @@ class AssignmentPage extends StatelessWidget {
 }
 
 class _AssCard extends StatelessWidget {
-  final Map AssData;
+  final Map assData;
 
-  _AssCard(this.AssData);
+  _AssCard(this.assData);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class _AssCard extends StatelessWidget {
                   new Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: new Text(
-                      AssData["fullname"],
+                      assData["fullname"],
                       style: Theme
                           .of(context)
                           .textTheme
@@ -45,16 +46,25 @@ class _AssCard extends StatelessWidget {
                     ),
                   ),
                   new Column(
-                    children: (AssData["assignments"] as List)
-                        .map((var e) => new Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new Text(e["name"]),
-                                new Text("DeadLine : " + e["duedate"]),
-                                new Divider(
-                                  height: 5.0,
-                                )
-                              ],
+                    children: (assData["assignments"] as List)
+                        .map((var e) => new MaterialButton(
+                              onPressed: () {
+                                launch(
+                                    "https://l.xmu.edu.my/mod/assign/view.php?id=" +
+                                        e["id"].toString());
+                              },
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  new Text(
+                                    e["name"],
+                                  ),
+                                  new Text("DeadLine : " + e["duedate"]),
+                                  new Divider(
+                                    height: 5.0,
+                                  )
+                                ],
+                              ),
                             ))
                         .toList(),
                   ),

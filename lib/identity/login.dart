@@ -140,6 +140,8 @@ class _LoginPageState extends State<LoginPage> {
                       _handleSignIn(context);
                     },
                   ),
+            new Divider(height: 16.0,color: Theme.of(context).canvasColor,),
+            new Text("Beta Channel",style: new TextStyle(color: Colors.red),)
           ],
         );
       }),

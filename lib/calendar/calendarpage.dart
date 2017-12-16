@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/calendar/assignment.dart';
 import 'package:xmux/calendar/exams.dart';
-import 'package:xmux/calendar/payment.dart';
 import 'package:xmux/calendar/timetable.dart';
 import 'package:xmux/init.dart';
 
@@ -14,13 +13,6 @@ class _CalendarPageState extends State<CalendarPage> {
   String id, password, ePassword;
 
   @override
-  void initState() {
-    updateEventBus.on(CalendarState).listen((CalendarState e) {
-      setState(() {});
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return new DefaultTabController(
       length: 4,
@@ -28,7 +20,7 @@ class _CalendarPageState extends State<CalendarPage> {
       child: new Scaffold(
         appBar: new AppBar(
           title: const Text('Calendar'),
-          bottom: new TabBar(isScrollable: true, tabs: <Tab>[
+          bottom: new TabBar(isScrollable: false, tabs: <Tab>[
             new Tab(
               text: "Classes",
             ),
@@ -36,10 +28,7 @@ class _CalendarPageState extends State<CalendarPage> {
               text: "Exams",
             ),
             new Tab(
-              text: "Payment",
-            ),
-            new Tab(
-              text: "Assignment",
+              text: "Assignments",
             ),
           ]),
         ),
@@ -50,9 +39,6 @@ class _CalendarPageState extends State<CalendarPage> {
           globalCalendarState.examsData == null
               ? new _ErrorPage()
               : new ExamsPage(globalCalendarState.examsData),
-          globalCalendarState.paymentData == null
-              ? new _ErrorPage()
-              : new PaymentPage(globalCalendarState.paymentData),
           globalCalendarState.assignmentData == null
               ? new _ErrorPage()
               : new AssignmentPage(globalCalendarState.assignmentData),

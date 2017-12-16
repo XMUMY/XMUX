@@ -34,16 +34,16 @@ class _EnginePageState extends State<EnginePage> {
               new Row(
                 children: <Widget>[
                   new Flexible(
-                      child: new TextField(
-                    autofocus: false,
-                    controller: _inputTextController,
-                    onSubmitted: null,
-                    decoration: new InputDecoration.collapsed(
-                        hintText: 'Push SEND button to use constructor'),
-                    onChanged: (string) {},
-                  )),
+                    child: new TextField(
+                      autofocus: false,
+                      controller: _inputTextController,
+                      onSubmitted: null,
+                      decoration: new InputDecoration.collapsed(
+                          hintText: 'Push SEND button to use constructor'),
+                    ),
+                  ),
                   new IconButton(
-                    icon: new Icon(Icons.send),
+                    icon: new Icon(Icons.send,color: enginePageColor,),
                     onPressed: () {
                       if (_inputTextController.text.isEmpty)
                         Navigator.of(context).pushNamed("/engine/constructor");

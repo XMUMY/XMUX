@@ -38,6 +38,7 @@ class _InputConstructorState extends State<InputConstructor> {
         });
   }
 
+  String dropdown2Value;
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -73,7 +74,29 @@ class _InputConstructorState extends State<InputConstructor> {
               ],
             ),
           ),
+          new ListTile(
+            title: const Text('Commonly used:'),
+            trailing: new DropdownButton<String>(
+              value: dropdown2Value,
+              hint: const Text('Choose'),
+              onChanged: (String command) {
+                setState(() {
+                  _inputTextController.text += command;
+                  _inputTextController.selection = new TextSelection.collapsed(
+                      offset: _inputTextController.text.length);
+                });
+              },
+              items: <String>['solve', 'upper triangular', 'row reduce','integral']
+                  .map((String value) {
+                return new DropdownMenuItem<String>(
+                  value: value,
+                  child: new Text(value),
+                );
+              }).toList(),
+            ),
+          ),
           new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               getInputButton("+"),
               getInputButton("-"),
@@ -84,6 +107,31 @@ class _InputConstructorState extends State<InputConstructor> {
               getInputButton("^"),
             ],
           ),
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              getInputButton("("),
+              getInputButton(")"),
+              getInputButton("{"),
+              getInputButton("}"),
+              getInputButton("="),
+              getInputButton("x"),
+              getInputButton("y"),
+            ],
+          ),
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              getInputButton(","),
+              getInputButton("%"),
+              new MaterialButton(
+                child: new Text("Clear All"),
+                onPressed: () {
+                  _inputTextController.clear();
+                },
+              ),
+            ],
+          )
         ],
       ),
     );
