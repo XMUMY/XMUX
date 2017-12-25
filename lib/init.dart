@@ -11,7 +11,6 @@ import 'package:xmux/config.dart';
 import 'package:xmux/identity/login.dart';
 
 final FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
-EventBus updateEventBus = new EventBus();
 PersonalInfoState globalPersonalInfoState = new PersonalInfoState();
 CalendarState globalCalendarState = new CalendarState();
 

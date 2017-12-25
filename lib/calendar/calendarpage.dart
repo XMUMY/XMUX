@@ -1,17 +1,38 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:xmux/calendar/assignment.dart';
 import 'package:xmux/calendar/exams.dart';
 import 'package:xmux/calendar/timetable.dart';
+import 'package:xmux/config.dart';
 import 'package:xmux/init.dart';
+import 'package:xmux/translate.dart';
 
 class CalendarPage extends StatefulWidget {
+
+  static Future updateCalendarData() async{
+    var response = await http.post(BackendApiConfig.address + "/refresh", body: {
+      "id": globalPersonalInfoState.campusId,
+      "cpass": globalPersonalInfoState.password,
+      "epass": globalPersonalInfoState.ePaymentPassword == null
+          ? ""
+          : globalPersonalInfoState.ePaymentPassword,
+    });
+    Map resJson = JSON.decode(response.body);
+
+    globalCalendarState.classesData = resJson["timetable"];
+    globalCalendarState.examsData = resJson["exam"];
+    globalCalendarState.assignmentData = resJson["assignment"];
+    globalCalendarState.paymentData = resJson["bill"];
+  }
+
   @override
   _CalendarPageState createState() => new _CalendarPageState();
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  String id, password, ePassword;
-
   @override
   Widget build(BuildContext context) {
     return new DefaultTabController(
@@ -19,16 +40,17 @@ class _CalendarPageState extends State<CalendarPage> {
       initialIndex: 0,
       child: new Scaffold(
         appBar: new AppBar(
-          title: const Text('Calendar'),
+          leading: new IconButton(icon: new Icon(Icons.more), onPressed: (){}),
+          title: new Text(MainLocalizations.of(context).get("calendar title")),
           bottom: new TabBar(isScrollable: false, tabs: <Tab>[
             new Tab(
-              text: "Classes",
+              text: MainLocalizations.of(context).get("calendar/classes"),
             ),
             new Tab(
-              text: "Exams",
+              text: MainLocalizations.of(context).get("calendar/exams"),
             ),
             new Tab(
-              text: "Assignments",
+              text: MainLocalizations.of(context).get("calendar/assignments"),
             ),
           ]),
         ),

@@ -11,6 +11,7 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xmux/init.dart';
+import 'package:xmux/translate.dart';
 
 final auth = FirebaseAuth.instance;
 var reference;
@@ -106,7 +107,7 @@ class MessagePageState extends State<MessagePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text("Messages"),
+          title: new Text(MainLocalizations.of(context).get("messages title")),
           elevation:
               Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
         ),

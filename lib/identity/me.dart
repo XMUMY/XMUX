@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/init.dart';
+import 'package:xmux/translate.dart';
 
 class MePage extends StatefulWidget {
   @override
@@ -37,7 +38,6 @@ class MePageState extends State<MePage> {
     globalPersonalInfoState.ePaymentPassword = _ePaymentPasswordController.text;
     _ePaymentPasswordController.clear();
     globalCalendarState.paymentData = resJson;
-    updateEventBus.fire(globalCalendarState);
 
     _saveData(JSON.encode({
       "campusId": globalPersonalInfoState.campusId,
@@ -84,7 +84,7 @@ class MePageState extends State<MePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Me"),
+        title: new Text(MainLocalizations.of(context).get("me title")),
       ),
       body: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +151,7 @@ class MePageState extends State<MePage> {
                 ],
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed("/gpa");
+                Navigator.of(context).pushNamed("/acdemic/gpacalculator");
               },
             ),
           ),

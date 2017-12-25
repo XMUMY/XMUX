@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/engine/enginepage.dart';
-import 'package:xmux/engine/wolframresult.dart';
+import 'package:xmux/academic/wolframengine/enginepage.dart';
+import 'package:xmux/academic/wolframengine/result.dart';
 
 class InputConstructor extends StatefulWidget {
   InputConstructor({Key key}) : super(key: key);
