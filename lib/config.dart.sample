@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+class AppInfo {
+  static String version = "";
+  static int build = ;
+}
+
 class WolframConfig {
   static String appID = "";
 }
@@ -9,14 +14,15 @@ class BackendApiConfig {
 }
 
 final ThemeData iOSTheme = new ThemeData(
-  primarySwatch: Colors.blue,
+  primarySwatch: Colors.grey[100],
   primaryColor: Colors.grey[100],
   primaryColorBrightness: Brightness.light,
   accentColor: Colors.grey[300],
 );
 
 final ThemeData defaultTheme = new ThemeData(
-  primarySwatch: Colors.blue,
-  accentColor: Colors.lightBlue,
+  primarySwatch: Colors.cyan,
+  primaryColor: Colors.cyan[600],
+  accentColor: Colors.lightGreen,
   buttonColor: Colors.lightBlue,
 );

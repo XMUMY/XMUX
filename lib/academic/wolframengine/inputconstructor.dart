@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/academic/wolframengine/enginepage.dart';
 import 'package:xmux/academic/wolframengine/result.dart';
 
 class InputConstructor extends StatefulWidget {
@@ -43,7 +42,7 @@ class _InputConstructorState extends State<InputConstructor> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        backgroundColor: enginePageColor,
+        backgroundColor: Colors.orange,
         title: new Text("Input Constructor"),
       ),
       body: new Column(
@@ -58,7 +57,7 @@ class _InputConstructorState extends State<InputConstructor> {
                   autofocus: true,
                   controller: _inputTextController,
                   onSubmitted: null,
-                  decoration: new InputDecoration(hintText: 'Input here ! '),
+                  decoration: new InputDecoration(hintText: 'Search anything !'),
                   onChanged: (string) {},
                 )),
                 new IconButton(

@@ -35,7 +35,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
     try {
       var response =
           await http.post(BackendApiConfig.address + "/course", body: {
-        "id": globalPersonalInfoState.campusId,
+        "id": globalPersonalInfoState.id,
         "pass": globalPersonalInfoState.password,
       });
       coursesData = JSON.decode(response.body)["data"];
