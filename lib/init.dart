@@ -6,10 +6,13 @@ import 'package:event_bus/event_bus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/identity/login.dart';
+import 'package:xmux/identity/loginhandler.dart';
+import 'package:xmux/translate.dart';
 
 final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
 FirebaseUser firebaseUser;
@@ -23,7 +26,7 @@ Future<bool> init() async {
     dir = (await getApplicationDocumentsDirectory()).path;
     loginInfo = await (new File('$dir/login.dat')).readAsString();
   } catch (e) {
-    runLoginPage();
+    runLoginApp();
     return false;
   }
   Map loginInfoJson = JSON.decode(loginInfo);
@@ -37,7 +40,7 @@ Future<bool> init() async {
   Map resJson = JSON.decode(response.body);
   if (resJson.containsKey("error")) {
     FirebaseAuth.instance.signOut();
-    runLoginPage();
+    runLoginApp();
     return false;
   }
 
@@ -51,16 +54,28 @@ Future<bool> init() async {
   globalCalendarState.assignmentData = resJson["assignment"];
   globalCalendarState.paymentData = resJson["bill"];
 
-  firebaseUser = await FirebaseAuth.instance.currentUser();
+  firebaseUser = await FirebaseAuth.instance.currentUser() ??
+      await LoginHandler.firebaseLogin();
 
   return true;
 }
 
-void runLoginPage() {
-  runApp(new MaterialApp(
-    theme: defaultTheme,
-    home: new LoginPage(),
-  ));
+void runLoginApp() {
+  runApp(
+    new MaterialApp(
+      theme: defaultTheme,
+      home: new LoginPage(),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        LoginLocalizationsDelegate.delegate,
+      ],
+      supportedLocales: [
+        const Locale('zh', 'CN'),
+        const Locale('en', 'US'),
+      ],
+    ),
+  );
 }
 
 class PersonalInfoState {

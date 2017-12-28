@@ -99,8 +99,14 @@ class LoginLocalizations {
   LoginLocalizations(this.locale);
 
   static Map<String, Map<String, String>> _localizedValues = {
-    'en': {},
-    'zh': {}
+    'en': {
+      'signin/title':'Sign in to XMUX',
+      'signin':'Sign in',
+    },
+    'zh': {
+      'signin/title':'登陆到XMUX',
+      'signin':'登陆',
+    }
   };
 
   String get(String title) {

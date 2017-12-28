@@ -30,7 +30,7 @@ class MePageState extends State<MePage> {
     await (new File('$dir/login.dat')).delete();
     globalPersonalInfoState.clear();
     globalCalendarState.clear();
-    runLoginPage();
+    runLoginApp();
   }
 
   @override

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:xmux/identity/loginhandler.dart';
 import 'package:xmux/main.dart';
+import 'package:xmux/translate.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -46,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Sign in to XMUX"),
+        title: new Text(LoginLocalizations.of(context).get("signin/title")),
       ),
       body: new Builder(builder: (BuildContext context) {
         return new Column(
@@ -90,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                               new BorderRadius.all(new Radius.circular(10.0))),
                       child: new Center(
                         child: new Text(
-                          "Sign In",
+                          LoginLocalizations.of(context).get("signin"),
                           style: new TextStyle(
                             color: Theme.of(context).canvasColor,
                           ),
