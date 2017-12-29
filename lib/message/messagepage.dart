@@ -16,7 +16,6 @@ import 'package:xmux/translate.dart';
 
 final auth = FirebaseAuth.instance;
 var reference;
-FirebaseUser user;
 
 @override
 class Message extends StatelessWidget {
@@ -78,7 +77,6 @@ class MessagePageState extends State<MessagePage> {
 
   @override
   Future initState() async {
-    user = firebaseUser;
     reference = FirebaseDatabase.instance.reference().child('messages_beta');
   }
 
@@ -195,8 +193,8 @@ class MessagePageState extends State<MessagePage> {
     reference.push().set({
       'text': text,
       'imageUrl': imageUrl,
-      'senderName': user.displayName,
-      'senderPhotoUrl': user.photoUrl,
+      'senderName': firebaseUser.displayName,
+      'senderPhotoUrl': firebaseUser.photoUrl,
     });
   }
 }

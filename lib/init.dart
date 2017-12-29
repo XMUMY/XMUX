@@ -44,6 +44,8 @@ Future<bool> init() async {
     return false;
   }
 
+  await LoginHandler.firebaseLogin();
+
   globalPersonalInfoState.id = loginInfoJson["campusId"];
   globalPersonalInfoState.password = loginInfoJson["password"];
   globalPersonalInfoState.ePaymentPassword = loginInfoJson["ePaymentPassword"];
@@ -53,9 +55,6 @@ Future<bool> init() async {
   globalCalendarState.examsData = resJson["exam"];
   globalCalendarState.assignmentData = resJson["assignment"];
   globalCalendarState.paymentData = resJson["bill"];
-
-  firebaseUser = await FirebaseAuth.instance.currentUser() ??
-      await LoginHandler.firebaseLogin();
 
   return true;
 }
