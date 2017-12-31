@@ -72,7 +72,7 @@ class DrawerPageState extends State<DrawerPage> {
                   new FlatButton(
                     onPressed: () {
                       if (globalPersonalInfoState.ePaymentPassword != null)
-                        Navigator.popAndPushNamed(context, "/epayment");
+                        Navigator.popAndPushNamed(context, "/drawer/epayment");
                       else
                         _loginEPayment();
                     },

@@ -10,6 +10,7 @@ class MainLocalizations {
 
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
+      //HomePage
       'messages title': 'Messages',
       'calendar title': 'Calendar',
       'academic title': 'Academic',
@@ -34,8 +35,28 @@ class MainLocalizations {
       'e-payment/login/content':
           'Please go to settings and save your E-Payment Password.',
       'e-payment/login/go': 'Go Settings',
+      //explore
+      'lostandfound': 'Lost and Found',
+      'lostandfound/location': 'Location : ',
+      'lostandfound/things': 'Things : ',
+      'lostandfound/lost': 'Lost',
+      'lostandfound/found': 'Found',
+      'lostandfound/details': 'Details',
+      'lostandfound/description': 'Description',
+      'lostandfound/time': 'Time : ',
+      'lostandfound/hour': ' Hour(s)',
+      'lostandfound/day': ' Day(s)',
+      'lostandfound/delete': 'Delete',
+      'lostandfound/create': 'Create new L&F card',
+      'lostandfound/create/lostorfound':'Lost or Found ?',
+      'lostandfound/create/brieflocation':'Brief Location',
+      'lostandfound/create/things':'Things',
+      'lostandfound/create/time':'Time',
+      'lostandfound/create/location':'Detail Location',
+      'lostandfound/create/detail':'Details',
     },
     'zh': {
+      //HomePage
       'messages title': '消息',
       'calendar title': '日程',
       'academic title': '学术',
@@ -58,6 +79,25 @@ class MainLocalizations {
       'e-payment/login': '登陆 E-Payment',
       'e-payment/login/content': '请在设置页绑定您的\nE-Payment 密码。',
       'e-payment/login/go': '前往设置页',
+      //explore
+      'lostandfound': '失物招领',
+      'lostandfound/location': '地点：',
+      'lostandfound/things': '物件：',
+      'lostandfound/lost': '遗失',
+      'lostandfound/found': '拾到',
+      'lostandfound/details': '失误招领详情',
+      'lostandfound/description': '描述',
+      'lostandfound/time': '时间：',
+      'lostandfound/hour': ' 小时',
+      'lostandfound/day': ' 天',
+      'lostandfound/delete': '删除',
+      'lostandfound/create': '创建新的失物招领卡片',
+      'lostandfound/create/lostorfound':'拾到/遗失？',
+      'lostandfound/create/brieflocation':'大致地点',
+      'lostandfound/create/things':'物件',
+      'lostandfound/create/time':'时间',
+      'lostandfound/create/location':'详细地点',
+      'lostandfound/create/detail':'详情',
     }
   };
 
@@ -100,12 +140,12 @@ class LoginLocalizations {
 
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
-      'signin/title':'Sign in to XMUX',
-      'signin':'Sign in',
+      'signin/title': 'Sign in to XMUX',
+      'signin': 'Sign in',
     },
     'zh': {
-      'signin/title':'登陆到XMUX',
-      'signin':'登陆',
+      'signin/title': '登陆到XMUX',
+      'signin': '登陆',
     }
   };
 

@@ -34,7 +34,7 @@ class _ExplorePageState extends State<ExplorePage> {
                   child: new Row(
                     children: <Widget>[
                       new Container(
-                        width: MediaQuery.of(context).size.width-20.0,
+                        width: MediaQuery.of(context).size.width - 50.0,
                         child: new Text(
                             "Warning! These functions are still under developing."),
                       ),
@@ -45,14 +45,13 @@ class _ExplorePageState extends State<ExplorePage> {
             ),
             new FlatButton(
               onPressed: () {
-                Scaffold.of(context).showSnackBar(
-                    new SnackBar(content: new Text("Comming soon ...")));
+                Navigator.pushNamed(context, "/explore/lostandfound");
               },
               child: new Row(
                 children: <Widget>[
                   new Icon(Icons.find_in_page),
                   new Text(
-                    "  Lost and Found",
+                    " " + MainLocalizations.of(context).get("lostandfound"),
                     style: Theme.of(context).textTheme.subhead,
                   )
                 ],

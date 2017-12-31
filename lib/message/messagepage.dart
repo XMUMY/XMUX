@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -14,10 +13,8 @@ import 'package:xmux/events/actions.dart';
 import 'package:xmux/init.dart';
 import 'package:xmux/translate.dart';
 
-final auth = FirebaseAuth.instance;
 var reference;
 
-@override
 class Message extends StatelessWidget {
   Message({this.snapshot, this.animation});
 
@@ -72,8 +69,6 @@ class MessagePage extends StatefulWidget {
 class MessagePageState extends State<MessagePage> {
   final TextEditingController _textController = new TextEditingController();
   bool _isComposing = false;
-
-  String email, pass;
 
   @override
   Future initState() async {
