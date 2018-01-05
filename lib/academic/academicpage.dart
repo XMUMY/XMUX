@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/events/actions.dart';
 import 'package:xmux/init.dart';
-import 'package:xmux/translate.dart';
+import 'package:xmux/translations/translation.dart';
 
 class AcademicPage extends StatelessWidget {
   @override
@@ -14,20 +14,28 @@ class AcademicPage extends StatelessWidget {
             onPressed: () {
               actionEventBus.fire(new OpenDrawer(true));
             }),
-        title: new Text(MainLocalizations.of(context).get("academic title")),
+        title: new Text(MainLocalizations.of(context).get("academic")),
         backgroundColor: Colors.lightBlue,
       ),
       body: new ListView(
         children: <Widget>[
           new _AcademicPageCard(
-            title: MainLocalizations.of(context).get("Academic/wolframengine/title"),
-            caption: MainLocalizations.of(context).get("Academic/wolframengine/caption"),
+            title: MainLocalizations
+                .of(context)
+                .get("academic/wolframengine/title"),
+            caption: MainLocalizations
+                .of(context)
+                .get("academic/wolframengine/caption"),
             image: "res/wolfram.png",
             route: "/wolframengine/constructor",
           ),
           new _AcademicPageCard(
-            title: MainLocalizations.of(context).get("Academic/gpacalculator/name"),
-            caption: MainLocalizations.of(context).get("Academic/gpacalculator/caption"),
+            title: MainLocalizations
+                .of(context)
+                .get("academic/gpacalculator/name"),
+            caption: MainLocalizations
+                .of(context)
+                .get("academic/gpacalculator/caption"),
             image: "res/gpa.png",
             route: "/acdemic/gpacalculator",
           ),

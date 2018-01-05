@@ -9,7 +9,7 @@ import 'package:xmux/calendar/timetable.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/events/actions.dart';
 import 'package:xmux/init.dart';
-import 'package:xmux/translate.dart';
+import 'package:xmux/translations/translation.dart';
 
 class CalendarPage extends StatefulWidget {
   static Future updateCalendarData() async {
@@ -46,7 +46,7 @@ class _CalendarPageState extends State<CalendarPage> {
               onPressed: () {
                 actionEventBus.fire(new OpenDrawer(true));
               }),
-          title: new Text(MainLocalizations.of(context).get("calendar title")),
+          title: new Text(MainLocalizations.of(context).get("calendar")),
           bottom: new TabBar(isScrollable: false, tabs: <Tab>[
             new Tab(
               text: MainLocalizations.of(context).get("calendar/classes"),

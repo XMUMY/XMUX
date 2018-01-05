@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/translations/translation.dart';
 
 class PaymentPage extends StatelessWidget {
   final Map rawData;
@@ -61,10 +62,16 @@ class _PaymentCard extends StatelessWidget {
                           children: <Widget>[
                             new Text("MYR : " + paymentData["amount"]),
                             new Text(
-                              "Status : " +
+                              MainLocalizations
+                                      .of(context)
+                                      .get("e-payment/status") +
                                   (paymentData["paid"] == "-"
-                                      ? "Unpaid"
-                                      : "Paid"),
+                                      ? MainLocalizations
+                                          .of(context)
+                                          .get("e-payment/unpaid")
+                                      : MainLocalizations
+                                          .of(context)
+                                          .get("e-payment/paid")),
                               style: new TextStyle(
                                 color: paymentData["paid"] == "-"
                                     ? Colors.red

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/academic/wolframengine/result.dart';
+import 'package:xmux/translations/translation.dart';
 
 class InputConstructor extends StatefulWidget {
   InputConstructor({Key key}) : super(key: key);
@@ -43,7 +44,9 @@ class _InputConstructorState extends State<InputConstructor> {
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: Colors.orange,
-        title: new Text("Input Constructor"),
+        title: new Text(MainLocalizations
+            .of(context)
+            .get("academic/wolframengine/inputconstructor")),
       ),
       body: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +60,8 @@ class _InputConstructorState extends State<InputConstructor> {
                   autofocus: true,
                   controller: _inputTextController,
                   onSubmitted: null,
-                  decoration: new InputDecoration(hintText: 'Search anything !'),
+                  decoration:
+                      new InputDecoration(hintText: 'Search anything !'),
                   onChanged: (string) {},
                 )),
                 new IconButton(
@@ -85,8 +89,12 @@ class _InputConstructorState extends State<InputConstructor> {
                       offset: _inputTextController.text.length);
                 });
               },
-              items: <String>['solve', 'upper triangular', 'row reduce','integral']
-                  .map((String value) {
+              items: <String>[
+                'solve',
+                'upper triangular',
+                'row reduce',
+                'integral'
+              ].map((String value) {
                 return new DropdownMenuItem<String>(
                   value: value,
                   child: new Text(value),
@@ -124,7 +132,9 @@ class _InputConstructorState extends State<InputConstructor> {
               getInputButton(","),
               getInputButton("%"),
               new MaterialButton(
-                child: new Text("Clear All"),
+                child: new Text(MainLocalizations
+                    .of(context)
+                    .get("academic/wolframengine/inputconstructor/clearall")),
                 onPressed: () {
                   _inputTextController.clear();
                 },

@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/init.dart';
-import 'package:xmux/translate.dart';
+import 'package:xmux/translations/translation.dart';
 
 class LostAndFoundDetailPage extends StatelessWidget {
   final DataSnapshot dataSnapshot;
@@ -18,7 +18,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
       body: new ListView(
         children: <Widget>[
           new Container(
-            margin: const EdgeInsets.all(20.0),
+            margin: const EdgeInsets.all(15.0),
             child: new Column(
               children: <Widget>[
                 new CircleAvatar(

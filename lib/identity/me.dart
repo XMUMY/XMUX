@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/identity/loginhandler.dart';
 import 'package:xmux/init.dart';
-import 'package:xmux/translate.dart';
+import 'package:xmux/translations/translation.dart';
 
 class MePage extends StatefulWidget {
   @override

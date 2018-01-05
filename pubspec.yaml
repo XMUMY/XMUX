@@ -15,6 +15,7 @@ dependencies:
   firebase_database: 0.1.1
   firebase_messaging: 0.0.5+2
   firebase_storage: 0.0.6
+  font_awesome_flutter: 4.7.0
   image_picker: ^0.1.5
   path_provider: ^0.2.2
   url_launcher: ^1.0.3
@@ -53,7 +54,7 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
@@ -65,5 +66,8 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
+      - family: FontAwesome
+        fonts:
+          - asset: packages/font_awesome_flutter/fonts/fontawesome.woff
   # For details regarding fonts from package dependencies, 
   # see https://flutter.io/custom-fonts/#from-packages

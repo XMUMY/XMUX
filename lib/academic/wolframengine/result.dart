@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/translations/translation.dart';
 
 class WolframResult extends StatelessWidget {
   final String inputString;
@@ -10,7 +11,8 @@ class WolframResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Result"),
+        title: new Text(
+            MainLocalizations.of(context).get("academic/wolframengine/result")),
         backgroundColor: Colors.orange,
       ),
       body: new ListView(

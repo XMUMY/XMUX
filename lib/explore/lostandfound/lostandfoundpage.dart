@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/explore/lostandfound/lostandfoundcreate.dart';
 import 'package:xmux/explore/lostandfound/lostandfounddetail.dart';
-import 'package:xmux/translate.dart';
+import 'package:xmux/translations/translation.dart';
 
 class LostAndFoundPage extends StatefulWidget {
   @override

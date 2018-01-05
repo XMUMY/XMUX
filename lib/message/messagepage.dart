@@ -11,7 +11,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xmux/events/actions.dart';
 import 'package:xmux/init.dart';
-import 'package:xmux/translate.dart';
+import 'package:xmux/translations/translation.dart';
 
 var reference;
 
@@ -91,7 +91,7 @@ class MessagePageState extends State<MessagePage> {
               }),
 
           ///
-          title: new Text(MainLocalizations.of(context).get("messages title")),
+          title: new Text(MainLocalizations.of(context).get("messages")),
           elevation:
               Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
         ),
@@ -148,8 +148,10 @@ class MessagePageState extends State<MessagePage> {
                     _isComposing = text.length > 0;
                   });
                 },
-                decoration:
-                    new InputDecoration.collapsed(hintText: "Send a message"),
+                decoration: new InputDecoration.collapsed(
+                    hintText: MainLocalizations
+                        .of(context)
+                        .get("messages/sendmessage")),
               ),
             ),
             new Container(

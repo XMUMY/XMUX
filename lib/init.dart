@@ -12,7 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/identity/login.dart';
 import 'package:xmux/identity/loginhandler.dart';
-import 'package:xmux/translate.dart';
+import 'package:xmux/translations/translation.dart';
 
 final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
 FirebaseUser firebaseUser;
