@@ -3,12 +3,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:xmux/calendar/assignment.dart';
-import 'package:xmux/calendar/exams.dart';
-import 'package:xmux/calendar/timetable.dart';
+import 'package:xmux/mainapp/calendar/assignment.dart';
+import 'package:xmux/mainapp/calendar/exams.dart';
+import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/events/actions.dart';
-import 'package:xmux/init.dart';
+import 'package:xmux/mainapp/events/actions.dart';
+import 'package:xmux/initapp/init.dart';
 import 'package:xmux/translations/translation.dart';
 
 class CalendarPage extends StatefulWidget {

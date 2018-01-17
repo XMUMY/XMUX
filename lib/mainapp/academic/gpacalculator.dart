@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:xmux/config.dart';
-import 'package:xmux/init.dart';
+import 'package:xmux/initapp/init.dart';
 import 'package:xmux/translations/translation.dart';
 
 class GPACalculatorPage extends StatefulWidget {
@@ -85,7 +85,8 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(MainLocalizations.of(context).get("academic/gpacalculator/name")),
+        title: new Text(
+            MainLocalizations.of(context).get("academic/gpacalculator/name")),
       ),
       body: coursesData == null
           ? new Center(

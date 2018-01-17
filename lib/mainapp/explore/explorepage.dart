@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:xmux/events/actions.dart';
-import 'package:xmux/init.dart';
+import 'package:xmux/mainapp/events/actions.dart';
+import 'package:xmux/initapp/init.dart';
 import 'package:xmux/translations/translation.dart';
 
 class ExplorePage extends StatefulWidget {

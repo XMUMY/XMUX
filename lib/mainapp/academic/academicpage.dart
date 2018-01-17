@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:xmux/events/actions.dart';
-import 'package:xmux/init.dart';
+import 'package:xmux/mainapp/events/actions.dart';
+import 'package:xmux/initapp/init.dart';
 import 'package:xmux/translations/translation.dart';
 
 class AcademicPage extends StatelessWidget {

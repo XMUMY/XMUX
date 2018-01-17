@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/academic/academicpage.dart';
-import 'package:xmux/calendar/calendarpage.dart';
+import 'package:xmux/mainapp/academic/academicpage.dart';
+import 'package:xmux/mainapp/calendar/calendarpage.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/drawer.dart';
-import 'package:xmux/events/actions.dart';
-import 'package:xmux/explore/explorepage.dart';
-import 'package:xmux/init.dart';
-import 'package:xmux/message/messagepage.dart';
+import 'package:xmux/mainapp/drawer.dart';
+import 'package:xmux/mainapp/events/actions.dart';
+import 'package:xmux/mainapp/explore/explorepage.dart';
+import 'package:xmux/initapp/init.dart';
+import 'package:xmux/mainapp/message/messagepage.dart';
 import 'package:xmux/translations/translation.dart';
 
 class HomePage extends StatefulWidget {

@@ -8,6 +8,14 @@ class ClassesPage extends StatelessWidget {
 
   List<_Class> classes = [];
 
+  TimeOfDay getTimeOfDay(String rawTime) {
+    return new TimeOfDay(
+        hour: rawTime[rawTime.length - 2] == 'a'
+            ? int.parse(rawTime.split(".")[0])
+            : int.parse(rawTime.split(".")[0]) + 12,
+        minute: 0);
+  }
+
   void _classConvert() {
     for (var i in rawData["classes"]) {
       List<String> detail = i["class"].split("\n");
@@ -15,8 +23,10 @@ class ClassesPage extends StatelessWidget {
         new _Class(
           i["day"] * 100 + i["time"][0],
           day: rawData["weekdays"][i["day"]],
-          startTime: rawData["periods"][i["time"].first].split("-")[0],
-          endTime: rawData["periods"][i["time"].last].split("-")[1],
+          startTime:
+              getTimeOfDay(rawData["periods"][i["time"].first].split("-")[0]),
+          endTime:
+              getTimeOfDay(rawData["periods"][i["time"].last].split("-")[1]),
           classID: detail[0],
           name: detail[1],
           lecturer: detail[2],
@@ -41,7 +51,8 @@ class ClassesPage extends StatelessWidget {
 
 class _Class {
   final int id;
-  final String day, startTime, endTime, classID, name, lecturer, room, period;
+  final String day, classID, name, lecturer, room, period;
+  final TimeOfDay startTime, endTime;
 
   _Class(
     this.id, {
@@ -61,16 +72,16 @@ class _ClassCard extends StatelessWidget {
 
   _ClassCard(this.theClass);
 
+  Map dayColor = {
+    "Monday": Colors.pink[200],
+    "Tuesday": Colors.orange[300],
+    "Wednesday": Colors.green[200],
+    "Thursday": Colors.blue[200],
+    "Friday": Colors.purple[300],
+  };
+
   @override
   Widget build(BuildContext context) {
-    Map dayColor = {
-      "Monday": Colors.pink[200],
-      "Tuesday": Colors.orange[300],
-      "Wednesday": Colors.green[200],
-      "Thursday": Colors.blue[200],
-      "Friday": Colors.purple[300],
-    };
-
     return new Container(
       margin: const EdgeInsets.all(5.0),
       child: new Card(
@@ -83,9 +94,9 @@ class _ClassCard extends StatelessWidget {
                 child: new Text(
                   theClass.day +
                       " " +
-                      theClass.startTime +
-                      "-" +
-                      theClass.endTime +
+                      theClass.startTime.format(context) +
+                      " - " +
+                      theClass.endTime.format(context) +
                       " " +
                       theClass.room,
                   style: new TextStyle(color: Colors.white, fontSize: 18.0),
@@ -109,8 +120,29 @@ class _ClassCard extends StatelessWidget {
                           .copyWith(color: Colors.black54),
                     ),
                   ),
-                  new Text(theClass.classID),
-                  new Text(theClass.lecturer),
+                  new Row(
+                    children: <Widget>[
+                      new Expanded(
+                        child: new Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            new Text(theClass.classID),
+                            new Text(theClass.lecturer),
+                          ],
+                        ),
+                      ),
+                      new RaisedButton(
+                        onPressed: (new DateTime.now().hour <
+                                    theClass.startTime.hour + 1 &&
+                                new DateTime.now().hour >
+                                    theClass.startTime.hour - 1)
+                            ? () {}
+                            : null,
+                        child: new Text("Sign"),
+                        color: Theme.of(context).cardColor,
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),

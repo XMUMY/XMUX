@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:xmux/identity/loginhandler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/loginapp/loginhandler.dart';
 import 'package:xmux/main.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -28,17 +30,23 @@ class _LoginPageState extends State<LoginPage> {
       LoginHandler
           .loginAuth(_usernameController.text, _passwordController.text)
           .then((r) async {
-        if (r.containsKey("success") && await LoginHandler.firebaseLogin())
-          runMainApp();
-        else {
-          String _error = r["error"];
-          Scaffold
-              .of(context)
-              .showSnackBar(new SnackBar(content: new Text("Error : $_error")));
+        if (r.containsKey("error")) {
+          Scaffold.of(context).showSnackBar(
+              new SnackBar(content: new Text("Error : ${r["error"]}")));
           setState(() {
             _isProcessing = false;
           });
-        }
+        } else
+          LoginHandler.firebaseLogin().then((r) {
+            if (r.containsKey("error")) {
+              Scaffold.of(context).showSnackBar(
+                  new SnackBar(content: new Text("Error : ${r["error"]}")));
+              setState(() {
+                _isProcessing = false;
+              });
+            } else
+              runMainApp();
+          });
       });
     }
   }
@@ -47,20 +55,37 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(LoginLocalizations.of(context).get("signin/title")),
+        title: new Text(LoginLocalizations.of(context).get("SignInPage/Title")),
+        actions: <Widget>[
+          new IconButton(
+            icon: new Icon(FontAwesomeIcons.fileTextO),
+            onPressed: () {
+              launch(
+                "https://xmux-app.firebaseapp.com/privacy.html",
+                forceWebView: true,
+              );
+            },
+            tooltip: "Service Docs",
+          ),
+          new IconButton(
+            icon: new Icon(FontAwesomeIcons.questionCircleO),
+            onPressed: null,
+            tooltip: "Help Docs",
+          ),
+        ],
       ),
       body: new Builder(builder: (BuildContext context) {
         return new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Container(
-              margin: const EdgeInsets.only(right: 15.0, bottom: 20.0),
+              margin: const EdgeInsets.fromLTRB(20.0, 0.0, 35.0, 20.0),
               child: new Column(
                 children: <Widget>[
                   new TextField(
                     controller: _usernameController,
                     decoration: new InputDecoration(
-                      hintText: 'ID',
+                      hintText: 'Campus ID',
                       icon: new Icon(
                         Icons.account_circle,
                       ),
@@ -81,18 +106,17 @@ class _LoginPageState extends State<LoginPage> {
             ),
             _isProcessing
                 ? new CircularProgressIndicator()
-                : new FlatButton(
+                : new RaisedButton(
                     child: new Container(
                       width: 120.0,
                       height: 40.0,
-                      decoration: new BoxDecoration(
-                          color: Theme.of(context).buttonColor,
-                          borderRadius:
-                              new BorderRadius.all(new Radius.circular(10.0))),
                       child: new Center(
                         child: new Text(
-                          LoginLocalizations.of(context).get("signin"),
+                          LoginLocalizations
+                              .of(context)
+                              .get("SignInPage/SignIn"),
                           style: new TextStyle(
+                            fontSize: 18.0,
                             color: Theme.of(context).canvasColor,
                           ),
                         ),
@@ -110,7 +134,9 @@ class _LoginPageState extends State<LoginPage> {
               color: Theme.of(context).canvasColor,
             ),
             new Text(
-              "Beta Channel",
+              "Beta Channel\n" +
+                  LoginLocalizations.of(context).get("SignInPage/Read"),
+              textAlign: TextAlign.center,
               style: new TextStyle(color: Colors.red),
             )
           ],

@@ -10,24 +10,24 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/identity/login.dart';
-import 'package:xmux/identity/loginhandler.dart';
+import 'package:xmux/loginapp/loginpage.dart';
+import 'package:xmux/loginapp/loginhandler.dart';
+import 'package:xmux/main.dart';
 import 'package:xmux/translations/translation.dart';
 
 final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
 FirebaseUser firebaseUser;
-PersonalInfoState globalPersonalInfoState = new PersonalInfoState();
-CalendarState globalCalendarState = new CalendarState();
+final PersonalInfoState globalPersonalInfoState = new PersonalInfoState();
+final CalendarState globalCalendarState = new CalendarState();
 EventBus actionEventBus = new EventBus();
 
-Future<bool> init() async {
+Future<String> init() async {
   String dir, loginInfo;
   try {
     dir = (await getApplicationDocumentsDirectory()).path;
     loginInfo = await (new File('$dir/login.dat')).readAsString();
   } catch (e) {
-    runLoginApp();
-    return false;
+    return "NotLogin";
   }
   Map loginInfoJson = JSON.decode(loginInfo);
   var response = await http.post(BackendApiConfig.address + "/refresh", body: {
@@ -38,13 +38,12 @@ Future<bool> init() async {
         : loginInfoJson["ePaymentPassword"],
   });
   Map resJson = JSON.decode(response.body);
-  if (resJson.containsKey("error")) {
-    FirebaseAuth.instance.signOut();
-    runLoginApp();
-    return false;
-  }
 
-  await LoginHandler.firebaseLogin();
+  if (resJson.containsKey("error") ||
+      (await LoginHandler.firebaseLogin()).containsKey("error")) {
+    FirebaseAuth.instance.signOut();
+    return "LoginError";
+  }
 
   globalPersonalInfoState.id = loginInfoJson["campusId"];
   globalPersonalInfoState.password = loginInfoJson["password"];
@@ -56,25 +55,7 @@ Future<bool> init() async {
   globalCalendarState.assignmentData = resJson["assignment"];
   globalCalendarState.paymentData = resJson["bill"];
 
-  return true;
-}
-
-void runLoginApp() {
-  runApp(
-    new MaterialApp(
-      theme: defaultTheme,
-      home: new LoginPage(),
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        LoginLocalizationsDelegate.delegate,
-      ],
-      supportedLocales: [
-        const Locale('zh', 'CN'),
-        const Locale('en', 'US'),
-      ],
-    ),
-  );
+  return "Finished";
 }
 
 class PersonalInfoState {
@@ -112,49 +93,5 @@ class CalendarState {
     this.examsData = null;
     this.paymentData = null;
     this.assignmentData = null;
-  }
-}
-
-class InitPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        backgroundColor: Colors.black,
-        body: new Stack(
-          children: <Widget>[
-            new DecoratedBox(
-              decoration: new BoxDecoration(
-                image: new DecorationImage(
-                  fit: BoxFit.fill,
-                  image: new AssetImage('res/initpage.jpg'),
-                ),
-              ),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Text(
-                    "X",
-                    style: new TextStyle(
-                      color: Colors.white,
-                      fontSize: 120.0,
-                    ),
-                  ),
-                  new Divider(
-                    height: 16.0,
-                  ),
-                  new SizedBox(
-                    width: 100.0,
-                    child: const LinearProgressIndicator(
-                      backgroundColor: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

@@ -54,12 +54,15 @@ class LoginLocalizations {
 
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
-      'signin/title': 'Sign in to XMUX',
-      'signin': 'Sign in',
+      'SignInPage/Title': 'Sign in XMUX',
+      'SignInPage/Read':
+          'By signing in, you agree to our privacy policy and disclaimer',
+      'SignInPage/SignIn': 'Sign in',
     },
     'zh': {
-      'signin/title': '登陆到XMUX',
-      'signin': '登陆',
+      'SignInPage/Title': '登录到 XMUX',
+      'SignInPage/Read': '登录即代表您同意我们的隐私政策和免责声明',
+      'SignInPage/SignIn': '登录',
     }
   };
 
