@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:xmux/mainapp/events/actions.dart';
-import 'package:xmux/initapp/init.dart';
+import 'package:xmux/mainapp/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -16,11 +16,15 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        leading: new IconButton(
-            icon: new Icon(Icons.view_list),
-            onPressed: () {
-              actionEventBus.fire(new OpenDrawer(true));
-            }),
+        leading: new StoreConnector(
+          converter: (store) {
+            return () => store.dispatch(new openDrawerAction(true));
+          },
+          builder: (context, callback) {
+            return new IconButton(
+                icon: new Icon(Icons.view_list), onPressed: callback);
+          },
+        ),
         title: new Text(MainLocalizations.of(context).get("explore")),
         backgroundColor: Colors.purple,
       ),

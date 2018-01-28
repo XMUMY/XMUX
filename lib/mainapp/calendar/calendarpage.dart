@@ -2,13 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart' as http;
 import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/exams.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/mainapp/events/actions.dart';
 import 'package:xmux/initapp/init.dart';
+import 'package:xmux/mainapp/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -41,11 +42,15 @@ class _CalendarPageState extends State<CalendarPage> {
       initialIndex: 0,
       child: new Scaffold(
         appBar: new AppBar(
-          leading: new IconButton(
-              icon: new Icon(Icons.view_list),
-              onPressed: () {
-                actionEventBus.fire(new OpenDrawer(true));
-              }),
+          leading: new StoreConnector(
+            converter: (store) {
+              return () => store.dispatch(new openDrawerAction(true));
+            },
+            builder: (context, callback) {
+              return new IconButton(
+                  icon: new Icon(Icons.view_list), onPressed: callback);
+            },
+          ),
           title: new Text(MainLocalizations.of(context).get("calendar")),
           bottom: new TabBar(isScrollable: false, tabs: <Tab>[
             new Tab(

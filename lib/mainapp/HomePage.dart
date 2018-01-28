@@ -1,30 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:redux/redux.dart';
 import 'package:xmux/mainapp/academic/academicpage.dart';
 import 'package:xmux/mainapp/calendar/calendarpage.dart';
-import 'package:xmux/config.dart';
 import 'package:xmux/mainapp/drawer.dart';
-import 'package:xmux/mainapp/events/actions.dart';
 import 'package:xmux/mainapp/explore/explorepage.dart';
-import 'package:xmux/initapp/init.dart';
 import 'package:xmux/mainapp/message/messagepage.dart';
+import 'package:xmux/mainapp/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  final Store store;
+  HomePage(this.store, {Key key}) : super(key: key);
 
   @override
-  HomePageState createState() => new HomePageState();
+  _HomePageState createState() => new _HomePageState(store);
 }
 
-class HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> {
+  final Store store;
+  _HomePageState(this.store);
+
   int _currentIndex = 0;
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   @override
   void initState() {
     super.initState();
-    actionEventBus.on(OpenDrawer).listen((OpenDrawer a) {
-      if (a.openDrawer) _scaffoldKey.currentState.openDrawer();
+    store.onChange.listen((s) {
+      if (s.drawerIsOpen) {
+        _scaffoldKey.currentState.openDrawer();
+        store.dispatch(new openDrawerAction(false));
+      }
     });
   }
 

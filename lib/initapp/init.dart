@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:event_bus/event_bus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
 FirebaseUser firebaseUser;
 final PersonalInfoState globalPersonalInfoState = new PersonalInfoState();
 final CalendarState globalCalendarState = new CalendarState();
-EventBus actionEventBus = new EventBus();
 
 Future<String> init() async {
   String dir, loginInfo;

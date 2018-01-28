@@ -8,9 +8,11 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xmux/mainapp/events/actions.dart';
 import 'package:xmux/initapp/init.dart';
+import 'package:xmux/mainapp/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
 var reference;
@@ -80,16 +82,20 @@ class MessagePageState extends State<MessagePage> {
     return new Scaffold(
         appBar: new AppBar(
           ///
-          leading: new IconButton(
-              icon: new CircleAvatar(
-                radius: 18.0,
-                backgroundImage:
-                    new NetworkImage(globalPersonalInfoState.avatarURL),
-              ),
-              onPressed: () {
-                actionEventBus.fire(new OpenDrawer(true));
-              }),
-
+          leading: new StoreConnector(
+            converter: (store) {
+              return () => store.dispatch(new openDrawerAction(true));
+            },
+            builder: (context, callback) {
+              return new IconButton(
+                  icon: new CircleAvatar(
+                    radius: 18.0,
+                    backgroundImage:
+                        new NetworkImage(globalPersonalInfoState.avatarURL),
+                  ),
+                  onPressed: callback);
+            },
+          ),
           ///
           title: new Text(MainLocalizations.of(context).get("messages")),
           elevation:
