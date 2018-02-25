@@ -8,9 +8,7 @@ import 'package:xmux/mainapp/mainapp.dart';
 Future main() async {
   runApp(new InitPage());
 
-  String initResult = await init();
-
-  switch (initResult) {
+  switch (await init()) {
     case "NotLogin":
     case "LoginError":
       runLoginApp();

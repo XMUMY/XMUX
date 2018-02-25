@@ -87,6 +87,14 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
       appBar: new AppBar(
         title: new Text(
             MainLocalizations.of(context).get("academic/gpacalculator/name")),
+        actions: <Widget>[
+          new IconButton(
+              icon: new Icon(Icons.pages),
+              onPressed: () {
+                Navigator.pushNamed(
+                    context, "/acdemic/gpacalculator/examresult");
+              })
+        ],
       ),
       body: coursesData == null
           ? new Center(

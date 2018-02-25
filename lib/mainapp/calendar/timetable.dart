@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ClassesPage extends StatelessWidget {
   final Map rawData;
@@ -14,6 +17,16 @@ class ClassesPage extends StatelessWidget {
             ? int.parse(rawTime.split(".")[0])
             : int.parse(rawTime.split(".")[0]) + 12,
         minute: 0);
+  }
+
+  Future<Null> _getIP(BuildContext context) async {
+    try {
+      final String result = await const MethodChannel('OSUtilities')
+          .invokeMethod('getIPAddress');
+      Scaffold.of(context).showSnackBar(new SnackBar(content: new Text(result)));
+    } on PlatformException catch (e) {
+      Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("error")));
+    }
   }
 
   void _classConvert() {
@@ -136,7 +149,10 @@ class _ClassCard extends StatelessWidget {
                                     theClass.startTime.hour + 1 &&
                                 new DateTime.now().hour >
                                     theClass.startTime.hour - 1)
-                            ? () {}
+                            ? () {
+
+
+                        }
                             : null,
                         child: new Text("Sign"),
                         color: Theme.of(context).cardColor,

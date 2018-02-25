@@ -5,7 +5,8 @@ import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/initapp/init.dart';
 import 'package:xmux/mainapp/HomePage.dart';
-import 'package:xmux/mainapp/academic/gpacalculator.dart';
+import 'package:xmux/mainapp/academic/gpacalculator/examresultpage.dart';
+import 'package:xmux/mainapp/academic/gpacalculator/gpacalculator.dart';
 import 'package:xmux/mainapp/academic/wolframengine/inputconstructor.dart';
 import 'package:xmux/mainapp/explore/lostandfound/lostandfoundpage.dart';
 import 'package:xmux/mainapp/redux/reducers.dart';
@@ -20,7 +21,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return new StoreProvider(
       store: store,
       child: new MaterialApp(
@@ -32,6 +32,8 @@ class MainApp extends StatelessWidget {
               new InputConstructor(),
           "/acdemic/gpacalculator": (BuildContext context) =>
               new GPACalculatorPage(),
+          "/acdemic/gpacalculator/examresult": (BuildContext context) =>
+              new ExamResultPage(),
           "/me": (BuildContext context) => new MePage(),
           "/drawer/epayment": (BuildContext context) =>
               new PaymentPage(globalCalendarState.paymentData),
