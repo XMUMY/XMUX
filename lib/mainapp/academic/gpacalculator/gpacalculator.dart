@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:xmux/config.dart';
 import 'package:xmux/initapp/init.dart';
@@ -89,7 +90,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
             MainLocalizations.of(context).get("academic/gpacalculator/name")),
         actions: <Widget>[
           new IconButton(
-              icon: new Icon(Icons.pages),
+              icon: new Icon(FontAwesomeIcons.newspaper),
               onPressed: () {
                 Navigator.pushNamed(
                     context, "/acdemic/gpacalculator/examresult");

@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
         title: new Text(LoginLocalizations.of(context).get("SignInPage/Title")),
         actions: <Widget>[
           new IconButton(
-            icon: new Icon(FontAwesomeIcons.fileTextO),
+            icon: new Icon(FontAwesomeIcons.fileAltO),
             onPressed: () {
               launch(
                 "https://xmux-app.firebaseapp.com/privacy.html",

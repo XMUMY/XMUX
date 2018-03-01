@@ -51,7 +51,9 @@ class _ExamResultPageState extends State<ExamResultPage> {
                               ))
                           .toList(),
                       onChanged: (e) {
-                        _currentSession = e;
+                        setState(() {
+                          _currentSession = e;
+                        });
                       },
                       value: _currentSession,
                     ),
@@ -65,6 +67,39 @@ class _ExamResultPageState extends State<ExamResultPage> {
                                 new _courseResultUI(courseResult))
                             .toList(),
                       ),
+                    ),
+                  ),
+                  new Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: new Row(
+                      children: <Widget>[
+                        new Expanded(
+                          child: new Card(
+                            child: new Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: new Center(
+                                child: new Text(
+                                  "GPA : "+_currentSession["GPA"].toString(),
+                                  style: Theme.of(context).textTheme.headline,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        new Expanded(
+                          child: new Card(
+                            child: new Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: new Center(
+                                child: new Text(
+                                  "CGPA : "+_currentSession["CGPA"].toString(),
+                                  style: Theme.of(context).textTheme.headline,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

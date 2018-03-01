@@ -64,6 +64,39 @@ class MessagePage extends StatelessWidget {
               ),
             ),
           ),
+          new Container(
+            margin: const EdgeInsets.fromLTRB(5.0, 3.0, 5.0, 0.0),
+            child: new Card(
+              child: new MaterialButton(
+                child: new Padding(
+                  padding: const EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 20.0),
+                  child: new Row(
+                    children: <Widget>[
+                      new Expanded(
+                        child: new Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            new Text(
+                              "Exam Result of 1709",
+                              style: Theme.of(context).textTheme.title,
+                            ),
+                            new Text(
+                              "Your exam result of 1709 now release",
+                              style: Theme.of(context).textTheme.caption,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(
+                      context, "/acdemic/gpacalculator/examresult");
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );
