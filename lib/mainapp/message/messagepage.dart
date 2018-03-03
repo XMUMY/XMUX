@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/initapp/init.dart';
-import 'package:xmux/mainapp/message/chatroompage.dart';
+import 'package:xmux/mainapp/message/chatroom/chatroompage.dart';
+import 'package:xmux/mainapp/message/homeslider.dart';
 import 'package:xmux/mainapp/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -30,8 +31,14 @@ class MessagePage extends StatelessWidget {
         title: new Text(MainLocalizations.of(context).get("messages")),
         elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
       ),
-      body: new Column(
+      body: new ListView(
         children: <Widget>[
+          new Container(
+            margin: const EdgeInsets.all(10.0),
+            child: new HomeSlider(),
+            width: MediaQuery.of(context).size.width,
+            height: 200.0,
+          ),
           new Container(
             margin: const EdgeInsets.fromLTRB(5.0, 3.0, 5.0, 0.0),
             child: new Card(

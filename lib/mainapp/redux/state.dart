@@ -1,5 +1,6 @@
 class MainAppState {
   final bool drawerIsOpen;
+  ACState ac;
 
   MainAppState(this.drawerIsOpen);
 
@@ -7,3 +8,5 @@ class MainAppState {
     return "State";
   }
 }
+
+class ACState {}

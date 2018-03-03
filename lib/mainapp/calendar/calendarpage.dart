@@ -1,34 +1,13 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:http/http.dart' as http;
 import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/exams.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
-import 'package:xmux/config.dart';
 import 'package:xmux/initapp/init.dart';
 import 'package:xmux/mainapp/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
 class CalendarPage extends StatefulWidget {
-  static Future updateCalendarData() async {
-    var response =
-        await http.post(BackendApiConfig.address + "/refresh", body: {
-      "id": globalPersonalInfoState.id,
-      "cpass": globalPersonalInfoState.password,
-      "epass": globalPersonalInfoState.ePaymentPassword == null
-          ? ""
-          : globalPersonalInfoState.ePaymentPassword,
-    });
-    Map resJson = JSON.decode(response.body);
-
-    globalCalendarState.classesData = resJson["timetable"];
-    globalCalendarState.examsData = resJson["exam"];
-    globalCalendarState.assignmentData = resJson["assignment"];
-    globalCalendarState.paymentData = resJson["bill"];
-  }
 
   @override
   _CalendarPageState createState() => new _CalendarPageState();
