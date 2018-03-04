@@ -4,7 +4,7 @@ import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/exams.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/initapp/init.dart';
-import 'package:xmux/mainapp/redux/actions.dart';
+import 'package:xmux/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
 class CalendarPage extends StatefulWidget {

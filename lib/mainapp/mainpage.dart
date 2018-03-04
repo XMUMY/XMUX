@@ -5,7 +5,7 @@ import 'package:xmux/mainapp/calendar/calendarpage.dart';
 import 'package:xmux/mainapp/drawer.dart';
 import 'package:xmux/mainapp/explore/explorepage.dart';
 import 'package:xmux/mainapp/message/messagepage.dart';
-import 'package:xmux/mainapp/redux/actions.dart';
+import 'package:xmux/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
 class HomePage extends StatefulWidget {

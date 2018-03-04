@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/initapp/init.dart';
 import 'package:xmux/mainapp/message/chatroom/chatroompage.dart';
 import 'package:xmux/mainapp/message/homeslider.dart';
-import 'package:xmux/mainapp/redux/actions.dart';
+import 'package:xmux/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
 class MessagePage extends StatelessWidget {

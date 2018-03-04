@@ -11,7 +11,7 @@ import 'package:xmux/loginapp/loginhandler.dart';
 
 final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
 FirebaseUser firebaseUser;
-final PersonalInfoState globalPersonalInfoState = new PersonalInfoState();
+final gPersonalInfoState globalPersonalInfoState = new gPersonalInfoState();
 final CalendarState globalCalendarState = new CalendarState();
 
 Future<String> init() async {
@@ -51,11 +51,11 @@ Future<String> init() async {
   return "Finished";
 }
 
-class PersonalInfoState {
+class gPersonalInfoState {
   String id, password, ePaymentPassword;
   String fullName, avatarURL;
 
-  PersonalInfoState(
+  gPersonalInfoState(
       {this.id,
       this.password,
       this.ePaymentPassword,

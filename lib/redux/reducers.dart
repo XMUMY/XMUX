@@ -1,5 +1,5 @@
-import 'package:xmux/mainapp/redux/actions.dart';
-import 'package:xmux/mainapp/redux/state.dart';
+import 'package:xmux/redux/actions.dart';
+import 'package:xmux/redux/state.dart';
 
 MainAppState mainAppReducer(MainAppState oldState, action) {
   if (action is openDrawerAction)

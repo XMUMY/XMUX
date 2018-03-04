@@ -4,20 +4,19 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/initapp/init.dart';
-import 'package:xmux/mainapp/HomePage.dart';
+import 'package:xmux/mainapp/mainpage.dart';
 import 'package:xmux/mainapp/academic/gpacalculator/examresultpage.dart';
 import 'package:xmux/mainapp/academic/gpacalculator/gpacalculator.dart';
 import 'package:xmux/mainapp/academic/wolframengine/inputconstructor.dart';
 import 'package:xmux/mainapp/explore/lostandfound/lostandfoundpage.dart';
-import 'package:xmux/mainapp/redux/reducers.dart';
-import 'package:xmux/mainapp/redux/state.dart';
 import 'package:xmux/mainapp/settings/me.dart';
 import 'package:xmux/mainapp/payment.dart';
 import 'package:xmux/translations/translation.dart';
 
 class MainApp extends StatelessWidget {
-  final store =
-      new Store(mainAppReducer, initialState: new MainAppState(false));
+  final Store store;
+
+  MainApp(this.store,{Key key}):super(key:key);
 
   @override
   Widget build(BuildContext context) {

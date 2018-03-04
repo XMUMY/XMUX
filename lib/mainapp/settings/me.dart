@@ -4,9 +4,9 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:xmux/loginapp/loginapp.dart';
 import 'package:xmux/loginapp/loginhandler.dart';
 import 'package:xmux/initapp/init.dart';
-import 'package:xmux/main.dart';
 import 'package:xmux/translations/translation.dart';
 
 class MePage extends StatefulWidget {
@@ -28,7 +28,7 @@ class MePageState extends State<MePage> {
     await (new File('$dir/login.dat')).delete();
     globalPersonalInfoState.clear();
     globalCalendarState.clear();
-    runLoginApp();
+    runApp(new LoginApp());
   }
 
   @override
