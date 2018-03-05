@@ -3,7 +3,7 @@ import 'package:xmux/redux/state.dart';
 
 MainAppState mainAppReducer(MainAppState oldState, action) {
   if (action is openDrawerAction)
-    return new MainAppState(!oldState.drawerIsOpen);
+    return oldState.copyWith(drawerIsOpen: action.drawerStatus);
   else
     return oldState;
 }

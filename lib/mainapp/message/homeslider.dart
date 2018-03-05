@@ -116,7 +116,7 @@ class _HomeSliderState extends State<HomeSlider> {
               left: 0.0,
               right: 0.0,
               child: new Container(
-                color: Colors.grey[500].withOpacity(0.5),
+//                color: Colors.grey[500].withOpacity(0.5),
                 padding: const EdgeInsets.all(8.0),
                 child: new Center(
                   child: new DotsIndicator(

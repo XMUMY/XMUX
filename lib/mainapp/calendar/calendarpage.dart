@@ -1,14 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/exams.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/initapp/init.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
+import 'package:zoomable_image/zoomable_image.dart';
 
 class CalendarPage extends StatefulWidget {
-
   @override
   _CalendarPageState createState() => new _CalendarPageState();
 }
@@ -31,6 +33,21 @@ class _CalendarPageState extends State<CalendarPage> {
             },
           ),
           title: new Text(MainLocalizations.of(context).get("calendar")),
+          actions: <Widget>[
+            new IconButton(
+                icon: new Icon(FontAwesomeIcons.calendarAltO),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                      builder: (BuildContext context) => new ZoomableImage(
+                          new CachedNetworkImageProvider(
+                              "https://xmux.xdea.top/cal_2018.jpg"),
+                          scale: 1.5),
+                    ),
+                  );
+                })
+          ],
           bottom: new TabBar(isScrollable: false, tabs: <Tab>[
             new Tab(
               text: MainLocalizations.of(context).get("calendar/classes"),

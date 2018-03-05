@@ -34,7 +34,6 @@ class MessagePage extends StatelessWidget {
       body: new ListView(
         children: <Widget>[
           new Container(
-            margin: const EdgeInsets.all(10.0),
             child: new HomeSlider(),
             width: MediaQuery.of(context).size.width,
             height: 200.0,

@@ -25,19 +25,13 @@ class InitPage extends StatelessWidget {
               ),
               new Divider(
                 height: 16.0,
+                color: new Color(0),
               ),
               new SizedBox(
                 width: 100.0,
                 child: const LinearProgressIndicator(
                   backgroundColor: Colors.white,
                 ),
-              ),
-              new Divider(
-                height: 30.0,
-              ),
-              new Text(
-                "Beta Channel",
-                style: new TextStyle(color: Colors.white),
               ),
             ],
           ),

@@ -8,8 +8,8 @@ import 'package:xmux/mainapp/mainapp.dart';
 import 'package:xmux/redux/reducers.dart';
 import 'package:xmux/redux/state.dart';
 
-final mainAppStore = new Store<MainAppState>(mainAppReducer,
-    initialState: new MainAppState(false));
+final mainAppStore =
+    new Store<MainAppState>(mainAppReducer, initialState: new MainAppState());
 
 Future main() async {
   runApp(new InitPage());
