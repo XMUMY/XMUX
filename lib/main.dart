@@ -14,7 +14,7 @@ final mainAppStore =
 Future main() async {
   runApp(new InitPage());
 
-  switch (await init()) {
+  switch (await init(mainAppStore)) {
     case "NotLogin":
     case "LoginError":
       runApp(new LoginApp());

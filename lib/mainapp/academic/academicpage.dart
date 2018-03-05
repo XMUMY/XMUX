@@ -11,7 +11,7 @@ class AcademicPage extends StatelessWidget {
       appBar: new AppBar(
         leading: new StoreConnector(
           converter: (store) {
-            return () => store.dispatch(new openDrawerAction(true));
+            return () => store.dispatch(new OpenDrawerAction(true));
           },
           builder: (context, callback) {
             return new IconButton(

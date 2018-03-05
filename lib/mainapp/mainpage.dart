@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
     store.onChange.listen((s) {
       if (s.drawerIsOpen) {
         _scaffoldKey.currentState.openDrawer();
-        store.dispatch(new openDrawerAction(false));
+        store.dispatch(new OpenDrawerAction(false));
       }
     });
   }
