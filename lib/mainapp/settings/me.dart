@@ -25,7 +25,7 @@ class MePageState extends State<MePage> {
     Navigator.pop(context);
     FirebaseAuth.instance.signOut();
     String dir = (await getApplicationDocumentsDirectory()).path;
-    await (new File('$dir/login.dat')).delete();
+    await (new File('$dir/state.dat')).delete();
     globalPersonalInfoState.clear();
     globalCalendarState.clear();
     runApp(new LoginApp());

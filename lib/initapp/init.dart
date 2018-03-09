@@ -27,6 +27,7 @@ Future<String> init(Store<MainAppState> store) async {
     initMap =
         JSON.decode(await (new File('$appDocDir/state.dat')).readAsString());
   } catch (e) {
+    FirebaseAuth.instance.signOut();
     return "NotLogin";
   }
 

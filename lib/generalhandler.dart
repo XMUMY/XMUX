@@ -5,16 +5,18 @@ import 'package:http/http.dart' as http;
 import 'package:xmux/config.dart';
 
 Future<http.Response> backendApiHandler(
-        {@required context, @required String api, @required Map body}) async =>
+        {context, @required String api, @required Map body}) async =>
     await http.post(
-      BackendApiConfig.address,
+      BackendApiConfig.address + api,
       headers: {
-        "Accept-Language": Localizations.localeOf(context).languageCode +
-            "-" +
-            Localizations.localeOf(context).countryCode +
-            "," +
-            Localizations.localeOf(context).languageCode +
-            "zh;q=0.9"
+        "Accept-Language": context == null
+            ? null
+            : Localizations.localeOf(context).languageCode +
+                "-" +
+                Localizations.localeOf(context).countryCode +
+                "," +
+                Localizations.localeOf(context).languageCode +
+                "zh;q=0.9",
       },
       body: body,
     );

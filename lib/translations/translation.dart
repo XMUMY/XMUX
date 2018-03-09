@@ -55,14 +55,26 @@ class LoginLocalizations {
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
       'SignInPage/Title': 'Sign in XMUX',
+      'SignInPage/ServiceDocs':'Service Docs',
+      'SignInPage/HelpDocs':'Help Docs',
+      'SignInPage/CampusID':'Campus ID',
+      'SignInPage/Password':'Password',
       'SignInPage/Read':
           'By signing in, you agree to our privacy policy and disclaimer',
       'SignInPage/SignIn': 'Sign in',
+      'SignInPage/Error': 'Error: ',
+      'SignInPage/FormatError': 'Format error, please check.',
     },
     'zh': {
       'SignInPage/Title': '登录到 XMUX',
+      'SignInPage/ServiceDocs':'服务文档',
+      'SignInPage/HelpDocs':'帮助文档',
+      'SignInPage/CampusID':'校园ID',
+      'SignInPage/Password':'密码',
       'SignInPage/Read': '登录即代表您同意我们的隐私政策和免责声明',
       'SignInPage/SignIn': '登录',
+      'SignInPage/Error': '错误：',
+      'SignInPage/FormatError': '格式不正确，请检查。',
     }
   };
 

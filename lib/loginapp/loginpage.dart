@@ -21,128 +21,134 @@ class _LoginPageState extends State<LoginPage> {
   bool _isProcessing = false;
 
   Future _handleSignIn(BuildContext context) async {
+    // Switch to processing state.
+    setState(() => _isProcessing = true);
+
+    // Check format.
     if (_usernameController.text.isEmpty || _passwordController.text.isEmpty) {
-      Scaffold.of(context).showSnackBar(
-          new SnackBar(content: new Text("Format Error. Please Check.")));
-      setState(() {
-        _isProcessing = false;
-      });
-    } else {
-      LoginHandler
-          .loginAuth(_usernameController.text, _passwordController.text)
-          .then((r) async {
-        if (r.containsKey("error")) {
-          Scaffold.of(context).showSnackBar(
-              new SnackBar(content: new Text("Error : ${r["error"]}")));
-          setState(() {
-            _isProcessing = false;
-          });
-        } else
-          LoginHandler.firebaseLogin().then((r) {
-            if (r.containsKey("error")) {
-              Scaffold.of(context).showSnackBar(
-                  new SnackBar(content: new Text("Error : ${r["error"]}")));
-              setState(() {
-                _isProcessing = false;
-              });
-            } else
-              runApp(new MainApp(mainAppStore));
-          });
-      });
+      Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text(
+              LoginLocalizations.of(context).get("SignInPage/FormatError"))));
+      setState(() => _isProcessing = false);
+      return;
     }
+
+    // Handle login.
+    LoginHandler
+        .loginAuth(_usernameController.text, _passwordController.text, context)
+        .then((r) async {
+      if (r != "success") {
+        Scaffold
+            .of(context)
+            .showSnackBar(new SnackBar(content: new Text("Error : ${r}")));
+        setState(() {
+          _isProcessing = false;
+        });
+      } else
+        LoginHandler.firebaseLogin().then((r) {
+          if (r.containsKey("error")) {
+            Scaffold.of(context).showSnackBar(
+                new SnackBar(content: new Text("Error : ${r["error"]}")));
+            setState(() {
+              _isProcessing = false;
+            });
+          } else
+            runApp(new MainApp(mainAppStore));
+        });
+    });
   }
 
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(LoginLocalizations.of(context).get("SignInPage/Title")),
-        actions: <Widget>[
-          new IconButton(
-            icon: new Icon(FontAwesomeIcons.fileAltO),
-            onPressed: () {
-              launch(
-                "https://xmux-app.firebaseapp.com/privacy.html",
-                forceWebView: true,
-              );
-            },
-            tooltip: "Service Docs",
-          ),
-          new IconButton(
-            icon: new Icon(FontAwesomeIcons.questionCircleO),
-            onPressed: null,
-            tooltip: "Help Docs",
-          ),
-        ],
-      ),
-      body: new Builder(builder: (BuildContext context) {
-        return new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Container(
-              margin: const EdgeInsets.fromLTRB(20.0, 0.0, 35.0, 20.0),
-              child: new Column(
-                children: <Widget>[
-                  new TextField(
-                    controller: _usernameController,
-                    decoration: new InputDecoration(
-                      hintText: 'Campus ID',
-                      icon: new Icon(
-                        Icons.account_circle,
-                      ),
-                    ),
-                  ),
-                  new TextField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    decoration: new InputDecoration(
-                      hintText: 'Password',
-                      icon: new Icon(
-                        Icons.lock_outline,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+  Widget build(BuildContext context) => new Scaffold(
+        appBar: new AppBar(
+          title:
+              new Text(LoginLocalizations.of(context).get("SignInPage/Title")),
+          actions: <Widget>[
+            new IconButton(
+              icon: new Icon(FontAwesomeIcons.fileAltO),
+              onPressed: () {
+                launch(
+                  "https://xmux-app.firebaseapp.com/privacy.html",
+                  forceWebView: true,
+                );
+              },
+              tooltip:
+                  LoginLocalizations.of(context).get("SignInPage/ServiceDocs"),
             ),
-            _isProcessing
-                ? new CircularProgressIndicator()
-                : new RaisedButton(
-                    child: new Container(
-                      width: 120.0,
-                      height: 40.0,
-                      child: new Center(
-                        child: new Text(
-                          LoginLocalizations
-                              .of(context)
-                              .get("SignInPage/SignIn"),
-                          style: new TextStyle(
-                            fontSize: 18.0,
-                            color: Theme.of(context).canvasColor,
+            new IconButton(
+              icon: new Icon(FontAwesomeIcons.questionCircleO),
+              onPressed: null,
+              tooltip:
+                  LoginLocalizations.of(context).get("SignInPage/HelpDocs"),
+            ),
+          ],
+        ),
+        body: new Builder(
+          builder: (BuildContext context) => new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new Container(
+                    margin: const EdgeInsets.fromLTRB(20.0, 0.0, 35.0, 20.0),
+                    child: new Column(
+                      children: <Widget>[
+                        new TextField(
+                          controller: _usernameController,
+                          decoration: new InputDecoration(
+                            hintText: LoginLocalizations
+                                .of(context)
+                                .get("SignInPage/CampusID"),
+                            icon: new Icon(
+                              Icons.account_circle,
+                            ),
                           ),
                         ),
-                      ),
+                        new TextField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration: new InputDecoration(
+                            hintText: LoginLocalizations
+                                .of(context)
+                                .get("SignInPage/Password"),
+                            icon: new Icon(
+                              Icons.lock_outline,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    onPressed: () {
-                      setState(() {
-                        _isProcessing = true;
-                      });
-                      _handleSignIn(context);
-                    },
                   ),
-            new Divider(
-              height: 16.0,
-              color: Theme.of(context).canvasColor,
-            ),
-            new Text(
-              "Beta Channel\n" +
-                  LoginLocalizations.of(context).get("SignInPage/Read"),
-              textAlign: TextAlign.center,
-              style: new TextStyle(color: Colors.red),
-            )
-          ],
-        );
-      }),
-    );
-  }
+                  _isProcessing
+                      ? new CircularProgressIndicator()
+                      : new RaisedButton(
+                          child: new Container(
+                            width: 120.0,
+                            height: 40.0,
+                            child: new Center(
+                              child: new Text(
+                                LoginLocalizations
+                                    .of(context)
+                                    .get("SignInPage/SignIn"),
+                                style: new TextStyle(
+                                  fontSize: 18.0,
+                                  color: Theme.of(context).canvasColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          onPressed: () => _handleSignIn(context),
+                        ),
+                  new Divider(
+                    height: 16.0,
+                    color: Theme.of(context).canvasColor,
+                  ),
+                  new Text(
+                    "Beta Channel\n" +
+                        LoginLocalizations.of(context).get("SignInPage/Read"),
+                    textAlign: TextAlign.center,
+                    style: new TextStyle(color: Colors.red),
+                  )
+                ],
+              ),
+        ),
+      );
 }

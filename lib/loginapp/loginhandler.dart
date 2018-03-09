@@ -3,41 +3,45 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/generalhandler.dart';
 import 'package:xmux/initapp/init.dart';
+import 'package:xmux/main.dart';
+import 'package:xmux/redux/actions.dart';
 
 class LoginHandler {
-  static Future<Map<String, dynamic>> loginAuth(
-      String id, String password) async {
-    var response = await http.post(BackendApiConfig.address + "/login", body: {
+  static Future<String> loginAuth(
+      String id, String password, BuildContext context) async {
+    // Get response from backend.
+    var response =
+        await backendApiHandler(context: context, api: "/login", body: {
       "id": id,
       "cpass": password,
     });
-    if (response.statusCode >= 300) {
-      return {"error": response.reasonPhrase};
-    }
-    Map resJson = JSON.decode(response.body);
-    if (resJson.containsKey("error")) {
-      String error = resJson["error"];
-      return {"error": error};
-    }
 
+    // When error
+    if (response.statusCode >= 300) return response.reasonPhrase;
+
+    Map responseMap = JSON.decode(response.body);
+    if (responseMap.containsKey("error")) return responseMap["error"];
+
+    // Init store with LoginMap.
+    mainAppStore
+        .dispatch(new InitAction(responseMap, id: id, password: password));
+
+    //old
     globalPersonalInfoState.id = id;
     globalPersonalInfoState.password = password;
-    globalCalendarState.classesData = resJson["timetable"];
-    globalCalendarState.examsData = resJson["exam"];
-    globalCalendarState.assignmentData = resJson["assignment"];
+    globalCalendarState.classesData = responseMap["timetable"];
+    globalCalendarState.examsData = responseMap["exam"];
+    globalCalendarState.assignmentData = responseMap["assignment"];
 
-    _save(
-        JSON.encode({
-          "campusId": globalPersonalInfoState.id,
-          "password": globalPersonalInfoState.password,
-        }),
-        "login.dat");
-    _save(response.body, "loginData.json");
-    return {"success": true};
+    _save(JSON.encode(mainAppStore.state.toMap()), "state.dat");
+
+    return "success";
   }
 
   static Future<Map<String, dynamic>> ePaymentAuth(
@@ -87,7 +91,7 @@ class LoginHandler {
   }
 
   static Future<Null> _save(String fileText, String fileName) async {
-    String dir = (await getApplicationDocumentsDirectory()).path;
-    await (new File('$dir/$fileName')).writeAsString(fileText);
+    String appDocDir = (await getApplicationDocumentsDirectory()).path;
+    await (new File('$appDocDir/$fileName')).writeAsString(fileText);
   }
 }

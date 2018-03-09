@@ -3,9 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class MainAppState {
   final bool drawerIsOpen;
 
-  // Firebase user instance.
-  final FirebaseUser firebaseUser;
-
   /// Personal info state include uid, password, etc.
   final PersonalInfoState personalInfoState;
 
@@ -18,72 +15,55 @@ class MainAppState {
   /// AC state include timetable, exams and examResult.
   final ACState acState;
 
+  /// Moodle state.
+  final MoodleState moodleState;
+
   /// Init mainAppState as default.
   MainAppState()
       : this.drawerIsOpen = false,
-        this.firebaseUser = null,
         this.personalInfoState = new PersonalInfoState(),
         this.settingState = new SettingState(),
         this.homePageState = new HomePageState(),
-        this.acState = new ACState();
+        this.acState = new ACState(),
+        this.moodleState = new MoodleState();
 
-  MainAppState.raw(this.drawerIsOpen, this.firebaseUser, this.personalInfoState,
-      this.settingState, this.homePageState, this.acState);
+  MainAppState.raw(this.drawerIsOpen, this.personalInfoState, this.settingState,
+      this.homePageState, this.acState, this.moodleState);
 
   MainAppState.fromJson(Map<String, Map> json, {FirebaseUser firebaseUser})
       : this.drawerIsOpen = false,
-        this.firebaseUser = firebaseUser ?? null,
         this.personalInfoState =
             new PersonalInfoState.fromJson(json["personalInfoState"]),
         this.settingState =
             new SettingState.raw(json["settingState"]["ePaymentPassword"]),
         this.homePageState = new HomePageState(),
-        this.acState = new ACState.fromJson(json["acState"]);
+        this.acState = new ACState.fromJson(json["acState"]),
+        this.moodleState = new MoodleState();
 
   Map<String, Map> toMap() => {
         "personalInfoState": this.personalInfoState.toMap(),
         "settingState": this.settingState.toMap(),
         "homePageState": {},
         "acState": this.acState.toMap(),
+        "moodleState": this.moodleState.toMap(),
       };
-
-  MainAppState copyWith(
-          {bool drawerIsOpen,
-          FirebaseUser firebaseUser,
-          PersonalInfoState personalInfoState,
-          SettingState settingState,
-          HomePageState homePageState,
-          ACState acState}) =>
-      new MainAppState.raw(
-          drawerIsOpen ?? this.drawerIsOpen,
-          firebaseUser ?? this.firebaseUser,
-          personalInfoState ?? this.personalInfoState,
-          settingState ?? this.settingState,
-          homePageState ?? this.homePageState,
-          acState ?? this.acState);
 }
 
 class PersonalInfoState {
   /// User authentication (Campus ID).
   final String uid, password;
 
-  /// AvatarURL.
-  final String avatarURL;
-
   PersonalInfoState()
       : this.uid = null,
-        this.password = null,
-        this.avatarURL = null;
+        this.password = null;
 
   PersonalInfoState.fromJson(Map piJson)
       : this.uid = piJson["uid"],
-        this.password = piJson["password"],
-        this.avatarURL = piJson["avaterURL"];
+        this.password = piJson["password"];
 
   Map<String, String> toMap() => {
         "uid": this.uid,
         "password": this.password,
-        "avatarURL": this.avatarURL,
       };
 }
 
@@ -175,4 +155,15 @@ class ACState {
         exams ?? this.exams,
         examResult ?? this.examResult,
       );
+}
+
+class MoodleState {
+  /// Moodle token.
+  final String token;
+
+  MoodleState() : token = null;
+
+  MoodleState.raw(this.token);
+
+  Map<String, dynamic> toMap() => {"token": this.token};
 }
