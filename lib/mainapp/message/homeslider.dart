@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 /// An indicator showing the currently selected page of a PageController
@@ -29,19 +30,19 @@ class DotsIndicator extends AnimatedWidget {
   static const double _kDotSize = 8.0;
 
   // The increase in the size of the selected dot
-  static const double _kMaxZoom = 2.0;
+  static const double _kMaxZoom = 1.5;
 
   // The distance between the center of each dot
   static const double _kDotSpacing = 25.0;
 
   Widget _buildDot(int index) {
-    double selectedness = Curves.easeOut.transform(
+    double selected = Curves.easeOut.transform(
       max(
         0.0,
         1.0 - ((controller.page ?? controller.initialPage) - index).abs(),
       ),
     );
-    double zoom = 1.0 + (_kMaxZoom - 1.0) * selectedness;
+    double zoom = 1.0 + (_kMaxZoom - 1.0) * selected;
     return new Container(
       width: _kDotSpacing,
       child: new Center(
@@ -85,13 +86,19 @@ class _HomeSliderState extends State<HomeSlider> {
   final List<Widget> _pages = <Widget>[
     new ConstrainedBox(
       constraints: const BoxConstraints.expand(),
-      child:
-          new FlutterLogo(style: FlutterLogoStyle.stacked, colors: Colors.red),
+      child: new CachedNetworkImage(
+        imageUrl:
+            "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=83288113,4280893472&fm=27&gp=0.jpg",
+        fit: BoxFit.fitWidth,
+      ),
     ),
     new ConstrainedBox(
       constraints: const BoxConstraints.expand(),
-      child: new FlutterLogo(
-          style: FlutterLogoStyle.horizontal, colors: Colors.green),
+      child: new CachedNetworkImage(
+        imageUrl:
+        "http://i0.hdslb.com/bfs/archive/ba95094389efd8a3444dca765403dfe9a9befd9c.jpg",
+        fit: BoxFit.fitWidth,
+      ),
     ),
   ];
 
@@ -105,10 +112,8 @@ class _HomeSliderState extends State<HomeSlider> {
             new PageView.builder(
               physics: new AlwaysScrollableScrollPhysics(),
               controller: _controller,
-              itemBuilder: (BuildContext context, int index) {
-                Theme.of(context).copyWith();
-                return _pages[index % _pages.length];
-              },
+              itemBuilder: (BuildContext context, int index) =>
+                  _pages[index % _pages.length],
               itemCount: _pages.length,
             ),
             new Positioned(
@@ -116,7 +121,6 @@ class _HomeSliderState extends State<HomeSlider> {
               left: 0.0,
               right: 0.0,
               child: new Container(
-//                color: Colors.grey[500].withOpacity(0.5),
                 padding: const EdgeInsets.all(8.0),
                 child: new Center(
                   child: new DotsIndicator(
