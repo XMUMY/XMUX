@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:redux/redux.dart';
+import 'package:xmux/main.dart';
 import 'package:xmux/mainapp/academic/academicpage.dart';
 import 'package:xmux/mainapp/calendar/calendarpage.dart';
 import 'package:xmux/mainapp/drawer.dart';
@@ -9,29 +11,32 @@ import 'package:xmux/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
 class HomePage extends StatefulWidget {
-  final Store store;
-  HomePage(this.store, {Key key}) : super(key: key);
+  HomePage({Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => new _HomePageState(store);
+  _HomePageState createState() => new _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final Store store;
-  _HomePageState(this.store);
-
+  StreamSubscription _drawerListener;
   int _currentIndex = 0;
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
   @override
   void initState() {
     super.initState();
-    store.onChange.listen((s) {
+    _drawerListener = mainAppStore.onChange.listen((s) {
       if (s.drawerIsOpen) {
         _scaffoldKey.currentState.openDrawer();
-        store.dispatch(new OpenDrawerAction(false));
+        mainAppStore.dispatch(new OpenDrawerAction(false));
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _drawerListener.cancel();
+    super.dispose();
   }
 
   @override
@@ -70,7 +75,7 @@ class _HomePageState extends State<HomePage> {
         items: [
           new BottomNavigationBarItem(
             title: new Text(MainLocalizations.of(context).get("messages")),
-            icon: new Icon(Icons.comment),
+            icon: new Icon(Icons.message),
             backgroundColor: Theme.of(context).primaryColor,
           ),
           new BottomNavigationBarItem(

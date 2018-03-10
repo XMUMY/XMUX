@@ -10,9 +10,26 @@ class OpenDrawerAction extends MainAppAction {
 
 class InitAction extends MainAppAction {
   get name => super.name + "Init";
-  String id, password;
   final Map<String, dynamic> initMap;
-  InitAction(this.initMap, {this.id, this.password});
+  InitAction(this.initMap);
+  InitAction.fromLogin(
+      String id, String password, Map<String, dynamic> loginMap)
+      : this.initMap = {
+          "personalInfoState": {
+            "uid": id,
+            "password": password,
+          },
+          "settingState": {"ePaymentPassword": null},
+          "acState": {
+            "status": "success",
+            "timestamp": new DateTime.now().microsecondsSinceEpoch,
+            "data": {
+              "timetable": loginMap["timetable"],
+              "exams": loginMap["exam"],
+              "examResult": {},
+            },
+          },
+        };
 }
 
 class UpdateSettingAction extends MainAppAction {

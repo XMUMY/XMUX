@@ -16,7 +16,7 @@ import 'package:xmux/translations/translation.dart';
 class MainApp extends StatelessWidget {
   final Store store;
 
-  MainApp(this.store,{Key key}):super(key:key);
+  MainApp(this.store, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class MainApp extends StatelessWidget {
       store: store,
       child: new MaterialApp(
         title: 'XMUX',
-        home: new HomePage(store),
+        home: new HomePage(),
         theme: defaultTheme,
         routes: <String, WidgetBuilder>{
           "/wolframengine/constructor": (BuildContext context) =>

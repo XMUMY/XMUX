@@ -30,7 +30,7 @@ class LoginHandler {
 
     // Init store with LoginMap.
     mainAppStore
-        .dispatch(new InitAction(responseMap, id: id, password: password));
+        .dispatch(new InitAction.fromLogin(id,password,responseMap));
 
     //old
     globalPersonalInfoState.id = id;

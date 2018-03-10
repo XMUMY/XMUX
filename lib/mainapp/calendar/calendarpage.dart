@@ -22,56 +22,59 @@ class _CalendarPageState extends State<CalendarPage> {
       length: 4,
       initialIndex: 0,
       child: new Scaffold(
-        appBar: new AppBar(
-          leading: new StoreConnector(
-            converter: (store) {
-              return () => store.dispatch(new OpenDrawerAction(true));
-            },
-            builder: (context, callback) {
-              return new IconButton(
-                  icon: new Icon(Icons.view_list), onPressed: callback);
-            },
+          appBar: new AppBar(
+            leading: new StoreConnector(
+              converter: (store) {
+                return () => store.dispatch(new OpenDrawerAction(true));
+              },
+              builder: (context, callback) {
+                return new IconButton(
+                    icon: new Icon(Icons.view_list), onPressed: callback);
+              },
+            ),
+            title: new Text(MainLocalizations.of(context).get("calendar")),
+            actions: <Widget>[
+              new IconButton(
+                  icon: new Icon(FontAwesomeIcons.calendarAltO),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                        builder: (BuildContext context) => new ZoomableImage(
+                            new CachedNetworkImageProvider(
+                                "https://xmux.xdea.top/cal_2018.jpg"),
+                            scale: 1.5),
+                      ),
+                    );
+                  })
+            ],
+            bottom: new TabBar(isScrollable: false, tabs: <Tab>[
+              new Tab(
+                text: MainLocalizations.of(context).get("calendar/classes"),
+              ),
+              new Tab(
+                text: MainLocalizations.of(context).get("calendar/exams"),
+              ),
+              new Tab(
+                text: MainLocalizations.of(context).get("calendar/assignments"),
+              ),
+            ]),
           ),
-          title: new Text(MainLocalizations.of(context).get("calendar")),
-          actions: <Widget>[
-            new IconButton(
-                icon: new Icon(FontAwesomeIcons.calendarAltO),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                      builder: (BuildContext context) => new ZoomableImage(
-                          new CachedNetworkImageProvider(
-                              "https://xmux.xdea.top/cal_2018.jpg"),
-                          scale: 1.5),
-                    ),
-                  );
-                })
-          ],
-          bottom: new TabBar(isScrollable: false, tabs: <Tab>[
-            new Tab(
-              text: MainLocalizations.of(context).get("calendar/classes"),
-            ),
-            new Tab(
-              text: MainLocalizations.of(context).get("calendar/exams"),
-            ),
-            new Tab(
-              text: MainLocalizations.of(context).get("calendar/assignments"),
-            ),
-          ]),
-        ),
-        body: new TabBarView(children: <Widget>[
-          globalCalendarState.classesData == null
-              ? new _ErrorPage()
-              : new ClassesPage(globalCalendarState.classesData),
-          globalCalendarState.examsData == null
-              ? new _ErrorPage()
-              : new ExamsPage(globalCalendarState.examsData),
-          globalCalendarState.assignmentData == null
-              ? new _ErrorPage()
-              : new AssignmentPage(globalCalendarState.assignmentData),
-        ]),
-      ),
+          body: new StoreConnector(
+              builder: (BuildContext context, acState) =>
+                  new TabBarView(children: <Widget>[
+                    acState.timetable == null
+                        ? new _ErrorPage()
+                        : new ClassesPage(acState.timetable),
+                    acState.exams == null
+                        ? new _ErrorPage()
+                        : new ExamsPage(acState.exams),
+                    globalCalendarState.assignmentData == null
+                        ? new _ErrorPage()
+                        : new AssignmentPage(
+                            globalCalendarState.assignmentData),
+                  ]),
+              converter: (s)=>s.state.acState)),
     );
   }
 }

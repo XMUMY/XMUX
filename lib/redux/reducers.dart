@@ -5,7 +5,7 @@ MainAppState mainAppReducer(MainAppState oldState, dynamic action) {
   if (!(action is MainAppAction))
     return oldState;
   else if (action is InitAction)
-    return initReducer(action);
+    return new MainAppState.fromJson(action.initMap);
   else
     return new MainAppState.raw(
         (action is OpenDrawerAction)
@@ -16,28 +16,6 @@ MainAppState mainAppReducer(MainAppState oldState, dynamic action) {
         _homePageReducer(oldState.homePageState, action),
         _acReducer(oldState.acState, action),
         _moodleReducer(oldState.moodleState, action));
-}
-
-MainAppState initReducer(InitAction action) {
-  if (action.id == null)
-    return new MainAppState.fromJson(action.initMap);
-  else
-    return new MainAppState.fromJson({
-      "personalInfoState": {
-        "uid": action.id,
-        "password": action.password,
-      },
-      "settingState": {"ePaymentPassword": null},
-      "acState": {
-        "status": "success",
-        "timestamp": new DateTime.now().microsecondsSinceEpoch,
-        "data": {
-          "timetable": action.initMap["timetable"],
-          "exams": action.initMap["exam"],
-          "examResult": {},
-        },
-      },
-    });
 }
 
 PersonalInfoState _personalInfoReducer(
