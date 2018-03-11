@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/initapp/init.dart';
 import 'package:xmux/mainapp/mainpage.dart';
 import 'package:xmux/mainapp/academic/gpacalculator/examresultpage.dart';
@@ -14,14 +15,12 @@ import 'package:xmux/mainapp/payment.dart';
 import 'package:xmux/translations/translation.dart';
 
 class MainApp extends StatelessWidget {
-  final Store store;
-
-  MainApp(this.store, {Key key}) : super(key: key);
+  MainApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new StoreProvider(
-      store: store,
+      store: mainAppStore,
       child: new MaterialApp(
         title: 'XMUX',
         home: new HomePage(),

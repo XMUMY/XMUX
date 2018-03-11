@@ -5,17 +5,16 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/loginapp/loginhandler.dart';
 import 'package:xmux/redux/actions.dart';
-import 'package:xmux/redux/state.dart';
 
 
 final GPersonalInfoState globalPersonalInfoState = new GPersonalInfoState();
 final CalendarState globalCalendarState = new CalendarState();
 
-Future<String> init(Store<MainAppState> store) async {
+Future<String> init() async {
   String appDocDir;
   Map<String, Map> initMap;
 
@@ -30,12 +29,12 @@ Future<String> init(Store<MainAppState> store) async {
   }
 
   // Init store from initMap
-  store.dispatch(new InitAction(initMap));
+  mainAppStore.dispatch(new InitAction(initMap));
 
   var response = await http.post(BackendApiConfig.address + "/refresh", body: {
-    "id": store.state.personalInfoState.uid,
-    "cpass": store.state.personalInfoState.password,
-    "epass": store.state.settingState.ePaymentPassword ?? ""
+    "id": mainAppStore.state.personalInfoState.uid,
+    "cpass": mainAppStore.state.personalInfoState.password,
+    "epass": mainAppStore.state.settingState.ePaymentPassword ?? ""
   });
   Map resJson = JSON.decode(response.body);
 
@@ -45,10 +44,10 @@ Future<String> init(Store<MainAppState> store) async {
     return "LoginError";
   }
 
-  globalPersonalInfoState.id = store.state.personalInfoState.uid;
-  globalPersonalInfoState.password = store.state.personalInfoState.password;
+  globalPersonalInfoState.id = mainAppStore.state.personalInfoState.uid;
+  globalPersonalInfoState.password = mainAppStore.state.personalInfoState.password;
   globalPersonalInfoState.ePaymentPassword =
-      store.state.settingState.ePaymentPassword;
+      mainAppStore.state.settingState.ePaymentPassword;
   globalPersonalInfoState.fullName = resJson["moodle"]["fullname"];
   globalPersonalInfoState.avatarURL = resJson["moodle"]["userpictureurl"];
   globalCalendarState.classesData = resJson["timetable"];

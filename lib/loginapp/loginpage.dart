@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:xmux/globals.dart';
 import 'package:xmux/loginapp/loginhandler.dart';
 import 'package:xmux/mainapp/mainapp.dart';
 import 'package:xmux/translations/translation.dart';
@@ -40,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
       if (r != "success") {
         Scaffold
             .of(context)
-            .showSnackBar(new SnackBar(content: new Text("Error : ${r}")));
+            .showSnackBar(new SnackBar(content: new Text("Error : $r")));
         setState(() {
           _isProcessing = false;
         });
@@ -53,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
               _isProcessing = false;
             });
           } else
-            runApp(new MainApp(mainAppStore));
+            runApp(new MainApp());
         });
     });
   }
