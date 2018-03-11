@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:xmux/main.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/academic/academicpage.dart';
 import 'package:xmux/mainapp/calendar/calendarpage.dart';
 import 'package:xmux/mainapp/drawer.dart';

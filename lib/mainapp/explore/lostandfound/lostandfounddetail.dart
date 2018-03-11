@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:xmux/initapp/init.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/translations/translation.dart';
 
 class LostAndFoundDetailPage extends StatelessWidget {

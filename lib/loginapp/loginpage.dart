@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/loginapp/loginhandler.dart';
-import 'package:xmux/main.dart';
 import 'package:xmux/mainapp/mainapp.dart';
 import 'package:xmux/translations/translation.dart';
 

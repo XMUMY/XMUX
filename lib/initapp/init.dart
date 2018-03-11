@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:redux/redux.dart';
@@ -12,8 +11,7 @@ import 'package:xmux/loginapp/loginhandler.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/redux/state.dart';
 
-final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
-FirebaseUser firebaseUser;
+
 final GPersonalInfoState globalPersonalInfoState = new GPersonalInfoState();
 final CalendarState globalCalendarState = new CalendarState();
 

@@ -84,19 +84,21 @@ class _HomeSliderState extends State<HomeSlider> {
   final _kArrowColor = Colors.black.withOpacity(0.8);
 
   final List<Widget> _pages = <Widget>[
-    new ConstrainedBox(
-      constraints: const BoxConstraints.expand(),
-      child: new CachedNetworkImage(
-        imageUrl:
-            "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=83288113,4280893472&fm=27&gp=0.jpg",
-        fit: BoxFit.fitWidth,
+    new DecoratedBox(
+      decoration: new BoxDecoration(
+        image: new DecorationImage(
+          image: new CachedNetworkImageProvider(
+              "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=83288113,4280893472&fm=27&gp=0.jpg"),
+          fit: BoxFit.fill,
+        ),
       ),
+      child: new FlatButton(onPressed: () {}, child: null),
     ),
     new ConstrainedBox(
       constraints: const BoxConstraints.expand(),
       child: new CachedNetworkImage(
         imageUrl:
-        "http://i0.hdslb.com/bfs/archive/ba95094389efd8a3444dca765403dfe9a9befd9c.jpg",
+            "http://i0.hdslb.com/bfs/archive/ba95094389efd8a3444dca765403dfe9a9befd9c.jpg",
         fit: BoxFit.fitWidth,
       ),
     ),
