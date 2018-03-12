@@ -14,8 +14,7 @@ MainAppState mainAppReducer(MainAppState oldState, dynamic action) {
         _personalInfoReducer(oldState.personalInfoState, action),
         _settingReducer(oldState.settingState, action),
         _homePageReducer(oldState.homePageState, action),
-        _acReducer(oldState.acState, action),
-        _moodleReducer(oldState.moodleState, action));
+        _acReducer(oldState.acState, action));
 }
 
 PersonalInfoState _personalInfoReducer(
@@ -24,6 +23,7 @@ PersonalInfoState _personalInfoReducer(
 }
 
 SettingState _settingReducer(SettingState oldState, dynamic action) {
+
   return oldState;
 }
 
@@ -32,9 +32,5 @@ HomePageState _homePageReducer(HomePageState oldState, dynamic action) {
 }
 
 ACState _acReducer(ACState oldState, dynamic action) {
-  return oldState;
-}
-
-MoodleState _moodleReducer(MoodleState oldState, dynamic action) {
   return oldState;
 }

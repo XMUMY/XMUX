@@ -15,20 +15,16 @@ class MainAppState {
   /// AC state include timetable, exams and examResult.
   final ACState acState;
 
-  /// Moodle state.
-  final MoodleState moodleState;
-
   /// Init mainAppState as default.
   MainAppState()
       : this.drawerIsOpen = false,
         this.personalInfoState = new PersonalInfoState(),
         this.settingState = new SettingState(),
         this.homePageState = new HomePageState(),
-        this.acState = new ACState(),
-        this.moodleState = new MoodleState();
+        this.acState = new ACState();
 
   MainAppState.raw(this.drawerIsOpen, this.personalInfoState, this.settingState,
-      this.homePageState, this.acState, this.moodleState);
+      this.homePageState, this.acState);
 
   MainAppState.fromJson(Map<String, Map> json, {FirebaseUser firebaseUser})
       : this.drawerIsOpen = false,
@@ -37,15 +33,13 @@ class MainAppState {
         this.settingState =
             new SettingState.raw(json["settingState"]["ePaymentPassword"]),
         this.homePageState = new HomePageState(),
-        this.acState = new ACState.fromJson(json["acState"]),
-        this.moodleState = new MoodleState();
+        this.acState = new ACState.fromJson(json["acState"]);
 
   Map<String, Map> toMap() => {
         "personalInfoState": this.personalInfoState.toMap(),
         "settingState": this.settingState.toMap(),
         "homePageState": {},
         "acState": this.acState.toMap(),
-        "moodleState": this.moodleState.toMap(),
       };
 }
 
@@ -108,7 +102,7 @@ class ACState {
   /// Exams map.
   final Map<String, dynamic> exams;
 
-  /// Exam result Map.
+  /// Exam result map.
   final Map<String, dynamic> examResult;
 
   ACState()
@@ -155,15 +149,4 @@ class ACState {
         exams ?? this.exams,
         examResult ?? this.examResult,
       );
-}
-
-class MoodleState {
-  /// Moodle token.
-  final String token;
-
-  MoodleState() : token = null;
-
-  MoodleState.raw(this.token);
-
-  Map<String, dynamic> toMap() => {"token": this.token};
 }

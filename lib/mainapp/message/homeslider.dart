@@ -84,16 +84,21 @@ class _HomeSliderState extends State<HomeSlider> {
   final _kArrowColor = Colors.black.withOpacity(0.8);
 
   final List<Widget> _pages = <Widget>[
-    new DecoratedBox(
-      decoration: new BoxDecoration(
-        image: new DecorationImage(
-          image: new CachedNetworkImageProvider(
-              "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=83288113,4280893472&fm=27&gp=0.jpg"),
-          fit: BoxFit.fill,
-        ),
-      ),
-      child: new FlatButton(onPressed: () {}, child: null),
-    ),
+    new Builder(
+        builder: (BuildContext context) => new DecoratedBox(
+              decoration: new BoxDecoration(
+                image: new DecorationImage(
+                  image: new CachedNetworkImageProvider(
+                      "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=83288113,4280893472&fm=27&gp=0.jpg"),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              child: new FlatButton(
+                  onPressed: () => Navigator
+                      .of(context)
+                      .pushNamed("/acdemic/gpacalculator/examresult"),
+                  child: null),
+            )),
     new ConstrainedBox(
       constraints: const BoxConstraints.expand(),
       child: new CachedNetworkImage(
