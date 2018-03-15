@@ -32,3 +32,38 @@ Future<http.Response> backendApiHandler(
       },
       body: body,
     );
+
+class EmptyErrorPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => new Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: new Card(
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Icon(
+                Icons.hourglass_empty,
+                size: 50.0,
+                color: Theme.of(context).errorColor,
+              ),
+              new Divider(
+                height: 20.0,
+                color: Theme.of(context).cardColor,
+              ),
+              new Text(
+                "Oh! Nothing is here!\nPlease refresh or come later.",
+                textAlign: TextAlign.center,
+              ),
+              new Divider(
+                height: 20.0,
+                color: Theme.of(context).cardColor,
+              ),
+              new Text(
+                "噢！这里什么也没有！\n请刷新或稍后再来。",
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ),
+      );
+}
