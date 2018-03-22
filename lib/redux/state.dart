@@ -105,15 +105,19 @@ class ACState {
   /// Exam result map.
   final Map<String, dynamic> examResult;
 
+  /// Assignment List.
+  final List assignments;
+
   ACState()
       : this.status = "init",
         this.timestamp = null,
         this.timetable = null,
         this.exams = null,
-        this.examResult = null;
+        this.examResult = null,
+        this.assignments = null;
 
   ACState.raw(this.status, this.error, this.timestamp, this.timetable,
-      this.exams, this.examResult);
+      this.exams, this.examResult, this.assignments);
 
   ACState.fromJson(Map<String, dynamic> acJson)
       : this.status = acJson["status"],
@@ -121,6 +125,7 @@ class ACState {
         this.timetable = acJson["data"]["timetable"],
         this.exams = acJson["data"]["exams"],
         this.examResult = acJson["data"]["examResult"],
+        this.assignments = acJson["data"]["assignments"],
         this.error = acJson["error"] ?? null;
 
   Map<String, dynamic> toMap() => {
@@ -130,6 +135,7 @@ class ACState {
           "timetable": this.timetable,
           "exams": this.exams,
           "examResult": this.examResult,
+          "assignments": this.assignments,
         },
         "error": this.error ?? null,
       };
@@ -140,13 +146,14 @@ class ACState {
           int timestamp,
           Map<String, dynamic> timetable,
           Map<String, dynamic> exams,
-          Map<String, dynamic> examResult}) =>
+          Map<String, dynamic> examResult,
+          List assignments}) =>
       new ACState.raw(
-        status ?? this.status,
-        error ?? this.error,
-        timestamp ?? this.timestamp,
-        timetable ?? this.timetable,
-        exams ?? this.exams,
-        examResult ?? this.examResult,
-      );
+          status ?? this.status,
+          error ?? this.error,
+          timestamp ?? this.timestamp,
+          timetable ?? this.timetable,
+          exams ?? this.exams,
+          examResult ?? this.examResult,
+          assignments ?? this.assignments);
 }

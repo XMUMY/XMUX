@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:xmux/mainapp/explore/roomreservation/roomwebviewpage.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -63,10 +64,8 @@ class _ExplorePageState extends State<ExplorePage> {
               ),
             ),
             new FlatButton(
-              onPressed: () {
-                Scaffold.of(context).showSnackBar(
-                    new SnackBar(content: new Text("Coming soon...")));
-              },
+              onPressed: () => Navigator.of(context).push(
+                  new MaterialPageRoute(builder: (_) => new RoomWebviewPage())),
               child: new Row(
                 children: <Widget>[
                   new Icon(FontAwesomeIcons.table),

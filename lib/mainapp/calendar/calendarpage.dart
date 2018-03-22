@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:xmux/config.dart';
 import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/exams.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
@@ -37,15 +38,14 @@ class _CalendarPageState extends State<CalendarPage> {
               new IconButton(
                   icon: new Icon(FontAwesomeIcons.calendarAltO),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                        builder: (BuildContext context) => new ZoomableImage(
-                            new CachedNetworkImageProvider(
-                                "https://xmux.xdea.top/cal_2018.jpg"),
-                            scale: 1.5),
-                      ),
-                    );
+                    Navigator.of(context).push(
+                          new MaterialPageRoute(
+                            builder: (BuildContext context) => new ZoomableImage(
+                                new CachedNetworkImageProvider(
+                                    "https://${BackendApiConfig.resourceAddress}/image/cal_undergraduate.jpg"),
+                                scale: 1.5),
+                          ),
+                        );
                   })
             ],
             bottom: new TabBar(isScrollable: false, tabs: <Tab>[
@@ -69,12 +69,11 @@ class _CalendarPageState extends State<CalendarPage> {
                     acState.exams == null
                         ? new _ErrorPage()
                         : new ExamsPage(acState.exams),
-                    globalCalendarState.assignmentData == null
+                    acState.assignments == null
                         ? new _ErrorPage()
-                        : new AssignmentPage(
-                            globalCalendarState.assignmentData),
+                        : new AssignmentPage(acState.assignments),
                   ]),
-              converter: (s)=>s.state.acState)),
+              converter: (s) => s.state.acState)),
     );
   }
 }

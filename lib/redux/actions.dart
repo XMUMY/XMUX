@@ -27,6 +27,7 @@ class InitAction extends MainAppAction {
               "timetable": loginMap["timetable"],
               "exams": loginMap["exam"],
               "examResult": {},
+              "assignments":loginMap["assignments"],
             },
           },
         };

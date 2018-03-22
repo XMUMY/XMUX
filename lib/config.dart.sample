@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 class AppInfo {
-  static String version = "";
-  static int build = ;
+  static final version = "";
+  static final build = 0;
 }
 
 class WolframConfig {
-  static String appID = "";
+  static final appID = "";
 }
 
 class BackendApiConfig {
-  static String address = "";
+  static final address = "";
+  static final resourceAddress = "";
 }
 
 final ThemeData iOSTheme = new ThemeData(
