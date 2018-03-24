@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/globals.dart';
+import 'package:xmux/loginapp/loginhandler.dart';
 import 'package:xmux/translations/translation.dart';
 
-class PaymentPage extends StatelessWidget {
-  final Map rawData;
+class EPaymentPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => new _PaymentPageState();
+}
 
-  PaymentPage(this.rawData, {Key key}) : super(key: key);
+class _PaymentPageState extends State<EPaymentPage> {
+  Map rawData;
+
+  @override
+  void initState() {
+    LoginHandler
+        .ePaymentAuth(mainAppStore.state.personalInfoState.uid,
+            mainAppStore.state.settingState.ePaymentPassword)
+        .then((r) {
+      setState(() {
+        this.rawData = r;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +31,15 @@ class PaymentPage extends StatelessWidget {
       appBar: new AppBar(
         title: new Text("E-Payment"),
       ),
-      body: new ListView.builder(
-          reverse: false,
-          itemCount: rawData["data"].length,
-          itemBuilder: (_, int index) {
-            return new _PaymentCard(
-                rawData["data"][rawData["data"].length - 1 - index]);
-          }),
+      body: rawData == null
+          ? new Center(child: new CircularProgressIndicator())
+          : new ListView.builder(
+              reverse: false,
+              itemCount: rawData["data"].length,
+              itemBuilder: (_, int index) {
+                return new _PaymentCard(
+                    rawData["data"][rawData["data"].length - 1 - index]);
+              }),
     );
   }
 }

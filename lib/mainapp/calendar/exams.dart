@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ExamsPage extends StatelessWidget {
-  final Map rawData;
+  final List<Map<String,String>> exams;
 
-  ExamsPage(this.rawData, {Key key}) : super(key: key);
+  ExamsPage(this.exams, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new ListView.builder(
-        itemCount: rawData["data"].length,
-        itemBuilder: (_, int index) {
-          return new _ExamCard(rawData["data"][index]);
+        itemCount: exams.length,
+        itemBuilder: (BuildContext context, int index) {
+          return new _ExamCard(exams[index]);
         });
   }
 }

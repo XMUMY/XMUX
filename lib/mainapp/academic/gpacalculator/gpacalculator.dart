@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:xmux/config.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/initapp/init.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -37,8 +38,8 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
     try {
       var response =
           await http.post(BackendApiConfig.address + "/course", body: {
-        "id": globalPersonalInfoState.id,
-        "pass": globalPersonalInfoState.password,
+        "id": mainAppStore.state.personalInfoState.uid,
+        "pass": mainAppStore.state.personalInfoState.password,
       });
       coursesData = JSON.decode(response.body)["data"];
     } catch (e) {

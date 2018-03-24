@@ -1,97 +1,36 @@
-import 'dart:async';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:xmux/translations/translation.dart';
 
-class ClassesPage extends StatelessWidget {
-  final Map rawData;
+class TimeTablePage extends StatelessWidget {
+  final List<Map<String, dynamic>> classes;
 
-  ClassesPage(this.rawData, {Key key}) : super(key: key);
-
-  List<_Class> classes = [];
-
-  TimeOfDay getTimeOfDay(String rawTime) {
-    return new TimeOfDay(
-        hour: rawTime[rawTime.length - 2] == 'a'
-            ? int.parse(rawTime.split(".")[0])
-            : int.parse(rawTime.split(".")[0]) + 12,
-        minute: 0);
-  }
-
-  Future<Null> _getIP(BuildContext context) async {
-    try {
-      final String result = await const MethodChannel('OSUtilities')
-          .invokeMethod('getIPAddress');
-      Scaffold.of(context).showSnackBar(new SnackBar(content: new Text(result)));
-    } on PlatformException catch (e) {
-      Scaffold.of(context).showSnackBar(new SnackBar(content: new Text("error")));
-    }
-  }
-
-  void _classConvert() {
-    for (var i in rawData["classes"]) {
-      List<String> detail = i["class"].split("\n");
-      classes.add(
-        new _Class(
-          i["day"] * 100 + i["time"][0],
-          day: rawData["weekdays"][i["day"]],
-          startTime:
-              getTimeOfDay(rawData["periods"][i["time"].first].split("-")[0]),
-          endTime:
-              getTimeOfDay(rawData["periods"][i["time"].last].split("-")[1]),
-          classID: detail[0],
-          name: detail[1],
-          lecturer: detail[2],
-          room: detail[3],
-          period: detail[4],
-        ),
-      );
-    }
-  }
-
+  TimeTablePage(this.classes, {Key key}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
-    _classConvert();
-
-    return new ListView.builder(
-        itemCount: rawData["classes"].length,
-        itemBuilder: (_, int index) {
-          return new _ClassCard(classes[index]);
-        });
-  }
-}
-
-class _Class {
-  final int id;
-  final String day, classID, name, lecturer, room, period;
-  final TimeOfDay startTime, endTime;
-
-  _Class(
-    this.id, {
-    @required this.day,
-    @required this.startTime,
-    @required this.endTime,
-    @required this.classID,
-    @required this.name,
-    @required this.lecturer,
-    @required this.room,
-    @required this.period,
-  });
+  Widget build(BuildContext context) => new ListView.builder(
+      itemCount: classes.length,
+      itemBuilder: (BuildContext context, int index) =>
+          new _ClassCard(classes[index]));
 }
 
 class _ClassCard extends StatelessWidget {
-  final _Class theClass;
+  // Colors from monday to friday.
+  static final List<Color> dayColor = [
+    Colors.pink[200],
+    Colors.orange[300],
+    Colors.green[200],
+    Colors.blue[200],
+    Colors.purple[300],
+  ];
+
+  // Single class object.
+  final Map<String, dynamic> theClass;
 
   _ClassCard(this.theClass);
 
-  Map dayColor = {
-    "Monday": Colors.pink[200],
-    "Tuesday": Colors.orange[300],
-    "Wednesday": Colors.green[200],
-    "Thursday": Colors.blue[200],
-    "Friday": Colors.purple[300],
-  };
+  // Convert string to TimeOfDay.
+  TimeOfDay _getTimeOfDay(String originTime) => new TimeOfDay(
+      hour: int.parse(originTime.split(":")[0]),
+      minute: int.parse(originTime.split(":")[1]));
 
   @override
   Widget build(BuildContext context) {
@@ -105,17 +44,19 @@ class _ClassCard extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: new Center(
                 child: new Text(
-                  theClass.day +
+                  MainLocalizations.of(context).get("Weekdays/" +
+                          (theClass["dayOfWeek"] + 1).toString()) +
                       " " +
-                      theClass.startTime.format(context) +
+                      _getTimeOfDay(theClass["startTimeOfDay"])
+                          .format(context) +
                       " - " +
-                      theClass.endTime.format(context) +
+                      _getTimeOfDay(theClass["endTimeOfDay"]).format(context) +
                       " " +
-                      theClass.room,
+                      theClass["classRoom"],
                   style: new TextStyle(color: Colors.white, fontSize: 18.0),
                 ),
               ),
-              color: dayColor[theClass.day],
+              color: dayColor[theClass["dayOfWeek"]],
             ),
             new Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
@@ -125,7 +66,7 @@ class _ClassCard extends StatelessWidget {
                   new Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: new Text(
-                      theClass.name,
+                      theClass["courseName"],
                       style: Theme
                           .of(context)
                           .textTheme
@@ -139,24 +80,21 @@ class _ClassCard extends StatelessWidget {
                         child: new Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            new Text(theClass.classID),
-                            new Text(theClass.lecturer),
+                            new Text(theClass["courseCode"]),
+                            new Text(theClass["lecturer"]),
                           ],
                         ),
                       ),
-                      new RaisedButton(
-                        onPressed: (new DateTime.now().hour <
-                                    theClass.startTime.hour + 1 &&
-                                new DateTime.now().hour >
-                                    theClass.startTime.hour - 1)
-                            ? () {
-
-
-                        }
-                            : null,
-                        child: new Text("Sign"),
-                        color: Theme.of(context).cardColor,
-                      )
+//                      new RaisedButton(
+//                        onPressed: (new DateTime.now().hour <
+//                                    theClass.startTime.hour + 1 &&
+//                                new DateTime.now().hour >
+//                                    theClass.startTime.hour - 1)
+//                            ? () {}
+//                            : null,
+//                        child: new Text("Sign"),
+//                        color: Theme.of(context).cardColor,
+//                      )
                     ],
                   ),
                 ],

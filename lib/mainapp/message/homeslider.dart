@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/globals.dart';
 
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {
@@ -70,6 +73,8 @@ class DotsIndicator extends AnimatedWidget {
 }
 
 class HomeSlider extends StatefulWidget {
+  final BuildContext context;
+  HomeSlider(this.context);
   @override
   State createState() => new _HomeSliderState();
 }
@@ -83,22 +88,7 @@ class _HomeSliderState extends State<HomeSlider> {
 
   final _kArrowColor = Colors.black.withOpacity(0.8);
 
-  final List<Widget> _pages = <Widget>[
-    new Builder(
-        builder: (BuildContext context) => new DecoratedBox(
-              decoration: new BoxDecoration(
-                image: new DecorationImage(
-                  image: new CachedNetworkImageProvider(
-                      "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=83288113,4280893472&fm=27&gp=0.jpg"),
-                  fit: BoxFit.fill,
-                ),
-              ),
-              child: new FlatButton(
-                  onPressed: () => Navigator
-                      .of(context)
-                      .pushNamed("/acdemic/gpacalculator/examresult"),
-                  child: null),
-            )),
+  List<Widget> _pages = <Widget>[
     new ConstrainedBox(
       constraints: const BoxConstraints.expand(),
       child: new CachedNetworkImage(
@@ -108,6 +98,51 @@ class _HomeSliderState extends State<HomeSlider> {
       ),
     ),
   ];
+
+  @override
+  void initState() {
+    BackendApiHandler
+        .get(
+      context: widget.context,
+      api: "/v2/homepage/homepage.json",
+    )
+        .then((r) {
+      List resList = JSON.decode(r.body)["news"];
+      setState(() {
+        _pages = resList.map((n) {
+          if (n["isWebPage"])
+            return new Builder(
+                builder: (BuildContext context) => new DecoratedBox(
+                      decoration: new BoxDecoration(
+                        image: new DecorationImage(
+                          image: new CachedNetworkImageProvider(n["imageURL"]),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      child: new FlatButton(
+                          onPressed: () =>
+                              launch(n["uri"], forceWebView: false),
+                          child: null),
+                    ));
+          else
+            return new Builder(
+                builder: (BuildContext context) => new DecoratedBox(
+                      decoration: new BoxDecoration(
+                        image: new DecorationImage(
+                          image: new CachedNetworkImageProvider(n["imageURL"]),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      child: new FlatButton(
+                          onPressed: () =>
+                              Navigator.of(context).pushNamed(n["uri"]),
+                          child: null),
+                    ));
+        }).toList();
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

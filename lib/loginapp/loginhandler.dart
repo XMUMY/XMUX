@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/initapp/init.dart';
-import 'package:xmux/main.dart';
+import 'package:xmux/mainapp/calendar/calendarhandler.dart';
 import 'package:xmux/redux/actions.dart';
 
 class LoginHandler {
@@ -17,9 +17,9 @@ class LoginHandler {
       String id, String password, BuildContext context) async {
     // Get response from backend.
     var response =
-        await backendApiHandler(context: context, api: "/login", body: {
+        await BackendApiHandler.post(context: context, api: "/v2/login", body: {
       "id": id,
-      "cpass": password,
+      "pass": password,
     });
 
     // When error
@@ -29,17 +29,10 @@ class LoginHandler {
     if (responseMap.containsKey("error")) return responseMap["error"];
 
     // Init store with LoginMap.
-    mainAppStore
-        .dispatch(new InitAction.fromLogin(id,password,responseMap));
+    mainAppStore.dispatch(new InitAction.fromLogin(id, password, responseMap));
 
-    //old
-    globalPersonalInfoState.id = id;
-    globalPersonalInfoState.password = password;
-    globalCalendarState.classesData = responseMap["timetable"];
-    globalCalendarState.examsData = responseMap["exam"];
-    globalCalendarState.assignmentData = responseMap["assignment"];
-
-    _save(JSON.encode(mainAppStore.state.toMap()), "state.dat");
+    CalendarHandler.acUpdate();
+    CalendarHandler.assignmentUpdate();
 
     return "success";
   }
@@ -59,39 +52,23 @@ class LoginHandler {
       return {"error": error};
     }
 
-    globalPersonalInfoState.ePaymentPassword = password;
-    globalCalendarState.paymentData = resJson;
-
-    _save(
-        JSON.encode({
-          "campusId": globalPersonalInfoState.id,
-          "password": globalPersonalInfoState.password,
-          "ePaymentPassword": globalPersonalInfoState.ePaymentPassword,
-        }),
-        "login.dat");
-    return {"success": true};
+    mainAppStore.dispatch(new UpdateSettingAction(ePaymentPassword: password));
+    resJson.addAll({"success": true});
+    return resJson;
   }
 
   static Future<Map<String, dynamic>> firebaseLogin() async {
     try {
       if (await FirebaseAuth.instance.currentUser() == null)
         firebaseUser = await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: globalPersonalInfoState.id + "@xmu.edu.my",
-            password: globalPersonalInfoState.password);
+            email: mainAppStore.state.personalInfoState.uid + "@xmu.edu.my",
+            password: mainAppStore.state.personalInfoState.password);
       else
         firebaseUser = await FirebaseAuth.instance.currentUser();
     } catch (e) {
       return {"error": e.toString()};
     }
 
-    globalPersonalInfoState.fullName = firebaseUser.displayName;
-    globalPersonalInfoState.avatarURL = firebaseUser.photoUrl;
-
     return {"success": true};
-  }
-
-  static Future<Null> _save(String fileText, String fileName) async {
-    String appDocDir = (await getApplicationDocumentsDirectory()).path;
-    await (new File('$appDocDir/$fileName')).writeAsString(fileText);
   }
 }

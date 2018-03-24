@@ -16,22 +16,39 @@ FirebaseUser firebaseUser;
 final Store<MainAppState> mainAppStore = new Store<MainAppState>(mainAppReducer,
     initialState: new MainAppState(), middleware: [saveMiddleware]);
 
-Future<http.Response> backendApiHandler(
-        {context, @required String api, @required Map body}) async =>
-    await http.post(
-      BackendApiConfig.address + api,
-      headers: {
-        "Accept-Language": context == null
-            ? null
-            : Localizations.localeOf(context).languageCode +
-                "-" +
-                Localizations.localeOf(context).countryCode +
-                "," +
-                Localizations.localeOf(context).languageCode +
-                "zh;q=0.9",
-      },
-      body: body,
-    );
+class BackendApiHandler {
+  static Future<http.Response> post(
+          {context, @required String api, @required Map body}) async =>
+      await http.post(
+        BackendApiConfig.address + api,
+        headers: {
+          "Accept-Language": context == null
+              ? null
+              : Localizations.localeOf(context).languageCode +
+                  "-" +
+                  Localizations.localeOf(context).countryCode +
+                  "," +
+                  Localizations.localeOf(context).languageCode +
+                  ";q=0.9",
+        },
+        body: body,
+      );
+
+  static Future<http.Response> get({context, @required String api}) async =>
+      await http.get(
+        BackendApiConfig.address + api,
+        headers: {
+          "Accept-Language": context == null
+              ? null
+              : Localizations.localeOf(context).languageCode +
+                  "-" +
+                  Localizations.localeOf(context).countryCode +
+                  "," +
+                  Localizations.localeOf(context).languageCode +
+                  ";q=0.9",
+        },
+      );
+}
 
 class EmptyErrorPage extends StatelessWidget {
   @override

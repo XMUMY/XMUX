@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/exams.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
@@ -25,9 +26,8 @@ class _CalendarPageState extends State<CalendarPage> {
       child: new Scaffold(
           appBar: new AppBar(
             leading: new StoreConnector(
-              converter: (store) {
-                return () => store.dispatch(new OpenDrawerAction(true));
-              },
+              converter: (store) =>
+                  () => store.dispatch(new OpenDrawerAction(true)),
               builder: (context, callback) {
                 return new IconButton(
                     icon: new Icon(Icons.view_list), onPressed: callback);
@@ -64,49 +64,16 @@ class _CalendarPageState extends State<CalendarPage> {
               builder: (BuildContext context, acState) =>
                   new TabBarView(children: <Widget>[
                     acState.timetable == null
-                        ? new _ErrorPage()
-                        : new ClassesPage(acState.timetable),
+                        ? new EmptyErrorPage()
+                        : new TimeTablePage(acState.timetable),
                     acState.exams == null
-                        ? new _ErrorPage()
+                        ? new EmptyErrorPage()
                         : new ExamsPage(acState.exams),
                     acState.assignments == null
-                        ? new _ErrorPage()
+                        ? new EmptyErrorPage()
                         : new AssignmentPage(acState.assignments),
                   ]),
               converter: (s) => s.state.acState)),
-    );
-  }
-}
-
-class _ErrorPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: new Card(
-        color: Colors.white,
-        child: new Center(
-          child: new Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              new Icon(
-                Icons.error,
-                size: 60.0,
-                color: Theme.of(context).errorColor,
-              ),
-              new Divider(
-                height: 20.0,
-                color: Theme.of(context).cardColor,
-              ),
-              new Text(
-                "Oh ! Nothing is here !\n\nPlease check:\n You are logined successfully.\nYour have connected to internet.",
-                textAlign: TextAlign.center,
-              )
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

@@ -1,15 +1,13 @@
 abstract class MainAppAction {
-  get name => "MainAppAction:";
+  toString() => "MainAppAction";
 }
 
 class OpenDrawerAction extends MainAppAction {
-  get name => super.name + "OpenDrawer";
   final bool drawerStatus;
   OpenDrawerAction(this.drawerStatus);
 }
 
 class InitAction extends MainAppAction {
-  get name => super.name + "Init";
   final Map<String, dynamic> initMap;
   InitAction(this.initMap);
   InitAction.fromLogin(
@@ -18,21 +16,29 @@ class InitAction extends MainAppAction {
           "personalInfoState": {
             "uid": id,
             "password": password,
+            "moodleKey": loginMap["moodleKey"],
           },
           "settingState": {"ePaymentPassword": null},
           "acState": {
-            "status": "success",
-            "timestamp": new DateTime.now().microsecondsSinceEpoch,
+            "status": "logined",
+            "timestamp": loginMap["timestamp"],
             "data": {
-              "timetable": loginMap["timetable"],
-              "exams": loginMap["exam"],
-              "examResult": {},
-              "assignments":loginMap["assignments"],
+              "timetable": null,
+              "exams": null,
+              "examResult": null,
+              "assignments": null,
             },
           },
         };
 }
 
 class UpdateSettingAction extends MainAppAction {
-  get name => super.name + "UpdateSetting";
+  String ePaymentPassword;
+  UpdateSettingAction({this.ePaymentPassword});
+}
+
+class UpdateACAction extends MainAppAction {
+  Map<String, dynamic> acInitMap;
+  List assignments;
+  UpdateACAction({this.acInitMap, this.assignments});
 }

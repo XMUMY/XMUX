@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:xmux/initapp/init.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/message/chatroom/chatroompage.dart';
 import 'package:xmux/mainapp/message/homeslider.dart';
 import 'package:xmux/redux/actions.dart';
@@ -19,7 +19,7 @@ class MessagePage extends StatelessWidget {
                 icon: new CircleAvatar(
                   radius: 18.0,
                   backgroundImage:
-                      new NetworkImage(globalPersonalInfoState.avatarURL),
+                      new NetworkImage(firebaseUser.photoUrl),
                 ),
                 onPressed: () => store.dispatch(new OpenDrawerAction(true)),
               ),
@@ -30,7 +30,7 @@ class MessagePage extends StatelessWidget {
       body: new ListView(
         children: <Widget>[
           new Container(
-            child: new HomeSlider(),
+            child: new HomeSlider(context),
             width: MediaQuery.of(context).size.width,
             height: 200.0,
           ),

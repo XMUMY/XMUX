@@ -6,6 +6,8 @@ MainAppState mainAppReducer(MainAppState oldState, dynamic action) {
     return oldState;
   else if (action is InitAction)
     return new MainAppState.fromJson(action.initMap);
+  else if (action == "delete")
+    return new MainAppState();
   else
     return new MainAppState.raw(
         (action is OpenDrawerAction)
@@ -13,7 +15,6 @@ MainAppState mainAppReducer(MainAppState oldState, dynamic action) {
             : oldState.drawerIsOpen,
         _personalInfoReducer(oldState.personalInfoState, action),
         _settingReducer(oldState.settingState, action),
-        _homePageReducer(oldState.homePageState, action),
         _acReducer(oldState.acState, action));
 }
 
@@ -23,14 +24,16 @@ PersonalInfoState _personalInfoReducer(
 }
 
 SettingState _settingReducer(SettingState oldState, dynamic action) {
-
-  return oldState;
-}
-
-HomePageState _homePageReducer(HomePageState oldState, dynamic action) {
-  return oldState;
+  if (action is UpdateSettingAction) {
+    return oldState.copyWith(ePaymentPassword: action.ePaymentPassword);
+  } else
+    return oldState;
 }
 
 ACState _acReducer(ACState oldState, dynamic action) {
-  return oldState;
+  if (action is UpdateACAction) {
+    if (action.acInitMap != null) return new ACState.fromJson(action.acInitMap);
+    return oldState.copyWith(assignments: action.assignments);
+  } else
+    return oldState;
 }

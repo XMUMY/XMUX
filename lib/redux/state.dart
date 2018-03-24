@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-
 class MainAppState {
   final bool drawerIsOpen;
 
@@ -9,10 +7,7 @@ class MainAppState {
   /// Settings state include ePaymentPassword, etc.
   final SettingState settingState;
 
-  /// Homepage state include sliders and announcements.
-  final HomePageState homePageState;
-
-  /// AC state include timetable, exams and examResult.
+  /// AC state include timetable, exams, examResult and other academic data.
   final ACState acState;
 
   /// Init mainAppState as default.
@@ -20,19 +15,16 @@ class MainAppState {
       : this.drawerIsOpen = false,
         this.personalInfoState = new PersonalInfoState(),
         this.settingState = new SettingState(),
-        this.homePageState = new HomePageState(),
         this.acState = new ACState();
 
   MainAppState.raw(this.drawerIsOpen, this.personalInfoState, this.settingState,
-      this.homePageState, this.acState);
+      this.acState);
 
-  MainAppState.fromJson(Map<String, Map> json, {FirebaseUser firebaseUser})
+  MainAppState.fromJson(Map<String, Map> json)
       : this.drawerIsOpen = false,
         this.personalInfoState =
             new PersonalInfoState.fromJson(json["personalInfoState"]),
-        this.settingState =
-            new SettingState.raw(json["settingState"]["ePaymentPassword"]),
-        this.homePageState = new HomePageState(),
+        this.settingState = new SettingState.fromJson(json["settingState"]),
         this.acState = new ACState.fromJson(json["acState"]);
 
   Map<String, Map> toMap() => {
@@ -47,17 +39,23 @@ class PersonalInfoState {
   /// User authentication (Campus ID).
   final String uid, password;
 
+  /// Moodle key.
+  final String moodleKey;
+
   PersonalInfoState()
       : this.uid = null,
-        this.password = null;
+        this.password = null,
+        this.moodleKey = null;
 
   PersonalInfoState.fromJson(Map piJson)
       : this.uid = piJson["uid"],
-        this.password = piJson["password"];
+        this.password = piJson["password"],
+        this.moodleKey = piJson["moodleKey"];
 
   Map<String, String> toMap() => {
         "uid": this.uid,
         "password": this.password,
+        "moodleKey": this.moodleKey,
       };
 }
 
@@ -69,21 +67,17 @@ class SettingState {
 
   SettingState.raw(this.ePaymentPassword);
 
+  SettingState.fromJson(Map sJson)
+      : this.ePaymentPassword = sJson["ePaymentPassword"];
+
   Map<String, String> toMap() => {
         "ePaymentPassword": this.ePaymentPassword,
       };
-}
 
-class HomePageState {
-  /// News for homepage slider.
-  final List<Map<String, dynamic>> news;
-
-  /// Announcements for homepage.
-  final Map<String, dynamic> announcements;
-
-  HomePageState()
-      : this.news = const [],
-        this.announcements = const {};
+  SettingState copyWith({
+    String ePaymentPassword,
+  }) =>
+      new SettingState.raw(ePaymentPassword ?? this.ePaymentPassword);
 }
 
 class ACState {
@@ -96,17 +90,17 @@ class ACState {
   /// Last update timestamp.
   final int timestamp;
 
-  /// Timetable map.
-  final Map<String, dynamic> timetable;
+  /// Timetable list.
+  final List<Map<String, dynamic>> timetable;
 
   /// Exams map.
-  final Map<String, dynamic> exams;
+  final List<Map<String, String>> exams;
 
   /// Exam result map.
-  final Map<String, dynamic> examResult;
+  final List<Map<String, dynamic>> examResult;
 
   /// Assignment List.
-  final List assignments;
+  final List<Map> assignments;
 
   ACState()
       : this.status = "init",
@@ -125,7 +119,7 @@ class ACState {
         this.timetable = acJson["data"]["timetable"],
         this.exams = acJson["data"]["exams"],
         this.examResult = acJson["data"]["examResult"],
-        this.assignments = acJson["data"]["assignments"],
+        this.assignments = acJson["data"]["assignments"] ?? null,
         this.error = acJson["error"] ?? null;
 
   Map<String, dynamic> toMap() => {
@@ -144,10 +138,10 @@ class ACState {
           {String status,
           String error,
           int timestamp,
-          Map<String, dynamic> timetable,
-          Map<String, dynamic> exams,
-          Map<String, dynamic> examResult,
-          List assignments}) =>
+          List<Map<String, dynamic>> timetable,
+          List<Map<String, String>> exams,
+          List<Map<String, dynamic>> examResult,
+          List<Map> assignments}) =>
       new ACState.raw(
           status ?? this.status,
           error ?? this.error,

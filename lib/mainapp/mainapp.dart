@@ -11,7 +11,7 @@ import 'package:xmux/mainapp/academic/gpacalculator/gpacalculator.dart';
 import 'package:xmux/mainapp/academic/wolframengine/inputconstructor.dart';
 import 'package:xmux/mainapp/explore/lostandfound/lostandfoundpage.dart';
 import 'package:xmux/mainapp/settings/me.dart';
-import 'package:xmux/mainapp/payment.dart';
+import 'package:xmux/mainapp/tools/epayment.dart';
 import 'package:xmux/translations/translation.dart';
 
 class MainApp extends StatelessWidget {
@@ -33,8 +33,8 @@ class MainApp extends StatelessWidget {
           "/acdemic/gpacalculator/examresult": (BuildContext context) =>
               new ExamResultPage(),
           "/me": (BuildContext context) => new MePage(),
-          "/drawer/epayment": (BuildContext context) =>
-              new PaymentPage(globalCalendarState.paymentData),
+          "/tools/epayment": (BuildContext context) =>
+              new EPaymentPage(),
           "/explore/lostandfound": (BuildContext context) =>
               new LostAndFoundPage(),
         },
