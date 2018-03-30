@@ -19,13 +19,13 @@ class _RoomWebviewPageState extends State<RoomWebviewPage> {
 
   void _changeToRooms() {
     widget.flutterWebviewPlugin.evalJavascript("""
-      window.location.href="room_reservations"; 
+      window.location.href="/room_reservations"; 
     """);
   }
 
   void _changeToMe() {
     widget.flutterWebviewPlugin.evalJavascript("""
-      window.location.href="my_reservations"; 
+      window.location.href="/my_reservations"; 
     """);
   }
 
