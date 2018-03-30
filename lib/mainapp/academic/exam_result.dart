@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/initapp/init.dart';
 
 class ExamResultPage extends StatefulWidget {
   @override

@@ -1,13 +1,13 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:io';
+import 'dart:math';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/translations/translation.dart';
@@ -70,8 +70,9 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
   bool _isComposing = false;
 
   @override
-  Future initState() async {
+  void initState() {
     reference = FirebaseDatabase.instance.reference().child('messages_beta');
+    super.initState();
   }
 
   @override

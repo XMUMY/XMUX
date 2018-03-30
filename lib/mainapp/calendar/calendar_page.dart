@@ -7,7 +7,6 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/exams.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
-import 'package:xmux/initapp/init.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 import 'package:zoomable_image/zoomable_image.dart';
@@ -40,10 +39,12 @@ class _CalendarPageState extends State<CalendarPage> {
                   onPressed: () {
                     Navigator.of(context).push(
                           new MaterialPageRoute(
-                            builder: (BuildContext context) => new ZoomableImage(
-                                new CachedNetworkImageProvider(
-                                    "https://${BackendApiConfig.resourceAddress}/image/cal_undergraduate.jpg"),
-                                scale: 1.5),
+                            builder: (BuildContext context) =>
+                                new ZoomableImage(
+                                    new CachedNetworkImageProvider(
+                                        "https://${BackendApiConfig
+                                    .resourceAddress}/image/cal_undergraduate.jpg"),
+                                    scale: 1.5),
                           ),
                         );
                   })

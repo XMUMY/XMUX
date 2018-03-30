@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/loginapp/loginhandler.dart';
-import 'package:xmux/mainapp/calendar/calendarhandler.dart';
+import 'package:xmux/loginapp/login_handler.dart';
+import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/redux/actions.dart';
 
 Future<String> init() async {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -74,7 +75,9 @@ class DotsIndicator extends AnimatedWidget {
 
 class HomeSlider extends StatefulWidget {
   final BuildContext context;
+
   HomeSlider(this.context);
+
   @override
   State createState() => new _HomeSliderState();
 }

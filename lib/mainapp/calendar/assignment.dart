@@ -65,6 +65,7 @@ class _AssCard extends StatelessWidget {
 class _AssButton extends StatelessWidget {
   final _assDetail;
   DateTime _assTime;
+
   _AssButton(this._assDetail);
 
   @override

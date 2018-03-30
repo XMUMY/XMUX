@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ExamsPage extends StatelessWidget {
-  final List<Map<String,String>> exams;
+  final List<Map<String, String>> exams;
 
   ExamsPage(this.exams, {Key key}) : super(key: key);
 

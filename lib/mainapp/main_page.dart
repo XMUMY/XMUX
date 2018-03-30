@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/academic/academicpage.dart';
-import 'package:xmux/mainapp/calendar/calendarpage.dart';
+import 'package:xmux/mainapp/academic/academic_page.dart';
+import 'package:xmux/mainapp/calendar/calendar_page.dart';
 import 'package:xmux/mainapp/drawer.dart';
-import 'package:xmux/mainapp/explore/explorepage.dart';
-import 'package:xmux/mainapp/message/messagepage.dart';
+import 'package:xmux/mainapp/explore/explore_page.dart';
+import 'package:xmux/mainapp/message/message_page.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 

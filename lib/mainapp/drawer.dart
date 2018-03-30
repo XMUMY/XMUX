@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/initapp/init.dart';
 import 'package:xmux/translations/translation.dart';
 
 class DrawerPage extends StatefulWidget {
@@ -74,7 +73,8 @@ class DrawerPageState extends State<DrawerPage> {
                 children: <Widget>[
                   new FlatButton(
                     onPressed: () {
-                      if (mainAppStore.state.settingState.ePaymentPassword != null)
+                      if (mainAppStore.state.settingState.ePaymentPassword !=
+                          null)
                         Navigator.popAndPushNamed(context, "/tools/epayment");
                       else
                         _loginEPayment();

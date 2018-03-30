@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/message/chatroom/chatroompage.dart';
-import 'package:xmux/mainapp/message/homeslider.dart';
+import 'package:xmux/mainapp/message/chatroom/chat_room_page.dart';
+import 'package:xmux/mainapp/message/home_slider.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
@@ -18,8 +18,7 @@ class MessagePage extends StatelessWidget {
               new IconButton(
                 icon: new CircleAvatar(
                   radius: 18.0,
-                  backgroundImage:
-                      new NetworkImage(firebaseUser.photoUrl),
+                  backgroundImage: new NetworkImage(firebaseUser.photoUrl),
                 ),
                 onPressed: () => store.dispatch(new OpenDrawerAction(true)),
               ),

@@ -5,6 +5,7 @@ class TimeTablePage extends StatelessWidget {
   final List<Map<String, dynamic>> classes;
 
   TimeTablePage(this.classes, {Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) => new ListView.builder(
       itemCount: classes.length,

@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/initapp/init.dart';
 import 'package:xmux/translations/translation.dart';
 
 class GPACalculatorPage extends StatefulWidget {

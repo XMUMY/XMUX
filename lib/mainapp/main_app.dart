@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/initapp/init.dart';
-import 'package:xmux/mainapp/mainpage.dart';
-import 'package:xmux/mainapp/academic/gpacalculator/examresultpage.dart';
-import 'package:xmux/mainapp/academic/gpacalculator/gpacalculator.dart';
-import 'package:xmux/mainapp/academic/wolframengine/inputconstructor.dart';
-import 'package:xmux/mainapp/explore/lostandfound/lostandfoundpage.dart';
+import 'package:xmux/mainapp/academic/exam_result.dart';
+import 'package:xmux/mainapp/academic/gpa_calculator.dart';
+import 'package:xmux/mainapp/academic/wolfram_engine/input_constructor.dart';
+import 'package:xmux/mainapp/explore/lost_and_found/lost_and_found_page.dart';
+import 'package:xmux/mainapp/main_page.dart';
 import 'package:xmux/mainapp/settings/me.dart';
 import 'package:xmux/mainapp/tools/epayment.dart';
 import 'package:xmux/translations/translation.dart';
@@ -33,8 +31,7 @@ class MainApp extends StatelessWidget {
           "/acdemic/gpacalculator/examresult": (BuildContext context) =>
               new ExamResultPage(),
           "/me": (BuildContext context) => new MePage(),
-          "/tools/epayment": (BuildContext context) =>
-              new EPaymentPage(),
+          "/tools/epayment": (BuildContext context) => new EPaymentPage(),
           "/explore/lostandfound": (BuildContext context) =>
               new LostAndFoundPage(),
         },

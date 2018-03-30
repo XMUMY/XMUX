@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/mainapp/academic/wolframengine/result.dart';
+import 'package:xmux/mainapp/academic/wolfram_engine/result.dart';
 import 'package:xmux/translations/translation.dart';
 
 class InputConstructor extends StatefulWidget {
@@ -39,6 +39,7 @@ class _InputConstructorState extends State<InputConstructor> {
   }
 
   String dropdown2Value;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(

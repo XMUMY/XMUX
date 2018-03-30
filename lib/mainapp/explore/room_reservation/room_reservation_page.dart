@@ -34,7 +34,8 @@ class _RoomWebviewPageState extends State<RoomWebviewPage> {
     urlListener = widget.flutterWebviewPlugin.onUrlChanged.listen((url) {
       widget.flutterWebviewPlugin.evalJavascript("""
         window.xmuxAuth = { id: '${mainAppStore.state.personalInfoState.uid}', 
-                            pass: '${mainAppStore.state.personalInfoState.password}' };
+                            pass: '${mainAppStore.state.personalInfoState
+          .password}' };
       """);
       widget.flutterWebviewPlugin.evalJavascript("""
         'use strict'; (() => {
