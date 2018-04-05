@@ -1,5 +1,6 @@
 class MainAppState {
-  final bool drawerIsOpen;
+  /// Global UI state include drawerIsOpen, etc.
+  final UIState uiState;
 
   /// Personal info state include uid, password, etc.
   final PersonalInfoState personalInfoState;
@@ -10,29 +11,43 @@ class MainAppState {
   /// AC state include timetable, exams, examResult and other academic data.
   final ACState acState;
 
-  /// Init mainAppState as default.
+  /// Init MainAppState as default.
   MainAppState()
-      : this.drawerIsOpen = false,
+      : this.uiState = new UIState(),
         this.personalInfoState = new PersonalInfoState(),
         this.settingState = new SettingState(),
         this.acState = new ACState();
 
-  MainAppState.raw(this.drawerIsOpen, this.personalInfoState, this.settingState,
-      this.acState);
+  /// Init MainAppState from raw.
+  MainAppState.raw(
+      this.uiState, this.personalInfoState, this.settingState, this.acState);
 
-  MainAppState.fromJson(Map<String, Map> json)
-      : this.drawerIsOpen = false,
+  /// Init MainAppStore from initMap.
+  MainAppState.fromMap(Map<String, dynamic> map)
+      : this.uiState = new UIState(), // Runtime state.
         this.personalInfoState =
-            new PersonalInfoState.fromJson(json["personalInfoState"]),
-        this.settingState = new SettingState.fromJson(json["settingState"]),
-        this.acState = new ACState.fromJson(json["acState"]);
+            new PersonalInfoState.fromMap(map["personalInfoState"]),
+        this.settingState = new SettingState.fromMap(map["settingState"]),
+        this.acState = new ACState.fromMap(map["acState"]);
 
+  /// Export MainAppState to initMap.
   Map<String, Map> toMap() => {
         "personalInfoState": this.personalInfoState.toMap(),
         "settingState": this.settingState.toMap(),
-        "homePageState": {},
         "acState": this.acState.toMap(),
       };
+}
+
+class UIState {
+  /// Drawer is open. (only android)
+  final bool drawerIsOpen;
+
+  UIState() : this.drawerIsOpen = false;
+
+  UIState.raw(this.drawerIsOpen);
+
+  UIState copyWith({bool drawerIsOpen}) =>
+      new UIState.raw(drawerIsOpen ?? this.drawerIsOpen);
 }
 
 class PersonalInfoState {
@@ -47,16 +62,22 @@ class PersonalInfoState {
         this.password = null,
         this.moodleKey = null;
 
-  PersonalInfoState.fromJson(Map piJson)
-      : this.uid = piJson["uid"],
-        this.password = piJson["password"],
-        this.moodleKey = piJson["moodleKey"];
+  PersonalInfoState.raw(this.uid, this.password, this.moodleKey);
+
+  PersonalInfoState.fromMap(Map<String, dynamic> map)
+      : this.uid = map["uid"],
+        this.password = map["password"],
+        this.moodleKey = map["moodleKey"];
 
   Map<String, String> toMap() => {
         "uid": this.uid,
         "password": this.password,
         "moodleKey": this.moodleKey,
       };
+
+  PersonalInfoState copyWith({String uid, String password, String moodleKey}) =>
+      new PersonalInfoState.raw(uid ?? this.uid, password ?? this.password,
+          moodleKey ?? this.moodleKey);
 }
 
 class SettingState {
@@ -67,8 +88,8 @@ class SettingState {
 
   SettingState.raw(this.ePaymentPassword);
 
-  SettingState.fromJson(Map sJson)
-      : this.ePaymentPassword = sJson["ePaymentPassword"];
+  SettingState.fromMap(Map<String, dynamic> map)
+      : this.ePaymentPassword = map["ePaymentPassword"];
 
   Map<String, String> toMap() => {
         "ePaymentPassword": this.ePaymentPassword,
@@ -91,16 +112,16 @@ class ACState {
   final int timestamp;
 
   /// Timetable list.
-  final List<Map<String, dynamic>> timetable;
+  final List timetable;
 
   /// Exams map.
-  final List<Map<String, String>> exams;
+  final List exams;
 
   /// Exam result map.
-  final List<Map<String, dynamic>> examResult;
+  final List examResult;
 
   /// Assignment List.
-  final List<Map> assignments;
+  final List assignments;
 
   ACState()
       : this.status = "init",
@@ -113,7 +134,7 @@ class ACState {
   ACState.raw(this.status, this.error, this.timestamp, this.timetable,
       this.exams, this.examResult, this.assignments);
 
-  ACState.fromJson(Map<String, dynamic> acJson)
+  ACState.fromMap(Map<String, dynamic> acJson)
       : this.status = acJson["status"],
         this.timestamp = acJson["timestamp"],
         this.timetable = acJson["data"]["timetable"],
@@ -138,10 +159,10 @@ class ACState {
           {String status,
           String error,
           int timestamp,
-          List<Map<String, dynamic>> timetable,
-          List<Map<String, String>> exams,
-          List<Map<String, dynamic>> examResult,
-          List<Map> assignments}) =>
+          List timetable,
+          List exams,
+          List examResult,
+          List assignments}) =>
       new ACState.raw(
           status ?? this.status,
           error ?? this.error,

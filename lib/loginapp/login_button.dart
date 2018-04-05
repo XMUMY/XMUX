@@ -12,7 +12,7 @@ class LoginButton extends StatefulWidget {
   LoginButton(this._usernameController, this._passwordController);
 
   @override
-  _LoginButtonState createState() => new _LoginButtonState();
+  _LoginButtonState createState() => _LoginButtonState();
 }
 
 class _LoginButtonState extends State<LoginButton>
@@ -26,51 +26,53 @@ class _LoginButtonState extends State<LoginButton>
     // Check format.
     if (widget._usernameController.text.isEmpty ||
         widget._passwordController.text.isEmpty) {
-      Scaffold.of(context).showSnackBar(new SnackBar(
-          content: new Text(
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(
               LoginLocalizations.of(context).get("SignInPage/FormatError"))));
       setState(() => _isProcessing = false);
       return;
     }
 
     // Handle login.
-    LoginHandler
-        .loginAuth(widget._usernameController.text,
-            widget._passwordController.text, context)
-        .then((r) async {
-      if (r != "success") {
-        Scaffold
-            .of(context)
-            .showSnackBar(new SnackBar(content: new Text("Error : $r")));
-        setState(() {
-          _isProcessing = false;
-        });
-      } else
-        LoginHandler.firebaseLogin().then((r) {
-          if (r.containsKey("error")) {
-            Scaffold.of(context).showSnackBar(
-                new SnackBar(content: new Text("Error : ${r["error"]}")));
-            setState(() {
-              _isProcessing = false;
-            });
-          } else
-            runApp(new MainApp());
-        });
-    });
+    var loginResult = await LoginHandler.login(widget._usernameController.text,
+        widget._passwordController.text, context);
+    if (loginResult != "success") {
+      Scaffold
+          .of(context)
+          .showSnackBar(SnackBar(content: Text("Error : $loginResult")));
+      setState(() {
+        _isProcessing = false;
+      });
+      return;
+    }
+
+    // Handle firebase login.
+    var firebaseResult = await LoginHandler.firebaseLogin();
+    if (firebaseResult != "success") {
+      Scaffold
+          .of(context)
+          .showSnackBar(SnackBar(content: Text("Error : $firebaseResult")));
+      setState(() {
+        _isProcessing = false;
+      });
+      return;
+    }
+
+    runApp(MainApp());
   }
 
   @override
   Widget build(BuildContext context) {
     return _isProcessing
-        ? new CircularProgressIndicator()
-        : new RaisedButton(
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.all(new Radius.circular(10.0))),
-            child: new Container(
+        ? CircularProgressIndicator()
+        : RaisedButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            child: Container(
               width: 120.0,
               height: 40.0,
-              child: new Center(
-                child: new Text(
+              child: Center(
+                child: Text(
                   LoginLocalizations.of(context).get("SignInPage/SignIn"),
                 ),
               ),

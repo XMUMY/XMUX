@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AnimatedLogo extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _AnimatedLogoState();
+  State<StatefulWidget> createState() => _AnimatedLogoState();
 }
 
 class _AnimatedLogoState extends State<AnimatedLogo>
@@ -13,9 +13,9 @@ class _AnimatedLogoState extends State<AnimatedLogo>
   @override
   void initState() {
     // Create animation.
-    controller = new AnimationController(
-        duration: new Duration(milliseconds: 500), vsync: this);
-    animation = new CurvedAnimation(parent: controller, curve: Curves.easeIn);
+    controller =
+        AnimationController(duration: Duration(milliseconds: 500), vsync: this);
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
     controller.addListener(() {
       setState(() {});
     });
@@ -26,9 +26,9 @@ class _AnimatedLogoState extends State<AnimatedLogo>
   }
 
   @override
-  Widget build(BuildContext context) => new Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: new Image.asset(
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Image.asset(
           "res/logo.png",
           height: animation.value * 80.0,
           width: animation.value * 80.0,

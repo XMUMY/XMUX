@@ -10,8 +10,10 @@ import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/redux/actions.dart';
 
 class LoginHandler {
-  static Future<String> loginAuth(
+  static Future<String> login(
       String id, String password, BuildContext context) async {
+    print("Login with uid: $id");
+
     // Get response from backend.
     var response =
         await BackendApiHandler.post(context: context, api: "/v2/login", body: {
@@ -19,17 +21,17 @@ class LoginHandler {
       "pass": password,
     });
 
-    // When error
+    // When error.
     if (response.statusCode >= 300) return response.reasonPhrase;
 
-    Map responseMap = JSON.decode(response.body);
-    if (responseMap.containsKey("error")) return responseMap["error"];
+    Map responseMap = jsonDecode(response.body);
+    if (responseMap["status"] == "error") return responseMap["error"];
 
-    // Init store with LoginMap.
-    mainAppStore.dispatch(new InitAction.fromLogin(id, password, responseMap));
+    // Dispatch LoginAction.
+    mainAppStore.dispatch(LoginAction(id, password, responseMap["moodleKey"]));
 
-    CalendarHandler.acUpdate();
-    CalendarHandler.assignmentUpdate();
+    CalendarHandler.acUpdate().timeout(Duration(seconds: 10));
+    CalendarHandler.assignmentUpdate().timeout(Duration(seconds: 10));
 
     return "success";
   }
@@ -43,29 +45,27 @@ class LoginHandler {
     if (response.statusCode >= 300) {
       return {"error": response.reasonPhrase};
     }
-    Map resJson = JSON.decode(response.body);
+    Map resJson = jsonDecode(response.body);
     if (resJson.containsKey("error")) {
       String error = resJson["error"];
       return {"error": error};
     }
 
-    mainAppStore.dispatch(new UpdateSettingAction(ePaymentPassword: password));
+    mainAppStore.dispatch(UpdateEPaymentPasswordAction(password));
     resJson.addAll({"success": true});
     return resJson;
   }
 
-  static Future<Map<String, dynamic>> firebaseLogin() async {
+  static Future<String> firebaseLogin() async {
     try {
-      if (await FirebaseAuth.instance.currentUser() == null)
-        firebaseUser = await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: mainAppStore.state.personalInfoState.uid + "@xmu.edu.my",
-            password: mainAppStore.state.personalInfoState.password);
-      else
-        firebaseUser = await FirebaseAuth.instance.currentUser();
+      firebaseUser = (await FirebaseAuth.instance.currentUser()) ??
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+              email: mainAppStore.state.personalInfoState.uid + "@xmu.edu.my",
+              password: mainAppStore.state.personalInfoState.password);
     } catch (e) {
-      return {"error": e.toString()};
+      return e.toString();
     }
 
-    return {"success": true};
+    return "success";
   }
 }

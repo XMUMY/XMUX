@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/redux/middleware.dart';
-import 'package:xmux/redux/reducers.dart';
+import 'package:xmux/redux/reducers/main_reducer.dart';
 import 'package:xmux/redux/state.dart';
 
 final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();

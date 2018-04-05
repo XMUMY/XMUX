@@ -7,28 +7,28 @@ import 'package:xmux/loginapp/login_button.dart';
 import 'package:xmux/translations/translation.dart';
 
 class LoginPage extends StatelessWidget {
-  final TextEditingController _usernameController = new TextEditingController();
-  final TextEditingController _passwordController = new TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) => new Stack(
+  Widget build(BuildContext context) => Stack(
         fit: StackFit.expand,
         children: <Widget>[
           // Background image.
-          new Image(
-            image: new AssetImage("res/initpage.jpg"),
+          Image(
+            image: AssetImage("res/initpage.jpg"),
             fit: BoxFit.fill,
             color: Colors.black45,
             colorBlendMode: BlendMode.darken,
           ),
 
           // Bottom button.
-          new Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              new IconButton(
-                icon: new Icon(FontAwesomeIcons.fileAltO),
+              IconButton(
+                icon: Icon(FontAwesomeIcons.fileAltO),
                 onPressed: () {
                   launch(
                     "https://${BackendApiConfig.resourceAddress}/privacy.html",
@@ -39,8 +39,8 @@ class LoginPage extends StatelessWidget {
                     .of(context)
                     .get("SignInPage/ServiceDocs"),
               ),
-              new IconButton(
-                icon: new Icon(FontAwesomeIcons.questionCircleO),
+              IconButton(
+                icon: Icon(FontAwesomeIcons.questionCircleO),
                 onPressed: null,
                 tooltip:
                     LoginLocalizations.of(context).get("SignInPage/HelpDocs"),
@@ -49,37 +49,37 @@ class LoginPage extends StatelessWidget {
           ),
 
           // Main widgets.
-          new Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Container(
-                margin: const EdgeInsets.fromLTRB(20.0, 0.0, 35.0, 20.0),
-                child: new Column(
+              Container(
+                margin: EdgeInsets.fromLTRB(20.0, 0.0, 35.0, 20.0),
+                child: Column(
                   children: <Widget>[
-                    new AnimatedLogo(),
-                    new TextField(
+                    AnimatedLogo(),
+                    TextField(
                       controller: _usernameController,
-                      decoration: new InputDecoration(
+                      decoration: InputDecoration(
                         hintText: LoginLocalizations
                             .of(context)
                             .get("SignInPage/CampusID"),
-                        hintStyle: new TextStyle(color: Colors.white70),
-                        icon: new Icon(
-                          Icons.account_circle,
+                        hintStyle: TextStyle(color: Colors.white70),
+                        icon: Icon(
+                          Icons.account_box,
                           color: Colors.white,
                         ),
                       ),
                     ),
-                    new TextField(
+                    TextField(
                       controller: _passwordController,
                       obscureText: true,
-                      decoration: new InputDecoration(
+                      decoration: InputDecoration(
                         hintText: LoginLocalizations
                             .of(context)
                             .get("SignInPage/Password"),
-                        hintStyle: new TextStyle(color: Colors.white70),
-                        icon: new Icon(
-                          Icons.lock_outline,
+                        hintStyle: TextStyle(color: Colors.white70),
+                        icon: Icon(
+                          Icons.lock,
                           color: Colors.white,
                         ),
                       ),
@@ -87,12 +87,12 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
-              new LoginButton(_usernameController, _passwordController),
-              new Padding(padding: const EdgeInsets.all(10.0)),
-              new Text(
+              LoginButton(_usernameController, _passwordController),
+              Padding(padding: EdgeInsets.all(10.0)),
+              Text(
                 LoginLocalizations.of(context).get("SignInPage/Read"),
                 textAlign: TextAlign.center,
-                style: new TextStyle(color: Colors.redAccent),
+                style: TextStyle(color: Colors.redAccent),
               )
             ],
           ),

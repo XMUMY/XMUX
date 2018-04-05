@@ -1,44 +1,34 @@
 abstract class MainAppAction {
+  get needSave => true;
+  get sync => false;
   toString() => "MainAppAction";
 }
 
-class OpenDrawerAction extends MainAppAction {
-  final bool drawerStatus;
-
-  OpenDrawerAction(this.drawerStatus);
-}
-
 class InitAction extends MainAppAction {
+  get needSave => false;
   final Map<String, dynamic> initMap;
 
   InitAction(this.initMap);
-
-  InitAction.fromLogin(
-      String id, String password, Map<String, dynamic> loginMap)
-      : this.initMap = {
-          "personalInfoState": {
-            "uid": id,
-            "password": password,
-            "moodleKey": loginMap["moodleKey"],
-          },
-          "settingState": {"ePaymentPassword": null},
-          "acState": {
-            "status": "logined",
-            "timestamp": loginMap["timestamp"],
-            "data": {
-              "timetable": null,
-              "exams": null,
-              "examResult": null,
-              "assignments": null,
-            },
-          },
-        };
 }
 
-class UpdateSettingAction extends MainAppAction {
+class LoginAction extends MainAppAction {
+  get sync => true;
+  final String uid, password, moodleKey;
+
+  LoginAction(this.uid, this.password, this.moodleKey);
+}
+
+class OpenDrawerAction extends MainAppAction {
+  get needSave => false;
+  final bool drawerIsOpen;
+
+  OpenDrawerAction(this.drawerIsOpen);
+}
+
+class UpdateEPaymentPasswordAction extends MainAppAction {
   String ePaymentPassword;
 
-  UpdateSettingAction({this.ePaymentPassword});
+  UpdateEPaymentPasswordAction(this.ePaymentPassword);
 }
 
 class UpdateACAction extends MainAppAction {
