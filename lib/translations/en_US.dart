@@ -8,16 +8,19 @@ const Map<String, String> en_US = const {
   "Weekdays/6": "Saturday",
   "Weekdays/7": "Sunday",
   //HomePage
-  'messages': 'Messages',
-  'calendar': 'Calendar',
-  'academic': 'Academic',
-  'explore': 'Explore',
-  //Messages
-  'messages/sendmessage': 'Send a message.',
+  'Messages': 'Messages',
+  'Calendar': 'Calendar',
+  'Academic': 'Academic',
+  'Explore': 'Explore',
+  'Me': 'Me',
   //Calendar
-  'calendar/classes': 'Classes',
-  'calendar/exams': 'Exams',
-  'calendar/assignments': 'Assignments',
+  'Calendar/Classes': 'Classes',
+  'Calendar/Exams': 'Exams',
+  'Calendar/Assignments': 'Assignments',
+  'Calendar/SignIn': 'Sign in',
+  'Calendar/SignIn/Signing': 'Signing',
+  'Calendar/SignIn/Finished': 'Successful',
+  'Calendar/SignIn/Failed': 'Failed',
   //Academic
   'academic/wolframengine/title': 'Wolfram Engine',
   'academic/wolframengine/caption':

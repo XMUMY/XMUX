@@ -8,16 +8,19 @@ const Map<String, String> zh_CN = const {
   "Weekdays/6": "周六",
   "Weekdays/7": "周日",
   //HomePage
-  'messages': '消息',
-  'calendar': '日程',
-  'academic': '学术',
-  'explore': '发现',
-  //Messages
-  'messages/sendmessage': '发送一条消息',
+  'Messages': '消息',
+  'Calendar': '日程',
+  'Academic': '学术',
+  'Explore': '发现',
+  'Me': '我',
   //Calendar
-  'calendar/classes': '课程',
-  'calendar/exams': '考试',
-  'calendar/assignments': '作业',
+  'Calendar/Classes': '课程',
+  'Calendar/Exams': '考试',
+  'Calendar/Assignments': '作业',
+  'Calendar/SignIn': '签到',
+  'Calendar/SignIn/Signing': '签到中',
+  'Calendar/SignIn/Finished': '签到成功',
+  'Calendar/SignIn/Failed': '签到失败',
   //Academic
   'academic/wolframengine/title': 'Wolfram 知识引擎',
   'academic/wolframengine/caption': '利用强大的 Wolfram 引擎进行搜索',

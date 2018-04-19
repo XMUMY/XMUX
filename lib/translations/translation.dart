@@ -15,13 +15,10 @@ class MainLocalizations {
     'zh': zh_CN,
   };
 
-  String get(String title) {
-    return _localizedValues[locale.languageCode][title];
-  }
+  String get(String title) => _localizedValues[locale.languageCode][title];
 
-  static MainLocalizations of(BuildContext context) {
-    return Localizations.of(context, MainLocalizations);
-  }
+  static MainLocalizations of(BuildContext context) =>
+      Localizations.of(context, MainLocalizations);
 }
 
 class MainLocalizationsDelegate
@@ -29,20 +26,14 @@ class MainLocalizationsDelegate
   const MainLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) {
-    return ['en', 'zh'].contains(locale.languageCode);
-  }
+  bool isSupported(Locale locale) => ['en', 'zh'].contains(locale.languageCode);
 
   @override
-  Future<MainLocalizations> load(Locale locale) {
-    return new SynchronousFuture<MainLocalizations>(
-        new MainLocalizations(locale));
-  }
+  Future<MainLocalizations> load(Locale locale) =>
+      new SynchronousFuture<MainLocalizations>(new MainLocalizations(locale));
 
   @override
-  bool shouldReload(LocalizationsDelegate<MainLocalizations> old) {
-    return false;
-  }
+  bool shouldReload(LocalizationsDelegate<MainLocalizations> old) => false;
 
   static MainLocalizationsDelegate delegate = const MainLocalizationsDelegate();
 }
@@ -76,13 +67,10 @@ class LoginLocalizations {
     }
   };
 
-  String get(String title) {
-    return _localizedValues[locale.languageCode][title];
-  }
+  String get(String title) => _localizedValues[locale.languageCode][title];
 
-  static LoginLocalizations of(BuildContext context) {
-    return Localizations.of(context, LoginLocalizations);
-  }
+  static LoginLocalizations of(BuildContext context) =>
+      Localizations.of(context, LoginLocalizations);
 }
 
 class LoginLocalizationsDelegate
@@ -90,20 +78,14 @@ class LoginLocalizationsDelegate
   const LoginLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) {
-    return ['en', 'zh'].contains(locale.languageCode);
-  }
+  bool isSupported(Locale locale) => ['en', 'zh'].contains(locale.languageCode);
 
   @override
-  Future<LoginLocalizations> load(Locale locale) {
-    return new SynchronousFuture<LoginLocalizations>(
-        new LoginLocalizations(locale));
-  }
+  Future<LoginLocalizations> load(Locale locale) =>
+      new SynchronousFuture<LoginLocalizations>(new LoginLocalizations(locale));
 
   @override
-  bool shouldReload(LocalizationsDelegate<LoginLocalizations> old) {
-    return false;
-  }
+  bool shouldReload(LocalizationsDelegate<LoginLocalizations> old) => false;
 
   static LoginLocalizationsDelegate delegate =
       const LoginLocalizationsDelegate();
