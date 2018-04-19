@@ -16,18 +16,17 @@ Future<String> init() async {
   // Check if local state is available.
   try {
     appDocDir = (await getApplicationDocumentsDirectory()).path;
-    initMap =
-        jsonDecode(await (new File('$appDocDir/state.dat')).readAsString());
+    initMap = jsonDecode(await (File('$appDocDir/state.dat')).readAsString());
 
     // Init store from initMap
-    mainAppStore.dispatch(new InitAction(initMap));
+    mainAppStore.dispatch(InitAction(initMap));
   } catch (e) {
     FirebaseAuth.instance.signOut();
     return "NotLogin";
   }
 
-  CalendarHandler.acUpdate();
-  CalendarHandler.assignmentUpdate();
+  CalendarHandler.acUpdate().timeout(Duration(seconds: 10));
+  CalendarHandler.assignmentUpdate().timeout(Duration(seconds: 10));
 
   if ((await LoginHandler.firebaseLogin()) != "success") {
     FirebaseAuth.instance.signOut();

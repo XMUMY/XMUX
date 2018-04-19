@@ -3,8 +3,6 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/redux/actions.dart';
@@ -36,27 +34,10 @@ class LoginHandler {
     return "success";
   }
 
-  static Future<Map<String, dynamic>> ePaymentAuth(
-      String id, String password) async {
-    var response = await http.post(BackendApiConfig.address + "/bill", body: {
-      "id": id,
-      "pass": password,
-    });
-    if (response.statusCode >= 300) {
-      return {"error": response.reasonPhrase};
-    }
-    Map resJson = jsonDecode(response.body);
-    if (resJson.containsKey("error")) {
-      String error = resJson["error"];
-      return {"error": error};
-    }
-
-    mainAppStore.dispatch(UpdateEPaymentPasswordAction(password));
-    resJson.addAll({"success": true});
-    return resJson;
-  }
-
   static Future<String> firebaseLogin() async {
+    print(
+        "Login firebase with uid: ${mainAppStore.state.personalInfoState.uid}");
+
     try {
       firebaseUser = (await FirebaseAuth.instance.currentUser()) ??
           await FirebaseAuth.instance.signInWithEmailAndPassword(
