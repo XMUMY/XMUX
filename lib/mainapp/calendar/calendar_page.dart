@@ -1,80 +1,63 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/exams.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/redux/actions.dart';
+import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
-import 'package:zoomable_image/zoomable_image.dart';
 
-class CalendarPage extends StatefulWidget {
+class CalendarPage extends StatelessWidget {
   @override
-  _CalendarPageState createState() => new _CalendarPageState();
-}
-
-class _CalendarPageState extends State<CalendarPage> {
-  @override
-  Widget build(BuildContext context) {
-    return new DefaultTabController(
-      length: 4,
-      initialIndex: 0,
-      child: new Scaffold(
-          appBar: new AppBar(
-            leading: new StoreConnector(
-              converter: (store) =>
-                  () => store.dispatch(new OpenDrawerAction(true)),
-              builder: (context, callback) {
-                return new IconButton(
-                    icon: new Icon(Icons.view_list), onPressed: callback);
-              },
+  Widget build(BuildContext context) => DefaultTabController(
+        length: 3,
+        initialIndex: 0,
+        child: Scaffold(
+            appBar: AppBar(
+              leading: StoreConnector<MainAppState, VoidCallback>(
+                converter: (store) =>
+                    () => store.dispatch(OpenDrawerAction(true)),
+                builder: (context, callback) => IconButton(
+                    icon: Icon(Icons.view_list), onPressed: callback),
+              ),
+              title: Text(MainLocalizations.of(context).get("Calendar")),
+              actions: <Widget>[
+                IconButton(
+                    icon: Icon(FontAwesomeIcons.calendarAltO),
+                    onPressed: () {
+                      Navigator
+                          .of(context)
+                          .pushNamed("/Calendar/CalendarImage");
+                    })
+              ],
+              bottom: TabBar(isScrollable: false, tabs: <Tab>[
+                Tab(
+                  text: MainLocalizations.of(context).get("Calendar/Classes"),
+                ),
+                Tab(
+                  text: MainLocalizations.of(context).get("Calendar/Exams"),
+                ),
+                Tab(
+                  text:
+                      MainLocalizations.of(context).get("Calendar/Assignments"),
+                ),
+              ]),
             ),
-            title: new Text(MainLocalizations.of(context).get("calendar")),
-            actions: <Widget>[
-              new IconButton(
-                  icon: new Icon(FontAwesomeIcons.calendarAltO),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                          new MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                new ZoomableImage(
-                                    new CachedNetworkImageProvider(
-                                        "https://${BackendApiConfig
-                                    .resourceAddress}/image/cal_undergraduate.jpg"),
-                                    scale: 1.5),
-                          ),
-                        );
-                  })
-            ],
-            bottom: new TabBar(isScrollable: false, tabs: <Tab>[
-              new Tab(
-                text: MainLocalizations.of(context).get("calendar/classes"),
-              ),
-              new Tab(
-                text: MainLocalizations.of(context).get("calendar/exams"),
-              ),
-              new Tab(
-                text: MainLocalizations.of(context).get("calendar/assignments"),
-              ),
-            ]),
-          ),
-          body: new StoreConnector(
-              builder: (BuildContext context, acState) =>
-                  new TabBarView(children: <Widget>[
-                    acState.timetable == null
-                        ? new EmptyErrorPage()
-                        : new TimeTablePage(acState.timetable),
-                    acState.exams == null
-                        ? new EmptyErrorPage()
-                        : new ExamsPage(acState.exams),
-                    acState.assignments == null
-                        ? new EmptyErrorPage()
-                        : new AssignmentPage(acState.assignments),
-                  ]),
-              converter: (s) => s.state.acState)),
-    );
-  }
+            body: StoreConnector<MainAppState, ACState>(
+                builder: (BuildContext context, acState) =>
+                    TabBarView(children: <Widget>[
+                      acState.timetable == null
+                          ? EmptyErrorPage()
+                          : TimeTablePage(acState.timetable),
+                      acState.exams == null
+                          ? EmptyErrorPage()
+                          : ExamsPage(acState.exams),
+                      acState.assignments == null
+                          ? EmptyErrorPage()
+                          : AssignmentPage(acState.assignments),
+                    ]),
+                converter: (s) => s.state.acState)),
+      );
 }
