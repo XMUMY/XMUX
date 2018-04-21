@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -19,11 +20,16 @@ class AssignmentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => new RefreshIndicator(
         onRefresh: _handleUpdate,
-        child: ListView.builder(
-            itemCount: assignments.length,
-            itemBuilder: (_, int index) {
-              return new _AssCard(assignments[assignments.length - 1 - index]);
-            }),
+        child: assignments == null
+            ? EmptyErrorPage(
+                onRefresh: _handleUpdate,
+              )
+            : ListView.builder(
+                itemCount: assignments.length,
+                itemBuilder: (_, int index) {
+                  return new _AssCard(
+                      assignments[assignments.length - 1 - index]);
+                }),
       );
 }
 

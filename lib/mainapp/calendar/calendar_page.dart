@@ -48,15 +48,9 @@ class CalendarPage extends StatelessWidget {
             body: StoreConnector<MainAppState, ACState>(
                 builder: (BuildContext context, acState) =>
                     TabBarView(children: <Widget>[
-                      (acState.timetable == null || acState.timetable.isEmpty)
-                          ? EmptyErrorPage()
-                          : TimeTablePage(acState.timetable),
-                      (acState.exams == null || acState.exams.isEmpty)
-                          ? EmptyErrorPage()
-                          : ExamsPage(acState.exams),
-                      acState.assignments == null
-                          ? EmptyErrorPage()
-                          : AssignmentPage(acState.assignments),
+                      TimeTablePage(acState.timetable),
+                      ExamsPage(acState.exams),
+                      AssignmentPage(acState.assignments),
                     ]),
                 converter: (s) => s.state.acState)),
       );

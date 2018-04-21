@@ -4,7 +4,7 @@ import 'package:xmux/redux/state.dart';
 
 final Reducer<SettingState> settingReducers = combineReducers([
   new TypedReducer<SettingState, UpdateEPaymentPasswordAction>(
-      _updateEPaymentPasswordReducer)
+      _updateEPaymentPasswordReducer),
 ]);
 
 SettingState _updateEPaymentPasswordReducer(

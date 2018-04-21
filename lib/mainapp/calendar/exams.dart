@@ -16,41 +16,43 @@ class ExamsPage extends StatelessWidget {
     await CalendarHandler.acUpdate();
   }
 
+  Widget _buildLastUpdateString(BuildContext context) => Center(
+        child: Padding(
+          padding: EdgeInsets.all(5.0),
+          child: Text(
+            MainLocalizations.of(context).get("Calendar/LastUpdate") +
+                DateFormat
+                    .yMMMd(Localizations.localeOf(context).languageCode)
+                    .format(DateTime.fromMillisecondsSinceEpoch(
+                        mainAppStore.state.acState.timestamp)) +
+                " " +
+                DateFormat
+                    .Hms(Localizations.localeOf(context).languageCode)
+                    .format(DateTime.fromMillisecondsSinceEpoch(
+                        mainAppStore.state.acState.timestamp)),
+            style: Theme.of(context).textTheme.caption,
+          ),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) => RefreshIndicator(
         onRefresh: _handleUpdate,
-        child: ListView.builder(
-          itemCount: exams.length + 1,
-          itemBuilder: (_, int index) {
-            if (index == exams.length)
-              // Build last update string.
-              return Center(
-                  child: Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Text(
-                        MainLocalizations
-                                .of(context)
-                                .get("Calendar/LastUpdate") +
-                            DateFormat
-                                .yMMMd(Localizations
-                                    .localeOf(context)
-                                    .languageCode)
-                                .format(DateTime.fromMillisecondsSinceEpoch(
-                                    mainAppStore.state.acState.timestamp)) +
-                            " " +
-                            DateFormat
-                                .Hms(Localizations
-                                    .localeOf(context)
-                                    .languageCode)
-                                .format(DateTime.fromMillisecondsSinceEpoch(
-                                    mainAppStore.state.acState.timestamp)),
-                        style: Theme.of(context).textTheme.caption,
-                      )));
-            else
-              // Build exam card.
-              return _ExamCard(exams[index]);
-          },
-        ),
+        child: (exams == null || exams.isEmpty)
+            ? EmptyErrorPage(
+                onRefresh: _handleUpdate,
+              )
+            : ListView.builder(
+                itemCount: exams.length + 1,
+                itemBuilder: (_, int index) {
+                  if (index == exams.length)
+                    // Build last update string.
+                    return _buildLastUpdateString(context);
+                  else
+                    // Build exam card.
+                    return _ExamCard(exams[index]);
+                },
+              ),
       );
 }
 

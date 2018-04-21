@@ -30,14 +30,18 @@ class OpenDrawerAction extends MainAppAction {
 }
 
 class UpdateEPaymentPasswordAction extends MainAppAction {
-  String ePaymentPassword;
+  final String ePaymentPassword;
 
   UpdateEPaymentPasswordAction(this.ePaymentPassword);
 }
 
 class UpdateACAction extends MainAppAction {
-  Map<String, dynamic> acInitMap;
-  List assignments;
+  final Map<String, dynamic> acMap;
+  UpdateACAction(this.acMap);
+}
 
-  UpdateACAction({this.acInitMap, this.assignments});
+class UpdateAssignmentsAction extends MainAppAction {
+  final List assignments;
+
+  UpdateAssignmentsAction(this.assignments);
 }

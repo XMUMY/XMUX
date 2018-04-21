@@ -22,8 +22,7 @@ class CalendarHandler {
 
     // Update acState
     if ((jsonDecode(response.body) as Map).isNotEmpty)
-      mainAppStore
-          .dispatch(UpdateACAction(acInitMap: jsonDecode(response.body)));
+      mainAppStore.dispatch(UpdateACAction(jsonDecode(response.body)));
 
     return "success";
   }
@@ -43,8 +42,7 @@ class CalendarHandler {
 
     // Update acState
     if ((jsonDecode(response.body) as List).isNotEmpty)
-      mainAppStore
-          .dispatch(UpdateACAction(assignments: jsonDecode(response.body)));
+      mainAppStore.dispatch(UpdateAssignmentsAction(jsonDecode(response.body)));
 
     return "success";
   }

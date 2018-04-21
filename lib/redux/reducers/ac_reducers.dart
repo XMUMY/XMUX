@@ -2,13 +2,17 @@ import 'package:redux/redux.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/redux/state.dart';
 
-final Reducer<ACState> acReducers =
-    combineReducers([new TypedReducer<ACState, UpdateACAction>(_acReducer)]);
+final Reducer<ACState> acReducers = combineReducers([
+  new TypedReducer<ACState, UpdateACAction>(_acReducer),
+  new TypedReducer<ACState, UpdateAssignmentsAction>(_updateAssignmentsReducer),
+]);
 
-ACState _acReducer(ACState oldState, dynamic action) {
-  if (action is UpdateACAction) {
-    if (action.acInitMap != null) return new ACState.fromMap(action.acInitMap);
-    return oldState.copyWith(assignments: action.assignments);
-  } else
-    return oldState;
+ACState _acReducer(ACState oldState, UpdateACAction action) {
+  List oldAssignments = oldState.assignments;
+  return new ACState.fromMap(action.acMap)
+      .copyWith(assignments: oldAssignments);
 }
+
+ACState _updateAssignmentsReducer(
+        ACState oldState, UpdateAssignmentsAction action) =>
+    oldState.copyWith(assignments: action.assignments);

@@ -8,7 +8,7 @@ import 'package:xmux/mainapp/calendar/sign_in_button.dart';
 import 'package:xmux/translations/translation.dart';
 
 class TimeTablePage extends StatelessWidget {
-  final List classes;
+  final classes;
 
   TimeTablePage(this.classes);
 
@@ -17,40 +17,42 @@ class TimeTablePage extends StatelessWidget {
     await CalendarHandler.acUpdate();
   }
 
+  Widget _buildLastUpdateString(BuildContext context) => Center(
+        child: Padding(
+          padding: EdgeInsets.all(5.0),
+          child: Text(
+            MainLocalizations.of(context).get("Calendar/LastUpdate") +
+                DateFormat
+                    .yMMMd(Localizations.localeOf(context).languageCode)
+                    .format(DateTime.fromMillisecondsSinceEpoch(
+                        mainAppStore.state.acState.timestamp)) +
+                " " +
+                DateFormat
+                    .Hms(Localizations.localeOf(context).languageCode)
+                    .format(DateTime.fromMillisecondsSinceEpoch(
+                        mainAppStore.state.acState.timestamp)),
+            style: Theme.of(context).textTheme.caption,
+          ),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) => RefreshIndicator(
         onRefresh: _handleUpdate,
-        child: ListView.builder(
-            itemCount: classes.length + 1,
-            itemBuilder: (_, int index) {
-              if (index == classes.length)
-                // Build last update string.
-                return Center(
-                    child: Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Text(
-                          MainLocalizations
-                                  .of(context)
-                                  .get("Calendar/LastUpdate") +
-                              DateFormat
-                                  .yMMMd(Localizations
-                                      .localeOf(context)
-                                      .languageCode)
-                                  .format(DateTime.fromMillisecondsSinceEpoch(
-                                      mainAppStore.state.acState.timestamp)) +
-                              " " +
-                              DateFormat
-                                  .Hms(Localizations
-                                      .localeOf(context)
-                                      .languageCode)
-                                  .format(DateTime.fromMillisecondsSinceEpoch(
-                                      mainAppStore.state.acState.timestamp)),
-                          style: Theme.of(context).textTheme.caption,
-                        )));
-              else
-                // Build class card.
-                return _ClassCard(classes[index]);
-            }),
+        child: (classes == null || classes.isEmpty)
+            ? EmptyErrorPage(
+                onRefresh: _handleUpdate,
+              )
+            : ListView.builder(
+                itemCount: classes.length + 1,
+                itemBuilder: (_, int index) {
+                  if (index == classes.length)
+                    // Build last update string.
+                    return _buildLastUpdateString(context);
+                  else
+                    // Build class card.
+                    return _ClassCard(classes[index]);
+                }),
       );
 }
 
