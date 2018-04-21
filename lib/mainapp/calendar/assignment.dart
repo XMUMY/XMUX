@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/translations/translation.dart';
 
 class AssignmentPage extends StatelessWidget {
-  final List rawData;
+  final List assignments;
 
-  AssignmentPage(this.rawData, {Key key}) : super(key: key);
+  AssignmentPage(this.assignments);
 
   @override
-  Widget build(BuildContext context) {
-    return new ListView.builder(
-        itemCount: rawData.length,
-        itemBuilder: (_, int index) {
-          return new _AssCard(rawData[index]);
-        });
-  }
+  Widget build(BuildContext context) => new RefreshIndicator(
+        onRefresh: CalendarHandler.assignmentUpdate,
+        child: ListView.builder(
+            itemCount: assignments.length,
+            itemBuilder: (_, int index) {
+              return new _AssCard(assignments[assignments.length - 1 - index]);
+            }),
+      );
 }
 
 class _AssCard extends StatelessWidget {
@@ -64,14 +66,14 @@ class _AssCard extends StatelessWidget {
 
 class _AssButton extends StatelessWidget {
   final _assDetail;
-  DateTime _assTime;
+  final DateTime _assTime;
 
-  _AssButton(this._assDetail);
+  _AssButton(this._assDetail)
+      : _assTime = new DateTime.fromMillisecondsSinceEpoch(
+            _assDetail["duedateTimestamp"]);
 
   @override
   Widget build(BuildContext context) {
-    _assTime =
-        new DateTime.fromMillisecondsSinceEpoch(_assDetail["duedateTimestamp"]);
     return new MaterialButton(
       onPressed: () {
         launch("https://l.xmu.edu.my/mod/assign/view.php?id=" +

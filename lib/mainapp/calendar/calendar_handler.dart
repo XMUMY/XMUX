@@ -7,7 +7,7 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/redux/actions.dart';
 
 class CalendarHandler {
-  static Future<String> acUpdate({BuildContext context}) async {
+  static Future<Null> acUpdate({BuildContext context}) async {
     print("CalendarHandler: Updating AC.");
 
     // Get response from backend.
@@ -24,11 +24,9 @@ class CalendarHandler {
     if ((jsonDecode(response.body) as Map).isNotEmpty)
       mainAppStore
           .dispatch(UpdateACAction(acInitMap: jsonDecode(response.body)));
-
-    return "success";
   }
 
-  static Future<String> assignmentUpdate({BuildContext context}) async {
+  static Future<Null> assignmentUpdate({BuildContext context}) async {
     print("CalendarHandler: Updating Assignment.");
 
     // Get response from backend.
@@ -45,8 +43,6 @@ class CalendarHandler {
     if ((jsonDecode(response.body) as List).isNotEmpty)
       mainAppStore
           .dispatch(UpdateACAction(assignments: jsonDecode(response.body)));
-
-    return "success";
   }
 
   static Future<Null> getIP(BuildContext context) async {
