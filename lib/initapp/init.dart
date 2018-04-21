@@ -25,6 +25,10 @@ Future<String> init() async {
     return "NotLogin";
   }
 
+  // If haven't login.
+  if (mainAppStore.state.personalInfoState.uid == null ||
+      mainAppStore.state.personalInfoState.password == null) return "NotLogin";
+
   CalendarHandler.acUpdate().timeout(Duration(seconds: 10));
   CalendarHandler.assignmentUpdate().timeout(Duration(seconds: 10));
 

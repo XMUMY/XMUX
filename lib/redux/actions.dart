@@ -18,6 +18,10 @@ class LoginAction extends MainAppAction {
   LoginAction(this.uid, this.password, this.moodleKey);
 }
 
+class LogoutAction extends MainAppAction {
+  get sync => true;
+}
+
 class OpenDrawerAction extends MainAppAction {
   get needSave => false;
   final bool drawerIsOpen;

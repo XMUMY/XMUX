@@ -6,7 +6,7 @@ import 'package:xmux/redux/reducers/ui_reducers.dart';
 import 'package:xmux/redux/state.dart';
 
 MainAppState mainAppReducer(MainAppState oldState, dynamic action) {
-  if (action == "delete")
+  if (action is LogoutAction)
     return new MainAppState();
   else if (action is InitAction)
     return new MainAppState.fromMap(action.initMap);
