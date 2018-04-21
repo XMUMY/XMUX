@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,9 +11,14 @@ class AssignmentPage extends StatelessWidget {
 
   AssignmentPage(this.assignments);
 
+  // Handle refresh.
+  Future<Null> _handleUpdate() async {
+    await CalendarHandler.assignmentUpdate();
+  }
+
   @override
   Widget build(BuildContext context) => new RefreshIndicator(
-        onRefresh: CalendarHandler.assignmentUpdate,
+        onRefresh: _handleUpdate,
         child: ListView.builder(
             itemCount: assignments.length,
             itemBuilder: (_, int index) {

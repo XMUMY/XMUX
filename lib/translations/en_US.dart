@@ -17,10 +17,12 @@ const Map<String, String> en_US = const {
   'Calendar/Classes': 'Classes',
   'Calendar/Exams': 'Exams',
   'Calendar/Assignments': 'Assignments',
+  'Calendar/CalendarImage': 'School Calendar',
   'Calendar/SignIn': 'Sign in',
   'Calendar/SignIn/Signing': 'Signing',
   'Calendar/SignIn/Finished': 'Successful',
   'Calendar/SignIn/Failed': 'Failed',
+  'Calendar/LastUpdate': 'Last update: ',
   //Academic
   'academic/wolframengine/title': 'Wolfram Engine',
   'academic/wolframengine/caption':

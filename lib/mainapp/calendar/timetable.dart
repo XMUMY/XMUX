@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
@@ -10,13 +12,19 @@ class TimeTablePage extends StatelessWidget {
 
   TimeTablePage(this.classes);
 
+  // Handle refresh.
+  Future<Null> _handleUpdate() async {
+    await CalendarHandler.acUpdate();
+  }
+
   @override
   Widget build(BuildContext context) => RefreshIndicator(
-        onRefresh: CalendarHandler.acUpdate,
+        onRefresh: _handleUpdate,
         child: ListView.builder(
             itemCount: classes.length + 1,
             itemBuilder: (_, int index) {
               if (index == classes.length)
+                // Build last update string.
                 return Center(
                     child: Padding(
                         padding: EdgeInsets.all(5.0),
@@ -40,6 +48,7 @@ class TimeTablePage extends StatelessWidget {
                           style: Theme.of(context).textTheme.caption,
                         )));
               else
+                // Build class card.
                 return _ClassCard(classes[index]);
             }),
       );

@@ -17,10 +17,12 @@ const Map<String, String> zh_CN = const {
   'Calendar/Classes': '课程',
   'Calendar/Exams': '考试',
   'Calendar/Assignments': '作业',
+  'Calendar/CalendarImage': '校历',
   'Calendar/SignIn': '签到',
   'Calendar/SignIn/Signing': '签到中',
   'Calendar/SignIn/Finished': '签到成功',
   'Calendar/SignIn/Failed': '签到失败',
+  'Calendar/LastUpdate': '最近更新：',
   //Academic
   'academic/wolframengine/title': 'Wolfram 知识引擎',
   'academic/wolframengine/caption': '利用强大的 Wolfram 引擎进行搜索',

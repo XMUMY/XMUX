@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
@@ -9,13 +11,19 @@ class ExamsPage extends StatelessWidget {
 
   ExamsPage(this.exams);
 
+  // Handle refresh.
+  Future<Null> _handleUpdate() async {
+    await CalendarHandler.acUpdate();
+  }
+
   @override
   Widget build(BuildContext context) => RefreshIndicator(
-        onRefresh: CalendarHandler.acUpdate,
+        onRefresh: _handleUpdate,
         child: ListView.builder(
           itemCount: exams.length + 1,
           itemBuilder: (_, int index) {
             if (index == exams.length)
+              // Build last update string.
               return Center(
                   child: Padding(
                       padding: EdgeInsets.all(5.0),
@@ -39,6 +47,7 @@ class ExamsPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.caption,
                       )));
             else
+              // Build exam card.
               return _ExamCard(exams[index]);
           },
         ),
