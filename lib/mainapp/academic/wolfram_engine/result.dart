@@ -8,27 +8,23 @@ class WolframResult extends StatelessWidget {
   WolframResult(this.inputString);
 
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(
-            MainLocalizations.of(context).get("academic/wolframengine/result")),
-        backgroundColor: Colors.orange,
-      ),
-      body: new ListView(
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(1.0),
-        children: <Widget>[
-          new Image(
-            image: new NetworkImage(
-                "http://api.wolframalpha.com/v1/simple?appid=" +
-                    WolframConfig.appID +
-                    "&i=" +
-                    Uri.encodeComponent(inputString) +
-                    "&fontsize=18&width=400"),
-          ),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(MainLocalizations
+              .of(context)
+              .get("Academic/WolframEngine/Result")),
+          backgroundColor: Colors.orange,
+        ),
+        body: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.all(1.0),
+          children: <Widget>[
+            Image.network("http://api.wolframalpha.com/v1/simple?appid=" +
+                WolframConfig.appID +
+                "&i=" +
+                Uri.encodeComponent(inputString) +
+                "&fontsize=18&width=400"),
+          ],
+        ),
+      );
 }

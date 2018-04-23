@@ -24,14 +24,17 @@ const Map<String, String> en_US = const {
   'Calendar/SignIn/Failed': 'Failed',
   'Calendar/LastUpdate': 'Last update: ',
   //Academic
-  'academic/wolframengine/title': 'Wolfram Engine',
-  'academic/wolframengine/caption':
+  'Academic/WolframEngine/Title': 'Wolfram Engine',
+  'Academic/WolframEngine/Caption':
       'Search anything by powerful Wolfram Engine',
-  'academic/wolframengine/inputconstructor': 'Input Constructor',
-  'academic/wolframengine/inputconstructor/clearall': 'Clear all',
-  'academic/wolframengine/result': 'Search Result',
-  'academic/gpacalculator/name': 'GPA Calculator',
-  'academic/gpacalculator/caption': 'Calculate your GPA easily',
+  'Academic/WolframEngine/InputConstructor': 'Input Constructor',
+  'Academic/WolframEngine/InputConstructor/SearchAnything': 'Search anything!',
+  'Academic/WolframEngine/InputConstructor/CommonlyUsed': 'Commonly used: ',
+  'Academic/WolframEngine/InputConstructor/Choose': 'Choose',
+  'Academic/WolframEngine/InputConstructor/ClearAll': 'Clear all',
+  'Academic/WolframEngine/Result': 'Search Result',
+  'Academic/GPACalculator/Name': 'GPA Calculator',
+  'Academic/GPACalculator/Caption': 'Calculate your GPA easily',
   //explore
   'lostandfound': 'Lost and Found',
   'lostandfound/location': 'Location : ',

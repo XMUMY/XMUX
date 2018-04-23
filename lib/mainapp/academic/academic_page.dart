@@ -2,55 +2,50 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/redux/actions.dart';
+import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
 
 class AcademicPage extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        leading: new StoreConnector(
-          converter: (store) {
-            return () => store.dispatch(new OpenDrawerAction(true));
-          },
-          builder: (context, callback) {
-            return new IconButton(
-                icon: new Icon(Icons.view_list), onPressed: callback);
-          },
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          leading: StoreConnector<MainAppState, VoidCallback>(
+            converter: (store) => () => store.dispatch(OpenDrawerAction(true)),
+            builder: (context, callback) =>
+                IconButton(icon: Icon(Icons.view_list), onPressed: callback),
+          ),
+          title: Text(MainLocalizations.of(context).get("Academic")),
+          backgroundColor: Colors.lightBlue,
         ),
-        title: new Text(MainLocalizations.of(context).get("academic")),
-        backgroundColor: Colors.lightBlue,
-      ),
-      body: new ListView(
-        children: <Widget>[
-          new _AcademicPageCard(
-            title: MainLocalizations
-                .of(context)
-                .get("academic/wolframengine/title"),
-            caption: MainLocalizations
-                .of(context)
-                .get("academic/wolframengine/caption"),
-            image: "res/wolfram.png",
-            route: "/wolframengine/constructor",
-          ),
-          new _AcademicPageCard(
-            title: MainLocalizations
-                .of(context)
-                .get("academic/gpacalculator/name"),
-            caption: MainLocalizations
-                .of(context)
-                .get("academic/gpacalculator/caption"),
-            image: "res/gpa.png",
-            route: "/acdemic/gpacalculator",
-          ),
-        ],
-      ),
-    );
-  }
+        body: ListView(
+          children: <Widget>[
+            _AcademicPageCard(
+              title: MainLocalizations
+                  .of(context)
+                  .get("Academic/WolframEngine/Title"),
+              caption: MainLocalizations
+                  .of(context)
+                  .get("Academic/WolframEngine/Caption"),
+              image: "res/academic/wolfram.png",
+              route: "/Academic/WolframEngine",
+            ),
+            _AcademicPageCard(
+              title: MainLocalizations
+                  .of(context)
+                  .get("Academic/GPACalculator/Name"),
+              caption: MainLocalizations
+                  .of(context)
+                  .get("Academic/GPACalculator/Caption"),
+              image: "res/academic/gpa.png",
+              route: "/Academic/GPACalculator",
+            ),
+          ],
+        ),
+      );
 }
 
 class _AcademicPageCard extends StatelessWidget {
-  String title, caption, image, route;
+  final String title, caption, image, route;
 
   _AcademicPageCard(
       {@required this.title,
@@ -59,47 +54,45 @@ class _AcademicPageCard extends StatelessWidget {
       @required this.route});
 
   @override
-  Widget build(BuildContext context) {
-    return new Container(
-      margin: const EdgeInsets.fromLTRB(5.0, 3.0, 5.0, 0.0),
-      child: new Card(
-        child: new MaterialButton(
-            child: new Padding(
-              padding: const EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 20.0),
-              child: new Row(
-                children: <Widget>[
-                  new Image.asset(
-                    image,
-                    height: 66.0,
-                    width: 66.0,
-                  ),
-                  new Expanded(
-                    child: new Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        new Text(
-                          title,
-                          style: Theme.of(context).textTheme.title,
-                        ),
-                        new Divider(
-                          height: 5.0,
-                          color: Theme.of(context).canvasColor,
-                        ),
-                        new Text(
-                          caption,
-                          style: Theme.of(context).textTheme.caption,
-                          textAlign: TextAlign.center,
-                        )
-                      ],
+  Widget build(BuildContext context) => Container(
+        margin: EdgeInsets.fromLTRB(5.0, 3.0, 5.0, 0.0),
+        child: Card(
+          child: MaterialButton(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 20.0),
+                child: Row(
+                  children: <Widget>[
+                    Image.asset(
+                      image,
+                      height: 66.0,
+                      width: 66.0,
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            title,
+                            style: Theme.of(context).textTheme.title,
+                          ),
+                          Divider(
+                            height: 5.0,
+                            color: Theme.of(context).canvasColor,
+                          ),
+                          Text(
+                            caption,
+                            style: Theme.of(context).textTheme.caption,
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, route);
-            }),
-      ),
-    );
-  }
+              onPressed: () {
+                Navigator.pushNamed(context, route);
+              }),
+        ),
+      );
 }
