@@ -1,7 +1,13 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/loginapp/login_handler.dart';
+import 'package:xmux/redux/actions.dart';
+import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
 
 class EPaymentPage extends StatefulWidget {
@@ -10,38 +16,121 @@ class EPaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<EPaymentPage> {
-  Map rawData;
+  final _passwordController = new TextEditingController();
+  bool _isProcessing = false;
+
+  List _bills;
+
+  Future<Map<String, dynamic>> ePaymentFetch(
+    String password,
+  ) async {
+    // Get response from backend.
+    var response =
+        await BackendApiHandler.post(context: context, api: "/bill", body: {
+      "id": mainAppStore.state.personalInfoState.uid,
+      "pass": password,
+    });
+
+    // Check error.
+    if (response.statusCode >= 400) return {"error": response.reasonPhrase};
+
+    Map resJson = jsonDecode(response.body);
+
+    return resJson;
+  }
+
+  Future<Null> _handleSave(String password, BuildContext context) async {
+    // If empty.
+    if (password.isEmpty) return;
+
+    setState(() => _isProcessing = true);
+    var res = await ePaymentFetch(password);
+
+    // When error.
+    if (res.containsKey("error")) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text("Error: " + res["error"]),
+          ));
+      setState(() => _isProcessing = false);
+      return;
+    }
+
+    mainAppStore.dispatch(UpdateEPaymentPasswordAction(password));
+    setState(() {
+      _bills = res["data"];
+    });
+  }
 
   @override
   void initState() {
-    LoginHandler
-        .ePaymentAuth(mainAppStore.state.personalInfoState.uid,
-            mainAppStore.state.settingState.ePaymentPassword)
-        .then((r) {
+    ePaymentFetch(mainAppStore.state.settingState.ePaymentPassword).then((r) {
       setState(() {
-        this.rawData = r;
+        _bills = r["data"];
       });
     });
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("E-Payment"),
-      ),
-      body: rawData == null
-          ? new Center(child: new CircularProgressIndicator())
-          : new ListView.builder(
-              reverse: false,
-              itemCount: rawData["data"].length,
-              itemBuilder: (_, int index) {
-                return new _PaymentCard(
-                    rawData["data"][rawData["data"].length - 1 - index]);
-              }),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(MainLocalizations.of(context).get("Tools/EPayment")),
+        ),
+        body: StoreConnector<MainAppState, String>(
+          converter: (Store<MainAppState> store) =>
+              store.state.settingState.ePaymentPassword,
+          builder: (context, password) => password == null
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(30.0),
+                      child: Icon(
+                        Icons.hourglass_empty,
+                        size: 60.0,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
+                      child: Text(MainLocalizations
+                          .of(context)
+                          .get("Tools/EPayment/NeedLogin")),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 30.0),
+                      child: Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: TextField(
+                              controller: _passwordController,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  hintText: MainLocalizations
+                                      .of(context)
+                                      .get("Tools/EPayment/EPaymentPassword")),
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.save),
+                            onPressed: _isProcessing
+                                ? null
+                                : () => _handleSave(
+                                    _passwordController.text, context),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              : _bills == null
+                  ? new Center(child: new CircularProgressIndicator())
+                  : new ListView.builder(
+                      reverse: false,
+                      itemCount: _bills.length,
+                      itemBuilder: (_, int index) =>
+                          new _PaymentCard(_bills[_bills.length - 1 - index])),
+        ),
+      );
 }
 
 class _PaymentCard extends StatelessWidget {
@@ -50,65 +139,56 @@ class _PaymentCard extends StatelessWidget {
   _PaymentCard(this.paymentData);
 
   @override
-  Widget build(BuildContext context) {
-    return new Container(
-      margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
-      child: new Card(
-        child: new Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            new Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-              child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  new Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: new Text(
-                      paymentData["item"],
-                      style: Theme.of(context).textTheme.subhead,
-                    ),
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
+        child: Card(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8.0),
+                  child: Text(
+                    paymentData["item"],
+                    style: Theme.of(context).textTheme.subhead,
                   ),
-                  new Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      new MaterialButton(
-                        onPressed: paymentData["paid"] == "-"
-                            ? () {
-                                launch("http://www.barracudacampus.com/s/xmu");
-                              }
-                            : null,
-                        child: new Column(
-                          children: <Widget>[
-                            new Text("MYR : " + paymentData["amount"]),
-                            new Text(
-                              MainLocalizations
-                                      .of(context)
-                                      .get("e-payment/status") +
-                                  (paymentData["paid"] == "-"
-                                      ? MainLocalizations
-                                          .of(context)
-                                          .get("e-payment/unpaid")
-                                      : MainLocalizations
-                                          .of(context)
-                                          .get("e-payment/paid")),
-                              style: new TextStyle(
-                                color: paymentData["paid"] == "-"
-                                    ? Colors.red
-                                    : Colors.green[300],
-                              ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    FlatButton(
+                      onPressed: paymentData["paid"] == "-"
+                          ? () => launch("http://www.barracudacampus.com/s/xmu")
+                          : null,
+                      child: Column(
+                        children: <Widget>[
+                          Text("MYR : " + paymentData["amount"]),
+                          Text(
+                            MainLocalizations
+                                    .of(context)
+                                    .get("Tools/EPayment/Status") +
+                                (paymentData["paid"] == "-"
+                                    ? MainLocalizations
+                                        .of(context)
+                                        .get("Tools/EPayment/Unpaid")
+                                    : MainLocalizations
+                                        .of(context)
+                                        .get("Tools/EPayment/Paid")),
+                            style: TextStyle(
+                              color: paymentData["paid"] == "-"
+                                  ? Colors.red
+                                  : Colors.green[300],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

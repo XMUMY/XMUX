@@ -1,5 +1,5 @@
 const Map<String, String> en_US = const {
-  //General
+  // General
   "Weekdays/1": "Monday",
   "Weekdays/2": "Tuesday",
   "Weekdays/3": "Wednesday",
@@ -7,13 +7,13 @@ const Map<String, String> en_US = const {
   "Weekdays/5": "Friday",
   "Weekdays/6": "Saturday",
   "Weekdays/7": "Sunday",
-  //HomePage
+  // HomePage
   'Messages': 'Messages',
   'Calendar': 'Calendar',
   'Academic': 'Academic',
   'Explore': 'Explore',
   'Me': 'Me',
-  //Calendar
+  // Calendar
   'Calendar/Classes': 'Classes',
   'Calendar/Exams': 'Exams',
   'Calendar/Assignments': 'Assignments',
@@ -23,7 +23,7 @@ const Map<String, String> en_US = const {
   'Calendar/SignIn/Finished': 'Successful',
   'Calendar/SignIn/Failed': 'Failed',
   'Calendar/LastUpdate': 'Last update: ',
-  //Academic
+  // Academic
   'Academic/WolframEngine/Title': 'Wolfram Engine',
   'Academic/WolframEngine/Caption':
       'Search anything by powerful Wolfram Engine',
@@ -60,13 +60,11 @@ const Map<String, String> en_US = const {
   'me/signout': 'Sign out',
   //drawer
   'header/welcome': 'Hello,',
-  'e-payment': ' E-Payment',
-  'e-payment/login': 'Login E-Payment',
-  'e-payment/login/content':
-      'Please go to settings and save your E-Payment Password.',
-  'e-payment/login/go': 'Go Settings',
-  'e-payment/status': 'Status : ',
-  'e-payment/paid': 'Paid',
-  'e-payment/unpaid': 'Unpaid',
-  //about
+  // Tools
+  'Tools/EPayment': 'E-Payment',
+  'Tools/EPayment/NeedLogin': 'Login your E-Payment account',
+  'Tools/EPayment/EPaymentPassword': 'E-Payment password',
+  'Tools/EPayment/Status': 'Status: ',
+  'Tools/EPayment/Paid': 'Paid',
+  'Tools/EPayment/Unpaid': 'Unpaid',
 };

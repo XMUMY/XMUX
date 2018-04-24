@@ -1,5 +1,5 @@
 const Map<String, String> zh_CN = const {
-  //General
+  // General
   "Weekdays/1": "周一",
   "Weekdays/2": "周二",
   "Weekdays/3": "周三",
@@ -7,13 +7,13 @@ const Map<String, String> zh_CN = const {
   "Weekdays/5": "周五",
   "Weekdays/6": "周六",
   "Weekdays/7": "周日",
-  //HomePage
+  // HomePage
   'Messages': '消息',
   'Calendar': '日程',
   'Academic': '学术',
   'Explore': '发现',
   'Me': '我',
-  //Calendar
+  // Calendar
   'Calendar/Classes': '课程',
   'Calendar/Exams': '考试',
   'Calendar/Assignments': '作业',
@@ -23,7 +23,7 @@ const Map<String, String> zh_CN = const {
   'Calendar/SignIn/Finished': '签到成功',
   'Calendar/SignIn/Failed': '签到失败',
   'Calendar/LastUpdate': '最近更新：',
-  //Academic
+  // Academic
   'Academic/WolframEngine/Title': 'Wolfram 知识引擎',
   'Academic/WolframEngine/Caption': '利用强大的 Wolfram 引擎进行搜索',
   'Academic/WolframEngine/InputConstructor': '输入构造器',
@@ -59,12 +59,11 @@ const Map<String, String> zh_CN = const {
   'me/signout': '登出',
   //drawer
   'header/welcome': '您好，',
-  'e-payment': ' E-Payment',
-  'e-payment/login': '登陆 E-Payment',
-  'e-payment/login/content': '请在设置页绑定您的\nE-Payment 密码。',
-  'e-payment/login/go': '前往设置页',
-  'e-payment/status': '状态：',
-  'e-payment/paid': '已支付',
-  'e-payment/unpaid': '未支付',
-  //about
+  // Tools
+  'Tools/EPayment': '电子账单',
+  'Tools/EPayment/NeedLogin': '需要绑定您的电子账单账户',
+  'Tools/EPayment/EPaymentPassword': '电子账单账户密码',
+  'Tools/EPayment/Status': '状态：',
+  'Tools/EPayment/Paid': '已支付',
+  'Tools/EPayment/Unpaid': '未支付',
 };
