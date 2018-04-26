@@ -19,7 +19,7 @@ const Map<String, String> en_US = const {
   'Calendar/Assignments': 'Assignments',
   'Calendar/CalendarImage': 'School Calendar',
   'Calendar/SignIn': 'Sign in',
-  'Calendar/SignIn/Signing': 'Signing',
+  'Calendar/SignIn/Signing': 'OK',
   'Calendar/SignIn/Finished': 'Successful',
   'Calendar/SignIn/Failed': 'Failed',
   'Calendar/LastUpdate': 'Last update: ',
@@ -58,8 +58,8 @@ const Map<String, String> en_US = const {
   //me
   'me': 'Me',
   'me/signout': 'Sign out',
-  //drawer
-  'header/welcome': 'Hello,',
+  // Drawer
+  'Drawer/Header/Welcome': 'Hello,',
   // Tools
   'Tools/EPayment': 'E-Payment',
   'Tools/EPayment/NeedLogin': 'Login your E-Payment account',
@@ -67,4 +67,5 @@ const Map<String, String> en_US = const {
   'Tools/EPayment/Status': 'Status: ',
   'Tools/EPayment/Paid': 'Paid',
   'Tools/EPayment/Unpaid': 'Unpaid',
+  'Tools/ExamResult': 'Exam result',
 };

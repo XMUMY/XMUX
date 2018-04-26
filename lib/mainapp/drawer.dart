@@ -1,99 +1,83 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/translations/translation.dart';
 
-class DrawerPage extends StatefulWidget {
-  DrawerPage({Key key}) : super(key: key);
-
+class DrawerPage extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() => new DrawerPageState();
-}
-
-class DrawerPageState extends State<DrawerPage> {
-  Future _loginEPayment() async {
-    showDialog(
-      context: context,
-      child: new AlertDialog(
-        title: new Text(MainLocalizations.of(context).get("e-payment/login")),
-        content: new Text(
-            MainLocalizations.of(context).get("e-payment/login/content")),
-        actions: <Widget>[
-          new FlatButton(
-            child: new Text(
-                MainLocalizations.of(context).get("e-payment/login/go")),
-            onPressed: () {
-              Navigator.popAndPushNamed(context, "/me");
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new SizedBox(
-      width: 250.0,
-      child: new Drawer(
-        child: new Column(
-          children: <Widget>[
-            new DrawerHeader(
-              child: new FlatButton(
-                onPressed: () {
-                  Navigator.popAndPushNamed(context, "/me");
-                },
-                child: new Row(
+  Widget build(BuildContext context) => SizedBox(
+        width: 250.0,
+        child: Drawer(
+          child: Column(
+            children: <Widget>[
+              DrawerHeader(
+                child: FlatButton(
+                  onPressed: () =>
+                      Navigator.of(context).popAndPushNamed("/Settings"),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.all(10.0),
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(firebaseUser.photoUrl),
+                          radius: 30.0,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          MainLocalizations
+                                  .of(context)
+                                  .get("Drawer/Header/Welcome") +
+                              "\n" +
+                              firebaseUser.displayName,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView(
                   children: <Widget>[
-                    new Container(
-                      margin: const EdgeInsets.all(10.0),
-                      child: new CircleAvatar(
-                        backgroundImage:
-                            new NetworkImage(firebaseUser.photoUrl),
-                        radius: 30.0,
+                    // E-Payment
+                    FlatButton(
+                      onPressed: () =>
+                          Navigator.of(context).popAndPushNamed("/Me/Epayment"),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.credit_card),
+                          Text(" " +
+                              MainLocalizations
+                                  .of(context)
+                                  .get("Tools/EPayment"))
+                        ],
                       ),
                     ),
-                    new Expanded(
-                      child: new Text(
-                        MainLocalizations.of(context).get("header/welcome") +
-                            "\n" +
-                            firebaseUser.displayName,
-                        textAlign: TextAlign.center,
+
+                    // Exam result
+                    FlatButton(
+                      onPressed: () => Navigator
+                          .of(context)
+                          .popAndPushNamed("/Me/ExamResult"),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.local_hospital),
+                          Text(" " +
+                              MainLocalizations
+                                  .of(context)
+                                  .get("Tools/ExamResult"))
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            new Expanded(
-              child: new ListView(
-                children: <Widget>[
-                  new FlatButton(
-                    onPressed: () {
-                      if (mainAppStore.state.settingState.ePaymentPassword !=
-                          null)
-                        Navigator.popAndPushNamed(context, "/tools/epayment");
-                      else
-                        _loginEPayment();
-                    },
-                    child: new Row(
-                      children: <Widget>[
-                        new Icon(Icons.credit_card),
-                        new Text(MainLocalizations.of(context).get("e-payment"))
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class EndDrawer extends StatelessWidget {

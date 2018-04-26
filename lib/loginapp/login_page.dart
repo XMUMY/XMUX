@@ -53,7 +53,7 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.fromLTRB(20.0, 0.0, 35.0, 20.0),
+                margin: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
                 child: Column(
                   children: <Widget>[
                     AnimatedLogo(),

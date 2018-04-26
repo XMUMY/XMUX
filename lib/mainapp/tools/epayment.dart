@@ -86,7 +86,7 @@ class _PaymentPageState extends State<EPaymentPage> {
                     Padding(
                       padding: EdgeInsets.all(30.0),
                       child: Icon(
-                        Icons.hourglass_empty,
+                        Icons.lock_outline,
                         size: 60.0,
                       ),
                     ),

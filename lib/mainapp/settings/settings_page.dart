@@ -13,9 +13,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final TextEditingController _ePaymentPasswordController =
-      new TextEditingController();
-  bool _isProcessing = false;
 
   Future<Null> _deleteData() async {
     Navigator.pop(context);

@@ -30,8 +30,8 @@ class _AnimatedLogoState extends State<AnimatedLogo>
         padding: EdgeInsets.all(10.0),
         child: Image.asset(
           "res/logo.png",
-          height: animation.value * 80.0,
-          width: animation.value * 80.0,
+          height: animation.value * 100.0,
+          width: animation.value * 100.0,
         ),
       );
 }

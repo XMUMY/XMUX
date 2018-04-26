@@ -9,8 +9,6 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/translations/translation.dart';
 
 class GPACalculatorPage extends StatefulWidget {
-  GPACalculatorPage({Key key}) : super(key: key);
-
   @override
   State<StatefulWidget> createState() => new _GPACalculatorPageState();
 }
@@ -40,7 +38,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
         "id": mainAppStore.state.personalInfoState.uid,
         "pass": mainAppStore.state.personalInfoState.password,
       });
-      coursesData = JSON.decode(response.body)["data"];
+      coursesData = jsonDecode(response.body)["data"];
     } catch (e) {
       Scaffold
           .of(context)
@@ -55,7 +53,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
 
   double _calculateGPA() {
     double sum = 0.0;
-    List<double> points = grades.map((grade) => gradePoints[grade]).toList();
+    List points = grades.map((grade) => gradePoints[grade]).toList();
     for (int i = 0; i < coursesData.length; i++)
       sum += points[i] * (coursesCredit[i] / totalPoint);
     return sum;
@@ -87,7 +85,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-            MainLocalizations.of(context).get("academic/gpacalculator/name")),
+            MainLocalizations.of(context).get("Academic/GPACalculator/Name")),
         actions: <Widget>[
           new IconButton(
               icon: new Icon(FontAwesomeIcons.newspaper),

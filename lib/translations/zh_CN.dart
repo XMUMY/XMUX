@@ -19,7 +19,7 @@ const Map<String, String> zh_CN = const {
   'Calendar/Assignments': '作业',
   'Calendar/CalendarImage': '校历',
   'Calendar/SignIn': '签到',
-  'Calendar/SignIn/Signing': '签到中',
+  'Calendar/SignIn/Signing': '登记成功',
   'Calendar/SignIn/Finished': '签到成功',
   'Calendar/SignIn/Failed': '签到失败',
   'Calendar/LastUpdate': '最近更新：',
@@ -57,8 +57,8 @@ const Map<String, String> zh_CN = const {
   //me
   'me': '我',
   'me/signout': '登出',
-  //drawer
-  'header/welcome': '您好，',
+  // Drawer
+  'Drawer/Header/Welcome': '您好，',
   // Tools
   'Tools/EPayment': '电子账单',
   'Tools/EPayment/NeedLogin': '需要绑定您的电子账单账户',
@@ -66,4 +66,5 @@ const Map<String, String> zh_CN = const {
   'Tools/EPayment/Status': '状态：',
   'Tools/EPayment/Paid': '已支付',
   'Tools/EPayment/Unpaid': '未支付',
+  'Tools/ExamResult': '成绩查询',
 };

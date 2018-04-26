@@ -79,7 +79,7 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text(MainLocalizations.of(context).get("messages")),
+          title: new Text(MainLocalizations.of(context).get("Messages")),
           elevation:
               Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
         ),
@@ -118,7 +118,8 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
               child: new IconButton(
                   icon: new Icon(Icons.photo_camera),
                   onPressed: () async {
-                    File imageFile = await ImagePicker.pickImage();
+                    File imageFile = await ImagePicker.pickImage(
+                        source: ImageSource.gallery);
                     int random = new Random().nextInt(100000);
                     StorageReference ref = FirebaseStorage.instance
                         .ref()
@@ -136,10 +137,8 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
                     _isComposing = text.length > 0;
                   });
                 },
-                decoration: new InputDecoration.collapsed(
-                    hintText: MainLocalizations
-                        .of(context)
-                        .get("messages/sendmessage")),
+                decoration:
+                    new InputDecoration.collapsed(hintText: "Send a message"),
               ),
             ),
             new Container(

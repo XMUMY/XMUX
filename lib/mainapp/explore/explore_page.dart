@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/mainapp/explore/room_reservation/room_reservation_page.dart';
 import 'package:xmux/redux/actions.dart';
+import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -17,7 +18,7 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        leading: new StoreConnector(
+        leading: new StoreConnector<MainAppState, VoidCallback>(
           converter: (store) {
             return () => store.dispatch(new OpenDrawerAction(true));
           },
@@ -26,7 +27,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 icon: new Icon(Icons.view_list), onPressed: callback);
           },
         ),
-        title: new Text(MainLocalizations.of(context).get("explore")),
+        title: new Text(MainLocalizations.of(context).get("Explore")),
         backgroundColor: Colors.purple,
       ),
       body: new Center(

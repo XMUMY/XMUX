@@ -14,20 +14,10 @@ class ExamResultPage extends StatefulWidget {
 class _ExamResultPageState extends State<ExamResultPage> {
   var _examResult, _currentSession;
 
-  Future<Null> _getExamResult() async {
-    var response = await http.post(BackendApiConfig.address + "/v2/ac", body: {
-      "id": mainAppStore.state.personalInfoState.uid,
-      "pass": mainAppStore.state.personalInfoState.password,
-    });
-    setState(() {
-      _examResult = JSON.decode(response.body)["data"]["examResult"];
-      _currentSession = _examResult[0];
-    });
-  }
-
   @override
   void initState() {
-    _getExamResult();
+    _examResult=mainAppStore.state.acState.examResult;
+    _currentSession=_examResult[0];
   }
 
   @override
