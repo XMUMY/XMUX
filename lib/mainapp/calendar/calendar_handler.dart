@@ -17,10 +17,10 @@ class CalendarHandler {
       "pass": mainAppStore.state.personalInfoState.password,
     });
 
-    // Check error
+    // Check error.
     if (response.statusCode >= 400) return response.reasonPhrase;
 
-    // Update acState
+    // Update acState.
     if ((jsonDecode(response.body) as Map).isNotEmpty)
       mainAppStore.dispatch(UpdateACAction(jsonDecode(response.body)));
 
@@ -37,23 +37,29 @@ class CalendarHandler {
       "pass": mainAppStore.state.personalInfoState.password,
     });
 
-    // Check error
+    // Check error.
     if (response.statusCode >= 400) return response.reasonPhrase;
 
-    // Update acState
+    // Update acState.
     if ((jsonDecode(response.body) as List).isNotEmpty)
       mainAppStore.dispatch(UpdateAssignmentsAction(jsonDecode(response.body)));
 
     return "success";
   }
 
-  static Future<Null> getIP(BuildContext context) async {
+  static Future<String> getIP(BuildContext context) async {
+    print("CalendarHandler: Getting IP address.");
+
     try {
+      // Invoke method channel.
       final String result =
-          await const MethodChannel('OSUtilities').invokeMethod('getIPAddress');
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text(result)));
-    } on PlatformException catch (_) {
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text("error")));
+          await MethodChannel('OSUtilities').invokeMethod('getIPAddress');
+      print("CalendarHandler: Got IP: $result");
+      return result;
+    } catch (e) {
+      // When error
+      print("CalendarHandler: Get IP error: ${e.toString()}");
+      return null;
     }
   }
 }
