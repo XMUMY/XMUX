@@ -35,7 +35,9 @@ const Map<String, String> en_US = const {
   'Academic/WolframEngine/Result': 'Search Result',
   'Academic/GPACalculator/Name': 'GPA Calculator',
   'Academic/GPACalculator/Caption': 'Calculate your GPA easily',
-  //explore
+  // Explore
+  'Warning':
+      ' Warning! These functions are still under developing. Room reservation only available when connected to the campus network.',
   'lostandfound': 'Lost and Found',
   'lostandfound/location': 'Location : ',
   'lostandfound/things': 'Things : ',
@@ -55,11 +57,15 @@ const Map<String, String> en_US = const {
   'lostandfound/create/location': 'Detail Location',
   'lostandfound/create/detail': 'Details',
   'roomreservation': 'Room reservation',
-  //me
-  'me': 'Me',
-  'me/signout': 'Sign out',
-  // Drawer
-  'Drawer/Header/Welcome': 'Hello,',
+  // Settings
+  'Settings': 'Settings',
+  'Settings/SignOut': 'Sign out',
+  'Settings/ChangeDisplayName': 'Change display name',
+  'Settings/ChangeDisplayName/Caption':
+      'You can change your display name here, new name will be available after restart the app.',
+  'Settings/ChangeDisplayName/Input': 'Input your new display name',
+  // Me
+  'Me/Header/Welcome': 'Hello,',
   // Tools
   'Tools/EPayment': 'E-Payment',
   'Tools/EPayment/NeedLogin': 'Login your E-Payment account',

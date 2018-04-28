@@ -34,7 +34,8 @@ const Map<String, String> zh_CN = const {
   'Academic/WolframEngine/Result': '搜索结果',
   'Academic/GPACalculator/Name': 'GPA 计算器',
   'Academic/GPACalculator/Caption': '轻松计算平均学分绩点',
-  //explore
+  // Explore
+  'Warning': '警告：这些功能尚在试验阶段，它们可能不太稳定，教室预定仅在连接校园网情况下可用。',
   'lostandfound': '失物招领',
   'lostandfound/location': '地点：',
   'lostandfound/things': '物件：',
@@ -54,11 +55,14 @@ const Map<String, String> zh_CN = const {
   'lostandfound/create/location': '详细地点',
   'lostandfound/create/detail': '详情',
   'roomreservation': '教室预定',
-  //me
-  'me': '我',
-  'me/signout': '登出',
-  // Drawer
-  'Drawer/Header/Welcome': '您好，',
+  // Settings
+  'Settings': '设置',
+  'Settings/SignOut': '登出',
+  'Settings/ChangeDisplayName': '更改昵称',
+  'Settings/ChangeDisplayName/Caption': '您可以在此更改昵称，新的昵称将在重启应用后生效。',
+  'Settings/ChangeDisplayName/Input': '请输入您的昵称',
+  // Me
+  'Me/Header/Welcome': '您好，',
   // Tools
   'Tools/EPayment': '电子账单',
   'Tools/EPayment/NeedLogin': '需要绑定您的电子账单账户',

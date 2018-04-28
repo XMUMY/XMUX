@@ -1,65 +1,69 @@
-import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/loginapp/login_app.dart';
-import 'package:xmux/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends StatelessWidget {
+  Widget _getSimpleSettingWidget(
+          {@required BuildContext context,
+          @required String name,
+          String route,
+          VoidCallback callback}) =>
+      FlatButton(
+        onPressed: route == null
+            ? callback
+            : () => Navigator.pushNamed(context, route),
+        child: Row(
+          children: <Widget>[
+            Text(
+              MainLocalizations.of(context).get(name),
+            ),
+          ],
+        ),
+      );
+
   @override
-  _SettingsPageState createState() => new _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-
-  Future<Null> _deleteData() async {
-    Navigator.pop(context);
-    FirebaseAuth.instance.signOut();
-    mainAppStore.dispatch(new LogoutAction());
-    runApp(new LoginApp());
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(MainLocalizations.of(context).get("me")),
-      ),
-      body: new Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          new CircleAvatar(
-            radius: 30.0,
-            backgroundImage: new NetworkImage(firebaseUser.photoUrl),
-          ),
-          new Divider(
-            height: 15.0,
-            color: Theme.of(context).canvasColor,
-          ),
-          new Text(firebaseUser.displayName),
-          new Divider(
-            height: 10.0,
-            color: Theme.of(context).canvasColor,
-          ),
-          new Container(
-            margin: const EdgeInsets.all(10.0),
-            child: new FlatButton(
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(MainLocalizations.of(context).get("Settings")),
+        ),
+        body: ListView(
+          padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                CircleAvatar(
+                  radius: 30.0,
+                  backgroundImage: NetworkImage(firebaseUser.photoUrl),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(5.0),
+                ),
+                Text(firebaseUser.displayName),
+                Padding(
+                  padding: EdgeInsets.all(5.0),
+                ),
+              ],
+            ),
+            Divider(),
+            _getSimpleSettingWidget(
+                context: context,
+                route: "/Settings/ChangeDisplayName",
+                name: "Settings/ChangeDisplayName"),
+            Divider(),
+            FlatButton(
               color: Theme.of(context).splashColor,
-              child: new Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  new Text(
-                      MainLocalizations.of(context).get("me/signout") + " "),
-                  new Icon(Icons.exit_to_app),
+                  Text(MainLocalizations.of(context).get("Settings/SignOut")),
+                  Icon(Icons.exit_to_app),
                 ],
               ),
-              onPressed: _deleteData,
+              onPressed: signOut,
             ),
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      );
 }
