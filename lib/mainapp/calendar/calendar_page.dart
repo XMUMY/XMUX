@@ -25,6 +25,9 @@ class CalendarPage extends StatelessWidget {
               actions: <Widget>[
                 IconButton(
                     icon: Icon(FontAwesomeIcons.calendarAltO),
+                    tooltip: MainLocalizations
+                        .of(context)
+                        .get("Calendar/CalendarImage"),
                     onPressed: () {
                       Navigator
                           .of(context)

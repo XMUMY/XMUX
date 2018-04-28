@@ -43,7 +43,7 @@ class _ExplorePageState extends State<ExplorePage> {
                       new Container(
                         width: MediaQuery.of(context).size.width - 50.0,
                         child: new Text(
-                            "Warning! These functions are still under developing. Room reservation only available when connected to the campus network."),
+                            MainLocalizations.of(context).get("Warning")),
                       ),
                     ],
                   ),

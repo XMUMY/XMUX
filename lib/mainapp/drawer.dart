@@ -28,7 +28,7 @@ class DrawerPage extends StatelessWidget {
                         child: Text(
                           MainLocalizations
                                   .of(context)
-                                  .get("Drawer/Header/Welcome") +
+                                  .get("Me/Header/Welcome") +
                               "\n" +
                               firebaseUser.displayName,
                           textAlign: TextAlign.center,

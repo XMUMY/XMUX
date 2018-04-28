@@ -12,6 +12,7 @@ class WolframConfig {
 class BackendApiConfig {
   static final address = "";
   static final resourceAddress = "";
+  static const signInAddress = "";
 }
 
 final ThemeData iOSTheme = new ThemeData(
@@ -23,7 +24,8 @@ final ThemeData iOSTheme = new ThemeData(
 
 final ThemeData defaultTheme = new ThemeData(
   primarySwatch: Colors.cyan,
-  primaryColor: Colors.cyan[600],
-  accentColor: Colors.lightGreen,
+  primaryColorBrightness: Brightness.dark,
+  accentColor: Colors.purpleAccent,
+  accentColorBrightness: Brightness.dark,
   buttonColor: Colors.lightBlue,
 );

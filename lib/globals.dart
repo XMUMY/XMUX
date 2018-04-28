@@ -7,15 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/loginapp/login_app.dart';
+import 'package:xmux/redux/actions.dart';
 import 'package:xmux/redux/middleware.dart';
 import 'package:xmux/redux/reducers/main_reducer.dart';
 import 'package:xmux/redux/state.dart';
 
-final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
+final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
 FirebaseUser firebaseUser;
 
-final Store<MainAppState> mainAppStore = new Store<MainAppState>(mainAppReducer,
-    initialState: new MainAppState(), middleware: [saveMiddleware]);
+final Store<MainAppState> mainAppStore = Store<MainAppState>(mainAppReducer,
+    initialState: MainAppState(), middleware: [saveMiddleware]);
 
 class BackendApiHandler {
   static Future<http.Response> post(
@@ -58,26 +60,26 @@ class EmptyErrorPage extends StatelessWidget {
       : this.onRefresh = onRefresh ?? (() {});
 
   @override
-  Widget build(BuildContext context) => new Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: new Card(
-          child: new FlatButton(
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.all(20.0),
+        child: Card(
+          child: FlatButton(
             onPressed: onRefresh,
-            child: new Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new Icon(
+                Icon(
                   Icons.hourglass_empty,
                   size: 50.0,
                   color: Theme.of(context).errorColor,
                 ),
-                new Padding(padding: const EdgeInsets.all(10.0)),
-                new Text(
+                Padding(padding: EdgeInsets.all(10.0)),
+                Text(
                   "Oh! Nothing is here!\nPlease refresh or come later.",
                   textAlign: TextAlign.center,
                 ),
-                new Padding(padding: const EdgeInsets.all(10.0)),
-                new Text(
+                Padding(padding: EdgeInsets.all(10.0)),
+                Text(
                   "噢！这里什么也没有！\n请刷新或稍后再来。",
                   textAlign: TextAlign.center,
                 )
@@ -86,4 +88,10 @@ class EmptyErrorPage extends StatelessWidget {
           ),
         ),
       );
+}
+
+Future<Null> signOut() async {
+  await FirebaseAuth.instance.signOut();
+  mainAppStore.dispatch(LogoutAction());
+  runApp(LoginApp());
 }

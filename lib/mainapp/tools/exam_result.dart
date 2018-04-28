@@ -1,10 +1,6 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/translations/translation.dart';
 
 class ExamResultPage extends StatefulWidget {
   @override
@@ -16,14 +12,15 @@ class _ExamResultPageState extends State<ExamResultPage> {
 
   @override
   void initState() {
-    _examResult=mainAppStore.state.acState.examResult;
-    _currentSession=_examResult[0];
+    _examResult = mainAppStore.state.acState.examResult;
+    _currentSession = _examResult[0];
   }
 
   @override
   Widget build(BuildContext context) => new Scaffold(
         appBar: new AppBar(
-          title: new Text("Exam Result"),
+          title:
+              new Text(MainLocalizations.of(context).get("Tools/ExamResult")),
         ),
         body: _examResult != null
             ? new ListView(

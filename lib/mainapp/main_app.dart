@@ -3,14 +3,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/tools/exam_result.dart';
 import 'package:xmux/mainapp/academic/gpa_calculator.dart';
 import 'package:xmux/mainapp/academic/wolfram_engine/input_constructor.dart';
 import 'package:xmux/mainapp/calendar/calendar_image.dart';
 import 'package:xmux/mainapp/explore/lost_and_found/lost_and_found_page.dart';
 import 'package:xmux/mainapp/main_page.dart';
+import 'package:xmux/mainapp/settings/change_display_name.dart';
 import 'package:xmux/mainapp/settings/settings_page.dart';
 import 'package:xmux/mainapp/tools/epayment.dart';
+import 'package:xmux/mainapp/tools/exam_result.dart';
 import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -37,6 +38,8 @@ class MainApp extends StatelessWidget {
             '/Me/Epayment': (BuildContext context) => EPaymentPage(),
             '/Me/ExamResult': (BuildContext context) => ExamResultPage(),
             '/Settings': (BuildContext context) => SettingsPage(),
+            '/Settings/ChangeDisplayName': (BuildContext context) =>
+                new ChangeDisplayNamePage(),
 
             // old.
             "/wolframengine/constructor": (BuildContext context) =>
