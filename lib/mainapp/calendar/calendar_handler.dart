@@ -17,6 +17,12 @@ class CalendarHandler {
       "pass": mainAppStore.state.personalInfoState.password,
     });
 
+    // Check password error.
+    if (response.statusCode == 500) {
+      signOut();
+      return "error";
+    }
+
     // Check error.
     if (response.statusCode >= 400) return response.reasonPhrase;
 
