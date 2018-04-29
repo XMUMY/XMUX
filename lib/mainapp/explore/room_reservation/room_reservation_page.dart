@@ -8,10 +8,10 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/translations/translation.dart';
 
 class RoomWebviewPage extends StatefulWidget {
-  final flutterWebviewPlugin = new FlutterWebviewPlugin();
+  final flutterWebviewPlugin = FlutterWebviewPlugin();
 
   @override
-  State<StatefulWidget> createState() => new _RoomWebviewPageState();
+  State<StatefulWidget> createState() => _RoomWebviewPageState();
 }
 
 class _RoomWebviewPageState extends State<RoomWebviewPage> {
@@ -34,8 +34,7 @@ class _RoomWebviewPageState extends State<RoomWebviewPage> {
     urlListener = widget.flutterWebviewPlugin.onUrlChanged.listen((url) {
       widget.flutterWebviewPlugin.evalJavascript("""
         window.xmuxAuth = { id: '${mainAppStore.state.personalInfoState.uid}', 
-                            pass: '${mainAppStore.state.personalInfoState
-          .password}' };
+                            pass: '${mainAppStore.state.personalInfoState.password}' };
       """);
       widget.flutterWebviewPlugin.evalJavascript("""
         'use strict'; (() => {
@@ -56,22 +55,20 @@ class _RoomWebviewPageState extends State<RoomWebviewPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return new WebviewScaffold(
-      appBar: new AppBar(
-        title: new Text(MainLocalizations.of(context).get("roomreservation")),
-        actions: <Widget>[
-          new IconButton(
-            icon: new Icon(FontAwesomeIcons.table),
-            onPressed: _changeToRooms,
-          ),
-          new IconButton(
-            icon: new Icon(Icons.person),
-            onPressed: _changeToMe,
-          ),
-        ],
-      ),
-      url: "http://rooms.xmu.edu.my/user",
-    );
-  }
+  Widget build(BuildContext context) => WebviewScaffold(
+        appBar: AppBar(
+          title: Text(MainLocalizations.of(context).get("roomreservation")),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(FontAwesomeIcons.table),
+              onPressed: _changeToRooms,
+            ),
+            IconButton(
+              icon: Icon(Icons.person),
+              onPressed: _changeToMe,
+            ),
+          ],
+        ),
+        url: "http://rooms.xmu.edu.my/user",
+      );
 }
