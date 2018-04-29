@@ -71,4 +71,5 @@ const Map<String, String> zh_CN = const {
   'Tools/EPayment/Paid': '已支付',
   'Tools/EPayment/Unpaid': '未支付',
   'Tools/ExamResult': '成绩查询',
+  'Tools/ExamResult/ChooseSession': '请选择一个学期：',
 };

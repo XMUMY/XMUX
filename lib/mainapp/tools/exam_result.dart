@@ -4,7 +4,7 @@ import 'package:xmux/translations/translation.dart';
 
 class ExamResultPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _ExamResultPageState();
+  State<StatefulWidget> createState() => _ExamResultPageState();
 }
 
 class _ExamResultPageState extends State<ExamResultPage> {
@@ -14,20 +14,22 @@ class _ExamResultPageState extends State<ExamResultPage> {
   void initState() {
     _examResult = mainAppStore.state.acState.examResult;
     _currentSession = _examResult[0];
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) => new Scaffold(
-        appBar: new AppBar(
-          title:
-              new Text(MainLocalizations.of(context).get("Tools/ExamResult")),
+        appBar: AppBar(
+          title: Text(MainLocalizations.of(context).get("Tools/ExamResult")),
         ),
         body: _examResult != null
             ? new ListView(
                 children: <Widget>[
                   new ListTile(
                     title: new Text(
-                      "Choose an academic session:",
+                      MainLocalizations
+                          .of(context)
+                          .get("Tools/ExamResult/ChooseSession"),
                       style: Theme.of(context).textTheme.subhead,
                     ),
                     trailing: new DropdownButton(
@@ -92,14 +94,12 @@ class _ExamResultPageState extends State<ExamResultPage> {
                   ),
                 ],
               )
-            : new Center(
-                child: new CircularProgressIndicator(),
-              ),
+            : new EmptyErrorPage(),
       );
 }
 
 class _CourseResultUI extends StatelessWidget {
-  Map _courseResult;
+  final Map _courseResult;
 
   _CourseResultUI(this._courseResult);
 

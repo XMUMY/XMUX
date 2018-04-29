@@ -31,7 +31,7 @@ class MessagePage extends StatelessWidget {
           new Container(
             child: new HomeSlider(context),
             width: MediaQuery.of(context).size.width,
-            height: 200.0,
+            height: MediaQuery.of(context).size.width / 18 * 9,
           ),
           new Container(
             margin: const EdgeInsets.fromLTRB(5.0, 3.0, 5.0, 0.0),

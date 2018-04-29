@@ -74,4 +74,5 @@ const Map<String, String> en_US = const {
   'Tools/EPayment/Paid': 'Paid',
   'Tools/EPayment/Unpaid': 'Unpaid',
   'Tools/ExamResult': 'Exam result',
+  'Tools/ExamResult/ChooseSession': 'Choose an academic session:',
 };
