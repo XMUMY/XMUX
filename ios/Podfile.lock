@@ -1,0 +1,174 @@
+PODS:
+  - Firebase/Auth (4.13.0):
+    - Firebase/Core
+    - FirebaseAuth (= 4.6.1)
+  - Firebase/Core (4.13.0):
+    - FirebaseAnalytics (= 4.2.0)
+    - FirebaseCore (= 4.0.20)
+  - Firebase/Database (4.13.0):
+    - Firebase/Core
+    - FirebaseDatabase (= 4.1.5)
+  - Firebase/Messaging (4.13.0):
+    - Firebase/Core
+    - FirebaseMessaging (= 2.2.0)
+  - Firebase/Storage (4.13.0):
+    - Firebase/Core
+    - FirebaseStorage (= 2.2.0)
+  - firebase_auth (0.0.1):
+    - Firebase/Auth
+    - Firebase/Core
+    - Flutter
+  - firebase_core (0.0.1):
+    - Firebase/Core
+    - Flutter
+  - firebase_database (0.0.1):
+    - Firebase/Database
+    - Flutter
+  - firebase_messaging (0.0.1):
+    - Firebase/Core
+    - Firebase/Messaging
+    - Flutter
+  - firebase_storage (0.0.1):
+    - Firebase/Storage
+    - Flutter
+  - FirebaseAnalytics (4.2.0):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - nanopb (~> 0.3)
+  - FirebaseAuth (4.6.1):
+    - FirebaseAnalytics (~> 4.2)
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCore (4.0.20):
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseDatabase (4.1.5):
+    - FirebaseAnalytics (~> 4.1)
+    - FirebaseCore (~> 4.0)
+    - leveldb-library (~> 1.18)
+  - FirebaseInstanceID (2.0.10):
+    - FirebaseCore (~> 4.0)
+  - FirebaseMessaging (2.2.0):
+    - FirebaseAnalytics (~> 4.1)
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - Protobuf (~> 3.5)
+  - FirebaseStorage (2.2.0):
+    - FirebaseAnalytics (~> 4.1)
+    - FirebaseCore (~> 4.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - Flutter (1.0.0)
+  - flutter_webview_plugin (0.0.1):
+    - Flutter
+  - GoogleToolboxForMac/DebugUtils (2.1.4):
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+  - GoogleToolboxForMac/Defines (2.1.4)
+  - GoogleToolboxForMac/Logger (2.1.4):
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+  - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.4)":
+    - GoogleToolboxForMac/DebugUtils (= 2.1.4)
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
+  - GTMSessionFetcher/Core (1.1.15)
+  - image_picker (0.0.1):
+    - Flutter
+  - leveldb-library (1.20)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
+  - path_provider (0.0.1):
+    - Flutter
+  - Protobuf (3.5.0)
+  - shared_preferences (0.0.1):
+    - Flutter
+  - url_launcher (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - firebase_auth (from `Pods/.symlinks/plugins/firebase_auth/ios`)
+  - firebase_core (from `Pods/.symlinks/plugins/firebase_core/ios`)
+  - firebase_database (from `Pods/.symlinks/plugins/firebase_database/ios`)
+  - firebase_messaging (from `Pods/.symlinks/plugins/firebase_messaging/ios`)
+  - firebase_storage (from `Pods/.symlinks/plugins/firebase_storage/ios`)
+  - Flutter (from `Pods/.symlinks/flutter/ios-release`)
+  - flutter_webview_plugin (from `Pods/.symlinks/plugins/flutter_webview_plugin/ios`)
+  - image_picker (from `Pods/.symlinks/plugins/image_picker/ios`)
+  - path_provider (from `Pods/.symlinks/plugins/path_provider/ios`)
+  - shared_preferences (from `Pods/.symlinks/plugins/shared_preferences/ios`)
+  - url_launcher (from `Pods/.symlinks/plugins/url_launcher/ios`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseDatabase
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - FirebaseStorage
+    - GoogleToolboxForMac
+    - GTMSessionFetcher
+    - leveldb-library
+    - nanopb
+    - Protobuf
+
+EXTERNAL SOURCES:
+  firebase_auth:
+    :path: Pods/.symlinks/plugins/firebase_auth/ios
+  firebase_core:
+    :path: Pods/.symlinks/plugins/firebase_core/ios
+  firebase_database:
+    :path: Pods/.symlinks/plugins/firebase_database/ios
+  firebase_messaging:
+    :path: Pods/.symlinks/plugins/firebase_messaging/ios
+  firebase_storage:
+    :path: Pods/.symlinks/plugins/firebase_storage/ios
+  Flutter:
+    :path: Pods/.symlinks/flutter/ios-release
+  flutter_webview_plugin:
+    :path: Pods/.symlinks/plugins/flutter_webview_plugin/ios
+  image_picker:
+    :path: Pods/.symlinks/plugins/image_picker/ios
+  path_provider:
+    :path: Pods/.symlinks/plugins/path_provider/ios
+  shared_preferences:
+    :path: Pods/.symlinks/plugins/shared_preferences/ios
+  url_launcher:
+    :path: Pods/.symlinks/plugins/url_launcher/ios
+
+SPEC CHECKSUMS:
+  Firebase: 5ec5e863d269d82d66b4bf56856726f8fb8f0fb3
+  firebase_auth: 27a5a77a032d557c18f8e223aaf8ec1368f6cdbc
+  firebase_core: c96aa8b2fcf7f5167d32f22034f502f9304952b8
+  firebase_database: dd62ab9f71967c9011ce2fd03a89e762dcc364df
+  firebase_messaging: a5f5d4a9491b660f33a1f94bd0596558f820bad1
+  firebase_storage: e34d30ff8bb57e691191b70e9d255ec2eba2351f
+  FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
+  FirebaseAuth: bf22cacf22c60ab454bf2636f556d8892b10b53f
+  FirebaseCore: 90cb1c53d69b556f112a1bf72b5fcfaad7650790
+  FirebaseDatabase: 5f0bc6134c5c237cf55f9e1249d406770a75eafd
+  FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
+  FirebaseMessaging: 75cdb862e86c30e0913a2ff307e48d49357c5b73
+  FirebaseStorage: 0c223481c8f89ed300cf1239ddd2d9833622c65f
+  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  flutter_webview_plugin: 116575b48572029304775b768e9f15ebfc316274
+  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
+  GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
+  image_picker: ee00aab0487cedc80a304085219503cc6d0f2e22
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  path_provider: 09407919825bfe3c2deae39453b7a5b44f467873
+  Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
+  shared_preferences: 5a1d487c427ee18fcd3ea1f2a131569481834b53
+  url_launcher: 92b89c1029a0373879933c21642958c874539095
+
+PODFILE CHECKSUM: ea0518673586564c605fb6593d385c0e3708ff8d
+
+COCOAPODS: 1.5.0
