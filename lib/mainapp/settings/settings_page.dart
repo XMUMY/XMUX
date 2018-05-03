@@ -35,12 +35,12 @@ class SettingsPage extends StatelessWidget {
               children: <Widget>[
                 CircleAvatar(
                   radius: 30.0,
-                  backgroundImage: NetworkImage(firebaseUser.photoUrl),
+                  backgroundImage: NetworkImage(firebaseUser?.photoUrl ?? ""),
                 ),
                 Padding(
                   padding: EdgeInsets.all(5.0),
                 ),
-                Text(firebaseUser.displayName),
+                Text(firebaseUser?.displayName ?? "User"),
                 Padding(
                   padding: EdgeInsets.all(5.0),
                 ),

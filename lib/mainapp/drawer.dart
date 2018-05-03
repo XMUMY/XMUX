@@ -20,7 +20,8 @@ class DrawerPage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.all(10.0),
                         child: CircleAvatar(
-                          backgroundImage: NetworkImage(firebaseUser.photoUrl),
+                          backgroundImage:
+                              NetworkImage(firebaseUser?.photoUrl ?? ""),
                           radius: 30.0,
                         ),
                       ),
@@ -30,7 +31,7 @@ class DrawerPage extends StatelessWidget {
                                   .of(context)
                                   .get("Me/Header/Welcome") +
                               "\n" +
-                              firebaseUser.displayName,
+                              (firebaseUser?.displayName ?? "User"),
                           textAlign: TextAlign.center,
                         ),
                       ),

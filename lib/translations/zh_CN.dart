@@ -32,6 +32,8 @@ const Map<String, String> zh_CN = const {
   'Academic/WolframEngine/InputConstructor/Choose': '请选择',
   'Academic/WolframEngine/InputConstructor/ClearAll': '清零',
   'Academic/WolframEngine/Result': '搜索结果',
+  'Academic/GeoGebra/Title': 'GeoGebra 动态数学',
+  'Academic/GeoGebra/Caption': '使用 GeoGebra 进行数学解算和绘图',
   'Academic/GPACalculator/Name': 'GPA 计算器',
   'Academic/GPACalculator/Caption': '轻松计算平均学分绩点',
   // Explore

@@ -5,7 +5,7 @@ import 'package:xmux/translations/translation.dart';
 
 class ChangeDisplayNamePage extends StatelessWidget {
   final _displayNameController =
-      TextEditingController(text: firebaseUser.displayName);
+      TextEditingController(text: firebaseUser?.displayName ?? "User");
 
   @override
   Widget build(BuildContext context) => Scaffold(

@@ -33,6 +33,8 @@ const Map<String, String> en_US = const {
   'Academic/WolframEngine/InputConstructor/Choose': 'Choose',
   'Academic/WolframEngine/InputConstructor/ClearAll': 'Clear all',
   'Academic/WolframEngine/Result': 'Search Result',
+  'Academic/GeoGebra/Title': 'GeoGebra',
+  'Academic/GeoGebra/Caption': ' Solve & plot by GeoGebra dynamic mathematics',
   'Academic/GPACalculator/Name': 'GPA Calculator',
   'Academic/GPACalculator/Caption': 'Calculate your GPA easily',
   // Explore

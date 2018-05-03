@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/mainapp/academic/geogebra.dart';
 import 'package:xmux/mainapp/academic/gpa_calculator.dart';
 import 'package:xmux/mainapp/academic/wolfram_engine/input_constructor.dart';
 import 'package:xmux/mainapp/calendar/calendar_image.dart';
@@ -29,6 +30,7 @@ class MainApp extends StatelessWidget {
           routes: <String, WidgetBuilder>{
             '/Academic/WolframEngine': (BuildContext context) =>
                 InputConstructor(),
+            '/Academic/GeoGebra': (BuildContext context) => GeoGebraPage(),
             '/Academic/GPACalculator': (BuildContext context) =>
                 GPACalculatorPage(),
             '/Calendar/CalendarImage': (BuildContext context) =>

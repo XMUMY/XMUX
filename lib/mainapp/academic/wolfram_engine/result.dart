@@ -19,11 +19,13 @@ class WolframResult extends StatelessWidget {
           shrinkWrap: true,
           padding: EdgeInsets.all(1.0),
           children: <Widget>[
-            Image.network("http://api.wolframalpha.com/v1/simple?appid=" +
-                WolframConfig.appID +
-                "&i=" +
-                Uri.encodeComponent(inputString) +
-                "&fontsize=18&width=400"),
+            Stack(
+              children: <Widget>[
+                LinearProgressIndicator(),
+                Image.network(
+                    "http://api.wolframalpha.com/v1/simple?appid=${WolframConfig.appID}&i=${Uri.encodeComponent(inputString)}&fontsize=18&width=${MediaQuery.of(context).size.width}"),
+              ],
+            )
           ],
         ),
       );

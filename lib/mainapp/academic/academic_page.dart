@@ -30,6 +30,15 @@ class AcademicPage extends StatelessWidget {
               route: "/Academic/WolframEngine",
             ),
             _AcademicPageCard(
+              title:
+                  MainLocalizations.of(context).get("Academic/GeoGebra/Title"),
+              caption: MainLocalizations
+                  .of(context)
+                  .get("Academic/GeoGebra/Caption"),
+              image: "res/academic/geogebra.png",
+              route: "/Academic/GeoGebra",
+            ),
+            _AcademicPageCard(
               title: MainLocalizations
                   .of(context)
                   .get("Academic/GPACalculator/Name"),
@@ -54,45 +63,39 @@ class _AcademicPageCard extends StatelessWidget {
       @required this.route});
 
   @override
-  Widget build(BuildContext context) => Container(
-        margin: EdgeInsets.fromLTRB(5.0, 3.0, 5.0, 0.0),
-        child: Card(
-          child: MaterialButton(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 20.0),
-                child: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      image,
-                      height: 66.0,
-                      width: 66.0,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            title,
-                            style: Theme.of(context).textTheme.title,
-                          ),
-                          Divider(
-                            height: 5.0,
-                            color: Theme.of(context).canvasColor,
-                          ),
-                          Text(
-                            caption,
-                            style: Theme.of(context).textTheme.caption,
-                            textAlign: TextAlign.center,
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+  Widget build(BuildContext context) => Card(
+        margin: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+        child: MaterialButton(
+            padding: EdgeInsets.all(20.0),
+            child: Row(
+              children: <Widget>[
+                Image.asset(
+                  image,
+                  height: 66.0,
+                  width: 66.0,
                 ),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, route);
-              }),
-        ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        title,
+                        style: Theme.of(context).textTheme.title,
+                      ),
+                      Divider(
+                        height: 5.0,
+                        color: Theme.of(context).canvasColor,
+                      ),
+                      Text(
+                        caption,
+                        style: Theme.of(context).textTheme.caption,
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () => Navigator.pushNamed(context, route)),
       );
 }
