@@ -11,8 +11,16 @@ class CalendarImagePage extends StatelessWidget {
           title:
               Text(MainLocalizations.of(context).get("Calendar/CalendarImage")),
         ),
-        body:
-            ZoomableImage(CachedNetworkImageProvider("https://${BackendApiConfig
-              .resourceAddress}/image/cal_undergraduate.jpg"), scale: 1.5),
+        body: Builder(
+          builder: (_) => new ZoomableImage(
+              new CachedNetworkImageProvider(
+                "https://${BackendApiConfig
+            .resourceAddress}/image/cal_undergraduate.jpg",
+                errorListener: () => Scaffold
+                    .of(context)
+                    .showSnackBar(SnackBar(content: Text("Failed to load."))),
+              ),
+              scale: 1.5),
+        ),
       );
 }
