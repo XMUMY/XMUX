@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class AppInfo {
   static final version = "";
   static final build = 0;
+   static const demoUsername = "";
+   static const demoPassword = "";
 }
 
 class WolframConfig {
