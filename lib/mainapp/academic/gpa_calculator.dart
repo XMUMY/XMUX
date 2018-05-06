@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
@@ -70,7 +69,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
 
   @override
   void initState() {
-    _getCourses().then((Null) {
+    _getCourses().then((_) {
       for (int i = 0; i < coursesData.length; i++) {
         grades.add("A");
         coursesCredit.add(int.parse(coursesData[i]["Credit"]));
@@ -78,22 +77,15 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
       }
       setState(() {});
     });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(
+      appBar: AppBar(
+        title: Text(
             MainLocalizations.of(context).get("Academic/GPACalculator/Name")),
-        actions: <Widget>[
-          new IconButton(
-              icon: new Icon(FontAwesomeIcons.newspaper),
-              onPressed: () {
-                Navigator.pushNamed(
-                    context, "/acdemic/gpacalculator/examresult");
-              })
-        ],
       ),
       body: coursesData == null
           ? new Center(
@@ -110,7 +102,8 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           new Text(
-                            "Your GPA : " + _calculateGPA().toStringAsFixed(1),
+                            "Current GPA : " +
+                                _calculateGPA().toStringAsFixed(1),
                             style: Theme
                                 .of(context)
                                 .textTheme
