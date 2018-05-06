@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/main.dart';
 import 'package:xmux/redux/actions.dart';
 
 class CalendarHandler {

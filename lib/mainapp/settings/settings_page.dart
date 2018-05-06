@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/main.dart';
 import 'package:xmux/translations/translation.dart';
 
 class SettingsPage extends StatelessWidget {

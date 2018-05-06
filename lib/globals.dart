@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/loginapp/login_app.dart';
-import 'package:xmux/redux/actions.dart';
 import 'package:xmux/redux/middleware.dart';
 import 'package:xmux/redux/reducers/main_reducer.dart';
 import 'package:xmux/redux/state.dart';
@@ -88,10 +86,4 @@ class EmptyErrorPage extends StatelessWidget {
           ),
         ),
       );
-}
-
-Future<Null> signOut() async {
-  await FirebaseAuth.instance.signOut();
-  mainAppStore.dispatch(LogoutAction());
-  runApp(LoginApp());
 }
