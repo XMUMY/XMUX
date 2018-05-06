@@ -34,6 +34,7 @@ class _LoginButtonState extends State<LoginButton>
       return;
     }
 
+    // Demo login.
     if (widget._usernameController.text == AppInfo.demoUsername &&
         widget._passwordController.text == AppInfo.demoPassword) {
       runApp(MainApp());

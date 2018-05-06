@@ -47,11 +47,12 @@ class _HomePageState extends State<HomePage> {
         body: Stack(
           children: <Widget>[
             Offstage(
-                offstage: _currentIndex != 0,
-                child: TickerMode(
-                  enabled: _currentIndex == 0,
-                  child: MessagePage(),
-                )),
+              offstage: _currentIndex != 0,
+              child: TickerMode(
+                enabled: _currentIndex == 0,
+                child: MessagePage(),
+              ),
+            ),
             Offstage(
               offstage: _currentIndex != 1,
               child: CalendarPage(),
@@ -60,14 +61,22 @@ class _HomePageState extends State<HomePage> {
               offstage: _currentIndex != 2,
               child: TickerMode(
                 enabled: _currentIndex == 2,
-                child: AcademicPage(),
+                child: Theme(
+                  data: Theme
+                      .of(context)
+                      .copyWith(primaryColor: Colors.lightBlue),
+                  child: AcademicPage(),
+                ),
               ),
             ),
             Offstage(
               offstage: _currentIndex != 3,
               child: TickerMode(
                 enabled: _currentIndex == 3,
-                child: ExplorePage(),
+                child: Theme(
+                  data: Theme.of(context).copyWith(primaryColor: Colors.purple),
+                  child: ExplorePage(),
+                ),
               ),
             ),
           ],
@@ -89,12 +98,16 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
               title: Text(MainLocalizations.of(context).get("Academic")),
               icon: Icon(Icons.explore),
-              backgroundColor: Colors.lightBlue,
+              backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Theme.of(context).primaryColor
+                  : Colors.lightBlue,
             ),
             BottomNavigationBarItem(
               title: Text(MainLocalizations.of(context).get("Explore")),
               icon: Icon(Icons.search),
-              backgroundColor: Colors.purple,
+              backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Theme.of(context).primaryColor
+                  : Colors.purple,
             ),
           ],
           currentIndex: _currentIndex,

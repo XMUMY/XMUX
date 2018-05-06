@@ -25,7 +25,7 @@ class MessagePage extends StatelessWidget {
               ),
         ),
         title: new Text(MainLocalizations.of(context).get("Messages")),
-        elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
+//        elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
       ),
       body: new ListView(
         children: <Widget>[

@@ -28,7 +28,6 @@ class _ExplorePageState extends State<ExplorePage> {
           },
         ),
         title: new Text(MainLocalizations.of(context).get("Explore")),
-        backgroundColor: Colors.purple,
       ),
       body: new Center(
         child: new Column(

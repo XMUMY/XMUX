@@ -15,7 +15,6 @@ class AcademicPage extends StatelessWidget {
                 IconButton(icon: Icon(Icons.view_list), onPressed: callback),
           ),
           title: Text(MainLocalizations.of(context).get("Academic")),
-          backgroundColor: Colors.lightBlue,
         ),
         body: ListView(
           children: <Widget>[
