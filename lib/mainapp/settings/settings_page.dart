@@ -34,9 +34,12 @@ class SettingsPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                CircleAvatar(
-                  radius: 30.0,
-                  backgroundImage: NetworkImage(firebaseUser?.photoUrl ?? ""),
+                Hero(
+                  tag: "user-avatar",
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(firebaseUser?.photoUrl ?? ""),
+                    radius: 30.0,
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(5.0),
