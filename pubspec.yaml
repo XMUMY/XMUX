@@ -22,7 +22,7 @@ dependencies:
   path_provider: ^0.4.0
   redux: ^3.0.0
   url_launcher: ^3.0.0
-  zoomable_image: ^1.1.2
+  zoomable_image: ^1.2.0
 
 dev_dependencies:
   flutter_test:
