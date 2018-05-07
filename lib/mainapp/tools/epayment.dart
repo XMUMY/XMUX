@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/redux/state.dart';
@@ -157,32 +156,27 @@ class _PaymentCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    FlatButton(
-                      onPressed: paymentData["paid"] == "-"
-                          ? () => launch("http://www.barracudacampus.com/s/xmu")
-                          : null,
-                      child: Column(
-                        children: <Widget>[
-                          Text("MYR : " + paymentData["amount"]),
-                          Text(
-                            MainLocalizations
-                                    .of(context)
-                                    .get("Tools/EPayment/Status") +
-                                (paymentData["paid"] == "-"
-                                    ? MainLocalizations
-                                        .of(context)
-                                        .get("Tools/EPayment/Unpaid")
-                                    : MainLocalizations
-                                        .of(context)
-                                        .get("Tools/EPayment/Paid")),
-                            style: TextStyle(
-                              color: paymentData["paid"] == "-"
-                                  ? Colors.red
-                                  : Colors.green[300],
-                            ),
+                    Column(
+                      children: <Widget>[
+                        Text("MYR : " + paymentData["amount"]),
+                        Text(
+                          MainLocalizations
+                                  .of(context)
+                                  .get("Tools/EPayment/Status") +
+                              (paymentData["paid"] == "-"
+                                  ? MainLocalizations
+                                      .of(context)
+                                      .get("Tools/EPayment/Unpaid")
+                                  : MainLocalizations
+                                      .of(context)
+                                      .get("Tools/EPayment/Paid")),
+                          style: TextStyle(
+                            color: paymentData["paid"] == "-"
+                                ? Colors.red
+                                : Colors.green[300],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
