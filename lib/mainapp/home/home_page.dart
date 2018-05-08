@@ -1,36 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/message/chatroom/chat_room_page.dart';
-import 'package:xmux/mainapp/message/home_slider.dart';
+import 'package:xmux/mainapp/home/chatroom/chat_room_page.dart';
+import 'package:xmux/mainapp/home/home_slider.dart';
 import 'package:xmux/redux/actions.dart';
-import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
 
-class MessagePage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        leading: new StoreBuilder(
-          builder: (BuildContext context, Store<MainAppState> store) =>
-              new IconButton(
-                icon: new CircleAvatar(
-                  radius: 18.0,
-                  backgroundImage:
-                      new NetworkImage(firebaseUser?.photoUrl ?? ""),
-                ),
-                onPressed: () => store.dispatch(new OpenDrawerAction(true)),
-              ),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: CircleAvatar(
+            radius: 18.0,
+            backgroundImage: NetworkImage(firebaseUser?.photoUrl ?? ""),
+          ),
+          onPressed: () => mainAppStore.dispatch(OpenDrawerAction(true)),
         ),
-        title: new Text(MainLocalizations.of(context).get("Messages")),
-//        elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
+        title: Text(MainLocalizations.of(context).get("Home")),
       ),
       body: new ListView(
         children: <Widget>[
           new Container(
-            child: new HomeSlider(context),
+            child: new HomeSlider(),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.width / 18 * 9,
           ),

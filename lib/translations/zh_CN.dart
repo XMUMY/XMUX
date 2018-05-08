@@ -8,7 +8,7 @@ const Map<String, String> zh_CN = const {
   "Weekdays/6": "周六",
   "Weekdays/7": "周日",
   // HomePage
-  'Messages': '消息',
+  'Home': '首页',
   'Calendar': '日程',
   'Academic': '学术',
   'Explore': '发现',
@@ -75,4 +75,6 @@ const Map<String, String> zh_CN = const {
   'Tools/ExamResult': '成绩查询',
   'Tools/ExamResult/ChooseSession': '请选择一个学期：',
   'Tools/ExamResult/credits': '学分',
+  // About
+  'About': '关于',
 };

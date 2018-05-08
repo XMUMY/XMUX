@@ -53,7 +53,7 @@ class SettingsPage extends StatelessWidget {
             Divider(),
             _getSimpleSettingWidget(
                 context: context,
-                route: "/Settings/ChangeDisplayName",
+                route: "/Settings/ChangePersonalInfo",
                 name: "Settings/ChangeDisplayName"),
             Divider(),
             FlatButton(

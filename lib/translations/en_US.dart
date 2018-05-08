@@ -8,7 +8,7 @@ const Map<String, String> en_US = const {
   "Weekdays/6": "Saturday",
   "Weekdays/7": "Sunday",
   // HomePage
-  'Messages': 'Messages',
+  'Home': 'Home',
   'Calendar': 'Calendar',
   'Academic': 'Academic',
   'Explore': 'Explore',
@@ -78,4 +78,6 @@ const Map<String, String> en_US = const {
   'Tools/ExamResult': 'Exam result',
   'Tools/ExamResult/ChooseSession': 'Choose an academic session:',
   'Tools/ExamResult/credits': 'credits',
+  // About
+  'About': 'About',
 };

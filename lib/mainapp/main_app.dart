@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:xmux/about.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/academic/geogebra.dart';
@@ -9,7 +10,7 @@ import 'package:xmux/mainapp/academic/wolfram_engine/input_constructor.dart';
 import 'package:xmux/mainapp/calendar/calendar_image.dart';
 import 'package:xmux/mainapp/explore/lost_and_found/lost_and_found_page.dart';
 import 'package:xmux/mainapp/main_page.dart';
-import 'package:xmux/mainapp/settings/change_display_name.dart';
+import 'package:xmux/mainapp/settings/change_personal_info.dart';
 import 'package:xmux/mainapp/settings/settings_page.dart';
 import 'package:xmux/mainapp/tools/epayment.dart';
 import 'package:xmux/mainapp/tools/exam_result.dart';
@@ -24,10 +25,11 @@ class MainApp extends StatelessWidget {
         store: mainAppStore,
         child: MaterialApp(
           title: 'XMUX',
-          home: HomePage(),
+          home: MainPage(),
           theme: defaultTheme,
           initialRoute: "/",
           routes: <String, WidgetBuilder>{
+            '/About': (BuildContext context) => AboutPage(),
             '/Academic/WolframEngine': (BuildContext context) =>
                 InputConstructor(),
             '/Academic/GeoGebra': (BuildContext context) => GeoGebraPage(),
@@ -40,8 +42,8 @@ class MainApp extends StatelessWidget {
             '/Me/Epayment': (BuildContext context) => EPaymentPage(),
             '/Me/ExamResult': (BuildContext context) => ExamResultPage(),
             '/Settings': (BuildContext context) => SettingsPage(),
-            '/Settings/ChangeDisplayName': (BuildContext context) =>
-                new ChangeDisplayNamePage(),
+            '/Settings/ChangePersonalInfo': (BuildContext context) =>
+                ChangePersonalInfoPage(),
 
             // old.
             "/wolframengine/constructor": (BuildContext context) =>

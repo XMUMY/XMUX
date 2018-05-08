@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/translations/translation.dart';
 
-class ChangeDisplayNamePage extends StatelessWidget {
+class ChangePersonalInfoPage extends StatelessWidget {
   final _displayNameController =
       TextEditingController(text: firebaseUser?.displayName ?? "User");
 

@@ -6,16 +6,16 @@ import 'package:xmux/mainapp/academic/academic_page.dart';
 import 'package:xmux/mainapp/calendar/calendar_page.dart';
 import 'package:xmux/mainapp/drawer.dart';
 import 'package:xmux/mainapp/explore/explore_page.dart';
-import 'package:xmux/mainapp/message/message_page.dart';
+import 'package:xmux/mainapp/home/home_page.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/translations/translation.dart';
 
-class HomePage extends StatefulWidget {
+class MainPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainPageState extends State<MainPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   StreamSubscription _drawerListener;
   int _currentIndex = 0;
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               offstage: _currentIndex != 0,
               child: TickerMode(
                 enabled: _currentIndex == 0,
-                child: MessagePage(),
+                child: HomePage(),
               ),
             ),
             Offstage(
@@ -86,8 +86,8 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-              title: Text(MainLocalizations.of(context).get("Messages")),
-              icon: Icon(Icons.message),
+              title: Text(MainLocalizations.of(context).get("Home")),
+              icon: Icon(Icons.home),
               backgroundColor: Theme.of(context).primaryColor,
             ),
             BottomNavigationBarItem(
