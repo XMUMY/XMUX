@@ -39,15 +39,25 @@ class MainAppState {
 }
 
 class UIState {
-  /// Drawer is open. (only android)
+  /// Drawer is open.
   final bool drawerIsOpen;
 
-  UIState() : this.drawerIsOpen = false;
+  /// Homepage sliders.
+  final List news;
 
-  UIState.raw(this.drawerIsOpen);
+  /// Homepage announcements;
+  final List announcements;
 
-  UIState copyWith({bool drawerIsOpen}) =>
-      new UIState.raw(drawerIsOpen ?? this.drawerIsOpen);
+  UIState()
+      : this.drawerIsOpen = false,
+        this.news = [],
+        this.announcements = [];
+
+  UIState.raw(this.drawerIsOpen, this.news, this.announcements);
+
+  UIState copyWith({bool drawerIsOpen, List news, List announcements}) =>
+      new UIState.raw(drawerIsOpen ?? this.drawerIsOpen, news ?? this.news,
+          announcements ?? this.announcements);
 }
 
 class PersonalInfoState {

@@ -29,6 +29,13 @@ class OpenDrawerAction extends MainAppAction {
   OpenDrawerAction(this.drawerIsOpen);
 }
 
+class UpdateNewsAction extends MainAppAction {
+  get needSave => false;
+  final List news;
+
+  UpdateNewsAction(this.news);
+}
+
 class UpdateEPaymentPasswordAction extends MainAppAction {
   final String ePaymentPassword;
 
