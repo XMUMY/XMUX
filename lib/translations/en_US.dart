@@ -80,4 +80,5 @@ const Map<String, String> en_US = const {
   'Tools/ExamResult/credits': 'credits',
   // About
   'About': 'About',
+  'About/Caption': 'XMUX is a powerful app for everyone in XMUM.',
 };

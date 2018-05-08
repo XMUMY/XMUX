@@ -77,4 +77,5 @@ const Map<String, String> zh_CN = const {
   'Tools/ExamResult/credits': '学分',
   // About
   'About': '关于',
+  'About/Caption': 'XMUX是为厦门大学马来西亚的所有人设计的强大应用',
 };

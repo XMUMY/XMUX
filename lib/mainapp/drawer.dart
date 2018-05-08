@@ -87,7 +87,7 @@ class DrawerPage extends StatelessWidget {
 class EndDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) => SizedBox(
-        width: 180.0,
+        width: 150.0,
         child: Drawer(
           child: Column(
             children: <Widget>[
@@ -106,29 +106,32 @@ class EndDrawer extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Text("Designed by χ"),
-                      Divider(
-                        height: 20.0,
+                      Padding(
+                        padding: EdgeInsets.all(5.0),
                       ),
                       RaisedButton(
-                        onPressed: () =>
-                            Navigator.of(context).popAndPushNamed("/About"),
-                        child: Text("About"),
+                        onPressed: () => launch(
+                              "https://xmux.xdea.top",
+                            ),
+                        child: Text(MainLocalizations.of(context).get("Home")),
                         color: Theme.of(context).cardColor,
                       ),
                       Padding(
                         padding: EdgeInsets.all(5.0),
                       ),
                       RaisedButton(
-                        onPressed: () => launch(
-                              "https://shang.qq.com/wpa/qunwpa?idkey=f07eb500a50900e4b475abc17ceeda9fb648cd7a57110a2710e14cbe6601ec2f",
-                            ),
-                        child: Text("Join QQ Group"),
+                        onPressed: () =>
+                            Navigator.of(context).popAndPushNamed("/About"),
+                        child: Text(MainLocalizations.of(context).get("About")),
                         color: Theme.of(context).cardColor,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(5.0),
                       ),
                     ],
                   )),
               Text(
-                "Version : " + AppInfo.version,
+                "Version : \n" + AppInfo.version,
                 textAlign: TextAlign.center,
               ),
             ],
