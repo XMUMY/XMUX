@@ -78,6 +78,14 @@ const Map<String, String> en_US = const {
   'Tools/ExamResult': 'Exam result',
   'Tools/ExamResult/ChooseSession': 'Choose an academic session:',
   'Tools/ExamResult/credits': 'credits',
+  'Tools/Emergency': 'Emergency',
+  'Tools/Emergency/Caption':
+      'Incase of emergency, these function may help you.\nUsing in non-emergency situations is illegal!',
+  'Tools/Emergency/XMUMSecurityHotline': 'XMUM Security Hotline',
+  'Tools/Emergency/PoliceSergeantSafie': 'Police Sergeant Safie',
+  'Tools/Emergency/PoliceSergeantSafie/Caption': 'Salak Tinggi Road Patrol',
+  'Tools/Emergency/LCorporalFadil': 'L.Corporal Fadil',
+  'Tools/Emergency/LCorporalFadil/Caption': 'Salak Tinggi Police Station',
   // About
   'About': 'About',
   'About/Caption': 'XMUX is a powerful app for everyone in XMUM.',

@@ -52,7 +52,7 @@ class DrawerPage extends StatelessWidget {
                       child: Row(
                         children: <Widget>[
                           Icon(Icons.credit_card),
-                          Text(" " +
+                          Text("  " +
                               MainLocalizations
                                   .of(context)
                                   .get("Tools/EPayment"))
@@ -68,10 +68,32 @@ class DrawerPage extends StatelessWidget {
                       child: Row(
                         children: <Widget>[
                           Icon(Icons.local_hospital),
-                          Text(" " +
+                          Text("  " +
                               MainLocalizations
                                   .of(context)
                                   .get("Tools/ExamResult"))
+                        ],
+                      ),
+                    ),
+
+                    // Emergency
+                    FlatButton(
+                      onPressed: () => Navigator
+                          .of(context)
+                          .popAndPushNamed("/Me/Emergency"),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.error_outline,
+                            color: Colors.red,
+                          ),
+                          Text(
+                            "  " +
+                                MainLocalizations
+                                    .of(context)
+                                    .get("Tools/Emergency"),
+                            style: TextStyle(color: Colors.red),
+                          )
                         ],
                       ),
                     ),

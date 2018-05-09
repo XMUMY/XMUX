@@ -75,6 +75,14 @@ const Map<String, String> zh_CN = const {
   'Tools/ExamResult': '成绩查询',
   'Tools/ExamResult/ChooseSession': '请选择一个学期：',
   'Tools/ExamResult/credits': '学分',
+  'Tools/Emergency': '紧急情况',
+  'Tools/Emergency/Caption': '遭遇紧急情况时，您可以使用以下方式进行求助\n非紧急情况下使用将负法律责任',
+  'Tools/Emergency/XMUMSecurityHotline': 'XMUM 安全热线',
+  'Tools/Emergency/PoliceSergeantSafie': '警长 Safie',
+  'Tools/Emergency/PoliceSergeantSafie/Caption': 'Salak Tinggi 道路巡逻',
+  'Tools/Emergency/LCorporalFadil': 'L.Corporal Fadil',
+  'Tools/Emergency/LCorporalFadil/Caption': 'Salak Tinggi 警察局',
+
   // About
   'About': '关于',
   'About/Caption': 'XMUX是为厦门大学马来西亚的所有人设计的强大应用',

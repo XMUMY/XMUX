@@ -12,6 +12,7 @@ import 'package:xmux/mainapp/explore/lost_and_found/lost_and_found_page.dart';
 import 'package:xmux/mainapp/main_page.dart';
 import 'package:xmux/mainapp/settings/change_personal_info.dart';
 import 'package:xmux/mainapp/settings/settings_page.dart';
+import 'package:xmux/mainapp/tools/emergency.dart';
 import 'package:xmux/mainapp/tools/epayment.dart';
 import 'package:xmux/mainapp/tools/exam_result.dart';
 import 'package:xmux/redux/state.dart';
@@ -41,6 +42,7 @@ class MainApp extends StatelessWidget {
                 LostAndFoundPage(),
             '/Me/Epayment': (BuildContext context) => EPaymentPage(),
             '/Me/ExamResult': (BuildContext context) => ExamResultPage(),
+            '/Me/Emergency': (BuildContext context) =>  EmergencyPage(),
             '/Settings': (BuildContext context) => SettingsPage(),
             '/Settings/ChangePersonalInfo': (BuildContext context) =>
                 ChangePersonalInfoPage(),
