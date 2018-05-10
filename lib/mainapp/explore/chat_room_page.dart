@@ -79,9 +79,7 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text(MainLocalizations.of(context).get("Messages")),
-          elevation:
-              Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
+          title: new Text(MainLocalizations.of(context).get("About/Feedback")),
         ),
         body: new Column(children: <Widget>[
           new Flexible(
