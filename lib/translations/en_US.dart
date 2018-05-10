@@ -13,6 +13,9 @@ const Map<String, String> en_US = const {
   'Academic': 'Academic',
   'Explore': 'Explore',
   'Me': 'Me',
+  // Home
+  'Home/Announcements': 'Announcements',
+  'Home/Announcements/More': 'Read more',
   // Calendar
   'Calendar/Classes': 'Classes',
   'Calendar/Exams': 'Exams',
@@ -89,4 +92,5 @@ const Map<String, String> en_US = const {
   // About
   'About': 'About',
   'About/Caption': 'XMUX is a powerful app for everyone in XMUM.',
+  'About/Feedback': 'Feedback',
 };

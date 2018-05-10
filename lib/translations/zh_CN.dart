@@ -13,6 +13,9 @@ const Map<String, String> zh_CN = const {
   'Academic': '学术',
   'Explore': '发现',
   'Me': '我',
+  // Home
+  'Home/Announcements': '通知与公告',
+  'Home/Announcements/More': '浏览更多',
   // Calendar
   'Calendar/Classes': '课程',
   'Calendar/Exams': '考试',
@@ -86,4 +89,5 @@ const Map<String, String> zh_CN = const {
   // About
   'About': '关于',
   'About/Caption': 'XMUX是为厦门大学马来西亚的所有人设计的强大应用',
+  'About/Feedback': '反馈',
 };
