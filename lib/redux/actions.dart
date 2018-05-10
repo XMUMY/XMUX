@@ -36,6 +36,13 @@ class UpdateNewsAction extends MainAppAction {
   UpdateNewsAction(this.news);
 }
 
+class UpdateAnnouncementAction extends MainAppAction {
+  get needSave => false;
+  final List announcements;
+
+  UpdateAnnouncementAction(this.announcements);
+}
+
 class UpdateEPaymentPasswordAction extends MainAppAction {
   final String ePaymentPassword;
 
