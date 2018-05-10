@@ -135,8 +135,8 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
                     _isComposing = text.length > 0;
                   });
                 },
-                decoration:
-                    new InputDecoration.collapsed(hintText: "Send a message"),
+                decoration: new InputDecoration.collapsed(
+                    hintText: "Problems & Suggesstions"),
               ),
             ),
             new Container(
