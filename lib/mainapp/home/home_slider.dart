@@ -1,11 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/redux/state.dart';
 
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {
@@ -73,85 +74,51 @@ class DotsIndicator extends AnimatedWidget {
 
 class HomeSlider extends StatefulWidget {
   @override
-  State createState() => new _HomeSliderState();
+  State createState() => _HomeSliderState();
 }
 
 class _HomeSliderState extends State<HomeSlider> {
   final _controller = PageController();
   Timer _autoSlider;
 
-  static const _kDuration = const Duration(milliseconds: 300);
+  static const _kDuration = Duration(milliseconds: 300);
   static const _kCurve = Curves.ease;
 
-  List<Widget> _pages = <Widget>[
-    new ConstrainedBox(
-      constraints: const BoxConstraints.expand(),
-      child: new CachedNetworkImage(
-        imageUrl:
-            "http://i0.hdslb.com/bfs/archive/ba95094389efd8a3444dca765403dfe9a9befd9c.jpg",
-        fit: BoxFit.fitWidth,
-      ),
-    ),
-    new ConstrainedBox(
-      constraints: const BoxConstraints.expand(),
-      child: new CachedNetworkImage(
-        imageUrl:
-            "http://i0.hdslb.com/bfs/archive/ba95094389efd8a3444dca765403dfe9a9befd9c.jpg",
-        fit: BoxFit.fitWidth,
-      ),
-    ),
-  ];
+  Widget _buildSlider(Map n) => n["isWebPage"]
+      ? DecoratedBox(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: CachedNetworkImageProvider(n["imageURL"]),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: FlatButton(onPressed: () => launch(n["uri"]), child: null),
+        )
+      : DecoratedBox(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: CachedNetworkImageProvider(n["imageURL"]),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: FlatButton(
+              onPressed: () => Navigator.of(context).pushNamed(n["uri"]),
+              child: null),
+        );
 
   @override
   void initState() {
-    BackendApiHandler
-        .get(
-      context: context,
-      api: "/v2/homepage/homepage.json",
-    )
-        .then((r) {
-      List resList = jsonDecode(r.body)["news"];
-      setState(() {
-        var a = resList.map((n) {
-          if (n["isWebPage"])
-            return new Builder(
-                builder: (BuildContext context) => new DecoratedBox(
-                      decoration: new BoxDecoration(
-                        image: new DecorationImage(
-                          image: new CachedNetworkImageProvider(n["imageURL"]),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: new FlatButton(
-                          onPressed: () =>
-                              launch(n["uri"], forceWebView: false),
-                          child: null),
-                    ));
-          else
-            return new Builder(
-                builder: (BuildContext context) => new DecoratedBox(
-                      decoration: new BoxDecoration(
-                        image: new DecorationImage(
-                          image: new CachedNetworkImageProvider(n["imageURL"]),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: new FlatButton(
-                          onPressed: () =>
-                              Navigator.of(context).pushNamed(n["uri"]),
-                          child: null),
-                    ));
-        }).toList();
-      });
-    });
-    _autoSlider = new Timer.periodic(
-        Duration(seconds: 3),
+    // Register auto slider.
+    _autoSlider = Timer.periodic(
+        Duration(seconds: 5),
         (_) => _controller.animateToPage(
-            _controller.page.toInt() >= _pages.length - 1
+            _controller.page.toInt() >=
+                    mainAppStore.state.uiState.news.length - 1
                 ? 0
                 : _controller.page.toInt() + 1,
             duration: _kDuration,
             curve: _kCurve));
+
     super.initState();
   }
 
@@ -162,40 +129,44 @@ class _HomeSliderState extends State<HomeSlider> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Stack(
-          children: <Widget>[
-            // Build sliders.
-            PageView.builder(
-              physics: new AlwaysScrollableScrollPhysics(),
-              controller: _controller,
-              itemBuilder: (BuildContext context, int index) =>
-                  _pages[index % _pages.length],
-              itemCount: _pages.length,
-            ),
-            // Build dot indicators.
-            Positioned(
-              bottom: 0.0,
-              left: 0.0,
-              right: 0.0,
-              child: Container(
-                padding: EdgeInsets.all(8.0),
-                child: Center(
-                  child: DotsIndicator(
-                    controller: _controller,
-                    itemCount: _pages.length,
-                    onPageSelected: (int page) {
-                      _controller.animateToPage(
-                        page,
-                        duration: _kDuration,
-                        curve: _kCurve,
-                      );
-                    },
+  Widget build(BuildContext context) =>
+      StoreConnector<MainAppState, List<Widget>>(
+        converter: (store) => store.state.uiState.news
+            .map((n) => _buildSlider(n as Map))
+            .toList(),
+        builder: (_, _pages) => Stack(
+              children: <Widget>[
+                // Build sliders.
+                PageView.builder(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  controller: _controller,
+                  itemBuilder: (BuildContext context, int index) =>
+                      _pages[index],
+                  itemCount: _pages.length,
+                ),
+                // Build dot indicators.
+                Positioned(
+                  bottom: 0.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: Container(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(
+                      child: DotsIndicator(
+                        controller: _controller,
+                        itemCount: _pages.length,
+                        onPageSelected: (int page) {
+                          _controller.animateToPage(
+                            page,
+                            duration: _kDuration,
+                            curve: _kCurve,
+                          );
+                        },
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
       );
 }
