@@ -15,7 +15,7 @@ const Map<String, String> zh_CN = const {
   'Me': '我',
   // Home
   'Home/Announcements': '通知与公告',
-  'Home/Announcements/More': '浏览更多',
+  'Home/Announcements/More': '更多',
   // Calendar
   'Calendar/Classes': '课程',
   'Calendar/Exams': '考试',

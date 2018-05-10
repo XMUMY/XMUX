@@ -9,18 +9,25 @@ class HomeAnnouncements extends StatelessWidget {
 
   Widget _buildAnnouncement(BuildContext context, Map announcement) =>
       ExpansionTile(
-        title: Text(announcement["headline"]),
+        backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
+        title: Text(
+          announcement["headline"],
+          style: Theme.of(context).textTheme.subhead,
+        ),
         children: <Widget>[
           Padding(
             padding: EdgeInsets.all(10.0),
-            child: Text(announcement["detail"]),
+            child: Text(
+              announcement["detail"],
+              style: Theme.of(context).textTheme.body1,
+            ),
           ),
           (announcement["uri"] as String).isEmpty
               ? Container()
               : Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    FlatButton(
+                    OutlineButton(
                       onPressed: announcement["isWebPage"]
                           ? () => launch(announcement["uri"])
                           : () => Navigator

@@ -88,21 +88,30 @@ class _HomeSliderState extends State<HomeSlider> {
       ? DecoratedBox(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: CachedNetworkImageProvider(n["imageURL"]),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: FlatButton(onPressed: () => launch(n["uri"]), child: null),
-        )
-      : DecoratedBox(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: CachedNetworkImageProvider(n["imageURL"]),
+              image: (n["imageURL"] as String).isEmpty
+                  ? AssetImage("res/slider.jpg")
+                  : CachedNetworkImageProvider(n["imageURL"]),
               fit: BoxFit.fill,
             ),
           ),
           child: FlatButton(
-              onPressed: () => Navigator.of(context).pushNamed(n["uri"]),
+              onPressed:
+                  (n["uri"] as String).isEmpty ? null : () => launch(n["uri"]),
+              child: null),
+        )
+      : DecoratedBox(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: (n["imageURL"] as String).isEmpty
+                  ? AssetImage("res/slider.jpg")
+                  : CachedNetworkImageProvider(n["imageURL"]),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: FlatButton(
+              onPressed: (n["uri"] as String).isEmpty
+                  ? null
+                  : () => Navigator.of(context).pushNamed(n["uri"]),
               child: null),
         );
 

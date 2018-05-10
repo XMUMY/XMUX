@@ -15,7 +15,7 @@ const Map<String, String> en_US = const {
   'Me': 'Me',
   // Home
   'Home/Announcements': 'Announcements',
-  'Home/Announcements/More': 'Read more',
+  'Home/Announcements/More': 'More',
   // Calendar
   'Calendar/Classes': 'Classes',
   'Calendar/Exams': 'Exams',
