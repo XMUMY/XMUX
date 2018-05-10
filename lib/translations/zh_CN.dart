@@ -85,6 +85,8 @@ const Map<String, String> zh_CN = const {
   'Tools/Emergency/PoliceSergeantSafie/Caption': 'Salak Tinggi 道路巡逻',
   'Tools/Emergency/LCorporalFadil': 'L.Corporal Fadil',
   'Tools/Emergency/LCorporalFadil/Caption': 'Salak Tinggi 警察局',
+  'Tools/Emergency/Police': '警察',
+  'Tools/Emergency/FireAlarm': '火警',
 
   // About
   'About': '关于',

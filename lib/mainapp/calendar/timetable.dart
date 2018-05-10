@@ -124,7 +124,9 @@ class _ClassCard extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(theClass["courseCode"]),
+                              Text(theClass["courseCode"] +
+                                  " " +
+                                  theClass["weeks"]),
                               Text(theClass["lecturer"]),
                             ],
                           ),

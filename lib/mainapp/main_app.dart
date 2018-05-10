@@ -42,7 +42,7 @@ class MainApp extends StatelessWidget {
                 LostAndFoundPage(),
             '/Me/Epayment': (BuildContext context) => EPaymentPage(),
             '/Me/ExamResult': (BuildContext context) => ExamResultPage(),
-            '/Me/Emergency': (BuildContext context) =>  EmergencyPage(),
+            '/Me/Emergency': (BuildContext context) => EmergencyPage(),
             '/Settings': (BuildContext context) => SettingsPage(),
             '/Settings/ChangePersonalInfo': (BuildContext context) =>
                 ChangePersonalInfoPage(),

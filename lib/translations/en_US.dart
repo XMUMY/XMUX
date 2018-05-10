@@ -89,6 +89,9 @@ const Map<String, String> en_US = const {
   'Tools/Emergency/PoliceSergeantSafie/Caption': 'Salak Tinggi Road Patrol',
   'Tools/Emergency/LCorporalFadil': 'L.Corporal Fadil',
   'Tools/Emergency/LCorporalFadil/Caption': 'Salak Tinggi Police Station',
+  'Tools/Emergency/Police': 'Police',
+  'Tools/Emergency/FireAlarm': 'Fire Police',
+
   // About
   'About': 'About',
   'About/Caption': 'XMUX is a powerful app for everyone in XMUM.',
