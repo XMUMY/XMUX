@@ -57,15 +57,7 @@ class UIState {
             "uri": "",
           },
         ],
-        this.announcements = [
-          {
-            "headline": "XMUX 1.4.0 Pre-Release",
-            "detail":
-                "性感bdbai今晚在线发牌，性感bdbai今晚在线发牌，性感bdbai今晚在线发牌，性感bdbai今晚在线发牌，性感bdbai今晚在线发牌。",
-            "isWebPage": true,
-            "uri": "mailto:cst1709038@xmu.edu.my"
-          }
-        ];
+        this.announcements = [];
 
   UIState.raw(this.drawerIsOpen, this.news, this.announcements);
 

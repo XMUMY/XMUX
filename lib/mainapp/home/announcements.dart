@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -22,12 +23,27 @@ class HomeAnnouncements extends StatelessWidget {
               style: Theme.of(context).textTheme.body1,
             ),
           ),
-          (announcement["uri"] as String).isEmpty
-              ? Container()
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    OutlineButton(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Text(
+                DateFormat
+                        .yMMMd(Localizations.localeOf(context).languageCode)
+                        .format(DateTime.fromMillisecondsSinceEpoch(
+                            announcement["timestamp"])) +
+                    " " +
+                    DateFormat
+                        .Hms(Localizations.localeOf(context).languageCode)
+                        .format(DateTime.fromMillisecondsSinceEpoch(
+                            announcement["timestamp"])),
+                style: Theme.of(context).textTheme.caption,
+              ),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+              ),
+              (announcement["uri"] as String).isEmpty
+                  ? Container()
+                  : OutlineButton(
                       onPressed: announcement["isWebPage"]
                           ? () => launch(announcement["uri"])
                           : () => Navigator
@@ -37,8 +53,8 @@ class HomeAnnouncements extends StatelessWidget {
                           .of(context)
                           .get("Home/Announcements/More")),
                     )
-                  ],
-                )
+            ],
+          ),
         ],
       );
 
