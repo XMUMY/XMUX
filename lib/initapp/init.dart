@@ -10,6 +10,9 @@ import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/redux/actions.dart';
 
 Future<String> init() async {
+  // Get notification permission on ios.
+  firebaseMessaging.requestNotificationPermissions();
+
   String appDocDir;
   Map<String, dynamic> initMap;
 
