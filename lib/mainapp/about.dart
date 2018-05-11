@@ -30,7 +30,7 @@ class AboutPage extends StatelessWidget {
               padding: EdgeInsets.all(5.0),
             ),
             Text(
-              "If you have any questions or suggesstions please contact us.\n Email: x@xdea.xyz\nQQ Group: 585779547",
+              MainLocalizations.of(context).get("About/ContactUs/Detail"),
               textAlign: TextAlign.center,
             ),
             Divider(),
@@ -38,7 +38,7 @@ class AboutPage extends StatelessWidget {
               onPressed: () => launch(
                     "mailto:x@xdea.xyz",
                   ),
-              child: Text("Mail to us"),
+              child: Text(MainLocalizations.of(context).get("About/EMailUs")),
               color: Theme.of(context).cardColor,
             ),
             Padding(
@@ -48,12 +48,13 @@ class AboutPage extends StatelessWidget {
               onPressed: () => launch(
                     "https://shang.qq.com/wpa/qunwpa?idkey=f07eb500a50900e4b475abc17ceeda9fb648cd7a57110a2710e14cbe6601ec2f",
                   ),
-              child: Text("Join QQ Group"),
+              child:
+                  Text(MainLocalizations.of(context).get("About/JoinQQGroup")),
               color: Theme.of(context).cardColor,
             ),
             Divider(),
             Text(
-              "© 2017-2018 X Dev",
+              "© 2017-2018 χ Dev",
               textAlign: TextAlign.center,
             ),
           ],

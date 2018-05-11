@@ -96,4 +96,8 @@ const Map<String, String> en_US = const {
   'About': 'About',
   'About/Caption': 'XMUX is a powerful app for everyone in XMUM.',
   'About/Feedback': 'Feedback',
+  'About/ContactUs/Detail':
+      'Contact us if you have any questions or suggesstions:\n Email: x@xdea.xyz   QQ Group: 585779547',
+  'About/EMailUs': 'E-Mail us',
+  'About/JoinQQGroup': 'Join QQ Group',
 };

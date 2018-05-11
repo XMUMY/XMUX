@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:xmux/about.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/mainapp/about.dart';
 import 'package:xmux/mainapp/academic/geogebra.dart';
 import 'package:xmux/mainapp/academic/gpa_calculator.dart';
 import 'package:xmux/mainapp/academic/wolfram_engine/input_constructor.dart';

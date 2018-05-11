@@ -92,4 +92,8 @@ const Map<String, String> zh_CN = const {
   'About': '关于',
   'About/Caption': 'XMUX是为厦门大学马来西亚的所有人设计的强大应用',
   'About/Feedback': '反馈',
+  'About/ContactUs/Detail':
+      '如有任何意见或建议，请与我们联系：\n 电子邮件: x@xdea.xyz   QQ群: 585779547',
+  'About/EMailUs': '使用电子邮件联系',
+  'About/JoinQQGroup': '加入QQ群',
 };
