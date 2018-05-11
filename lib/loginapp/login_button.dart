@@ -36,7 +36,8 @@ class _LoginButtonState extends State<LoginButton>
 
     // Demo login.
     if (widget._usernameController.text == AppInfo.demoUsername &&
-        widget._passwordController.text == AppInfo.demoPassword) {
+        widget._passwordController.text == AppInfo.demoPassword &&
+        Theme.of(context).platform != TargetPlatform.iOS) {
       runApp(MainApp());
       return;
     }
