@@ -10,8 +10,8 @@ import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/redux/actions.dart';
 
 Future<String> init() async {
-  // Get notification permission on ios.
-  firebaseMessaging.requestNotificationPermissions();
+  // Init FCM.
+  initFCM();
 
   String appDocDir;
   Map<String, dynamic> initMap;
@@ -41,4 +41,17 @@ Future<String> init() async {
   }
 
   return "Finished";
+}
+
+void initFCM() {
+  // Request notification Permission
+  firebaseMessaging.requestNotificationPermissions();
+
+  // Configure FCM.
+  firebaseMessaging.configure();
+
+  // Get FCM token.
+  firebaseMessaging
+      .getToken()
+      .then((token) => print("FCM: Token got: " + token));
 }

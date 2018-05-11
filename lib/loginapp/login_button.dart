@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:platform/platform.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/initapp/init.dart';
 import 'package:xmux/loginapp/login_handler.dart';
 import 'package:xmux/mainapp/main_app.dart';
 import 'package:xmux/translations/translation.dart';
@@ -37,7 +39,7 @@ class _LoginButtonState extends State<LoginButton>
     // Demo login.
     if (widget._usernameController.text == AppInfo.demoUsername &&
         widget._passwordController.text == AppInfo.demoPassword &&
-        Theme.of(context).platform != TargetPlatform.iOS) {
+        !(const LocalPlatform().isIOS)) {
       runApp(MainApp());
       return;
     }
@@ -67,6 +69,8 @@ class _LoginButtonState extends State<LoginButton>
       return;
     }
 
+    // Init FCM.
+    initFCM();
     runApp(MainApp());
   }
 
