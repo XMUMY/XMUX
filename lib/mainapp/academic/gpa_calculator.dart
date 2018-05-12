@@ -30,7 +30,7 @@ class GPACalculatorPage extends StatefulWidget {
     double gpa = 0.0;
     for (var i in courses) totalCredits += i.credits;
     for (var i in courses) {
-      gpa += gradePoints[i.chosenGrade] * (i.credits / totalCredits);
+      gpa += gradePoints[i.chosenGrade] * i.credits / totalCredits;
     }
     return gpa;
   }
@@ -43,7 +43,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
   List<_CourseInfo> courses = [];
 
   Widget _buildList() => ListView.builder(
-        itemCount: courses.length - 1,
+        itemCount: courses.length,
         itemBuilder: (_, index) => ListTile(
               title: Text(courses[index].name),
               trailing: DropdownButton<String>(
