@@ -1,23 +1,9 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:xmux/config.dart';
-import 'package:xmux/globals.dart';
+import 'package:xmux/mainapp/academic/academic_handler.dart';
 import 'package:xmux/translations/translation.dart';
 
 class GPACalculatorPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => new _GPACalculatorPageState();
-}
-
-class _GPACalculatorPageState extends State<GPACalculatorPage> {
-  int totalPoint = 0;
-  List coursesData;
-  List<String> grades = [];
-  List<int> coursesCredit = [];
-  Map gradePoints = {
+  static const Map<String, double> gradePoints = {
     "A": 4.0,
     "A-": 3.7,
     "B+": 3.3,
@@ -30,35 +16,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
     "F": 0.0,
   };
 
-  Future _getCourses() async {
-    try {
-      var response =
-          await http.post(BackendApiConfig.address + "/course", body: {
-        "id": mainAppStore.state.personalInfoState.uid,
-        "pass": mainAppStore.state.personalInfoState.password,
-      });
-      coursesData = jsonDecode(response.body)["data"];
-    } catch (e) {
-      Scaffold
-          .of(context)
-          .showSnackBar(new SnackBar(content: new Text("Connect Error")));
-    }
-    coursesData = coursesData
-        .map((e) => e["Course Name (by group)"].contains("(Lab)") ? null : e)
-        .toList();
-    while (coursesData.contains(null)) coursesData.remove(null);
-    for (int i = 0; i < coursesData.length; i++) coursesData[i]["No."] = i;
-  }
-
-  double _calculateGPA() {
-    double sum = 0.0;
-    List points = grades.map((grade) => gradePoints[grade]).toList();
-    for (int i = 0; i < coursesData.length; i++)
-      sum += points[i] * (coursesCredit[i] / totalPoint);
-    return sum;
-  }
-
-  Color _getGPAColor(double point) {
+  static Color getGPAColor(double point) {
     if (point >= 3.7)
       return Colors.green;
     else if (point >= 1.7)
@@ -67,90 +25,94 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
       return Colors.red;
   }
 
+  static double calculateGPA(List<_CourseInfo> courses) {
+    int totalCredits = 0;
+    double gpa = 0.0;
+    for (var i in courses) totalCredits += i.credits;
+    for (var i in courses) {
+      gpa += gradePoints[i.chosenGrade] * (i.credits / totalCredits);
+    }
+    return gpa;
+  }
+
+  @override
+  State<StatefulWidget> createState() => _GPACalculatorPageState();
+}
+
+class _GPACalculatorPageState extends State<GPACalculatorPage> {
+  List<_CourseInfo> courses = [];
+
+  Widget _buildList() => ListView.builder(
+        itemCount: courses.length - 1,
+        itemBuilder: (_, index) => ListTile(
+              title: Text(courses[index].name),
+              trailing: DropdownButton<String>(
+                value: courses[index].chosenGrade,
+                items: GPACalculatorPage.gradePoints.keys
+                    .toList()
+                    .map((point) => DropdownMenuItem<String>(
+                          value: point,
+                          child: Text(point),
+                        ))
+                    .toList(),
+                onChanged: (grade) =>
+                    setState(() => courses[index].chosenGrade = grade),
+              ),
+            ),
+      );
+
   @override
   void initState() {
-    _getCourses().then((_) {
-      for (int i = 0; i < coursesData.length; i++) {
-        grades.add("A");
-        coursesCredit.add(int.parse(coursesData[i]["Credit"]));
-        totalPoint += coursesCredit[i];
-      }
+    AcademicHandler.getCourses(context: context).then((coursesData) {
+      for (var i in coursesData)
+        courses.add(
+            _CourseInfo(i["Course Name (by group)"], int.parse(i["Credit"])));
       setState(() {});
     });
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(
-        title: Text(
-            MainLocalizations.of(context).get("Academic/GPACalculator/Name")),
-      ),
-      body: coursesData == null
-          ? new Center(
-              child: new CircularProgressIndicator(),
-            )
-          : new Column(
-              children: <Widget>[
-                new Container(
-                  margin: const EdgeInsets.all(10.0),
-                  child: new Card(
-                    child: new Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Text(
-                            "Current GPA : " +
-                                _calculateGPA().toStringAsFixed(1),
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .title
-                                .copyWith(color: _getGPAColor(_calculateGPA())),
-                          ),
-                        ],
-                      ),
-                    ),
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(
+              MainLocalizations.of(context).get("Academic/GPACalculator/Name")),
+        ),
+        body: courses == null
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Card(
+                    margin: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 10.0),
+                    child: Padding(
+                        padding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 20.0),
+                        child: Text(
+                          "GPA : " +
+                              GPACalculatorPage
+                                  .calculateGPA(courses)
+                                  .toStringAsFixed(1),
+                          style: Theme.of(context).textTheme.display1.copyWith(
+                              color: GPACalculatorPage.getGPAColor(
+                                  GPACalculatorPage.calculateGPA(courses))),
+                        )),
+                    shape: BeveledRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
                   ),
-                ),
-                new Flexible(
-                  child: new ListView(
-                    children: coursesData
-                        .map((course) => new ListTile(
-                              title: new Text(course["Course Name (by group)"]),
-                              trailing: new DropdownButton<String>(
-                                value: grades[course["No."]],
-                                onChanged: (String grade) {
-                                  setState(() {
-                                    grades[course["No."]] = grade;
-                                  });
-                                },
-                                items: <String>[
-                                  'A',
-                                  'A-',
-                                  'B+',
-                                  'B',
-                                  'B-',
-                                  'C+',
-                                  'C',
-                                  'C-',
-                                  'D',
-                                  'F',
-                                ].map((String value) {
-                                  return new DropdownMenuItem<String>(
-                                    value: value,
-                                    child: new Text(value),
-                                  );
-                                }).toList(),
-                              ),
-                            ))
-                        .toList(),
+                  Flexible(
+                    child: _buildList(),
                   ),
-                ),
-              ],
-            ),
-    );
-  }
+                ],
+              ),
+      );
+}
+
+class _CourseInfo {
+  final String name;
+  final int credits;
+  _CourseInfo(this.name, this.credits);
+
+  String chosenGrade = "A";
 }
