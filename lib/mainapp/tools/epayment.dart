@@ -11,11 +11,11 @@ import 'package:xmux/translations/translation.dart';
 
 class EPaymentPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _PaymentPageState();
+  State<StatefulWidget> createState() => _PaymentPageState();
 }
 
 class _PaymentPageState extends State<EPaymentPage> {
-  final _passwordController = new TextEditingController();
+  final _passwordController = TextEditingController();
   bool _isProcessing = false;
 
   List _bills;
@@ -122,12 +122,12 @@ class _PaymentPageState extends State<EPaymentPage> {
                   ],
                 )
               : _bills == null
-                  ? new Center(child: new CircularProgressIndicator())
-                  : new ListView.builder(
+                  ? Center(child: CircularProgressIndicator())
+                  : ListView.builder(
                       reverse: false,
                       itemCount: _bills.length,
                       itemBuilder: (_, int index) =>
-                          new _PaymentCard(_bills[_bills.length - 1 - index])),
+                          _PaymentCard(_bills[_bills.length - 1 - index])),
         ),
       );
 }

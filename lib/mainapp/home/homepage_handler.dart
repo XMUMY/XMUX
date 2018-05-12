@@ -21,7 +21,7 @@ class HomePageHandler {
 
     // Update news.
     if ((resMap["news"] as List).isNotEmpty)
-      mainAppStore.dispatch(new UpdateNewsAction(resMap["news"]));
+      mainAppStore.dispatch(UpdateNewsAction(resMap["news"]));
 
     return "success";
   }
@@ -43,8 +43,7 @@ class HomePageHandler {
 
     // Update news.
     if ((resMap["announcements"] as List).isNotEmpty)
-      mainAppStore
-          .dispatch(new UpdateAnnouncementAction(resMap["announcements"]));
+      mainAppStore.dispatch(UpdateAnnouncementAction(resMap["announcements"]));
 
     return "success";
   }

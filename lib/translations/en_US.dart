@@ -42,7 +42,7 @@ const Map<String, String> en_US = const {
   'Academic/GPACalculator/Caption': 'Calculate your GPA easily',
   // Explore
   'Warning':
-      ' Warning! These functions are still under developing. Room reservation only available when connected to the campus network.',
+      ' Warning! These functions are still under developing. Room reservation is only available when connected to the campus network.',
   'lostandfound': 'Lost and Found',
   'lostandfound/location': 'Location : ',
   'lostandfound/things': 'Things : ',
@@ -83,7 +83,7 @@ const Map<String, String> en_US = const {
   'Tools/ExamResult/credits': 'credits',
   'Tools/Emergency': 'Emergency',
   'Tools/Emergency/Caption':
-      'Incase of emergency, these function may help you.\nUsing in non-emergency situations is illegal!',
+      'In case of emergency, these functions may help you.\nUsing in non-emergency situations is illegal!',
   'Tools/Emergency/XMUMSecurityHotline': 'XMUM Security Hotline',
   'Tools/Emergency/PoliceSergeantSafie': 'Police Sergeant Safie',
   'Tools/Emergency/PoliceSergeantSafie/Caption': 'Salak Tinggi Road Patrol',
