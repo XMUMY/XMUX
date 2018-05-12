@@ -78,7 +78,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
           title: Text(
               MainLocalizations.of(context).get("Academic/GPACalculator/Name")),
         ),
-        body: courses == null
+        body: courses.isEmpty
             ? Center(
                 child: CircularProgressIndicator(),
               )
