@@ -1,3 +1,4 @@
+/// Main App State include UI/PersonalInfo/Settings/AC.
 class MainAppState {
   /// Global UI state include drawerIsOpen, etc.
   final UIState uiState;
@@ -38,6 +39,7 @@ class MainAppState {
       };
 }
 
+/// Global UI state include drawerIsOpen, etc.
 class UIState {
   /// Drawer is open.
   final bool drawerIsOpen;
@@ -66,6 +68,7 @@ class UIState {
           announcements ?? this.announcements);
 }
 
+/// Personal info state include uid, password, etc.
 class PersonalInfoState {
   /// User authentication (Campus ID).
   final String uid, password;
@@ -96,6 +99,7 @@ class PersonalInfoState {
           moodleKey ?? this.moodleKey);
 }
 
+/// Settings state include ePaymentPassword, etc.
 class SettingState {
   /// E-payment password.
   final String ePaymentPassword;
@@ -117,6 +121,7 @@ class SettingState {
       new SettingState.raw(ePaymentPassword ?? this.ePaymentPassword);
 }
 
+/// AC state include timetable, exams, examResult and other academic data.
 class ACState {
   /// AC status (success/error/init).
   final String status;

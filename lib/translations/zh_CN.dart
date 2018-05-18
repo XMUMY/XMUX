@@ -1,4 +1,4 @@
-const Map<String, String> zh_CN = const {
+const Map<String, String> zh_CN = {
   // General
   "Weekdays/1": "周一",
   "Weekdays/2": "周二",
@@ -96,4 +96,15 @@ const Map<String, String> zh_CN = const {
       '如有任何意见或建议，请与我们联系：\n 电子邮件: x@xdea.xyz   QQ群: 585779547',
   'About/EMailUs': '使用电子邮件联系',
   'About/JoinQQGroup': '加入QQ群',
+};
+
+const Map<String, String> zh_CN_login = {
+  'SignInPage/ServiceDocs': '服务文档',
+  'SignInPage/HelpDocs': '帮助文档',
+  'SignInPage/CampusID': '校园ID',
+  'SignInPage/Password': '密码',
+  'SignInPage/Read': '登录即代表您同意我们的隐私政策和免责声明',
+  'SignInPage/SignIn': '登录',
+  'SignInPage/Error': '错误：',
+  'SignInPage/FormatError': '格式不正确，请检查。',
 };

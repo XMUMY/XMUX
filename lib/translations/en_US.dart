@@ -1,4 +1,4 @@
-const Map<String, String> en_US = const {
+const Map<String, String> en_US = {
   // General
   "Weekdays/1": "Monday",
   "Weekdays/2": "Tuesday",
@@ -100,4 +100,16 @@ const Map<String, String> en_US = const {
       'Contact us if you have any questions or suggesstions:\n Email: x@xdea.xyz   QQ Group: 585779547',
   'About/EMailUs': 'E-Mail us',
   'About/JoinQQGroup': 'Join QQ Group',
+};
+
+const Map<String, String> en_US_login = {
+  'SignInPage/ServiceDocs': 'Service Docs',
+  'SignInPage/HelpDocs': 'Help Docs',
+  'SignInPage/CampusID': 'Campus ID',
+  'SignInPage/Password': 'Password',
+  'SignInPage/Read':
+      'By signing in, you agree to our privacy policy and disclaimer',
+  'SignInPage/SignIn': 'Sign in',
+  'SignInPage/Error': 'Error: ',
+  'SignInPage/FormatError': 'Format error, please check.',
 };

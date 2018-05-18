@@ -95,7 +95,9 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(
               title: Text(MainLocalizations.of(context).get("Home")),
               icon: Icon(Icons.home),
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Theme.of(context).primaryColor
+                  : Colors.cyan[400],
             ),
             BottomNavigationBarItem(
               title: Text(MainLocalizations.of(context).get("Calendar")),
