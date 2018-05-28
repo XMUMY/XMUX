@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +11,16 @@ import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
 
 class CalendarPage extends StatelessWidget {
+  List<dynamic> _sortTimetable(List<dynamic> timetable) {
+    var pos = max(
+        timetable
+            .map((c) => c["dayOfWeek"])
+            .toList()
+            .indexOf(DateTime.now().weekday - 1),
+        0);
+    return timetable.sublist(pos)..addAll(timetable.sublist(0, pos));
+  }
+
   @override
   Widget build(BuildContext context) => DefaultTabController(
         length: 3,
@@ -50,7 +62,7 @@ class CalendarPage extends StatelessWidget {
             body: StoreConnector<MainAppState, ACState>(
                 builder: (BuildContext context, acState) =>
                     TabBarView(children: <Widget>[
-                      TimeTablePage(acState.timetable),
+                      TimeTablePage(_sortTimetable(acState.timetable)),
                       ExamsPage(acState.exams),
                       AssignmentPage(acState.assignments),
                     ]),

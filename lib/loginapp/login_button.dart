@@ -18,8 +18,7 @@ class LoginButton extends StatefulWidget {
   _LoginButtonState createState() => _LoginButtonState();
 }
 
-class _LoginButtonState extends State<LoginButton>
-    with SingleTickerProviderStateMixin {
+class _LoginButtonState extends State<LoginButton> {
   bool _isProcessing = false;
 
   Future _handleSignIn(BuildContext context) async {
