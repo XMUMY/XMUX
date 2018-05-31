@@ -30,7 +30,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(MainLocalizations.of(context).get("Tools/ExamResult")),
+          title: Text(MainLocalizations.of(context).get("Academic/ExamResult")),
         ),
         body: widget._examResult != null
             ? ListView(
@@ -39,7 +39,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
                     title: Text(
                       MainLocalizations
                           .of(context)
-                          .get("Tools/ExamResult/ChooseSession"),
+                          .get("Academic/ExamResult/ChooseSession"),
                       style: Theme.of(context).textTheme.subhead,
                     ),
                     trailing: DropdownButton(
@@ -143,7 +143,7 @@ class _CourseResultUI extends StatelessWidget {
                         " " +
                         MainLocalizations
                             .of(context)
-                            .get("Tools/ExamResult/credits"),
+                            .get("Academic/ExamResult/credits"),
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ],

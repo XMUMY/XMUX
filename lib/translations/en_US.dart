@@ -27,6 +27,9 @@ const Map<String, String> en_US = {
   'Calendar/SignIn/Failed': 'Failed',
   'Calendar/LastUpdate': 'Last update: ',
   // Academic
+  'Academic/ExamResult': 'Exam result',
+  'Academic/ExamResult/ChooseSession': 'Choose an academic session:',
+  'Academic/ExamResult/credits': 'credits',
   'Academic/WolframEngine/Title': 'Wolfram Engine',
   'Academic/WolframEngine/Caption':
       'Search anything by powerful Wolfram Engine',
@@ -78,9 +81,6 @@ const Map<String, String> en_US = {
   'Tools/EPayment/Status': 'Status: ',
   'Tools/EPayment/Paid': 'Paid',
   'Tools/EPayment/Unpaid': 'Unpaid',
-  'Tools/ExamResult': 'Exam result',
-  'Tools/ExamResult/ChooseSession': 'Choose an academic session:',
-  'Tools/ExamResult/credits': 'credits',
   'Tools/Emergency': 'Emergency',
   'Tools/Emergency/Caption':
       'In case of emergency, these functions may help you.\nUsing in non-emergency situations is illegal!',

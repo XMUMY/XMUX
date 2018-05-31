@@ -4,6 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/about.dart';
+import 'package:xmux/mainapp/academic/exam_result.dart';
 import 'package:xmux/mainapp/academic/geogebra.dart';
 import 'package:xmux/mainapp/academic/gpa_calculator.dart';
 import 'package:xmux/mainapp/academic/wolfram_engine/input_constructor.dart';
@@ -14,7 +15,6 @@ import 'package:xmux/mainapp/settings/change_personal_info.dart';
 import 'package:xmux/mainapp/settings/settings_page.dart';
 import 'package:xmux/mainapp/tools/emergency.dart';
 import 'package:xmux/mainapp/tools/epayment.dart';
-import 'package:xmux/mainapp/tools/exam_result.dart';
 import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -31,6 +31,7 @@ class MainApp extends StatelessWidget {
           initialRoute: "/",
           routes: <String, WidgetBuilder>{
             '/About': (BuildContext context) => AboutPage(),
+            '/Academic/ExamResult': (BuildContext context) => ExamResultPage(),
             '/Academic/WolframEngine': (BuildContext context) =>
                 InputConstructor(),
             '/Academic/GeoGebra': (BuildContext context) => GeoGebraPage(),
@@ -41,7 +42,6 @@ class MainApp extends StatelessWidget {
             '/Explore/LostAndFound': (BuildContext context) =>
                 LostAndFoundPage(),
             '/Me/Epayment': (BuildContext context) => EPaymentPage(),
-            '/Me/ExamResult': (BuildContext context) => ExamResultPage(),
             '/Me/Emergency': (BuildContext context) => EmergencyPage(),
             '/Settings': (BuildContext context) => SettingsPage(),
             '/Settings/ChangePersonalInfo': (BuildContext context) =>

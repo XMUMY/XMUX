@@ -64,14 +64,14 @@ class DrawerPage extends StatelessWidget {
                     FlatButton(
                       onPressed: () => Navigator
                           .of(context)
-                          .popAndPushNamed("/Me/ExamResult"),
+                          .popAndPushNamed("/Academic/ExamResult"),
                       child: Row(
                         children: <Widget>[
                           Icon(Icons.local_hospital),
                           Text("  " +
                               MainLocalizations
                                   .of(context)
-                                  .get("Tools/ExamResult"))
+                                  .get("Academic/ExamResult"))
                         ],
                       ),
                     ),
