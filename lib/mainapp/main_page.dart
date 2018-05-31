@@ -69,9 +69,12 @@ class _MainPageState extends State<MainPage> {
               child: TickerMode(
                 enabled: _currentIndex == 2,
                 child: Theme(
-                  data: Theme
-                      .of(context)
-                      .copyWith(primaryColor: Colors.lightBlue),
+                  data: Theme.of(context).copyWith(
+                        primaryColor:
+                            Theme.of(context).brightness == Brightness.dark
+                                ? Theme.of(context).primaryColor
+                                : Colors.lightBlue,
+                      ),
                   child: AcademicPage(),
                 ),
               ),
@@ -81,7 +84,12 @@ class _MainPageState extends State<MainPage> {
               child: TickerMode(
                 enabled: _currentIndex == 3,
                 child: Theme(
-                  data: Theme.of(context).copyWith(primaryColor: Colors.purple),
+                  data: Theme.of(context).copyWith(
+                        primaryColor:
+                            Theme.of(context).brightness == Brightness.dark
+                                ? Theme.of(context).primaryColor
+                                : Colors.purple,
+                      ),
                   child: ExplorePage(),
                 ),
               ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/mainapp/explore/chat_room_page.dart';
+import 'package:xmux/mainapp/explore/eatx/eatx_page.dart';
 import 'package:xmux/mainapp/explore/room_reservation/room_reservation_page.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/redux/state.dart';
@@ -85,6 +86,20 @@ class _ExplorePageState extends State<ExplorePage> {
                   new Icon(Icons.chat),
                   new Text(
                     " " + MainLocalizations.of(context).get("About/Feedback"),
+                    style: Theme.of(context).textTheme.subhead,
+                  )
+                ],
+              ),
+            ),
+            new FlatButton(
+              onPressed: () => Navigator
+                  .of(context)
+                  .push(new MaterialPageRoute(builder: (_) => new EatXPage())),
+              child: new Row(
+                children: <Widget>[
+                  new Icon(Icons.android),
+                  new Text(
+                    " " + "EatX",
                     style: Theme.of(context).textTheme.subhead,
                   )
                 ],
