@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,18 @@ import 'package:xmux/translations/translation.dart';
 class TimeTablePage extends StatelessWidget {
   final classes;
 
-  TimeTablePage(this.classes);
+  TimeTablePage(List timetable)
+      : this.classes = timetable == null ? null : _sortTimetable(timetable);
+
+  static List<dynamic> _sortTimetable(List<dynamic> timetable) {
+    var pos = max(
+        timetable
+            .map((c) => c["dayOfWeek"])
+            .toList()
+            .indexOf(DateTime.now().weekday - 1),
+        0);
+    return timetable.sublist(pos)..addAll(timetable.sublist(0, pos));
+  }
 
   // Handle refresh.
   Future<Null> _handleUpdate() async {
@@ -37,23 +49,23 @@ class TimeTablePage extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) => RefreshIndicator(
-        onRefresh: _handleUpdate,
-        child: (classes == null || classes.isEmpty)
-            ? EmptyErrorPage(
-                onRefresh: _handleUpdate,
-              )
-            : ListView.builder(
-                itemCount: classes.length + 1,
-                itemBuilder: (_, int index) {
-                  if (index == classes.length)
-                    // Build last update string.
-                    return _buildLastUpdateString(context);
-                  else
-                    // Build class card.
-                    return _ClassCard(classes[index]);
-                }),
-      );
+  Widget build(BuildContext context) => classes == null
+      ? errorWidgets.emptyErrorButton(onRefresh: _handleUpdate)
+      : classes.isEmpty
+          ? errorWidgets.emptyErrorPage
+          : RefreshIndicator(
+              onRefresh: _handleUpdate,
+              child: ListView.builder(
+                  itemCount: classes.length + 1,
+                  itemBuilder: (_, int index) {
+                    if (index == classes.length)
+                      // Build last update string.
+                      return _buildLastUpdateString(context);
+                    else
+                      // Build class card.
+                      return _ClassCard(classes[index]);
+                  }),
+            );
 }
 
 class _ClassCard extends StatelessWidget {
@@ -77,68 +89,69 @@ class _ClassCard extends StatelessWidget {
       minute: int.parse(originTime.split(":")[1]));
 
   @override
-  Widget build(BuildContext context) => Container(
-        margin: EdgeInsets.all(5.0),
-        child: Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(10.0),
-                child: Center(
-                  child: Text(
-                    MainLocalizations.of(context).get("Weekdays/" +
-                            (theClass["dayOfWeek"] + 1).toString()) +
-                        " " +
-                        _getTimeOfDay(theClass["startTimeOfDay"])
-                            .format(context) +
-                        " - " +
-                        _getTimeOfDay(theClass["endTimeOfDay"])
-                            .format(context) +
-                        " " +
-                        theClass["classRoom"],
-                    style: TextStyle(color: Colors.white, fontSize: 18.0),
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(5.0),
+      child: Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(10.0),
+              child: Center(
+                child: Text(
+                  MainLocalizations.of(context).get("Weekdays/" +
+                          (theClass["dayOfWeek"] + 1).toString()) +
+                      " " +
+                      _getTimeOfDay(theClass["startTimeOfDay"])
+                          .format(context) +
+                      " - " +
+                      _getTimeOfDay(theClass["endTimeOfDay"]).format(context) +
+                      " " +
+                      theClass["classRoom"],
+                  style: TextStyle(color: Colors.white, fontSize: 18.0),
+                ),
+              ),
+              color: dayColor[theClass["dayOfWeek"]],
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8.0),
+                    child: Text(
+                      theClass["courseName"],
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .subhead
+                          .copyWith(color: Colors.black54),
+                    ),
                   ),
-                ),
-                color: dayColor[theClass["dayOfWeek"]],
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 8.0),
-                      child: Text(
-                        theClass["courseName"],
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .subhead
-                            .copyWith(color: Colors.black54),
-                      ),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(theClass["courseCode"] +
-                                  " " +
-                                  theClass["weeks"]),
-                              Text(theClass["lecturer"]),
-                            ],
-                          ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(theClass["courseCode"] +
+                                " " +
+                                theClass["weeks"]),
+                            Text(theClass["lecturer"]),
+                          ],
                         ),
-                        SignInButton(theClass),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      SignInButton(theClass),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }

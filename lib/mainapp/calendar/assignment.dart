@@ -21,7 +21,7 @@ class AssignmentPage extends StatelessWidget {
   Widget build(BuildContext context) => new RefreshIndicator(
         onRefresh: _handleUpdate,
         child: assignments == null
-            ? EmptyErrorPage(
+            ? errorWidgets.emptyErrorButton(
                 onRefresh: _handleUpdate,
               )
             : ListView.builder(

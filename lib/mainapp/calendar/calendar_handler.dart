@@ -28,8 +28,7 @@ class CalendarHandler {
     if (response.statusCode >= 400) return response.reasonPhrase;
 
     // Update acState.
-    if ((jsonDecode(response.body) as Map).isNotEmpty)
-      mainAppStore.dispatch(UpdateACAction(jsonDecode(response.body)));
+    mainAppStore.dispatch(UpdateACAction(jsonDecode(response.body)));
 
     return "success";
   }
@@ -48,8 +47,7 @@ class CalendarHandler {
     if (response.statusCode >= 400) return response.reasonPhrase;
 
     // Update acState.
-    if ((jsonDecode(response.body) as List).isNotEmpty)
-      mainAppStore.dispatch(UpdateAssignmentsAction(jsonDecode(response.body)));
+    mainAppStore.dispatch(UpdateAssignmentsAction(jsonDecode(response.body)));
 
     return "success";
   }

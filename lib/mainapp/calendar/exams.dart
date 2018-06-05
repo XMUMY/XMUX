@@ -36,13 +36,13 @@ class ExamsPage extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) => RefreshIndicator(
-        onRefresh: _handleUpdate,
-        child: (exams == null || exams.isEmpty)
-            ? EmptyErrorPage(
-                onRefresh: _handleUpdate,
-              )
-            : ListView.builder(
+  Widget build(BuildContext context) => exams == null
+      ? errorWidgets.emptyErrorButton(onRefresh: _handleUpdate)
+      : exams.isEmpty
+          ? errorWidgets.emptyErrorPage
+          : RefreshIndicator(
+              onRefresh: _handleUpdate,
+              child: ListView.builder(
                 itemCount: exams.length + 1,
                 itemBuilder: (_, int index) {
                   if (index == exams.length)
@@ -53,7 +53,7 @@ class ExamsPage extends StatelessWidget {
                     return _ExamCard(exams[index]);
                 },
               ),
-      );
+            );
 }
 
 class _ExamCard extends StatelessWidget {

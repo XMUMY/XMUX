@@ -7,15 +7,25 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/redux/middleware.dart';
 import 'package:xmux/redux/reducers/main_reducer.dart';
 import 'package:xmux/redux/state.dart';
 
+/// Firebase messaging instance.
 final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+
+/// Firebase user instance.
+///
+/// Default is null. Will be assigned by FirebaseUser when logged in.
 FirebaseUser firebaseUser;
 
+/// Main store for redux.
 final Store<MainAppState> mainAppStore = Store<MainAppState>(mainAppReducer,
     initialState: MainAppState(), middleware: [saveMiddleware]);
+
+/// Error widgets instance.
+final errorWidgets = ErrorWidgets();
 
 class BackendApiHandler {
   static Future<http.Response> post(
@@ -48,45 +58,5 @@ class BackendApiHandler {
                   Localizations.localeOf(context).languageCode +
                   ";q=0.9",
         },
-      );
-}
-
-class EmptyErrorPage extends StatelessWidget {
-  final AsyncCallback onRefresh;
-
-  EmptyErrorPage({AsyncCallback onRefresh})
-      : this.onRefresh = onRefresh ?? (() {});
-
-  @override
-  Widget build(BuildContext context) => Card(
-        margin: EdgeInsets.all(20.0),
-        child: FlatButton(
-            onPressed: onRefresh,
-            child: Flex(
-              direction: Axis.horizontal,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.hourglass_empty,
-                      size: 50.0,
-                      color: Theme.of(context).errorColor,
-                    ),
-                    Padding(padding: EdgeInsets.all(10.0)),
-                    Text(
-                      "Oh! Nothing is here!\nPlease refresh or come later.",
-                      textAlign: TextAlign.center,
-                    ),
-                    Padding(padding: EdgeInsets.all(10.0)),
-                    Text(
-                      "噢！这里什么也没有！\n请刷新或稍后再来。",
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),
-              ],
-            )),
       );
 }

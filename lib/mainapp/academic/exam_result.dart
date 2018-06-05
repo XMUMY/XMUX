@@ -113,7 +113,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
                   ),
                 ],
               )
-            : EmptyErrorPage(),
+            : errorWidgets.emptyErrorPage,
       );
 }
 
