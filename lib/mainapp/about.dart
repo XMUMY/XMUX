@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/translations/translation.dart';
 
 class AboutPage extends StatelessWidget {
@@ -54,7 +55,7 @@ class AboutPage extends StatelessWidget {
             ),
             Divider(),
             Text(
-              "© 2017-2018 χ Dev",
+              "© 2017-2018 χ Dev | Build: " + packageInfo.buildNumber,
               textAlign: TextAlign.center,
             ),
           ],

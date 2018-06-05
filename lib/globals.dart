@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/modules/error_widgets/error_widgets.dart';
@@ -26,6 +27,11 @@ final Store<MainAppState> mainAppStore = Store<MainAppState>(mainAppReducer,
 
 /// Error widgets instance.
 final errorWidgets = ErrorWidgets();
+
+/// Package information from platform.
+///
+/// Default is null. Will be assigned during init.
+PackageInfo packageInfo;
 
 class BackendApiHandler {
   static Future<http.Response> post(

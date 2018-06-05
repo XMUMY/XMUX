@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -153,7 +152,7 @@ class EndDrawer extends StatelessWidget {
                     ],
                   )),
               Text(
-                "Version : \n" + AppInfo.version,
+                "Version : \n" + packageInfo.version,
                 textAlign: TextAlign.center,
               ),
             ],
