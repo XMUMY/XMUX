@@ -8,12 +8,11 @@ import 'package:xmux/main.dart';
 import 'package:xmux/redux/actions.dart';
 
 class CalendarHandler {
-  static Future<String> acUpdate({BuildContext context}) async {
+  static Future<String> acUpdate() async {
     print("CalendarHandler: Updating AC.");
 
     // Get response from backend.
-    var response =
-        await BackendApiHandler.post(context: context, api: "/v2/ac", body: {
+    var response = await backend.post("/v2/ac", {
       "id": mainAppStore.state.personalInfoState.uid,
       "pass": mainAppStore.state.personalInfoState.password,
     });
@@ -33,12 +32,11 @@ class CalendarHandler {
     return "success";
   }
 
-  static Future<String> assignmentUpdate({BuildContext context}) async {
+  static Future<String> assignmentUpdate() async {
     print("CalendarHandler: Updating Assignment.");
 
     // Get response from backend.
-    var response = await BackendApiHandler
-        .post(context: context, api: "/moodle/assignment", body: {
+    var response = await backend.post("/moodle/assignment", {
       "id": mainAppStore.state.personalInfoState.uid,
       "pass": mainAppStore.state.personalInfoState.password,
     });

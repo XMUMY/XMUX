@@ -8,8 +8,7 @@ import 'package:xmux/redux/actions.dart';
 class HomePageHandler {
   static Future<String> updateNews({BuildContext context}) async {
     // Get news from backend.
-    var response = await BackendApiHandler.get(
-        context: context, api: "/v2/homepage/homepage.json");
+    var response = await backend.get("/v2/homepage/homepage.json");
 
     // Check error.
     if (response.statusCode >= 400) return response.reasonPhrase;
@@ -28,8 +27,7 @@ class HomePageHandler {
 
   static Future<String> updateAnnouncements({BuildContext context}) async {
     // Get news from backend.
-    var response = await BackendApiHandler
-        .post(context: context, api: "/v2/homepage/announcements", body: {
+    var response = await backend.post("/v2/homepage/announcements", {
       "id": mainAppStore.state.personalInfoState.uid,
     });
 

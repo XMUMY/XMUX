@@ -44,8 +44,8 @@ class _LoginButtonState extends State<LoginButton> {
     }
 
     // Handle login.
-    var loginResult = await LoginHandler.login(widget._usernameController.text,
-        widget._passwordController.text, context);
+    var loginResult = await LoginHandler.login(
+        widget._usernameController.text, widget._passwordController.text);
     if (loginResult != "success") {
       Scaffold
           .of(context)

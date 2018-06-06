@@ -24,8 +24,7 @@ class _PaymentPageState extends State<EPaymentPage> {
     String password,
   ) async {
     // Get response from backend.
-    var response =
-        await BackendApiHandler.post(context: context, api: "/bill", body: {
+    var response = await backend.post("/bill", {
       "id": mainAppStore.state.personalInfoState.uid,
       "pass": password,
     });

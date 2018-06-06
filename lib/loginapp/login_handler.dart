@@ -2,19 +2,16 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/redux/actions.dart';
 
 class LoginHandler {
-  static Future<String> login(
-      String id, String password, BuildContext context) async {
+  static Future<String> login(String id, String password) async {
     print("Login with uid: $id");
 
     // Get response from backend.
-    var response =
-        await BackendApiHandler.post(context: context, api: "/v2/login", body: {
+    var response = await backend.post("/v2/login", {
       "id": id,
       "pass": password,
     });

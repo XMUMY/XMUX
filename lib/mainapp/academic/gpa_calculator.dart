@@ -63,7 +63,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
 
   @override
   void initState() {
-    AcademicHandler.getCourses(context: context).then((coursesData) {
+    AcademicHandler.getCourses().then((coursesData) {
       for (var i in coursesData)
         courses.add(
             _CourseInfo(i["Course Name (by group)"], int.parse(i["Credit"])));

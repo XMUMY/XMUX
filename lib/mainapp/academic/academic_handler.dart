@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
 
 class AcademicHandler {
-  static Future<List> getCourses({BuildContext context}) async {
+  static Future<List> getCourses() async {
     print("AcademicHandler: Updating courses.");
 
     // Get courses from backend.
-    var response =
-        await BackendApiHandler.post(context: context, api: "/course", body: {
+    var response = await backend.post("/course", {
       "id": mainAppStore.state.personalInfoState.uid,
       "pass": mainAppStore.state.personalInfoState.password,
     });
