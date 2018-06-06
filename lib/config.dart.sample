@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 
 class AppInfo {
-  static final version = "";
-  static final build = 0;
-   static const demoUsername = "";
-   static const demoPassword = "";
+  static const demoUsername = "";
+  static const demoPassword = "";
 }
 
 class WolframConfig {
-  static final appID = "";
+  static const appID = "";
 }
 
 class BackendApiConfig {
-  static final address = "";
-  static final resourceAddress = "";
+  static const addresses = [""];
+  static const resourceAddress = "";
   static const signInAddress = "";
 }
 
 final ThemeData iOSTheme = new ThemeData(
-  primarySwatch: Colors.grey[100],
+  primarySwatch: Colors.grey,
   primaryColor: Colors.grey[100],
   primaryColorBrightness: Brightness.light,
   accentColor: Colors.grey[300],
