@@ -31,11 +31,13 @@ class MainApp extends StatelessWidget {
           initialRoute: "/",
           routes: <String, WidgetBuilder>{
             '/About': (BuildContext context) => AboutPage(),
-            '/Academic/ExamResult': (BuildContext context) => ExamResultPage(),
-            '/Academic/WolframEngine': (BuildContext context) =>
+            '/Academic/Tools/ExamResult': (BuildContext context) =>
+                ExamResultPage(),
+            '/Academic/Tools/WolframEngine': (BuildContext context) =>
                 InputConstructor(),
-            '/Academic/GeoGebra': (BuildContext context) => GeoGebraPage(),
-            '/Academic/GPACalculator': (BuildContext context) =>
+            '/Academic/Tools/GeoGebra': (BuildContext context) =>
+                GeoGebraPage(),
+            '/Academic/Tools/GPACalculator': (BuildContext context) =>
                 GPACalculatorPage(),
             '/Calendar/CalendarImage': (BuildContext context) =>
                 CalendarImagePage(),

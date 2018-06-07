@@ -12,7 +12,7 @@ class WolframResult extends StatelessWidget {
         appBar: AppBar(
           title: Text(MainLocalizations
               .of(context)
-              .get("Academic/WolframEngine/Result")),
+              .get("Academic/Tools/WolframEngine/Result")),
           backgroundColor: Colors.orange,
         ),
         body: ListView(

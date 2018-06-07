@@ -6,8 +6,9 @@ class GeoGebraPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => WebviewScaffold(
         appBar: AppBar(
-          title: Text(
-              MainLocalizations.of(context).get("Academic/GeoGebra/Title")),
+          title: Text(MainLocalizations
+              .of(context)
+              .get("Academic/Tools/GeoGebra/Title")),
         ),
         url: "https://www.geogebra.org/classic",
       );

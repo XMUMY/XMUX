@@ -75,8 +75,9 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(
-              MainLocalizations.of(context).get("Academic/GPACalculator/Name")),
+          title: Text(MainLocalizations
+              .of(context)
+              .get("Academic/Tools/GPACalculator/Name")),
         ),
         body: courses.isEmpty
             ? Center(

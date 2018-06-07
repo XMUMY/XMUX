@@ -17,84 +17,72 @@ class AcademicPage extends StatelessWidget {
           title: Text(MainLocalizations.of(context).get("Academic")),
         ),
         body: ListView(
+          padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
           children: <Widget>[
-            _AcademicPageCard(
-              title: MainLocalizations
-                  .of(context)
-                  .get("Academic/WolframEngine/Title"),
-              caption: MainLocalizations
-                  .of(context)
-                  .get("Academic/WolframEngine/Caption"),
-              image: "res/academic/wolfram.png",
-              route: "/Academic/WolframEngine",
+            Row(children: <Widget>[
+              Text(
+                "  Tools",
+                style: Theme.of(context).textTheme.title,
+              ),
+              FlatButton(
+                child: Text("More"),
+                onPressed: () {},
+              ),
+            ]),
+            Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _ToolsButton(
+                    icon: Image.asset("res/academic/wolfram.png"),
+                    title: "Academic/Tools/WolframEngine/Title",
+                    path: "/Academic/Tools/WolframEngine"),
+                _ToolsButton(
+                    icon: Image.asset("res/academic/geogebra.png"),
+                    title: "Academic/Tools/GeoGebra/Title",
+                    path: "/Academic/Tools/GeoGebra"),
+                _ToolsButton(
+                    icon: Image.asset("res/academic/gpa.png"),
+                    title: "Academic/Tools/GPACalculator/Name",
+                    path: "/Academic/Tools/GPACalculator"),
+                _ToolsButton(
+                    icon: Icon(
+                      Icons.local_hospital,
+                      size: 60.0,
+                      color: Colors.red,
+                    ),
+                    title: "Academic/Tools/ExamResult/Title",
+                    path: "/Academic/Tools/ExamResult"),
+              ],
             ),
-            _AcademicPageCard(
-              title:
-                  MainLocalizations.of(context).get("Academic/GeoGebra/Title"),
-              caption: MainLocalizations
-                  .of(context)
-                  .get("Academic/GeoGebra/Caption"),
-              image: "res/academic/geogebra.png",
-              route: "/Academic/GeoGebra",
+            Text(
+              "  Public talks",
+              style: Theme.of(context).textTheme.title,
             ),
-            _AcademicPageCard(
-              title: MainLocalizations
-                  .of(context)
-                  .get("Academic/GPACalculator/Name"),
-              caption: MainLocalizations
-                  .of(context)
-                  .get("Academic/GPACalculator/Caption"),
-              image: "res/academic/gpa.png",
-              route: "/Academic/GPACalculator",
-            ),
+            Divider(),
           ],
         ),
       );
 }
 
-class _AcademicPageCard extends StatelessWidget {
-  final String title, caption, image, route;
+class _ToolsButton extends StatelessWidget {
+  final Widget icon;
+  final String title;
+  final String path;
 
-  _AcademicPageCard(
-      {@required this.title,
-      @required this.caption,
-      @required this.image,
-      @required this.route});
+  _ToolsButton(
+      {@required this.icon, @required this.title, @required this.path});
 
   @override
-  Widget build(BuildContext context) => Card(
-        margin: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-        child: MaterialButton(
-            padding: EdgeInsets.all(20.0),
-            child: Row(
-              children: <Widget>[
-                Image.asset(
-                  image,
-                  height: 66.0,
-                  width: 66.0,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        title,
-                        style: Theme.of(context).textTheme.title,
-                      ),
-                      Divider(
-                        height: 5.0,
-                        color: Theme.of(context).canvasColor,
-                      ),
-                      Text(
-                        caption,
-                        style: Theme.of(context).textTheme.caption,
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () => Navigator.pushNamed(context, route)),
+  Widget build(BuildContext context) => Container(
+        height: 80.0,
+        width: 80.0,
+        margin: EdgeInsets.all(7.0),
+        child: IconButton(
+          icon: icon,
+          onPressed: () => Navigator.of(context).pushNamed(path),
+          tooltip: MainLocalizations.of(context).get(title),
+          iconSize: 80.0,
+        ),
       );
 }

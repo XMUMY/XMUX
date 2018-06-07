@@ -59,22 +59,6 @@ class DrawerPage extends StatelessWidget {
                       ),
                     ),
 
-                    // Exam result
-                    FlatButton(
-                      onPressed: () => Navigator
-                          .of(context)
-                          .popAndPushNamed("/Academic/ExamResult"),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.local_hospital),
-                          Text("  " +
-                              MainLocalizations
-                                  .of(context)
-                                  .get("Academic/ExamResult"))
-                        ],
-                      ),
-                    ),
-
                     // Emergency
                     FlatButton(
                       onPressed: () => Navigator

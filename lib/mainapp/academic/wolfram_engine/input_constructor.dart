@@ -40,7 +40,7 @@ class _InputConstructorState extends State<InputConstructor> {
           backgroundColor: Colors.orange,
           title: Text(MainLocalizations
               .of(context)
-              .get("Academic/WolframEngine/InputConstructor")),
+              .get("Academic/Tools/WolframEngine/InputConstructor")),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +55,7 @@ class _InputConstructorState extends State<InputConstructor> {
                     controller: _inputTextController,
                     decoration: InputDecoration(
                         hintText: MainLocalizations.of(context).get(
-                            "Academic/WolframEngine/InputConstructor/SearchAnything")),
+                            "Academic/Tools/WolframEngine/InputConstructor/SearchAnything")),
                   )),
                   IconButton(
                     icon: Icon(Icons.send),
@@ -73,14 +73,12 @@ class _InputConstructorState extends State<InputConstructor> {
               ),
             ),
             ListTile(
-              title: Text(MainLocalizations
-                  .of(context)
-                  .get("Academic/WolframEngine/InputConstructor/CommonlyUsed")),
+              title: Text(MainLocalizations.of(context).get(
+                  "Academic/Tools/WolframEngine/InputConstructor/CommonlyUsed")),
               trailing: DropdownButton<String>(
                 value: dropdownValue,
-                hint: Text(MainLocalizations
-                    .of(context)
-                    .get("Academic/WolframEngine/InputConstructor/Choose")),
+                hint: Text(MainLocalizations.of(context).get(
+                    "Academic/Tools/WolframEngine/InputConstructor/Choose")),
                 onChanged: (String command) => setState(() {
                       _inputTextController.text += command;
                       _inputTextController.selection = TextSelection.collapsed(
@@ -129,9 +127,8 @@ class _InputConstructorState extends State<InputConstructor> {
                 _getInputButton(","),
                 _getInputButton("%"),
                 FlatButton(
-                  child: Text(MainLocalizations
-                      .of(context)
-                      .get("Academic/WolframEngine/InputConstructor/ClearAll")),
+                  child: Text(MainLocalizations.of(context).get(
+                      "Academic/Tools/WolframEngine/InputConstructor/ClearAll")),
                   onPressed: () {
                     _inputTextController.clear();
                   },

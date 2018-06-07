@@ -20,29 +20,32 @@ const Map<String, String> en_US = {
   'Calendar/Classes': 'Classes',
   'Calendar/Exams': 'Exams',
   'Calendar/Assignments': 'Assignments',
-  'Calendar/CalendarImage': 'School Calendar',
+  'Calendar/CalendarImage': 'Academic Calendar',
   'Calendar/SignIn': 'Sign in',
   'Calendar/SignIn/Signing': 'OK',
   'Calendar/SignIn/Finished': 'Successful',
   'Calendar/SignIn/Failed': 'Failed',
   'Calendar/LastUpdate': 'Last update: ',
   // Academic
-  'Academic/ExamResult': 'Exam result',
-  'Academic/ExamResult/ChooseSession': 'Choose an academic session:',
-  'Academic/ExamResult/credits': 'credits',
-  'Academic/WolframEngine/Title': 'Wolfram Engine',
-  'Academic/WolframEngine/Caption':
+  'Academic/Tools/ExamResult/Title': 'Exam result',
+  'Academic/Tools/ExamResult/ChooseSession': 'Choose an academic session:',
+  'Academic/Tools/ExamResult/credits': 'credits',
+  'Academic/Tools/WolframEngine/Title': 'Wolfram Engine',
+  'Academic/Tools/WolframEngine/Caption':
       'Search anything by powerful Wolfram Engine',
-  'Academic/WolframEngine/InputConstructor': 'Input Constructor',
-  'Academic/WolframEngine/InputConstructor/SearchAnything': 'Search anything!',
-  'Academic/WolframEngine/InputConstructor/CommonlyUsed': 'Commonly used: ',
-  'Academic/WolframEngine/InputConstructor/Choose': 'Choose',
-  'Academic/WolframEngine/InputConstructor/ClearAll': 'Clear all',
-  'Academic/WolframEngine/Result': 'Search Result',
-  'Academic/GeoGebra/Title': 'GeoGebra',
-  'Academic/GeoGebra/Caption': ' Solve & plot by GeoGebra dynamic mathematics',
-  'Academic/GPACalculator/Name': 'GPA Calculator',
-  'Academic/GPACalculator/Caption': 'Calculate your GPA easily',
+  'Academic/Tools/WolframEngine/InputConstructor': 'Input Constructor',
+  'Academic/Tools/WolframEngine/InputConstructor/SearchAnything':
+      'Search anything!',
+  'Academic/Tools/WolframEngine/InputConstructor/CommonlyUsed':
+      'Commonly used: ',
+  'Academic/Tools/WolframEngine/InputConstructor/Choose': 'Choose',
+  'Academic/Tools/WolframEngine/InputConstructor/ClearAll': 'Clear all',
+  'Academic/Tools/WolframEngine/Result': 'Search Result',
+  'Academic/Tools/GeoGebra/Title': 'GeoGebra',
+  'Academic/Tools/GeoGebra/Caption':
+      ' Solve & plot by GeoGebra dynamic mathematics',
+  'Academic/Tools/GPACalculator/Name': 'GPA Calculator',
+  'Academic/Tools/GPACalculator/Caption': 'Calculate your GPA easily',
   // Explore
   'Warning':
       ' Warning! These functions are still under developing. Room reservation is only available when connected to the campus network.',
