@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/mainapp/explore/chat_room_page.dart';
 import 'package:xmux/mainapp/explore/eatx/eatx_page.dart';
-import 'package:xmux/mainapp/explore/room_reservation/room_reservation_page.dart';
+import 'package:xmux/mainapp/tools/room_reservation.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';

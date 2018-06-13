@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/translations/translation.dart';
 
 class EatXPage extends StatefulWidget {
   @override
@@ -28,16 +27,24 @@ class _EatXPageState extends State<EatXPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-              title: Text(MainLocalizations.of(context).get("Home")),
+              title: Text("首页"),
               icon: Icon(Icons.home),
-              backgroundColor: Colors.pinkAccent),
+              backgroundColor: Colors.orange),
           BottomNavigationBarItem(
-            title: Text(MainLocalizations.of(context).get("Home")),
-            icon: Icon(Icons.home),
+            title: Text("食堂"),
+            icon: Icon(Icons.restaurant),
+          ),
+          BottomNavigationBarItem(
+            title: Text("点评"),
+            icon: Icon(Icons.comment),
+          ),
+          BottomNavigationBarItem(
+            title: Text("我"),
+            icon: Icon(Icons.person),
           ),
         ],
         currentIndex: _currentIndex,
-        type: BottomNavigationBarType.shifting,
+        type: BottomNavigationBarType.fixed,
         onTap: (int index) => setState(() => _currentIndex = index),
       ),
     );

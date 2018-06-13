@@ -27,7 +27,7 @@ const Map<String, String> en_US = {
   'Calendar/SignIn/Failed': 'Failed',
   'Calendar/LastUpdate': 'Last update: ',
   // Academic
-  'Academic/Tools': '工具',
+  'Academic/Tools': 'Utilities',
   'Academic/Tools/ExamResult/Title': 'Exam result',
   'Academic/Tools/ExamResult/ChooseSession': 'Choose an academic session:',
   'Academic/Tools/ExamResult/credits': 'credits',
@@ -47,7 +47,7 @@ const Map<String, String> en_US = {
       ' Solve & plot by GeoGebra dynamic mathematics',
   'Academic/Tools/GPACalculator/Name': 'GPA Calculator',
   'Academic/Tools/GPACalculator/Caption': 'Calculate your GPA easily',
-  'Academic/PublicTalks': '公共演讲',
+  'Academic/PublicTalks': 'Public Talk',
   // Explore
   'Warning':
       ' Warning! These functions are still under developing. Room reservation is only available when connected to the campus network.',
