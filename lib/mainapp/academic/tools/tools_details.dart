@@ -13,31 +13,32 @@ class AcademicToolDetailsPage extends StatelessWidget {
             _AcademicPageCard(
               title: MainLocalizations
                   .of(context)
-                  .get("Academic/WolframEngine/Title"),
+                  .get("Academic/Tools/WolframEngine/Title"),
               caption: MainLocalizations
                   .of(context)
-                  .get("Academic/WolframEngine/Caption"),
+                  .get("Academic/Tools/WolframEngine/Caption"),
               image: "res/academic/wolfram.png",
-              route: "/Academic/WolframEngine",
-            ),
-            _AcademicPageCard(
-              title:
-                  MainLocalizations.of(context).get("Academic/GeoGebra/Title"),
-              caption: MainLocalizations
-                  .of(context)
-                  .get("Academic/GeoGebra/Caption"),
-              image: "res/academic/geogebra.png",
-              route: "/Academic/GeoGebra",
+              route: "/Academic/Tools/WolframEngine",
             ),
             _AcademicPageCard(
               title: MainLocalizations
                   .of(context)
-                  .get("Academic/GPACalculator/Name"),
+                  .get("Academic/Tools/GeoGebra/Title"),
               caption: MainLocalizations
                   .of(context)
-                  .get("Academic/GPACalculator/Caption"),
+                  .get("Academic/Tools/GeoGebra/Caption"),
+              image: "res/academic/geogebra.png",
+              route: "/Academic/Tools/GeoGebra",
+            ),
+            _AcademicPageCard(
+              title: MainLocalizations
+                  .of(context)
+                  .get("Academic/Tools/GPACalculator/Name"),
+              caption: MainLocalizations
+                  .of(context)
+                  .get("Academic/Tools/GPACalculator/Caption"),
               image: "res/academic/gpa.png",
-              route: "/Academic/GPACalculator",
+              route: "/Academic/Tools/GPACalculator",
             ),
           ],
         ),

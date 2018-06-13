@@ -27,7 +27,8 @@ const Map<String, String> zh_CN = {
   'Calendar/SignIn/Failed': '签到失败',
   'Calendar/LastUpdate': '最近更新：',
   // Academic
-  'Academic/Tools/ExamResult': '成绩查询',
+  'Academic/Tools': '工具',
+  'Academic/Tools/ExamResult/Title': '成绩查询',
   'Academic/Tools/ExamResult/ChooseSession': '请选择一个学期：',
   'Academic/Tools/ExamResult/credits': '学分',
   'Academic/Tools/WolframEngine/Title': 'Wolfram 知识引擎',
@@ -42,6 +43,7 @@ const Map<String, String> zh_CN = {
   'Academic/Tools/GeoGebra/Caption': '使用 GeoGebra 进行数学解算和绘图',
   'Academic/Tools/GPACalculator/Name': 'GPA 计算器',
   'Academic/Tools/GPACalculator/Caption': '轻松计算平均学分绩点',
+  'Academic/PublicTalks': '公共演讲',
   // Explore
   'Warning': '警告：这些功能尚在试验阶段，它们可能不太稳定，教室预定仅在连接校园网情况下可用。',
   'lostandfound': '失物招领',

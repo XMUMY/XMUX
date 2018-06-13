@@ -30,8 +30,9 @@ class _ExamResultPageState extends State<ExamResultPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(
-              MainLocalizations.of(context).get("Academic/Tools/ExamResult")),
+          title: Text(MainLocalizations
+              .of(context)
+              .get("Academic/Tools/ExamResult/Title")),
         ),
         body: widget._examResult != null
             ? ListView(

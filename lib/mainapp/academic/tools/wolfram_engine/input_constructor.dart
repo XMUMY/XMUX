@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/mainapp/academic/wolfram_engine/result.dart';
+import 'package:xmux/mainapp/academic/tools/wolfram_engine/result.dart';
 import 'package:xmux/translations/translation.dart';
 
 class InputConstructor extends StatefulWidget {

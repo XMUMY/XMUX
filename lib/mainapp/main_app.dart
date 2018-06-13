@@ -4,10 +4,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/about.dart';
-import 'package:xmux/mainapp/academic/exam_result.dart';
-import 'package:xmux/mainapp/academic/geogebra.dart';
-import 'package:xmux/mainapp/academic/gpa_calculator.dart';
-import 'package:xmux/mainapp/academic/wolfram_engine/input_constructor.dart';
+import 'package:xmux/mainapp/academic/tools/exam_result.dart';
+import 'package:xmux/mainapp/academic/tools/geogebra.dart';
+import 'package:xmux/mainapp/academic/tools/gpa_calculator.dart';
+import 'package:xmux/mainapp/academic/tools/tools_details.dart';
+import 'package:xmux/mainapp/academic/tools/wolfram_engine/input_constructor.dart';
 import 'package:xmux/mainapp/calendar/calendar_image.dart';
 import 'package:xmux/mainapp/explore/lost_and_found/lost_and_found_page.dart';
 import 'package:xmux/mainapp/main_page.dart';
@@ -31,6 +32,8 @@ class MainApp extends StatelessWidget {
           initialRoute: "/",
           routes: <String, WidgetBuilder>{
             '/About': (BuildContext context) => AboutPage(),
+            '/Academic/Tools/Details': (BuildContext context) =>
+                AcademicToolDetailsPage(),
             '/Academic/Tools/ExamResult': (BuildContext context) =>
                 ExamResultPage(),
             '/Academic/Tools/WolframEngine': (BuildContext context) =>
