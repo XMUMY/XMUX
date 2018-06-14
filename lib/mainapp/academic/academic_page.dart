@@ -78,7 +78,7 @@ class AcademicPage extends StatelessWidget {
               ),
             ),
             FlatButton(
-              child: Text("More"),
+              child: Text(MainLocalizations.of(context).get("Academic/More")),
               onPressed: () =>
                   Navigator.of(context).pushNamed("/Academic/Tools/Details"),
             ),

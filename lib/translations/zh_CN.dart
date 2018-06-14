@@ -28,6 +28,7 @@ const Map<String, String> zh_CN = {
   'Calendar/LastUpdate': '最近更新：',
   // Academic
   'Academic/Tools': '工具',
+  'Academic/More': '更多',
   'Academic/Tools/ExamResult/Title': '成绩查询',
   'Academic/Tools/ExamResult/Caption': '查询您的考试成绩',
   'Academic/Tools/ExamResult/ChooseSession': '请选择一个学期：',

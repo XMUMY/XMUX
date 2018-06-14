@@ -28,6 +28,7 @@ const Map<String, String> en_US = {
   'Calendar/LastUpdate': 'Last update: ',
   // Academic
   'Academic/Tools': 'Utilities',
+  'Academic/More': 'More',
   'Academic/Tools/ExamResult/Title': 'Result Inquiry',
   'Academic/Tools/ExamResult/Caption': 'Inquiry your exam result',
   'Academic/Tools/ExamResult/ChooseSession': 'Choose an academic session:',
