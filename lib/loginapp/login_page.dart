@@ -28,7 +28,7 @@ class LoginPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               IconButton(
-                icon: Icon(FontAwesomeIcons.fileAltO),
+                icon: Icon(FontAwesomeIcons.fileAlt),
                 onPressed: () {
                   launch(
                     "https://${BackendApiConfig.resourceAddress}/privacy.html",
@@ -40,7 +40,7 @@ class LoginPage extends StatelessWidget {
                     .get("SignInPage/ServiceDocs"),
               ),
               IconButton(
-                icon: Icon(FontAwesomeIcons.questionCircleO),
+                icon: Icon(FontAwesomeIcons.questionCircle),
                 onPressed: null,
                 tooltip:
                     LoginLocalizations.of(context).get("SignInPage/HelpDocs"),

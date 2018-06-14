@@ -12,44 +12,47 @@ class AcademicPage extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) => Card(
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width / 3.6,
-                    child: Image.asset(
-                      "res/initpage.jpg",
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 4 / 7,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "A Career as Consulting Engineer in Building",
-                            style: Theme.of(context).textTheme.subhead,
-                            textAlign: TextAlign.center,
-                          ),
-                          Divider(
-                            height: 10.0,
-                          ),
-                          Text("Bdbai Haotian"),
-                          Text(
-                            "9-10AM. 6th/Jun/2050",
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                          Text(
-                            "A5 # G01",
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        ],
+              child: InkWell(
+                onTap: () {},
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width / 3.6,
+                      child: Image.asset(
+                        "res/initpage.jpg",
+                        fit: BoxFit.fitWidth,
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 4 / 7,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              "A Career as Consulting Engineer in Building",
+                              style: Theme.of(context).textTheme.subhead,
+                              textAlign: TextAlign.center,
+                            ),
+                            Divider(
+                              height: 10.0,
+                            ),
+                            Text("Bdbai Haotian"),
+                            Text(
+                              "9-10AM. 6th/Jun/2050",
+                              style: Theme.of(context).textTheme.caption,
+                            ),
+                            Text(
+                              "A5 # G01",
+                              style: Theme.of(context).textTheme.caption,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
       ),
