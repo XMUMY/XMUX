@@ -29,6 +29,7 @@ const Map<String, String> zh_CN = {
   // Academic
   'Academic/Tools': '工具',
   'Academic/Tools/ExamResult/Title': '成绩查询',
+  'Academic/Tools/ExamResult/Caption': '查询您的考试成绩',
   'Academic/Tools/ExamResult/ChooseSession': '请选择一个学期：',
   'Academic/Tools/ExamResult/credits': '学分',
   'Academic/Tools/WolframEngine/Title': 'Wolfram 知识引擎',

@@ -15,7 +15,7 @@ class AcademicPage extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Container(
-                    width: MediaQuery.of(context).size.width / 2.8 * 9 / 16,
+                    width: MediaQuery.of(context).size.width / 3.6,
                     child: Image.asset(
                       "res/initpage.jpg",
                       fit: BoxFit.fitWidth,
@@ -24,15 +24,18 @@ class AcademicPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 3 / 4,
+                      width: MediaQuery.of(context).size.width * 4 / 7,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
                             "A Career as Consulting Engineer in Building",
                             style: Theme.of(context).textTheme.subhead,
+                            textAlign: TextAlign.center,
                           ),
-                          Divider(),
+                          Divider(
+                            height: 10.0,
+                          ),
                           Text("Bdbai Haotian"),
                           Text(
                             "9-10AM. 6th/Jun/2050",
@@ -68,9 +71,11 @@ class AcademicPage extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
         children: <Widget>[
           Row(children: <Widget>[
-            Text(
-              " " + MainLocalizations.of(context).get("Academic/Tools"),
-              style: Theme.of(context).textTheme.title,
+            Expanded(
+              child: Text(
+                " " + MainLocalizations.of(context).get("Academic/Tools"),
+                style: Theme.of(context).textTheme.title,
+              ),
             ),
             FlatButton(
               child: Text("More"),
@@ -131,7 +136,7 @@ class _ToolsButton extends StatelessWidget {
           icon: icon,
           onPressed: () => Navigator.of(context).pushNamed(path),
           tooltip: MainLocalizations.of(context).get(title),
-          iconSize: 80.0,
+          iconSize: MediaQuery.of(context).size.width / 5.5,
         ),
       );
 }

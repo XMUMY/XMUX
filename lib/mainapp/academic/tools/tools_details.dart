@@ -4,45 +4,58 @@ import 'package:xmux/translations/translation.dart';
 
 class AcademicToolDetailsPage extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(MainLocalizations.of(context).get("Academic")),
-        ),
-        body: ListView(
-          children: <Widget>[
-            _AcademicPageCard(
-              title: MainLocalizations
-                  .of(context)
-                  .get("Academic/Tools/WolframEngine/Title"),
-              caption: MainLocalizations
-                  .of(context)
-                  .get("Academic/Tools/WolframEngine/Caption"),
-              image: "res/academic/wolfram.png",
-              route: "/Academic/Tools/WolframEngine",
-            ),
-            _AcademicPageCard(
-              title: MainLocalizations
-                  .of(context)
-                  .get("Academic/Tools/GeoGebra/Title"),
-              caption: MainLocalizations
-                  .of(context)
-                  .get("Academic/Tools/GeoGebra/Caption"),
-              image: "res/academic/geogebra.png",
-              route: "/Academic/Tools/GeoGebra",
-            ),
-            _AcademicPageCard(
-              title: MainLocalizations
-                  .of(context)
-                  .get("Academic/Tools/GPACalculator/Name"),
-              caption: MainLocalizations
-                  .of(context)
-                  .get("Academic/Tools/GPACalculator/Caption"),
-              image: "res/academic/gpa.png",
-              route: "/Academic/Tools/GPACalculator",
-            ),
-          ],
-        ),
-      );
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(MainLocalizations.of(context).get("Academic/Tools")),
+      ),
+      body: ListView(
+        padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
+        children: <Widget>[
+          _AcademicPageCard(
+            title: MainLocalizations
+                .of(context)
+                .get("Academic/Tools/WolframEngine/Title"),
+            caption: MainLocalizations
+                .of(context)
+                .get("Academic/Tools/WolframEngine/Caption"),
+            image: "res/academic/wolfram.png",
+            route: "/Academic/Tools/WolframEngine",
+          ),
+          _AcademicPageCard(
+            title: MainLocalizations
+                .of(context)
+                .get("Academic/Tools/GeoGebra/Title"),
+            caption: MainLocalizations
+                .of(context)
+                .get("Academic/Tools/GeoGebra/Caption"),
+            image: "res/academic/geogebra.png",
+            route: "/Academic/Tools/GeoGebra",
+          ),
+          _AcademicPageCard(
+            title: MainLocalizations
+                .of(context)
+                .get("Academic/Tools/GPACalculator/Name"),
+            caption: MainLocalizations
+                .of(context)
+                .get("Academic/Tools/GPACalculator/Caption"),
+            image: "res/academic/gpa.png",
+            route: "/Academic/Tools/GPACalculator",
+          ),
+          _AcademicPageCard(
+            title: MainLocalizations
+                .of(context)
+                .get("Academic/Tools/ExamResult/Title"),
+            caption: MainLocalizations
+                .of(context)
+                .get("Academic/Tools/ExamResult/Caption"),
+            image: "res/academic/gpa.png",
+            route: "/Academic/Tools/ExamResult",
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _AcademicPageCard extends StatelessWidget {
@@ -56,7 +69,7 @@ class _AcademicPageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Card(
-        margin: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+        margin: EdgeInsets.fromLTRB(2.0, 5.0, 2.0, 5.0),
         child: MaterialButton(
             padding: EdgeInsets.all(20.0),
             child: Row(
