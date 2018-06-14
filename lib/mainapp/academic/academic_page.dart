@@ -8,14 +8,14 @@ import 'package:xmux/translations/translation.dart';
 class AcademicPage extends StatelessWidget {
   Widget _buildPublicTalkList(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.width / 2.8,
+      height: MediaQuery.of(context).size.width / 2.7,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) => Card(
               child: Row(
                 children: <Widget>[
                   Container(
-                    width: 100.0,
+                    width: MediaQuery.of(context).size.width / 2.8 * 9 / 16,
                     child: Image.asset(
                       "res/initpage.jpg",
                       fit: BoxFit.fitWidth,
@@ -24,7 +24,7 @@ class AcademicPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Container(
-                      width: 230.0,
+                      width: MediaQuery.of(context).size.width * 3 / 4,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -99,7 +99,6 @@ class AcademicPage extends StatelessWidget {
               _ToolsButton(
                   icon: Icon(
                     Icons.local_hospital,
-                    size: 60.0,
                     color: Colors.red,
                   ),
                   title: "Academic/Tools/ExamResult/Title",
@@ -127,10 +126,7 @@ class _ToolsButton extends StatelessWidget {
       {@required this.icon, @required this.title, @required this.path});
 
   @override
-  Widget build(BuildContext context) => Container(
-        height: 80.0,
-        width: 80.0,
-        margin: EdgeInsets.all(7.0),
+  Widget build(BuildContext context) => Expanded(
         child: IconButton(
           icon: icon,
           onPressed: () => Navigator.of(context).pushNamed(path),

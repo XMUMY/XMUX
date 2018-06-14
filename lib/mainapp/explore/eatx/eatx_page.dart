@@ -22,6 +22,27 @@ class _EatXPageState extends State<EatXPage> {
               child: Scaffold(),
             ),
           ),
+          Offstage(
+            offstage: _currentIndex != 1,
+            child: TickerMode(
+              enabled: _currentIndex == 1,
+              child: Scaffold(),
+            ),
+          ),
+          Offstage(
+            offstage: _currentIndex != 2,
+            child: TickerMode(
+              enabled: _currentIndex == 2,
+              child: Scaffold(),
+            ),
+          ),
+          Offstage(
+            offstage: _currentIndex != 3,
+            child: TickerMode(
+              enabled: _currentIndex == 3,
+              child: Scaffold(),
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
