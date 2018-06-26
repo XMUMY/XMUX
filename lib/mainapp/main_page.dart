@@ -115,16 +115,12 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(
               title: Text(MainLocalizations.of(context).get("Academic")),
               icon: Icon(Icons.explore),
-              backgroundColor: Theme.of(context).brightness == Brightness.dark
-                  ? Theme.of(context).primaryColor
-                  : Colors.lightBlue,
+              backgroundColor: Colors.lightBlue,
             ),
             BottomNavigationBarItem(
               title: Text(MainLocalizations.of(context).get("Explore")),
               icon: Icon(Icons.search),
-              backgroundColor: Theme.of(context).brightness == Brightness.dark
-                  ? Theme.of(context).primaryColor
-                  : Colors.purple,
+              backgroundColor: Colors.purple,
             ),
           ],
           currentIndex: _currentIndex,

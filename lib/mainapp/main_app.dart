@@ -20,10 +20,10 @@ import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
 
 class MainApp extends StatelessWidget {
-  // Get Themedata dynamically.
+  // Get Theme data dynamically.
   ThemeData getThemeData() {
     // TODO: get theme from redux.
-    return defaultTheme;
+    return ThemeConfig.defaultTheme;
   }
 
   @override
