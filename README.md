@@ -1,6 +1,8 @@
 # XMUX
 XMUX is a powerful mobile application for everyone in Xiamen University Malaysia.
 
+[![Build Status](https://travis-ci.org/X-dea/XMUX.svg?branch=master)](https://travis-ci.org/X-dea/XMUX)
+
 ## Main functions
 
 Messages:

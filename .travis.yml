@@ -1,0 +1,21 @@
+os:
+  - linux
+sudo: false
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libstdc++6
+      - lib32stdc++6
+      - fonts-droid
+before_script:
+  - git clone https://github.com/flutter/flutter.git -b beta
+  - ./flutter/bin/flutter doctor
+  - mv ./lib/config.dart.sample ./lib/config.dart
+script:
+  - ./flutter/bin/flutter build bundle
+  - ./flutter/bin/flutter build aot --verbose
+cache:
+  directories:
+    - $HOME/.pub-cache
