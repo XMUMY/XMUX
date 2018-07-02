@@ -1,0 +1,111 @@
+variables:
+  ANDROID_COMPILE_SDK: "27"
+  ANDROID_BUILD_TOOLS: "27.0.3"
+  ANDROID_SDK_TOOL_VERSION: "4333796"
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  tags:
+    - flutter
+  image: openjdk:8-jdk
+  except:
+    - dev
+  before_script:
+# Install libraries
+    - apt-get --quiet update --yes
+    - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 fonts-droid-fallback
+# Install Android SDK manager
+    - if [ ! -d "android-sdk-linux" ]; then
+      wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOL_VERSION}.zip;
+      unzip -o -q android-sdk.zip -d android-sdk-linux;
+      mkdir android-sdk-linux/licenses;
+      printf "8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e" > android-sdk-linux/licenses/android-sdk-license;
+      printf "84831b9409646a918e30573bab4c9c91346d8abd" > android-sdk-linux/licenses/android-sdk-preview-license;
+      printf "601085b94cd77f0b54ff86406957099ebe79c4d6" > android-sdk-linux/licenses/android-googletv-license;
+      printf "e9acab5b5fbb560a72cfaecce8946896ff6aab9d" > android-sdk-linux/licenses/mips-android-sysimage-license;
+      printf "33b6a2b64607f11b759f320ef9dff4ae5c47d97a" > android-sdk-linux/licenses/google-gdk-license;
+      fi
+# Install Android SDK
+    - android-sdk-linux/tools/bin/sdkmanager --update > update.log
+    - android-sdk-linux/tools/bin/sdkmanager "platform-tools" "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository" > sdk.log
+# Add Android SDK PATH
+    - export ANDROID_SDK_HOME=$PWD/android-sdk-linux
+    - export PATH=$PATH:$ANDROID_SDK_HOME/tools:$ANDROID_SDK_HOME/platform-tools
+    - export ANDROID_HOME=ANDROID_SDK_HOME
+# Install Flutter SDK
+    - if [ ! -d "flutter" ];then git clone https://github.com/flutter/flutter.git -b beta; fi
+    - ./flutter/bin/flutter doctor
+# Add config and key
+    - mv ./lib/config.sample.dart ./lib/config.dart
+    - sed -i "s/"XWolframAppIDX"/"$CONFIG_WOLFRAM_APIKEY"/g" ./lib/config.dart
+    - sed -i "s/"XBackendAddressesX"/"$CONFIG_BACKEND_ADDR"/g" ./lib/config.dart
+    - sed -i "s/"XResourceAddressX"/"$CONFIG_RESOURCE_ADDR"/g" ./lib/config.dart
+    - sed -i "s/"XSignInAddressX"/"$CONFIG_SIGNIN_ADDR"/g" ./lib/config.dart
+    - echo "${GOOGLE_SERVICES_KEY}" > ./android/app/google-services.json
+    - echo "${RELEASE_SIGN_KEY}" | base64 -d > $HOME/.android/debug.keystore
+# Add apk version
+    - export BV=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep -m 1 'BV=' | sed 's/BV=//')
+    - export BN=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep -m 1 'BN=' | sed 's/BN=//')
+    - sed -i -E "s/versionCode [[:digit:]]+/versionCode $BV/g" ./android/app/build.gradle
+    - if [[ -n $BN ]]; then sed -i -E "s/versionName .*/versionName \"$BN\"/g" ./android/app/build.gradle; fi
+  script:
+    - if [[ -n $BV ]]; then ./flutter/bin/flutter build apk; else exit 1; fi
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - ./build/app/outputs/apk/release/app-release.apk
+    
+deploy:internal:
+  stage: deploy
+  tags:
+    - flutter
+  image: ruby
+  only:
+    - nightly
+  variables:
+    LC_ALL: en_US.UTF-8
+    LANG: en_US.UTF-8
+  before_script:
+    - apt-get --quiet update --yes
+    - apt-get --quiet install --yes ruby-dev gcc g++ make
+    - gem install fastlane -NV
+    - echo "${GOOGLE_PLAY_KEY}" > play.json
+    - export BV=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep -m 1 'BV=' | sed 's/BV=//')
+    - export CHANGELOG=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep . | grep -v BN | grep -v BV)
+  script:
+    - fastlane supply init --json_key play.json --package_name org.ctbeta.xmux.xmux
+    - echo "$CHANGELOG" > ./metadata/en-US/changelogs/"$BV".txt
+    - echo "$CHANGELOG" > ./metadata/zh-CN/changelogs/"$BV".txt
+    - fastlane supply --apk ./build/app/outputs/apk/release/app-release.apk --json_key play.json --package_name org.ctbeta.xmux.xmux --track internal --track_promote_to internal --skip_upload_aab true --skip_upload_images true
+
+deploy:alpha:
+  stage: deploy
+  tags:
+    - flutter
+  image: ruby
+  only:
+    - alpha
+  variables:
+    LC_ALL: en_US.UTF-8
+    LANG: en_US.UTF-8
+  before_script:
+    - apt-get --quiet update --yes
+    - apt-get --quiet install --yes ruby-dev gcc g++ make
+    - gem install fastlane -NV
+    - echo "${GOOGLE_PLAY_KEY}" > play.json
+    - export BV=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep -m 1 'BV=' | sed 's/BV=//')
+    - export CHANGELOG=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep . | grep -v BN | grep -v BV)
+  script:
+    - fastlane supply init --json_key play.json --package_name org.ctbeta.xmux.xmux
+    - echo "$CHANGELOG" > ./metadata/en-US/changelogs/"$BV".txt
+    - echo "$CHANGELOG" > ./metadata/zh-CN/changelogs/"$BV".txt
+    - fastlane supply --apk ./build/app/outputs/apk/release/app-release.apk --json_key play.json --package_name org.ctbeta.xmux.xmux --track alpha --track_promote_to alpha --skip_upload_aab true --skip_upload_images true
+
+cache:
+  paths:
+    - ./flutter
+    - ./android-sdk-linux
