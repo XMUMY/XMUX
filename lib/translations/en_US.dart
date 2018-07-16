@@ -23,19 +23,19 @@ const Map<String, String> en_US = {
   'Calendar/CalendarImage': 'Academic Calendar',
   'Calendar/SignIn': 'Sign in',
   'Calendar/SignIn/Signing': 'OK',
-  'Calendar/SignIn/Finished': 'Successful',
+  'Calendar/SignIn/Finished': 'Succeed',
   'Calendar/SignIn/Failed': 'Failed',
   'Calendar/LastUpdate': 'Last update: ',
   // Academic
   'Academic/Tools': 'Utilities',
   'Academic/More': 'More',
   'Academic/Tools/ExamResult/Title': 'Result Inquiry',
-  'Academic/Tools/ExamResult/Caption': 'Inquiry your exam result',
+  'Academic/Tools/ExamResult/Caption': 'View examination results',
   'Academic/Tools/ExamResult/ChooseSession': 'Choose an academic session:',
   'Academic/Tools/ExamResult/credits': 'credits',
   'Academic/Tools/WolframEngine/Title': 'Wolfram Engine',
   'Academic/Tools/WolframEngine/Caption':
-      'Search anything by powerful Wolfram Engine',
+      'Search anything using powerful Wolfram Engine',
   'Academic/Tools/WolframEngine/InputConstructor': 'Input Constructor',
   'Academic/Tools/WolframEngine/InputConstructor/SearchAnything':
       'Search anything!',
@@ -52,7 +52,7 @@ const Map<String, String> en_US = {
   'Academic/PublicTalks': 'Public Talk',
   // Explore
   'Warning':
-      ' Warning! These functions are still under developing. Room reservation is only available when connected to the campus network.',
+      ' Warning! These functions are under development. Room reservation is only available when connected to the campus network.',
   'lostandfound': 'Lost and Found',
   'lostandfound/location': 'Location : ',
   'lostandfound/things': 'Things : ',
@@ -77,7 +77,7 @@ const Map<String, String> en_US = {
   'Settings/SignOut': 'Sign out',
   'Settings/ChangeDisplayName': 'Change display name',
   'Settings/ChangeDisplayName/Caption':
-      'You can change your display name here, new name will be available after restart the app.',
+      'Change your display name here, the new name is available after restarting the app.',
   'Settings/ChangeDisplayName/Input': 'Input your new display name',
   // Me
   'Me/Header/Welcome': 'Hello,',
@@ -90,7 +90,7 @@ const Map<String, String> en_US = {
   'Tools/EPayment/Unpaid': 'Unpaid',
   'Tools/Emergency': 'Emergency',
   'Tools/Emergency/Caption':
-      'In case of emergency, these functions may help you.\nUsing in non-emergency situations is illegal!',
+      'Use these functions only during emergencies.\nUseage otherwise is illegal.',
   'Tools/Emergency/XMUMSecurityHotline': 'XMUM Security Hotline',
   'Tools/Emergency/PoliceSergeantSafie': 'Police Sergeant Safie',
   'Tools/Emergency/PoliceSergeantSafie/Caption': 'Salak Tinggi Road Patrol',
@@ -104,7 +104,7 @@ const Map<String, String> en_US = {
   'About/Caption': 'XMUX is a powerful app for everyone in XMUM.',
   'About/Feedback': 'Feedback',
   'About/ContactUs/Detail':
-      'Contact us if you have any questions or suggesstions:\n Email: x@xdea.xyz   QQ Group: 585779547',
+      'Contact us if you have any questions or suggestions:\n Email: x@xdea.xyz   QQ Group: 585779547',
   'About/EMailUs': 'E-Mail us',
   'About/JoinQQGroup': 'Join QQ Group',
 };
