@@ -101,17 +101,13 @@ class _MainPageState extends State<MainPage> {
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-              title: Text(MainLocalizations.of(context).get("Home")),
-              icon: Icon(Icons.home),
-              backgroundColor: Theme.of(context).brightness == Brightness.dark
-                  ? Theme.of(context).primaryColor
-                  : Colors.cyan[400],
-            ),
+                title: Text(MainLocalizations.of(context).get("Home")),
+                icon: Icon(Icons.home),
+                backgroundColor: Theme.of(context).primaryColor),
             BottomNavigationBarItem(
-              title: Text(MainLocalizations.of(context).get("Calendar")),
-              icon: Icon(Icons.calendar_today),
-              backgroundColor: Theme.of(context).primaryColor,
-            ),
+                title: Text(MainLocalizations.of(context).get("Calendar")),
+                icon: Icon(Icons.calendar_today),
+                backgroundColor: Theme.of(context).primaryColor),
             BottomNavigationBarItem(
               title: Text(MainLocalizations.of(context).get("Academic")),
               icon: Icon(Icons.explore),

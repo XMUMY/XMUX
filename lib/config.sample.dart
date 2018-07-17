@@ -25,10 +25,10 @@ class ThemeConfig {
 
   static ThemeData defaultTheme = ThemeData(
     primarySwatch: Colors.cyan,
-    primaryColor: Colors.cyan[600],
-    brightness: Brightness.dark,
+    brightness: Brightness.light,
+    primaryColor: Colors.cyan,
     primaryColorBrightness: Brightness.dark,
-    accentColor: Colors.purpleAccent,
+    accentColor: Colors.orangeAccent,
     accentColorBrightness: Brightness.dark,
     buttonColor: Colors.lightBlue,
   );

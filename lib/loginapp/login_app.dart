@@ -7,9 +7,10 @@ class LoginApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         theme: ThemeData(
-            brightness: Brightness.dark,
-            accentColor: Colors.grey[300],
-            buttonColor: Colors.cyan),
+          brightness: Brightness.dark,
+          accentColor: Colors.grey[300],
+          buttonColor: Colors.cyan,
+        ),
         home: Scaffold(body: LoginPage()),
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
@@ -17,8 +18,8 @@ class LoginApp extends StatelessWidget {
           LoginLocalizationsDelegate.delegate,
         ],
         supportedLocales: [
-          Locale('zh', 'CN'),
           Locale('en', 'US'),
+          Locale('zh', 'CN'),
         ],
       );
 }

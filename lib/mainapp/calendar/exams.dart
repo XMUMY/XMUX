@@ -77,11 +77,7 @@ class _ExamCard extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 8.0),
                       child: Text(
                         examData["Course Name"],
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .subhead
-                            .copyWith(color: Colors.black54),
+                        style: Theme.of(context).textTheme.subhead,
                       ),
                     ),
                     Text(examData["Exam Date"] +

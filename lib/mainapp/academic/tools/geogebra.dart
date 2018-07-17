@@ -9,6 +9,7 @@ class GeoGebraPage extends StatelessWidget {
           title: Text(MainLocalizations
               .of(context)
               .get("Academic/Tools/GeoGebra/Title")),
+          backgroundColor: Colors.lightBlue,
         ),
         url: "https://www.geogebra.org/classic",
       );

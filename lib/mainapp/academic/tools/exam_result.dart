@@ -33,6 +33,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
           title: Text(MainLocalizations
               .of(context)
               .get("Academic/Tools/ExamResult/Title")),
+          backgroundColor: Colors.lightBlue,
         ),
         body: widget._examResult != null
             ? ListView(

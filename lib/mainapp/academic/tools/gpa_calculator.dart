@@ -78,6 +78,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
           title: Text(MainLocalizations
               .of(context)
               .get("Academic/Tools/GPACalculator/Name")),
+          backgroundColor: Colors.lightBlue,
         ),
         body: courses.isEmpty
             ? Center(

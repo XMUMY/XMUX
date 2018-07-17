@@ -8,6 +8,7 @@ class AcademicToolDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(MainLocalizations.of(context).get("Academic/Tools")),
+        backgroundColor: Colors.lightBlue,
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),

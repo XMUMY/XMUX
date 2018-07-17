@@ -123,11 +123,7 @@ class _ClassCard extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 8.0),
                     child: Text(
                       theClass["courseName"],
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .subhead
-                          .copyWith(color: Colors.black54),
+                      style: Theme.of(context).textTheme.subhead,
                     ),
                   ),
                   Row(
