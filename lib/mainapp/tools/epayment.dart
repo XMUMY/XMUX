@@ -61,11 +61,9 @@ class _PaymentPageState extends State<EPaymentPage> {
 
   @override
   void initState() {
-    ePaymentFetch(mainAppStore.state.settingState.ePaymentPassword).then((r) {
-      setState(() {
-        _bills = r["data"];
-      });
-    });
+    if (mainAppStore.state.settingState.ePaymentPassword != null)
+      ePaymentFetch(mainAppStore.state.settingState.ePaymentPassword)
+          .then((r) => setState(() => _bills = r["data"]));
     super.initState();
   }
 
