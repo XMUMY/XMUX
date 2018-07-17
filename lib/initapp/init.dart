@@ -5,17 +5,20 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/loginapp/login_handler.dart';
 import 'package:xmux/mainapp/calendar/calendar_handler.dart';
+import 'package:xmux/modules/backend_handler/backend_handler.dart';
 import 'package:xmux/redux/actions.dart';
 
 Future<String> init() async {
-  // Init FCM.
-  initFCM();
-
+  // Select backend server.
+  backend = BackendHandler(BackendApiConfig.addresses);
   // Get package Info.
   packageInfo = await PackageInfo.fromPlatform();
+  // Init FCM.
+  initFCM();
 
   String appDocDir;
   Map<String, dynamic> initMap;

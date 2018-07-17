@@ -3,20 +3,49 @@ library backend_handler;
 import 'dart:async';
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 part "http_handler.dart";
 
 class BackendHandler {
+  @protected
+  static BackendHandler instance;
+
+  static String currentApiAddress;
   final List<String> _addresses;
 
-  BackendHandler(this._addresses);
+  final connectivity = Connectivity();
+  ConnectivityResult lastConnectivityResult;
 
-  Future<http.Response> get(String api) async => await Future
-      .any(_addresses.map((address) => HttpHandler.get(address, api)).toList());
+  factory BackendHandler(List<String> addresses) {
+    if (instance == null) instance = new BackendHandler._(addresses);
+    return instance;
+  }
 
-  Future<http.Response> post(String api, Map<String, dynamic> body) async =>
-      await Future.any(_addresses
-          .map((address) => HttpHandler.post(address, api, body))
-          .toList());
+  BackendHandler._(this._addresses) {
+    currentApiAddress = _addresses[0];
+    connectivity.onConnectivityChanged.listen((result) async {
+      if (result != ConnectivityResult.none && result != lastConnectivityResult)
+        selectBackend();
+      lastConnectivityResult = result;
+    });
+  }
+
+  void selectBackend() async {
+    print("BackendHandler/backendSelector: Selecting backend.");
+    var selected = await Future.any(_addresses.map((String address) async {
+      var res = await _HttpHandler.get(address, "/test");
+      if (res.statusCode == 200) return address;
+    }).toList());
+    if (selected.isNotEmpty) currentApiAddress = selected;
+    print("BackendHandler/backendSelector: Selected: $selected");
+  }
+
+  Future<http.Response> get(String api) async =>
+      await _HttpHandler.get(currentApiAddress, api);
+
+  Future<http.Response> post(String api, Map<String, String> body) async =>
+      await _HttpHandler.post(currentApiAddress, api, body);
 }
