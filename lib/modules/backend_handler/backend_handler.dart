@@ -18,6 +18,7 @@ class BackendHandler {
 
   final connectivity = Connectivity();
   ConnectivityResult lastConnectivityResult;
+  static Future<Null> selectingBackend;
 
   factory BackendHandler(List<String> addresses) {
     if (instance == null) instance = new BackendHandler._(addresses);
@@ -28,12 +29,12 @@ class BackendHandler {
     currentApiAddress = _addresses[0];
     connectivity.onConnectivityChanged.listen((result) async {
       if (result != ConnectivityResult.none && result != lastConnectivityResult)
-        selectBackend();
+        selectingBackend = selectBackend().timeout(Duration(seconds: 5));
       lastConnectivityResult = result;
     });
   }
 
-  void selectBackend() async {
+  Future<Null> selectBackend() async {
     print("BackendHandler/backendSelector: Selecting backend.");
     var selected = await Future.any(_addresses.map((String address) async {
       var res = await _HttpHandler.get(address, "/test");

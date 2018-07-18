@@ -15,6 +15,7 @@ import 'package:xmux/redux/actions.dart';
 Future<String> init() async {
   // Select backend server.
   backend = BackendHandler(BackendApiConfig.addresses);
+  await BackendHandler.selectingBackend;
   // Get package Info.
   packageInfo = await PackageInfo.fromPlatform();
   // Init FCM.
