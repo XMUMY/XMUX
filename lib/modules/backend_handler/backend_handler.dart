@@ -16,21 +16,26 @@ class BackendHandler {
   static String currentApiAddress;
   final List<String> _addresses;
 
-  final connectivity = Connectivity();
-  ConnectivityResult lastConnectivityResult;
+  final _connectivity = Connectivity();
+  ConnectivityResult _lastConnectivityResult;
   static Future<Null> selectingBackend;
 
   factory BackendHandler(List<String> addresses) {
-    if (instance == null) instance = new BackendHandler._(addresses);
+    if (instance == null) instance = BackendHandler._(addresses);
     return instance;
   }
 
   BackendHandler._(this._addresses) {
     currentApiAddress = _addresses[0];
-    connectivity.onConnectivityChanged.listen((result) async {
-      if (result != ConnectivityResult.none && result != lastConnectivityResult)
+    selectingBackend = selectBackend().timeout(Duration(seconds: 5));
+
+    // Listen when connectivity change.
+    _connectivity.onConnectivityChanged.listen((result) async {
+      if (result != ConnectivityResult.none &&
+          result != _lastConnectivityResult &&
+          _lastConnectivityResult != null)
         selectingBackend = selectBackend().timeout(Duration(seconds: 5));
-      lastConnectivityResult = result;
+      _lastConnectivityResult = result;
     });
   }
 

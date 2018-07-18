@@ -17,7 +17,7 @@ class LoginHandler {
     });
 
     // When error.
-    if (response.statusCode >= 300) return response.reasonPhrase;
+    if (response.statusCode != 200) return response.reasonPhrase;
 
     Map responseMap = jsonDecode(response.body);
     if (responseMap["status"] == "error") return responseMap["error"];

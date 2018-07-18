@@ -12,14 +12,16 @@ import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/modules/backend_handler/backend_handler.dart';
 import 'package:xmux/redux/actions.dart';
 
-Future<String> init() async {
+enum InitResult { notLogin, loginError, finished }
+
+Future<InitResult> init() async {
   // Select backend server.
   backend = BackendHandler(BackendApiConfig.addresses);
   await BackendHandler.selectingBackend;
-  // Get package Info.
-  packageInfo = await PackageInfo.fromPlatform();
   // Init FCM.
   initFCM();
+  // Get package Info.
+  packageInfo = await PackageInfo.fromPlatform();
 
   String appDocDir;
   Map<String, dynamic> initMap;
@@ -33,23 +35,26 @@ Future<String> init() async {
     mainAppStore.dispatch(InitAction(initMap));
   } catch (e) {
     FirebaseAuth.instance.signOut();
-    return "NotLogin";
+    return InitResult.notLogin;
   }
 
   // If haven't login.
   if (mainAppStore.state.personalInfoState.uid == null ||
-      mainAppStore.state.personalInfoState.password == null) return "NotLogin";
+      mainAppStore.state.personalInfoState.password == null)
+    return InitResult.notLogin;
+
+  if ((await LoginHandler.firebaseLogin()) != "success") {
+    FirebaseAuth.instance.signOut();
+    return InitResult.loginError;
+  }
 
   CalendarHandler.acUpdate().timeout(Duration(seconds: 10));
   CalendarHandler.assignmentUpdate().timeout(Duration(seconds: 10));
 
-  if ((await LoginHandler.firebaseLogin()) != "success") {
-    FirebaseAuth.instance.signOut();
-    return "LoginError";
-  }
-
-  return "Finished";
+  return InitResult.finished;
 }
+
+void initGlobalVars() {}
 
 void initFCM() {
   // Request notification Permission

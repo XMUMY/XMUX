@@ -9,6 +9,8 @@ import 'package:xmux/redux/reducers/main_reducer.dart';
 import 'package:xmux/redux/state.dart';
 
 /// Backend handler instance.
+///
+/// Default is null. Will be selected during init.
 BackendHandler backend;
 
 /// Error widgets instance.

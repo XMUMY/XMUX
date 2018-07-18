@@ -13,11 +13,11 @@ Future main() async {
   runApp(new InitPage());
 
   switch (await init()) {
-    case "NotLogin":
-    case "LoginError":
+    case InitResult.notLogin:
+    case InitResult.loginError:
       runApp(new LoginApp());
       break;
-    case "Finished":
+    case InitResult.finished:
       runApp(new MainApp());
   }
 }
