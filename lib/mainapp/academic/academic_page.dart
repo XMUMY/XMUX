@@ -103,14 +103,11 @@ class AcademicPage extends StatelessWidget {
                   title: "Academic/Tools/GeoGebra/Title",
                   path: "/Academic/Tools/GeoGebra"),
               _ToolsButton(
-                  icon: Image.asset("res/academic/gpa.png"),
+                  icon: Image.asset("res/academic/calculator.png"),
                   title: "Academic/Tools/GPACalculator/Name",
                   path: "/Academic/Tools/GPACalculator"),
               _ToolsButton(
-                  icon: Icon(
-                    Icons.local_hospital,
-                    color: Colors.red,
-                  ),
+                  icon: Image.asset("res/academic/gpa.png"),
                   title: "Academic/Tools/ExamResult/Title",
                   path: "/Academic/Tools/ExamResult"),
             ],

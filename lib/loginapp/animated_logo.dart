@@ -28,7 +28,7 @@ class _AnimatedLogoState extends State<AnimatedLogo>
   @override
   Widget build(BuildContext context) => Padding(
         padding: EdgeInsets.all(10.0),
-        child: new Opacity(
+        child: Opacity(
           opacity: animation.value,
           child: Image.asset(
             "res/logo.png",

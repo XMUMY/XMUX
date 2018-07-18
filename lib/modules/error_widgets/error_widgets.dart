@@ -12,7 +12,7 @@ class ErrorWidgets {
 
   /// Error widgets can only have one instance.
   factory ErrorWidgets() {
-    if (instance == null) instance = new ErrorWidgets._();
+    if (instance == null) instance = ErrorWidgets._();
     return instance;
   }
 

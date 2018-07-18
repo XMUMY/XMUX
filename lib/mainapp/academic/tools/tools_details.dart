@@ -40,7 +40,7 @@ class AcademicToolDetailsPage extends StatelessWidget {
             caption: MainLocalizations
                 .of(context)
                 .get("Academic/Tools/GPACalculator/Caption"),
-            image: "res/academic/gpa.png",
+            image: "res/academic/calculator.png",
             route: "/Academic/Tools/GPACalculator",
           ),
           _AcademicPageCard(
