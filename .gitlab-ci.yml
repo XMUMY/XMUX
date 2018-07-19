@@ -12,8 +12,10 @@ build:
   tags:
     - flutter
   image: openjdk:8-jdk
-  except:
-    - dev
+  only:
+    - nightly
+    - alpha
+    - master
   before_script:
 # Install libraries
     - apt-get --quiet update --yes

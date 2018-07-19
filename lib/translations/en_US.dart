@@ -92,18 +92,16 @@ const Map<String, String> en_US = {
   'Tools/Emergency/Caption':
       'Use these functions only during emergencies.\nUseage otherwise is illegal.',
   'Tools/Emergency/XMUMSecurityHotline': 'XMUM Security Hotline',
+  'Tools/Emergency/EmergencyContactAfterOfficeHour':
+      'Emergency Contacts (After office hour)',
   'Tools/Emergency/PoliceSergeantSafie': 'Police Sergeant Safie',
   'Tools/Emergency/PoliceSergeantSafie/Caption': 'Salak Tinggi Road Patrol',
   'Tools/Emergency/LCorporalFadil': 'L.Corporal Fadil',
   'Tools/Emergency/LCorporalFadil/Caption': 'Salak Tinggi Police Station',
   'Tools/Emergency/Police': 'Police',
   'Tools/Emergency/FireAlarm': 'Fire Police',
-  'Tools/Emergency/EmergencyAfterHourL': 'Emergency Contact No After Office Hours',
-  'Tools/Emergency/EmergencyAfterHourS': 'Emergency Contact No\nAfter Office Hours',
-  'Tools/Emergency/LostKey': 'Lost Key Hotline\n(Only 6pm. - 10pm.)',
-  'Tools/Emergency/SecurityHotline': 'Security Hotline',
-  'Tools/Emergency/MaintenanceHotline': 'Maintenance Hotline',
-
+  'Tools/Emergency/LostKey': '钥匙丢失热线',
+  'Tools/Emergency/LostKey/Caption': '18:00-22:00 only',
   // About
   'About': 'About',
   'About/Caption': 'XMUX is a powerful app for everyone in XMUM.',
