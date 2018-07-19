@@ -91,6 +91,11 @@ const Map<String, String> zh_CN = {
   'Tools/Emergency/LCorporalFadil/Caption': 'Salak Tinggi 警察局',
   'Tools/Emergency/Police': '警察',
   'Tools/Emergency/FireAlarm': '火警',
+  'Tools/Emergency/EmergencyAfterHourL': '非工作时间紧急电话',
+  'Tools/Emergency/EmergencyAfterHourS': '非工作时间\n紧急电话',
+  'Tools/Emergency/LostKey': '钥匙丢失热线\n(6pm. - 10pm.)',
+  'Tools/Emergency/SecurityHotline': '保卫处热线',
+  'Tools/Emergency/MaintenanceHotline': '维修热线',
 
   // About
   'About': '关于',

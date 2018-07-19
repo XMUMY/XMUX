@@ -98,6 +98,11 @@ const Map<String, String> en_US = {
   'Tools/Emergency/LCorporalFadil/Caption': 'Salak Tinggi Police Station',
   'Tools/Emergency/Police': 'Police',
   'Tools/Emergency/FireAlarm': 'Fire Police',
+  'Tools/Emergency/EmergencyAfterHourL': 'Emergency Contact No After Office Hours',
+  'Tools/Emergency/EmergencyAfterHourS': 'Emergency Contact No\nAfter Office Hours',
+  'Tools/Emergency/LostKey': 'Lost Key Hotline\n(Only 6pm. - 10pm.)',
+  'Tools/Emergency/SecurityHotline': 'Security Hotline',
+  'Tools/Emergency/MaintenanceHotline': 'Maintenance Hotline',
 
   // About
   'About': 'About',

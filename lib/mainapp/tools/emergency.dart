@@ -178,6 +178,137 @@ class EmergencyPage extends StatelessWidget {
                 ),
               ],
             ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: _buildCard(
+                    context,
+                    <Widget>[
+                      Text(MainLocalizations
+                          .of(context)
+                          .get("Tools/Emergency/MaintenanceHotline")),
+                      Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          RaisedButton(
+                            child: Text("017-3269544"),
+                            textColor: Colors.white,
+                            color: Colors.orange,
+                            highlightColor: Colors.pinkAccent,
+                            onPressed: () => launch("tel:017-3269544"),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: _buildCard(
+                    context,
+                    <Widget>[
+                      Text(MainLocalizations
+                          .of(context)
+                          .get("Tools/Emergency/SecurityHotline")),
+                      Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          RaisedButton(
+                            child: Text("019-3489999"),
+                            textColor: Colors.white,
+                            color: Colors.orange,
+                            highlightColor: Colors.pinkAccent,
+                            onPressed: () => launch("tel:019-3489999"),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: _buildCard(
+                    context,
+                    <Widget>[
+                      Text(MainLocalizations
+                          .of(context)
+                          .get("Tools/Emergency/LostKey")),
+                      Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          RaisedButton(
+                            child: Text("016-6310-3574"),
+                            textColor: Colors.white,
+                            color: Colors.orange,
+                            highlightColor: Colors.pinkAccent,
+                            onPressed: () => launch("tel:016-6310-3574"),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: _buildCard(
+                    context,
+                    <Widget>[
+                      Text(MainLocalizations
+                          .of(context)
+                          .get("Tools/Emergency/EmergencyAfterHourS")),
+                      Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          RaisedButton(
+                            child: Text("019-610-2628"),
+                            textColor: Colors.white,
+                            color: Colors.orange,
+                            highlightColor: Colors.pinkAccent,
+                            onPressed: () => launch("tel:019-610-2628"),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            _buildCard(
+              context,
+              <Widget>[
+                Text(MainLocalizations
+                    .of(context)
+                    .get("Tools/Emergency/EmergencyAfterHourL")),
+                Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text("017-746-8876"),
+                      textColor: Colors.white,
+                      color: Colors.orange,
+                      highlightColor: Colors.pinkAccent,
+                      onPressed: () => launch("tel:017-746-8876"),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5.0),
+                    ),
+                    RaisedButton(
+                      child: Text("019-806-7551"),
+                      textColor: Colors.white,
+                      color: Colors.orange,
+                      highlightColor: Colors.pinkAccent,
+                      onPressed: () => launch("tel:019-806-7551"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
       );
