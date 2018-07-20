@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:xmux/mainapp/academic/public_talk/public_talk_detail.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
@@ -14,8 +13,7 @@ class AcademicPage extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) => Card(
               child: InkWell(
-                onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => PublicTalkDetail())),
+                onTap: () {},
                 child: Row(
                   children: <Widget>[
                     Container(
@@ -71,6 +69,7 @@ class AcademicPage extends StatelessWidget {
               IconButton(icon: Icon(Icons.view_list), onPressed: callback),
         ),
         title: Text(MainLocalizations.of(context).get("Academic")),
+        backgroundColor: Colors.lightBlue,
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),

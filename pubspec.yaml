@@ -23,9 +23,9 @@ dependencies:
   image_picker: ^0.4.5
   package_info: ^0.3.2
   path_provider: ^0.4.1
+  photo_view: ^0.0.3
   redux: ^3.0.0
   url_launcher: ^3.0.3
-  zoomable_image: ^1.2.0
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/translations/translation.dart';
-import 'package:zoomable_image/zoomable_image.dart';
 
 class CalendarImagePage extends StatelessWidget {
   @override
@@ -11,15 +11,16 @@ class CalendarImagePage extends StatelessWidget {
           title:
               Text(MainLocalizations.of(context).get("Calendar/CalendarImage")),
         ),
-        body: ZoomableImage(
-          CachedNetworkImageProvider(
+        body: PhotoView(
+          imageProvider: CachedNetworkImageProvider(
             "https://${BackendApiConfig
             .resourceAddress}/image/cal_undergraduate.jpg",
           ),
-          maxScale: 1.5,
-          placeholder: Center(
+          loadingChild: Center(
             child: CircularProgressIndicator(),
           ),
+          maxScale: 1.5,
+          minScale: 0.3,
         ),
       );
 }

@@ -41,6 +41,7 @@ class ExplorePage extends StatelessWidget {
               IconButton(icon: Icon(Icons.view_list), onPressed: callback),
         ),
         title: Text(MainLocalizations.of(context).get("Explore")),
+        backgroundColor: Colors.purple,
       ),
       body: new ListView(
         children: <Widget>[

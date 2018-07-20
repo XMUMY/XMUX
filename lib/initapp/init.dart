@@ -17,7 +17,7 @@ enum InitResult { notLogin, loginError, finished }
 Future<InitResult> init() async {
   // Select backend server.
   backend = BackendHandler(BackendApiConfig.addresses);
-  await BackendHandler.selectingBackend;
+  await BackendHandler.selectingBackend.timeout(Duration(seconds: 5));
   // Init FCM.
   initFCM();
   // Get package Info.

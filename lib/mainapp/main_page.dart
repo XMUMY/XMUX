@@ -68,30 +68,14 @@ class _MainPageState extends State<MainPage> {
               offstage: _currentIndex != 2,
               child: TickerMode(
                 enabled: _currentIndex == 2,
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                        primaryColor:
-                            Theme.of(context).brightness == Brightness.dark
-                                ? Theme.of(context).primaryColor
-                                : Colors.lightBlue,
-                      ),
-                  child: AcademicPage(),
-                ),
+                child: AcademicPage(),
               ),
             ),
             Offstage(
               offstage: _currentIndex != 3,
               child: TickerMode(
                 enabled: _currentIndex == 3,
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                        primaryColor:
-                            Theme.of(context).brightness == Brightness.dark
-                                ? Theme.of(context).primaryColor
-                                : Colors.purple,
-                      ),
-                  child: ExplorePage(),
-                ),
+                child: ExplorePage(),
               ),
             ),
           ],

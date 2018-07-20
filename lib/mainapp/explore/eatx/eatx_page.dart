@@ -11,7 +11,7 @@ class _EatXPageState extends State<EatXPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text("EatX"),
+        title: Text("敬请期待"),
       ),
       body: Stack(
         children: <Widget>[
@@ -52,7 +52,7 @@ class _EatXPageState extends State<EatXPage> {
               icon: Icon(Icons.home),
               backgroundColor: Colors.orange),
           BottomNavigationBarItem(
-            title: Text("食堂"),
+            title: Text("餐厅"),
             icon: Icon(Icons.restaurant),
           ),
           BottomNavigationBarItem(

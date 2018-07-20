@@ -100,7 +100,7 @@ const Map<String, String> en_US = {
   'Tools/Emergency/LCorporalFadil/Caption': 'Salak Tinggi Police Station',
   'Tools/Emergency/Police': 'Police',
   'Tools/Emergency/FireAlarm': 'Fire Police',
-  'Tools/Emergency/LostKey': '钥匙丢失热线',
+  'Tools/Emergency/LostKey': 'When key lost',
   'Tools/Emergency/LostKey/Caption': '18:00-22:00 only',
   // About
   'About': 'About',
