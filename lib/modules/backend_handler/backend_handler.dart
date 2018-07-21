@@ -18,6 +18,7 @@ class BackendHandler {
 
   final _connectivity = Connectivity();
   ConnectivityResult _lastConnectivityResult;
+  // Future of selectBackend function for listening selecting status.
   static Future<Null> selectingBackend;
 
   factory BackendHandler(List<String> addresses) {
@@ -27,24 +28,30 @@ class BackendHandler {
 
   BackendHandler._(this._addresses) {
     currentApiAddress = _addresses[0];
-    selectingBackend = selectBackend().timeout(Duration(seconds: 5));
+    selectingBackend = selectBackend();
 
     // Listen when connectivity change.
     _connectivity.onConnectivityChanged.listen((result) async {
       if (result != ConnectivityResult.none &&
           result != _lastConnectivityResult &&
-          _lastConnectivityResult != null)
-        selectingBackend = selectBackend().timeout(Duration(seconds: 5));
+          _lastConnectivityResult != null) selectingBackend = selectBackend();
       _lastConnectivityResult = result;
     });
   }
 
   Future<Null> selectBackend() async {
     print("BackendHandler/backendSelector: Selecting backend.");
-    var selected = await Future.any(_addresses.map((String address) async {
-      var res = await _HttpHandler.get(address, "/test");
-      if (res.statusCode == 200) return address;
-    }).toList());
+
+    // Select the fastest server in 5 second.
+    // When timeout or error, it will return the last address.
+    var selected = await Future
+        .any(_addresses.map((String address) async {
+          var res = await _HttpHandler.get(address, "/test");
+          if (res.statusCode == 200) return address;
+        }).toList())
+        .timeout(Duration(seconds: 5), onTimeout: () => currentApiAddress)
+        .catchError((e) => currentApiAddress);
+
     if (selected.isNotEmpty) currentApiAddress = selected;
     print("BackendHandler/backendSelector: Selected: $selected");
   }
