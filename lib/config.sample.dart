@@ -5,8 +5,9 @@ class AppInfo {
   static const demoPassword = "XDemoUserPasswordX";
 }
 
-class WolframConfig {
-  static const appID = "XWolframAppIDX";
+class ApiKeyConfig {
+  static const wolframAppID = "XWolframAppIDX";
+  static const dialogflowToken = "XDialogflowTokenX";
 }
 
 class BackendApiConfig {

@@ -23,7 +23,7 @@ class WolframResult extends StatelessWidget {
               children: <Widget>[
                 LinearProgressIndicator(),
                 Image.network(
-                    "http://api.wolframalpha.com/v1/simple?appid=${WolframConfig.appID}&i=${Uri.encodeComponent(inputString)}&fontsize=18&width=${MediaQuery.of(context).size.width}"),
+                    "http://api.wolframalpha.com/v1/simple?appid=${ApiKeyConfig.wolframAppID}&i=${Uri.encodeComponent(inputString)}&fontsize=18&width=${MediaQuery.of(context).size.width}"),
               ],
             )
           ],
