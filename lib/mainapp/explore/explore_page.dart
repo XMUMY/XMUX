@@ -6,29 +6,35 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/mainapp/explore/chat_room_page.dart';
 import 'package:xmux/mainapp/explore/eatx/eatx_page.dart';
 import 'package:xmux/mainapp/tools/room_reservation.dart';
+import 'package:xmux/mainapp/tools/xia/xia_page.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
 
 class ExplorePage extends StatelessWidget {
   Widget _buildSlider(BuildContext context) {
-    return new StoreConnector<MainAppState, List>(
-        builder: (context, newsList) => new CarouselSlider(
-              items: newsList
-                  .map((n) => new Card(
-                        child: new Image(
-                          image: (n["imageURL"] as String).isEmpty
-                              ? AssetImage("res/slider.jpg")
-                              : CachedNetworkImageProvider(n["imageURL"]),
-                          fit: BoxFit.fill,
-                        ),
-                      ))
-                  .toList(),
-              viewportFraction: 0.88,
-              aspectRatio: 2.0,
-              autoPlay: true,
-            ),
-        converter: (store) => store.state.uiState.news);
+    return StoreConnector<MainAppState, bool>(
+        converter: (s) => s.state.settingState.enableFunctionsUnderDev,
+        builder: (_, v) => (v == true)
+            ? new StoreConnector<MainAppState, List>(
+                builder: (context, newsList) => new CarouselSlider(
+                      items: newsList
+                          .map((n) => new Card(
+                                child: new Image(
+                                  image: (n["imageURL"] as String).isEmpty
+                                      ? AssetImage("res/slider.jpg")
+                                      : CachedNetworkImageProvider(
+                                          n["imageURL"]),
+                                  fit: BoxFit.fill,
+                                ),
+                              ))
+                          .toList(),
+                      viewportFraction: 0.88,
+                      aspectRatio: 2.0,
+                      autoPlay: true,
+                    ),
+                converter: (store) => store.state.uiState.news)
+            : Container());
   }
 
   @override
@@ -103,19 +109,41 @@ class ExplorePage extends StatelessWidget {
               ],
             ),
           ),
-          new FlatButton(
-            onPressed: () => Navigator
-                .of(context)
-                .push(new MaterialPageRoute(builder: (_) => new EatXPage())),
-            child: new Row(
-              children: <Widget>[
-                new Icon(Icons.android),
-                new Text(
-                  " " + "EatX",
-                  style: Theme.of(context).textTheme.subhead,
-                )
-              ],
-            ),
+          StoreConnector<MainAppState, bool>(
+            converter: (s) => s.state.settingState.enableFunctionsUnderDev,
+            builder: (_, v) => (v == true)
+                ? new FlatButton(
+                    onPressed: () => Navigator.of(context).push(
+                        new MaterialPageRoute(builder: (_) => new EatXPage())),
+                    child: new Row(
+                      children: <Widget>[
+                        new Icon(Icons.android),
+                        new Text(
+                          " " + "EatX",
+                          style: Theme.of(context).textTheme.subhead,
+                        )
+                      ],
+                    ),
+                  )
+                : Container(),
+          ),
+          StoreConnector<MainAppState, bool>(
+            converter: (s) => s.state.settingState.enableFunctionsUnderDev,
+            builder: (_, v) => (v == true)
+                ? new FlatButton(
+                    onPressed: () => Navigator.of(context).push(
+                        new MaterialPageRoute(builder: (_) => new XiAPage())),
+                    child: new Row(
+                      children: <Widget>[
+                        new Icon(Icons.android),
+                        new Text(
+                          " " + "XiA",
+                          style: Theme.of(context).textTheme.subhead,
+                        )
+                      ],
+                    ),
+                  )
+                : Container(),
           ),
         ],
       ),

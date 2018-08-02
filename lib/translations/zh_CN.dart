@@ -70,9 +70,14 @@ const Map<String, String> zh_CN = {
   // Settings
   'Settings': '设置',
   'Settings/SignOut': '登出',
-  'Settings/ChangeDisplayName': '更改昵称',
-  'Settings/ChangeDisplayName/Caption': '您可以在此更改昵称，新的昵称将在重启应用后生效。',
-  'Settings/ChangeDisplayName/Input': '请输入您的昵称',
+  'Settings/ChangePersonalInfo': '更改昵称',
+  'Settings/ChangePersonalInfo/Caption': '您可以在此更改昵称，新的昵称将在重启应用后生效。',
+  'Settings/ChangePersonalInfo/Input': '请输入您的昵称',
+  'Settings/DeveloperOptions': '开发者选项',
+  'Settings/DeveloperOptions/Warning':
+      '警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常和数据丢失或泄漏。',
+  'Settings/DeveloperOptions/EnFuncsUnderDev': '启用正在开发中的功能',
+  'Settings/DeveloperOptions/EnFuncsUnderDev/Caption': '这些功能尚在开发中且十分不稳定',
   // Me
   'Me/Header/Welcome': '您好，',
   // Tools

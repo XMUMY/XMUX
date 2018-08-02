@@ -13,6 +13,7 @@ import 'package:xmux/mainapp/calendar/calendar_image.dart';
 import 'package:xmux/mainapp/explore/lost_and_found/lost_and_found_page.dart';
 import 'package:xmux/mainapp/main_page.dart';
 import 'package:xmux/mainapp/settings/change_personal_info.dart';
+import 'package:xmux/mainapp/settings/developer_options.dart';
 import 'package:xmux/mainapp/settings/settings_page.dart';
 import 'package:xmux/mainapp/tools/emergency.dart';
 import 'package:xmux/mainapp/tools/epayment.dart';
@@ -55,6 +56,8 @@ class MainApp extends StatelessWidget {
             '/Settings': (BuildContext context) => SettingsPage(),
             '/Settings/ChangePersonalInfo': (BuildContext context) =>
                 ChangePersonalInfoPage(),
+            '/Settings/DeveloperOptions': (BuildContext context) =>
+                DeveloperOptionsPage(),
 
             // old.
             "/wolframengine/constructor": (BuildContext context) =>

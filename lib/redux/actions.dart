@@ -38,6 +38,12 @@ class ChangeConnectivityAction extends MainAppAction {
   ChangeConnectivityAction(this.connectivityResult);
 }
 
+class EnableFunctionsUnderDevAction extends MainAppAction {
+  final bool enableFunctionsUnderDev;
+
+  EnableFunctionsUnderDevAction(this.enableFunctionsUnderDev);
+}
+
 class UpdateNewsAction extends MainAppAction {
   get needSave => false;
   final List news;

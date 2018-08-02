@@ -6,59 +6,6 @@ import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
 
 class AcademicPage extends StatelessWidget {
-  Widget _buildPublicTalkList(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.width / 2.7,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context, int index) => Card(
-              child: InkWell(
-                onTap: () {},
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3.6,
-                      child: Image.asset(
-                        "res/initpage.jpg",
-                        fit: BoxFit.fitWidth,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 4 / 7,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              "A Career as Consulting Engineer in Building",
-                              style: Theme.of(context).textTheme.subhead,
-                              textAlign: TextAlign.center,
-                            ),
-                            Divider(
-                              height: 10.0,
-                            ),
-                            Text("Bdbai Haotian"),
-                            Text(
-                              "9-10AM. 6th/Jun/2050",
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                            Text(
-                              "A5 # G01",
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,21 +58,27 @@ class AcademicPage extends StatelessWidget {
                   path: "/Academic/Tools/ExamResult"),
             ],
           ),
-          Row(children: <Widget>[
-            Expanded(
-              child: Text(
-                " " + MainLocalizations.of(context).get("Academic/PublicTalks"),
-                style: Theme.of(context).textTheme.title,
-              ),
-            ),
-            FlatButton(
-              child: Text(MainLocalizations.of(context).get("Academic/More")),
-              onPressed: () =>
-                  Navigator.of(context).pushNamed("/Academic/Tools/Details"),
-            ),
-          ]),
-          Divider(),
-          _buildPublicTalkList(context),
+          StoreConnector<MainAppState, bool>(
+            converter: (s) => s.state.settingState.enableFunctionsUnderDev,
+            builder: (_, v) => (v == true)
+                ? Row(children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        " " +
+                            MainLocalizations
+                                .of(context)
+                                .get("Academic/PublicTalks"),
+                        style: Theme.of(context).textTheme.title,
+                      ),
+                    ),
+                    FlatButton(
+                      child: Text(
+                          MainLocalizations.of(context).get("Academic/More")),
+                      onPressed: () {},
+                    ),
+                  ])
+                : Container(),
+          ),
         ],
       ),
     );

@@ -118,21 +118,30 @@ class SettingState {
   /// E-payment password.
   final String ePaymentPassword;
 
-  SettingState() : ePaymentPassword = null;
+  /// Enable functions under developing.
+  final bool enableFunctionsUnderDev;
 
-  SettingState.raw(this.ePaymentPassword);
+  SettingState()
+      : ePaymentPassword = null,
+        enableFunctionsUnderDev = false;
+
+  SettingState.raw(this.ePaymentPassword, this.enableFunctionsUnderDev);
 
   SettingState.fromMap(Map<String, dynamic> map)
-      : this.ePaymentPassword = map["ePaymentPassword"];
+      : this.ePaymentPassword = map["ePaymentPassword"],
+        this.enableFunctionsUnderDev = map["enableFunctionsUnderDev"];
 
-  Map<String, String> toMap() => {
+  Map<String, dynamic> toMap() => {
         "ePaymentPassword": this.ePaymentPassword,
+        "enableFunctionsUnderDev": this.enableFunctionsUnderDev,
       };
 
   SettingState copyWith({
     String ePaymentPassword,
+    bool enableFunctionsUnderDev,
   }) =>
-      new SettingState.raw(ePaymentPassword ?? this.ePaymentPassword);
+      new SettingState.raw(ePaymentPassword ?? this.ePaymentPassword,
+          enableFunctionsUnderDev ?? this.enableFunctionsUnderDev);
 }
 
 /// AC state include timetable, exams, examResult and other academic data.

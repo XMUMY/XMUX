@@ -75,10 +75,15 @@ const Map<String, String> en_US = {
   // Settings
   'Settings': 'Settings',
   'Settings/SignOut': 'Sign out',
-  'Settings/ChangeDisplayName': 'Change display name',
-  'Settings/ChangeDisplayName/Caption':
+  'Settings/ChangePersonalInfo': 'Change display name',
+  'Settings/ChangePersonalInfo/Caption':
       'Change your display name here, the new name is available after restarting the app.',
-  'Settings/ChangeDisplayName/Input': 'Input your new display name',
+  'Settings/ChangePersonalInfo/Input': 'Input your new display name',
+  'Settings/DeveloperOptions': 'Developer options',
+  'Settings/DeveloperOptions/Warning':
+      '警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常和数据丢失或泄漏。',
+  'Settings/DeveloperOptions/EnFuncsUnderDev': '启用正在开发中的功能',
+  'Settings/DeveloperOptions/EnFuncsUnderDev/Caption': '这些功能尚在开发中且十分不稳定',
   // Me
   'Me/Header/Welcome': 'Hello,',
   // Tools

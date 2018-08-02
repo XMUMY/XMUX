@@ -1,28 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main.dart';
 import 'package:xmux/translations/translation.dart';
 
 class SettingsPage extends StatelessWidget {
-  Widget _getSimpleSettingWidget(
-          {@required BuildContext context,
-          @required String name,
-          String route,
-          VoidCallback callback}) =>
-      FlatButton(
-        onPressed: route == null
-            ? callback
-            : () => Navigator.pushNamed(context, route),
-        child: Row(
-          children: <Widget>[
-            Text(
-              MainLocalizations.of(context).get(name),
-            ),
-          ],
-        ),
-      );
-
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -51,10 +32,21 @@ class SettingsPage extends StatelessWidget {
               ],
             ),
             Divider(),
-            _getSimpleSettingWidget(
-                context: context,
-                route: "/Settings/ChangePersonalInfo",
-                name: "Settings/ChangeDisplayName"),
+            ListTile(
+              leading: Text(MainLocalizations
+                  .of(context)
+                  .get("Settings/ChangePersonalInfo")),
+              onTap: () => Navigator
+                  .of(context)
+                  .pushNamed("/Settings/ChangePersonalInfo"),
+            ),
+            ListTile(
+              leading: Text(MainLocalizations
+                  .of(context)
+                  .get("Settings/DeveloperOptions")),
+              onTap: () =>
+                  Navigator.of(context).pushNamed("/Settings/DeveloperOptions"),
+            ),
             Divider(),
             FlatButton(
               color: Theme.of(context).splashColor,
