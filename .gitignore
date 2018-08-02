@@ -16,5 +16,7 @@ pubspec.lock
 
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
+android/app/x.jks
+android/key.properties
 
 lib/config.dart
