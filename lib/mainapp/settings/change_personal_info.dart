@@ -11,7 +11,7 @@ class ChangePersonalInfoPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text(
-              MainLocalizations.of(context).get("Settings/ChangeDisplayName")),
+              MainLocalizations.of(context).get("Settings/ChangePersonalInfo")),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.done),
@@ -33,7 +33,7 @@ class ChangePersonalInfoPage extends StatelessWidget {
               Text(
                 MainLocalizations
                     .of(context)
-                    .get("Settings/ChangeDisplayName/Caption"),
+                    .get("Settings/ChangePersonalInfo/Caption"),
                 style: Theme.of(context).textTheme.caption,
               ),
               TextField(
@@ -41,7 +41,7 @@ class ChangePersonalInfoPage extends StatelessWidget {
                 decoration: InputDecoration(
                     hintText: MainLocalizations
                         .of(context)
-                        .get("Settings/ChangeDisplayName/Input")),
+                        .get("Settings/ChangePersonalInfo/Input")),
                 onSubmitted: (t) {
                   if (t.isNotEmpty) {
                     FirebaseAuth.instance
