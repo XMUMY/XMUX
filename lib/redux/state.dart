@@ -1,3 +1,5 @@
+import 'package:connectivity/connectivity.dart';
+
 /// Main App State include UI/PersonalInfo/Settings/AC.
 class MainAppState {
   /// Global UI state include drawerIsOpen, etc.
@@ -44,14 +46,18 @@ class UIState {
   /// Drawer is open.
   final bool drawerIsOpen;
 
+  /// Connectivity result.
+  final ConnectivityResult connectivity;
+
   /// Homepage sliders.
   final List news;
 
-  /// Homepage announcements;
+  /// Homepage announcements.
   final List announcements;
 
   UIState()
       : this.drawerIsOpen = false,
+        this.connectivity = ConnectivityResult.none,
         this.news = [
           {
             "imageURL": "",
@@ -61,10 +67,18 @@ class UIState {
         ],
         this.announcements = [];
 
-  UIState.raw(this.drawerIsOpen, this.news, this.announcements);
+  UIState.raw(
+      this.drawerIsOpen, this.connectivity, this.news, this.announcements);
 
-  UIState copyWith({bool drawerIsOpen, List news, List announcements}) =>
-      new UIState.raw(drawerIsOpen ?? this.drawerIsOpen, news ?? this.news,
+  UIState copyWith(
+          {bool drawerIsOpen,
+          ConnectivityResult connectivity,
+          List news,
+          List announcements}) =>
+      new UIState.raw(
+          drawerIsOpen ?? this.drawerIsOpen,
+          connectivity ?? this.connectivity,
+          news ?? this.news,
           announcements ?? this.announcements);
 }
 

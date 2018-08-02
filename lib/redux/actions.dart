@@ -1,3 +1,5 @@
+import 'package:connectivity/connectivity.dart';
+
 abstract class MainAppAction {
   get needSave => true;
   get sync => false;
@@ -27,6 +29,13 @@ class OpenDrawerAction extends MainAppAction {
   final bool drawerIsOpen;
 
   OpenDrawerAction(this.drawerIsOpen);
+}
+
+class ChangeConnectivityAction extends MainAppAction {
+  get needSave => false;
+  final ConnectivityResult connectivityResult;
+
+  ChangeConnectivityAction(this.connectivityResult);
 }
 
 class UpdateNewsAction extends MainAppAction {
