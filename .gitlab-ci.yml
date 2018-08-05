@@ -49,7 +49,8 @@ build:
     - sed -i "s/"XResourceAddressX"/"$CONFIG_RESOURCE_ADDR"/g" ./lib/config.dart
     - sed -i "s/"XSignInAddressX"/"$CONFIG_SIGNIN_ADDR"/g" ./lib/config.dart
     - echo "${GOOGLE_SERVICES_KEY}" > ./android/app/google-services.json
-    - echo "${RELEASE_SIGN_KEY}" | base64 -d > $HOME/.android/debug.keystore
+    - echo "${RELEASE_SIGN_KEY}" | base64 -d > ./android/app/x.jks
+    - echo "${RELEASE_SIGN_KEY_PROPERTYS}" | base64 -d > ./android/key.properties
 # Add apk version
     - export BV=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep -m 1 'BV=' | sed 's/BV=//')
     - export BN=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep -m 1 'BN=' | sed 's/BN=//')
