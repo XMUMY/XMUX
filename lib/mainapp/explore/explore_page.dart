@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/mainapp/explore/chat_room_page.dart';
 import 'package:xmux/mainapp/explore/eatx/eatx_page.dart';
 import 'package:xmux/mainapp/tools/room_reservation.dart';
-import 'package:xmux/mainapp/tools/xia/xia_page.dart';
+import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/redux/actions.dart';
 import 'package:xmux/redux/state.dart';
 import 'package:xmux/translations/translation.dart';
@@ -131,8 +131,8 @@ class ExplorePage extends StatelessWidget {
             converter: (s) => s.state.settingState.enableFunctionsUnderDev,
             builder: (_, v) => (v == true)
                 ? new FlatButton(
-                    onPressed: () => Navigator.of(context).push(
-                        new MaterialPageRoute(builder: (_) => new XiAPage())),
+                    onPressed: () =>
+                        showDialog(context: context, builder: (_) => XiA.page),
                     child: new Row(
                       children: <Widget>[
                         new Icon(Icons.android),

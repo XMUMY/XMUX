@@ -75,7 +75,7 @@ const Map<String, String> zh_CN = {
   'Settings/ChangePersonalInfo/Input': '请输入您的昵称',
   'Settings/DeveloperOptions': '开发者选项',
   'Settings/DeveloperOptions/Warning':
-      '警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常和数据丢失或泄漏。',
+      '警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常及数据的丢失或泄漏。',
   'Settings/DeveloperOptions/EnFuncsUnderDev': '启用正在开发中的功能',
   'Settings/DeveloperOptions/EnFuncsUnderDev/Caption': '这些功能尚在开发中且十分不稳定',
   // Me
