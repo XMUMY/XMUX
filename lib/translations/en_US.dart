@@ -23,9 +23,9 @@ const Map<String, String> en_US = {
   'Calendar/CalendarImage': 'Academic Calendar',
   'Calendar/SignIn': 'Sign in',
   'Calendar/SignIn/Signing': 'OK',
-  'Calendar/SignIn/Finished': 'Succeed',
+  'Calendar/SignIn/Finished': 'Success',
   'Calendar/SignIn/Failed': 'Failed',
-  'Calendar/LastUpdate': 'Last update: ',
+  'Calendar/LastUpdate': 'Recent Update: ',
   // Academic
   'Academic/Tools': 'Utilities',
   'Academic/More': 'More',
@@ -46,10 +46,10 @@ const Map<String, String> en_US = {
   'Academic/Tools/WolframEngine/Result': 'Search Result',
   'Academic/Tools/GeoGebra/Title': 'GeoGebra',
   'Academic/Tools/GeoGebra/Caption':
-      ' Solve & plot by GeoGebra dynamic mathematics',
+      ' Solve & plot with GeoGebra dynamic mathematics',
   'Academic/Tools/GPACalculator/Name': 'GPA Calculator',
   'Academic/Tools/GPACalculator/Caption': 'Calculate your GPA easily',
-  'Academic/PublicTalks': 'Public Talk',
+  'Academic/PublicTalks': 'Public Talks',
   // Explore
   'Warning':
       ' Warning! These functions are under development. Room reservation is only available when connected to the campus network.',
@@ -81,9 +81,11 @@ const Map<String, String> en_US = {
   'Settings/ChangePersonalInfo/Input': 'Input your new display name',
   'Settings/DeveloperOptions': 'Developer options',
   'Settings/DeveloperOptions/Warning':
-      '警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常及数据的丢失或泄漏。',
-  'Settings/DeveloperOptions/EnFuncsUnderDev': '启用正在开发中的功能',
-  'Settings/DeveloperOptions/EnFuncsUnderDev/Caption': '这些功能尚在开发中且十分不稳定',
+      'Warning: These functions are for developers and testers only and may cause operational errors or data loss.',
+  'Settings/DeveloperOptions/EnFuncsUnderDev':
+      'Enable functions under development',
+  'Settings/DeveloperOptions/EnFuncsUnderDev/Caption':
+      'These functions are still under development and are highly unstable',
   // Me
   'Me/Header/Welcome': 'Hello,',
   // Tools
@@ -105,7 +107,7 @@ const Map<String, String> en_US = {
   'Tools/Emergency/LCorporalFadil/Caption': 'Salak Tinggi Police Station',
   'Tools/Emergency/Police': 'Police',
   'Tools/Emergency/FireAlarm': 'Fire Police',
-  'Tools/Emergency/LostKey': 'When key lost',
+  'Tools/Emergency/LostKey': 'Lost Key: Hotline',
   'Tools/Emergency/LostKey/Caption': '18:00-22:00 only',
   // About
   'About': 'About',
