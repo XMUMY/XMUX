@@ -15,13 +15,13 @@ import 'package:xmux/redux/actions.dart';
 enum InitResult { notLogin, loginError, finished }
 
 Future<InitResult> init() async {
+  // Get package Info.
+  packageInfo = await PackageInfo.fromPlatform();
   // Select backend server.
   backend = BackendHandler(BackendApiConfig.addresses);
   await BackendHandler.selectingBackend;
   // Init FCM.
   initFCM();
-  // Get package Info.
-  packageInfo = await PackageInfo.fromPlatform();
 
   String appDocDir;
   Map<String, dynamic> initMap;
