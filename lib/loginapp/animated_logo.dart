@@ -15,10 +15,10 @@ class _AnimatedLogoState extends State<AnimatedLogo>
     // Create animation.
     controller =
         AnimationController(duration: Duration(milliseconds: 500), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
-    controller.addListener(() {
-      setState(() {});
-    });
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn)
+      ..addListener(() {
+        setState(() {});
+      });
     super.initState();
 
     // Play.

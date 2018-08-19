@@ -129,7 +129,7 @@ class SettingState {
 
   SettingState.fromMap(Map<String, dynamic> map)
       : this.ePaymentPassword = map["ePaymentPassword"],
-        this.enableFunctionsUnderDev = map["enableFunctionsUnderDev"];
+        this.enableFunctionsUnderDev = map["enableFunctionsUnderDev"] ?? false;
 
   Map<String, dynamic> toMap() => {
         "ePaymentPassword": this.ePaymentPassword,
