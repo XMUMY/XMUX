@@ -13,18 +13,17 @@ dependencies:
   carousel_slider: ^0.0.6
   connectivity: ^0.3.1
   cupertino_icons: ^0.1.2
-  firebase_auth: 0.5.7
-  firebase_database: 1.0.1
-  firebase_messaging: 1.0.2
-  firebase_storage: 0.2.6
-  flutter_dialogflow: ^0.0.1
-  flutter_redux: ^0.5.0
-  flutter_webview_plugin: ^0.1.6
-  font_awesome_flutter: ^7.0.0
-  image_picker: ^0.4.5
+  firebase_auth: 0.5.19
+  firebase_database: 1.0.4
+  firebase_messaging: 1.0.5
+  firebase_storage: 1.0.2
+  flutter_redux: ^0.5.2
+  flutter_webview_plugin: ^0.2.1
+  font_awesome_flutter: ^8.0.1
+  image_picker: ^0.4.7
   package_info: ^0.3.2
   path_provider: ^0.4.1
-  photo_view: ^0.0.3
+  photo_view: ^0.0.7
   redux: ^3.0.0
   url_launcher: ^3.0.3
 

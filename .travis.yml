@@ -12,7 +12,7 @@ addons:
 before_script:
   - git clone https://github.com/flutter/flutter.git -b beta
   - ./flutter/bin/flutter doctor
-  - mv ./lib/config.dart.sample ./lib/config.dart
+  - mv ./lib/config.sample.dart ./lib/config.dart
 script:
   - ./flutter/bin/flutter build bundle
   - ./flutter/bin/flutter build aot --verbose
