@@ -34,13 +34,11 @@ class TimeTablePage extends StatelessWidget {
           padding: EdgeInsets.all(5.0),
           child: Text(
             MainLocalizations.of(context).get("Calendar/LastUpdate") +
-                DateFormat
-                    .yMMMd(Localizations.localeOf(context).languageCode)
+                DateFormat.yMMMd(Localizations.localeOf(context).languageCode)
                     .format(DateTime.fromMillisecondsSinceEpoch(
                         mainAppStore.state.acState.timestamp)) +
                 " " +
-                DateFormat
-                    .Hms(Localizations.localeOf(context).languageCode)
+                DateFormat.Hms(Localizations.localeOf(context).languageCode)
                     .format(DateTime.fromMillisecondsSinceEpoch(
                         mainAppStore.state.acState.timestamp)),
             style: Theme.of(context).textTheme.caption,

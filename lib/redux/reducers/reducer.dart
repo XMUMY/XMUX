@@ -3,9 +3,9 @@ import 'package:xmux/redux/reducers/ac_reducers.dart';
 import 'package:xmux/redux/reducers/pi_reducers.dart';
 import 'package:xmux/redux/reducers/setting_reducers.dart';
 import 'package:xmux/redux/reducers/ui_reducers.dart';
-import 'package:xmux/redux/state.dart';
+import 'package:xmux/redux/states/state.dart';
 
-MainAppState mainAppReducer(MainAppState oldState, dynamic action) {
+MainAppState appReducer(MainAppState oldState, dynamic action) {
   if (action is LogoutAction)
     return new MainAppState();
   else if (action is InitAction)

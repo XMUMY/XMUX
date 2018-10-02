@@ -5,7 +5,7 @@ import 'package:xmux/mainapp/home/announcements.dart';
 import 'package:xmux/mainapp/home/home_slider.dart';
 import 'package:xmux/mainapp/home/homepage_handler.dart';
 import 'package:xmux/redux/actions.dart';
-import 'package:xmux/redux/state.dart';
+import 'package:xmux/redux/states/state.dart';
 import 'package:xmux/translations/translation.dart';
 
 class HomePage extends StatelessWidget {

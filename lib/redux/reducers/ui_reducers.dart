@@ -1,6 +1,6 @@
 import 'package:redux/redux.dart';
 import 'package:xmux/redux/actions.dart';
-import 'package:xmux/redux/state.dart';
+import 'package:xmux/redux/states/state.dart';
 
 final Reducer<UIState> uiReducers = combineReducers([
   new TypedReducer<UIState, OpenDrawerAction>(_openDrawerReducer),

@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/initapp/init.dart';
-import 'package:xmux/initapp/init_page.dart';
 import 'package:xmux/loginapp/login_app.dart';
 import 'package:xmux/mainapp/main_app.dart';
 import 'package:xmux/redux/actions.dart';

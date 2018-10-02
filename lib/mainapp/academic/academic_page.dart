@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/redux/actions.dart';
-import 'package:xmux/redux/state.dart';
+import 'package:xmux/redux/states/state.dart';
 import 'package:xmux/translations/translation.dart';
 
 class AcademicPage extends StatelessWidget {
@@ -65,8 +65,7 @@ class AcademicPage extends StatelessWidget {
                     Expanded(
                       child: Text(
                         " " +
-                            MainLocalizations
-                                .of(context)
+                            MainLocalizations.of(context)
                                 .get("Academic/PublicTalks"),
                         style: Theme.of(context).textTheme.title,
                       ),

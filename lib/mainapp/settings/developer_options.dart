@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/actions.dart';
-import 'package:xmux/redux/state.dart';
+import 'package:xmux/redux/states/state.dart';
 import 'package:xmux/translations/translation.dart';
 
 class DeveloperOptionsPage extends StatefulWidget {
@@ -29,8 +29,7 @@ class _DeveloperOptionsPageState extends State<DeveloperOptionsPage> {
             ),
           ),
           Text(
-            MainLocalizations
-                .of(context)
+            MainLocalizations.of(context)
                 .get("Settings/DeveloperOptions/Warning"),
             textAlign: TextAlign.center,
           ),
@@ -39,8 +38,7 @@ class _DeveloperOptionsPageState extends State<DeveloperOptionsPage> {
             converter: (store) =>
                 store.state.settingState.enableFunctionsUnderDev,
             builder: (context, value) => SwitchListTile(
-                  title: Text(MainLocalizations
-                      .of(context)
+                  title: Text(MainLocalizations.of(context)
                       .get("Settings/DeveloperOptions/EnFuncsUnderDev")),
                   subtitle: Text(MainLocalizations.of(context).get(
                       "Settings/DeveloperOptions/EnFuncsUnderDev/Caption")),

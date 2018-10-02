@@ -6,7 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/actions.dart';
-import 'package:xmux/redux/state.dart';
+import 'package:xmux/redux/states/state.dart';
 import 'package:xmux/translations/translation.dart';
 
 class EPaymentPage extends StatefulWidget {
@@ -47,8 +47,8 @@ class _PaymentPageState extends State<EPaymentPage> {
     // When error.
     if (res.containsKey("error")) {
       Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text("Error: " + res["error"]),
-          ));
+        content: Text("Error: " + res["error"]),
+      ));
       setState(() => _isProcessing = false);
       return;
     }
@@ -88,8 +88,7 @@ class _PaymentPageState extends State<EPaymentPage> {
                     ),
                     Container(
                       padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
-                      child: Text(MainLocalizations
-                          .of(context)
+                      child: Text(MainLocalizations.of(context)
                           .get("Tools/EPayment/NeedLogin")),
                     ),
                     Padding(
@@ -101,8 +100,7 @@ class _PaymentPageState extends State<EPaymentPage> {
                               controller: _passwordController,
                               obscureText: true,
                               decoration: InputDecoration(
-                                  hintText: MainLocalizations
-                                      .of(context)
+                                  hintText: MainLocalizations.of(context)
                                       .get("Tools/EPayment/EPaymentPassword")),
                             ),
                           ),
@@ -157,15 +155,12 @@ class _PaymentCard extends StatelessWidget {
                       children: <Widget>[
                         Text("MYR : " + paymentData["amount"]),
                         Text(
-                          MainLocalizations
-                                  .of(context)
+                          MainLocalizations.of(context)
                                   .get("Tools/EPayment/Status") +
                               (paymentData["paid"] == "-"
-                                  ? MainLocalizations
-                                      .of(context)
+                                  ? MainLocalizations.of(context)
                                       .get("Tools/EPayment/Unpaid")
-                                  : MainLocalizations
-                                      .of(context)
+                                  : MainLocalizations.of(context)
                                       .get("Tools/EPayment/Paid")),
                           style: TextStyle(
                             color: paymentData["paid"] == "-"

@@ -16,20 +16,20 @@ class InitPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  "X",
+                  "χ",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 120.0,
                   ),
                 ),
                 Divider(
-                  height: 16.0,
+                  height: 50.0,
                   color: Color(0),
                 ),
                 SizedBox(
                   width: 100.0,
                   child: LinearProgressIndicator(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color(0),
                   ),
                 ),
               ],

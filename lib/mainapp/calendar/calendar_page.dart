@@ -5,7 +5,7 @@ import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/exams.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/redux/actions.dart';
-import 'package:xmux/redux/state.dart';
+import 'package:xmux/redux/states/state.dart';
 import 'package:xmux/translations/translation.dart';
 
 class CalendarPage extends StatelessWidget {
@@ -26,8 +26,7 @@ class CalendarPage extends StatelessWidget {
             actions: <Widget>[
               IconButton(
                   icon: Icon(FontAwesomeIcons.calendarAlt),
-                  tooltip: MainLocalizations
-                      .of(context)
+                  tooltip: MainLocalizations.of(context)
                       .get("Calendar/CalendarImage"),
                   onPressed: () {
                     Navigator.of(context).pushNamed("/Calendar/CalendarImage");

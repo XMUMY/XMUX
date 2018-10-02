@@ -12,6 +12,8 @@ import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/modules/backend_handler/backend_handler.dart';
 import 'package:xmux/redux/actions.dart';
 
+export 'init_page.dart';
+
 enum InitResult { notLogin, loginError, finished }
 
 Future<InitResult> init() async {
@@ -53,8 +55,6 @@ Future<InitResult> init() async {
 
   return InitResult.finished;
 }
-
-void initGlobalVars() {}
 
 void initFCM() {
   // Request notification Permission

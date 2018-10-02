@@ -5,8 +5,8 @@ import 'package:redux/redux.dart';
 import 'package:xmux/modules/backend_handler/backend_handler.dart';
 import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/redux/middleware.dart';
-import 'package:xmux/redux/reducers/main_reducer.dart';
-import 'package:xmux/redux/state.dart';
+import 'package:xmux/redux/reducers/reducer.dart';
+import 'package:xmux/redux/states/state.dart';
 
 /// Backend handler instance.
 ///
@@ -30,5 +30,5 @@ FirebaseUser firebaseUser;
 PackageInfo packageInfo;
 
 /// Main store for redux.
-final Store<MainAppState> mainAppStore = Store<MainAppState>(mainAppReducer,
+final Store<MainAppState> mainAppStore = Store<MainAppState>(appReducer,
     initialState: MainAppState(), middleware: [saveMiddleware]);
