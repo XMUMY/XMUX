@@ -40,6 +40,7 @@ build:
     - export ANDROID_HOME=ANDROID_SDK_HOME
 # Install Flutter SDK
     - if [ ! -d "flutter" ];then git clone https://github.com/flutter/flutter.git -b beta; fi
+    - ./flutter/bin/flutter upgrade
     - ./flutter/bin/flutter doctor
 # Add config and key
     - mv ./lib/config.sample.dart ./lib/config.dart
