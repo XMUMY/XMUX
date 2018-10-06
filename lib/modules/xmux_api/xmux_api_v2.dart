@@ -1,27 +1,29 @@
 library xmux_api_v2;
 
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
+import 'package:xmux/modules/backend_handler/backend_handler.dart';
 
-enum XMUXApiResponseStatusV2 { success, error }
+enum XMUXApiResponseStatus { success, error }
 
-class XMUXApiV2 {
-  @protected
-  static XMUXApiV2 instance;
+class XMUXApi {
+  BackendHandler handler = BackendHandler.instance;
+  static XMUXApi instance;
 
   @protected
   List<String> addresses;
 
-  factory XMUXApiV2(List<String> addresses) {
-    if (instance == null) instance = XMUXApiV2._(addresses);
+  factory XMUXApi(List<String> addresses) {
+    if (instance == null) instance = XMUXApi._(addresses);
     return instance;
   }
 
-  XMUXApiV2._(this.addresses);
+  XMUXApi._(this.addresses);
 }
 
-class XMUXApiResponseV2 {
+class XMUXApiResponse {
   final String status;
   final DateTime timeStamp;
+  final dynamic data;
 
-  XMUXApiResponseV2(this.status, this.timeStamp);
+  XMUXApiResponse(this.status, this.timeStamp, this.data);
 }
