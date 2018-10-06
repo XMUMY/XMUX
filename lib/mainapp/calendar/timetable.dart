@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/mainapp/calendar/sign_in_button.dart';
+import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/translations/translation.dart';
 
 class TimeTablePage extends StatelessWidget {
@@ -48,9 +49,9 @@ class TimeTablePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => classes == null
-      ? errorWidgets.emptyErrorButton(onRefresh: _handleUpdate)
+      ? ErrorWidgets.emptyErrorButton(onRefresh: _handleUpdate)
       : classes.isEmpty
-          ? errorWidgets.emptyErrorPage
+          ? ErrorWidgets.emptyErrorPage
           : RefreshIndicator(
               onRefresh: _handleUpdate,
               child: ListView.builder(

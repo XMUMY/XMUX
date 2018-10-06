@@ -33,16 +33,13 @@ class SettingsPage extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              leading: Text(MainLocalizations
-                  .of(context)
+              leading: Text(MainLocalizations.of(context)
                   .get("Settings/ChangePersonalInfo")),
-              onTap: () => Navigator
-                  .of(context)
+              onTap: () => Navigator.of(context)
                   .pushNamed("/Settings/ChangePersonalInfo"),
             ),
             ListTile(
-              leading: Text(MainLocalizations
-                  .of(context)
+              leading: Text(MainLocalizations.of(context)
                   .get("Settings/DeveloperOptions")),
               onTap: () =>
                   Navigator.of(context).pushNamed("/Settings/DeveloperOptions"),

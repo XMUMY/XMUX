@@ -25,8 +25,7 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
 
   Future _handleSubmission(BuildContext context) async {
     if (_briefLocationCtrler.text.isEmpty || _thingsCtrler.text.isEmpty) {
-      Scaffold
-          .of(context)
+      Scaffold.of(context)
           .showSnackBar(new SnackBar(content: new Text("Format Error.")));
       return;
     }
@@ -66,8 +65,7 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
         padding: const EdgeInsets.all(15.0),
         children: <Widget>[
           new ListTile(
-            title: new Text(MainLocalizations
-                .of(context)
+            title: new Text(MainLocalizations.of(context)
                 .get("lostandfound/create/lostorfound")),
             trailing: new DropdownButton<bool>(
               value: _isLost,
@@ -98,8 +96,7 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
                   controller: _briefLocationCtrler,
                   maxLength: 20,
                   decoration: new InputDecoration(
-                    labelText: MainLocalizations
-                        .of(context)
+                    labelText: MainLocalizations.of(context)
                         .get("lostandfound/create/brieflocation"),
                   ),
                   style: Theme.of(context).textTheme.body1,
@@ -112,8 +109,7 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
                   controller: _thingsCtrler,
                   maxLength: 15,
                   decoration: new InputDecoration(
-                    labelText: MainLocalizations
-                        .of(context)
+                    labelText: MainLocalizations.of(context)
                         .get("lostandfound/create/things"),
                   ),
                   style: Theme.of(context).textTheme.body1,
@@ -140,8 +136,7 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
           new TextField(
             controller: _locationCtrler,
             decoration: new InputDecoration(
-              labelText: MainLocalizations
-                  .of(context)
+              labelText: MainLocalizations.of(context)
                   .get("lostandfound/create/location"),
             ),
             style: Theme.of(context).textTheme.body1,
@@ -150,8 +145,7 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
             controller: _detailCtrler,
             maxLines: 5,
             decoration: new InputDecoration(
-              labelText: MainLocalizations
-                  .of(context)
+              labelText: MainLocalizations.of(context)
                   .get("lostandfound/create/detail"),
             ),
             style: Theme.of(context).textTheme.body1,

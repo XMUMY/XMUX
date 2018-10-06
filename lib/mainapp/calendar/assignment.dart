@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/calendar_handler.dart';
+import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/translations/translation.dart';
 
 class AssignmentPage extends StatelessWidget {
@@ -21,7 +21,7 @@ class AssignmentPage extends StatelessWidget {
   Widget build(BuildContext context) => new RefreshIndicator(
         onRefresh: _handleUpdate,
         child: assignments == null
-            ? errorWidgets.emptyErrorButton(
+            ? ErrorWidgets.emptyErrorButton(
                 onRefresh: _handleUpdate,
               )
             : ListView.builder(
@@ -55,8 +55,7 @@ class _AssCard extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: new Text(
                       assData["fullname"],
-                      style: Theme
-                          .of(context)
+                      style: Theme.of(context)
                           .textTheme
                           .subhead
                           .copyWith(color: Colors.black54),
@@ -119,8 +118,7 @@ class _AssButton extends StatelessWidget {
                               .difference(new DateTime.now())
                               .inDays
                               .toString() +
-                          MainLocalizations
-                              .of(context)
+                          MainLocalizations.of(context)
                               .get("lostandfound/day") +
                           ")",
                       style: Theme.of(context).textTheme.body1)

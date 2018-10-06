@@ -13,8 +13,7 @@ class CalendarImagePage extends StatelessWidget {
         ),
         body: PhotoView(
           imageProvider: CachedNetworkImageProvider(
-            "https://${BackendApiConfig
-            .resourceAddress}/image/cal_undergraduate.jpg",
+            "https://${BackendApiConfig.resourceAddress}/image/cal_undergraduate.jpg",
           ),
           loadingChild: Center(
             child: CircularProgressIndicator(),

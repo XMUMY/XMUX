@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/translations/translation.dart';
 
 class ExamResultPage extends StatefulWidget {
@@ -30,8 +31,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(MainLocalizations
-              .of(context)
+          title: Text(MainLocalizations.of(context)
               .get("Academic/Tools/ExamResult/Title")),
           backgroundColor: Colors.lightBlue,
         ),
@@ -40,8 +40,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
                 children: <Widget>[
                   ListTile(
                     title: Text(
-                      MainLocalizations
-                          .of(context)
+                      MainLocalizations.of(context)
                           .get("Academic/Tools/ExamResult/ChooseSession"),
                       style: Theme.of(context).textTheme.subhead,
                     ),
@@ -78,8 +77,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
                             child: Center(
                               child: Text(
                                 "GPA : " + _currentSession["GPA"].toString(),
-                                style: Theme
-                                    .of(context)
+                                style: Theme.of(context)
                                     .textTheme
                                     .headline
                                     .copyWith(
@@ -99,13 +97,13 @@ class _ExamResultPageState extends State<ExamResultPage> {
                             child: Center(
                               child: Text(
                                 "CGPA : " + _currentSession["CGPA"].toString(),
-                                style: Theme
-                                    .of(context)
+                                style: Theme.of(context)
                                     .textTheme
                                     .headline
                                     .copyWith(
-                                      color: ExamResultPage.getGradeColor(double
-                                          .parse(_currentSession["CGPA"])),
+                                      color: ExamResultPage.getGradeColor(
+                                          double.parse(
+                                              _currentSession["CGPA"])),
                                     ),
                               ),
                             ),
@@ -116,7 +114,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
                   ),
                 ],
               )
-            : errorWidgets.emptyErrorPage,
+            : ErrorWidgets.emptyErrorPage,
       );
 }
 
@@ -144,8 +142,7 @@ class _CourseResultUI extends StatelessWidget {
                         "   " +
                         _courseResult["credit"].toString() +
                         " " +
-                        MainLocalizations
-                            .of(context)
+                        MainLocalizations.of(context)
                             .get("Academic/Tools/ExamResult/credits"),
                     style: Theme.of(context).textTheme.caption,
                   ),
@@ -160,8 +157,8 @@ class _CourseResultUI extends StatelessWidget {
                     _courseResult["gradePoint"].toStringAsFixed(2),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline.copyWith(
-                    color: ExamResultPage
-                        .getGradeColor(_courseResult["gradePoint"].toDouble())),
+                    color: ExamResultPage.getGradeColor(
+                        _courseResult["gradePoint"].toDouble())),
               ),
             )
           ],

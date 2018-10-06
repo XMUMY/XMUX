@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/calendar_handler.dart';
+import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/translations/translation.dart';
 
 class ExamsPage extends StatelessWidget {
@@ -21,13 +22,11 @@ class ExamsPage extends StatelessWidget {
           padding: EdgeInsets.all(5.0),
           child: Text(
             MainLocalizations.of(context).get("Calendar/LastUpdate") +
-                DateFormat
-                    .yMMMd(Localizations.localeOf(context).languageCode)
+                DateFormat.yMMMd(Localizations.localeOf(context).languageCode)
                     .format(DateTime.fromMillisecondsSinceEpoch(
                         mainAppStore.state.acState.timestamp)) +
                 " " +
-                DateFormat
-                    .Hms(Localizations.localeOf(context).languageCode)
+                DateFormat.Hms(Localizations.localeOf(context).languageCode)
                     .format(DateTime.fromMillisecondsSinceEpoch(
                         mainAppStore.state.acState.timestamp)),
             style: Theme.of(context).textTheme.caption,
@@ -37,9 +36,9 @@ class ExamsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => exams == null
-      ? errorWidgets.emptyErrorButton(onRefresh: _handleUpdate)
+      ? ErrorWidgets.emptyErrorButton(onRefresh: _handleUpdate)
       : exams.isEmpty
-          ? errorWidgets.emptyErrorPage
+          ? ErrorWidgets.emptyErrorPage
           : RefreshIndicator(
               onRefresh: _handleUpdate,
               child: ListView.builder(

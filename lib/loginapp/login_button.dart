@@ -47,8 +47,7 @@ class _LoginButtonState extends State<LoginButton> {
     var loginResult = await LoginHandler.login(
         widget._usernameController.text, widget._passwordController.text);
     if (loginResult != "success") {
-      Scaffold
-          .of(context)
+      Scaffold.of(context)
           .showSnackBar(SnackBar(content: Text("Error : $loginResult")));
       setState(() {
         _isProcessing = false;
@@ -59,8 +58,7 @@ class _LoginButtonState extends State<LoginButton> {
     // Handle firebase login.
     var firebaseResult = await LoginHandler.firebaseLogin();
     if (firebaseResult != "success") {
-      Scaffold
-          .of(context)
+      Scaffold.of(context)
           .showSnackBar(SnackBar(content: Text("Error : $firebaseResult")));
       setState(() {
         _isProcessing = false;

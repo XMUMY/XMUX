@@ -17,11 +17,12 @@ class _XiAPageState extends State<XiAPage> {
             new BoxDecoration(color: Colors.grey.shade200.withOpacity(0.0)),
         child: new Center(
           child: new GestureDetector(
-            onTap: (){Navigator.of(context).pop();},
+            onTap: () {
+              Navigator.of(context).pop();
+            },
             child: new Text(
               'XiA',
-              style: Theme
-                  .of(context)
+              style: Theme.of(context)
                   .textTheme
                   .display3
                   .copyWith(color: Colors.white),

@@ -44,11 +44,10 @@ class BackendHandler {
 
     // Select the fastest server in 5 second.
     // When timeout or error, it will return the last address.
-    var selected = await Future
-        .any(_addresses.map((String address) async {
-          var res = await _HttpHandler.get(address, "/test");
-          if (res.statusCode == 200) return address;
-        }).toList())
+    var selected = await Future.any(_addresses.map((String address) async {
+      var res = await _HttpHandler.get(address, "/test");
+      if (res.statusCode == 200) return address;
+    }).toList())
         .timeout(Duration(seconds: 5), onTimeout: () => currentApiAddress)
         .catchError((e) => currentApiAddress);
 

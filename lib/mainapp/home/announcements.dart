@@ -27,13 +27,11 @@ class HomeAnnouncements extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Text(
-                DateFormat
-                        .yMMMd(Localizations.localeOf(context).languageCode)
+                DateFormat.yMMMd(Localizations.localeOf(context).languageCode)
                         .format(DateTime.fromMillisecondsSinceEpoch(
                             announcement["timestamp"])) +
                     " " +
-                    DateFormat
-                        .Hms(Localizations.localeOf(context).languageCode)
+                    DateFormat.Hms(Localizations.localeOf(context).languageCode)
                         .format(DateTime.fromMillisecondsSinceEpoch(
                             announcement["timestamp"])),
                 style: Theme.of(context).textTheme.caption,
@@ -46,11 +44,9 @@ class HomeAnnouncements extends StatelessWidget {
                   : OutlineButton(
                       onPressed: announcement["isWebPage"]
                           ? () => launch(announcement["uri"])
-                          : () => Navigator
-                              .of(context)
+                          : () => Navigator.of(context)
                               .pushNamed(announcement["uri"]),
-                      child: Text(MainLocalizations
-                          .of(context)
+                      child: Text(MainLocalizations.of(context)
                           .get("Home/Announcements/More")),
                     )
             ],

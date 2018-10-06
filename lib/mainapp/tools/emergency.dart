@@ -38,8 +38,7 @@ class EmergencyPage extends StatelessWidget {
             _buildCard(
               context,
               <Widget>[
-                Text(MainLocalizations
-                    .of(context)
+                Text(MainLocalizations.of(context)
                     .get("Tools/Emergency/XMUMSecurityHotline")),
                 Divider(),
                 Row(
@@ -69,8 +68,7 @@ class EmergencyPage extends StatelessWidget {
             _buildCard(
               context,
               <Widget>[
-                Text(MainLocalizations
-                    .of(context)
+                Text(MainLocalizations.of(context)
                     .get("Tools/Emergency/EmergencyContactAfterOfficeHour")),
                 Divider(),
                 Row(
@@ -103,12 +101,10 @@ class EmergencyPage extends StatelessWidget {
                   child: _buildCard(
                     context,
                     <Widget>[
-                      Text(MainLocalizations
-                          .of(context)
+                      Text(MainLocalizations.of(context)
                           .get("Tools/Emergency/PoliceSergeantSafie")),
                       Text(
-                        MainLocalizations
-                            .of(context)
+                        MainLocalizations.of(context)
                             .get("Tools/Emergency/PoliceSergeantSafie/Caption"),
                         style: Theme.of(context).textTheme.caption,
                       ),
@@ -132,12 +128,10 @@ class EmergencyPage extends StatelessWidget {
                   child: _buildCard(
                     context,
                     <Widget>[
-                      Text(MainLocalizations
-                          .of(context)
+                      Text(MainLocalizations.of(context)
                           .get("Tools/Emergency/LCorporalFadil")),
                       Text(
-                        MainLocalizations
-                            .of(context)
+                        MainLocalizations.of(context)
                             .get("Tools/Emergency/LCorporalFadil/Caption"),
                         style: Theme.of(context).textTheme.caption,
                       ),
@@ -165,8 +159,7 @@ class EmergencyPage extends StatelessWidget {
                   child: _buildCard(
                     context,
                     <Widget>[
-                      Text(MainLocalizations
-                          .of(context)
+                      Text(MainLocalizations.of(context)
                           .get("Tools/Emergency/Police")),
                       Divider(),
                       Row(
@@ -188,8 +181,7 @@ class EmergencyPage extends StatelessWidget {
                   child: _buildCard(
                     context,
                     <Widget>[
-                      Text(MainLocalizations
-                          .of(context)
+                      Text(MainLocalizations.of(context)
                           .get("Tools/Emergency/FireAlarm")),
                       Divider(),
                       Row(
@@ -215,12 +207,10 @@ class EmergencyPage extends StatelessWidget {
                   child: _buildCard(
                     context,
                     <Widget>[
-                      Text(MainLocalizations
-                          .of(context)
+                      Text(MainLocalizations.of(context)
                           .get("Tools/Emergency/LostKey")),
                       Text(
-                        MainLocalizations
-                            .of(context)
+                        MainLocalizations.of(context)
                             .get("Tools/Emergency/LostKey/Caption"),
                         style: Theme.of(context).textTheme.caption,
                       ),

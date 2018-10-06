@@ -10,8 +10,7 @@ class WolframResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(MainLocalizations
-              .of(context)
+          title: Text(MainLocalizations.of(context)
               .get("Academic/Tools/WolframEngine/Result")),
           backgroundColor: Colors.orange,
         ),

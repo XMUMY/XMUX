@@ -38,8 +38,7 @@ class _InputConstructorState extends State<InputConstructor> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.orange,
-          title: Text(MainLocalizations
-              .of(context)
+          title: Text(MainLocalizations.of(context)
               .get("Academic/Tools/WolframEngine/InputConstructor")),
         ),
         body: Column(
@@ -62,11 +61,11 @@ class _InputConstructorState extends State<InputConstructor> {
                     onPressed: () {
                       if (_inputTextController.text.isNotEmpty)
                         Navigator.of(context).push(
-                              MaterialPageRoute<Null>(
-                                builder: (BuildContext context) =>
-                                    WolframResult(_inputTextController.text),
-                              ),
-                            );
+                          MaterialPageRoute<Null>(
+                            builder: (BuildContext context) =>
+                                WolframResult(_inputTextController.text),
+                          ),
+                        );
                     },
                   ),
                 ],

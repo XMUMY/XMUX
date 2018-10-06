@@ -14,41 +14,33 @@ class AcademicToolDetailsPage extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
         children: <Widget>[
           _AcademicPageCard(
-            title: MainLocalizations
-                .of(context)
+            title: MainLocalizations.of(context)
                 .get("Academic/Tools/WolframEngine/Title"),
-            caption: MainLocalizations
-                .of(context)
+            caption: MainLocalizations.of(context)
                 .get("Academic/Tools/WolframEngine/Caption"),
             image: "res/academic/wolfram.png",
             route: "/Academic/Tools/WolframEngine",
           ),
           _AcademicPageCard(
-            title: MainLocalizations
-                .of(context)
+            title: MainLocalizations.of(context)
                 .get("Academic/Tools/GeoGebra/Title"),
-            caption: MainLocalizations
-                .of(context)
+            caption: MainLocalizations.of(context)
                 .get("Academic/Tools/GeoGebra/Caption"),
             image: "res/academic/geogebra.png",
             route: "/Academic/Tools/GeoGebra",
           ),
           _AcademicPageCard(
-            title: MainLocalizations
-                .of(context)
+            title: MainLocalizations.of(context)
                 .get("Academic/Tools/GPACalculator/Name"),
-            caption: MainLocalizations
-                .of(context)
+            caption: MainLocalizations.of(context)
                 .get("Academic/Tools/GPACalculator/Caption"),
             image: "res/academic/calculator.png",
             route: "/Academic/Tools/GPACalculator",
           ),
           _AcademicPageCard(
-            title: MainLocalizations
-                .of(context)
+            title: MainLocalizations.of(context)
                 .get("Academic/Tools/ExamResult/Title"),
-            caption: MainLocalizations
-                .of(context)
+            caption: MainLocalizations.of(context)
                 .get("Academic/Tools/ExamResult/Caption"),
             image: "res/academic/gpa.png",
             route: "/Academic/Tools/ExamResult",

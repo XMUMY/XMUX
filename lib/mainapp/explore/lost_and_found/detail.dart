@@ -47,27 +47,22 @@ class LostAndFoundDetailPage extends StatelessWidget {
                         new Row(
                           children: <Widget>[
                             new Text(
-                              MainLocalizations
-                                  .of(context)
+                              MainLocalizations.of(context)
                                   .get("lostandfound/description"),
                               style: Theme.of(context).textTheme.subhead,
                             ),
                           ],
                         ),
                         new Divider(),
-                        new Text(MainLocalizations
-                                .of(context)
+                        new Text(MainLocalizations.of(context)
                                 .get("lostandfound/time") +
-                            DateTime
-                                .parse(dataSnapshot.value['time'])
+                            DateTime.parse(dataSnapshot.value['time'])
                                 .toString()
                                 .substring(0, 19)),
-                        new Text(MainLocalizations
-                                .of(context)
+                        new Text(MainLocalizations.of(context)
                                 .get("lostandfound/location") +
                             dataSnapshot.value['location']),
-                        new Text(MainLocalizations
-                                .of(context)
+                        new Text(MainLocalizations.of(context)
                                 .get("lostandfound/things") +
                             dataSnapshot.value['brief']),
                         new Divider(),
@@ -95,11 +90,9 @@ class LostAndFoundDetailPage extends StatelessWidget {
                                   .remove();
                             },
                             child: new Text(
-                              MainLocalizations
-                                  .of(context)
+                              MainLocalizations.of(context)
                                   .get("lostandfound/delete"),
-                              style: Theme
-                                  .of(context)
+                              style: Theme.of(context)
                                   .textTheme
                                   .button
                                   .copyWith(color: Colors.red),

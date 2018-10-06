@@ -31,16 +31,14 @@ class ChangePersonalInfoPage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                MainLocalizations
-                    .of(context)
+                MainLocalizations.of(context)
                     .get("Settings/ChangePersonalInfo/Caption"),
                 style: Theme.of(context).textTheme.caption,
               ),
               TextField(
                 controller: _displayNameController,
                 decoration: InputDecoration(
-                    hintText: MainLocalizations
-                        .of(context)
+                    hintText: MainLocalizations.of(context)
                         .get("Settings/ChangePersonalInfo/Input")),
                 onSubmitted: (t) {
                   if (t.isNotEmpty) {

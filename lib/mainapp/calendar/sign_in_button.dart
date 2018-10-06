@@ -42,23 +42,23 @@ class _SignInButtonState extends State<SignInButton> {
       var resJson = jsonDecode(response.body);
       if (resJson["result"] == "Success") {
         Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text(
-                  MainLocalizations.of(context).get("Calendar/SignIn/Signing")),
-            ));
+          content: Text(
+              MainLocalizations.of(context).get("Calendar/SignIn/Signing")),
+        ));
         setState(() {
           _alreadySignedIn = true;
         });
       } else
         Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text(
-                  MainLocalizations.of(context).get("Calendar/SignIn/Failed") +
-                      " : " +
-                      resJson["msg"]),
-            ));
+          content: Text(
+              MainLocalizations.of(context).get("Calendar/SignIn/Failed") +
+                  " : " +
+                  resJson["msg"]),
+        ));
     } catch (e) {
       Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text("Network Error. Pls connect to campus Network."),
-          ));
+        content: Text("Network Error. Pls connect to campus Network."),
+      ));
     }
   }
 

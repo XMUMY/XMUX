@@ -6,8 +6,7 @@ class GeoGebraPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => WebviewScaffold(
         appBar: AppBar(
-          title: Text(MainLocalizations
-              .of(context)
+          title: Text(MainLocalizations.of(context)
               .get("Academic/Tools/GeoGebra/Title")),
           backgroundColor: Colors.lightBlue,
         ),

@@ -35,8 +35,7 @@ class LoginPage extends StatelessWidget {
                     forceWebView: true,
                   );
                 },
-                tooltip: LoginLocalizations
-                    .of(context)
+                tooltip: LoginLocalizations.of(context)
                     .get("SignInPage/ServiceDocs"),
               ),
               IconButton(
@@ -60,8 +59,7 @@ class LoginPage extends StatelessWidget {
                     TextField(
                       controller: _usernameController,
                       decoration: InputDecoration(
-                        hintText: LoginLocalizations
-                            .of(context)
+                        hintText: LoginLocalizations.of(context)
                             .get("SignInPage/CampusID"),
                         hintStyle: TextStyle(color: Colors.white70),
                         icon: Icon(
@@ -74,8 +72,7 @@ class LoginPage extends StatelessWidget {
                       controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
-                        hintText: LoginLocalizations
-                            .of(context)
+                        hintText: LoginLocalizations.of(context)
                             .get("SignInPage/Password"),
                         hintStyle: TextStyle(color: Colors.white70),
                         icon: Icon(

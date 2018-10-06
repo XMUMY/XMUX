@@ -90,8 +90,7 @@ class LostAndFoundCard extends StatelessWidget {
                       color: Theme.of(context).canvasColor,
                     ),
                     new Text(
-                      MainLocalizations
-                              .of(context)
+                      MainLocalizations.of(context)
                               .get("lostandfound/location") +
                           dataSnapshot.value['location_brief'],
                       style: Theme.of(context).textTheme.caption,
@@ -111,35 +110,31 @@ class LostAndFoundCard extends StatelessWidget {
                     children: <Widget>[
                       new Text(
                         dataSnapshot.value['isLost']
-                            ? MainLocalizations
-                                .of(context)
+                            ? MainLocalizations.of(context)
                                 .get("lostandfound/lost")
-                            : MainLocalizations
-                                .of(context)
+                            : MainLocalizations.of(context)
                                 .get("lostandfound/found"),
                         style: Theme.of(context).textTheme.subhead,
                       ),
                       new Text(
                         new DateTime.now()
-                                    .difference(DateTime
-                                        .parse(dataSnapshot.value['time']))
+                                    .difference(DateTime.parse(
+                                        dataSnapshot.value['time']))
                                     .inDays ==
                                 0
                             ? new DateTime.now()
-                                    .difference(DateTime
-                                        .parse(dataSnapshot.value['time']))
+                                    .difference(DateTime.parse(
+                                        dataSnapshot.value['time']))
                                     .inHours
                                     .toString() +
-                                MainLocalizations
-                                    .of(context)
+                                MainLocalizations.of(context)
                                     .get("lostandfound/hour")
                             : new DateTime.now()
-                                    .difference(DateTime
-                                        .parse(dataSnapshot.value['time']))
+                                    .difference(DateTime.parse(
+                                        dataSnapshot.value['time']))
                                     .inDays
                                     .toString() +
-                                MainLocalizations
-                                    .of(context)
+                                MainLocalizations.of(context)
                                     .get("lostandfound/day"),
                         style: Theme.of(context).textTheme.subhead,
                       ),

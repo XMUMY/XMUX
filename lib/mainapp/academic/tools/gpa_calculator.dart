@@ -75,8 +75,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(MainLocalizations
-              .of(context)
+          title: Text(MainLocalizations.of(context)
               .get("Academic/Tools/GPACalculator/Name")),
           backgroundColor: Colors.lightBlue,
         ),
@@ -93,8 +92,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
                         padding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 20.0),
                         child: Text(
                           "GPA : " +
-                              GPACalculatorPage
-                                  .calculateGPA(courses)
+                              GPACalculatorPage.calculateGPA(courses)
                                   .toStringAsFixed(1),
                           style: Theme.of(context).textTheme.display1.copyWith(
                               color: GPACalculatorPage.getGPAColor(

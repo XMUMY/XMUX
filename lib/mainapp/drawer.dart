@@ -29,8 +29,7 @@ class DrawerPage extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(
-                          MainLocalizations
-                                  .of(context)
+                          MainLocalizations.of(context)
                                   .get("Me/Header/Welcome") +
                               "\n" +
                               (firebaseUser?.displayName ?? "User"),
@@ -52,8 +51,7 @@ class DrawerPage extends StatelessWidget {
                         children: <Widget>[
                           Icon(Icons.credit_card),
                           Text("  " +
-                              MainLocalizations
-                                  .of(context)
+                              MainLocalizations.of(context)
                                   .get("Tools/EPayment"))
                         ],
                       ),
@@ -61,8 +59,7 @@ class DrawerPage extends StatelessWidget {
 
                     // Emergency
                     FlatButton(
-                      onPressed: () => Navigator
-                          .of(context)
+                      onPressed: () => Navigator.of(context)
                           .popAndPushNamed("/Me/Emergency"),
                       child: Row(
                         children: <Widget>[
@@ -72,8 +69,7 @@ class DrawerPage extends StatelessWidget {
                           ),
                           Text(
                             "  " +
-                                MainLocalizations
-                                    .of(context)
+                                MainLocalizations.of(context)
                                     .get("Tools/Emergency"),
                             style: TextStyle(color: Colors.red),
                           )
