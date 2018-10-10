@@ -1,4 +1,4 @@
-library xmux_api_v2;
+library xmux.api_v2;
 
 import 'package:meta/meta.dart';
 import 'package:xmux/modules/backend_handler/backend_handler.dart';
