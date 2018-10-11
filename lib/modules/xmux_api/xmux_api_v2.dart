@@ -4,9 +4,11 @@ import 'dart:convert';
 
 import 'package:meta/meta.dart';
 import 'package:xmux/modules/backend_handler/backend_handler.dart';
+import 'package:xmux/modules/xmux_api/models/models_v2.dart';
 
 /// The general response of XMUX API V2 from server.
-class XMUXApiResponse {
+
+class XMUXApiResponse<dataType> {
   /// Status of API call including *success* and *error*.
   ///
   /// **Attention:**
@@ -17,7 +19,7 @@ class XMUXApiResponse {
   final DateTime timestamp;
 
   /// Response data.
-  final dynamic data;
+  final dataType data;
 
   /// The description of error. Only available when status is error.
   String error;

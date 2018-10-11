@@ -1,6 +1,17 @@
 part of 'models_v2.dart';
 
-/// Class for each lesson.
+/// Response data for /ac
+@JsonSerializable(createToJson: false)
+class AcData {
+  final List<Lesson> timetable;
+  final List<Exam> exams;
+  final List<SessionExamResult> examResult;
+
+  AcData(this.timetable, this.exams, this.examResult);
+
+  factory AcData.fromJson(Map<String, dynamic> json) => _$AcDataFromJson(json);
+}
+
 @JsonSerializable()
 class Lesson {
   final String courseCode;
@@ -96,7 +107,7 @@ class CourseExamResult {
   final String courseName;
   final int credit;
   final String grade;
-  final int gradePoint;
+  final double gradePoint;
   final String registrationType;
 
   CourseExamResult(this.courseCode, this.courseName, this.credit, this.grade,

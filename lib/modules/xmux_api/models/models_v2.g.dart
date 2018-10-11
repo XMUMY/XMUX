@@ -6,6 +6,23 @@ part of 'models_v2.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+AcData _$AcDataFromJson(Map<String, dynamic> json) {
+  return AcData(
+      (json['timetable'] as List)
+          ?.map((e) =>
+              e == null ? null : Lesson.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      (json['exams'] as List)
+          ?.map((e) =>
+              e == null ? null : Exam.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      (json['examResult'] as List)
+          ?.map((e) => e == null
+              ? null
+              : SessionExamResult.fromJson(e as Map<String, dynamic>))
+          ?.toList());
+}
+
 Lesson _$LessonFromJson(Map<String, dynamic> json) {
   return Lesson(
       json['courseCode'] as String,
@@ -94,7 +111,7 @@ CourseExamResult _$CourseExamResultFromJson(Map<String, dynamic> json) {
       json['courseName'] as String,
       json['credit'] as int,
       json['grade'] as String,
-      json['gradePoint'] as int,
+      (json['gradePoint'] as num)?.toDouble(),
       json['registrationType'] as String);
 }
 
