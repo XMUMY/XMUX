@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/calendar_handler.dart';
-import 'package:xmux/redux/actions.dart';
+import 'package:xmux/redux/redux.dart';
 
 class LoginHandler {
   static Future<String> login(String id, String password) async {
@@ -25,7 +25,7 @@ class LoginHandler {
     // Dispatch LoginAction.
     mainAppStore.dispatch(LoginAction(id, password, responseMap["moodleKey"]));
 
-    CalendarHandler.acUpdate().timeout(Duration(seconds: 10));
+    mainAppStore.dispatch(UpdateAcAction());
     CalendarHandler.assignmentUpdate().timeout(Duration(seconds: 10));
 
     return "success";

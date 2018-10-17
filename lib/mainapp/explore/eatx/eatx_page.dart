@@ -7,6 +7,7 @@ class EatXPage extends StatefulWidget {
 
 class _EatXPageState extends State<EatXPage> {
   int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(

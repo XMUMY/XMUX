@@ -4,9 +4,7 @@ import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:xmux/modules/backend_handler/backend_handler.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
-import 'package:xmux/redux/middleware.dart';
-import 'package:xmux/redux/reducers/reducer.dart';
-import 'package:xmux/redux/states/state.dart';
+import 'package:xmux/redux/redux.dart';
 
 /// Backend handler instance.
 ///
@@ -34,4 +32,5 @@ final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
 
 /// Main store for redux.
 final Store<MainAppState> mainAppStore = Store<MainAppState>(appReducer,
-    initialState: MainAppState(), middleware: [saveMiddleware]);
+    initialState: MainAppState.def(),
+    middleware: [apiRequestMiddleWare, saveMiddleware]);

@@ -1,9 +1,15 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:xmux/globals.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
+
+part 'xmux_api_actions.dart';
 
 abstract class MainAppAction {
   get needSave => true;
+
   get sync => false;
-  toString() => "MainAppAction";
+
+  toString() => "MainAppAction: ${this.runtimeType}";
 }
 
 class InitAction extends MainAppAction {
@@ -66,6 +72,7 @@ class UpdateEPaymentPasswordAction extends MainAppAction {
 
 class UpdateACAction extends MainAppAction {
   final Map<String, dynamic> acMap;
+
   UpdateACAction(this.acMap);
 }
 

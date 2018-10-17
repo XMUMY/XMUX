@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:xmux/redux/actions.dart';
-import 'package:xmux/redux/states/state.dart';
+import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
 class AcademicPage extends StatelessWidget {

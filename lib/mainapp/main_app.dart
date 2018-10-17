@@ -17,7 +17,7 @@ import 'package:xmux/mainapp/settings/developer_options.dart';
 import 'package:xmux/mainapp/settings/settings_page.dart';
 import 'package:xmux/mainapp/tools/emergency.dart';
 import 'package:xmux/mainapp/tools/epayment.dart';
-import 'package:xmux/redux/states/state.dart';
+import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
 class MainApp extends StatelessWidget {

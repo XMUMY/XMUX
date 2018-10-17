@@ -32,5 +32,5 @@ class DurationOfDay {
 
   /// Get Duration.
   get duration => Duration();
-  //TODO: Get Duration.
+//TODO: Get Duration.
 }

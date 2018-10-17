@@ -5,6 +5,18 @@ import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 
+import 'models/models_v2.dart';
+
+export 'models/models_v2.dart';
+
+///
+class XMUXApiAuth {
+  final String campusID;
+  final String password;
+
+  XMUXApiAuth({this.campusID, this.password});
+}
+
 /// The general response of XMUX API V2 from server.
 class XMUXApiResponse<dataType> {
   /// Status of API call including *success* and *error*.
@@ -62,7 +74,7 @@ class XMUXApi {
     selectingServer = selectServer();
 
     // Dio options.
-    dio.options.baseUrl = _addresses[0];
+    dio.options.baseUrl = _addresses[0] + '/v2';
     dio.options.connectTimeout = 1000;
     configure();
 
@@ -86,6 +98,8 @@ class XMUXApi {
     // Add JWT token if exist.
     if (jwt != null)
       dio.options.headers.addAll({'Authorization': 'Bearer $jwt'});
+    else
+      dio.options.headers.remove('Authorization');
   }
 
   Future<Null> selectServer() async {
@@ -101,7 +115,17 @@ class XMUXApi {
         .catchError((e) => currentAddress);
 
     currentAddress = selected;
-    dio.options.baseUrl = selected;
+    dio.options.baseUrl = selected + '/v2';
     print('XMUXApiV2/ServerSelector: Selected: $currentAddress');
+  }
+
+  Future<XMUXApiResponse<AcData>> ac(XMUXApiAuth auth) async {
+    var response = await dio
+        .post('/ac', data: {'id': auth.campusID, 'pass': auth.password});
+    var apiResponse = XMUXApiResponse<AcData>(
+        response.data['status'],
+        DateTime.fromMillisecondsSinceEpoch(response.data['timestamp']),
+        AcData.fromJson(response.data['data']));
+    return apiResponse;
   }
 }

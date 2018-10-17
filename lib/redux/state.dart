@@ -1,4 +1,8 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:xmux/modules/xmux_api/models/models_v2.dart';
+
+part 'state.g.dart';
 
 /// Main App State include UI/PersonalInfo/Settings/AC.
 class MainAppState {
@@ -12,32 +16,36 @@ class MainAppState {
   final SettingState settingState;
 
   /// AC state include timetable, exams, examResult and other academic data.
-  final ACState acState;
+  final ACState oacState;
+
+  final AcState acState;
+
+  MainAppState(this.uiState, this.personalInfoState, this.settingState,
+      this.oacState, this.acState);
 
   /// Init MainAppState as default.
-  MainAppState()
+  MainAppState.def()
       : this.uiState = new UIState(),
         this.personalInfoState = new PersonalInfoState(),
         this.settingState = new SettingState(),
-        this.acState = new ACState();
-
-  /// Init MainAppState from raw.
-  MainAppState.raw(
-      this.uiState, this.personalInfoState, this.settingState, this.acState);
+        this.oacState = new ACState(),
+        this.acState = AcState.def();
 
   /// Init MainAppStore from initMap.
   MainAppState.fromMap(Map<String, dynamic> map)
-      : this.uiState = new UIState(), // Runtime state.
+      : this.uiState = new UIState(),
+        // Runtime state.
         this.personalInfoState =
             new PersonalInfoState.fromMap(map["personalInfoState"]),
         this.settingState = new SettingState.fromMap(map["settingState"]),
-        this.acState = new ACState.fromMap(map["acState"]);
+        this.oacState = new ACState.fromMap(map["acState"]),
+        this.acState = AcState.fromJson(map);
 
   /// Export MainAppState to initMap.
   Map<String, Map> toMap() => {
         "personalInfoState": this.personalInfoState.toMap(),
         "settingState": this.settingState.toMap(),
-        "acState": this.acState.toMap(),
+        "acState": this.acState.toJson(),
       };
 }
 
@@ -83,6 +91,7 @@ class UIState {
 }
 
 /// Personal info state include uid, password, etc.
+@JsonSerializable()
 class PersonalInfoState {
   /// User authentication (Campus ID).
   final String uid, password;
@@ -114,6 +123,7 @@ class PersonalInfoState {
 }
 
 /// Settings state include ePaymentPassword, etc.
+@JsonSerializable()
 class SettingState {
   /// E-payment password.
   final String ePaymentPassword;
@@ -215,4 +225,43 @@ class ACState {
           exams ?? this.exams,
           examResult ?? this.examResult,
           assignments ?? this.assignments);
+}
+
+@JsonSerializable()
+class AcState {
+  final String status;
+  final DateTime timestamp;
+  final List<Lesson> timetable;
+  final List<Exam> exams;
+  final List<SessionExamResult> examResult;
+
+  AcState(
+      this.status, this.timestamp, this.timetable, this.exams, this.examResult);
+
+  AcState.def()
+      : this.status = 'init',
+        this.timestamp = null,
+        this.timetable = null,
+        this.exams = null,
+        this.examResult = null;
+
+  factory AcState.fromJson(Map<String, dynamic> json) =>
+      _$AcStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AcStateToJson(this);
+
+  AcState copyWith(
+          {String status,
+          DateTime timestamp,
+          List<Lesson> timetable,
+          List<Exam> exams,
+          List<SessionExamResult> examResult,
+          List assignments}) =>
+      new AcState(
+        status ?? this.status,
+        timestamp ?? this.timestamp,
+        timetable ?? this.timetable,
+        exams ?? this.exams,
+        examResult ?? this.examResult,
+      );
 }

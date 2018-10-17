@@ -13,7 +13,7 @@ import 'package:xmux/loginapp/login_handler.dart';
 import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/modules/backend_handler/backend_handler.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
-import 'package:xmux/redux/actions.dart';
+import 'package:xmux/redux/redux.dart';
 
 export 'init_page.dart';
 
@@ -65,7 +65,7 @@ Future<InitResult> init() async {
     return InitResult.loginError;
   }
 
-  CalendarHandler.acUpdate().timeout(Duration(seconds: 10));
+  mainAppStore.dispatch(UpdateAcAction());
   CalendarHandler.assignmentUpdate().timeout(Duration(seconds: 10));
 
   return InitResult.finished;

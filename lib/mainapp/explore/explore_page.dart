@@ -7,8 +7,7 @@ import 'package:xmux/mainapp/explore/chat_room_page.dart';
 import 'package:xmux/mainapp/explore/eatx/eatx_page.dart';
 import 'package:xmux/mainapp/tools/room_reservation.dart';
 import 'package:xmux/modules/xia/xia.dart';
-import 'package:xmux/redux/actions.dart';
-import 'package:xmux/redux/states/state.dart';
+import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
 class ExplorePage extends StatelessWidget {

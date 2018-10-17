@@ -112,6 +112,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
 class _CourseInfo {
   final String name;
   final int credits;
+
   _CourseInfo(this.name, this.credits);
 
   String chosenGrade = "A";

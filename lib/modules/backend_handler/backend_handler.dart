@@ -18,6 +18,7 @@ class BackendHandler {
 
   final _connectivity = Connectivity();
   ConnectivityResult _lastConnectivityResult;
+
   // Future of selectBackend function for listening selecting status.
   static Future<Null> selectingBackend;
 

@@ -8,7 +8,7 @@ import 'package:xmux/mainapp/drawer.dart';
 import 'package:xmux/mainapp/explore/explore_page.dart';
 import 'package:xmux/mainapp/home/home_page.dart';
 import 'package:xmux/mainapp/home/homepage_handler.dart';
-import 'package:xmux/redux/actions.dart';
+import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
 class MainPage extends StatefulWidget {

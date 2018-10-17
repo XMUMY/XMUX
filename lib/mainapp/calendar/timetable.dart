@@ -4,21 +4,21 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/calendar/calendar_handler.dart';
-import 'package:xmux/mainapp/calendar/sign_in_button.dart';
 import 'package:xmux/modules/error_widgets/error_widgets.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
+import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
 class TimeTablePage extends StatelessWidget {
-  final classes;
+  final List<Lesson> classes;
 
-  TimeTablePage(List timetable)
+  TimeTablePage(List<Lesson> timetable)
       : this.classes = timetable == null ? null : _sortTimetable(timetable);
 
-  static List<dynamic> _sortTimetable(List<dynamic> timetable) {
+  static List<Lesson> _sortTimetable(List<Lesson> timetable) {
     var pos = max(
         timetable
-            .map((c) => c["dayOfWeek"])
+            .map((c) => c.dayOfWeek)
             .toList()
             .indexOf(DateTime.now().weekday - 1),
         0);
@@ -27,7 +27,9 @@ class TimeTablePage extends StatelessWidget {
 
   // Handle refresh.
   Future<Null> _handleUpdate() async {
-    await CalendarHandler.acUpdate();
+    var action = UpdateAcAction();
+    mainAppStore.dispatch(action);
+    await action.listener;
   }
 
   Widget _buildLastUpdateString(BuildContext context) => Center(
@@ -37,11 +39,11 @@ class TimeTablePage extends StatelessWidget {
             MainLocalizations.of(context).get("Calendar/LastUpdate") +
                 DateFormat.yMMMd(Localizations.localeOf(context).languageCode)
                     .format(DateTime.fromMillisecondsSinceEpoch(
-                        mainAppStore.state.acState.timestamp)) +
+                        mainAppStore.state.oacState.timestamp)) +
                 " " +
                 DateFormat.Hms(Localizations.localeOf(context).languageCode)
                     .format(DateTime.fromMillisecondsSinceEpoch(
-                        mainAppStore.state.acState.timestamp)),
+                        mainAppStore.state.oacState.timestamp)),
             style: Theme.of(context).textTheme.caption,
           ),
         ),
@@ -78,14 +80,9 @@ class _ClassCard extends StatelessWidget {
   ];
 
   // Single class object.
-  final Map<String, dynamic> theClass;
+  final Lesson theClass;
 
   _ClassCard(this.theClass);
-
-  // Convert string to TimeOfDay.
-  static TimeOfDay _getTimeOfDay(String originTime) => TimeOfDay(
-      hour: int.parse(originTime.split(":")[0]),
-      minute: int.parse(originTime.split(":")[1]));
 
   @override
   Widget build(BuildContext context) {
@@ -99,19 +96,18 @@ class _ClassCard extends StatelessWidget {
               padding: EdgeInsets.all(10.0),
               child: Center(
                 child: Text(
-                  MainLocalizations.of(context).get("Weekdays/" +
-                          (theClass["dayOfWeek"] + 1).toString()) +
+                  MainLocalizations.of(context).get(
+                          "Weekdays/" + (theClass.dayOfWeek + 1).toString()) +
                       " " +
-                      _getTimeOfDay(theClass["startTimeOfDay"])
-                          .format(context) +
+                      theClass.startTimeOfDay.format(context) +
                       " - " +
-                      _getTimeOfDay(theClass["endTimeOfDay"]).format(context) +
+                      theClass.endTimeOfDay.format(context) +
                       " " +
-                      theClass["classRoom"],
+                      theClass.classroom,
                   style: TextStyle(color: Colors.white, fontSize: 18.0),
                 ),
               ),
-              color: dayColor[theClass["dayOfWeek"]],
+              color: dayColor[theClass.dayOfWeek],
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
@@ -121,7 +117,7 @@ class _ClassCard extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(bottom: 8.0),
                     child: Text(
-                      theClass["courseName"],
+                      theClass.courseName,
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   ),
@@ -132,16 +128,16 @@ class _ClassCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              theClass["courseCode"] +
+                              theClass.courseCode +
                                   " " +
-                                  theClass["weeks"] +
+                                  theClass.weeks +
                                   "\n" +
-                                  theClass["lecturer"],
+                                  theClass.lecturer,
                             ),
                           ],
                         ),
                       ),
-                      SignInButton(theClass),
+//                      SignInButton(theClass),
                     ],
                   ),
                 ],

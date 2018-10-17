@@ -4,7 +4,7 @@ import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/translations/translation.dart';
 
 class ExamResultPage extends StatefulWidget {
-  final _examResult = mainAppStore.state.acState.examResult;
+  final _examResult = mainAppStore.state.oacState.examResult;
 
   static Color getGradeColor(double point) {
     if (point >= 3.7)

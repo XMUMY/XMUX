@@ -33,6 +33,7 @@ class Lesson {
       this.weeks, this.dayOfWeek, this.startTimeOfDay, this.endTimeOfDay);
 
   factory Lesson.fromJson(Map<String, dynamic> json) => _$LessonFromJson(json);
+
   Map<String, dynamic> toJson() => _$LessonToJson(this);
 
   /// Parse weeks from json.
@@ -81,9 +82,11 @@ class Exam {
       this.type, this.status);
 
   factory Exam.fromJson(Map<String, dynamic> json) => _$ExamFromJson(json);
+
   Map<String, dynamic> toJson() => _$ExamToJson(this);
 
   static DateTime _dateFromJson(String json) => DateTime.parse(json);
+
   static String _dateToJson(DateTime date) => date.toString();
 }
 
@@ -98,6 +101,7 @@ class SessionExamResult {
 
   factory SessionExamResult.fromJson(Map<String, dynamic> json) =>
       _$SessionExamResultFromJson(json);
+
   Map<String, dynamic> toJson() => _$SessionExamResultToJson(this);
 }
 
@@ -115,5 +119,6 @@ class CourseExamResult {
 
   factory CourseExamResult.fromJson(Map<String, dynamic> json) =>
       _$CourseExamResultFromJson(json);
+
   Map<String, dynamic> toJson() => _$CourseExamResultToJson(this);
 }

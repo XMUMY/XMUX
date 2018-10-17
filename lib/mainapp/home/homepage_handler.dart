@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/redux/actions.dart';
+import 'package:xmux/redux/redux.dart';
 
 class HomePageHandler {
   static Future<String> updateNews({BuildContext context}) async {

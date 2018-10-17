@@ -1,6 +1,4 @@
-import 'package:redux/redux.dart';
-import 'package:xmux/redux/actions.dart';
-import 'package:xmux/redux/states/state.dart';
+part of 'reducer.dart';
 
 final Reducer<PersonalInfoState> personalInfoReducers = combineReducers([
   new TypedReducer<PersonalInfoState, LoginAction>(_loginReducer),

@@ -4,34 +4,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/main.dart';
-import 'package:xmux/redux/actions.dart';
+import 'package:xmux/redux/redux.dart';
 
 class CalendarHandler {
-  static Future<String> acUpdate() async {
-    print("CalendarHandler: Updating AC.");
-
-    // Get response from backend.
-    var response = await backend.post("/v2/ac", {
-      "id": mainAppStore.state.personalInfoState.uid,
-      "pass": mainAppStore.state.personalInfoState.password,
-    });
-
-    // Check password error.
-    if (response.statusCode == 500) {
-      signOut();
-      return "error";
-    }
-
-    // Check error.
-    if (response.statusCode >= 400) return response.reasonPhrase;
-
-    // Update acState.
-    mainAppStore.dispatch(UpdateACAction(jsonDecode(response.body)));
-
-    return "success";
-  }
-
   static Future<String> assignmentUpdate() async {
     print("CalendarHandler: Updating Assignment.");
 
