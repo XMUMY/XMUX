@@ -22,11 +22,11 @@ void saveMiddleware(Store<MainAppState> store, action, NextDispatcher next) {
   next(action);
 
   print(
-      "Redux/saveMiddleware: Invoked (Action: ${action.runtimeType} IsSaving: ${_isSaving.toString()} NeedSave: ${action.needSave} Sync: ${action.sync}) ");
+      'Redux/saveMiddleware: Invoked (Action: ${action.runtimeType} IsSaving: ${_isSaving.toString()} NeedSave: ${action.needSave} Sync: ${action.sync}) ');
 
   if (!_isSaving && action.needSave) {
     _isSaving = true;
-    _fileSave(jsonEncode(mainAppStore.state.toMap()), "state.dat",
+    _fileSave(jsonEncode(mainAppStore.state.toMap()), 'state.dat',
             sync: action.sync)
         .then((n) => _isSaving = false);
   }
@@ -34,7 +34,7 @@ void saveMiddleware(Store<MainAppState> store, action, NextDispatcher next) {
 
 Future<Null> _fileSave(String fileText, String fileName, {bool sync}) async {
   if (!sync) await Future.delayed(Duration(seconds: 3));
-  print("Redux/saveMiddleware: Saving state...");
+  print('Redux/saveMiddleware: Saving state...');
   String appDocDir = (await getApplicationDocumentsDirectory()).path;
   await (File('$appDocDir/$fileName')).writeAsString(fileText);
 }
@@ -43,9 +43,11 @@ Future<Null> _fileSave(String fileText, String fileName, {bool sync}) async {
 ///
 /// If an action is *XMUXApiAction*, the middleware will call for API request
 /// before go to next middleware.
-void apiRequestMiddleWare(
+void apiRequestMiddleware(
     Store<MainAppState> store, action, NextDispatcher next) {
   if (action is XMUXApiAction) {
+    print(
+        'Redux/apiRequestMiddleware: Invoked (Action: ${action.runtimeType})');
     action.listener = action(
             XMUXApiAuth(
                 campusID: store.state.personalInfoState.uid,

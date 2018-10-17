@@ -38,8 +38,8 @@ class MainAppState {
         this.personalInfoState =
             new PersonalInfoState.fromMap(map["personalInfoState"]),
         this.settingState = new SettingState.fromMap(map["settingState"]),
-        this.oacState = new ACState.fromMap(map["acState"]),
-        this.acState = AcState.fromJson(map);
+        this.oacState = new ACState(),
+        this.acState = AcState.fromJson(map["acState"]);
 
   /// Export MainAppState to initMap.
   Map<String, Map> toMap() => {

@@ -3,18 +3,21 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/modules/error_widgets/error_widgets.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
+import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
 class ExamsPage extends StatelessWidget {
-  final List exams;
+  final List<Exam> exams;
 
   ExamsPage(this.exams);
 
   // Handle refresh.
   Future<Null> _handleUpdate() async {
-    await CalendarHandler.acUpdate();
+    var act = UpdateAcAction();
+    mainAppStore.dispatch(act);
+    await act.listener;
   }
 
   Widget _buildLastUpdateString(BuildContext context) => Center(
@@ -23,12 +26,10 @@ class ExamsPage extends StatelessWidget {
           child: Text(
             MainLocalizations.of(context).get("Calendar/LastUpdate") +
                 DateFormat.yMMMd(Localizations.localeOf(context).languageCode)
-                    .format(DateTime.fromMillisecondsSinceEpoch(
-                        mainAppStore.state.acState.timestamp)) +
+                    .format(mainAppStore.state.acState.timestamp) +
                 " " +
                 DateFormat.Hms(Localizations.localeOf(context).languageCode)
-                    .format(DateTime.fromMillisecondsSinceEpoch(
-                        mainAppStore.state.acState.timestamp)),
+                    .format(mainAppStore.state.acState.timestamp),
             style: Theme.of(context).textTheme.caption,
           ),
         ),
@@ -56,7 +57,7 @@ class ExamsPage extends StatelessWidget {
 }
 
 class _ExamCard extends StatelessWidget {
-  final Map examData;
+  final Exam examData;
 
   _ExamCard(this.examData);
 
@@ -75,17 +76,20 @@ class _ExamCard extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(bottom: 8.0),
                       child: Text(
-                        examData["Course Name"],
+                        examData.courseName,
                         style: Theme.of(context).textTheme.subhead,
                       ),
                     ),
-                    Text(examData["Exam Date"] +
+                    Text(examData.date.toString().substring(0, 10) +
                         " " +
-                        examData["Exam Day"] +
+                        MainLocalizations.of(context)
+                            .get('Weekdays/${examData.date.weekday}') +
                         " " +
-                        examData["Exam Time"]),
-                    Text(examData["Exam Venue"]),
-                    Text(examData["Exam Type"]),
+                        examData.durationOfDay.start.format(context) +
+                        '-' +
+                        examData.durationOfDay.end.format(context)),
+                    Text(examData.venue),
+                    Text(examData.type),
                   ],
                 ),
               ),

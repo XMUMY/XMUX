@@ -33,4 +33,4 @@ final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
 /// Main store for redux.
 final Store<MainAppState> mainAppStore = Store<MainAppState>(appReducer,
     initialState: MainAppState.def(),
-    middleware: [apiRequestMiddleWare, saveMiddleware]);
+    middleware: [apiRequestMiddleware, saveMiddleware]);
