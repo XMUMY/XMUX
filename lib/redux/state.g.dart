@@ -6,19 +6,25 @@ part of 'state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PersonalInfoState _$PersonalInfoStateFromJson(Map<String, dynamic> json) {
-  return PersonalInfoState();
+MainAppState _$MainAppStateFromJson(Map<String, dynamic> json) {
+  return MainAppState(
+      json['authState'] == null
+          ? null
+          : AuthState.fromJson(json['authState'] as Map<String, dynamic>),
+      json['settingState'] == null
+          ? null
+          : SettingState.fromJson(json['settingState'] as Map<String, dynamic>),
+      json['acState'] == null
+          ? null
+          : AcState.fromJson(json['acState'] as Map<String, dynamic>));
 }
 
-Map<String, dynamic> _$PersonalInfoStateToJson(PersonalInfoState instance) =>
-    <String, dynamic>{};
-
-SettingState _$SettingStateFromJson(Map<String, dynamic> json) {
-  return SettingState();
-}
-
-Map<String, dynamic> _$SettingStateToJson(SettingState instance) =>
-    <String, dynamic>{};
+Map<String, dynamic> _$MainAppStateToJson(MainAppState instance) =>
+    <String, dynamic>{
+      'authState': instance.authState,
+      'settingState': instance.settingState,
+      'acState': instance.acState
+    };
 
 AcState _$AcStateFromJson(Map<String, dynamic> json) {
   return AcState(
@@ -47,4 +53,28 @@ Map<String, dynamic> _$AcStateToJson(AcState instance) => <String, dynamic>{
       'timetable': instance.timetable,
       'exams': instance.exams,
       'examResult': instance.examResult
+    };
+
+AuthState _$AuthStateFromJson(Map<String, dynamic> json) {
+  return AuthState(
+      json['campusID'] as String,
+      json['campusIDPassword'] as String,
+      json['ePaymentPassword'] as String,
+      json['moodleKey'] as String);
+}
+
+Map<String, dynamic> _$AuthStateToJson(AuthState instance) => <String, dynamic>{
+      'campusID': instance.campusID,
+      'campusIDPassword': instance.campusIDPassword,
+      'ePaymentPassword': instance.ePaymentPassword,
+      'moodleKey': instance.moodleKey
+    };
+
+SettingState _$SettingStateFromJson(Map<String, dynamic> json) {
+  return SettingState(json['enableFunctionsUnderDev'] as bool);
+}
+
+Map<String, dynamic> _$SettingStateToJson(SettingState instance) =>
+    <String, dynamic>{
+      'enableFunctionsUnderDev': instance.enableFunctionsUnderDev
     };

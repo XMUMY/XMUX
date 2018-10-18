@@ -4,49 +4,140 @@ import 'package:xmux/modules/xmux_api/models/models_v2.dart';
 
 part 'state.g.dart';
 
-/// Main App State include UI/PersonalInfo/Settings/AC.
+/// Main state for app.
+@JsonSerializable()
 class MainAppState {
-  /// Global UI state include drawerIsOpen, etc.
-  final UIState uiState;
+  /// AC state include timetable, exams, examResult and other academic data.
+  final AcState acState;
 
-  /// Personal info state include uid, password, etc.
-  final PersonalInfoState personalInfoState;
+  /// Auth state fro all authemation.
+  final AuthState authState;
 
   /// Settings state include ePaymentPassword, etc.
   final SettingState settingState;
 
-  /// AC state include timetable, exams, examResult and other academic data.
-  final ACState oacState;
+  /// Global UI state include drawerIsOpen, etc.
+  @JsonKey(ignore: true)
+  final UIState uiState;
 
-  final AcState acState;
-
-  MainAppState(this.uiState, this.personalInfoState, this.settingState,
-      this.oacState, this.acState);
+  MainAppState(this.authState, this.settingState, this.acState,
+      {UIState uiState})
+      : this.uiState = uiState ?? UIState();
 
   /// Init MainAppState as default.
   MainAppState.def()
       : this.uiState = new UIState(),
-        this.personalInfoState = new PersonalInfoState(),
-        this.settingState = new SettingState(),
-        this.oacState = new ACState(),
+        this.authState = AuthState.def(),
+        this.settingState = SettingState.def(),
         this.acState = AcState.def();
 
-  /// Init MainAppStore from initMap.
-  MainAppState.fromMap(Map<String, dynamic> map)
-      : this.uiState = new UIState(),
-        // Runtime state.
-        this.personalInfoState =
-            new PersonalInfoState.fromMap(map["personalInfoState"]),
-        this.settingState = new SettingState.fromMap(map["settingState"]),
-        this.oacState = new ACState(),
-        this.acState = AcState.fromJson(map["acState"]);
+  factory MainAppState.fromJson(Map<String, dynamic> json) =>
+      _$MainAppStateFromJson(json);
 
-  /// Export MainAppState to initMap.
-  Map<String, Map> toMap() => {
-        "personalInfoState": this.personalInfoState.toMap(),
-        "settingState": this.settingState.toMap(),
-        "acState": this.acState.toJson(),
-      };
+  Map<String, dynamic> toJson() => _$MainAppStateToJson(this);
+}
+
+/// AC state include timetable, exams and other academic data from AC.
+@JsonSerializable()
+class AcState {
+  /// The status of state.
+  /// Including *init*, *success*
+  final String status;
+
+  /// The timestamp from server.
+  final DateTime timestamp;
+  final List<Lesson> timetable;
+  final List<Exam> exams;
+  final List<SessionExamResult> examResult;
+
+  AcState(
+      this.status, this.timestamp, this.timetable, this.exams, this.examResult);
+
+  AcState.def()
+      : this.status = 'init',
+        this.timestamp = null,
+        this.timetable = null,
+        this.exams = null,
+        this.examResult = null;
+
+  factory AcState.fromJson(Map<String, dynamic> json) =>
+      _$AcStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AcStateToJson(this);
+
+  AcState copyWith(
+          {String status,
+          DateTime timestamp,
+          List<Lesson> timetable,
+          List<Exam> exams,
+          List<SessionExamResult> examResult,
+          List assignments}) =>
+      AcState(
+        status ?? this.status,
+        timestamp ?? this.timestamp,
+        timetable ?? this.timetable,
+        exams ?? this.exams,
+        examResult ?? this.examResult,
+      );
+}
+
+/// Personal info state include uid, password, etc.
+@JsonSerializable()
+class AuthState {
+  /// User authentication (Campus ID).
+  final String campusID, campusIDPassword;
+
+  /// E-payment password.
+  final String ePaymentPassword;
+
+  /// Moodle key.
+  final String moodleKey;
+
+  AuthState(this.campusID, this.campusIDPassword, this.ePaymentPassword,
+      this.moodleKey);
+
+  AuthState.def()
+      : this.campusID = null,
+        this.campusIDPassword = null,
+        this.ePaymentPassword = null,
+        this.moodleKey = null;
+
+  factory AuthState.fromJson(Map<String, dynamic> json) =>
+      _$AuthStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AuthStateToJson(this);
+
+  AuthState copyWith(
+          {String campusID,
+          String campusIDPassword,
+          String ePaymentPassword,
+          String moodleKey}) =>
+      new AuthState(
+          campusID ?? this.campusID,
+          campusIDPassword ?? this.campusIDPassword,
+          ePaymentPassword ?? this.ePaymentPassword,
+          moodleKey ?? this.moodleKey);
+}
+
+/// Settings state include ePaymentPassword, etc.
+@JsonSerializable()
+class SettingState {
+  /// Enable functions under developing.
+  final bool enableFunctionsUnderDev;
+
+  SettingState(this.enableFunctionsUnderDev);
+
+  SettingState.def() : this.enableFunctionsUnderDev = null;
+
+  factory SettingState.fromJson(Map<String, dynamic> json) =>
+      _$SettingStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SettingStateToJson(this);
+
+  SettingState copyWith({
+    bool enableFunctionsUnderDev,
+  }) =>
+      SettingState(enableFunctionsUnderDev ?? this.enableFunctionsUnderDev);
 }
 
 /// Global UI state include drawerIsOpen, etc.
@@ -88,70 +179,6 @@ class UIState {
           connectivity ?? this.connectivity,
           news ?? this.news,
           announcements ?? this.announcements);
-}
-
-/// Personal info state include uid, password, etc.
-@JsonSerializable()
-class PersonalInfoState {
-  /// User authentication (Campus ID).
-  final String uid, password;
-
-  /// Moodle key.
-  final String moodleKey;
-
-  PersonalInfoState()
-      : this.uid = null,
-        this.password = null,
-        this.moodleKey = null;
-
-  PersonalInfoState.raw(this.uid, this.password, this.moodleKey);
-
-  PersonalInfoState.fromMap(Map<String, dynamic> map)
-      : this.uid = map["uid"],
-        this.password = map["password"],
-        this.moodleKey = map["moodleKey"];
-
-  Map<String, String> toMap() => {
-        "uid": this.uid,
-        "password": this.password,
-        "moodleKey": this.moodleKey,
-      };
-
-  PersonalInfoState copyWith({String uid, String password, String moodleKey}) =>
-      new PersonalInfoState.raw(uid ?? this.uid, password ?? this.password,
-          moodleKey ?? this.moodleKey);
-}
-
-/// Settings state include ePaymentPassword, etc.
-@JsonSerializable()
-class SettingState {
-  /// E-payment password.
-  final String ePaymentPassword;
-
-  /// Enable functions under developing.
-  final bool enableFunctionsUnderDev;
-
-  SettingState()
-      : ePaymentPassword = null,
-        enableFunctionsUnderDev = false;
-
-  SettingState.raw(this.ePaymentPassword, this.enableFunctionsUnderDev);
-
-  SettingState.fromMap(Map<String, dynamic> map)
-      : this.ePaymentPassword = map["ePaymentPassword"],
-        this.enableFunctionsUnderDev = map["enableFunctionsUnderDev"] ?? false;
-
-  Map<String, dynamic> toMap() => {
-        "ePaymentPassword": this.ePaymentPassword,
-        "enableFunctionsUnderDev": this.enableFunctionsUnderDev,
-      };
-
-  SettingState copyWith({
-    String ePaymentPassword,
-    bool enableFunctionsUnderDev,
-  }) =>
-      new SettingState.raw(ePaymentPassword ?? this.ePaymentPassword,
-          enableFunctionsUnderDev ?? this.enableFunctionsUnderDev);
 }
 
 /// AC state include timetable, exams, examResult and other academic data.
@@ -225,43 +252,4 @@ class ACState {
           exams ?? this.exams,
           examResult ?? this.examResult,
           assignments ?? this.assignments);
-}
-
-@JsonSerializable()
-class AcState {
-  final String status;
-  final DateTime timestamp;
-  final List<Lesson> timetable;
-  final List<Exam> exams;
-  final List<SessionExamResult> examResult;
-
-  AcState(
-      this.status, this.timestamp, this.timetable, this.exams, this.examResult);
-
-  AcState.def()
-      : this.status = 'init',
-        this.timestamp = null,
-        this.timetable = null,
-        this.exams = null,
-        this.examResult = null;
-
-  factory AcState.fromJson(Map<String, dynamic> json) =>
-      _$AcStateFromJson(json);
-
-  Map<String, dynamic> toJson() => _$AcStateToJson(this);
-
-  AcState copyWith(
-          {String status,
-          DateTime timestamp,
-          List<Lesson> timetable,
-          List<Exam> exams,
-          List<SessionExamResult> examResult,
-          List assignments}) =>
-      new AcState(
-        status ?? this.status,
-        timestamp ?? this.timestamp,
-        timetable ?? this.timetable,
-        exams ?? this.exams,
-        examResult ?? this.examResult,
-      );
 }

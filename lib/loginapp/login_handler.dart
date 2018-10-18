@@ -32,14 +32,13 @@ class LoginHandler {
   }
 
   static Future<String> firebaseLogin() async {
-    print(
-        "Login firebase with uid: ${mainAppStore.state.personalInfoState.uid}");
+    print("Login firebase with uid: ${mainAppStore.state.authState.campusID}");
 
     try {
       firebaseUser = (await FirebaseAuth.instance.currentUser()) ??
           await FirebaseAuth.instance.signInWithEmailAndPassword(
-              email: mainAppStore.state.personalInfoState.uid + "@xmu.edu.my",
-              password: mainAppStore.state.personalInfoState.password);
+              email: mainAppStore.state.authState.campusID + "@xmu.edu.my",
+              password: mainAppStore.state.authState.campusIDPassword);
     } catch (e) {
       return e.toString();
     }

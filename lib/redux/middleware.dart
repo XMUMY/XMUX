@@ -26,7 +26,7 @@ void saveMiddleware(Store<MainAppState> store, action, NextDispatcher next) {
 
   if (!_isSaving && action.needSave) {
     _isSaving = true;
-    _fileSave(jsonEncode(mainAppStore.state.toMap()), 'state.dat',
+    _fileSave(jsonEncode(mainAppStore.state.toJson()), 'state.dat',
             sync: action.sync)
         .then((n) => _isSaving = false);
   }
@@ -50,8 +50,8 @@ void apiRequestMiddleware(
         'Redux/apiRequestMiddleware: Invoked (Action: ${action.runtimeType})');
     action.listener = action(
             XMUXApiAuth(
-                campusID: store.state.personalInfoState.uid,
-                password: store.state.personalInfoState.password),
+                campusID: store.state.authState.campusID,
+                password: store.state.authState.campusIDPassword),
             params: action.params)
         .then((_) => next(action));
   } else

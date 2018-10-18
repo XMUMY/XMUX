@@ -9,8 +9,8 @@ class AcademicHandler {
 
     // Get courses from backend.
     var response = await backend.post("/course", {
-      "id": mainAppStore.state.personalInfoState.uid,
-      "pass": mainAppStore.state.personalInfoState.password,
+      "id": mainAppStore.state.authState.campusID,
+      "pass": mainAppStore.state.authState.campusIDPassword,
     });
 
     // Check error.

@@ -56,8 +56,8 @@ Future<InitResult> init() async {
   }
 
   // If haven't login.
-  if (mainAppStore.state.personalInfoState.uid == null ||
-      mainAppStore.state.personalInfoState.password == null)
+  if (mainAppStore.state.authState.campusID == null ||
+      mainAppStore.state.authState.campusIDPassword == null)
     return InitResult.notLogin;
 
   if ((await LoginHandler.firebaseLogin()) != "success") {

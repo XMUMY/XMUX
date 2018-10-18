@@ -28,7 +28,7 @@ class HomePageHandler {
   static Future<String> updateAnnouncements({BuildContext context}) async {
     // Get news from backend.
     var response = await backend.post("/v2/homepage/announcements", {
-      "id": mainAppStore.state.personalInfoState.uid,
+      "id": mainAppStore.state.authState.campusID,
     });
 
     // Check error.

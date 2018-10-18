@@ -24,7 +24,7 @@ class _PaymentPageState extends State<EPaymentPage> {
   ) async {
     // Get response from backend.
     var response = await backend.post("/bill", {
-      "id": mainAppStore.state.personalInfoState.uid,
+      "id": mainAppStore.state.authState.campusID,
       "pass": password,
     });
 
@@ -60,8 +60,8 @@ class _PaymentPageState extends State<EPaymentPage> {
 
   @override
   void initState() {
-    if (mainAppStore.state.settingState.ePaymentPassword != null)
-      ePaymentFetch(mainAppStore.state.settingState.ePaymentPassword)
+    if (mainAppStore.state.authState.ePaymentPassword != null)
+      ePaymentFetch(mainAppStore.state.authState.ePaymentPassword)
           .then((r) => setState(() => _bills = r["data"]));
     super.initState();
   }
@@ -73,7 +73,7 @@ class _PaymentPageState extends State<EPaymentPage> {
         ),
         body: StoreConnector<MainAppState, String>(
           converter: (Store<MainAppState> store) =>
-              store.state.settingState.ePaymentPassword,
+              store.state.authState.ePaymentPassword,
           builder: (context, password) => password == null
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
