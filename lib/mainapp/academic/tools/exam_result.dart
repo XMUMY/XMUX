@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/error_widgets/error_widgets.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/translations/translation.dart';
 
 class ExamResultPage extends StatefulWidget {
-  final _examResult = mainAppStore.state.oacState.examResult;
+  final _examResult = mainAppStore.state.acState.examResult;
 
   static Color getGradeColor(double point) {
     if (point >= 3.7)
@@ -20,7 +21,7 @@ class ExamResultPage extends StatefulWidget {
 }
 
 class _ExamResultPageState extends State<ExamResultPage> {
-  Map _currentSession;
+  SessionExamResult _currentSession;
 
   @override
   void initState() {
@@ -47,7 +48,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
                     trailing: DropdownButton(
                       items: widget._examResult
                           .map((session) => DropdownMenuItem(
-                                child: Text(session["academicSession"]),
+                                child: Text(session.academicSession),
                                 value: session,
                               ))
                           .toList(),
@@ -62,7 +63,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
                   Card(
                     margin: EdgeInsets.all(10.0),
                     child: Column(
-                      children: (_currentSession["result"] as List)
+                      children: _currentSession.result
                           .map((courseResult) => _CourseResultUI(courseResult))
                           .toList(),
                     ),
@@ -76,13 +77,13 @@ class _ExamResultPageState extends State<ExamResultPage> {
                             padding: EdgeInsets.all(10.0),
                             child: Center(
                               child: Text(
-                                "GPA : " + _currentSession["GPA"].toString(),
+                                "GPA : " + _currentSession.gpa.toString(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline
                                     .copyWith(
                                       color: ExamResultPage.getGradeColor(
-                                          double.parse(_currentSession["GPA"])),
+                                          double.parse(_currentSession.gpa)),
                                     ),
                               ),
                             ),
@@ -96,14 +97,13 @@ class _ExamResultPageState extends State<ExamResultPage> {
                             padding: EdgeInsets.all(10.0),
                             child: Center(
                               child: Text(
-                                "CGPA : " + _currentSession["CGPA"].toString(),
+                                "CGPA : " + _currentSession.cGpa.toString(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline
                                     .copyWith(
                                       color: ExamResultPage.getGradeColor(
-                                          double.parse(
-                                              _currentSession["CGPA"])),
+                                          double.parse(_currentSession.cGpa)),
                                     ),
                               ),
                             ),
@@ -119,7 +119,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
 }
 
 class _CourseResultUI extends StatelessWidget {
-  final Map _courseResult;
+  final CourseExamResult _courseResult;
 
   _CourseResultUI(this._courseResult);
 
@@ -132,15 +132,15 @@ class _CourseResultUI extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Text(
-                    _courseResult["courseName"],
+                    _courseResult.courseName,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.subhead,
                   ),
                   Divider(),
                   Text(
-                    _courseResult["courseCode"] +
+                    _courseResult.courseCode +
                         "   " +
-                        _courseResult["credit"].toString() +
+                        _courseResult.credit.toString() +
                         " " +
                         MainLocalizations.of(context)
                             .get("Academic/Tools/ExamResult/credits"),
@@ -152,13 +152,13 @@ class _CourseResultUI extends StatelessWidget {
             Container(
               margin: EdgeInsets.fromLTRB(10.0, 3.0, 0.0, 3.0),
               child: Text(
-                _courseResult["grade"] +
+                _courseResult.grade +
                     "\n" +
-                    _courseResult["gradePoint"].toStringAsFixed(2),
+                    _courseResult.gradePoint.toStringAsFixed(2),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline.copyWith(
                     color: ExamResultPage.getGradeColor(
-                        _courseResult["gradePoint"].toDouble())),
+                        _courseResult.gradePoint.toDouble())),
               ),
             )
           ],
