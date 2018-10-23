@@ -10,7 +10,8 @@ class MainAppState {
   /// AC state include timetable, exams, examResult and other academic data.
   final AcState acState;
 
-  /// Auth state fro all authemation.
+  /// Auth state fro all authentication.
+  @JsonKey(nullable: false)
   final AuthState authState;
 
   /// Settings state include ePaymentPassword, etc.

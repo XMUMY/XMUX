@@ -12,9 +12,9 @@ export 'models/models_v2.dart';
 ///
 class XMUXApiAuth {
   final String campusID;
-  final String password;
+  final String campusIDPassword;
 
-  XMUXApiAuth({this.campusID, this.password});
+  XMUXApiAuth({this.campusID, this.campusIDPassword});
 }
 
 /// The general response of XMUX API V2 from server.
@@ -120,12 +120,22 @@ class XMUXApi {
   }
 
   Future<XMUXApiResponse<AcData>> ac(XMUXApiAuth auth) async {
-    var response = await dio
-        .post('/ac', data: {'id': auth.campusID, 'pass': auth.password});
+    var response = await dio.post('/ac',
+        data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
     var apiResponse = XMUXApiResponse<AcData>(
         response.data['status'],
         DateTime.fromMillisecondsSinceEpoch(response.data['timestamp']),
         AcData.fromJson(response.data['data']));
     return apiResponse;
+  }
+
+  Future<XMUXApiResponse> login(XMUXApiAuth auth) async {
+    var response = await dio.post('/login',
+        data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
+    if (response.data['status'] == 'error')
+      throw Exception(response.data['error']);
+    return XMUXApiResponse(
+        response.data['status'], response.data['timestamp'], null,
+        moodleKey: response.data['moodleKey']);
   }
 }

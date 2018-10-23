@@ -7,8 +7,8 @@ final Reducer<AuthState> authReducers = combineReducers([
 ]);
 
 AuthState _loginReducer(AuthState state, LoginAction action) => state.copyWith(
-    campusID: action.uid,
-    campusIDPassword: action.password,
+    campusID: action.auth.campusID,
+    campusIDPassword: action.auth.campusIDPassword,
     moodleKey: action.moodleKey);
 
 AuthState _updateEPaymentPasswordReducer(

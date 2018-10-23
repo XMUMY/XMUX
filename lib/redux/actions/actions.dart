@@ -1,47 +1,29 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/widgets.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 part 'xmux_api_actions.dart';
 
+/// General action for the whole app.
 abstract class MainAppAction {
-  get needSave => true;
+  /// Flag for state saving. (Default true)
+  /// If false, app state will not be save when dispatch this action.
+  final needSave = true;
 
-  get sync => false;
+  /// Flag for sync state saving. (Default false)
+  /// If true, app state will be save sync when dispatch this action.
+  /// This flag only available when *needSave* is true.
+  final sync = false;
 
   toString() => "MainAppAction: ${this.runtimeType}";
 }
 
-class InitAction extends MainAppAction {
-  get needSave => false;
-  final Map<String, dynamic> initMap;
-
-  InitAction(this.initMap);
-}
-
-class LoginAction extends MainAppAction {
-  get sync => true;
-  final String uid, password, moodleKey;
-
-  LoginAction(this.uid, this.password, this.moodleKey);
-}
-
-class LogoutAction extends MainAppAction {
-  get sync => true;
-}
-
-class OpenDrawerAction extends MainAppAction {
-  get needSave => false;
-  final bool drawerIsOpen;
-
-  OpenDrawerAction(this.drawerIsOpen);
-}
-
 class ChangeConnectivityAction extends MainAppAction {
-  get needSave => false;
   final ConnectivityResult connectivityResult;
-
   ChangeConnectivityAction(this.connectivityResult);
+
+  final needSave = false;
 }
 
 class EnableFunctionsUnderDevAction extends MainAppAction {
@@ -50,24 +32,31 @@ class EnableFunctionsUnderDevAction extends MainAppAction {
   EnableFunctionsUnderDevAction(this.enableFunctionsUnderDev);
 }
 
-class UpdateNewsAction extends MainAppAction {
-  get needSave => false;
-  final List news;
+class InitAction extends MainAppAction {
+  final Map<String, dynamic> initMap;
+  InitAction(this.initMap);
 
-  UpdateNewsAction(this.news);
+  final needSave = false;
 }
 
-class UpdateAnnouncementAction extends MainAppAction {
-  get needSave => false;
-  final List announcements;
+class LoginAction extends MainAppAction {
+  final XMUXApiAuth auth;
 
-  UpdateAnnouncementAction(this.announcements);
+  final String moodleKey;
+  LoginAction(this.auth, this.moodleKey);
+
+  final sync = true;
 }
 
-class UpdateEPaymentPasswordAction extends MainAppAction {
-  final String ePaymentPassword;
+class LogoutAction extends MainAppAction {
+  final sync = true;
+}
 
-  UpdateEPaymentPasswordAction(this.ePaymentPassword);
+class OpenDrawerAction extends MainAppAction {
+  final bool drawerIsOpen;
+  OpenDrawerAction(this.drawerIsOpen);
+
+  final needSave = false;
 }
 
 class UpdateACAction extends MainAppAction {
@@ -76,8 +65,28 @@ class UpdateACAction extends MainAppAction {
   UpdateACAction(this.acMap);
 }
 
+class UpdateAnnouncementAction extends MainAppAction {
+  final List announcements;
+  UpdateAnnouncementAction(this.announcements);
+
+  final needSave = false;
+}
+
 class UpdateAssignmentsAction extends MainAppAction {
   final List assignments;
 
   UpdateAssignmentsAction(this.assignments);
+}
+
+class UpdateEPaymentPasswordAction extends MainAppAction {
+  final String ePaymentPassword;
+
+  UpdateEPaymentPasswordAction(this.ePaymentPassword);
+}
+
+class UpdateNewsAction extends MainAppAction {
+  final List news;
+  UpdateNewsAction(this.news);
+
+  final needSave = false;
 }

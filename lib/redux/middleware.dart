@@ -51,7 +51,7 @@ void apiRequestMiddleware(
     action.listener = action(
             XMUXApiAuth(
                 campusID: store.state.authState.campusID,
-                password: store.state.authState.campusIDPassword),
+                campusIDPassword: store.state.authState.campusIDPassword),
             params: action.params)
         .then((_) => next(action));
   } else
