@@ -6,6 +6,24 @@ part of 'models_v2.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+BillingRecord _$BillingRecordFromJson(Map<String, dynamic> json) {
+  return BillingRecord(
+      json['item'] as String,
+      json['amount'] == null
+          ? null
+          : BillingRecord._amountFromJson(json['amount'] as String),
+      json['balance'] as String);
+}
+
+Map<String, dynamic> _$BillingRecordToJson(BillingRecord instance) =>
+    <String, dynamic>{
+      'item': instance.item,
+      'amount': instance.amount == null
+          ? null
+          : BillingRecord._amountToJson(instance.amount),
+      'balance': instance.balance
+    };
+
 AcData _$AcDataFromJson(Map<String, dynamic> json) {
   return AcData(
       (json['timetable'] as List)
