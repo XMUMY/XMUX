@@ -26,15 +26,15 @@ Map<String, dynamic> _$BillingRecordToJson(BillingRecord instance) =>
 
 AcData _$AcDataFromJson(Map<String, dynamic> json) {
   return AcData(
-      (json['timetable'] as List)
+      timetable: (json['timetable'] as List)
           ?.map((e) =>
               e == null ? null : Lesson.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      (json['exams'] as List)
+      exams: (json['exams'] as List)
           ?.map((e) =>
               e == null ? null : Exam.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      (json['examResult'] as List)
+      examResult: (json['examResult'] as List)
           ?.map((e) => e == null
               ? null
               : SessionExamResult.fromJson(e as Map<String, dynamic>))
@@ -141,4 +141,47 @@ Map<String, dynamic> _$CourseExamResultToJson(CourseExamResult instance) =>
       'grade': instance.grade,
       'gradePoint': instance.gradePoint,
       'registrationType': instance.registrationType
+    };
+
+MoodleData _$MoodleDataFromJson(Map<String, dynamic> json) {
+  return MoodleData((json['assignments'] as List)
+      ?.map((e) => e == null
+          ? null
+          : LessonAssignments.fromJson(e as Map<String, dynamic>))
+      ?.toList());
+}
+
+LessonAssignments _$LessonAssignmentsFromJson(Map<String, dynamic> json) {
+  return LessonAssignments(
+      json['courseFullName'] as String,
+      json['courseShortName'] as String,
+      (json['assignments'] as List)
+          ?.map((e) =>
+              e == null ? null : Assignment.fromJson(e as Map<String, dynamic>))
+          ?.toList());
+}
+
+Map<String, dynamic> _$LessonAssignmentsToJson(LessonAssignments instance) =>
+    <String, dynamic>{
+      'courseFullName': instance.courseFullName,
+      'courseShortName': instance.courseShortName,
+      'assignments': instance.assignments
+    };
+
+Assignment _$AssignmentFromJson(Map<String, dynamic> json) {
+  return Assignment(
+      json['id'] as int,
+      json['name'] as String,
+      json['timestamp'] == null
+          ? null
+          : Assignment._timestampFromJson(json['timestamp'] as int));
+}
+
+Map<String, dynamic> _$AssignmentToJson(Assignment instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'timestamp': instance.timestamp == null
+          ? null
+          : Assignment._timestampToJson(instance.timestamp)
     };

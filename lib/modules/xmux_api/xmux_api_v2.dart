@@ -9,12 +9,25 @@ import 'models/models_v2.dart';
 
 export 'models/models_v2.dart';
 
-///
+/// The authentication method for XMUX API.
 class XMUXApiAuth {
   final String campusID;
   final String campusIDPassword;
 
-  XMUXApiAuth({this.campusID, this.campusIDPassword});
+  /// Moodle key is only used for speeding up moodle fetching.
+  final String moodleKey;
+
+  XMUXApiAuth({this.campusID, this.campusIDPassword, this.moodleKey});
+}
+
+/// The general exception for XMUX API.
+class XMUXApiException implements Exception {
+  /// The error from server.
+  final String error;
+
+  XMUXApiException(this.error);
+
+  String toString() => "XMUXApiV2/Exception: $error";
 }
 
 /// The general response of XMUX API V2 from server.
@@ -31,14 +44,10 @@ class XMUXApiResponse<dataType> {
   /// Response data.
   final dataType data;
 
-  /// The description of error. Only available when status is error.
-  String error;
-
   /// Moodle token. Only available when moodle token refreshed.
   String moodleKey;
 
-  XMUXApiResponse(this.status, this.timestamp, this.data,
-      {this.error, this.moodleKey});
+  XMUXApiResponse(this.status, this.timestamp, this.data, {this.moodleKey});
 }
 
 /// XMUX API V2
@@ -102,6 +111,20 @@ class XMUXApi {
       dio.options.headers.remove('Authorization');
   }
 
+  XMUXApiResponse<T> _generateResponse<T>(
+      Response<Map<String, dynamic>> response,
+      T fromJson(Map<String, dynamic> json)) {
+    // If status is error, throw an Exception contains error message.
+    if (response.data['status'] == 'error')
+      throw XMUXApiException(response.data['error']);
+    // Construct response from json.
+    return XMUXApiResponse<T>(
+        response.data['status'],
+        DateTime.fromMillisecondsSinceEpoch(response.data['timestamp']),
+        fromJson(response.data['data']),
+        moodleKey: response.data['moodleKey']);
+  }
+
   Future<Null> selectServer() async {
     print('XMUXApiV2/ServerSelector: Selecting...');
 
@@ -120,22 +143,23 @@ class XMUXApi {
   }
 
   Future<XMUXApiResponse<AcData>> ac(XMUXApiAuth auth) async {
-    var response = await dio.post('/ac',
+    var response = await dio.post<Map<String, dynamic>>('/ac',
         data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
-    var apiResponse = XMUXApiResponse<AcData>(
-        response.data['status'],
-        DateTime.fromMillisecondsSinceEpoch(response.data['timestamp']),
-        AcData.fromJson(response.data['data']));
-    return apiResponse;
+    return _generateResponse<AcData>(response, AcData.fromJson);
   }
 
-  Future<XMUXApiResponse> login(XMUXApiAuth auth) async {
-    var response = await dio.post('/login',
+  Future<XMUXApiResponse<Null>> login(XMUXApiAuth auth) async {
+    var response = await dio.post<Map<String, dynamic>>('/login',
         data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
-    if (response.data['status'] == 'error')
-      throw Exception(response.data['error']);
-    return XMUXApiResponse(
-        response.data['status'], response.data['timestamp'], null,
-        moodleKey: response.data['moodleKey']);
+    return _generateResponse(response, (_) {});
+  }
+
+  Future<XMUXApiResponse<MoodleData>> moodle(XMUXApiAuth auth) async {
+    var response = await dio.post<Map<String, dynamic>>('/moodle', data: {
+      'id': auth.campusID,
+      'pass': auth.campusIDPassword,
+      'moodleKey': auth.moodleKey
+    });
+    return _generateResponse<MoodleData>(response, MoodleData.fromJson);
   }
 }

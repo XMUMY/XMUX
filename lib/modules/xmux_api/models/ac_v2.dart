@@ -7,9 +7,9 @@ class AcData {
   final List<Exam> exams;
   final List<SessionExamResult> examResult;
 
-  AcData(this.timetable, this.exams, this.examResult);
+  AcData({this.timetable, this.exams, this.examResult});
 
-  factory AcData.fromJson(Map<String, dynamic> json) => _$AcDataFromJson(json);
+  static AcData fromJson(Map<String, dynamic> json) => _$AcDataFromJson(json);
 }
 
 @JsonSerializable()
