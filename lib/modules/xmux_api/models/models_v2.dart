@@ -26,3 +26,16 @@ class BillingRecord {
 
   static String _amountToJson(double amount) => amount.toStringAsFixed(2);
 }
+
+@JsonSerializable()
+class News {
+  final String name;
+  final bool isWebPage;
+  final String uri;
+  final String imageURL;
+
+  News(this.name, this.isWebPage, this.uri, this.imageURL);
+
+  factory News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
+  Map<String, dynamic> toJson() => _$NewsToJson(this);
+}

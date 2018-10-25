@@ -122,3 +122,30 @@ class CourseExamResult {
 
   Map<String, dynamic> toJson() => _$CourseExamResultToJson(this);
 }
+
+@JsonSerializable()
+class Course {
+  @JsonKey(name: 'Course Name')
+  final String courseName;
+  @JsonKey(name: 'Credit', fromJson: _creditFromJson, toJson: _creditToJson)
+  final int credit;
+  @JsonKey(name: 'Lecturer')
+  final String lecturer;
+  @JsonKey(name: 'Registration Type')
+  final String registrationType;
+  @JsonKey(
+      name: 'Student No.',
+      fromJson: _studentNumFromJson,
+      toJson: _studentNumToJson)
+  final int studentNum;
+
+  Course(this.courseName, this.credit, this.lecturer, this.registrationType,
+      this.studentNum);
+  factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CourseToJson(this);
+  static int _creditFromJson(String credit) => int.parse(credit);
+  static String _creditToJson(int credit) => credit.toString();
+  static int _studentNumFromJson(String studentNum) => int.parse(studentNum);
+  static String _studentNumToJson(int studentNum) => studentNum.toString();
+}

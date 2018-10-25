@@ -24,6 +24,18 @@ Map<String, dynamic> _$BillingRecordToJson(BillingRecord instance) =>
       'balance': instance.balance
     };
 
+News _$NewsFromJson(Map<String, dynamic> json) {
+  return News(json['name'] as String, json['isWebPage'] as bool,
+      json['uri'] as String, json['imageURL'] as String);
+}
+
+Map<String, dynamic> _$NewsToJson(News instance) => <String, dynamic>{
+      'name': instance.name,
+      'isWebPage': instance.isWebPage,
+      'uri': instance.uri,
+      'imageURL': instance.imageURL
+    };
+
 AcData _$AcDataFromJson(Map<String, dynamic> json) {
   return AcData(
       timetable: (json['timetable'] as List)
@@ -184,4 +196,29 @@ Map<String, dynamic> _$AssignmentToJson(Assignment instance) =>
       'timestamp': instance.timestamp == null
           ? null
           : Assignment._timestampToJson(instance.timestamp)
+    };
+
+Course _$CourseFromJson(Map<String, dynamic> json) {
+  return Course(
+      json['Course Name'] as String,
+      json['Credit'] == null
+          ? null
+          : Course._creditFromJson(json['Credit'] as String),
+      json['Lecturer'] as String,
+      json['Registration Type'] as String,
+      json['Student No.'] == null
+          ? null
+          : Course._studentNumFromJson(json['Student No.'] as String));
+}
+
+Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
+      'Course Name': instance.courseName,
+      'Credit': instance.credit == null
+          ? null
+          : Course._creditToJson(instance.credit),
+      'Lecturer': instance.lecturer,
+      'Registration Type': instance.registrationType,
+      'Student No.': instance.studentNum == null
+          ? null
+          : Course._studentNumToJson(instance.studentNum)
     };
