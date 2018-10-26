@@ -66,6 +66,7 @@ Future<InitResult> init() async {
   }
 
   mainAppStore.dispatch(UpdateAcAction());
+  mainAppStore.dispatch(UpdateCoursesAction());
   CalendarHandler.assignmentUpdate().timeout(Duration(seconds: 10));
 
   return InitResult.finished;

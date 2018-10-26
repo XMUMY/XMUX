@@ -17,7 +17,7 @@ class BillingRecord {
   factory BillingRecord.fromJson(Map<String, dynamic> json) =>
       _$BillingRecordFromJson(json);
 
-  get isPaid => balance == '-';
+  bool get isPaid => balance == '-';
 
   Map<String, dynamic> toJson() => _$BillingRecordToJson(this);
 

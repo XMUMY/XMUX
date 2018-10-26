@@ -4,7 +4,7 @@ part of 'models_v2.dart';
 class MoodleData {
   final List<LessonAssignments> assignments;
 
-  MoodleData(this.assignments);
+  MoodleData({this.assignments});
 
   static MoodleData fromJson(Map<String, dynamic> json) =>
       _$MoodleDataFromJson(json);

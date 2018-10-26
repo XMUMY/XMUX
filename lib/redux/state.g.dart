@@ -42,6 +42,10 @@ AcState _$AcStateFromJson(Map<String, dynamic> json) {
           ?.map((e) => e == null
               ? null
               : SessionExamResult.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      (json['courses'] as List)
+          ?.map((e) =>
+              e == null ? null : Course.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
@@ -50,7 +54,8 @@ Map<String, dynamic> _$AcStateToJson(AcState instance) => <String, dynamic>{
       'timestamp': instance.timestamp?.toIso8601String(),
       'timetable': instance.timetable,
       'exams': instance.exams,
-      'examResult': instance.examResult
+      'examResult': instance.examResult,
+      'courses': instance.courses
     };
 
 AuthState _$AuthStateFromJson(Map<String, dynamic> json) {

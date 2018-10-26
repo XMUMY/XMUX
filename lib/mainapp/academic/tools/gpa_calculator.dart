@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/mainapp/academic/academic_handler.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/translations/translation.dart';
 
 class GPACalculatorPage extends StatefulWidget {
@@ -63,12 +63,10 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
 
   @override
   void initState() {
-    AcademicHandler.getCourses().then((coursesData) {
-      for (var i in coursesData)
-        courses.add(
-            _CourseInfo(i["Course Name (by group)"], int.parse(i["Credit"])));
-      setState(() {});
-    });
+    courses = mainAppStore.state.acState.courses
+        .map((coursesData) =>
+            _CourseInfo(coursesData.courseName, coursesData.credit))
+        .toList();
     super.initState();
   }
 

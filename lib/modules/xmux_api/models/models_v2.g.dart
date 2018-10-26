@@ -50,6 +50,10 @@ AcData _$AcDataFromJson(Map<String, dynamic> json) {
           ?.map((e) => e == null
               ? null
               : SessionExamResult.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      courses: (json['courses'] as List)
+          ?.map((e) =>
+              e == null ? null : Course.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
@@ -155,12 +159,32 @@ Map<String, dynamic> _$CourseExamResultToJson(CourseExamResult instance) =>
       'registrationType': instance.registrationType
     };
 
-MoodleData _$MoodleDataFromJson(Map<String, dynamic> json) {
-  return MoodleData((json['assignments'] as List)
-      ?.map((e) => e == null
+Course _$CourseFromJson(Map<String, dynamic> json) {
+  return Course(
+      json['Course Name (by group)'] as String,
+      json['Credit'] == null
           ? null
-          : LessonAssignments.fromJson(e as Map<String, dynamic>))
-      ?.toList());
+          : Course._creditFromJson(json['Credit'] as String),
+      json['Lecturer'] as String,
+      json['Registration Type'] as String);
+}
+
+Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
+      'Course Name (by group)': instance.courseName,
+      'Credit': instance.credit == null
+          ? null
+          : Course._creditToJson(instance.credit),
+      'Lecturer': instance.lecturer,
+      'Registration Type': instance.registrationType
+    };
+
+MoodleData _$MoodleDataFromJson(Map<String, dynamic> json) {
+  return MoodleData(
+      assignments: (json['assignments'] as List)
+          ?.map((e) => e == null
+              ? null
+              : LessonAssignments.fromJson(e as Map<String, dynamic>))
+          ?.toList());
 }
 
 LessonAssignments _$LessonAssignmentsFromJson(Map<String, dynamic> json) {
@@ -196,29 +220,4 @@ Map<String, dynamic> _$AssignmentToJson(Assignment instance) =>
       'timestamp': instance.timestamp == null
           ? null
           : Assignment._timestampToJson(instance.timestamp)
-    };
-
-Course _$CourseFromJson(Map<String, dynamic> json) {
-  return Course(
-      json['Course Name'] as String,
-      json['Credit'] == null
-          ? null
-          : Course._creditFromJson(json['Credit'] as String),
-      json['Lecturer'] as String,
-      json['Registration Type'] as String,
-      json['Student No.'] == null
-          ? null
-          : Course._studentNumFromJson(json['Student No.'] as String));
-}
-
-Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
-      'Course Name': instance.courseName,
-      'Credit': instance.credit == null
-          ? null
-          : Course._creditToJson(instance.credit),
-      'Lecturer': instance.lecturer,
-      'Registration Type': instance.registrationType,
-      'Student No.': instance.studentNum == null
-          ? null
-          : Course._studentNumToJson(instance.studentNum)
     };

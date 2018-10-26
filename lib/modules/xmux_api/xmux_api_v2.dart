@@ -13,11 +13,16 @@ export 'models/models_v2.dart';
 class XMUXApiAuth {
   final String campusID;
   final String campusIDPassword;
+  final String ePaymentPassword;
 
   /// Moodle key is only used for speeding up moodle fetching.
   final String moodleKey;
 
-  XMUXApiAuth({this.campusID, this.campusIDPassword, this.moodleKey});
+  XMUXApiAuth(
+      {this.campusID,
+      this.campusIDPassword,
+      this.ePaymentPassword,
+      this.moodleKey});
 }
 
 /// The general exception for XMUX API.
@@ -111,14 +116,14 @@ class XMUXApi {
       dio.options.headers.remove('Authorization');
   }
 
-  XMUXApiResponse<T> _generateResponse<T>(
+  XMUXApiResponse<ResponseType> _generateResponse<JsonType, ResponseType>(
       Response<Map<String, dynamic>> response,
-      T fromJson(Map<String, dynamic> json)) {
+      ResponseType fromJson(JsonType json)) {
     // If status is error, throw an Exception contains error message.
     if (response.data['status'] == 'error')
       throw XMUXApiException(response.data['error']);
     // Construct response from json.
-    return XMUXApiResponse<T>(
+    return XMUXApiResponse<ResponseType>(
         response.data['status'],
         DateTime.fromMillisecondsSinceEpoch(response.data['timestamp']),
         fromJson(response.data['data']),
@@ -145,7 +150,22 @@ class XMUXApi {
   Future<XMUXApiResponse<AcData>> ac(XMUXApiAuth auth) async {
     var response = await dio.post<Map<String, dynamic>>('/ac',
         data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
-    return _generateResponse<AcData>(response, AcData.fromJson);
+    return _generateResponse<Map<String, dynamic>, AcData>(
+        response, AcData.fromJson);
+  }
+
+  Future<XMUXApiResponse<AcData>> acCourses(XMUXApiAuth auth) async {
+    var response = await dio.post<Map<String, dynamic>>('/ac/courses',
+        data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
+    return _generateResponse<List, AcData>(
+        response, (courses) => AcData.fromJson({'courses': courses}));
+  }
+
+  Future<XMUXApiResponse<List<BillingRecord>>> bill(XMUXApiAuth auth) async {
+    var response = await dio.post<Map<String, dynamic>>('/bill',
+        data: {'id': auth.campusID, 'pass': auth.ePaymentPassword});
+    return _generateResponse<List, List<BillingRecord>>(
+        response, (b) => b.map((b) => BillingRecord.fromJson(b)).toList());
   }
 
   Future<XMUXApiResponse<Null>> login(XMUXApiAuth auth) async {
@@ -160,6 +180,7 @@ class XMUXApi {
       'pass': auth.campusIDPassword,
       'moodleKey': auth.moodleKey
     });
-    return _generateResponse<MoodleData>(response, MoodleData.fromJson);
+    return _generateResponse<Map<String, dynamic>, MoodleData>(
+        response, MoodleData.fromJson);
   }
 }

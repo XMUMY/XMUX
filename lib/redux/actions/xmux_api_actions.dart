@@ -40,11 +40,31 @@ abstract class XMUXApiAction extends MainAppAction {
 class UpdateAcAction extends XMUXApiAction {
   AcData acData;
 
-  UpdateAcAction();
-
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
     var response = await xmuxApi.ac(auth);
+    assign(response.status, response.timestamp);
+    acData = response.data;
+  }
+}
+
+class UpdateBillAction extends XMUXApiAction {
+  List<BillingRecord> billData;
+
+  @override
+  Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
+    var response = await xmuxApi.bill(auth);
+    assign(response.status, response.timestamp);
+    billData = response.data;
+  }
+}
+
+class UpdateCoursesAction extends XMUXApiAction {
+  AcData acData;
+
+  @override
+  Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
+    var response = await xmuxApi.acCourses(auth);
     assign(response.status, response.timestamp);
     acData = response.data;
   }

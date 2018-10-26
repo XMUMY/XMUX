@@ -1,6 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:xmux/modules/xmux_api/models/models_v2.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 part 'state.g.dart';
 
@@ -50,16 +50,18 @@ class AcState {
   final List<Lesson> timetable;
   final List<Exam> exams;
   final List<SessionExamResult> examResult;
+  final List<Course> courses;
 
-  AcState(
-      this.status, this.timestamp, this.timetable, this.exams, this.examResult);
+  AcState(this.status, this.timestamp, this.timetable, this.exams,
+      this.examResult, this.courses);
 
   AcState.def()
       : this.status = 'init',
         this.timestamp = null,
         this.timetable = null,
         this.exams = null,
-        this.examResult = null;
+        this.examResult = null,
+        this.courses = null;
 
   factory AcState.fromJson(Map<String, dynamic> json) =>
       _$AcStateFromJson(json);
@@ -72,14 +74,14 @@ class AcState {
           List<Lesson> timetable,
           List<Exam> exams,
           List<SessionExamResult> examResult,
-          List assignments}) =>
+          List<Course> courses}) =>
       AcState(
-        status ?? this.status,
-        timestamp ?? this.timestamp,
-        timetable ?? this.timetable,
-        exams ?? this.exams,
-        examResult ?? this.examResult,
-      );
+          status ?? this.status,
+          timestamp ?? this.timestamp,
+          timetable ?? this.timetable,
+          exams ?? this.exams,
+          examResult ?? this.examResult,
+          courses ?? this.courses);
 }
 
 /// Personal info state include uid, password, etc.

@@ -59,12 +59,6 @@ class OpenDrawerAction extends MainAppAction {
   final needSave = false;
 }
 
-class UpdateACAction extends MainAppAction {
-  final Map<String, dynamic> acMap;
-
-  UpdateACAction(this.acMap);
-}
-
 class UpdateAnnouncementAction extends MainAppAction {
   final List announcements;
   UpdateAnnouncementAction(this.announcements);

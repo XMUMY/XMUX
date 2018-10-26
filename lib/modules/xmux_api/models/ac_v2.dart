@@ -6,8 +6,9 @@ class AcData {
   final List<Lesson> timetable;
   final List<Exam> exams;
   final List<SessionExamResult> examResult;
+  final List<Course> courses;
 
-  AcData({this.timetable, this.exams, this.examResult});
+  AcData({this.timetable, this.exams, this.examResult, this.courses});
 
   static AcData fromJson(Map<String, dynamic> json) => _$AcDataFromJson(json);
 }
@@ -125,7 +126,7 @@ class CourseExamResult {
 
 @JsonSerializable()
 class Course {
-  @JsonKey(name: 'Course Name')
+  @JsonKey(name: 'Course Name (by group)')
   final String courseName;
   @JsonKey(name: 'Credit', fromJson: _creditFromJson, toJson: _creditToJson)
   final int credit;
@@ -133,19 +134,19 @@ class Course {
   final String lecturer;
   @JsonKey(name: 'Registration Type')
   final String registrationType;
-  @JsonKey(
-      name: 'Student No.',
-      fromJson: _studentNumFromJson,
-      toJson: _studentNumToJson)
-  final int studentNum;
 
-  Course(this.courseName, this.credit, this.lecturer, this.registrationType,
-      this.studentNum);
+  Course(
+    this.courseName,
+    this.credit,
+    this.lecturer,
+    this.registrationType,
+  );
+
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
 
   Map<String, dynamic> toJson() => _$CourseToJson(this);
+
   static int _creditFromJson(String credit) => int.parse(credit);
+
   static String _creditToJson(int credit) => credit.toString();
-  static int _studentNumFromJson(String studentNum) => int.parse(studentNum);
-  static String _studentNumToJson(int studentNum) => studentNum.toString();
 }
