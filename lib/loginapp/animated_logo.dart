@@ -16,9 +16,7 @@ class _AnimatedLogoState extends State<AnimatedLogo>
     controller =
         AnimationController(duration: Duration(milliseconds: 500), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn)
-      ..addListener(() {
-        setState(() {});
-      });
+      ..addListener(() => setState(() {}));
     super.initState();
 
     // Play.

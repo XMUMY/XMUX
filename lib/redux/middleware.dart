@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:redux/redux.dart';
 import 'package:xmux/globals.dart';
@@ -55,7 +56,11 @@ void apiRequestMiddleware(
                 ePaymentPassword: store.state.authState.ePaymentPassword,
                 moodleKey: store.state.authState.moodleKey),
             params: action.params)
-        .then((_) => next(action));
+        .then((_) => next(action))
+        .catchError(
+            (e) => Scaffold.of(action.context)
+                .showSnackBar(SnackBar(content: Text(e.toString()))),
+            test: (_) => action.context != null);
   } else
     next(action);
 }

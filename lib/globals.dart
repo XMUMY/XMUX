@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/widgets.dart';
 import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:xmux/modules/backend_handler/backend_handler.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
+import 'package:xmux/translations/translation.dart';
 
 /// Backend handler instance.
 ///
@@ -34,3 +36,18 @@ final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
 final Store<MainAppState> mainAppStore = Store<MainAppState>(appReducer,
     initialState: MainAppState.def(),
     middleware: [apiRequestMiddleware, saveMiddleware]);
+
+/// Function for internationalization.
+/// It will return localized text if available and return origin text if error.
+String i18n(String text, BuildContext context, {String app}) {
+  try {
+    switch (app) {
+      case 'l':
+        return LoginLocalizations.of(context).get(text) ?? text;
+      default:
+        return MainLocalizations.of(context).get(text) ?? text;
+    }
+  } catch (_) {
+    return text;
+  }
+}

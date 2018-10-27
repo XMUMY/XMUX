@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/loginapp/animated_logo.dart';
 import 'package:xmux/loginapp/login_button.dart';
-import 'package:xmux/translations/translation.dart';
 
 class LoginPage extends StatelessWidget {
+  // Controller for username & password.
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  // Form key for validation.
+  final _usernameFormKey = GlobalKey<FormFieldState<String>>();
+  final _passwordFormKey = GlobalKey<FormFieldState<String>>();
 
   @override
   Widget build(BuildContext context) => Stack(
@@ -16,7 +20,7 @@ class LoginPage extends StatelessWidget {
         children: <Widget>[
           // Background image.
           Image(
-            image: AssetImage("res/initpage.jpg"),
+            image: AssetImage('res/initpage.jpg'),
             fit: BoxFit.fill,
             color: Colors.black45,
             colorBlendMode: BlendMode.darken,
@@ -29,20 +33,15 @@ class LoginPage extends StatelessWidget {
             children: <Widget>[
               IconButton(
                 icon: Icon(FontAwesomeIcons.fileAlt),
-                onPressed: () {
-                  launch(
-                    "https://${BackendApiConfig.resourceAddress}/privacy.html",
-                    forceWebView: true,
-                  );
-                },
-                tooltip: LoginLocalizations.of(context)
-                    .get("SignInPage/ServiceDocs"),
+                onPressed: () => launch(
+                    'https://${BackendApiConfig.resourceAddress}/privacy.html',
+                    forceWebView: true),
+                tooltip: i18n('SignInPage/ServiceDocs', context, app: 'l'),
               ),
               IconButton(
                 icon: Icon(FontAwesomeIcons.questionCircle),
                 onPressed: null,
-                tooltip:
-                    LoginLocalizations.of(context).get("SignInPage/HelpDocs"),
+                tooltip: i18n('SignInPage/HelpDocs', context, app: 'l'),
               ),
             ],
           ),
@@ -56,38 +55,48 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     AnimatedLogo(),
-                    TextField(
+                    TextFormField(
+                      key: _usernameFormKey,
                       controller: _usernameController,
                       decoration: InputDecoration(
-                        hintText: LoginLocalizations.of(context)
-                            .get("SignInPage/CampusID"),
+                        hintText:
+                            i18n('SignInPage/CampusID', context, app: 'l'),
                         hintStyle: TextStyle(color: Colors.white70),
                         icon: Icon(
                           Icons.account_box,
                           color: Colors.white,
                         ),
                       ),
+                      validator: (s) => RegExp('^[A-Za-z]{3}[0-9]{7}\$')
+                              .hasMatch(s)
+                          ? null
+                          : i18n('SignInPage/FormatError', context, app: 'l'),
                     ),
-                    TextField(
+                    TextFormField(
+                      key: _passwordFormKey,
                       controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
-                        hintText: LoginLocalizations.of(context)
-                            .get("SignInPage/Password"),
+                        hintText:
+                            i18n('SignInPage/Password', context, app: 'l'),
                         hintStyle: TextStyle(color: Colors.white70),
                         icon: Icon(
                           Icons.lock,
                           color: Colors.white,
                         ),
                       ),
+                      validator: (s) => s.isNotEmpty
+                          ? null
+                          : i18n('SignInPage/FormatError', context, app: 'l'),
                     ),
                   ],
                 ),
               ),
-              LoginButton(_usernameController, _passwordController),
-              Padding(padding: EdgeInsets.all(10.0)),
+              LoginButton(_usernameController, _passwordController,
+                  _usernameFormKey, _passwordFormKey),
+              Padding(padding: EdgeInsets.all(8.0)),
               Text(
-                LoginLocalizations.of(context).get("SignInPage/Read"),
+                i18n('SignInPage/Read', context, app: 'l'),
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.redAccent),
               )

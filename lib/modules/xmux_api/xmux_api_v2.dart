@@ -28,11 +28,11 @@ class XMUXApiAuth {
 /// The general exception for XMUX API.
 class XMUXApiException implements Exception {
   /// The error from server.
-  final String error;
+  final String message;
 
-  XMUXApiException(this.error);
+  XMUXApiException(this.message);
 
-  String toString() => "XMUXApiV2/Exception: $error";
+  String toString() => "XMUXApiV2/Exception: $message";
 }
 
 /// The general response of XMUX API V2 from server.

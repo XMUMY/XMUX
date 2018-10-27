@@ -125,7 +125,7 @@ const Map<String, String> en_US_login = {
   'SignInPage/CampusID': 'Campus ID',
   'SignInPage/Password': 'Password',
   'SignInPage/Read':
-      'By signing in, you agree to our privacy policy and disclaimer',
+      'By signing in, you agree to our privacy policy & disclaimer',
   'SignInPage/SignIn': 'Sign in',
   'SignInPage/Error': 'Error: ',
   'SignInPage/FormatError': 'Format error, please check.',
