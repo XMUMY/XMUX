@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/exams.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/redux/redux.dart';
@@ -47,7 +48,7 @@ class CalendarPage extends StatelessWidget {
                   TabBarView(children: <Widget>[
                     TimeTablePage(acState.timetable),
                     ExamsPage(acState.exams),
-//                    AssignmentPage(acState.assignments),
+                    AssignmentPage(acState.assignments),
                   ]),
               converter: (s) => s.state.acState)),
     );

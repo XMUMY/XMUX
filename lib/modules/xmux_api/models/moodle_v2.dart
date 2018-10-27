@@ -12,7 +12,9 @@ class MoodleData {
 
 @JsonSerializable()
 class LessonAssignments {
+  @JsonKey(name: 'fullname')
   final String courseFullName;
+  @JsonKey(name: 'shortname')
   final String courseShortName;
   final List<Assignment> assignments;
 
@@ -29,7 +31,10 @@ class LessonAssignments {
 class Assignment {
   final int id;
   final String name;
-  @JsonKey(fromJson: _timestampFromJson, toJson: _timestampToJson)
+  @JsonKey(
+      name: 'duedateTimestamp',
+      fromJson: _timestampFromJson,
+      toJson: _timestampToJson)
   final DateTime timestamp;
 
   Assignment(this.id, this.name, this.timestamp);

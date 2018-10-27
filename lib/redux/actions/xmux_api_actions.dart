@@ -23,9 +23,9 @@ abstract class XMUXApiAction extends MainAppAction {
   XMUXApiAction({this.params, this.context});
 
   /// Function for assigning status and timestamp.
-  void assign(String status, DateTime timestamp) {
-    this.status = status;
-    this.timestamp = timestamp;
+  void assign(XMUXApiResponse response) {
+    this.status = response.status;
+    this.timestamp = response.timestamp;
   }
 
   /// Make the action callable.
@@ -43,8 +43,19 @@ class UpdateAcAction extends XMUXApiAction {
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
     var response = await xmuxApi.ac(auth);
-    assign(response.status, response.timestamp);
+    assign(response);
     acData = response.data;
+  }
+}
+
+class UpdateAssignmentsAction extends XMUXApiAction {
+  MoodleData moodleData;
+
+  @override
+  Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
+    var response = await xmuxApi.moodle(auth);
+    assign(response);
+    moodleData = response.data;
   }
 }
 
@@ -54,7 +65,7 @@ class UpdateBillAction extends XMUXApiAction {
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
     var response = await xmuxApi.bill(auth);
-    assign(response.status, response.timestamp);
+    assign(response);
     billData = response.data;
   }
 }
@@ -65,7 +76,7 @@ class UpdateCoursesAction extends XMUXApiAction {
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
     var response = await xmuxApi.acCourses(auth);
-    assign(response.status, response.timestamp);
+    assign(response);
     acData = response.data;
   }
 }

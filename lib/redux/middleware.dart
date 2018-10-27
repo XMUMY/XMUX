@@ -34,7 +34,7 @@ void saveMiddleware(Store<MainAppState> store, action, NextDispatcher next) {
 }
 
 Future<Null> _fileSave(String fileText, String fileName, {bool sync}) async {
-  if (!sync) await Future.delayed(Duration(seconds: 3));
+  if (!sync) await Future.delayed(Duration(seconds: 1));
   print('Redux/saveMiddleware: Saving state...');
   String appDocDir = (await getApplicationDocumentsDirectory()).path;
   await (File('$appDocDir/$fileName')).writeAsString(fileText);

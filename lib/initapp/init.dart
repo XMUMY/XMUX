@@ -10,7 +10,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/loginapp/login_handler.dart';
-import 'package:xmux/mainapp/calendar/calendar_handler.dart';
 import 'package:xmux/modules/backend_handler/backend_handler.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
@@ -67,7 +66,7 @@ Future<InitResult> init() async {
 
   mainAppStore.dispatch(UpdateAcAction());
   mainAppStore.dispatch(UpdateCoursesAction());
-  CalendarHandler.assignmentUpdate().timeout(Duration(seconds: 10));
+  mainAppStore.dispatch(UpdateAssignmentsAction());
 
   return InitResult.finished;
 }

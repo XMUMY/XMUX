@@ -46,6 +46,11 @@ AcState _$AcStateFromJson(Map<String, dynamic> json) {
       (json['courses'] as List)
           ?.map((e) =>
               e == null ? null : Course.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      (json['assignments'] as List)
+          ?.map((e) => e == null
+              ? null
+              : LessonAssignments.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
@@ -55,7 +60,8 @@ Map<String, dynamic> _$AcStateToJson(AcState instance) => <String, dynamic>{
       'timetable': instance.timetable,
       'exams': instance.exams,
       'examResult': instance.examResult,
-      'courses': instance.courses
+      'courses': instance.courses,
+      'assignments': instance.assignments
     };
 
 AuthState _$AuthStateFromJson(Map<String, dynamic> json) {
@@ -74,7 +80,7 @@ Map<String, dynamic> _$AuthStateToJson(AuthState instance) => <String, dynamic>{
     };
 
 SettingState _$SettingStateFromJson(Map<String, dynamic> json) {
-  return SettingState(json['enableFunctionsUnderDev'] as bool);
+  return SettingState(json['enableFunctionsUnderDev'] as bool ?? false);
 }
 
 Map<String, dynamic> _$SettingStateToJson(SettingState instance) =>

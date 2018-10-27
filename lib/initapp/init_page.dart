@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class InitPage extends StatelessWidget {
   @override
@@ -23,14 +24,12 @@ class InitPage extends StatelessWidget {
                   ),
                 ),
                 Divider(
-                  height: 50.0,
+                  height: 30.0,
                   color: Color(0),
                 ),
-                SizedBox(
-                  width: 100.0,
-                  child: LinearProgressIndicator(
-                    backgroundColor: Color(0),
-                  ),
+                SpinKitThreeBounce(
+                  color: Colors.white,
+                  size: 30.0,
                 ),
               ],
             ),

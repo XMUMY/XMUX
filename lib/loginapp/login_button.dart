@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:platform/platform.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
@@ -70,7 +71,7 @@ class _LoginButtonState extends State<LoginButton> {
   @override
   Widget build(BuildContext context) {
     return _isProcessing
-        ? CircularProgressIndicator()
+        ? SpinKitDoubleBounce(color: Colors.white, size: 40.0)
         : OutlineButton(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),

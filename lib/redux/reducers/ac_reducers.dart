@@ -1,8 +1,9 @@
 part of 'reducer.dart';
 
 final Reducer<AcState> acReducers = combineReducers([
-  new TypedReducer<AcState, UpdateAcAction>(_acReducer),
-  new TypedReducer<AcState, UpdateCoursesAction>(_acCoursesReducer),
+  TypedReducer<AcState, UpdateAcAction>(_acReducer),
+  TypedReducer<AcState, UpdateCoursesAction>(_acCoursesReducer),
+  TypedReducer<AcState, UpdateAssignmentsAction>(_moodleReducer)
 ]);
 
 AcState _acReducer(AcState oldState, UpdateAcAction action) =>
@@ -15,3 +16,6 @@ AcState _acReducer(AcState oldState, UpdateAcAction action) =>
 
 AcState _acCoursesReducer(AcState oldState, UpdateCoursesAction action) =>
     oldState.copyWith(courses: action.acData.courses);
+
+AcState _moodleReducer(AcState oldState, UpdateAssignmentsAction action) =>
+    oldState.copyWith(assignments: action.moodleData.assignments);

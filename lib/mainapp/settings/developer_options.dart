@@ -28,8 +28,7 @@ class _DeveloperOptionsPageState extends State<DeveloperOptionsPage> {
             ),
           ),
           Text(
-            MainLocalizations.of(context)
-                .get("Settings/DeveloperOptions/Warning"),
+            i18n("Settings/DeveloperOptions/Warning", context),
             textAlign: TextAlign.center,
           ),
           Divider(),

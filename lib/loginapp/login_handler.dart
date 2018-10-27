@@ -23,6 +23,8 @@ class LoginHandler {
     }
 
     mainAppStore.dispatch(UpdateAcAction());
+    mainAppStore.dispatch(UpdateCoursesAction());
+    mainAppStore.dispatch(UpdateAssignmentsAction());
 
     return 'success';
   }

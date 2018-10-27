@@ -3,18 +3,22 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:xmux/mainapp/calendar/calendar_handler.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/modules/error_widgets/error_widgets.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
+import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
 class AssignmentPage extends StatelessWidget {
-  final List assignments;
+  final List<LessonAssignments> assignments;
 
   AssignmentPage(this.assignments);
 
   // Handle refresh.
   Future<Null> _handleUpdate() async {
-    await CalendarHandler.assignmentUpdate();
+    var action = UpdateAssignmentsAction();
+    mainAppStore.dispatch(action);
+    await action.listener;
   }
 
   @override
@@ -34,7 +38,7 @@ class AssignmentPage extends StatelessWidget {
 }
 
 class _AssCard extends StatelessWidget {
-  final Map assData;
+  final LessonAssignments assData;
 
   _AssCard(this.assData);
 
@@ -54,7 +58,7 @@ class _AssCard extends StatelessWidget {
                   new Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: new Text(
-                      assData["fullname"],
+                      assData.courseFullName,
                       style: Theme.of(context)
                           .textTheme
                           .subhead
@@ -62,7 +66,7 @@ class _AssCard extends StatelessWidget {
                     ),
                   ),
                   new Column(
-                    children: (assData["assignments"] as List)
+                    children: assData.assignments
                         .map((var e) => new _AssButton(e))
                         .toList(),
                   ),
@@ -77,25 +81,23 @@ class _AssCard extends StatelessWidget {
 }
 
 class _AssButton extends StatelessWidget {
-  final _assDetail;
+  final Assignment _assDetail;
   final DateTime _assTime;
 
-  _AssButton(this._assDetail)
-      : _assTime = new DateTime.fromMillisecondsSinceEpoch(
-            _assDetail["duedateTimestamp"]);
+  _AssButton(this._assDetail) : _assTime = _assDetail.timestamp;
 
   @override
   Widget build(BuildContext context) {
     return new MaterialButton(
       onPressed: () {
         launch("https://l.xmu.edu.my/mod/assign/view.php?id=" +
-            _assDetail["id"].toString());
+            _assDetail.id.toString());
       },
       child: new Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           new Text(
-            _assDetail["name"],
+            _assDetail.name,
           ),
           new Text(
             new DateFormat.yMMMMEEEEd(

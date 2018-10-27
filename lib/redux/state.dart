@@ -38,7 +38,7 @@ class MainAppState {
   Map<String, dynamic> toJson() => _$MainAppStateToJson(this);
 }
 
-/// AC state include timetable, exams and other academic data from AC.
+/// AC state include timetable, exams and other academic data.
 @JsonSerializable()
 class AcState {
   /// The status of state.
@@ -47,13 +47,15 @@ class AcState {
 
   /// The timestamp from server.
   final DateTime timestamp;
+
   final List<Lesson> timetable;
   final List<Exam> exams;
   final List<SessionExamResult> examResult;
   final List<Course> courses;
+  final List<LessonAssignments> assignments;
 
   AcState(this.status, this.timestamp, this.timetable, this.exams,
-      this.examResult, this.courses);
+      this.examResult, this.courses, this.assignments);
 
   AcState.def()
       : this.status = 'init',
@@ -61,7 +63,8 @@ class AcState {
         this.timetable = null,
         this.exams = null,
         this.examResult = null,
-        this.courses = null;
+        this.courses = null,
+        this.assignments = null;
 
   factory AcState.fromJson(Map<String, dynamic> json) =>
       _$AcStateFromJson(json);
@@ -74,14 +77,16 @@ class AcState {
           List<Lesson> timetable,
           List<Exam> exams,
           List<SessionExamResult> examResult,
-          List<Course> courses}) =>
+          List<Course> courses,
+          List<LessonAssignments> assignments}) =>
       AcState(
           status ?? this.status,
           timestamp ?? this.timestamp,
           timetable ?? this.timetable,
           exams ?? this.exams,
           examResult ?? this.examResult,
-          courses ?? this.courses);
+          courses ?? this.courses,
+          assignments ?? this.assignments);
 }
 
 /// Personal info state include uid, password, etc.
@@ -126,11 +131,12 @@ class AuthState {
 @JsonSerializable()
 class SettingState {
   /// Enable functions under developing.
+  @JsonKey(defaultValue: false)
   final bool enableFunctionsUnderDev;
 
   SettingState(this.enableFunctionsUnderDev);
 
-  SettingState.def() : this.enableFunctionsUnderDev = null;
+  SettingState.def() : this.enableFunctionsUnderDev = false;
 
   factory SettingState.fromJson(Map<String, dynamic> json) =>
       _$SettingStateFromJson(json);
