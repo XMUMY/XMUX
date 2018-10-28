@@ -40,6 +40,8 @@ abstract class XMUXApiAction extends MainAppAction {
 class UpdateAcAction extends XMUXApiAction {
   AcData acData;
 
+  UpdateAcAction({BuildContext context}) : super(context: context);
+
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
     var response = await xmuxApi.ac(auth);

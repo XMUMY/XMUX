@@ -39,7 +39,7 @@ class Lesson {
 
   /// Parse weeks from json.
   static String _weeksFromJson(String weeks) =>
-      weeks.substring(6, weeks.length - 2);
+      weeks.substring(6, weeks.length - 1);
 
   /// Export weeks to json.
   static String _weeksToJson(String weeks) => "(Week " + weeks + ")";

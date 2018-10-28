@@ -1,13 +1,12 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/mainapp/calendar/sign_in_button.dart';
 import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
-import 'package:xmux/translations/translation.dart';
 
 class TimeTablePage extends StatelessWidget {
   final List<Lesson> classes;
@@ -15,31 +14,14 @@ class TimeTablePage extends StatelessWidget {
   TimeTablePage(List<Lesson> timetable)
       : this.classes = timetable == null ? null : _sortTimetable(timetable);
 
-  static List<Lesson> _sortTimetable(List<Lesson> timetable) {
-    var pos = max(
-        timetable
-            .map((c) => c.dayOfWeek)
-            .toList()
-            .indexOf(DateTime.now().weekday - 1),
-        0);
-    return timetable.sublist(pos)..addAll(timetable.sublist(0, pos));
-  }
-
-  // Handle refresh.
-  Future<Null> _handleUpdate() async {
-    var action = UpdateAcAction();
-    mainAppStore.dispatch(action);
-    await action.listener;
-  }
-
   Widget _buildLastUpdateString(BuildContext context) => Center(
         child: Padding(
-          padding: EdgeInsets.all(5.0),
+          padding: EdgeInsets.all(3.0),
           child: Text(
-            MainLocalizations.of(context).get("Calendar/LastUpdate") +
+            i18n('Calendar/LastUpdate', context) +
                 DateFormat.yMMMd(Localizations.localeOf(context).languageCode)
                     .format(mainAppStore.state.acState.timestamp) +
-                " " +
+                ' ' +
                 DateFormat.Hms(Localizations.localeOf(context).languageCode)
                     .format(mainAppStore.state.acState.timestamp),
             style: Theme.of(context).textTheme.caption,
@@ -47,76 +29,108 @@ class TimeTablePage extends StatelessWidget {
         ),
       );
 
+  Future<Null> _handleUpdate(BuildContext context) async {
+    var action = UpdateAcAction(context: context);
+    mainAppStore.dispatch(action);
+    await action.listener;
+  }
+
+  static List<Lesson> _sortTimetable(List<Lesson> timetable) {
+    var now = DateTime.now();
+    var nowMin = now.weekday * 1440 + now.hour * 60 + now.minute;
+
+    int _getLessonMin(Lesson l) =>
+        (l.dayOfWeek + 1) * 1440 +
+        l.endTimeOfDay.hour * 60 +
+        l.endTimeOfDay.minute;
+
+    var before = <Lesson>[];
+    var after = <Lesson>[];
+
+    for (var i in timetable)
+      _getLessonMin(i) < nowMin ? before.add(i) : after.add(i);
+
+    return after..addAll(before);
+  }
+
   @override
   Widget build(BuildContext context) => classes == null
-      ? ErrorWidgets.emptyErrorButton(onRefresh: _handleUpdate)
+      ? ErrorWidgets.emptyErrorButton(onRefresh: () => _handleUpdate(context))
       : classes.isEmpty
           ? ErrorWidgets.emptyErrorPage
           : RefreshIndicator(
-              onRefresh: _handleUpdate,
+              onRefresh: () => _handleUpdate(context),
               child: ListView.builder(
-                  itemCount: classes.length + 1,
-                  itemBuilder: (_, int index) {
-                    if (index == classes.length)
-                      // Build last update string.
-                      return _buildLastUpdateString(context);
-                    else
-                      // Build class card.
-                      return _ClassCard(classes[index]);
-                  }),
+                itemCount: classes.length + 1,
+                itemBuilder: (_, int index) => index == classes.length
+                    ? _buildLastUpdateString(context)
+                    : _ClassCard(classes[index]),
+              ),
             );
 }
 
-class _ClassCard extends StatelessWidget {
+class _ClassCard extends StatefulWidget {
   // Colors from monday to friday.
-  static final List<Color> dayColor = [
-    Colors.pink[200],
-    Colors.orange[300],
-    Colors.green[200],
-    Colors.blue[200],
-    Colors.purple[300],
+  static const List<Color> dayColor = [
+    const Color(0xFFF48FB1),
+    const Color(0xFFFFCC80),
+    const Color(0xFFA5D6A7),
+    const Color(0xFF90CAF9),
+    const Color(0xFFE1BEE7),
   ];
 
   // Single class object.
-  final Lesson theClass;
+  final Lesson lesson;
 
-  _ClassCard(this.theClass);
+  _ClassCard(this.lesson);
+
+  @override
+  _ClassCardState createState() => _ClassCardState();
+}
+
+class _ClassCardState extends State<_ClassCard> {
+  double _elevation = 1.0;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(5.0),
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _elevation = 3.0),
+      onTapUp: (_) => setState(() => _elevation = 1.0),
       child: Card(
+        margin: EdgeInsets.all(8.0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),
+        elevation: _elevation,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                  color: _ClassCard.dayColor[widget.lesson.dayOfWeek],
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(7.0))),
               child: Center(
                 child: Text(
-                  MainLocalizations.of(context).get(
-                          "Weekdays/" + (theClass.dayOfWeek + 1).toString()) +
-                      " " +
-                      theClass.startTimeOfDay.format(context) +
-                      " - " +
-                      theClass.endTimeOfDay.format(context) +
-                      " " +
-                      theClass.classroom,
+                  '${i18n('Weekdays/${widget.lesson.dayOfWeek + 1}', context)} '
+                      '${widget.lesson.startTimeOfDay.format(context)} - '
+                      '${widget.lesson.endTimeOfDay.format(context)} '
+                      '${widget.lesson.classroom}',
                   style: TextStyle(color: Colors.white, fontSize: 18.0),
+                  textAlign: TextAlign.center,
                 ),
               ),
-              color: dayColor[theClass.dayOfWeek],
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+              padding: EdgeInsets.all(15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(bottom: 8.0),
                     child: Text(
-                      theClass.courseName,
+                      widget.lesson.courseName,
                       style: Theme.of(context).textTheme.subhead,
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   Row(
@@ -126,16 +140,14 @@ class _ClassCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              theClass.courseCode +
-                                  " " +
-                                  theClass.weeks +
-                                  "\n" +
-                                  theClass.lecturer,
+                              '${widget.lesson.courseCode} '
+                                  'Week ${widget.lesson.weeks}\n'
+                                  '${widget.lesson.lecturer}',
                             ),
                           ],
                         ),
                       ),
-//                      SignInButton(theClass),
+                      SignInButton(widget.lesson),
                     ],
                   ),
                 ],

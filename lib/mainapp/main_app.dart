@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_villains/villain.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/about.dart';
@@ -28,58 +29,47 @@ class MainApp extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => StoreProvider<MainAppState>(
-        store: mainAppStore,
-        child: MaterialApp(
-          title: 'XMUX',
-          home: MainPage(),
-          theme: getThemeData(),
-          initialRoute: "/",
-          routes: <String, WidgetBuilder>{
-            '/About': (BuildContext context) => AboutPage(),
-            '/Academic/Tools/Details': (BuildContext context) =>
-                AcademicToolDetailsPage(),
-            '/Academic/Tools/ExamResult': (BuildContext context) =>
-                ExamResultPage(),
-            '/Academic/Tools/WolframEngine': (BuildContext context) =>
-                InputConstructor(),
-            '/Academic/Tools/GeoGebra': (BuildContext context) =>
-                GeoGebraPage(),
-            '/Academic/Tools/GPACalculator': (BuildContext context) =>
-                GPACalculatorPage(),
-            '/Calendar/CalendarImage': (BuildContext context) =>
-                CalendarImagePage(),
-            '/Explore/LostAndFound': (BuildContext context) =>
-                LostAndFoundPage(),
-            '/Me/Epayment': (BuildContext context) => EPaymentPage(),
-            '/Me/Emergency': (BuildContext context) => EmergencyPage(),
-            '/Settings': (BuildContext context) => SettingsPage(),
-            '/Settings/ChangePersonalInfo': (BuildContext context) =>
-                ChangePersonalInfoPage(),
-            '/Settings/DeveloperOptions': (BuildContext context) =>
-                DeveloperOptionsPage(),
-
-            // old.
-            "/wolframengine/constructor": (BuildContext context) =>
-                InputConstructor(),
-            "/acdemic/gpacalculator": (BuildContext context) =>
-                GPACalculatorPage(),
-            "/acdemic/gpacalculator/examresult": (BuildContext context) =>
-                ExamResultPage(),
-            "/me": (BuildContext context) => SettingsPage(),
-            "/tools/epayment": (BuildContext context) => EPaymentPage(),
-            "/explore/lostandfound": (BuildContext context) =>
-                LostAndFoundPage(),
-          },
-          localizationsDelegates: [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            MainLocalizationsDelegate.delegate,
-          ],
-          supportedLocales: [
-            Locale('zh', 'CN'),
-            Locale('en', 'US'),
-          ],
-        ),
-      );
+  Widget build(BuildContext context) {
+    return StoreProvider<MainAppState>(
+      store: mainAppStore,
+      child: MaterialApp(
+        title: 'XMUX',
+        home: MainPage(),
+        theme: getThemeData(),
+        initialRoute: "/",
+        navigatorObservers: [VillainTransitionObserver()],
+        routes: <String, WidgetBuilder>{
+          '/About': (BuildContext context) => AboutPage(),
+          '/Academic/Tools/Details': (BuildContext context) =>
+              AcademicToolDetailsPage(),
+          '/Academic/Tools/ExamResult': (BuildContext context) =>
+              ExamResultPage(),
+          '/Academic/Tools/WolframEngine': (BuildContext context) =>
+              InputConstructor(),
+          '/Academic/Tools/GeoGebra': (BuildContext context) => GeoGebraPage(),
+          '/Academic/Tools/GPACalculator': (BuildContext context) =>
+              GPACalculatorPage(),
+          '/Calendar/CalendarImage': (BuildContext context) =>
+              CalendarImagePage(),
+          '/Explore/LostAndFound': (BuildContext context) => LostAndFoundPage(),
+          '/Me/Epayment': (BuildContext context) => EPaymentPage(),
+          '/Me/Emergency': (BuildContext context) => EmergencyPage(),
+          '/Settings': (BuildContext context) => SettingsPage(),
+          '/Settings/ChangePersonalInfo': (BuildContext context) =>
+              ChangePersonalInfoPage(),
+          '/Settings/DeveloperOptions': (BuildContext context) =>
+              DeveloperOptionsPage(),
+        },
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          MainLocalizationsDelegate.delegate,
+        ],
+        supportedLocales: [
+          Locale('en', 'US'),
+          Locale('zh', 'CN'),
+        ],
+      ),
+    );
+  }
 }

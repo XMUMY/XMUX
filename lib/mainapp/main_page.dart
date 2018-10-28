@@ -21,6 +21,21 @@ class _MainPageState extends State<MainPage> {
   StreamSubscription _drawerListener;
   int _currentIndex = 0;
 
+  Widget _getPage(int index) {
+    switch (index) {
+      case 0:
+        return HomePage();
+      case 1:
+        return CalendarPage();
+      case 2:
+        return AcademicPage();
+      case 3:
+        return ExplorePage();
+      default:
+        return HomePage();
+    }
+  }
+
   @override
   void initState() {
     // Add listener for drawer.
@@ -50,35 +65,7 @@ class _MainPageState extends State<MainPage> {
         key: _scaffoldKey,
 
         // Main pages.
-        body: Stack(
-          children: <Widget>[
-            Offstage(
-              offstage: _currentIndex != 0,
-              child: TickerMode(
-                enabled: _currentIndex == 0,
-                child: HomePage(),
-              ),
-            ),
-            Offstage(
-              offstage: _currentIndex != 1,
-              child: CalendarPage(),
-            ),
-            Offstage(
-              offstage: _currentIndex != 2,
-              child: TickerMode(
-                enabled: _currentIndex == 2,
-                child: AcademicPage(),
-              ),
-            ),
-            Offstage(
-              offstage: _currentIndex != 3,
-              child: TickerMode(
-                enabled: _currentIndex == 3,
-                child: ExplorePage(),
-              ),
-            ),
-          ],
-        ),
+        body: _getPage(_currentIndex),
 
         // Bottom navigation.
         bottomNavigationBar: BottomNavigationBar(

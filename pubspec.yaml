@@ -20,6 +20,7 @@ dependencies:
   firebase_storage: 1.0.2
   flutter_redux: ^0.5.2
   flutter_spinkit: ^2.1.0
+  flutter_villains: ^1.0.0
   flutter_webview_plugin: ^0.2.1
   font_awesome_flutter: ^8.0.1
   image_picker: ^0.4.7

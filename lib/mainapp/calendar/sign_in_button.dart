@@ -6,19 +6,18 @@ import 'package:http/http.dart' as http;
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/calendar_handler.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/translations/translation.dart';
 
 class SignInButton extends StatefulWidget {
-  final Map<String, dynamic> _theClass;
+  final Lesson _theClass;
   final bool _canSign;
 
   SignInButton(this._theClass)
-      : this._canSign = (_theClass["dayOfWeek"] ==
-                DateTime.now().weekday - 1) &&
-            ((int.parse(_theClass["startTimeOfDay"].split(":")[0]) * 60 +
-                        int.parse(_theClass["startTimeOfDay"].split(":")[1]) -
-                        (DateTime.now().hour * 60 + DateTime.now().minute))
-                    .abs() <
+      : this._canSign = (_theClass.dayOfWeek == DateTime.now().weekday - 1) &&
+            (_theClass.startTimeOfDay.hour * 60 +
+                    _theClass.startTimeOfDay.minute -
+                    (DateTime.now().hour * 60 + DateTime.now().minute).abs() <
                 20);
 
   @override
@@ -35,7 +34,7 @@ class _SignInButtonState extends State<SignInButton> {
           "http://${BackendApiConfig.signInAddress}:8080/checkinforapp.php",
           body: {
             "uid": firebaseUser.uid,
-            "cid": widget._theClass["courseCode"],
+            "cid": widget._theClass.courseCode,
             "ip": await CalendarHandler.getIP(context),
           });
 
