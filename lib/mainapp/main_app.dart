@@ -65,6 +65,7 @@ class MainApp extends StatelessWidget {
           '/Settings': (_) => SettingsPage(),
           '/Settings/ChangePersonalInfo': (_) => ChangePersonalInfoPage(),
           '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
+          '/explore/lostandfound': (_) => LostAndFoundPage()
         },
       ),
     );

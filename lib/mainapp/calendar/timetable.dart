@@ -81,7 +81,7 @@ class _ClassCard extends StatefulWidget {
     const Color(0xFFE1BEE7),
   ];
 
-  // Single class object.
+  /// Lesson information.
   final Lesson lesson;
 
   _ClassCard(this.lesson);
@@ -96,15 +96,32 @@ class _ClassCardState extends State<_ClassCard> {
   void _showClassDetail() => showGeneralDialog(
       context: context,
       barrierDismissible: false,
-      transitionDuration: Duration(milliseconds: 500),
+      transitionDuration: Duration(milliseconds: 400),
+      barrierColor: Colors.black12.withOpacity(0.2),
       pageBuilder: (context, animation, _) {
         return Center(
           child: Card(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
-            child: Padding(
-              padding: EdgeInsets.all(30.0),
-              child: Text(widget.lesson.courseName),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 15.0),
+                  child: Text(
+                    widget.lesson.courseName,
+                    style: Theme.of(context).textTheme.title,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  child: ListView(
+                    children: <Widget>[],
+                  ),
+                ),
+              ],
             ),
           ),
         );

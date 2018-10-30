@@ -95,7 +95,9 @@ class Exam {
 class SessionExamResult {
   final String academicSession;
   final List<CourseExamResult> result;
+  @JsonKey(name: 'GPA')
   final String gpa;
+  @JsonKey(name: 'CGPA')
   final String cGpa;
 
   SessionExamResult(this.academicSession, this.result, this.gpa, this.cGpa);

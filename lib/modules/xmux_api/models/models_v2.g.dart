@@ -127,16 +127,16 @@ SessionExamResult _$SessionExamResultFromJson(Map<String, dynamic> json) {
               ? null
               : CourseExamResult.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      json['gpa'] as String,
-      json['cGpa'] as String);
+      json['GPA'] as String,
+      json['CGPA'] as String);
 }
 
 Map<String, dynamic> _$SessionExamResultToJson(SessionExamResult instance) =>
     <String, dynamic>{
       'academicSession': instance.academicSession,
       'result': instance.result,
-      'gpa': instance.gpa,
-      'cGpa': instance.cGpa
+      'GPA': instance.gpa,
+      'CGPA': instance.cGpa
     };
 
 CourseExamResult _$CourseExamResultFromJson(Map<String, dynamic> json) {
