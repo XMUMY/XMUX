@@ -18,6 +18,7 @@ import 'package:xmux/mainapp/settings/developer_options.dart';
 import 'package:xmux/mainapp/settings/settings_page.dart';
 import 'package:xmux/mainapp/tools/emergency.dart';
 import 'package:xmux/mainapp/tools/epayment.dart';
+import 'package:xmux/mainapp/tools/room_reservation.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -37,29 +38,6 @@ class MainApp extends StatelessWidget {
         home: MainPage(),
         theme: getThemeData(),
         initialRoute: "/",
-        navigatorObservers: [VillainTransitionObserver()],
-        routes: <String, WidgetBuilder>{
-          '/About': (BuildContext context) => AboutPage(),
-          '/Academic/Tools/Details': (BuildContext context) =>
-              AcademicToolDetailsPage(),
-          '/Academic/Tools/ExamResult': (BuildContext context) =>
-              ExamResultPage(),
-          '/Academic/Tools/WolframEngine': (BuildContext context) =>
-              InputConstructor(),
-          '/Academic/Tools/GeoGebra': (BuildContext context) => GeoGebraPage(),
-          '/Academic/Tools/GPACalculator': (BuildContext context) =>
-              GPACalculatorPage(),
-          '/Calendar/CalendarImage': (BuildContext context) =>
-              CalendarImagePage(),
-          '/Explore/LostAndFound': (BuildContext context) => LostAndFoundPage(),
-          '/Me/Epayment': (BuildContext context) => EPaymentPage(),
-          '/Me/Emergency': (BuildContext context) => EmergencyPage(),
-          '/Settings': (BuildContext context) => SettingsPage(),
-          '/Settings/ChangePersonalInfo': (BuildContext context) =>
-              ChangePersonalInfoPage(),
-          '/Settings/DeveloperOptions': (BuildContext context) =>
-              DeveloperOptionsPage(),
-        },
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -69,6 +47,25 @@ class MainApp extends StatelessWidget {
           Locale('en', 'US'),
           Locale('zh', 'CN'),
         ],
+        // Observer for auto play VillainTransition.
+        navigatorObservers: [VillainTransitionObserver()],
+        // Define route for main app.
+        routes: <String, WidgetBuilder>{
+          '/About': (_) => AboutPage(),
+          '/Academic/Tools/Details': (_) => AcademicToolDetailsPage(),
+          '/Academic/Tools/ExamResult': (_) => ExamResultPage(),
+          '/Academic/Tools/WolframEngine': (_) => InputConstructor(),
+          '/Academic/Tools/GeoGebra': (_) => GeoGebraPage(),
+          '/Academic/Tools/GPACalculator': (_) => GPACalculatorPage(),
+          '/Calendar/CalendarImage': (_) => CalendarImagePage(),
+          '/Explore/LostAndFound': (_) => LostAndFoundPage(),
+          '/Me/Epayment': (_) => EPaymentPage(),
+          '/Me/RoomReservation': (_) => RoomWebviewPage(),
+          '/Me/Emergency': (_) => EmergencyPage(),
+          '/Settings': (_) => SettingsPage(),
+          '/Settings/ChangePersonalInfo': (_) => ChangePersonalInfoPage(),
+          '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
+        },
       ),
     );
   }

@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/sign_in_button.dart';
+import 'package:xmux/modules/common/blur_box.dart';
 import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
@@ -91,11 +93,48 @@ class _ClassCard extends StatefulWidget {
 class _ClassCardState extends State<_ClassCard> {
   double _elevation = 1.0;
 
+  void _showClassDetail() => showGeneralDialog(
+      context: context,
+      barrierDismissible: false,
+      transitionDuration: Duration(milliseconds: 500),
+      pageBuilder: (context, animation, _) {
+        return Center(
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            child: Padding(
+              padding: EdgeInsets.all(30.0),
+              child: Text(widget.lesson.courseName),
+            ),
+          ),
+        );
+      },
+      transitionBuilder: (context, animation, _, child) {
+        return GaussianBlurBox(
+          sigma: animation.value * 3,
+          child: FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0.0, 0.1),
+                end: Offset.zero,
+              ).animate(CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.elasticOut,
+                  reverseCurve: Curves.fastOutSlowIn)),
+              child: child,
+            ),
+          ),
+        );
+      });
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: _showClassDetail,
       onTapDown: (_) => setState(() => _elevation = 3.0),
       onTapUp: (_) => setState(() => _elevation = 1.0),
+      onTapCancel: () => setState(() => _elevation = 1.0),
       child: Card(
         margin: EdgeInsets.all(8.0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),

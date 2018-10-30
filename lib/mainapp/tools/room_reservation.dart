@@ -5,7 +5,6 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/translations/translation.dart';
 
 class RoomWebviewPage extends StatefulWidget {
   final flutterWebviewPlugin = FlutterWebviewPlugin();
@@ -58,7 +57,7 @@ class _RoomWebviewPageState extends State<RoomWebviewPage> {
   @override
   Widget build(BuildContext context) => WebviewScaffold(
         appBar: AppBar(
-          title: Text(MainLocalizations.of(context).get("roomreservation")),
+          title: Text(i18n("roomreservation", context)),
           actions: <Widget>[
             IconButton(
               icon: Icon(FontAwesomeIcons.table),

@@ -122,8 +122,9 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
                     StorageReference ref = FirebaseStorage.instance
                         .ref()
                         .child("image_$random.jpg");
-                    StorageUploadTask uploadTask = ref.put(imageFile);
-                    Uri downloadUrl = (await uploadTask.future).downloadUrl;
+                    StorageUploadTask uploadTask = ref.putFile(imageFile);
+                    Uri downloadUrl =
+                        (await uploadTask.onComplete).uploadSessionUri;
                     _sendMessage(imageUrl: downloadUrl.toString());
                   }),
             ),

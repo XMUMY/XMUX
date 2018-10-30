@@ -17,7 +17,7 @@ class ChangePersonalInfoPage extends StatelessWidget {
               icon: Icon(Icons.done),
               onPressed: () {
                 if (_displayNameController.text.isNotEmpty) {
-                  FirebaseAuth.instance.updateProfile(UserUpdateInfo()
+                  firebaseUser.updateProfile(UserUpdateInfo()
                     ..displayName = _displayNameController.text);
                   Navigator.of(context).pop();
                 } else
@@ -42,7 +42,7 @@ class ChangePersonalInfoPage extends StatelessWidget {
                         .get("Settings/ChangePersonalInfo/Input")),
                 onSubmitted: (t) {
                   if (t.isNotEmpty) {
-                    FirebaseAuth.instance
+                    firebaseUser
                         .updateProfile(UserUpdateInfo()..displayName = t);
                     Navigator.of(context).pop();
                   } else
