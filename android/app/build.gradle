@@ -23,7 +23,7 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -36,8 +36,8 @@ android {
     defaultConfig {
         applicationId "org.ctbeta.xmux.xmux"
         minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 107
+        targetSdkVersion 28
+        versionCode 120
         versionName gitVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
