@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -115,7 +116,7 @@ class _ClassCardState extends State<_ClassCard> {
                   ),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height / 1.5,
+                  height: min(MediaQuery.of(context).size.height / 1.6, 450.0),
                   width: MediaQuery.of(context).size.width / 1.3,
                   child: ListView(
                     children: <Widget>[],
@@ -128,13 +129,13 @@ class _ClassCardState extends State<_ClassCard> {
       },
       transitionBuilder: (context, animation, _, child) {
         return GaussianBlurBox(
-          sigma: animation.value * 3,
+          sigma: (animation.value * 30).round() / 10,
           child: FadeTransition(
             opacity: animation,
-            child: SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(0.0, 0.1),
-                end: Offset.zero,
+            child: ScaleTransition(
+              scale: Tween<double>(
+                begin: 0.7,
+                end: 1.0,
               ).animate(CurvedAnimation(
                   parent: animation,
                   curve: Curves.elasticOut,
