@@ -24,6 +24,6 @@ Future main() async {
 Future<Null> signOut() async {
   await FirebaseAuth.instance.signOut();
   firebaseUser = null;
-  mainAppStore.dispatch(LogoutAction());
+  store.dispatch(LogoutAction());
   runApp(LoginApp());
 }

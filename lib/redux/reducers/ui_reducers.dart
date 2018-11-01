@@ -1,7 +1,7 @@
 part of 'reducer.dart';
 
 final Reducer<UIState> uiReducers = combineReducers([
-  new TypedReducer<UIState, OpenDrawerAction>(_openDrawerReducer),
+  TypedReducer<UIState, OpenDrawerAction>(_openDrawerReducer),
   new TypedReducer<UIState, UpdateNewsAction>(_updateNewsReducer),
   new TypedReducer<UIState, UpdateAnnouncementAction>(
       _updateAnnouncementsReducer),

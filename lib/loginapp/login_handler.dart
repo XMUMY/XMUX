@@ -15,28 +15,28 @@ class LoginHandler {
       var res = await xmuxApi
           .login(XMUXApiAuth(campusID: id, campusIDPassword: password));
       // Dispatch LoginAction.
-      mainAppStore.dispatch(LoginAction(
+      store.dispatch(LoginAction(
           XMUXApiAuth(campusID: id, campusIDPassword: password),
           res.moodleKey));
     } catch (e) {
       return e.message ?? e.toString();
     }
 
-    mainAppStore.dispatch(UpdateAcAction());
-    mainAppStore.dispatch(UpdateCoursesAction());
-    mainAppStore.dispatch(UpdateAssignmentsAction());
+    store.dispatch(UpdateAcAction());
+    store.dispatch(UpdateCoursesAction());
+    store.dispatch(UpdateAssignmentsAction());
 
     return 'success';
   }
 
   static Future<String> firebaseLogin() async {
-    print('Login firebase with uid: ${mainAppStore.state.authState.campusID}');
+    print('Login firebase with uid: ${store.state.authState.campusID}');
 
     try {
       firebaseUser = (await FirebaseAuth.instance.currentUser()) ??
           await FirebaseAuth.instance.signInWithEmailAndPassword(
-              email: mainAppStore.state.authState.campusID + '@xmu.edu.my',
-              password: mainAppStore.state.authState.campusIDPassword);
+              email: store.state.authState.campusID + '@xmu.edu.my',
+              password: store.state.authState.campusIDPassword);
     } on PlatformException catch (e) {
       return e.message;
     } catch (e) {

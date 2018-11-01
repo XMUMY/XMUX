@@ -10,9 +10,12 @@ class MainAppState {
   /// AC state include timetable, exams, examResult and other academic data.
   final AcState acState;
 
-  /// Auth state fro all authentication.
+  /// Auth state for all authentication.
   @JsonKey(nullable: false)
   final AuthState authState;
+
+  /// Query state stores all query information.
+  final QueryState queryState;
 
   /// Settings state include ePaymentPassword, etc.
   final SettingState settingState;
@@ -21,16 +24,17 @@ class MainAppState {
   @JsonKey(ignore: true)
   final UIState uiState;
 
-  MainAppState(this.authState, this.settingState, this.acState,
+  MainAppState(this.acState, this.authState, this.queryState, this.settingState,
       {UIState uiState})
       : this.uiState = uiState ?? UIState();
 
   /// Init MainAppState as default.
   MainAppState.def()
-      : this.uiState = new UIState(),
+      : this.acState = AcState.def(),
         this.authState = AuthState.def(),
+        this.queryState = QueryState.def(),
         this.settingState = SettingState.def(),
-        this.acState = AcState.def();
+        this.uiState = UIState();
 
   factory MainAppState.fromJson(Map<String, dynamic> json) =>
       _$MainAppStateFromJson(json);
@@ -120,11 +124,30 @@ class AuthState {
           String campusIDPassword,
           String ePaymentPassword,
           String moodleKey}) =>
-      new AuthState(
+      AuthState(
           campusID ?? this.campusID,
           campusIDPassword ?? this.campusIDPassword,
           ePaymentPassword ?? this.ePaymentPassword,
           moodleKey ?? this.moodleKey);
+}
+
+@JsonSerializable()
+class QueryState {
+  /// Billing records from E-Payment.
+  final List<BillingRecord> ePaymentRecords;
+
+  QueryState(this.ePaymentRecords);
+
+  QueryState.def() : this.ePaymentRecords = null;
+
+  factory QueryState.fromJson(Map<String, dynamic> json) =>
+      _$QueryStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$QueryStateToJson(this);
+
+  QueryState copyWith({List<BillingRecord> ePaymentRecords}) => QueryState(
+        ePaymentRecords ?? this.ePaymentRecords,
+      );
 }
 
 /// Settings state include ePaymentPassword, etc.
@@ -183,7 +206,7 @@ class UIState {
           ConnectivityResult connectivity,
           List news,
           List announcements}) =>
-      new UIState.raw(
+      UIState.raw(
           drawerIsOpen ?? this.drawerIsOpen,
           connectivity ?? this.connectivity,
           news ?? this.news,

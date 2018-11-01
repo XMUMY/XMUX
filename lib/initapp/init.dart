@@ -48,15 +48,15 @@ Future<InitResult> init() async {
     initMap = jsonDecode(await (File('$appDocDir/state.dat')).readAsString());
 
     // Init store from initMap
-    mainAppStore.dispatch(InitAction(initMap));
+    store.dispatch(InitAction(initMap));
   } catch (e) {
     FirebaseAuth.instance.signOut();
     return InitResult.notLogin;
   }
 
   // If haven't login.
-  if (mainAppStore.state.authState.campusID == null ||
-      mainAppStore.state.authState.campusIDPassword == null)
+  if (store.state.authState.campusID == null ||
+      store.state.authState.campusIDPassword == null)
     return InitResult.notLogin;
 
   if ((await LoginHandler.firebaseLogin()) != "success") {
@@ -64,9 +64,9 @@ Future<InitResult> init() async {
     return InitResult.loginError;
   }
 
-  mainAppStore.dispatch(UpdateAcAction());
-  mainAppStore.dispatch(UpdateCoursesAction());
-  mainAppStore.dispatch(UpdateAssignmentsAction());
+  store.dispatch(UpdateAcAction());
+  store.dispatch(UpdateCoursesAction());
+  store.dispatch(UpdateAssignmentsAction());
 
   return InitResult.finished;
 }

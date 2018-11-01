@@ -17,7 +17,7 @@ class AssignmentPage extends StatelessWidget {
   // Handle refresh.
   Future<Null> _handleUpdate() async {
     var action = UpdateAssignmentsAction();
-    mainAppStore.dispatch(action);
+    store.dispatch(action);
     await action.listener;
   }
 

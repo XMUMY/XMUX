@@ -33,7 +33,7 @@ XMUXApi xmuxApi;
 final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
 
 /// Main store for redux.
-final Store<MainAppState> mainAppStore = Store<MainAppState>(appReducer,
+final Store<MainAppState> store = Store<MainAppState>(appReducer,
     initialState: MainAppState.def(),
     middleware: [apiRequestMiddleware, saveMiddleware]);
 

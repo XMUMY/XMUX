@@ -1,7 +1,7 @@
 part of 'reducer.dart';
 
 final Reducer<SettingState> settingReducers = combineReducers([
-  new TypedReducer<SettingState, EnableFunctionsUnderDevAction>(
+  TypedReducer<SettingState, EnableFunctionsUnderDevAction>(
       _enableFunctionsUnderDevReducer),
 ]);
 

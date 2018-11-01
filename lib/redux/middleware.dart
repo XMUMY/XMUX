@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:redux/redux.dart';
-import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 import 'actions/actions.dart';
@@ -27,8 +26,7 @@ void saveMiddleware(Store<MainAppState> store, action, NextDispatcher next) {
 
   if (!_isSaving && action.needSave) {
     _isSaving = true;
-    _fileSave(jsonEncode(mainAppStore.state.toJson()), 'state.dat',
-            sync: action.sync)
+    _fileSave(jsonEncode(store.state.toJson()), 'state.dat', sync: action.sync)
         .then((n) => _isSaving = false);
   }
 }

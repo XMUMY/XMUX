@@ -20,7 +20,7 @@ class HomePageHandler {
 
     // Update news.
     if ((resMap["news"] as List).isNotEmpty)
-      mainAppStore.dispatch(UpdateNewsAction(resMap["news"]));
+      store.dispatch(UpdateNewsAction(resMap["news"]));
 
     return "success";
   }
@@ -28,7 +28,7 @@ class HomePageHandler {
   static Future<String> updateAnnouncements({BuildContext context}) async {
     // Get news from backend.
     var response = await backend.post("/v2/homepage/announcements", {
-      "id": mainAppStore.state.authState.campusID,
+      "id": store.state.authState.campusID,
     });
 
     // Check error.
@@ -41,7 +41,7 @@ class HomePageHandler {
 
     // Update news.
     if ((resMap["announcements"] as List).isNotEmpty)
-      mainAppStore.dispatch(UpdateAnnouncementAction(resMap["announcements"]));
+      store.dispatch(UpdateAnnouncementAction(resMap["announcements"]));
 
     return "success";
   }

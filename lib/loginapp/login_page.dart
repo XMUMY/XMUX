@@ -10,6 +10,7 @@ class LoginPage extends StatelessWidget {
   // Controller for username & password.
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
   // Form key for validation.
   final _usernameFormKey = GlobalKey<FormFieldState<String>>();
   final _passwordFormKey = GlobalKey<FormFieldState<String>>();

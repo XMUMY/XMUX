@@ -12,6 +12,7 @@ class BillingRecord {
   @JsonKey(fromJson: _amountFromJson, toJson: _amountToJson)
   final double amount;
   final String balance;
+
   BillingRecord(this.item, this.amount, this.balance);
 
   factory BillingRecord.fromJson(Map<String, dynamic> json) =>
@@ -37,5 +38,6 @@ class News {
   News(this.name, this.isWebPage, this.uri, this.imageURL);
 
   factory News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
+
   Map<String, dynamic> toJson() => _$NewsToJson(this);
 }

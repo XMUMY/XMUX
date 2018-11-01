@@ -121,8 +121,7 @@ class _HomeSliderState extends State<HomeSlider> {
     _autoSlider = Timer.periodic(
         Duration(seconds: 5),
         (_) => _controller.animateToPage(
-            _controller.page.toInt() >=
-                    mainAppStore.state.uiState.news.length - 1
+            _controller.page.toInt() >= store.state.uiState.news.length - 1
                 ? 0
                 : _controller.page.toInt() + 1,
             duration: _kDuration,

@@ -8,19 +8,24 @@ part of 'state.dart';
 
 MainAppState _$MainAppStateFromJson(Map<String, dynamic> json) {
   return MainAppState(
-      AuthState.fromJson(json['authState'] as Map<String, dynamic>),
-      json['settingState'] == null
-          ? null
-          : SettingState.fromJson(json['settingState'] as Map<String, dynamic>),
       json['acState'] == null
           ? null
-          : AcState.fromJson(json['acState'] as Map<String, dynamic>));
+          : AcState.fromJson(json['acState'] as Map<String, dynamic>),
+      AuthState.fromJson(json['authState'] as Map<String, dynamic>),
+      json['queryState'] == null
+          ? null
+          : QueryState.fromJson(json['queryState'] as Map<String, dynamic>),
+      json['settingState'] == null
+          ? null
+          : SettingState.fromJson(
+              json['settingState'] as Map<String, dynamic>));
 }
 
 Map<String, dynamic> _$MainAppStateToJson(MainAppState instance) =>
     <String, dynamic>{
       'acState': instance.acState,
       'authState': instance.authState,
+      'queryState': instance.queryState,
       'settingState': instance.settingState
     };
 
@@ -78,6 +83,16 @@ Map<String, dynamic> _$AuthStateToJson(AuthState instance) => <String, dynamic>{
       'ePaymentPassword': instance.ePaymentPassword,
       'moodleKey': instance.moodleKey
     };
+
+QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
+  return QueryState((json['ePaymentRecords'] as List)
+      ?.map((e) =>
+          e == null ? null : BillingRecord.fromJson(e as Map<String, dynamic>))
+      ?.toList());
+}
+
+Map<String, dynamic> _$QueryStateToJson(QueryState instance) =>
+    <String, dynamic>{'ePaymentRecords': instance.ePaymentRecords};
 
 SettingState _$SettingStateFromJson(Map<String, dynamic> json) {
   return SettingState(json['enableFunctionsUnderDev'] as bool ?? false);

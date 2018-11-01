@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
               radius: 18.0,
               backgroundImage: NetworkImage(firebaseUser?.photoUrl ?? ""),
             ),
-            onPressed: () => mainAppStore.dispatch(OpenDrawerAction(true)),
+            onPressed: () => store.dispatch(OpenDrawerAction(true)),
           ),
           title: Text(MainLocalizations.of(context).get("Home")),
         ),

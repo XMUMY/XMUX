@@ -41,8 +41,8 @@ class _DeveloperOptionsPageState extends State<DeveloperOptionsPage> {
                   subtitle: Text(MainLocalizations.of(context).get(
                       "Settings/DeveloperOptions/EnFuncsUnderDev/Caption")),
                   value: value,
-                  onChanged: (v) => mainAppStore
-                      .dispatch(EnableFunctionsUnderDevAction(!value)),
+                  onChanged: (v) =>
+                      store.dispatch(EnableFunctionsUnderDevAction(!value)),
                 ),
           ),
         ],

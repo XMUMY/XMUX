@@ -23,10 +23,10 @@ class TimeTablePage extends StatelessWidget {
           child: Text(
             i18n('Calendar/LastUpdate', context) +
                 DateFormat.yMMMd(Localizations.localeOf(context).languageCode)
-                    .format(mainAppStore.state.acState.timestamp) +
+                    .format(store.state.acState.timestamp) +
                 ' ' +
                 DateFormat.Hms(Localizations.localeOf(context).languageCode)
-                    .format(mainAppStore.state.acState.timestamp),
+                    .format(store.state.acState.timestamp),
             style: Theme.of(context).textTheme.caption,
           ),
         ),
@@ -34,7 +34,7 @@ class TimeTablePage extends StatelessWidget {
 
   Future<Null> _handleUpdate(BuildContext context) async {
     var action = UpdateAcAction(context: context);
-    mainAppStore.dispatch(action);
+    store.dispatch(action);
     await action.listener;
   }
 

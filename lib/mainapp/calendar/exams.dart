@@ -16,7 +16,7 @@ class ExamsPage extends StatelessWidget {
   // Handle refresh.
   Future<Null> _handleUpdate() async {
     var act = UpdateAcAction();
-    mainAppStore.dispatch(act);
+    store.dispatch(act);
     await act.listener;
   }
 
@@ -26,10 +26,10 @@ class ExamsPage extends StatelessWidget {
           child: Text(
             MainLocalizations.of(context).get("Calendar/LastUpdate") +
                 DateFormat.yMMMd(Localizations.localeOf(context).languageCode)
-                    .format(mainAppStore.state.acState.timestamp) +
+                    .format(store.state.acState.timestamp) +
                 " " +
                 DateFormat.Hms(Localizations.localeOf(context).languageCode)
-                    .format(mainAppStore.state.acState.timestamp),
+                    .format(store.state.acState.timestamp),
             style: Theme.of(context).textTheme.caption,
           ),
         ),

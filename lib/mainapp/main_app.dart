@@ -32,7 +32,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreProvider<MainAppState>(
-      store: mainAppStore,
+      store: store,
       child: MaterialApp(
         title: 'XMUX',
         home: MainPage(),

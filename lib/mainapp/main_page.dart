@@ -39,10 +39,10 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     // Add listener for drawer.
-    _drawerListener = mainAppStore.onChange.listen((s) {
+    _drawerListener = store.onChange.listen((s) {
       if (s.uiState.drawerIsOpen) {
         _scaffoldKey.currentState.openDrawer();
-        mainAppStore.dispatch(OpenDrawerAction(false));
+        store.dispatch(OpenDrawerAction(false));
       }
     });
 
