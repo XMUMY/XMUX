@@ -19,7 +19,6 @@ class EPaymentPage extends StatefulWidget {
 
 class _PaymentPageState extends State<EPaymentPage> {
   var _isProcessing = false;
-  var _records = store.state.queryState.ePaymentRecords;
 
   Future<Null> _handleSave(BuildContext context) async {
     if (widget._passwordController.text.isEmpty) return;
@@ -99,7 +98,7 @@ class _PaymentPageState extends State<EPaymentPage> {
                 reverse: false,
                 itemCount: records.length,
                 itemBuilder: (_, int index) =>
-                    _BillingRecordCard(_records[records.length - 1 - index])),
+                    _BillingRecordCard(records[records.length - 1 - index])),
       ),
     );
   }

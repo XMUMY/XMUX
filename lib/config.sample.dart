@@ -31,6 +31,6 @@ class ThemeConfig {
     primaryColorBrightness: Brightness.dark,
     accentColor: Colors.orangeAccent,
     accentColorBrightness: Brightness.dark,
-    buttonColor: Colors.lightBlue,
+    buttonColor: Colors.cyan[600],
   );
 }
