@@ -1,13 +1,16 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:meta/meta.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 part 'state.g.dart';
 
 /// Main state for app.
+@immutable
 @JsonSerializable()
 class MainAppState {
   /// AC state include timetable, exams, examResult and other academic data.
+  @JsonKey(nullable: false)
   final AcState acState;
 
   /// Auth state for all authentication.
@@ -15,9 +18,11 @@ class MainAppState {
   final AuthState authState;
 
   /// Query state stores all query information.
+  @JsonKey(nullable: false)
   final QueryState queryState;
 
   /// Settings state include ePaymentPassword, etc.
+  @JsonKey(nullable: false)
   final SettingState settingState;
 
   /// Global UI state include drawerIsOpen, etc.

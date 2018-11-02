@@ -48,17 +48,25 @@ void apiRequestMiddleware(
     print(
         'Redux/apiRequestMiddleware: Invoked (Action: ${action.runtimeType})');
     action.listener = action(
-            XMUXApiAuth(
-                campusID: store.state.authState.campusID,
-                campusIDPassword: store.state.authState.campusIDPassword,
-                ePaymentPassword: store.state.authState.ePaymentPassword,
-                moodleKey: store.state.authState.moodleKey),
-            params: action.params)
-        .then((_) => next(action))
-        .catchError(
-            (e) => Scaffold.of(action.context)
-                .showSnackBar(SnackBar(content: Text(e.toString()))),
-            test: (_) => action.context != null);
+      XMUXApiAuth(
+          campusID: store.state.authState.campusID,
+          campusIDPassword: store.state.authState.campusIDPassword,
+          ePaymentPassword: store.state.authState.ePaymentPassword,
+          moodleKey: store.state.authState.moodleKey),
+      params: action.params,
+    ).then((_) => next(action)).catchError(
+      (e) {
+        if (action.context != null)
+          Scaffold.of(action.context)
+              .showSnackBar(SnackBar(content: Text(e.toString())));
+        action.onError();
+      },
+      test: (_) => action.onError != null,
+    ).catchError(
+      (e) => Scaffold.of(action.context)
+          .showSnackBar(SnackBar(content: Text(e.toString()))),
+      test: (_) => action.context != null,
+    );
   } else
     next(action);
 }

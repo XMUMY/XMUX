@@ -8,17 +8,10 @@ part of 'state.dart';
 
 MainAppState _$MainAppStateFromJson(Map<String, dynamic> json) {
   return MainAppState(
-      json['acState'] == null
-          ? null
-          : AcState.fromJson(json['acState'] as Map<String, dynamic>),
+      AcState.fromJson(json['acState'] as Map<String, dynamic>),
       AuthState.fromJson(json['authState'] as Map<String, dynamic>),
-      json['queryState'] == null
-          ? null
-          : QueryState.fromJson(json['queryState'] as Map<String, dynamic>),
-      json['settingState'] == null
-          ? null
-          : SettingState.fromJson(
-              json['settingState'] as Map<String, dynamic>));
+      QueryState.fromJson(json['queryState'] as Map<String, dynamic>),
+      SettingState.fromJson(json['settingState'] as Map<String, dynamic>));
 }
 
 Map<String, dynamic> _$MainAppStateToJson(MainAppState instance) =>

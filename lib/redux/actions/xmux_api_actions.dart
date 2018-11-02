@@ -3,11 +3,15 @@ part of 'actions.dart';
 /// General actions for XMUX API.
 abstract class XMUXApiAction extends MainAppAction {
   /// Context for displaying snack bar.
+  /// Only available when [onError] is *null*;
   final BuildContext context;
 
   /// A listener for listening API request process.
   /// It is *null* by default and will be assign by *apiRequestMiddleware*.
   Future listener;
+
+  /// Function called on error.
+  final Function onError;
 
   /// Parameters for API request.
   final Map<String, String> params;
@@ -20,7 +24,7 @@ abstract class XMUXApiAction extends MainAppAction {
   /// Will be assigned after API request.
   DateTime timestamp;
 
-  XMUXApiAction({this.context, this.params});
+  XMUXApiAction({this.context, this.onError, this.params});
 
   /// Function for assigning status and timestamp.
   void assign(XMUXApiResponse response) {
@@ -66,8 +70,9 @@ class UpdateEPaymentRecordsAction extends XMUXApiAction {
 
   final XMUXApiAuth auth;
 
-  UpdateEPaymentRecordsAction({this.auth, BuildContext context})
-      : super(context: context);
+  UpdateEPaymentRecordsAction(
+      {this.auth, BuildContext context, Function onError})
+      : super(context: context, onError: onError);
 
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
@@ -76,7 +81,7 @@ class UpdateEPaymentRecordsAction extends XMUXApiAction {
     ePaymentRecords = response.data;
     // Update ePayment password when first login.
     if (this.auth != null)
-      store.dispatch(UpdateEPaymentPasswordAction(auth.ePaymentPassword));
+      store.dispatch(UpdateEPaymentPasswordAction(this.auth.ePaymentPassword));
   }
 }
 
