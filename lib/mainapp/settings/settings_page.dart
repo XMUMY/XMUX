@@ -16,7 +16,7 @@ class SettingsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Hero(
-                  tag: "user-avatar",
+                  tag: "UserAvatar",
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(firebaseUser?.photoUrl ?? ""),
                     radius: 30.0,

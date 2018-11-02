@@ -71,7 +71,6 @@ const Map<String, String> en_US = {
   'lostandfound/create/time': 'Time',
   'lostandfound/create/location': 'Detail Location',
   'lostandfound/create/detail': 'Details',
-  'roomreservation': 'Room reservation',
   // Settings
   'Settings': 'Settings',
   'Settings/SignOut': 'Sign out',
@@ -95,6 +94,7 @@ const Map<String, String> en_US = {
   'Tools/EPayment/Status': 'Status: ',
   'Tools/EPayment/Paid': 'Paid',
   'Tools/EPayment/Unpaid': 'Unpaid',
+  'Tools/RoomReservation': 'Room reservation',
   'Tools/Emergency': 'Emergency',
   'Tools/Emergency/Caption':
       'Use these functions only during emergencies.\nUseage otherwise is illegal.',

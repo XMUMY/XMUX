@@ -2,10 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/mainapp/explore/chat_room_page.dart';
 import 'package:xmux/mainapp/explore/eatx/eatx_page.dart';
-import 'package:xmux/mainapp/tools/room_reservation.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
@@ -77,19 +75,6 @@ class ExplorePage extends StatelessWidget {
                 new Icon(Icons.find_in_page),
                 new Text(
                   " " + MainLocalizations.of(context).get("lostandfound"),
-                  style: Theme.of(context).textTheme.subhead,
-                )
-              ],
-            ),
-          ),
-          new FlatButton(
-            onPressed: () => Navigator.of(context).push(
-                new MaterialPageRoute(builder: (_) => new RoomWebviewPage())),
-            child: new Row(
-              children: <Widget>[
-                new Icon(FontAwesomeIcons.table),
-                new Text(
-                  " " + MainLocalizations.of(context).get("roomreservation"),
                   style: Theme.of(context).textTheme.subhead,
                 )
               ],

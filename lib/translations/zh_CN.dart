@@ -66,7 +66,6 @@ const Map<String, String> zh_CN = {
   'lostandfound/create/time': '时间',
   'lostandfound/create/location': '详细地点',
   'lostandfound/create/detail': '详情',
-  'roomreservation': '教室预定',
   // Settings
   'Settings': '设置',
   'Settings/SignOut': '登出',
@@ -87,6 +86,7 @@ const Map<String, String> zh_CN = {
   'Tools/EPayment/Status': '状态：',
   'Tools/EPayment/Paid': '已支付',
   'Tools/EPayment/Unpaid': '未支付',
+  'Tools/RoomReservation': '教室预定',
   'Tools/Emergency': '紧急情况',
   'Tools/Emergency/Caption': '遭遇紧急情况时，您可以使用以下方式进行求助\n非紧急情况下使用将负法律责任',
   'Tools/Emergency/XMUMSecurityHotline': 'XMUM 安全热线',
