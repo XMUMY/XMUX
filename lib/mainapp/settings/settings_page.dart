@@ -18,7 +18,9 @@ class SettingsPage extends StatelessWidget {
                 Hero(
                   tag: "UserAvatar",
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage(firebaseUser?.photoUrl ?? ""),
+                    backgroundImage: NetworkImage(xmuxApi.convertAvatarUrl(
+                        firebaseUser?.photoUrl,
+                        store.state.authState.moodleKey)),
                     radius: 30.0,
                   ),
                 ),

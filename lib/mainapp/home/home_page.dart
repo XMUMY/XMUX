@@ -14,7 +14,8 @@ class HomePage extends StatelessWidget {
           leading: IconButton(
             icon: CircleAvatar(
               radius: 18.0,
-              backgroundImage: NetworkImage(firebaseUser?.photoUrl ?? ""),
+              backgroundImage: NetworkImage(xmuxApi.convertAvatarUrl(
+                  firebaseUser?.photoUrl, store.state.authState.moodleKey)),
             ),
             onPressed: () => store.dispatch(OpenDrawerAction(true)),
           ),

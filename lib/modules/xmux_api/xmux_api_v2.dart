@@ -116,6 +116,11 @@ class XMUXApi {
       dio.options.headers.remove('Authorization');
   }
 
+  /// Convert photo url to add moodleKey.
+  String convertAvatarUrl(String originUrl, String moodleKey) =>
+      originUrl.replaceFirst('/pluginfile.php', '/webservice/pluginfile.php') +
+      '&token=$moodleKey';
+
   XMUXApiResponse<ResponseType> _generateResponse<JsonType, ResponseType>(
       Response<Map<String, dynamic>> response,
       ResponseType fromJson(JsonType json)) {
