@@ -38,6 +38,7 @@ class TimeTablePage extends StatelessWidget {
     await action.listener;
   }
 
+  /// Sort timetable according to the end of class and now.
   static List<Lesson> _sortTimetable(List<Lesson> timetable) {
     var now = DateTime.now();
     var nowMin = now.weekday * 1440 + now.hour * 60 + now.minute;
@@ -67,12 +68,12 @@ class TimeTablePage extends StatelessWidget {
                 itemCount: classes.length + 1,
                 itemBuilder: (_, int index) => index == classes.length
                     ? _buildLastUpdateString(context)
-                    : _ClassCard(classes[index]),
+                    : _LessonCard(classes[index]),
               ),
             );
 }
 
-class _ClassCard extends StatefulWidget {
+class _LessonCard extends StatefulWidget {
   // Colors from monday to friday.
   static const List<Color> dayColor = [
     const Color(0xFFF48FB1),
@@ -85,18 +86,24 @@ class _ClassCard extends StatefulWidget {
   /// Lesson information.
   final Lesson lesson;
 
-  _ClassCard(this.lesson);
+  _LessonCard(this.lesson);
 
   @override
-  _ClassCardState createState() => _ClassCardState();
+  _LessonCardState createState() => _LessonCardState();
+
+  String get lessonCredit => store.state.acState.courses
+      ?.firstWhere((c) => c.courseName.indexOf(lesson.courseName) != -1)
+      ?.credit
+      ?.toString();
 }
 
-class _ClassCardState extends State<_ClassCard> {
+class _LessonCardState extends State<_LessonCard> {
   double _elevation = 1.0;
 
   void _showClassDetail() => showGeneralDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
       transitionDuration: Duration(milliseconds: 400),
       barrierColor: Colors.black12.withOpacity(0.2),
       pageBuilder: (context, animation, _) {
@@ -108,7 +115,7 @@ class _ClassCardState extends State<_ClassCard> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 15.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 8.0),
                   child: Text(
                     widget.lesson.courseName,
                     style: Theme.of(context).textTheme.title,
@@ -116,10 +123,11 @@ class _ClassCardState extends State<_ClassCard> {
                   ),
                 ),
                 Container(
-                  height: min(MediaQuery.of(context).size.height / 1.6, 450.0),
+                  height: min(MediaQuery.of(context).size.height / 2, 350.0),
                   width: MediaQuery.of(context).size.width / 1.3,
                   child: ListView(
-                    children: <Widget>[],
+                    padding: EdgeInsets.all(15.0),
+                    children: _buildDialogWidgetList(),
                   ),
                 ),
               ],
@@ -146,6 +154,23 @@ class _ClassCardState extends State<_ClassCard> {
         );
       });
 
+  List<Widget> _buildDialogWidgetList() {
+    return [
+      Text(
+          '${i18n('Calendar/ClassCard/Code', context)}: ${widget.lesson.courseCode}\n'
+          '${i18n('Calendar/ClassCard/Credit', context)}: ${widget.lessonCredit}\n'
+          '${i18n('Calendar/ClassCard/Weeks', context)}: ${widget.lesson.weeks}\n'
+          '${i18n('Calendar/ClassCard/Time', context)}: ${i18n('Weekdays/${widget.lesson.dayOfWeek + 1}', context)} '
+          '${widget.lesson.startTimeOfDay.format(context)} - '
+          '${widget.lesson.endTimeOfDay.format(context)}\n'
+          '${i18n('Calendar/ClassCard/Room', context)}: ${widget.lesson.classroom}\n'
+          '${i18n('Calendar/ClassCard/Lecturer', context)}: ${widget.lesson.lecturer}'),
+      Divider(),
+      Text(
+          '${i18n('Calendar/SignIn/Status', context)}: Temporarily unavailable.')
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -163,7 +188,7 @@ class _ClassCardState extends State<_ClassCard> {
             Container(
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                  color: _ClassCard.dayColor[widget.lesson.dayOfWeek],
+                  color: _LessonCard.dayColor[widget.lesson.dayOfWeek],
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(7.0))),
               child: Center(

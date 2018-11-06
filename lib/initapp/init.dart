@@ -81,5 +81,5 @@ void initFCM() {
   // Get FCM token.
   firebaseMessaging
       .getToken()
-      .then((token) => print("FCM: Token got: " + token));
+      .then((token) => print("FCM/Token got: " + token));
 }

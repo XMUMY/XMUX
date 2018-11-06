@@ -90,7 +90,7 @@ class _HomeSliderState extends State<HomeSlider> {
           fit: StackFit.expand,
           children: [
             (n["imageURL"] as String).isEmpty
-                ? SvgPicture.asset("res/news.svg")
+                ? SvgPicture.asset("res/home/news.svg")
                 : CachedNetworkImage(
                     imageUrl: n["imageURL"],
                     fit: BoxFit.fill,
@@ -106,7 +106,7 @@ class _HomeSliderState extends State<HomeSlider> {
           fit: StackFit.expand,
           children: [
             (n["imageURL"] as String).isEmpty
-                ? SvgPicture.asset("res/news.svg")
+                ? SvgPicture.asset("res/home/news.svg")
                 : CachedNetworkImage(
                     imageUrl: n["imageURL"],
                     fit: BoxFit.fill,
