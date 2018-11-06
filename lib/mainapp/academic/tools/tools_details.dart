@@ -1,49 +1,38 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:xmux/translations/translation.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:xmux/globals.dart';
 
 class AcademicToolDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(MainLocalizations.of(context).get("Academic/Tools")),
+        title: Text(i18n('Academic/Tools', context)),
         backgroundColor: Colors.lightBlue,
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
         children: <Widget>[
           _AcademicPageCard(
-            title: MainLocalizations.of(context)
-                .get("Academic/Tools/WolframEngine/Title"),
-            caption: MainLocalizations.of(context)
-                .get("Academic/Tools/WolframEngine/Caption"),
-            image: "res/academic/wolfram.png",
-            route: "/Academic/Tools/WolframEngine",
+            textUri: 'Academic/Tools/WolframEngine',
+            image: 'res/academic/wolfram.svg',
+            route: '/Academic/Tools/WolframEngine',
           ),
           _AcademicPageCard(
-            title: MainLocalizations.of(context)
-                .get("Academic/Tools/GeoGebra/Title"),
-            caption: MainLocalizations.of(context)
-                .get("Academic/Tools/GeoGebra/Caption"),
-            image: "res/academic/geogebra.png",
-            route: "/Academic/Tools/GeoGebra",
+            textUri: 'Academic/Tools/GeoGebra',
+            image: 'res/academic/geogebra.svg',
+            route: '/Academic/Tools/GeoGebra',
           ),
           _AcademicPageCard(
-            title: MainLocalizations.of(context)
-                .get("Academic/Tools/GPACalculator/Name"),
-            caption: MainLocalizations.of(context)
-                .get("Academic/Tools/GPACalculator/Caption"),
-            image: "res/academic/calculator.png",
-            route: "/Academic/Tools/GPACalculator",
+            textUri: 'Academic/Tools/GPACalculator',
+            image: 'res/academic/gpa_calculator.svg',
+            route: '/Academic/Tools/GPACalculator',
           ),
           _AcademicPageCard(
-            title: MainLocalizations.of(context)
-                .get("Academic/Tools/ExamResult/Title"),
-            caption: MainLocalizations.of(context)
-                .get("Academic/Tools/ExamResult/Caption"),
-            image: "res/academic/gpa.png",
-            route: "/Academic/Tools/ExamResult",
+            textUri: 'Academic/Tools/ExamResult',
+            image: 'res/academic/gpa.svg',
+            route: '/Academic/Tools/ExamResult',
           ),
         ],
       ),
@@ -52,48 +41,49 @@ class AcademicToolDetailsPage extends StatelessWidget {
 }
 
 class _AcademicPageCard extends StatelessWidget {
-  final String title, caption, image, route;
+  final String textUri, image, route;
 
   _AcademicPageCard(
-      {@required this.title,
-      @required this.caption,
-      @required this.image,
-      @required this.route});
+      {@required this.textUri, @required this.image, @required this.route});
 
   @override
   Widget build(BuildContext context) => Card(
         margin: EdgeInsets.fromLTRB(2.0, 5.0, 2.0, 5.0),
-        child: MaterialButton(
-            padding: EdgeInsets.all(20.0),
-            child: Row(
-              children: <Widget>[
-                Image.asset(
+        child: FlatButton(
+          padding: EdgeInsets.all(20.0),
+          child: Row(
+            children: <Widget>[
+              Hero(
+                tag: image,
+                child: SvgPicture.asset(
                   image,
                   height: 66.0,
                   width: 66.0,
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        title,
-                        style: Theme.of(context).textTheme.title,
-                      ),
-                      Divider(
-                        height: 5.0,
-                        color: Theme.of(context).canvasColor,
-                      ),
-                      Text(
-                        caption,
-                        style: Theme.of(context).textTheme.caption,
-                        textAlign: TextAlign.center,
-                      )
-                    ],
-                  ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      i18n(textUri + '/Title', context),
+                      style: Theme.of(context).textTheme.title,
+                    ),
+                    Divider(
+                      height: 5.0,
+                      color: Theme.of(context).canvasColor,
+                    ),
+                    Text(
+                      i18n(textUri + '/Caption', context),
+                      style: Theme.of(context).textTheme.caption,
+                      textAlign: TextAlign.center,
+                    )
+                  ],
                 ),
-              ],
-            ),
-            onPressed: () => Navigator.pushNamed(context, route)),
+              ),
+            ],
+          ),
+          onPressed: () => Navigator.pushNamed(context, route),
+        ),
       );
 }

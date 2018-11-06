@@ -43,7 +43,7 @@ const Map<String, String> zh_CN = {
   'Academic/Tools/WolframEngine/Result': '搜索结果',
   'Academic/Tools/GeoGebra/Title': 'GeoGebra 动态数学',
   'Academic/Tools/GeoGebra/Caption': '使用 GeoGebra 进行数学解算和绘图',
-  'Academic/Tools/GPACalculator/Name': 'GPA 计算器',
+  'Academic/Tools/GPACalculator/Title': 'GPA 计算器',
   'Academic/Tools/GPACalculator/Caption': '轻松计算平均学分绩点',
   'Academic/PublicTalks': '公共讲座',
   // Explore

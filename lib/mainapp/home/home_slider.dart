@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
@@ -85,34 +86,37 @@ class _HomeSliderState extends State<HomeSlider> {
   static const _kCurve = Curves.ease;
 
   Widget _buildSlider(Map n) => n["isWebPage"]
-      ? DecoratedBox(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: (n["imageURL"] as String).isEmpty
-                  ? AssetImage("res/slider.jpg")
-                  : CachedNetworkImageProvider(n["imageURL"]),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: FlatButton(
-              onPressed:
-                  (n["uri"] as String).isEmpty ? null : () => launch(n["uri"]),
-              child: null),
+      ? Stack(
+          fit: StackFit.expand,
+          children: [
+            (n["imageURL"] as String).isEmpty
+                ? SvgPicture.asset("res/news.svg")
+                : CachedNetworkImage(
+                    imageUrl: n["imageURL"],
+                    fit: BoxFit.fill,
+                  ),
+            FlatButton(
+                onPressed: (n["uri"] as String).isEmpty
+                    ? null
+                    : () => launch(n["uri"]),
+                child: null),
+          ],
         )
-      : DecoratedBox(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: (n["imageURL"] as String).isEmpty
-                  ? AssetImage("res/slider.jpg")
-                  : CachedNetworkImageProvider(n["imageURL"]),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: FlatButton(
-              onPressed: (n["uri"] as String).isEmpty
-                  ? null
-                  : () => Navigator.of(context).pushNamed(n["uri"]),
-              child: null),
+      : Stack(
+          fit: StackFit.expand,
+          children: [
+            (n["imageURL"] as String).isEmpty
+                ? SvgPicture.asset("res/news.svg")
+                : CachedNetworkImage(
+                    imageUrl: n["imageURL"],
+                    fit: BoxFit.fill,
+                  ),
+            FlatButton(
+                onPressed: (n["uri"] as String).isEmpty
+                    ? null
+                    : () => Navigator.of(context).pushNamed(n["uri"]),
+                child: null),
+          ],
         );
 
   @override

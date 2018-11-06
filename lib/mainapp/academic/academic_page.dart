@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
-import 'package:xmux/translations/translation.dart';
 
 class AcademicPage extends StatelessWidget {
   @override
@@ -14,7 +15,7 @@ class AcademicPage extends StatelessWidget {
           builder: (context, callback) =>
               IconButton(icon: Icon(Icons.view_list), onPressed: callback),
         ),
-        title: Text(MainLocalizations.of(context).get("Academic")),
+        title: Text(i18n('Academic', context)),
         backgroundColor: Colors.lightBlue,
       ),
       body: ListView(
@@ -23,14 +24,14 @@ class AcademicPage extends StatelessWidget {
           Row(children: <Widget>[
             Expanded(
               child: Text(
-                " " + MainLocalizations.of(context).get("Academic/Tools"),
+                ' ' + i18n('Academic/Tools', context),
                 style: Theme.of(context).textTheme.title,
               ),
             ),
             FlatButton(
-              child: Text(MainLocalizations.of(context).get("Academic/More")),
+              child: Text(i18n('Academic/More', context)),
               onPressed: () =>
-                  Navigator.of(context).pushNamed("/Academic/Tools/Details"),
+                  Navigator.of(context).pushNamed('/Academic/Tools/Details'),
             ),
           ]),
           Divider(
@@ -40,38 +41,35 @@ class AcademicPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _ToolsButton(
-                  icon: Image.asset("res/academic/wolfram.png"),
-                  title: "Academic/Tools/WolframEngine/Title",
-                  path: "/Academic/Tools/WolframEngine"),
+                  icon: 'res/academic/wolfram.svg',
+                  title: 'Academic/Tools/WolframEngine/Title',
+                  path: '/Academic/Tools/WolframEngine'),
               _ToolsButton(
-                  icon: Image.asset("res/academic/geogebra.png"),
-                  title: "Academic/Tools/GeoGebra/Title",
-                  path: "/Academic/Tools/GeoGebra"),
+                  icon: 'res/academic/geogebra.svg',
+                  title: 'Academic/Tools/GeoGebra/Title',
+                  path: '/Academic/Tools/GeoGebra'),
               _ToolsButton(
-                  icon: Image.asset("res/academic/calculator.png"),
-                  title: "Academic/Tools/GPACalculator/Name",
-                  path: "/Academic/Tools/GPACalculator"),
+                  icon: 'res/academic/gpa_calculator.svg',
+                  title: 'Academic/Tools/GPACalculator/Name',
+                  path: '/Academic/Tools/GPACalculator'),
               _ToolsButton(
-                  icon: Image.asset("res/academic/gpa.png"),
-                  title: "Academic/Tools/ExamResult/Title",
-                  path: "/Academic/Tools/ExamResult"),
+                  icon: 'res/academic/gpa.svg',
+                  title: 'Academic/Tools/ExamResult/Title',
+                  path: '/Academic/Tools/ExamResult'),
             ],
           ),
           StoreConnector<MainAppState, bool>(
             converter: (s) => s.state.settingState.enableFunctionsUnderDev,
-            builder: (_, v) => (v == true)
+            builder: (_, v) => v
                 ? Row(children: <Widget>[
                     Expanded(
                       child: Text(
-                        " " +
-                            MainLocalizations.of(context)
-                                .get("Academic/PublicTalks"),
+                        ' ' + i18n('Academic/PublicTalks', context),
                         style: Theme.of(context).textTheme.title,
                       ),
                     ),
                     FlatButton(
-                      child: Text(
-                          MainLocalizations.of(context).get("Academic/More")),
+                      child: Text(i18n('Academic/More', context)),
                       onPressed: () {},
                     ),
                   ])
@@ -84,7 +82,11 @@ class AcademicPage extends StatelessWidget {
 }
 
 class _ToolsButton extends StatelessWidget {
-  final Widget icon;
+  /// The asset name of *SVG* file of icon.
+  /// The asset name also used as tag for hero animation.
+  final String icon;
+
+  /// Title for tooltip.
   final String title;
   final String path;
 
@@ -94,10 +96,10 @@ class _ToolsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Expanded(
         child: IconButton(
-          icon: icon,
+          icon: Hero(tag: icon, child: SvgPicture.asset(icon)),
           onPressed: () => Navigator.of(context).pushNamed(path),
-          tooltip: MainLocalizations.of(context).get(title),
-          iconSize: MediaQuery.of(context).size.width / 5.5,
+          tooltip: i18n(title, context),
+          iconSize: MediaQuery.of(context).size.width / 6,
         ),
       );
 }
