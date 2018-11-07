@@ -136,19 +136,22 @@ class _LessonCardState extends State<_LessonCard> {
         );
       },
       transitionBuilder: (context, animation, _, child) {
-        return GaussianBlurBox(
-          sigma: (animation.value * 30).round() / 10,
-          child: FadeTransition(
-            opacity: animation,
-            child: ScaleTransition(
-              scale: Tween<double>(
-                begin: 0.7,
-                end: 1.0,
-              ).animate(CurvedAnimation(
-                  parent: animation,
-                  curve: Curves.elasticOut,
-                  reverseCurve: Curves.fastOutSlowIn)),
-              child: child,
+        return GestureDetector(
+          onTap: () => Navigator.of(context).pop(),
+          child: GaussianBlurBox(
+            sigma: (animation.value * 30).round() / 10,
+            child: FadeTransition(
+              opacity: animation,
+              child: ScaleTransition(
+                scale: Tween<double>(
+                  begin: 0.7,
+                  end: 1.0,
+                ).animate(CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.elasticOut,
+                    reverseCurve: Curves.fastOutSlowIn)),
+                child: child,
+              ),
             ),
           ),
         );

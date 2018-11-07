@@ -39,7 +39,7 @@ class _RoomWebviewPageState extends State<RoomWebviewPage> {
       widget.flutterWebviewPlugin.evalJavascript("""
         'use strict'; (() => {
             const el = document.createElement('script')
-            el.src = '//${BackendApiConfig.resourceAddress}/js/inject/rooms-common.js'
+            el.src = 'https://${BackendApiConfig.resourceAddress}/js/inject/rooms-common.js'
             document.body.appendChild(el)
           })();
       """);
@@ -57,7 +57,7 @@ class _RoomWebviewPageState extends State<RoomWebviewPage> {
   @override
   Widget build(BuildContext context) => WebviewScaffold(
         appBar: AppBar(
-          title: Text(i18n("roomreservation", context)),
+          title: Text(i18n("Tools/RoomReservation", context)),
           actions: <Widget>[
             IconButton(
               icon: Icon(FontAwesomeIcons.table),
