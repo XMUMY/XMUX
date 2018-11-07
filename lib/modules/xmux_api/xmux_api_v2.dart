@@ -58,13 +58,13 @@ class XMUXApiResponse<dataType> {
 /// XMUX API V2
 class XMUXApi {
   /// Back-end API addresses.
-  List<String> _addresses;
+  final List<String> addresses;
 
   /// The API address currently used.
   String currentAddress;
 
   /// Connectivity instance.
-  final _connectivity = Connectivity();
+  final Connectivity _connectivity;
 
   /// Last connection status.
   ConnectivityResult _lastConnectivityResult;
@@ -78,18 +78,19 @@ class XMUXApi {
   /// Instance to make the object unique.
   static XMUXApi _instance;
 
-  factory XMUXApi(List<String> addresses) {
-    if (_instance == null) _instance = XMUXApi._(addresses);
+  factory XMUXApi(List<String> addresses, {Connectivity connectivity}) {
+    if (_instance == null)
+      _instance = XMUXApi._(addresses, connectivity ?? Connectivity());
     return _instance;
   }
 
-  XMUXApi._(this._addresses) {
-    currentAddress = _addresses[0];
+  XMUXApi._(this.addresses, this._connectivity) {
+    currentAddress = addresses[0];
     selectingServer = selectServer();
 
     // Dio options.
-    dio.options.baseUrl = _addresses[0] + '/v2';
-    dio.options.connectTimeout = 1000;
+    dio.options.baseUrl = addresses[0] + '/v2';
+    dio.options.connectTimeout = 3000;
     configure();
 
     // Listen and reselect server when connectivity change.
@@ -106,7 +107,7 @@ class XMUXApi {
     // Add system language to header.
     dio.options.headers.addAll({
       'Accept-Language':
-          '${Platform.localeName.replaceAll('_', '-')},${Platform.localeName.substring(0, 2)};q=0.9',
+          '${Platform.localeName.replaceAll('_', '-')},${Platform.localeName?.substring(0, 2)};q=0.9',
     });
 
     // Add JWT token if exist.
@@ -135,16 +136,26 @@ class XMUXApi {
         moodleKey: response.data['moodleKey']);
   }
 
+  Future<Map<String, bool>> get serverStatus async {
+    var res = await Future.wait(addresses.map((String address) async {
+      var res = await dio.get(address + '/test').timeout(
+          Duration(milliseconds: 2800),
+          onTimeout: () => Response(statusCode: 504));
+      return res.statusCode == 200;
+    }).toList());
+    return Map.fromIterables(addresses, res);
+  }
+
   Future<Null> selectServer() async {
     print('XMUXApiV2/ServerSelector: Selecting...');
 
     // Select the fastest server in 5 second.
     // When timeout or error, it will return the last address.
-    var selected = await Future.any(_addresses.map((String address) async {
+    var selected = await Future.any(addresses.map((String address) async {
       var res = await dio.get(address + '/test');
       if (res.statusCode == 200) return address;
     }).toList())
-        .timeout(Duration(seconds: 3), onTimeout: () => currentAddress)
+        .timeout(Duration(milliseconds: 2800), onTimeout: () => currentAddress)
         .catchError((e) => currentAddress);
 
     currentAddress = selected;
