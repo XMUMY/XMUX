@@ -18,8 +18,8 @@ build:
     - master
   before_script:
 # Install libraries
-    - apt-get --quiet update --yes
-    - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 fonts-droid-fallback
+    - apt-get --quiet update --yes > apt.log
+    - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 fonts-droid-fallback > apt.log
 # Install Android SDK manager
     - if [ ! -d "android-sdk-linux" ]; then
       wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOL_VERSION}.zip;
@@ -75,9 +75,9 @@ deploy:internal:
     LC_ALL: en_US.UTF-8
     LANG: en_US.UTF-8
   before_script:
-    - apt-get --quiet update --yes
-    - apt-get --quiet install --yes ruby-dev gcc g++ make
-    - gem install fastlane -NV
+    - apt-get --quiet update --yes > apt.log
+    - apt-get --quiet install --yes ruby-dev gcc g++ make > apt.log
+    - gem install fastlane -NV > gem.log
     - echo "${GOOGLE_PLAY_KEY}" > play.json
     - export BV=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep -m 1 'BV=' | sed 's/BV=//')
     - export CHANGELOG=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep . | grep -v BN | grep -v BV)

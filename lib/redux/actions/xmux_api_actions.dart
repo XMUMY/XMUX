@@ -56,18 +56,19 @@ class UpdateAcAction extends XMUXApiAction {
 
 class UpdateAssignmentsAction extends XMUXApiAction {
   MoodleData moodleData;
+  String moodleKey;
 
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
     var response = await xmuxApi.moodle(auth);
     assign(response);
     moodleData = response.data;
+    moodleKey = response.moodleKey;
   }
 }
 
 class UpdateEPaymentRecordsAction extends XMUXApiAction {
   List<BillingRecord> ePaymentRecords;
-
   final XMUXApiAuth auth;
 
   UpdateEPaymentRecordsAction(
@@ -79,9 +80,6 @@ class UpdateEPaymentRecordsAction extends XMUXApiAction {
     var response = await xmuxApi.bill(this.auth ?? auth);
     assign(response);
     ePaymentRecords = response.data;
-    // Update ePayment password when first login.
-    if (this.auth != null)
-      store.dispatch(UpdateEPaymentPasswordAction(this.auth.ePaymentPassword));
   }
 }
 

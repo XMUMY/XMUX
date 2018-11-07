@@ -27,8 +27,9 @@ MainAppState appReducer(MainAppState oldState, dynamic action) {
 /// Reducers for AuthState.
 final Reducer<AuthState> authReducers = combineReducers([
   TypedReducer<AuthState, LoginAction>(_loginReducer),
-  TypedReducer<AuthState, UpdateEPaymentPasswordAction>(
+  TypedReducer<AuthState, UpdateEPaymentRecordsAction>(
       _updateEPaymentPasswordReducer),
+  TypedReducer<AuthState, UpdateAssignmentsAction>(_updateMoodleKeyReducer),
 ]);
 
 AuthState _loginReducer(AuthState oldState, LoginAction action) =>
@@ -37,6 +38,14 @@ AuthState _loginReducer(AuthState oldState, LoginAction action) =>
         campusIDPassword: action.auth.campusIDPassword,
         moodleKey: action.moodleKey);
 
+/// Update ePayment password when first login.
 AuthState _updateEPaymentPasswordReducer(
-        AuthState oldState, UpdateEPaymentPasswordAction action) =>
-    oldState.copyWith(ePaymentPassword: action.ePaymentPassword);
+        AuthState oldState, UpdateEPaymentRecordsAction action) =>
+    action.auth == null
+        ? oldState
+        : oldState.copyWith(ePaymentPassword: action.auth.ePaymentPassword);
+
+/// Update moodleKey when updating assignments.
+AuthState _updateMoodleKeyReducer(
+        AuthState oldState, UpdateAssignmentsAction action) =>
+    oldState.copyWith(moodleKey: action.moodleKey);
