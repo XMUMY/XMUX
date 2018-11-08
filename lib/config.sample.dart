@@ -6,8 +6,9 @@ class AppInfo {
 }
 
 class ApiKeyConfig {
-  static const wolframAppID = "XWolframAppIDX";
   static const dialogflowToken = "XDialogflowTokenX";
+  static const wolframAppID = "XWolframAppIDX";
+  static const sentryDsn = "XSentryDsnX";
 }
 
 class BackendApiConfig {

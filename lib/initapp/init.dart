@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
@@ -19,6 +20,9 @@ export 'init_page.dart';
 enum InitResult { notLogin, loginError, finished }
 
 Future<InitResult> init() async {
+  FlutterError.onError = (e) =>
+      sentry.captureException(exception: e.exception, stackTrace: e.stack);
+
   // Get package Info.
   packageInfo = await PackageInfo.fromPlatform();
 
