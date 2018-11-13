@@ -21,7 +21,6 @@ dependencies:
   flutter_redux: ^0.5.2
   flutter_spinkit: ^2.1.0
   flutter_svg: ^0.6.3
-  flutter_villains: ^1.0.0
   flutter_webview_plugin: ^0.2.1
   font_awesome_flutter: ^8.1.0
   image_picker: ^0.4.10

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_villains/villain.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/about.dart';
@@ -48,7 +47,7 @@ class MainApp extends StatelessWidget {
           Locale('zh', 'CN'),
         ],
         // Observer for auto play VillainTransition.
-        navigatorObservers: [VillainTransitionObserver()],
+//        navigatorObservers: [VillainTransitionObserver()],
         // Define route for main app.
         routes: <String, WidgetBuilder>{
           '/About': (_) => AboutPage(),
