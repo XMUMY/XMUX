@@ -23,13 +23,9 @@ class _XiAPageState extends State<XiAPage> {
   }
 
   @override
-  void initState() {
-    messages.add(_MessageCard("Hi, I'm XiA. Your assistant.", false));
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    if (messages.isEmpty)
+      messages.add(_MessageCard(i18n('XiA/Intro', context), false));
     return GaussianBlurBox(
       sigma: 3.0,
       color: Colors.grey.shade200.withOpacity(0.0),
@@ -60,7 +56,7 @@ class _XiAPageState extends State<XiAPage> {
                       child: TextField(
                         controller: _queryController,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Can I help you?',
+                          hintText: i18n('XiA/Hint', context),
                           hintStyle: TextStyle(color: Colors.white70),
                         ),
                         style: TextStyle(color: Colors.white),
@@ -80,7 +76,6 @@ class _XiAPageState extends State<XiAPage> {
 
 class _MessageCard extends StatelessWidget {
   final String message;
-
   final bool isMe;
 
   _MessageCard(this.message, this.isMe);
