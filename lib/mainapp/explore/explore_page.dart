@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/explore/chat_room_page.dart';
 import 'package:xmux/mainapp/explore/eatx/eatx_page.dart';
-import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -116,7 +116,7 @@ class ExplorePage extends StatelessWidget {
             builder: (_, v) => (v == true)
                 ? new FlatButton(
                     onPressed: () =>
-                        showDialog(context: context, builder: (_) => XiA.page),
+                        showDialog(context: context, builder: (_) => xiA.page),
                     child: new Row(
                       children: <Widget>[
                         new Icon(Icons.android),

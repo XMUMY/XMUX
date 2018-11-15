@@ -6,13 +6,14 @@ import 'package:redux/redux.dart';
 import 'package:sentry/sentry.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/modules/backend_handler/backend_handler.dart';
+import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
 /// Backend handler instance.
 ///
-/// Default is null. Will be selected during init.
+/// Default is `null`. Will be selected during init.
 @deprecated
 BackendHandler backend;
 
@@ -21,12 +22,12 @@ final firebaseMessaging = FirebaseMessaging();
 
 /// Firebase user instance.
 ///
-/// Default is null. Will be assigned by FirebaseUser when logged in.
+/// Default is `null`. Will be assigned by FirebaseUser when logged in.
 FirebaseUser firebaseUser;
 
 /// Package information from platform.
 ///
-/// Default is null. Will be assigned during init.
+/// Default is `null`. Will be assigned during init.
 PackageInfo packageInfo;
 
 final SentryClient sentry = SentryClient(dsn: ApiKeyConfig.sentryDsn);
@@ -36,9 +37,14 @@ final store = Store<MainAppState>(appReducer,
     initialState: MainAppState.def(),
     middleware: [apiRequestMiddleware, saveMiddleware]);
 
+/// Instance of XiA.
+///
+/// Default is `null`. Will be assigned during init.
+XiA xiA;
+
 /// XMUX API instance.
 ///
-/// Default is null. Will be selected during init.
+/// Default is `null`. Will be selected during init.
 XMUXApi xmuxApi;
 
 /// Function for internationalization.

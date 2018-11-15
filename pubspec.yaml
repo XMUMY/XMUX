@@ -23,6 +23,8 @@ dependencies:
   flutter_svg: ^0.6.3
   flutter_webview_plugin: ^0.2.1
   font_awesome_flutter: ^8.1.0
+  googleapis: 0.52.0+1
+  googleapis_auth: ^0.2.6
   image_picker: ^0.4.10
   json_annotation: ^2.0.0
   package_info: ^0.3.2

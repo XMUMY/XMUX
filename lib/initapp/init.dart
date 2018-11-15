@@ -12,6 +12,7 @@ import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/loginapp/login_handler.dart';
 import 'package:xmux/modules/backend_handler/backend_handler.dart';
+import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -20,8 +21,10 @@ export 'init_page.dart';
 enum InitResult { notLogin, loginError, finished }
 
 Future<InitResult> init() async {
-  FlutterError.onError = (e) =>
-      sentry.captureException(exception: e.exception, stackTrace: e.stack);
+  // Register sentry to capture errors. (Release mode only)
+  if (bool.fromEnvironment('dart.vm.product'))
+    FlutterError.onError = (e) =>
+        sentry.captureException(exception: e.exception, stackTrace: e.stack);
 
   // Get package Info.
   packageInfo = await PackageInfo.fromPlatform();
@@ -39,6 +42,9 @@ Future<InitResult> init() async {
     print('SystemChannels/LifecycleMessage: $msg');
     if (msg == AppLifecycleState.resumed.toString()) xmuxApi.configure();
   });
+
+  // Init XiA.
+  xiA = await XiA.init(ApiKeyConfig.dialogflowToken);
 
   // Init FCM.
   initFCM();
