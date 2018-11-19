@@ -36,7 +36,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
               .get("Academic/Tools/ExamResult/Title")),
           backgroundColor: Colors.lightBlue,
         ),
-        body: widget._examResult != null
+        body: (widget._examResult != null && widget._examResult.isNotEmpty)
             ? ListView(
                 children: <Widget>[
                   ListTile(
