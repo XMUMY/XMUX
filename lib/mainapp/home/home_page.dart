@@ -23,7 +23,9 @@ class HomePage extends StatelessWidget {
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            await HomePageHandler.updateNews(context: context);
+            var newsAction = UpdateHomepageNewsAction();
+            store.dispatch(newsAction);
+            await newsAction.listener;
             await HomePageHandler.updateAnnouncements(context: context);
           },
           child: ListView(

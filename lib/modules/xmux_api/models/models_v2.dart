@@ -31,11 +31,14 @@ class BillingRecord {
 @JsonSerializable()
 class News {
   final String name;
-  final bool isWebPage;
-  final String uri;
+
+  /// Background image URL.
   final String imageURL;
 
-  News(this.name, this.isWebPage, this.uri, this.imageURL);
+  /// URI to launch. Launch will be disabled if `null`.
+  final String uri;
+
+  News(this.name, this.imageURL, this.uri);
 
   factory News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
 

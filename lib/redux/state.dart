@@ -31,7 +31,7 @@ class MainAppState {
 
   MainAppState(this.acState, this.authState, this.queryState, this.settingState,
       {UIState uiState})
-      : this.uiState = uiState ?? UIState();
+      : this.uiState = uiState ?? UIState.def();
 
   /// Init MainAppState as default.
   MainAppState.def()
@@ -39,7 +39,7 @@ class MainAppState {
         this.authState = AuthState.def(),
         this.queryState = QueryState.def(),
         this.settingState = SettingState.def(),
-        this.uiState = UIState();
+        this.uiState = UIState.def();
 
   factory MainAppState.fromJson(Map<String, dynamic> json) =>
       _$MainAppStateFromJson(json);
@@ -186,34 +186,28 @@ class UIState {
   final ConnectivityResult connectivity;
 
   /// Homepage sliders.
-  final List news;
+  final List<News> homepageNews;
 
   /// Homepage announcements.
   final List announcements;
 
-  UIState()
+  UIState(this.drawerIsOpen, this.connectivity, this.homepageNews,
+      this.announcements);
+
+  UIState.def()
       : this.drawerIsOpen = false,
         this.connectivity = ConnectivityResult.none,
-        this.news = [
-          {
-            "imageURL": "",
-            "isWebPage": true,
-            "uri": "",
-          },
-        ],
+        this.homepageNews = null,
         this.announcements = [];
-
-  UIState.raw(
-      this.drawerIsOpen, this.connectivity, this.news, this.announcements);
 
   UIState copyWith(
           {bool drawerIsOpen,
           ConnectivityResult connectivity,
-          List news,
+          List<News> homepageNews,
           List announcements}) =>
-      UIState.raw(
+      UIState(
           drawerIsOpen ?? this.drawerIsOpen,
           connectivity ?? this.connectivity,
-          news ?? this.news,
+          homepageNews ?? this.homepageNews,
           announcements ?? this.announcements);
 }

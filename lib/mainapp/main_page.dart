@@ -47,7 +47,6 @@ class _MainPageState extends State<MainPage> {
     });
 
     // Refresh slider & announcements.
-    HomePageHandler.updateNews(context: context).timeout(Duration(seconds: 10));
     HomePageHandler.updateAnnouncements(context: context)
         .timeout(Duration(seconds: 10));
 

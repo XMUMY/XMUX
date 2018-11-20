@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {
-  DotsIndicator({
+  const DotsIndicator({
     @required this.controller,
     @required this.itemCount,
     @required this.onPageSelected,

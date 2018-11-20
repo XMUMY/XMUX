@@ -1,5 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/globals.dart';
@@ -9,31 +7,6 @@ import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
 class ExplorePage extends StatelessWidget {
-  Widget _buildSlider(BuildContext context) {
-    return StoreConnector<MainAppState, bool>(
-        converter: (s) => s.state.settingState.enableFunctionsUnderDev,
-        builder: (_, v) => (v == true)
-            ? new StoreConnector<MainAppState, List>(
-                builder: (context, newsList) => new CarouselSlider(
-                      items: newsList
-                          .map((n) => new Card(
-                                child: new Image(
-                                  image: (n["imageURL"] as String).isEmpty
-                                      ? AssetImage("res/slider.jpg")
-                                      : CachedNetworkImageProvider(
-                                          n["imageURL"]),
-                                  fit: BoxFit.fill,
-                                ),
-                              ))
-                          .toList(),
-                      viewportFraction: 0.88,
-                      aspectRatio: 2.0,
-                      autoPlay: true,
-                    ),
-                converter: (store) => store.state.uiState.news)
-            : Container());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +21,6 @@ class ExplorePage extends StatelessWidget {
       ),
       body: new ListView(
         children: <Widget>[
-          _buildSlider(context),
           new Container(
             margin: const EdgeInsets.all(10.0),
             child: new Card(

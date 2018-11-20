@@ -25,15 +25,14 @@ Map<String, dynamic> _$BillingRecordToJson(BillingRecord instance) =>
     };
 
 News _$NewsFromJson(Map<String, dynamic> json) {
-  return News(json['name'] as String, json['isWebPage'] as bool,
-      json['uri'] as String, json['imageURL'] as String);
+  return News(json['name'] as String, json['imageURL'] as String,
+      json['uri'] as String);
 }
 
 Map<String, dynamic> _$NewsToJson(News instance) => <String, dynamic>{
       'name': instance.name,
-      'isWebPage': instance.isWebPage,
-      'uri': instance.uri,
-      'imageURL': instance.imageURL
+      'imageURL': instance.imageURL,
+      'uri': instance.uri
     };
 
 AcData _$AcDataFromJson(Map<String, dynamic> json) {

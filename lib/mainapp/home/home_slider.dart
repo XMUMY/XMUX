@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/modules/common/simple_slider.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
 class HomeSlider extends StatefulWidget {
@@ -12,50 +14,34 @@ class HomeSlider extends StatefulWidget {
 }
 
 class _HomeSliderState extends State<HomeSlider> {
-  Widget _buildSlider(Map n) => n["isWebPage"]
-      ? Stack(
-          fit: StackFit.expand,
-          children: [
-            (n["imageURL"] as String).isEmpty
-                ? SvgPicture.asset("res/home/news.svg")
-                : CachedNetworkImage(
-                    imageUrl: n["imageURL"],
-                    fit: BoxFit.fill,
-                  ),
-            FlatButton(
-                onPressed: (n["uri"] as String).isEmpty
-                    ? null
-                    : () => launch(n["uri"]),
-                child: null),
-          ],
-        )
-      : Stack(
-          fit: StackFit.expand,
-          children: [
-            (n["imageURL"] as String).isEmpty
-                ? SvgPicture.asset("res/home/news.svg")
-                : CachedNetworkImage(
-                    imageUrl: n["imageURL"],
-                    fit: BoxFit.fill,
-                  ),
-            FlatButton(
-                onPressed: (n["uri"] as String).isEmpty
-                    ? null
-                    : () => Navigator.of(context).pushNamed(n["uri"]),
-                child: null),
-          ],
-        );
+  Widget _buildSlider(News n) => Stack(
+        fit: StackFit.expand,
+        children: [
+          CachedNetworkImage(imageUrl: n.imageURL, fit: BoxFit.fill),
+          FlatButton(
+              onPressed: n.uri.isEmpty ? null : () => launch(n.uri),
+              child: null),
+        ],
+      );
+
+  @override
+  void initState() {
+    store.dispatch(UpdateHomepageNewsAction());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) =>
       StoreConnector<MainAppState, List<Widget>>(
-        converter: (store) => store.state.uiState.news
-            .map((n) => _buildSlider(n as Map))
-            .toList()
-            .reversed
-            .toList(),
-        builder: (_, _pages) => SimpleSlider(
-              pages: _pages,
+        converter: (store) =>
+            store.state.uiState.homepageNews
+                ?.map((n) => _buildSlider(n))
+                ?.toList()
+                ?.reversed
+                ?.toList() ??
+            [SvgPicture.asset("res/home/news.svg")],
+        builder: (_, pages) => SimpleSlider(
+              pages: pages,
               autoPlayDuration: Duration(seconds: 4),
             ),
       );

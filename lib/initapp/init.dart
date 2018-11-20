@@ -44,7 +44,7 @@ Future<InitResult> init() async {
   });
 
   // Init XiA.
-  xiA = await XiA.init(ApiKeyConfig.dialogflowToken);
+  xiA = await XiA.init(ApiKeyConfig.dialogflowToken).catchError((e) {});
 
   // Init FCM.
   initFCM();
