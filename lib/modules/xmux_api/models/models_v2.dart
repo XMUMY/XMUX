@@ -7,6 +7,28 @@ part 'models_v2.g.dart';
 part 'moodle_v2.dart';
 
 @JsonSerializable()
+class Announcement {
+  final String headline;
+  final String detail;
+  @JsonKey(fromJson: _timestampFromJson, toJson: _timestampToJson)
+  final DateTime timestamp;
+  final String uri;
+
+  Announcement(this.headline, this.detail, this.timestamp, this.uri);
+
+  factory Announcement.fromJson(Map<String, dynamic> json) =>
+      _$AnnouncementFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AnnouncementToJson(this);
+
+  static DateTime _timestampFromJson(int timestamp) =>
+      DateTime.fromMillisecondsSinceEpoch(timestamp);
+
+  static int _timestampToJson(DateTime timestamp) =>
+      timestamp.millisecondsSinceEpoch;
+}
+
+@JsonSerializable()
 class BillingRecord {
   final String item;
   @JsonKey(fromJson: _amountFromJson, toJson: _amountToJson)

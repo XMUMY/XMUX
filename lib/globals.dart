@@ -5,17 +5,10 @@ import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:sentry/sentry.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/modules/backend_handler/backend_handler.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
-
-/// Backend handler instance.
-///
-/// Default is `null`. Will be selected during init.
-@deprecated
-BackendHandler backend;
 
 /// Firebase messaging instance.
 final firebaseMessaging = FirebaseMessaging();

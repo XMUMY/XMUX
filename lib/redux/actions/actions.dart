@@ -54,14 +54,6 @@ class OpenDrawerAction extends MainAppAction {
   final needSave = false;
 }
 
-class UpdateAnnouncementAction extends MainAppAction {
-  final List announcements;
-
-  UpdateAnnouncementAction(this.announcements);
-
-  final needSave = false;
-}
-
 class UpdateEPaymentPasswordAction extends MainAppAction {
   final String ePaymentPassword;
 

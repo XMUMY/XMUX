@@ -7,7 +7,6 @@ import 'package:xmux/mainapp/calendar/calendar_page.dart';
 import 'package:xmux/mainapp/drawer.dart';
 import 'package:xmux/mainapp/explore/explore_page.dart';
 import 'package:xmux/mainapp/home/home_page.dart';
-import 'package:xmux/mainapp/home/homepage_handler.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -45,10 +44,6 @@ class _MainPageState extends State<MainPage> {
         store.dispatch(OpenDrawerAction(false));
       }
     });
-
-    // Refresh slider & announcements.
-    HomePageHandler.updateAnnouncements(context: context)
-        .timeout(Duration(seconds: 10));
 
     super.initState();
   }

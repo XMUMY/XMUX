@@ -3,7 +3,7 @@ part of 'reducer.dart';
 final Reducer<UIState> uiReducers = combineReducers([
   TypedReducer<UIState, OpenDrawerAction>(_openDrawerReducer),
   TypedReducer<UIState, UpdateHomepageNewsAction>(_updateHomepageNewsReducer),
-  new TypedReducer<UIState, UpdateAnnouncementAction>(
+  new TypedReducer<UIState, UpdateHomepageAnnouncementsAction>(
       _updateAnnouncementsReducer),
 ]);
 
@@ -15,5 +15,5 @@ UIState _updateHomepageNewsReducer(
     state.copyWith(homepageNews: action.news);
 
 UIState _updateAnnouncementsReducer(
-        UIState state, UpdateAnnouncementAction action) =>
+        UIState state, UpdateHomepageAnnouncementsAction action) =>
     state.copyWith(announcements: action.announcements);

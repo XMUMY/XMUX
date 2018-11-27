@@ -1,4 +1,3 @@
-import 'package:connectivity/connectivity.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
@@ -182,32 +181,23 @@ class UIState {
   /// Drawer is open.
   final bool drawerIsOpen;
 
-  /// Connectivity result.
-  final ConnectivityResult connectivity;
-
   /// Homepage sliders.
   final List<News> homepageNews;
 
   /// Homepage announcements.
-  final List announcements;
+  final List<Announcement> announcements;
 
-  UIState(this.drawerIsOpen, this.connectivity, this.homepageNews,
-      this.announcements);
+  UIState(this.drawerIsOpen, this.homepageNews, this.announcements);
 
   UIState.def()
       : this.drawerIsOpen = false,
-        this.connectivity = ConnectivityResult.none,
         this.homepageNews = null,
-        this.announcements = [];
+        this.announcements = null;
 
   UIState copyWith(
-          {bool drawerIsOpen,
-          ConnectivityResult connectivity,
-          List<News> homepageNews,
-          List announcements}) =>
+          {bool drawerIsOpen, List<News> homepageNews, List announcements}) =>
       UIState(
           drawerIsOpen ?? this.drawerIsOpen,
-          connectivity ?? this.connectivity,
           homepageNews ?? this.homepageNews,
           announcements ?? this.announcements);
 }

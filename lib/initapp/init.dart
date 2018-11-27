@@ -11,7 +11,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/loginapp/login_handler.dart';
-import 'package:xmux/modules/backend_handler/backend_handler.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
@@ -28,10 +27,6 @@ Future<InitResult> init() async {
 
   // Get package Info.
   packageInfo = await PackageInfo.fromPlatform();
-
-  // Select backend server.
-  backend = BackendHandler(BackendApiConfig.addresses);
-  await BackendHandler.selectingBackend;
 
   // Select XMUX API server.
   xmuxApi = XMUXApi(BackendApiConfig.addresses);
@@ -77,6 +72,7 @@ Future<InitResult> init() async {
   store.dispatch(UpdateAcAction());
   store.dispatch(UpdateCoursesAction());
   store.dispatch(UpdateAssignmentsAction());
+  store.dispatch(UpdateHomepageAnnouncementsAction());
 
   return InitResult.finished;
 }

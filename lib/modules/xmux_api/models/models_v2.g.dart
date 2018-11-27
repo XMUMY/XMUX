@@ -6,6 +6,26 @@ part of 'models_v2.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+Announcement _$AnnouncementFromJson(Map<String, dynamic> json) {
+  return Announcement(
+      json['headline'] as String,
+      json['detail'] as String,
+      json['timestamp'] == null
+          ? null
+          : Announcement._timestampFromJson(json['timestamp'] as int),
+      json['uri'] as String);
+}
+
+Map<String, dynamic> _$AnnouncementToJson(Announcement instance) =>
+    <String, dynamic>{
+      'headline': instance.headline,
+      'detail': instance.detail,
+      'timestamp': instance.timestamp == null
+          ? null
+          : Announcement._timestampToJson(instance.timestamp),
+      'uri': instance.uri
+    };
+
 BillingRecord _$BillingRecordFromJson(Map<String, dynamic> json) {
   return BillingRecord(
       json['item'] as String,

@@ -94,6 +94,17 @@ class UpdateCoursesAction extends XMUXApiAction {
   }
 }
 
+class UpdateHomepageAnnouncementsAction extends XMUXApiAction {
+  List<Announcement> announcements;
+
+  @override
+  Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
+    var response = await xmuxApi.homepageAnnouncements(auth);
+    assign(response);
+    announcements = response.data;
+  }
+}
+
 class UpdateHomepageNewsAction extends XMUXApiAction {
   List<News> news;
 

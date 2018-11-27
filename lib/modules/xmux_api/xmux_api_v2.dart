@@ -184,6 +184,18 @@ class XMUXApi {
         response, (b) => b.map((b) => BillingRecord.fromJson(b)).toList());
   }
 
+  Future<XMUXApiResponse<List<Announcement>>> homepageAnnouncements(
+      XMUXApiAuth auth) async {
+    var response = await dio.post<Map<String, dynamic>>(
+        '/homepage/announcements',
+        data: {'id': auth.campusID});
+    return _generateResponse<Map<String, dynamic>, List<Announcement>>(
+        response,
+        (n) => (n['announcements'] as List)
+            .map((n) => Announcement.fromJson(n))
+            .toList());
+  }
+
   Future<XMUXApiResponse<List<News>>> homepageNews() async {
     var response = await dio.get<Map<String, dynamic>>('/homepage/news');
     return _generateResponse<Map<String, dynamic>, List<News>>(response,
