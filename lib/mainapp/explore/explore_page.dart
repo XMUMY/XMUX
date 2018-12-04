@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/explore/chat_room_page.dart';
 import 'package:xmux/mainapp/explore/eatx/eatx_page.dart';
+import 'package:xmux/mainapp/explore/flea_market/flea_market_page.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -60,6 +61,19 @@ class ExplorePage extends StatelessWidget {
                 new Icon(Icons.chat),
                 new Text(
                   " " + MainLocalizations.of(context).get("About/Feedback"),
+                  style: Theme.of(context).textTheme.subhead,
+                )
+              ],
+            ),
+          ),
+          new FlatButton(
+            onPressed: () => Navigator.of(context).push(
+                new MaterialPageRoute(builder: (_) => new FleaMarketPage())),
+            child: new Row(
+              children: <Widget>[
+                new Icon(Icons.store),
+                new Text(
+                  " " + i18n("Flea Market", context),
                   style: Theme.of(context).textTheme.subhead,
                 )
               ],
