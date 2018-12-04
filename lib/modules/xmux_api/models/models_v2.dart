@@ -66,3 +66,17 @@ class News {
 
   Map<String, dynamic> toJson() => _$NewsToJson(this);
 }
+
+@JsonSerializable(createToJson: false)
+class User {
+  final String campusId;
+  final String name;
+
+  /// The user avatar, usually from moodle (need convert).
+  @JsonKey(name: 'headpic')
+  final String photoUrl;
+
+  User(this.campusId, this.name, this.photoUrl);
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}

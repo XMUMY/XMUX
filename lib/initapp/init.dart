@@ -69,6 +69,8 @@ Future<InitResult> init() async {
     return InitResult.loginError;
   }
 
+  xmuxApi.configure(jwt: await firebaseUser.getIdToken());
+
   store.dispatch(UpdateAcAction());
   store.dispatch(UpdateCoursesAction());
   store.dispatch(UpdateAssignmentsAction());

@@ -55,6 +55,11 @@ Map<String, dynamic> _$NewsToJson(News instance) => <String, dynamic>{
       'uri': instance.uri
     };
 
+User _$UserFromJson(Map<String, dynamic> json) {
+  return User(json['campusId'] as String, json['name'] as String,
+      json['headpic'] as String);
+}
+
 AcData _$AcDataFromJson(Map<String, dynamic> json) {
   return AcData(
       timetable: (json['timetable'] as List)
