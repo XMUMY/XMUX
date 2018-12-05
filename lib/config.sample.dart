@@ -18,13 +18,6 @@ class BackendApiConfig {
 }
 
 class ThemeConfig {
-  static ThemeData iOSTheme = ThemeData(
-    primarySwatch: Colors.grey,
-    primaryColor: Colors.grey[100],
-    primaryColorBrightness: Brightness.light,
-    accentColor: Colors.grey[300],
-  );
-
   static ThemeData defaultTheme = ThemeData(
     primarySwatch: Colors.cyan,
     brightness: Brightness.light,
