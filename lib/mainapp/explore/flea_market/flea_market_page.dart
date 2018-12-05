@@ -1,10 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
+import 'item_detail_page.dart';
 import 'model.dart';
 
 class FleaMarketPage extends StatelessWidget {
@@ -13,11 +15,11 @@ class FleaMarketPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Flea Market'),
+        backgroundColor: Colors.deepOrange,
       ),
       body: FirebaseAnimatedList(
           query: FirebaseDatabase.instance.reference().child('flea_market'),
-          itemBuilder: (ctx, _, __, index) =>
-              ItemCard(Item.fromJson(Map<String, dynamic>.from(_.value)))),
+          itemBuilder: (ctx, _, __, index) => ItemCard(Item.fromSnapshot(_))),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {},
@@ -39,9 +41,23 @@ class ItemCard extends StatefulWidget {
 class _ItemCardState extends State<ItemCard> {
   var _elevation = 0.0;
 
+  /// User to get name and avatar;
+  User user;
+
+  @override
+  void initState() {
+    // Get user by UID.
+    xmuxApi
+        .getUser(widget.item.from)
+        .then((u) => setState(() => user = u.data));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () => Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => ItemDetailPage(widget.item))),
       onTapDown: (_) => setState(() => _elevation = 3.0),
       onTapUp: (_) => setState(() => _elevation = 0.0),
       onTapCancel: () => setState(() => _elevation = 0.0),
@@ -59,25 +75,21 @@ class _ItemCardState extends State<ItemCard> {
                   Padding(
                     padding: const EdgeInsets.all(13.0),
                     child: CircleAvatar(
-                      child: Icon(
-                        Icons.ac_unit,
-                        size: 30.0,
-                      ),
+                      child: user != null
+                          ? Image.network(user.photoUrl)
+                          : SpinKitPulse(color: Colors.white),
                     ),
                   ),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        FutureBuilder<XMUXApiResponse<User>>(
-                          future: xmuxApi.getUser(widget.item.from),
-                          builder: (_, snap) => snap.hasData
-                              ? Text(
-                                  snap.data.data.name,
-                                  style: Theme.of(context).textTheme.subhead,
-                                )
-                              : Text('Loading'),
-                        ),
+                        user != null
+                            ? Text(
+                                user.name,
+                                style: Theme.of(context).textTheme.subhead,
+                              )
+                            : Text('...'),
                         Text(
                           '${DateFormat.Md(Localizations.localeOf(context).languageCode).format(widget.item.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(widget.item.timestamp)}',
                           style: Theme.of(context).textTheme.caption,
@@ -97,11 +109,18 @@ class _ItemCardState extends State<ItemCard> {
                   ),
                 ],
               ),
-              Image.network(
-                widget.item.mainPicture,
-                height: 200.0,
-                width: MediaQuery.of(context).size.width,
-                fit: BoxFit.fitWidth,
+              Container(
+                height: 100.0,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: widget.item.photos.length,
+                  itemBuilder: (_, index) => index == 0
+                      ? Hero(
+                          tag: widget.item.key,
+                          child: Image.network(widget.item.photos[index]),
+                        )
+                      : Image.network(widget.item.photos[index]),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
