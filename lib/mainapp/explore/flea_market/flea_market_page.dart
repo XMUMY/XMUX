@@ -24,7 +24,6 @@ class FleaMarketPage extends StatelessWidget {
         child: Icon(Icons.add),
         onPressed: () {},
       ),
-      bottomNavigationBar: BottomAppBar(),
     );
   }
 }
@@ -39,9 +38,10 @@ class ItemCard extends StatefulWidget {
 }
 
 class _ItemCardState extends State<ItemCard> {
+  /// Float the card on tap.
   var _elevation = 0.0;
 
-  /// User to get name and avatar;
+  /// User to get name and avatar.
   User user;
 
   @override
@@ -49,7 +49,11 @@ class _ItemCardState extends State<ItemCard> {
     // Get user by UID.
     xmuxApi
         .getUser(widget.item.from)
-        .then((u) => setState(() => user = u.data));
+        .then((u) => setState(() => user = u.data))
+        .catchError(
+          (e) => Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text(e.toString()))),
+        );
     super.initState();
   }
 
@@ -72,6 +76,7 @@ class _ItemCardState extends State<ItemCard> {
             children: <Widget>[
               Row(
                 children: <Widget>[
+                  // Build user avatar.
                   Padding(
                     padding: const EdgeInsets.all(13.0),
                     child: CircleAvatar(
@@ -80,6 +85,8 @@ class _ItemCardState extends State<ItemCard> {
                           : SpinKitPulse(color: Colors.white),
                     ),
                   ),
+
+                  // Build user name and timestamp.
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,10 +104,12 @@ class _ItemCardState extends State<ItemCard> {
                       ],
                     ),
                   ),
+
+                  // Build price.
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Text(
-                      'RM120',
+                      'RM 120',
                       style: Theme.of(context)
                           .textTheme
                           .subhead
@@ -109,6 +118,8 @@ class _ItemCardState extends State<ItemCard> {
                   ),
                 ],
               ),
+
+              // Build slidable photos.
               Container(
                 height: 100.0,
                 child: ListView.builder(
@@ -122,6 +133,8 @@ class _ItemCardState extends State<ItemCard> {
                       : Image.network(widget.item.photos[index]),
                 ),
               ),
+
+              // Build title.
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(

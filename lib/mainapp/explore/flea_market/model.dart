@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'model.g.dart';
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable()
 class Item {
   String key;
 
@@ -11,7 +11,7 @@ class Item {
   final String name;
   final String description;
   final DateTime timestamp;
-  List<String> photos;
+  final List<String> photos;
 
   Item(this.from, this.name, this.description, this.timestamp, this.photos);
 
@@ -24,7 +24,7 @@ class Item {
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 }
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class Comment {
   final String from;
   final String comment;

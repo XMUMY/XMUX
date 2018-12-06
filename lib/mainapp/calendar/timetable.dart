@@ -110,7 +110,7 @@ class _LessonCardState extends State<_LessonCard> {
         return Center(
           child: Card(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                borderRadius: BorderRadius.circular(10.0)),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
