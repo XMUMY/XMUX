@@ -7,6 +7,7 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 import 'item_detail_page.dart';
+import 'item_edit_page.dart';
 import 'model.dart';
 
 class FleaMarketPage extends StatelessWidget {
@@ -22,7 +23,8 @@ class FleaMarketPage extends StatelessWidget {
           itemBuilder: (ctx, _, __, index) => ItemCard(Item.fromSnapshot(_))),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => ItemEditPage(null))),
       ),
     );
   }
