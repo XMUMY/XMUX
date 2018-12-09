@@ -72,6 +72,10 @@ class XMUXApi {
   /// Dio instance for http requests.
   final dio = Dio();
 
+  /// Callback to get ID token from firebaseUser.
+  /// Should be assigned before using APIs need JWT token.
+  Future<String> Function() getIdToken;
+
   /// Future of selectServer function for listening selecting status.
   static Future<Null> selectingServer;
 
@@ -185,6 +189,9 @@ class XMUXApi {
   }
 
   Future<XMUXApiResponse<User>> getUser(String campusId) async {
+    // If getter
+    if (getIdToken != null) configure(jwt: await getIdToken());
+
     var response = await dio.get<Map<String, dynamic>>('/users/$campusId');
     return _generateResponse<Map<String, dynamic>, User>(
         response, (data) => User.fromJson(data['user']));

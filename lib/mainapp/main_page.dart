@@ -8,7 +8,6 @@ import 'package:xmux/mainapp/drawer.dart';
 import 'package:xmux/mainapp/explore/explore_page.dart';
 import 'package:xmux/mainapp/home/home_page.dart';
 import 'package:xmux/redux/redux.dart';
-import 'package:xmux/translations/translation.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -23,10 +22,15 @@ class _MainPageState extends State<MainPage> {
   Widget _getPage(int index) {
     switch (index) {
       case 0:
+        store.dispatch(UpdateHomepageAnnouncementsAction());
         return HomePage();
       case 1:
+        store.dispatch(UpdateAcAction());
+        store.dispatch(UpdateCoursesAction());
+        store.dispatch(UpdateAssignmentsAction());
         return CalendarPage();
       case 2:
+        store.dispatch(UpdateCoursesAction());
         return AcademicPage();
       case 3:
         return ExplorePage();
@@ -65,19 +69,19 @@ class _MainPageState extends State<MainPage> {
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-                title: Text(MainLocalizations.of(context).get("Home")),
+                title: Text(i18n('Home', context)),
                 icon: Icon(Icons.home),
                 backgroundColor: Theme.of(context).primaryColor),
             BottomNavigationBarItem(
-                title: Text(MainLocalizations.of(context).get("Calendar")),
+                title: Text(i18n('Calendar', context)),
                 icon: Icon(Icons.calendar_today),
                 backgroundColor: Theme.of(context).primaryColor),
             BottomNavigationBarItem(
-                title: Text(MainLocalizations.of(context).get("Academic")),
+                title: Text(i18n('Academic', context)),
                 icon: Icon(Icons.explore),
                 backgroundColor: Colors.lightBlue),
             BottomNavigationBarItem(
-                title: Text(MainLocalizations.of(context).get("Explore")),
+                title: Text(i18n('Explore', context)),
                 icon: Icon(Icons.search),
                 backgroundColor: Colors.indigo[800]),
           ],
