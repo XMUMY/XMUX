@@ -1,8 +1,11 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:xmux/globals.dart';
 
 import 'model.dart';
+import 'picture.dart';
 
 enum ItemEditResult { succeed, failed, deleted }
 
@@ -19,14 +22,67 @@ class _ItemEditPageState extends State<ItemEditPage> {
   final TextEditingController _nameController;
   final TextEditingController _descriptionController;
 
-  List<Image> _pictures;
+  List<Picture> _pictures;
 
   _ItemEditPageState(Item item)
       : this._nameController = TextEditingController(text: item?.name ?? null),
         this._descriptionController =
             TextEditingController(text: item?.description ?? null),
         this._pictures =
-            item?.photos?.map((p) => Image.network(p))?.toList() ?? [];
+            item?.photos?.map((p) => Picture.network(p))?.toList() ?? [];
+
+  void _handlePictureAdd() async {
+    var imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var picture = Picture.file(
+      imageFile,
+      onDelete: (p) {
+        _pictures.remove(p);
+        setState(() => _pictures = List.from(_pictures));
+      },
+    );
+    setState(() => _pictures += [picture]);
+  }
+
+  void _handleSubmit() async {
+    var timestamp = DateTime.now();
+    List<String> pictureUrls = [];
+
+    var storageRef = FirebaseStorage.instance.ref().child(
+        '/flea_market/${firebaseUser.uid.toLowerCase()}-${timestamp.toIso8601String()}');
+    for (var i = 0; i < _pictures.length; i++) {
+      var snap =
+          await storageRef.child('$i').putFile(_pictures[i].file).onComplete;
+      pictureUrls.add(await snap.ref.getDownloadURL());
+    }
+
+    var item = Item(
+      widget.item?.from ?? firebaseUser.uid.toLowerCase(),
+      _nameController.text,
+      _descriptionController.text,
+      timestamp,
+      pictureUrls,
+    ).toJson();
+
+    await FirebaseDatabase.instance
+        .reference()
+        .child('/flea_market')
+        .push()
+        .set(item);
+
+    Navigator.of(context).pop();
+  }
+
+  void _handleRemove() async {
+    var storageRef = FirebaseStorage.instance.ref().child(
+        '/flea_market/${widget.item.from}-${widget.item.timestamp.toIso8601String()}');
+    for (var i = 0; i < _pictures.length; i++) storageRef.child('$i').delete();
+
+    await FirebaseDatabase.instance
+        .reference()
+        .child('/flea_market/${widget.item.key}')
+        .remove();
+    Navigator.of(context).pop(ItemEditResult.deleted);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +92,9 @@ class _ItemEditPageState extends State<ItemEditPage> {
         backgroundColor: Colors.deepOrange,
         actions: <Widget>[
           widget.item != null
-              ? IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () async {
-                    await FirebaseDatabase.instance
-                        .reference()
-                        .child('/flea_market/${widget.item.key}')
-                        .remove();
-                    Navigator.of(context).pop();
-                  })
+              ? IconButton(icon: Icon(Icons.delete), onPressed: _handleRemove)
               : Container(),
-          IconButton(icon: Icon(Icons.done), onPressed: () {}),
+          IconButton(icon: Icon(Icons.done), onPressed: _handleSubmit),
         ],
       ),
       body: ListView(
@@ -102,21 +150,14 @@ class _ItemEditPageState extends State<ItemEditPage> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () async {
-                          var image = await ImagePicker.pickImage(
-                              source: ImageSource.gallery);
-                          setState(() {
-                            _pictures += [Image.file(image)];
-                          });
-                        },
-                      )
+                          icon: Icon(Icons.add), onPressed: _handlePictureAdd)
                     ],
                   ),
                 ),
                 Container(
                   height: 110.0,
                   child: ListView(
+                    padding: const EdgeInsets.all(8.0),
                     scrollDirection: Axis.horizontal,
                     children: _pictures,
                   ),

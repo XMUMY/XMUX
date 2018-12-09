@@ -16,7 +16,10 @@ part 'comment.dart';
 class ItemDetailPage extends StatelessWidget {
   final Item item;
 
-  ItemDetailPage(this.item);
+  /// The name and photoUrl to reduce API call frequency.
+  final String name, photoUrl;
+
+  ItemDetailPage(this.item, this.name, this.photoUrl);
 
   List<Widget> _buildDetails(BuildContext context) {
     return <Widget>[
@@ -25,27 +28,18 @@ class ItemDetailPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: CircleAvatar(
-              child: FutureBuilder<XMUXApiResponse<User>>(
-                future: xmuxApi.getUser(item.from),
-                builder: (_, snap) => snap.hasData
-                    ? Image.network(snap.data.data.photoUrl)
-                    : SpinKitPulse(color: Colors.white),
-              ),
+              child: photoUrl != null
+                  ? Image.network(photoUrl)
+                  : SpinKitPulse(color: Colors.white),
             ),
           ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                FutureBuilder<XMUXApiResponse<User>>(
-                  future: xmuxApi.getUser(item.from),
-                  builder: (_, snap) => snap.hasData
-                      ? Text(
-                          snap.data.data.name,
-                          style: Theme.of(context).textTheme.subhead,
-                        )
-                      : Text('...'),
-                ),
+                name != null
+                    ? Text(name, style: Theme.of(context).textTheme.subhead)
+                    : Text('...'),
                 Text(
                   '${DateFormat.yMd(Localizations.localeOf(context).languageCode).format(item.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(item.timestamp)}',
                   style: Theme.of(context).textTheme.caption,
@@ -78,7 +72,10 @@ class ItemDetailPage extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 0.0),
-        child: Text(item.description),
+        child: Text(
+          item.description,
+          style: Theme.of(context).textTheme.subhead,
+        ),
       ),
     ];
   }
@@ -99,7 +96,7 @@ class ItemDetailPage extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      'Comments',
+                      '留言',
                       style: Theme.of(context).textTheme.title,
                     ),
                   ),
@@ -136,7 +133,7 @@ class ItemDetailPage extends StatelessWidget {
           // Build sliver app bar.
           SliverAppBar(
             backgroundColor: Colors.deepOrange,
-            expandedHeight: 256.0,
+            expandedHeight: 200.0,
             pinned: true,
             actions: <Widget>[
               // Edit button if isOwner.

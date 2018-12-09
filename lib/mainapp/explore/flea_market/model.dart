@@ -5,6 +5,8 @@ part 'model.g.dart';
 
 @JsonSerializable()
 class Item {
+  /// The key for database. Only available if not new.
+  @JsonKey(ignore: true)
   String key;
 
   final String from;
@@ -22,6 +24,8 @@ class Item {
   }
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItemToJson(this);
 }
 
 @JsonSerializable(createToJson: false)

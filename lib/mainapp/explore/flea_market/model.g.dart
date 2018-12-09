@@ -18,9 +18,15 @@ Item _$ItemFromJson(Map<String, dynamic> json) {
     ..key = json['key'] as String;
 }
 
+Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
+      'key': instance.key,
+      'from': instance.from,
+      'name': instance.name,
+      'description': instance.description,
+      'timestamp': instance.timestamp?.toIso8601String(),
+      'photos': instance.photos
+    };
+
 Comment _$CommentFromJson(Map<String, dynamic> json) {
   return Comment(json['from'] as String, json['comment'] as String);
 }
-
-Map<String, dynamic> _$CommentToJson(Comment instance) =>
-    <String, dynamic>{'from': instance.from, 'comment': instance.comment};
