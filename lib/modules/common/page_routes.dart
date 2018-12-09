@@ -3,8 +3,6 @@ library common.page_routes;
 import 'package:flutter/material.dart';
 
 class SlideLeftRoute extends PageRouteBuilder {
-  final Widget widget;
-
   static Widget _transitionsBuilder(
       BuildContext context,
       Animation<double> animation,
@@ -19,15 +17,13 @@ class SlideLeftRoute extends PageRouteBuilder {
     );
   }
 
-  SlideLeftRoute(this.widget)
+  SlideLeftRoute(WidgetBuilder builder)
       : super(
-            pageBuilder: (BuildContext context, _, __) => widget,
+            pageBuilder: (BuildContext context, _, __) => builder(context),
             transitionsBuilder: _transitionsBuilder);
 }
 
-class FadeRoute extends PageRouteBuilder {
-  final Widget widget;
-
+class FadeRoute<T> extends PageRouteBuilder<T> {
   static Widget _transitionsBuilder(
       BuildContext context,
       Animation<double> animation,
@@ -42,8 +38,8 @@ class FadeRoute extends PageRouteBuilder {
     );
   }
 
-  FadeRoute(this.widget)
+  FadeRoute(WidgetBuilder builder)
       : super(
-            pageBuilder: (BuildContext context, _, __) => widget,
+            pageBuilder: (BuildContext context, _, __) => builder(context),
             transitionsBuilder: _transitionsBuilder);
 }

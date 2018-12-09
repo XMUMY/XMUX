@@ -144,9 +144,12 @@ class ItemDetailPage extends StatelessWidget {
                   ? IconButton(
                       icon: const Icon(Icons.create),
                       tooltip: 'Edit',
-                      onPressed: () {
-                        Navigator.of(context)
-                            .push(FadeRoute(ItemEditPage(item)));
+                      onPressed: () async {
+                        var res = await Navigator.of(context)
+                            .push<ItemEditResult>(
+                                FadeRoute((_) => ItemEditPage(item)));
+                        if (res == ItemEditResult.deleted)
+                          Navigator.of(context).pop();
                       },
                     )
                   : Container(),

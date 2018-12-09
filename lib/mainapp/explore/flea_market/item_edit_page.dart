@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 
 import 'model.dart';
 
+enum ItemEditResult { succeed, failed, deleted }
+
 class ItemEditPage extends StatefulWidget {
   final Item item;
 
