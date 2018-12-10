@@ -112,7 +112,7 @@ class _ItemCardState extends State<ItemCard> {
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Text(
-                      'RM 120',
+                      '${widget.item.price.currencies} ${widget.item.price.value.toStringAsFixed(2)}',
                       style: Theme.of(context)
                           .textTheme
                           .subhead

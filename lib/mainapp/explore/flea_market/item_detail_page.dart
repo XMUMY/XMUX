@@ -50,7 +50,7 @@ class ItemDetailPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(18.0),
             child: Text(
-              'RM 120',
+              '${item.price.currencies} ${item.price.value.toStringAsFixed(2)}',
               style: Theme.of(context)
                   .textTheme
                   .subhead
