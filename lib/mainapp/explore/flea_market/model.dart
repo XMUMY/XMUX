@@ -50,8 +50,9 @@ class Price {
 class Comment {
   final String from;
   final String comment;
+  final DateTime timestamp;
 
-  Comment(this.from, this.comment);
+  Comment(this.from, this.comment, this.timestamp);
 
   factory Comment.fromSnapshot(DataSnapshot snap) =>
       _$CommentFromJson(Map<String, dynamic>.from(snap.value));

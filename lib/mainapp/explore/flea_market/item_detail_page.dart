@@ -140,19 +140,20 @@ class ItemDetailPage extends StatelessWidget {
               item.from.toLowerCase() == firebaseUser.uid
                   ? IconButton(
                       icon: const Icon(Icons.create),
-                      tooltip: 'Edit',
+                      tooltip: '编辑',
                       onPressed: () async {
                         var res = await Navigator.of(context)
                             .push<ItemEditResult>(
                                 FadeRoute((_) => ItemEditPage(item)));
-                        if (res == ItemEditResult.deleted)
+                        if (res == ItemEditResult.deleted ||
+                            res == ItemEditResult.succeed)
                           Navigator.of(context).pop();
                       },
                     )
                   : Container(),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              title: Text('Item Details'),
+              title: Text('商品详情'),
               background: Stack(
                 fit: StackFit.expand,
                 children: <Widget>[

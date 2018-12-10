@@ -39,5 +39,10 @@ Map<String, dynamic> _$PriceToJson(Price instance) => <String, dynamic>{
     };
 
 Comment _$CommentFromJson(Map<String, dynamic> json) {
-  return Comment(json['from'] as String, json['comment'] as String);
+  return Comment(
+      json['from'] as String,
+      json['comment'] as String,
+      json['timestamp'] == null
+          ? null
+          : DateTime.parse(json['timestamp'] as String));
 }

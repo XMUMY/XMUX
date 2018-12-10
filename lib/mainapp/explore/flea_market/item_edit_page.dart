@@ -84,7 +84,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
 
     // Upload item details.
     var item = Item(
-      widget.item?.from ?? firebaseUser.uid.toLowerCase(),
+      firebaseUser.uid.toLowerCase(),
       name,
       description,
       Price(priceValue, 'RM'),
@@ -97,12 +97,36 @@ class _ItemEditPageState extends State<ItemEditPage> {
         .push()
         .set(item);
 
-    Navigator.of(context).pop();
+    Navigator.of(context).pop(ItemEditResult.succeed);
   }
 
-  void _handleUpdate() {
+  void _handleUpdate() async {
     // Validate
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState.validate() ||
+        !_priceFormKey.currentState.validate()) return;
+
+    // Lock data.
+    var name = _nameController.text;
+    var description = _descriptionController.text;
+    var priceValue = double.parse(_priceController.text);
+    var timestamp = DateTime.now();
+    setState(() => _isProcessing = true);
+
+    // Update item details.
+    var item = Item(
+      widget.item.from,
+      name,
+      description,
+      Price(priceValue, 'RM'),
+      timestamp,
+      widget.item.photos,
+    ).toJson();
+    await FirebaseDatabase.instance
+        .reference()
+        .child('/flea_market/${widget.item.key}')
+        .update(item);
+
+    Navigator.of(context).pop(ItemEditResult.succeed);
   }
 
   void _handleRemove() async {
@@ -134,7 +158,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('商品编辑'),
+        title: Text('编辑'),
         backgroundColor: Colors.deepOrange,
         actions: <Widget>[
           widget.item != null
@@ -143,7 +167,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
           _isProcessing
               ? Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: SpinKitDualRing(color: Colors.white, size: 30.0))
+                  child: SpinKitFadingFour(color: Colors.white, size: 30.0))
               : IconButton(
                   icon: Icon(Icons.done),
                   onPressed:

@@ -12,7 +12,11 @@ class _CommentDialog extends StatelessWidget {
         .reference()
         .child('flea_market/$_itemKey/comments')
         .push()
-        .set({'from': firebaseUser.uid, 'comment': text});
+        .set({
+      'from': firebaseUser.uid,
+      'comment': text,
+      'timestamp': DateTime.now().toIso8601String()
+    });
   }
 
   @override
@@ -27,15 +31,15 @@ class _CommentDialog extends StatelessWidget {
           maxLines: 4,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            hintText: 'Tell something to seller',
-            labelText: 'Make a comment',
+            hintText: '问些什么吧？',
+            labelText: '留言',
           ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             FlatButton(
-              child: const Text('Comment'),
+              child: const Text('留言'),
               onPressed: () {
                 if (_controller.text.isNotEmpty)
                   _handleComment(_controller.text);
@@ -86,7 +90,11 @@ class _CommentCard extends StatelessWidget {
                     : Text('...'),
               ),
               Padding(padding: const EdgeInsets.all(1.0)),
-              Text(_comment.comment)
+              Text(_comment.comment),
+              Text(
+                '${DateFormat.yMd(Localizations.localeOf(context).languageCode).format(_comment.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(_comment.timestamp)}',
+                style: Theme.of(context).textTheme.caption,
+              )
             ],
           ),
         ),
