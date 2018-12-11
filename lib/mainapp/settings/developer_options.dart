@@ -2,20 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
-import 'package:xmux/translations/translation.dart';
 
-class DeveloperOptionsPage extends StatefulWidget {
-  @override
-  _DeveloperOptionsPageState createState() => _DeveloperOptionsPageState();
-}
-
-class _DeveloperOptionsPageState extends State<DeveloperOptionsPage> {
+class DeveloperOptionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            MainLocalizations.of(context).get("Settings/DeveloperOptions")),
+        title: Text(i18n('Settings/DeveloperOptions', context)),
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
@@ -28,7 +21,7 @@ class _DeveloperOptionsPageState extends State<DeveloperOptionsPage> {
             ),
           ),
           Text(
-            i18n("Settings/DeveloperOptions/Warning", context),
+            i18n('Settings/DeveloperOptions/Warning', context),
             textAlign: TextAlign.center,
           ),
           Divider(),
@@ -36,10 +29,11 @@ class _DeveloperOptionsPageState extends State<DeveloperOptionsPage> {
             converter: (store) =>
                 store.state.settingState.enableFunctionsUnderDev,
             builder: (context, value) => SwitchListTile(
-                  title: Text(MainLocalizations.of(context)
-                      .get("Settings/DeveloperOptions/EnFuncsUnderDev")),
-                  subtitle: Text(MainLocalizations.of(context).get(
-                      "Settings/DeveloperOptions/EnFuncsUnderDev/Caption")),
+                  title: Text(i18n(
+                      'Settings/DeveloperOptions/EnFuncsUnderDev', context)),
+                  subtitle: Text(i18n(
+                      'Settings/DeveloperOptions/EnFuncsUnderDev/Caption',
+                      context)),
                   value: value,
                   onChanged: (v) =>
                       store.dispatch(EnableFunctionsUnderDevAction(!value)),

@@ -1,56 +1,58 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/translations/translation.dart';
 
-class ChangePersonalInfoPage extends StatelessWidget {
+class ChangePersonalInfoPage extends StatefulWidget {
+  @override
+  _ChangePersonalInfoPageState createState() => _ChangePersonalInfoPageState();
+}
+
+class _ChangePersonalInfoPageState extends State<ChangePersonalInfoPage> {
   final _displayNameController =
-      TextEditingController(text: firebaseUser?.displayName ?? "User");
+      TextEditingController(text: firebaseUser?.displayName ?? 'User');
+
+  final _formKey = GlobalKey<FormState>();
+
+  void _handleSubmit() async {
+    if (!_formKey.currentState.validate()) return;
+    firebaseUser.updateProfile(
+        UserUpdateInfo()..displayName = _displayNameController.text);
+    firebaseUser.reload();
+    firebaseUser = await FirebaseAuth.instance.currentUser();
+    Navigator.of(context).pop();
+  }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(
-              MainLocalizations.of(context).get("Settings/ChangePersonalInfo")),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.done),
-              onPressed: () {
-                if (_displayNameController.text.isNotEmpty) {
-                  firebaseUser.updateProfile(UserUpdateInfo()
-                    ..displayName = _displayNameController.text);
-                  Navigator.of(context).pop();
-                } else
-                  Navigator.of(context).pop();
-              },
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(i18n('Settings/ChangeProfile', context)),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.done),
+            onPressed: _handleSubmit,
+          ),
+        ],
+      ),
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: const EdgeInsets.all(10.0),
+          children: <Widget>[
+            Text(
+              i18n('Settings/ChangeProfile/Caption', context),
+              style: Theme.of(context).textTheme.caption,
+            ),
+            TextFormField(
+              controller: _displayNameController,
+              decoration: InputDecoration(
+                  labelText:
+                      i18n('Settings/ChangeProfile/DisplayName', context)),
+              validator: (name) => name.isNotEmpty ? null : 'Format error',
             ),
           ],
         ),
-        body: Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                MainLocalizations.of(context)
-                    .get("Settings/ChangePersonalInfo/Caption"),
-                style: Theme.of(context).textTheme.caption,
-              ),
-              TextField(
-                controller: _displayNameController,
-                decoration: InputDecoration(
-                    hintText: MainLocalizations.of(context)
-                        .get("Settings/ChangePersonalInfo/Input")),
-                onSubmitted: (t) {
-                  if (t.isNotEmpty) {
-                    firebaseUser
-                        .updateProfile(UserUpdateInfo()..displayName = t);
-                    Navigator.of(context).pop();
-                  } else
-                    Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        ),
-      );
+      ),
+    );
+  }
 }
