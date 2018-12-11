@@ -62,7 +62,7 @@ class MainApp extends StatelessWidget {
           '/Me/RoomReservation': (_) => RoomWebviewPage(),
           '/Me/Emergency': (_) => EmergencyPage(),
           '/Settings': (_) => SettingsPage(),
-          '/Settings/ChangePersonalInfo': (_) => ChangePersonalInfoPage(),
+          '/Settings/ChangeProfile': (_) => ChangePersonalInfoPage(),
           '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
           '/explore/lostandfound': (_) => LostAndFoundPage()
         },

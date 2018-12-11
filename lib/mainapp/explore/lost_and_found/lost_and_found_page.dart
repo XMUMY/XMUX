@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/explore/lost_and_found/create.dart';
 import 'package:xmux/mainapp/explore/lost_and_found/detail.dart';
 import 'package:xmux/translations/translation.dart';
@@ -72,8 +73,9 @@ class LostAndFoundCard extends StatelessWidget {
               new Container(
                 margin: const EdgeInsets.only(right: 16.0),
                 child: new CircleAvatar(
-                  backgroundImage:
-                      new NetworkImage(dataSnapshot.value['senderPhotoUrl']),
+                  backgroundImage: new NetworkImage(xmuxApi.convertAvatarUrl(
+                      dataSnapshot.value['senderPhotoUrl'],
+                      store.state.authState.moodleKey)),
                   radius: 25.0,
                 ),
               ),
