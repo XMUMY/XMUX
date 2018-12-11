@@ -2,23 +2,23 @@ PODS:
   - connectivity (0.0.1):
     - Flutter
     - Reachability
-  - Firebase/Auth (5.8.0):
+  - Firebase/Auth (5.14.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (= 5.0.4)
-  - Firebase/Core (5.8.0):
+    - FirebaseAuth (= 5.1.0)
+  - Firebase/Core (5.14.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.1.2)
-  - Firebase/CoreOnly (5.8.0):
-    - FirebaseCore (= 5.1.3)
-  - Firebase/Database (5.8.0):
+    - FirebaseAnalytics (= 5.4.0)
+  - Firebase/CoreOnly (5.14.0):
+    - FirebaseCore (= 5.1.9)
+  - Firebase/Database (5.14.0):
     - Firebase/CoreOnly
-    - FirebaseDatabase (= 5.0.3)
-  - Firebase/Messaging (5.8.0):
+    - FirebaseDatabase (= 5.0.4)
+  - Firebase/Messaging (5.14.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (= 3.1.2)
-  - Firebase/Storage (5.8.0):
+    - FirebaseMessaging (= 3.2.2)
+  - Firebase/Storage (5.14.0):
     - Firebase/CoreOnly
-    - FirebaseStorage (= 3.0.2)
+    - FirebaseStorage (= 3.0.3)
   - firebase_auth (0.0.1):
     - Firebase/Auth
     - Firebase/Core
@@ -36,72 +36,79 @@ PODS:
   - firebase_storage (0.0.1):
     - Firebase/Storage
     - Flutter
-  - FirebaseAnalytics (5.1.2):
+  - FirebaseAnalytics (5.4.0):
     - FirebaseCore (~> 5.1)
-    - FirebaseInstanceID (~> 3.2)
-    - GoogleAppMeasurement (~> 5.1)
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2.0)
-    - GoogleUtilities/MethodSwizzler (~> 5.2.0)
+    - FirebaseInstanceID (~> 3.3)
+    - GoogleAppMeasurement (= 5.4.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - FirebaseAuth (5.0.4):
+  - FirebaseAnalyticsInterop (1.1.0)
+  - FirebaseAuth (5.1.0):
     - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 5.0)
+    - FirebaseCore (~> 5.1)
     - GoogleUtilities/Environment (~> 5.2)
     - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseAuthInterop (1.0.0)
-  - FirebaseCore (5.1.3):
+  - FirebaseCore (5.1.9):
     - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseDatabase (5.0.3):
-    - FirebaseCore (~> 5.0)
-    - leveldb-library (~> 1.18)
-  - FirebaseInstanceID (3.2.1):
+  - FirebaseDatabase (5.0.4):
+    - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.1)
-    - GoogleUtilities/Environment (~> 5.2)
-  - FirebaseMessaging (3.1.2):
-    - FirebaseCore (~> 5.0)
+    - leveldb-library (~> 1.18)
+  - FirebaseInstanceID (3.3.0):
+    - FirebaseCore (~> 5.1)
+    - GoogleUtilities/Environment (~> 5.3)
+    - GoogleUtilities/UserDefaults (~> 5.3)
+  - FirebaseMessaging (3.2.2):
+    - FirebaseAnalyticsInterop (~> 1.1)
+    - FirebaseCore (~> 5.1)
     - FirebaseInstanceID (~> 3.0)
+    - GoogleUtilities/Environment (~> 5.2)
     - GoogleUtilities/Reachability (~> 5.2)
     - Protobuf (~> 3.1)
-  - FirebaseStorage (3.0.2):
+  - FirebaseStorage (3.0.3):
     - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 5.0)
+    - FirebaseCore (~> 5.1)
     - GTMSessionFetcher/Core (~> 1.1)
   - Flutter (1.0.0)
   - flutter_webview_plugin (0.0.1):
     - Flutter
-  - GoogleAppMeasurement (5.1.2):
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2.0)
-    - GoogleUtilities/MethodSwizzler (~> 5.2.0)
+  - GoogleAppMeasurement (5.4.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
+    - GoogleUtilities/MethodSwizzler (~> 5.2)
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - GoogleUtilities/AppDelegateSwizzler (5.2.3):
+  - GoogleUtilities/AppDelegateSwizzler (5.3.6):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.2.3)
-  - GoogleUtilities/Logger (5.2.3):
+  - GoogleUtilities/Environment (5.3.6)
+  - GoogleUtilities/Logger (5.3.6):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.2.3):
+  - GoogleUtilities/MethodSwizzler (5.3.6):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.2.3):
+  - GoogleUtilities/Network (5.3.6):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.2.3)"
-  - GoogleUtilities/Reachability (5.2.3):
+  - "GoogleUtilities/NSData+zlib (5.3.6)"
+  - GoogleUtilities/Reachability (5.3.6):
     - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.2.0)
+  - GoogleUtilities/UserDefaults (5.3.6):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (1.2.1)
   - image_picker (0.0.1):
     - Flutter
   - leveldb-library (1.20)
-  - nanopb (0.3.8):
-    - nanopb/decode (= 0.3.8)
-    - nanopb/encode (= 0.3.8)
-  - nanopb/decode (0.3.8)
-  - nanopb/encode (0.3.8)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
   - package_info (0.0.1):
     - Flutter
   - path_provider (0.0.1):
@@ -111,6 +118,8 @@ PODS:
   - shared_preferences (0.0.1):
     - Flutter
   - url_launcher (0.0.1):
+    - Flutter
+  - webview_flutter (0.0.1):
     - Flutter
 
 DEPENDENCIES:
@@ -127,11 +136,13 @@ DEPENDENCIES:
   - path_provider (from `Pods/.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `Pods/.symlinks/plugins/shared_preferences/ios`)
   - url_launcher (from `Pods/.symlinks/plugins/url_launcher/ios`)
+  - webview_flutter (from `Pods/.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Firebase
     - FirebaseAnalytics
+    - FirebaseAnalyticsInterop
     - FirebaseAuth
     - FirebaseAuthInterop
     - FirebaseCore
@@ -174,37 +185,41 @@ EXTERNAL SOURCES:
     :path: Pods/.symlinks/plugins/shared_preferences/ios
   url_launcher:
     :path: Pods/.symlinks/plugins/url_launcher/ios
+  webview_flutter:
+    :path: Pods/.symlinks/plugins/webview_flutter/ios
 
 SPEC CHECKSUMS:
   connectivity: d5992e3758d68b1c4b12d6e012fe0813f1aa1645
-  Firebase: 25812f43e7a53b11ae2f0a5f4c6d12faeb1f7cd7
+  Firebase: 963d5685fae888a56d6d4d9cfce6b9c976958798
   firebase_auth: 27a5a77a032d557c18f8e223aaf8ec1368f6cdbc
   firebase_core: c96aa8b2fcf7f5167d32f22034f502f9304952b8
   firebase_database: dd62ab9f71967c9011ce2fd03a89e762dcc364df
   firebase_messaging: a5f5d4a9491b660f33a1f94bd0596558f820bad1
   firebase_storage: e34d30ff8bb57e691191b70e9d255ec2eba2351f
-  FirebaseAnalytics: df15839e9c6ca6bd14d2e8ab6b0c672e6c49097e
-  FirebaseAuth: 504b198ceb3472dca5c65bb95544ea44cfc9439e
+  FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
+  FirebaseAnalyticsInterop: e5f21be9af6548372e2f0815834ff909bff395a2
+  FirebaseAuth: 4a5cc5fc2d1721e509e24699b93ebc3d94b1e195
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
-  FirebaseCore: 27bd80e5bfaaf9552a1f5cacb4c7e8bb925bab22
-  FirebaseDatabase: e2bcbc106adc4b11a2da3ec2eb63c0c4a44f2f54
-  FirebaseInstanceID: ea5af6920d0a4a29b40459d055bebe4a6c1333c4
-  FirebaseMessaging: d6feeb06218d2675b4149b0ada925a6b707a74cf
-  FirebaseStorage: fd82e5e5c474897e19972b34b22ac0f589dce04e
+  FirebaseCore: 8f49b70f57ab5cbb032ef41d64992ded21606459
+  FirebaseDatabase: 0621689f77528d62b47e1c06ca737c4c19275d1a
+  FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
+  FirebaseMessaging: b412996f6a09337d232bb3a6676ce4d1f353d024
+  FirebaseStorage: 3d22c041370593e639fba013d1eb698a8dae2881
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
-  flutter_webview_plugin: 116575b48572029304775b768e9f15ebfc316274
-  GoogleAppMeasurement: fc4a4c3fe0144db9313cbf443ffe62e6b1d6268c
-  GoogleUtilities: 6f681e27050c5e130325e89fa0316dfca826f954
-  GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
+  flutter_webview_plugin: 0b491d31c34ab5c86a71c9f1a57ac000dd1b75e9
+  GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
+  GoogleUtilities: 95996bea7c7d9b8fb811b7507669a4a8762f80c7
+  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   image_picker: ee00aab0487cedc80a304085219503cc6d0f2e22
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
-  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   package_info: d7c98b64f60add4c2908b9d94d82a45d3c8827ad
   path_provider: 09407919825bfe3c2deae39453b7a5b44f467873
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences: 5a1d487c427ee18fcd3ea1f2a131569481834b53
   url_launcher: 92b89c1029a0373879933c21642958c874539095
+  webview_flutter: 9bd234c07e99632356cba112df56fd1d47d6b6e3
 
 PODFILE CHECKSUM: ea0518673586564c605fb6593d385c0e3708ff8d
 

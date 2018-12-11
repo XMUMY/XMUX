@@ -73,10 +73,9 @@ class _ItemEditPageState extends State<ItemEditPage> {
         '/flea_market/${firebaseUser.uid.toLowerCase()}-${timestamp.toIso8601String()}');
     for (var i = 0; i < _pictures.length; i++) {
       // Compress image file.
-      var image = Im.decodeImage(_pictures[i].file.readAsBytesSync());
+      var image = Im.decodeImage(await _pictures[i].file.readAsBytes());
       image = Im.copyResize(image, 1080);
       var bytes = Im.encodeJpg(image, quality: 50);
-      print(bytes.length);
       // Upload & get link.
       var snap = await storageRef.child('$i').putData(bytes).onComplete;
       pictureUrls.add(await snap.ref.getDownloadURL());
