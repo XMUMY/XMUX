@@ -188,8 +188,15 @@ class XMUXApi {
         response, (b) => b.map((b) => BillingRecord.fromJson(b)).toList());
   }
 
+  Future<XMUXApiResponse<Null>> createUser(XMUXApiAuth auth, User user) async {
+    var response = await dio.post<Map<String, dynamic>>(
+        '/users/${auth.campusID}',
+        data: user.toJson()..addAll({'pass': auth.campusIDPassword}));
+    return _generateResponse<Map<String, dynamic>, Null>(response, (_) {});
+  }
+
   Future<XMUXApiResponse<User>> getUser(String campusId) async {
-    // If getter
+    // Refresh JWT token if getter not null.
     if (getIdToken != null) configure(jwt: await getIdToken());
 
     var response = await dio.get<Map<String, dynamic>>('/users/$campusId');
@@ -229,5 +236,10 @@ class XMUXApi {
     });
     return _generateResponse<Map<String, dynamic>, MoodleData>(
         response, MoodleData.fromJson);
+  }
+
+  Future<Null> updateUser(User user) async {
+    if (getIdToken != null) configure(jwt: await getIdToken());
+    await dio.patch('/users/${user.campusId}', data: user.toJson());
   }
 }

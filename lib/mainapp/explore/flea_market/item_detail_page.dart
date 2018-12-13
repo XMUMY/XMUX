@@ -27,11 +27,12 @@ class ItemDetailPage extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(15.0),
-            child: CircleAvatar(
-              child: photoUrl != null
-                  ? Image.network(photoUrl)
-                  : SpinKitPulse(color: Colors.white),
-            ),
+            child: photoUrl != null
+                ? CircleAvatar(
+                    backgroundImage: NetworkImage(xmuxApi.convertAvatarUrl(
+                        photoUrl, store.state.authState.moodleKey)),
+                  )
+                : SpinKitPulse(color: Colors.white),
           ),
           Expanded(
             child: Column(

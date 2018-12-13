@@ -82,11 +82,13 @@ class _ItemCardState extends State<ItemCard> {
                   // Build user avatar.
                   Padding(
                     padding: const EdgeInsets.all(13.0),
-                    child: CircleAvatar(
-                      child: user != null
-                          ? Image.network(user.photoUrl)
-                          : SpinKitPulse(color: Colors.white),
-                    ),
+                    child: user != null
+                        ? CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                xmuxApi.convertAvatarUrl(user.photoUrl,
+                                    store.state.authState.moodleKey)),
+                          )
+                        : SpinKitPulse(color: Colors.white),
                   ),
 
                   // Build user name and timestamp.

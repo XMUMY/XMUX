@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:xmux/globals.dart';
@@ -8,7 +9,7 @@ import 'package:xmux/redux/redux.dart';
 
 class LoginHandler {
   static Future<String> login(String id, String password) async {
-    print('Login with uid: $id');
+    print('LoginHandler: Login: $id');
 
     try {
       // Get response from backend.
@@ -22,15 +23,11 @@ class LoginHandler {
       return e.message ?? e.toString();
     }
 
-    store.dispatch(UpdateAcAction());
-    store.dispatch(UpdateCoursesAction());
-    store.dispatch(UpdateAssignmentsAction());
-
     return 'success';
   }
 
   static Future<String> firebaseLogin() async {
-    print('Login firebase with uid: ${store.state.authState.campusID}');
+    print('LoginHandler: Login firebase: ${store.state.authState.campusID}');
 
     try {
       firebaseUser = (await FirebaseAuth.instance.currentUser()) ??
@@ -44,5 +41,22 @@ class LoginHandler {
     }
 
     return 'success';
+  }
+
+  static Future<Null> createUser() async {
+    print('LoginHandler: Creating user: ${store.state.authState.campusID}');
+
+    try {
+      await xmuxApi.createUser(
+          XMUXApiAuth(
+              campusID: store.state.authState.campusID,
+              campusIDPassword: store.state.authState.campusIDPassword),
+          User(store.state.authState.campusID, firebaseUser.displayName,
+              firebaseUser.photoUrl));
+    } on DioError catch (e) {
+      print('LoginHandler: Failed to create: ${e.response.data['error']}');
+    } catch (e) {
+      return;
+    }
   }
 }

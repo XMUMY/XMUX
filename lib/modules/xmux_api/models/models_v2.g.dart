@@ -60,6 +60,12 @@ User _$UserFromJson(Map<String, dynamic> json) {
       json['headpic'] as String);
 }
 
+Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+      'campusId': instance.campusId,
+      'name': instance.name,
+      'headpic': instance.photoUrl
+    };
+
 AcData _$AcDataFromJson(Map<String, dynamic> json) {
   return AcData(
       timetable: (json['timetable'] as List)

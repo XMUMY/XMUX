@@ -70,6 +70,8 @@ Future<InitResult> init() async {
   }
 
   xmuxApi.getIdToken = firebaseUser.getIdToken;
+  xmuxApi.updateUser(
+      User(firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl));
 
   return InitResult.finished;
 }
