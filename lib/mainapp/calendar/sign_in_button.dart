@@ -15,9 +15,10 @@ class SignInButton extends StatefulWidget {
 
   SignInButton(this._theClass)
       : this._canSign = (_theClass.dayOfWeek == DateTime.now().weekday - 1) &&
-            (_theClass.startTimeOfDay.hour * 60 +
-                    _theClass.startTimeOfDay.minute -
-                    (DateTime.now().hour * 60 + DateTime.now().minute).abs() <
+            ((_theClass.startTimeOfDay.hour * 60 +
+                        _theClass.startTimeOfDay.minute -
+                        (DateTime.now().hour * 60 + DateTime.now().minute))
+                    .abs() <
                 20);
 
   @override

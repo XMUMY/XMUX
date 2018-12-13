@@ -15,7 +15,7 @@ class TimeTablePage extends StatelessWidget {
   final List<Lesson> classes;
 
   TimeTablePage(List<Lesson> timetable)
-      : this.classes = timetable == null ? null : _sortTimetable(timetable);
+      : this.classes = timetable == null ? null : sortTimetable(timetable);
 
   Widget _buildLastUpdateString(BuildContext context) => Center(
         child: Padding(
@@ -39,7 +39,7 @@ class TimeTablePage extends StatelessWidget {
   }
 
   /// Sort timetable according to the end of class and now.
-  static List<Lesson> _sortTimetable(List<Lesson> timetable) {
+  static List<Lesson> sortTimetable(List<Lesson> timetable) {
     var now = DateTime.now();
     var nowMin = now.weekday * 1440 + now.hour * 60 + now.minute;
 
@@ -68,12 +68,12 @@ class TimeTablePage extends StatelessWidget {
                 itemCount: classes.length + 1,
                 itemBuilder: (_, int index) => index == classes.length
                     ? _buildLastUpdateString(context)
-                    : _LessonCard(classes[index]),
+                    : LessonCard(classes[index]),
               ),
             );
 }
 
-class _LessonCard extends StatefulWidget {
+class LessonCard extends StatefulWidget {
   // Colors from monday to friday.
   static const List<Color> dayColor = [
     const Color(0xFFF48FB1),
@@ -86,7 +86,7 @@ class _LessonCard extends StatefulWidget {
   /// Lesson information.
   final Lesson lesson;
 
-  _LessonCard(this.lesson);
+  LessonCard(this.lesson);
 
   @override
   _LessonCardState createState() => _LessonCardState();
@@ -97,7 +97,7 @@ class _LessonCard extends StatefulWidget {
       ?.toString();
 }
 
-class _LessonCardState extends State<_LessonCard> {
+class _LessonCardState extends State<LessonCard> {
   double _elevation = 1.0;
 
   void _showClassDetail() => showGeneralDialog(
@@ -191,7 +191,7 @@ class _LessonCardState extends State<_LessonCard> {
             Container(
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                  color: _LessonCard.dayColor[widget.lesson.dayOfWeek],
+                  color: LessonCard.dayColor[widget.lesson.dayOfWeek],
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(7.0))),
               child: Center(
