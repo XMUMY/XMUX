@@ -15,7 +15,7 @@ class FleaMarketPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flea Market'),
+        title: Text(i18n('FleaMarket', context)),
         backgroundColor: Colors.deepOrange,
       ),
       body: FirebaseAnimatedList(
@@ -25,6 +25,7 @@ class FleaMarketPage extends StatelessWidget {
         child: Icon(Icons.add),
         onPressed: () => Navigator.of(context)
             .push(MaterialPageRoute(builder: (_) => ItemEditPage(null))),
+        tooltip: i18n('FleaMarket/New', context),
       ),
     );
   }

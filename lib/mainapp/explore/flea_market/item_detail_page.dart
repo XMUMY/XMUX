@@ -97,7 +97,7 @@ class ItemDetailPage extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      '留言',
+                      i18n('FleaMarket/Details/Comments', context),
                       style: Theme.of(context).textTheme.title,
                     ),
                   ),
@@ -106,6 +106,7 @@ class ItemDetailPage extends StatelessWidget {
                     onPressed: () => showDialog(
                         context: context,
                         builder: (_) => _CommentDialog(item.key)),
+                    tooltip: i18n('FleaMarket/Details/Comments/Add', context),
                   )
                 ],
               ),
@@ -141,7 +142,7 @@ class ItemDetailPage extends StatelessWidget {
               item.from.toLowerCase() == firebaseUser.uid
                   ? IconButton(
                       icon: const Icon(Icons.create),
-                      tooltip: '编辑',
+                      tooltip: i18n('FleaMarket/Edit', context),
                       onPressed: () async {
                         var res = await Navigator.of(context)
                             .push<ItemEditResult>(
@@ -154,7 +155,7 @@ class ItemDetailPage extends StatelessWidget {
                   : Container(),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              title: Text('商品详情'),
+              title: Text(i18n('FleaMarket/Details', context)),
               background: Stack(
                 fit: StackFit.expand,
                 children: <Widget>[

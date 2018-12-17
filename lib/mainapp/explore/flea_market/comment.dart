@@ -29,17 +29,17 @@ class _CommentDialog extends StatelessWidget {
           controller: _controller,
           autofocus: true,
           maxLines: 4,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             border: OutlineInputBorder(),
-            hintText: '问些什么吧？',
-            labelText: '留言',
+            hintText: i18n('FleaMarket/Details/Comments/Caption', context),
+            labelText: i18n('FleaMarket/Details/Comments', context),
           ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             FlatButton(
-              child: const Text('留言'),
+              child: Text(i18n('FleaMarket/Details/Comments', context)),
               onPressed: () {
                 if (_controller.text.isNotEmpty)
                   _handleComment(_controller.text);

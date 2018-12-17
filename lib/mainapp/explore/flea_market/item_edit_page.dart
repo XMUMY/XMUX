@@ -56,8 +56,8 @@ class _ItemEditPageState extends State<ItemEditPage> {
     if (!_formKey.currentState.validate() ||
         !_priceFormKey.currentState.validate()) return;
     if (_pictures.isEmpty) {
-      _scaffoldKey.currentState
-          .showSnackBar(SnackBar(content: Text('至少上传一张图片')));
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text(i18n('FleaMarket/Edit/Pictures/EmptyError', context))));
       return;
     }
 
@@ -158,7 +158,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('编辑'),
+        title: Text(i18n('FleaMarket/Edit', context)),
         backgroundColor: Colors.deepOrange,
         actions: <Widget>[
           widget.item != null
@@ -171,7 +171,9 @@ class _ItemEditPageState extends State<ItemEditPage> {
               : IconButton(
                   icon: Icon(Icons.done),
                   onPressed:
-                      widget.item == null ? _handleSubmit : _handleUpdate),
+                      widget.item == null ? _handleSubmit : _handleUpdate,
+                  tooltip: i18n('FleaMarket/Edit/Finish', context),
+                ),
         ],
       ),
       body: ListView(
@@ -189,24 +191,28 @@ class _ItemEditPageState extends State<ItemEditPage> {
                     TextFormField(
                       controller: _nameController,
                       textCapitalization: TextCapitalization.words,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: '标题',
+                        hintText: i18n('FleaMarket/Edit/Name', context),
                       ),
                       style: Theme.of(context).textTheme.subhead,
-                      validator: (s) => s.isEmpty ? '必填' : null,
+                      validator: (s) => s.isEmpty
+                          ? i18n('FleaMarket/Edit/MustFill', context)
+                          : null,
                     ),
                     Divider(height: 6.0),
                     TextFormField(
                       controller: _descriptionController,
                       textCapitalization: TextCapitalization.words,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: '描述一下宝贝转手的原因',
+                        hintText: i18n('FleaMarket/Edit/Description', context),
                       ),
                       style: Theme.of(context).textTheme.subhead,
                       maxLines: 5,
-                      validator: (s) => s.isEmpty ? '必填' : null,
+                      validator: (s) => s.isEmpty
+                          ? i18n('FleaMarket/Edit/MustFill', context)
+                          : null,
                     ),
                   ],
                 ),
@@ -227,14 +233,16 @@ class _ItemEditPageState extends State<ItemEditPage> {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          '图片',
+                          i18n('FleaMarket/Edit/Pictures', context),
                           style: Theme.of(context).textTheme.subhead,
                         ),
                       ),
                       IconButton(
-                          icon: Icon(Icons.add),
-                          onPressed:
-                              widget.item == null ? _handlePictureAdd : null)
+                        icon: Icon(Icons.add),
+                        onPressed:
+                            widget.item == null ? _handlePictureAdd : null,
+                        tooltip: i18n('FleaMarket/Edit/Pictures/Add', context),
+                      )
                     ],
                   ),
                 ),
@@ -263,7 +271,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 15.0),
                     child: Text(
-                      '价格',
+                      i18n('FleaMarket/Edit/Price', context),
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   ),
@@ -271,7 +279,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
                     controller: _priceController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      labelText: '一口价',
+                      labelText: i18n('FleaMarket/Edit/Price/Value', context),
                       border: InputBorder.none,
                       icon: Padding(
                         padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 8.0),
