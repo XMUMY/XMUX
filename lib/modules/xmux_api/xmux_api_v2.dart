@@ -61,7 +61,8 @@ class XMUXApi {
   final List<String> addresses;
 
   /// The API address currently used.
-  String currentAddress;
+  String get currentAddress => _dio.options.baseUrl.replaceAll('/v2', '');
+  set currentAddress(String a) => _dio.options.baseUrl = '$a/v2';
 
   /// Connectivity instance.
   final Connectivity _connectivity;
@@ -70,7 +71,7 @@ class XMUXApi {
   ConnectivityResult _lastConnectivityResult;
 
   /// Dio instance for http requests.
-  final dio = Dio();
+  final _dio = Dio();
 
   /// Callback to get ID token from firebaseUser.
   /// Should be assigned before using APIs need JWT token.
@@ -93,8 +94,7 @@ class XMUXApi {
     selectingServer = selectServer();
 
     // Dio options.
-    dio.options.baseUrl = addresses[0] + '/v2';
-    dio.options.connectTimeout = 3000;
+    _dio.options.connectTimeout = 3000;
     configure();
 
     // Listen and reselect server when connectivity change.
@@ -109,16 +109,16 @@ class XMUXApi {
   /// Configure XMUX API V2.
   void configure({String jwt}) {
     // Add system language to header.
-    dio.options.headers.addAll({
+    _dio.options.headers.addAll({
       'Accept-Language':
           '${Platform.localeName.replaceAll('_', '-')},${Platform.localeName?.substring(0, 2)};q=0.9',
     });
 
     // Add JWT token if exist.
     if (jwt != null)
-      dio.options.headers.addAll({'Authorization': 'Bearer $jwt'});
+      _dio.options.headers.addAll({'Authorization': 'Bearer $jwt'});
     else
-      dio.options.headers.remove('Authorization');
+      _dio.options.headers.remove('Authorization');
   }
 
   /// Convert photo url with moodleKey.
@@ -142,7 +142,7 @@ class XMUXApi {
 
   Future<Map<String, bool>> get serverStatus async {
     var res = await Future.wait(addresses.map((String address) async {
-      var res = await dio.get(address + '/test').timeout(
+      var res = await _dio.get(address + '/test').timeout(
           Duration(milliseconds: 2800),
           onTimeout: () => Response(statusCode: 504));
       return res.statusCode == 200;
@@ -156,40 +156,40 @@ class XMUXApi {
     // Select the fastest server in 5 second.
     // When timeout or error, it will return the last address.
     var selected = await Future.any(addresses.map((String address) async {
-      var res = await dio.get(address + '/test');
+      var res = await _dio.get(address + '/test');
       if (res.statusCode == 200) return address;
     }).toList())
         .timeout(Duration(milliseconds: 2800), onTimeout: () => currentAddress)
         .catchError((e) => currentAddress);
 
     currentAddress = selected;
-    dio.options.baseUrl = selected + '/v2';
+    _dio.options.baseUrl = selected + '/v2';
     print('XMUXApiV2/ServerSelector: Selected: $currentAddress');
   }
 
   Future<XMUXApiResponse<AcData>> ac(XMUXApiAuth auth) async {
-    var response = await dio.post<Map<String, dynamic>>('/ac',
+    var response = await _dio.post<Map<String, dynamic>>('/ac',
         data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
     return _generateResponse<Map<String, dynamic>, AcData>(
         response, AcData.fromJson);
   }
 
   Future<XMUXApiResponse<AcData>> acCourses(XMUXApiAuth auth) async {
-    var response = await dio.post<Map<String, dynamic>>('/ac/courses',
+    var response = await _dio.post<Map<String, dynamic>>('/ac/courses',
         data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
     return _generateResponse<List, AcData>(
         response, (courses) => AcData.fromJson({'courses': courses}));
   }
 
   Future<XMUXApiResponse<List<BillingRecord>>> bill(XMUXApiAuth auth) async {
-    var response = await dio.post<Map<String, dynamic>>('/bill',
+    var response = await _dio.post<Map<String, dynamic>>('/bill',
         data: {'id': auth.campusID, 'pass': auth.ePaymentPassword});
     return _generateResponse<List, List<BillingRecord>>(
         response, (b) => b.map((b) => BillingRecord.fromJson(b)).toList());
   }
 
   Future<XMUXApiResponse<Null>> createUser(XMUXApiAuth auth, User user) async {
-    var response = await dio.post<Map<String, dynamic>>(
+    var response = await _dio.post<Map<String, dynamic>>(
         '/users/${auth.campusID}',
         data: user.toJson()..addAll({'pass': auth.campusIDPassword}));
     return _generateResponse<Map<String, dynamic>, Null>(response, (_) {});
@@ -199,14 +199,14 @@ class XMUXApi {
     // Refresh JWT token if getter not null.
     if (getIdToken != null) configure(jwt: await getIdToken());
 
-    var response = await dio.get<Map<String, dynamic>>('/users/$campusId');
+    var response = await _dio.get<Map<String, dynamic>>('/users/$campusId');
     return _generateResponse<Map<String, dynamic>, User>(
         response, (data) => User.fromJson(data['user']));
   }
 
   Future<XMUXApiResponse<List<Announcement>>> homepageAnnouncements(
       XMUXApiAuth auth) async {
-    var response = await dio.post<Map<String, dynamic>>(
+    var response = await _dio.post<Map<String, dynamic>>(
         '/homepage/announcements',
         data: {'id': auth.campusID});
     return _generateResponse<Map<String, dynamic>, List<Announcement>>(
@@ -217,19 +217,19 @@ class XMUXApi {
   }
 
   Future<XMUXApiResponse<List<News>>> homepageNews() async {
-    var response = await dio.get<Map<String, dynamic>>('/homepage/news');
+    var response = await _dio.get<Map<String, dynamic>>('/homepage/news');
     return _generateResponse<Map<String, dynamic>, List<News>>(response,
         (n) => (n['news'] as List).map((n) => News.fromJson(n)).toList());
   }
 
   Future<XMUXApiResponse<Null>> login(XMUXApiAuth auth) async {
-    var response = await dio.post<Map<String, dynamic>>('/login',
+    var response = await _dio.post<Map<String, dynamic>>('/login',
         data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
     return _generateResponse(response, (_) {});
   }
 
   Future<XMUXApiResponse<MoodleData>> moodle(XMUXApiAuth auth) async {
-    var response = await dio.post<Map<String, dynamic>>('/moodle', data: {
+    var response = await _dio.post<Map<String, dynamic>>('/moodle', data: {
       'id': auth.campusID,
       'pass': auth.campusIDPassword,
       'moodleKey': auth.moodleKey
@@ -240,6 +240,6 @@ class XMUXApi {
 
   Future<Null> updateUser(User user) async {
     if (getIdToken != null) configure(jwt: await getIdToken());
-    await dio.patch('/users/${user.campusId}', data: user.toJson());
+    await _dio.patch('/users/${user.campusId}', data: user.toJson());
   }
 }

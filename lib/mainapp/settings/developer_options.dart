@@ -25,6 +25,8 @@ class DeveloperOptionsPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Divider(),
+
+          // Enable Functions under Dev.
           StoreConnector<MainAppState, bool>(
             converter: (store) =>
                 store.state.settingState.enableFunctionsUnderDev,
@@ -39,8 +41,42 @@ class DeveloperOptionsPage extends StatelessWidget {
                       store.dispatch(EnableFunctionsUnderDevAction(!value)),
                 ),
           ),
+
+          // XMUX API address selector.
+          ListTile(
+            title: Text('服务器'),
+            subtitle: Text('选择为应用提供服务的服务器'),
+            trailing: _XmuxApiSwitch(),
+          ),
         ],
       ),
     );
+  }
+}
+
+class _XmuxApiSwitch extends StatefulWidget {
+  static String addressToName(String address) =>
+      Uri.parse(address).host.split('.')[0];
+
+  @override
+  _XmuxApiSwitchState createState() => _XmuxApiSwitchState();
+}
+
+class _XmuxApiSwitchState extends State<_XmuxApiSwitch> {
+  List<DropdownMenuItem<String>> _items = xmuxApi.addresses
+      .map((a) => DropdownMenuItem<String>(
+            child: Text(_XmuxApiSwitch.addressToName(a)),
+            value: a,
+          ))
+      .toList();
+
+  String get _current => xmuxApi.currentAddress;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+        items: _items,
+        value: _current,
+        onChanged: (_) => setState(() => xmuxApi.currentAddress = _));
   }
 }
