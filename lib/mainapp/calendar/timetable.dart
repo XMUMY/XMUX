@@ -100,62 +100,70 @@ class LessonCard extends StatefulWidget {
 class _LessonCardState extends State<LessonCard> {
   double _elevation = 1.0;
 
-  void _showClassDetail() => showGeneralDialog(
-      context: context,
-      barrierDismissible: true,
-      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-      transitionDuration: Duration(milliseconds: 400),
-      barrierColor: Colors.black12.withOpacity(0.2),
-      pageBuilder: (context, animation, _) {
-        return Center(
-          child: Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 8.0),
-                  child: Text(
-                    widget.lesson.courseName,
-                    style: Theme.of(context).textTheme.title,
-                    textAlign: TextAlign.center,
+  void _showClassDetail() {
+    // Prevent pop twice.
+    var isPopping = false;
+    showGeneralDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        transitionDuration: Duration(milliseconds: 400),
+        barrierColor: Colors.black12.withOpacity(0.2),
+        pageBuilder: (context, animation, _) {
+          return Center(
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 8.0),
+                    child: Text(
+                      widget.lesson.courseName,
+                      style: Theme.of(context).textTheme.title,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                Container(
-                  height: min(MediaQuery.of(context).size.height / 2, 350.0),
-                  width: MediaQuery.of(context).size.width / 1.3,
-                  child: ListView(
-                    padding: EdgeInsets.all(15.0),
-                    children: _buildDialogWidgetList(),
+                  Container(
+                    height: min(MediaQuery.of(context).size.height / 2, 350.0),
+                    width: MediaQuery.of(context).size.width / 1.3,
+                    child: ListView(
+                      padding: EdgeInsets.all(15.0),
+                      children: _buildDialogWidgetList(),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-      transitionBuilder: (context, animation, _, child) {
-        return GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
-          child: GaussianBlurBox(
-            sigma: (animation.value * 30).round() / 10,
-            child: FadeTransition(
-              opacity: animation,
-              child: ScaleTransition(
-                scale: Tween<double>(
-                  begin: 0.7,
-                  end: 1.0,
-                ).animate(CurvedAnimation(
-                    parent: animation,
-                    curve: Curves.elasticOut,
-                    reverseCurve: Curves.fastOutSlowIn)),
-                child: child,
+                ],
               ),
             ),
-          ),
-        );
-      });
+          );
+        },
+        transitionBuilder: (context, animation, _, child) {
+          return GestureDetector(
+            onTap: () {
+              if (!isPopping) Navigator.of(context).pop();
+              isPopping = true;
+            },
+            child: GaussianBlurBox(
+              sigma: (animation.value * 30).round() / 10,
+              child: FadeTransition(
+                opacity: animation,
+                child: ScaleTransition(
+                  scale: Tween<double>(
+                    begin: 0.7,
+                    end: 1.0,
+                  ).animate(CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.elasticOut,
+                      reverseCurve: Curves.fastOutSlowIn)),
+                  child: child,
+                ),
+              ),
+            ),
+          );
+        });
+  }
 
   List<Widget> _buildDialogWidgetList() {
     return [
