@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,10 @@ class _ItemCardState extends State<ItemCard> {
     xmuxApi
         .getUser(widget.item.from)
         .then((u) => setState(() => user = u.data))
+        .catchError(
+            (DioError e) => Scaffold.of(context).showSnackBar(
+                SnackBar(content: Text(e.response.data['error']))),
+            test: (e) => e is DioError)
         .catchError(
           (e) => Scaffold.of(context)
               .showSnackBar(SnackBar(content: Text(e.toString()))),
