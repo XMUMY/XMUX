@@ -70,6 +70,7 @@ Future<InitResult> init() async {
   }
 
   xmuxApi.getIdToken = firebaseUser.getIdToken;
+  xmuxApi.getUser(firebaseUser.uid).catchError(() => LoginHandler.createUser());
   xmuxApi.updateUser(
       User(firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl));
 

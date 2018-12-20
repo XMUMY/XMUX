@@ -20,8 +20,10 @@ class FleaMarketPage extends StatelessWidget {
         backgroundColor: Colors.deepOrange,
       ),
       body: FirebaseAnimatedList(
-          query: FirebaseDatabase.instance.reference().child('flea_market'),
-          itemBuilder: (ctx, _, __, index) => ItemCard(Item.fromSnapshot(_))),
+        query: FirebaseDatabase.instance.reference().child('flea_market'),
+        itemBuilder: (ctx, _, __, index) => ItemCard(Item.fromSnapshot(_)),
+        defaultChild: Center(child: CircularProgressIndicator()),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => Navigator.of(context)
