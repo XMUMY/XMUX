@@ -35,6 +35,7 @@ Future<InitResult> init() async {
   // Register SystemChannel to handle lifecycle message.
   SystemChannels.lifecycle.setMessageHandler((msg) {
     print('SystemChannels/LifecycleMessage: $msg');
+    // Update language for XMUX API.
     if (msg == AppLifecycleState.resumed.toString()) xmuxApi.configure();
   });
 
@@ -71,8 +72,10 @@ Future<InitResult> init() async {
 
   xmuxApi.getIdToken = firebaseUser.getIdToken;
   xmuxApi.getUser(firebaseUser.uid).catchError(() => LoginHandler.createUser());
-  xmuxApi.updateUser(
-      User(firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl));
+  xmuxApi
+      .updateUser(User(
+          firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl))
+      .catchError(() {});
 
   return InitResult.finished;
 }

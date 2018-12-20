@@ -71,8 +71,8 @@ class _ItemCardState extends State<ItemCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) =>
-              ItemDetailPage(widget.item, user.name, user.photoUrl))),
+          builder: (_) => ItemDetailPage(
+              widget.item, user?.name ?? '...', user?.photoUrl ?? ''))),
       onTapDown: (_) => setState(() => _elevation = 3.0),
       onTapUp: (_) => setState(() => _elevation = 0.0),
       onTapCancel: () => setState(() => _elevation = 0.0),

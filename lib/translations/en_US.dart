@@ -95,6 +95,9 @@ const Map<String, String> en_US = {
       'Enable Functions under Development',
   'Settings/DeveloperOptions/EnFuncsUnderDev/Caption':
       'These functions are still under development and are highly unstable',
+  'Settings/DeveloperOptions/Servers': 'Servers',
+  'Settings/DeveloperOptions/Servers/Caption':
+      'Normally the app will select the best server automatically',
   // Me
   'Me/Header/Welcome': 'Hello,',
   // Tools

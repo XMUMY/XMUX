@@ -88,6 +88,8 @@ const Map<String, String> zh_CN = {
       '警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常及数据的丢失或泄漏。',
   'Settings/DeveloperOptions/EnFuncsUnderDev': '启用正在开发中的功能',
   'Settings/DeveloperOptions/EnFuncsUnderDev/Caption': '这些功能尚在开发中且十分不稳定',
+  'Settings/DeveloperOptions/Servers': '服务器',
+  'Settings/DeveloperOptions/Servers/Caption': '选择为应用提供服务的服务器',
   // Me
   'Me/Header/Welcome': '您好，',
   // Tools

@@ -64,6 +64,7 @@ class _CommentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(15.0),
@@ -71,7 +72,8 @@ class _CommentCard extends StatelessWidget {
             child: FutureBuilder<XMUXApiResponse<User>>(
               future: xmuxApi.getUser(_comment.from),
               builder: (_, snap) => snap.hasData
-                  ? Image.network(snap.data.data.photoUrl)
+                  ? Image.network(xmuxApi.convertAvatarUrl(
+                      snap.data.data.photoUrl, store.state.authState.moodleKey))
                   : SpinKitPulse(color: Colors.white),
             ),
           ),
@@ -89,12 +91,12 @@ class _CommentCard extends StatelessWidget {
                       )
                     : Text('...'),
               ),
-              Padding(padding: const EdgeInsets.all(1.0)),
-              Text(_comment.comment),
               Text(
                 '${DateFormat.yMd(Localizations.localeOf(context).languageCode).format(_comment.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(_comment.timestamp)}',
                 style: Theme.of(context).textTheme.caption,
-              )
+              ),
+              Padding(padding: const EdgeInsets.all(2.0)),
+              Text(_comment.comment),
             ],
           ),
         ),

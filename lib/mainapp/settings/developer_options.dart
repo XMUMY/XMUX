@@ -44,8 +44,9 @@ class DeveloperOptionsPage extends StatelessWidget {
 
           // XMUX API address selector.
           ListTile(
-            title: Text('服务器'),
-            subtitle: Text('选择为应用提供服务的服务器'),
+            title: Text(i18n('Settings/DeveloperOptions/Servers', context)),
+            subtitle: Text(
+                i18n('Settings/DeveloperOptions/Servers/Caption', context)),
             trailing: _XmuxApiSwitch(),
           ),
         ],
