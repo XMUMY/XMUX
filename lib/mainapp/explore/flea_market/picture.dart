@@ -33,7 +33,10 @@ class Picture extends StatelessWidget {
       onTap: () => Navigator.of(context)
           .push(FadeRoute((context) => _buildPhotoView(context))),
       onLongPress: onDelete == null ? null : () => onDelete(this),
-      child: child,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(1.0, 0.0, 1.0, 0.0),
+        child: child,
+      ),
     );
   }
 

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image/image.dart' as Im;
@@ -15,6 +18,14 @@ class ItemEditPage extends StatefulWidget {
   final Item item;
 
   const ItemEditPage(this.item);
+
+  /// Static method for compressing image using another isolate.
+  static List<int> _compressImage(File f) {
+    var image = Im.decodeImage(f.readAsBytesSync());
+    image = Im.copyResize(image, 1080);
+    var bytes = Im.encodeJpg(image, quality: 55);
+    return bytes;
+  }
 
   @override
   _ItemEditPageState createState() => _ItemEditPageState(item);
@@ -69,18 +80,22 @@ class _ItemEditPageState extends State<ItemEditPage> {
     setState(() => _isProcessing = true);
 
     // Upload pictures.
-    List<String> pictureUrls = [];
     var storageRef = FirebaseStorage.instance.ref().child(
         '/flea_market/${firebaseUser.uid.toLowerCase()}-${timestamp.toIso8601String()}');
-    for (var i = 0; i < _pictures.length; i++) {
-      // Compress image file.
-      var image = Im.decodeImage(await _pictures[i].file.readAsBytes());
-      image = Im.copyResize(image, 1080);
-      var bytes = Im.encodeJpg(image, quality: 50);
+
+    // Process picture compression in parallel.
+    Future<String> pictureTask(int index) async {
+      // Compress image file using another isolate.
+      var bytes = await compute<File, List<int>>(
+          ItemEditPage._compressImage, _pictures[index].file);
       // Upload & get link.
-      var snap = await storageRef.child('$i').putData(bytes).onComplete;
-      pictureUrls.add(await snap.ref.getDownloadURL());
+      var snap = await storageRef.child('$index').putData(bytes).onComplete;
+      return await snap.ref.getDownloadURL();
     }
+
+    List<Future<String>> pictureTasks = [];
+    for (var i = 0; i < _pictures.length; i++) pictureTasks.add(pictureTask(i));
+    List<String> pictureUrls = await Future.wait(pictureTasks);
 
     // Upload item details.
     var item = Item(

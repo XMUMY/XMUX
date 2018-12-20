@@ -134,6 +134,7 @@ class ItemDetailPage extends StatelessWidget {
         slivers: <Widget>[
           // Build sliver app bar.
           SliverAppBar(
+            title: Text(i18n('FleaMarket/Details', context)),
             backgroundColor: Colors.deepOrange,
             expandedHeight: 200.0,
             pinned: true,
@@ -155,7 +156,6 @@ class ItemDetailPage extends StatelessWidget {
                   : Container(),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(i18n('FleaMarket/Details', context)),
               background: Stack(
                 fit: StackFit.expand,
                 children: <Widget>[
@@ -176,7 +176,7 @@ class ItemDetailPage extends StatelessWidget {
                           Color(0x60000000),
                           Color(0),
                           Color(0),
-                          Color(0x60000000)
+                          Color(0)
                         ],
                       ),
                     ),
