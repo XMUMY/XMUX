@@ -29,7 +29,7 @@ class _AnimatedLogoState extends State<AnimatedLogo>
         child: Opacity(
           opacity: animation.value,
           child: Image.asset(
-            "res/logo.png",
+            'res/logo.png',
             height: animation.value * 100.0,
             width: animation.value * 100.0,
           ),

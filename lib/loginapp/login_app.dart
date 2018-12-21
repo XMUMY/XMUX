@@ -9,7 +9,6 @@ class LoginApp extends StatelessWidget {
         theme: ThemeData(
           brightness: Brightness.dark,
           accentColor: Colors.grey[300],
-          buttonColor: Colors.cyan,
         ),
         home: Scaffold(body: LoginPage()),
         localizationsDelegates: [

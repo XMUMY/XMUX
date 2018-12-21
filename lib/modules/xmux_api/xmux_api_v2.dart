@@ -123,8 +123,11 @@ class XMUXApi {
 
   /// Convert photo url with moodleKey.
   String convertAvatarUrl(String originUrl, String moodleKey) =>
-      originUrl.replaceFirst('/pluginfile.php', '/webservice/pluginfile.php') +
-      '${originUrl.contains('?') ? '' : '?'}&token=$moodleKey';
+      originUrl == null
+          ? ''
+          : originUrl.replaceFirst(
+                  '/pluginfile.php', '/webservice/pluginfile.php') +
+              '${originUrl.contains('?') ? '' : '?'}&token=$moodleKey';
 
   XMUXApiResponse<ResponseType> _generateResponse<JsonType, ResponseType>(
       Response<Map<String, dynamic>> response,

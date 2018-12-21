@@ -6,13 +6,13 @@ part 'xmux_api_actions.dart';
 
 /// General action for the whole app.
 abstract class MainAppAction {
-  /// Flag for state saving. (Default true)
+  /// Flag for state saving. (Default `true`)
   /// If false, app state will not be save when dispatch this action.
   final needSave = true;
 
-  /// Flag for sync state saving. (Default false)
-  /// If true, app state will be save sync when dispatch this action.
-  /// This flag only available when *needSave* is true.
+  /// Flag for sync state saving. (Default `false`)
+  /// If true, app state will be saved sync when dispatch this action.
+  /// This flag only available when `needSave` is true.
   final sync = false;
 
   toString() => "MainAppAction: ${this.runtimeType}";

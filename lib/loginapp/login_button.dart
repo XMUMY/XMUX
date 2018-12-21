@@ -27,13 +27,6 @@ class _LoginButtonState extends State<LoginButton> {
   bool _isProcessing = false;
 
   Future<Null> _handleSignIn() async {
-    // Validate format.
-    if (!widget._usernameFormKey.currentState.validate() ||
-        !widget._passwordFormKey.currentState.validate()) return;
-
-    // Switch to processing state.
-    setState(() => _isProcessing = true);
-
     // Demo login.
     if (widget._usernameController.text == AppInfo.demoUsername &&
         widget._passwordController.text == AppInfo.demoPassword &&
@@ -41,6 +34,13 @@ class _LoginButtonState extends State<LoginButton> {
       runApp(MainApp());
       return;
     }
+
+    // Validate format.
+    if (!widget._usernameFormKey.currentState.validate() ||
+        !widget._passwordFormKey.currentState.validate()) return;
+
+    // Switch to processing state.
+    setState(() => _isProcessing = true);
 
     // Handle login.
     var loginResult = await LoginHandler.login(
