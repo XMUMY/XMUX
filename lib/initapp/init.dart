@@ -71,11 +71,14 @@ Future<InitResult> init() async {
   }
 
   xmuxApi.getIdToken = firebaseUser.getIdToken;
-  xmuxApi.getUser(firebaseUser.uid).catchError(() => LoginHandler.createUser());
-  xmuxApi
-      .updateUser(User(
-          firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl))
-      .catchError(() {});
+
+  try {
+    await xmuxApi.getUser(firebaseUser.uid);
+    await xmuxApi.updateUser(User(
+        firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl));
+  } catch (e) {
+    await LoginHandler.createUser();
+  }
 
   return InitResult.finished;
 }

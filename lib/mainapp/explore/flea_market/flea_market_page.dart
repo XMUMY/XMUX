@@ -57,7 +57,7 @@ class _ItemCardState extends State<ItemCard> {
         .getUser(widget.item.from)
         .then((u) => setState(() => user = u.data))
         .catchError(
-            (DioError e) => Scaffold.of(context).showSnackBar(
+            (e) => Scaffold.of(context).showSnackBar(
                 SnackBar(content: Text(e.response.data['error']))),
             test: (e) => e is DioError)
         .catchError(
