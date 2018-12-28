@@ -30,6 +30,7 @@ class _MainPageState extends State<MainPage> {
         store.dispatch(UpdateAssignmentsAction());
         return CalendarPage();
       case 2:
+        store.dispatch(UpdateAcAction());
         store.dispatch(UpdateCoursesAction());
         return AcademicPage();
       case 3:

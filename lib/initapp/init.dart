@@ -65,11 +65,6 @@ Future<InitResult> init() async {
       store.state.authState.campusIDPassword == null)
     return InitResult.notLogin;
 
-  try {
-    await LoginHandler.login(
-        store.state.authState.campusID, store.state.authState.campusIDPassword);
-  } catch (e) {}
-
   if ((await LoginHandler.firebaseLogin()) != "success") {
     FirebaseAuth.instance.signOut();
     return InitResult.loginError;
@@ -82,6 +77,8 @@ Future<InitResult> init() async {
     await xmuxApi.updateUser(User(
         firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl));
   } catch (e) {
+    await LoginHandler.login(
+        store.state.authState.campusID, store.state.authState.campusIDPassword);
     await LoginHandler.createUser();
   }
 
