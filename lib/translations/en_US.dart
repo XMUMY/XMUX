@@ -95,9 +95,9 @@ const Map<String, String> en_US = {
   'FleaMarket/Edit/Error': 'Format error. Pls check.',
   'FleaMarket/Edit/MustFill': '*',
   'FleaMarket/Details': 'Details',
-  'FleaMarket/Details/Comments': 'Leave a message',
+  'FleaMarket/Details/Comments': 'Messages',
   'FleaMarket/Details/Comments/Add': 'New',
-  'FleaMarket/Details/Comments/Caption': 'Ask something?',
+  'FleaMarket/Details/Comments/Caption': 'Leave a message',
   // Settings
   'Settings': 'Settings',
   'Settings/SignOut': 'Sign out',

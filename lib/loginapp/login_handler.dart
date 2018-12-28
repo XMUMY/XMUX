@@ -54,7 +54,8 @@ class LoginHandler {
           User(store.state.authState.campusID, firebaseUser.displayName,
               firebaseUser.photoUrl));
     } on DioError catch (e) {
-      print('LoginHandler: Failed to create: ${e.response.data['error']}');
+      if (e.response != null)
+        print('LoginHandler: Failed to create: ${e.response.data['error']}');
     } catch (e) {
       return;
     }

@@ -73,7 +73,7 @@ class ExplorePage extends StatelessWidget {
               children: <Widget>[
                 new Icon(Icons.store),
                 new Text(
-                  " " + i18n("Flea Market", context),
+                  " " + i18n("FleaMarket", context),
                   style: Theme.of(context).textTheme.subhead,
                 )
               ],
