@@ -8,6 +8,7 @@ import 'package:xmux/mainapp/academic/tools/exam_result.dart';
 import 'package:xmux/mainapp/academic/tools/geogebra.dart';
 import 'package:xmux/mainapp/academic/tools/gpa_calculator.dart';
 import 'package:xmux/mainapp/academic/tools/tools_details.dart';
+import 'package:xmux/mainapp/academic/tools/vpn.dart';
 import 'package:xmux/mainapp/academic/tools/wolfram_engine/input_constructor.dart';
 import 'package:xmux/mainapp/calendar/calendar_image.dart';
 import 'package:xmux/mainapp/explore/lost_and_found/lost_and_found_page.dart';
@@ -46,8 +47,6 @@ class MainApp extends StatelessWidget {
           Locale('en', 'US'),
           Locale('zh', 'CN'),
         ],
-        // Observer for auto play VillainTransition.
-//        navigatorObservers: [VillainTransitionObserver()],
         // Define route for main app.
         routes: <String, WidgetBuilder>{
           '/About': (_) => AboutPage(),
@@ -56,6 +55,7 @@ class MainApp extends StatelessWidget {
           '/Academic/Tools/WolframEngine': (_) => InputConstructor(),
           '/Academic/Tools/GeoGebra': (_) => GeoGebraPage(),
           '/Academic/Tools/GPACalculator': (_) => GPACalculatorPage(),
+          '/Academic/Tools/VPN': (_) => VPNPage(),
           '/Calendar/CalendarImage': (_) => CalendarImagePage(),
           '/Explore/LostAndFound': (_) => LostAndFoundPage(),
           '/Me/Epayment': (_) => EPaymentPage(),

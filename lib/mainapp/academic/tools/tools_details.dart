@@ -34,6 +34,11 @@ class AcademicToolDetailsPage extends StatelessWidget {
             image: 'res/academic/gpa.svg',
             route: '/Academic/Tools/ExamResult',
           ),
+          _AcademicPageCard(
+            textUri: 'VPN',
+            image: 'res/academic/vpn.svg',
+            route: '/Academic/Tools/VPN',
+          ),
         ],
       ),
     );
