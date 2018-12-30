@@ -57,6 +57,8 @@ const Map<String, String> en_US = {
       ' Solve & plot with GeoGebra dynamic mathematics',
   'Academic/Tools/GPACalculator/Title': 'GPA Calculator',
   'Academic/Tools/GPACalculator/Caption': 'Calculate your GPA easily',
+  'Academic/Tools/VPN/Title': 'VPN',
+  'Academic/Tools/VPN/Caption': 'Library VPN access',
   'Academic/PublicTalks': 'Public Talks',
   // Explore
   'XiA/Hint': 'May I help you?',

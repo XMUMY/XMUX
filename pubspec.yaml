@@ -20,7 +20,7 @@ dependencies:
   flutter_redux: ^0.5.2
   flutter_spinkit: ^2.1.0
   flutter_svg: ^0.8.2
-  flutter_vpn: ^0.0.2
+  flutter_vpn: ^0.0.3
   flutter_webview_plugin: ^0.3.0
   font_awesome_flutter: ^8.2.0
   googleapis: 0.52.0+1

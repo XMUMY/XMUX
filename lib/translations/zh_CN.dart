@@ -53,6 +53,8 @@ const Map<String, String> zh_CN = {
   'Academic/Tools/GeoGebra/Caption': '使用 GeoGebra 进行数学解算和绘图',
   'Academic/Tools/GPACalculator/Title': 'GPA 计算器',
   'Academic/Tools/GPACalculator/Caption': '轻松计算平均学分绩点',
+  'Academic/Tools/VPN/Title': 'VPN',
+  'Academic/Tools/VPN/Caption': '图书馆 VPN 访问',
   'Academic/PublicTalks': '公共讲座',
   // Explore
   'XiA/Hint': '请问有什么可以帮助您？',
