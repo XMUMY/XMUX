@@ -10,16 +10,12 @@ class DrawerPage extends StatelessWidget {
       IconData icon,
       Color color,
       double size}) {
-    return FlatButton(
-      onPressed: () => Navigator.of(ctx).popAndPushNamed(routeName),
-      child: Row(
-        children: <Widget>[
-          Icon(icon, size: size, color: color),
-          Text(
-            ' ${i18n(text, ctx)}',
-            style: Theme.of(ctx).textTheme.button.copyWith(color: color),
-          )
-        ],
+    return ListTile(
+      leading: Icon(icon, size: size, color: color),
+      onTap: () => Navigator.of(ctx).popAndPushNamed(routeName),
+      title: Text(
+        i18n(text, ctx),
+        style: Theme.of(ctx).textTheme.button.copyWith(color: color),
       ),
     );
   }
@@ -77,7 +73,16 @@ class DrawerPage extends StatelessWidget {
                     routeName: '/Me/RoomReservation',
                     text: 'Tools/RoomReservation',
                     icon: FontAwesomeIcons.table,
-                    size: 22.0,
+                    size: 21.0,
+                  ),
+
+                  // Room Reservation
+                  _buildButton(
+                    context,
+                    routeName: '/Me/Emgs',
+                    text: 'Tools/Emgs',
+                    icon: FontAwesomeIcons.passport,
+                    size: 21.0,
                   ),
 
                   // Emergency
@@ -90,6 +95,12 @@ class DrawerPage extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            _buildButton(
+              context,
+              routeName: '/Settings',
+              text: 'Settings',
+              icon: Icons.settings,
             ),
           ],
         ),

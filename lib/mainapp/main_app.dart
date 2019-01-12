@@ -17,6 +17,7 @@ import 'package:xmux/mainapp/settings/change_personal_info.dart';
 import 'package:xmux/mainapp/settings/developer_options.dart';
 import 'package:xmux/mainapp/settings/settings_page.dart';
 import 'package:xmux/mainapp/tools/emergency.dart';
+import 'package:xmux/mainapp/tools/emgs.dart';
 import 'package:xmux/mainapp/tools/epayment.dart';
 import 'package:xmux/mainapp/tools/room_reservation.dart';
 import 'package:xmux/redux/redux.dart';
@@ -60,6 +61,7 @@ class MainApp extends StatelessWidget {
           '/Explore/LostAndFound': (_) => LostAndFoundPage(),
           '/Me/Epayment': (_) => EPaymentPage(),
           '/Me/RoomReservation': (_) => RoomWebviewPage(),
+          '/Me/Emgs': (_) => EmgsPage(),
           '/Me/Emergency': (_) => EmergencyPage(),
           '/Settings': (_) => SettingsPage(),
           '/Settings/ChangeProfile': (_) => ChangePersonalInfoPage(),

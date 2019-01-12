@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:xmux/modules/emgs/emgs.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 part 'state.g.dart';
@@ -140,18 +141,24 @@ class QueryState {
   /// Billing records from E-Payment.
   final List<BillingRecord> ePaymentRecords;
 
-  QueryState(this.ePaymentRecords);
+  final EmgsApplicationResult emgsApplicationResult;
 
-  QueryState.def() : this.ePaymentRecords = null;
+  QueryState(this.ePaymentRecords, this.emgsApplicationResult);
+
+  QueryState.def()
+      : this.ePaymentRecords = null,
+        this.emgsApplicationResult = null;
 
   factory QueryState.fromJson(Map<String, dynamic> json) =>
       _$QueryStateFromJson(json);
 
   Map<String, dynamic> toJson() => _$QueryStateToJson(this);
 
-  QueryState copyWith({List<BillingRecord> ePaymentRecords}) => QueryState(
-        ePaymentRecords ?? this.ePaymentRecords,
-      );
+  QueryState copyWith(
+          {List<BillingRecord> ePaymentRecords,
+          EmgsApplicationResult emgsApplicationResult}) =>
+      QueryState(ePaymentRecords ?? this.ePaymentRecords,
+          emgsApplicationResult ?? this.emgsApplicationResult);
 }
 
 /// Settings state include ePaymentPassword, etc.

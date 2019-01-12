@@ -78,14 +78,23 @@ Map<String, dynamic> _$AuthStateToJson(AuthState instance) => <String, dynamic>{
     };
 
 QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
-  return QueryState((json['ePaymentRecords'] as List)
-      ?.map((e) =>
-          e == null ? null : BillingRecord.fromJson(e as Map<String, dynamic>))
-      ?.toList());
+  return QueryState(
+      (json['ePaymentRecords'] as List)
+          ?.map((e) => e == null
+              ? null
+              : BillingRecord.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      json['emgsApplicationResult'] == null
+          ? null
+          : EmgsApplicationResult.fromJson(
+              json['emgsApplicationResult'] as Map<String, dynamic>));
 }
 
 Map<String, dynamic> _$QueryStateToJson(QueryState instance) =>
-    <String, dynamic>{'ePaymentRecords': instance.ePaymentRecords};
+    <String, dynamic>{
+      'ePaymentRecords': instance.ePaymentRecords,
+      'emgsApplicationResult': instance.emgsApplicationResult
+    };
 
 SettingState _$SettingStateFromJson(Map<String, dynamic> json) {
   return SettingState(json['enableFunctionsUnderDev'] as bool ?? false);
