@@ -184,6 +184,13 @@ class XMUXApi {
         response, (courses) => AcData.fromJson({'courses': courses}));
   }
 
+  Future<XMUXApiResponse<Info>> acInfo(XMUXApiAuth auth) async {
+    var response = await _dio.post<Map<String, dynamic>>('/ac/info',
+        data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
+    return _generateResponse<Map<String, dynamic>, Info>(
+        response, (info) => Info.fromJson(info));
+  }
+
   Future<XMUXApiResponse<List<BillingRecord>>> bill(XMUXApiAuth auth) async {
     var response = await _dio.post<Map<String, dynamic>>('/bill',
         data: {'id': auth.campusID, 'pass': auth.ePaymentPassword});

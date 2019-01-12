@@ -87,6 +87,31 @@ AcData _$AcDataFromJson(Map<String, dynamic> json) {
           ?.toList());
 }
 
+Info _$InfoFromJson(Map<String, dynamic> json) {
+  return Info(
+      json['Name'] as String,
+      json['Chinese Name'] as String,
+      json['Gender'] as String,
+      json['NRIC/Passport No.'] as String,
+      json['Programme'] as String,
+      json['Intake'] as String,
+      json['Registration Time'] as String,
+      json['Nationality'] as String,
+      json['Phone'] as String);
+}
+
+Map<String, dynamic> _$InfoToJson(Info instance) => <String, dynamic>{
+      'Name': instance.name,
+      'Chinese Name': instance.cnName,
+      'Gender': instance.gender,
+      'NRIC/Passport No.': instance.idNumber,
+      'Programme': instance.programme,
+      'Intake': instance.intake,
+      'Registration Time': instance.regTime,
+      'Nationality': instance.nationality,
+      'Phone': instance.phone
+    };
+
 Lesson _$LessonFromJson(Map<String, dynamic> json) {
   return Lesson(
       json['courseCode'] as String,

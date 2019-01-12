@@ -119,6 +119,7 @@ const Map<String, String> zh_CN = {
   'Tools/EPayment/Paid': '已支付',
   'Tools/EPayment/Unpaid': '未支付',
   'Tools/RoomReservation': '教室预定',
+  'Tools/Emgs': '签证状态',
   'Tools/Emergency': '紧急情况',
   'Tools/Emergency/Caption': '遭遇紧急情况时，您可以使用以下方式进行求助\n非紧急情况下使用将负法律责任',
   'Tools/Emergency/XMUMSecurityHotline': 'XMUM 安全热线',

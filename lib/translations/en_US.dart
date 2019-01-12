@@ -127,6 +127,7 @@ const Map<String, String> en_US = {
   'Tools/EPayment/Paid': 'Paid',
   'Tools/EPayment/Unpaid': 'Unpaid',
   'Tools/RoomReservation': 'Room Reservation',
+  'Tools/Emgs': 'VISA Status',
   'Tools/Emergency': 'Emergency',
   'Tools/Emergency/Caption':
       'Use these functions only during emergencies.\nUseage otherwise is illegal.',

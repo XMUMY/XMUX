@@ -28,6 +28,9 @@ AcState _$AcStateFromJson(Map<String, dynamic> json) {
       json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),
+      json['info'] == null
+          ? null
+          : Info.fromJson(json['info'] as Map<String, dynamic>),
       (json['timetable'] as List)
           ?.map((e) =>
               e == null ? null : Lesson.fromJson(e as Map<String, dynamic>))
@@ -55,6 +58,7 @@ AcState _$AcStateFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$AcStateToJson(AcState instance) => <String, dynamic>{
       'status': instance.status,
       'timestamp': instance.timestamp?.toIso8601String(),
+      'info': instance.info,
       'timetable': instance.timetable,
       'exams': instance.exams,
       'examResult': instance.examResult,

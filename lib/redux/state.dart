@@ -57,18 +57,20 @@ class AcState {
   /// The timestamp from server.
   final DateTime timestamp;
 
+  final Info info;
   final List<Lesson> timetable;
   final List<Exam> exams;
   final List<SessionExamResult> examResult;
   final List<Course> courses;
   final List<LessonAssignments> assignments;
 
-  AcState(this.status, this.timestamp, this.timetable, this.exams,
+  AcState(this.status, this.timestamp, this.info, this.timetable, this.exams,
       this.examResult, this.courses, this.assignments);
 
   AcState.def()
       : this.status = 'init',
         this.timestamp = null,
+        this.info = null,
         this.timetable = null,
         this.exams = null,
         this.examResult = null,
@@ -83,6 +85,7 @@ class AcState {
   AcState copyWith(
           {String status,
           DateTime timestamp,
+          Info info,
           List<Lesson> timetable,
           List<Exam> exams,
           List<SessionExamResult> examResult,
@@ -91,6 +94,7 @@ class AcState {
       AcState(
           status ?? this.status,
           timestamp ?? this.timestamp,
+          info ?? this.info,
           timetable ?? this.timetable,
           exams ?? this.exams,
           examResult ?? this.examResult,

@@ -14,11 +14,40 @@ class AcData {
 }
 
 @JsonSerializable()
+class Info {
+  @JsonKey(name: 'Name')
+  final String name;
+  @JsonKey(name: 'Chinese Name')
+  final String cnName;
+  @JsonKey(name: 'Gender')
+  final String gender;
+  @JsonKey(name: 'NRIC/Passport No.')
+  final String idNumber;
+  @JsonKey(name: 'Programme')
+  final String programme;
+  @JsonKey(name: 'Intake')
+  final String intake;
+  @JsonKey(name: 'Registration Time')
+  final String regTime;
+  @JsonKey(name: 'Nationality')
+  final String nationality;
+  @JsonKey(name: 'Phone')
+  final String phone;
+
+  Info(this.name, this.cnName, this.gender, this.idNumber, this.programme,
+      this.intake, this.regTime, this.nationality, this.phone);
+
+  factory Info.fromJson(Map<String, dynamic> json) => _$InfoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$InfoToJson(this);
+}
+
+@JsonSerializable()
 class Lesson {
   final String courseCode;
   final String courseName;
   final String lecturer;
-  @JsonKey(name: "classRoom")
+  @JsonKey(name: 'classRoom')
   final String classroom;
   @JsonKey(fromJson: _weeksFromJson, toJson: _weeksToJson)
   final String weeks;
@@ -42,41 +71,41 @@ class Lesson {
       weeks.substring(6, weeks.length - 1);
 
   /// Export weeks to json.
-  static String _weeksToJson(String weeks) => "(Week " + weeks + ")";
+  static String _weeksToJson(String weeks) => '(Week ' + weeks + ')';
 
   /// Parse TimeOfDay from json.
   static TimeOfDay _timeOfDayFromJson(String timeOfDay) => TimeOfDay(
-        hour: int.parse(timeOfDay.split(":")[0]),
-        minute: int.parse(timeOfDay.split(":")[1]),
+        hour: int.parse(timeOfDay.split(':')[0]),
+        minute: int.parse(timeOfDay.split(':')[1]),
       );
 
   /// Export TimeOfDay to json.
   static String _timeOfDayToJson(TimeOfDay timeOfDay) =>
-      timeOfDay.hour.toString() + ":" + timeOfDay.minute.toString();
+      timeOfDay.hour.toString() + ':' + timeOfDay.minute.toString();
 }
 
 @JsonSerializable()
 class Exam {
-  @JsonKey(name: "Exam (Academic Session)")
+  @JsonKey(name: 'Exam (Academic Session)')
   final String session;
-  @JsonKey(name: "Exam Date", fromJson: _dateFromJson, toJson: _dateToJson)
+  @JsonKey(name: 'Exam Date', fromJson: _dateFromJson, toJson: _dateToJson)
   final DateTime date;
   @JsonKey(
-      name: "Exam Time",
+      name: 'Exam Time',
       fromJson: DurationOfDay.parse,
       toJson: DurationOfDay.toJson)
   final DurationOfDay durationOfDay;
-  @JsonKey(name: "Exam Venue")
+  @JsonKey(name: 'Exam Venue')
   final String venue;
-  @JsonKey(name: "Course Name")
+  @JsonKey(name: 'Course Name')
   final String courseName;
 
-  /// Type of exam: "Open Book" / "Closed Book"
-  @JsonKey(name: "Exam Type")
+  /// Type of exam: 'Open Book' / 'Closed Book'
+  @JsonKey(name: 'Exam Type')
   final String type;
 
-  /// Status of current exam: "Allowed" / ""
-  @JsonKey(name: "Status")
+  /// Status of current exam: 'Allowed' / ''
+  @JsonKey(name: 'Status')
   final String status;
 
   Exam(this.session, this.date, this.durationOfDay, this.venue, this.courseName,
