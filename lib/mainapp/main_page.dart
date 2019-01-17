@@ -25,13 +25,8 @@ class _MainPageState extends State<MainPage> {
         store.dispatch(UpdateHomepageAnnouncementsAction());
         return HomePage();
       case 1:
-        store.dispatch(UpdateAcAction());
-        store.dispatch(UpdateCoursesAction());
-        store.dispatch(UpdateAssignmentsAction());
         return CalendarPage();
       case 2:
-        store.dispatch(UpdateAcAction());
-        store.dispatch(UpdateCoursesAction());
         return AcademicPage();
       case 3:
         return ExplorePage();

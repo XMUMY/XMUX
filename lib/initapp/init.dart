@@ -19,7 +19,7 @@ export 'init_page.dart';
 
 enum InitResult { notLogin, loginError, finished }
 
-Future<InitResult> init() async {
+Future<Null> preInit() async {
   // Register sentry to capture errors. (Release mode only)
   if (bool.fromEnvironment('dart.vm.product'))
     FlutterError.onError = (e) =>
@@ -27,6 +27,10 @@ Future<InitResult> init() async {
 
   // Get package Info.
   packageInfo = await PackageInfo.fromPlatform();
+}
+
+Future<InitResult> init() async {
+  await preInit();
 
   // Select XMUX API server.
   xmuxApi = XMUXApi(BackendApiConfig.addresses);
@@ -82,6 +86,8 @@ Future<InitResult> init() async {
     await LoginHandler.createUser();
   }
 
+  refreshData();
+
   return InitResult.finished;
 }
 
@@ -96,4 +102,13 @@ void initFCM() {
   firebaseMessaging
       .getToken()
       .then((token) => print("FCM/Token got: " + token));
+}
+
+/// Refresh data from source.
+void refreshData() {
+  store.dispatch(UpdateInfoAction());
+  store.dispatch(UpdateHomepageAnnouncementsAction());
+  store.dispatch(UpdateAcAction());
+  store.dispatch(UpdateCoursesAction());
+  store.dispatch(UpdateAssignmentsAction());
 }

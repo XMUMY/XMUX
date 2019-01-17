@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/emgs/emgs.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 part 'xmux_api_actions.dart';
@@ -66,4 +67,10 @@ class UpdateNewsAction extends MainAppAction {
   UpdateNewsAction(this.news);
 
   final needSave = false;
+}
+
+class UpdateEmgsApplicationResultAction extends MainAppAction {
+  final EmgsApplicationResult result;
+
+  UpdateEmgsApplicationResultAction(this.result);
 }

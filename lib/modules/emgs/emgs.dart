@@ -6,6 +6,18 @@ import 'model.dart';
 
 export 'model.dart';
 
+/// Parse nationality to country code.
+/// Return `null` if unsupported.
+String getCountryCode(String nationality) {
+  switch (nationality) {
+    case 'Chinese':
+      return 'CN';
+    default:
+      return null;
+  }
+}
+
+/// Get application status from website.
 Future<EmgsApplicationResult> getApplicationStatus(
     String id, String nationality) async {
   // Get form key & cookie.

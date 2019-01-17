@@ -68,6 +68,8 @@ class _LoginButtonState extends State<LoginButton> {
     initFCM();
     xmuxApi.getIdToken = firebaseUser.getIdToken;
 
+    refreshData();
+
     runApp(MainApp());
   }
 

@@ -145,6 +145,7 @@ class QueryState {
   /// Billing records from E-Payment.
   final List<BillingRecord> ePaymentRecords;
 
+  /// Application status for VISA.
   final EmgsApplicationResult emgsApplicationResult;
 
   QueryState(this.ePaymentRecords, this.emgsApplicationResult);

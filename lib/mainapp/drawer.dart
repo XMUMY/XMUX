@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/emgs/emgs.dart' as emgs show getCountryCode;
+import 'package:xmux/redux/redux.dart';
 
 class DrawerPage extends StatelessWidget {
   Widget _buildButton(BuildContext ctx,
@@ -11,7 +14,8 @@ class DrawerPage extends StatelessWidget {
       Color color,
       double size}) {
     return ListTile(
-      leading: Icon(icon, size: size, color: color),
+      leading: Icon(icon,
+          size: size, color: color ?? Theme.of(ctx).textTheme.button.color),
       onTap: () => Navigator.of(ctx).popAndPushNamed(routeName),
       title: Text(
         i18n(text, ctx),
@@ -76,13 +80,22 @@ class DrawerPage extends StatelessWidget {
                     size: 21.0,
                   ),
 
-                  // Room Reservation
-                  _buildButton(
-                    context,
-                    routeName: '/Me/Emgs',
-                    text: 'Tools/Emgs',
-                    icon: FontAwesomeIcons.passport,
-                    size: 21.0,
+                  // VISA status
+                  StoreConnector<MainAppState, bool>(
+                    // Check if nationality supported && enabled.
+                    converter: (s) =>
+                        emgs.getCountryCode(
+                            s.state.acState.info?.nationality ?? null) !=
+                        null,
+                    builder: (context, enabled) => enabled
+                        ? _buildButton(
+                            context,
+                            routeName: '/Me/Emgs',
+                            text: 'Tools/Emgs',
+                            icon: FontAwesomeIcons.passport,
+                            size: 21.0,
+                          )
+                        : Container(),
                   ),
 
                   // Emergency
