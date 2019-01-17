@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:redux/redux.dart';
+import 'package:xmux/main.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 import 'actions/actions.dart';
@@ -47,26 +48,35 @@ void apiRequestMiddleware(
   if (action is XMUXApiAction) {
     print(
         'Redux/apiRequestMiddleware: Invoked (Action: ${action.runtimeType})');
-    action.listener = action(
+    action.listener = apiCall(store, action, next);
+  } else
+    next(action);
+}
+
+Future<Null> apiCall(Store<MainAppState> store, XMUXApiAction action,
+    NextDispatcher next) async {
+  try {
+    await action(
       XMUXApiAuth(
           campusID: store.state.authState.campusID,
           campusIDPassword: store.state.authState.campusIDPassword,
           ePaymentPassword: store.state.authState.ePaymentPassword,
           moodleKey: store.state.authState.moodleKey),
       params: action.params,
-    ).then((_) => next(action)).catchError(
-      (e) {
-        if (action.context != null)
-          Scaffold.of(action.context)
-              .showSnackBar(SnackBar(content: Text(e.toString())));
-        action.onError();
-      },
-      test: (_) => action.onError != null,
-    ).catchError(
-      (e) => Scaffold.of(action.context)
-          .showSnackBar(SnackBar(content: Text(e.toString()))),
-      test: (_) => action.context != null,
     );
-  } else
     next(action);
+  } catch (e) {
+    // Sign out if wrong password.
+    if (e is XMUXApiException && e.type == 'WrongPasswordError')
+      signOut();
+    else if (action.context != null) {
+      Scaffold.of(action.context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+      return;
+    } else if (action.onError != null) {
+      action.onError();
+      return;
+    } else
+      rethrow;
+  }
 }

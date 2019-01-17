@@ -30,9 +30,13 @@ class XMUXApiException implements Exception {
   /// The error from server.
   final String message;
 
-  XMUXApiException(this.message);
+  /// The type of error.
+  final String type;
 
-  String toString() => "XMUXApiV2/Exception: $message";
+  XMUXApiException(this.message, this.type);
+
+  String toString() =>
+      'XMUXApiV2/${type != null ? type : "Exception"}: $message';
 }
 
 /// The general response of XMUX API V2 from server.
@@ -134,7 +138,8 @@ class XMUXApi {
       ResponseType fromJson(JsonType json)) {
     // If status is error, throw an Exception contains error message.
     if (response.data['status'] == 'error')
-      throw XMUXApiException(response.data['error']);
+      throw XMUXApiException(
+          response.data['error'], response.data['errorType']);
     // Construct response from json.
     return XMUXApiResponse<ResponseType>(
         response.data['status'],
