@@ -14,18 +14,43 @@ class EmgsPage extends StatefulWidget {
 }
 
 class _EmgsPageState extends State<EmgsPage> {
+  final _scrollController = ScrollController();
+  var _elevation = 0.0;
+  var _hasError = false;
+
   /// Get application status from website.
   Future<Null> _handleRefresh() async {
     var countryCode = getCountryCode(store.state.acState.info.nationality);
-    var res = await getApplicationStatus(
-        store.state.acState.info.idNumber, countryCode);
-    store.dispatch(UpdateEmgsApplicationResultAction(res));
+    try {
+      var res = await getApplicationStatus(
+          store.state.acState.info.idNumber, countryCode);
+      store.dispatch(UpdateEmgsApplicationResultAction(res));
+    } catch (e) {
+      setState(() => _hasError = true);
+      // Rethrow the error so that sentry can catch it.
+      rethrow;
+    }
   }
 
   @override
   void initState() {
     if (store.state.acState.info != null) _handleRefresh();
+
+    // Float appBar when scroll.
+    _scrollController.addListener(
+      () => _scrollController.position.pixels > 15 && _elevation < 4.0
+          ? setState(() => _elevation = 4.0)
+          : _scrollController.position.pixels < 15 && _elevation > 0.0
+              ? setState(() => _elevation = 0.0)
+              : null,
+    );
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -43,17 +68,19 @@ class _EmgsPageState extends State<EmgsPage> {
             style: Theme.of(context).textTheme.title,
           ),
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
+        backgroundColor: Theme.of(context).canvasColor,
+        elevation: _elevation,
         centerTitle: true,
       ),
       body: StoreBuilder<MainAppState>(
         builder: (ctx, store) {
-          if (store.state.acState.info == null) return EmptyErrorPage();
+          if (store.state.acState.info == null || _hasError)
+            return EmptyErrorPage();
           if (store.state.queryState.emgsApplicationResult == null)
             return Center(child: SpinKitFoldingCube(color: Colors.black38));
           return RefreshIndicator(
-              child: EmgsDetails(store.state.queryState.emgsApplicationResult),
+              child: EmgsDetails(store.state.queryState.emgsApplicationResult,
+                  _scrollController),
               onRefresh: _handleRefresh);
         },
       ),
@@ -62,9 +89,10 @@ class _EmgsPageState extends State<EmgsPage> {
 }
 
 class EmgsDetails extends StatefulWidget {
-  final EmgsApplicationResult result;
+  final EmgsApplicationResult _result;
+  final ScrollController _scrollController;
 
-  const EmgsDetails(this.result);
+  const EmgsDetails(this._result, this._scrollController);
 
   @override
   _EmgsDetailsState createState() => _EmgsDetailsState();
@@ -82,7 +110,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
         AnimationController(duration: Duration(milliseconds: 700), vsync: this);
 
     _percentageAnimation =
-        Tween(begin: 0.0, end: widget.result.percentage / 100)
+        Tween(begin: 0.0, end: widget._result.percentage / 100)
             .animate(_controller);
     _colorAnimation = ColorTween(begin: Colors.red, end: Colors.green)
         .animate(_controller)
@@ -101,6 +129,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
   @override
   Widget build(BuildContext context) {
     return ListView(
+      controller: widget._scrollController,
       padding: const EdgeInsets.all(12.0),
       children: <Widget>[
         Stack(
@@ -132,18 +161,20 @@ class _EmgsDetailsState extends State<EmgsDetails>
         ),
         Card(
           margin: const EdgeInsets.all(5.0),
+          elevation: 3.0,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: <Widget>[
                 Text(
-                  widget.result.fullName,
+                  widget._result.fullName,
                   style: Theme.of(context).textTheme.title,
                 ),
                 Divider(height: 10.0, color: Colors.transparent),
                 Text(
-                  widget.result.applicationStatus,
+                  widget._result.applicationStatus,
                   style: Theme.of(context).textTheme.subhead,
+                  textAlign: TextAlign.center,
                 ),
                 Divider(height: 12.0, color: Colors.transparent),
                 Row(
@@ -157,7 +188,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
                           ),
                           Divider(height: 3.0, color: Colors.transparent),
                           Text(
-                            widget.result.applicationNumber,
+                            widget._result.applicationNumber,
                           ),
                         ],
                       ),
@@ -171,7 +202,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
                           ),
                           Divider(height: 3.0, color: Colors.transparent),
                           Text(
-                            widget.result.applicationType,
+                            widget._result.applicationType,
                           ),
                         ],
                       ),
@@ -187,7 +218,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
         Padding(
           padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
           child: Text(
-          i18n('Tools/Emgs/History', context),
+            i18n('Tools/Emgs/History', context),
             style: Theme.of(context).textTheme.title,
           ),
         ),
@@ -195,21 +226,21 @@ class _EmgsDetailsState extends State<EmgsDetails>
           padding: const EdgeInsets.all(8.0),
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
-          itemCount: widget.result.history.length * 2 - 1,
+          itemCount: widget._result.history.length * 2 - 1,
           itemBuilder: (context, index) => index % 2 == 0
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      widget.result.history[(index + 1) ~/ 2].status,
+                      widget._result.history[(index + 1) ~/ 2].status,
                       style: Theme.of(context).textTheme.subhead,
                     ),
                     Text(
-                      DateFormat.yMd()
-                          .format(widget.result.history[(index + 1) ~/ 2].date),
+                      DateFormat.yMd().format(
+                          widget._result.history[(index + 1) ~/ 2].date),
                       style: Theme.of(context).textTheme.caption,
                     ),
-                    Text(widget.result.history[(index + 1) ~/ 2].remark)
+                    Text(widget._result.history[(index + 1) ~/ 2].remark)
                   ],
                 )
               : Divider(),
