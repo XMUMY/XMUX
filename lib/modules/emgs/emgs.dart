@@ -47,8 +47,10 @@ Future<EmgsApplicationResult> getApplicationStatus(
       });
 
   if (res.statusCode != 200) throw Exception('EMGS: Fetch ERROR');
+  var document = parse(res.body);
 
-  var statusList = parse(res.body)
+  // Get status table.
+  var statusList = document
       .getElementsByClassName('application-summary')[0]
       .children
       .map((c) => c.text.replaceAll('\n', ''))
@@ -57,12 +59,27 @@ Future<EmgsApplicationResult> getApplicationStatus(
       key: (s) => s.split(':')[0].replaceAll(' ', ''),
       value: (s) => s.split(':')[1].replaceAll(RegExp(r'^\s+|\s+$'), ''));
 
+  // Get percentage.
   var percentage = RegExp('isShowStaticInfoText: "[0-9]{1,3}%"')
       .firstMatch(res.body)
       .group(0)
       .split('"')[1]
       .replaceAll('%', '');
-  status.addAll({'percentage': double.parse(percentage)});
+
+  // Get history.
+  var history = document
+      .querySelector('#form-table tbody')
+      .children
+      .map((l) => {
+            'date': l.children[0].text.replaceAll(RegExp(r'^\s+|\s+$|\n'), ''),
+            'status':
+                l.children[1].text.replaceAll(RegExp(r'^\s+|\s+$|\n'), ''),
+            'remark':
+                l.children[2].text.replaceAll(RegExp(r'^\s+|\s+$|\n'), ''),
+          })
+      .toList();
+
+  status.addAll({'percentage': double.parse(percentage), 'history': history});
 
   return EmgsApplicationResult.fromJson(status);
 }

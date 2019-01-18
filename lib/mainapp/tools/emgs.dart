@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/emgs/emgs.dart';
 import 'package:xmux/modules/error_widgets/error_widgets.dart';
@@ -30,7 +32,20 @@ class _EmgsPageState extends State<EmgsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(i18n('Tools/Emgs', context)),
+        leading: BackButton(
+          color: Theme.of(context).textTheme.button.color,
+        ),
+        title: CachedNetworkImage(
+          imageUrl:
+              'https://educationmalaysia.gov.my/skin/frontend/emgs/default/images/logo-emgs.png',
+          placeholder: Text(
+            i18n('Tools/Emgs', context),
+            style: Theme.of(context).textTheme.title,
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        centerTitle: true,
       ),
       body: StoreBuilder<MainAppState>(
         builder: (ctx, store) {
@@ -116,17 +131,89 @@ class _EmgsDetailsState extends State<EmgsDetails>
           ],
         ),
         Card(
+          margin: const EdgeInsets.all(5.0),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text(
-              'Name: ${widget.result.fullName}\n'
-                  'Application No.: ${widget.result.applicationNumber}\n'
-                  'Type: ${widget.result.applicationType}\n'
-                  'Status: ${widget.result.applicationStatus}',
-              style: Theme.of(context).textTheme.subhead,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  widget.result.fullName,
+                  style: Theme.of(context).textTheme.title,
+                ),
+                Divider(height: 10.0, color: Colors.transparent),
+                Text(
+                  widget.result.applicationStatus,
+                  style: Theme.of(context).textTheme.subhead,
+                ),
+                Divider(height: 12.0, color: Colors.transparent),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            i18n('Tools/Emgs/No', context),
+                            style: Theme.of(context).textTheme.title,
+                          ),
+                          Divider(height: 3.0, color: Colors.transparent),
+                          Text(
+                            widget.result.applicationNumber,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            i18n('Tools/Emgs/Type', context),
+                            style: Theme.of(context).textTheme.title,
+                          ),
+                          Divider(height: 3.0, color: Colors.transparent),
+                          Text(
+                            widget.result.applicationType,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
+
+        // History.
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
+          child: Text(
+          i18n('Tools/Emgs/History', context),
+            style: Theme.of(context).textTheme.title,
+          ),
+        ),
+        ListView.builder(
+          padding: const EdgeInsets.all(8.0),
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
+          itemCount: widget.result.history.length * 2 - 1,
+          itemBuilder: (context, index) => index % 2 == 0
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      widget.result.history[(index + 1) ~/ 2].status,
+                      style: Theme.of(context).textTheme.subhead,
+                    ),
+                    Text(
+                      DateFormat.yMd()
+                          .format(widget.result.history[(index + 1) ~/ 2].date),
+                      style: Theme.of(context).textTheme.caption,
+                    ),
+                    Text(widget.result.history[(index + 1) ~/ 2].remark)
+                  ],
+                )
+              : Divider(),
+        )
       ],
     );
   }
