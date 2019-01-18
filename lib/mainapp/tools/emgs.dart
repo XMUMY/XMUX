@@ -75,7 +75,7 @@ class _EmgsPageState extends State<EmgsPage> {
       body: StoreBuilder<MainAppState>(
         builder: (ctx, store) {
           if (store.state.acState.info == null || _hasError)
-            return EmptyErrorPage();
+            return ErrorWidgets.emptyErrorPage;
           if (store.state.queryState.emgsApplicationResult == null)
             return Center(child: SpinKitFoldingCube(color: Colors.black38));
           return RefreshIndicator(

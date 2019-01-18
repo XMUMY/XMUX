@@ -12,7 +12,7 @@ class GeoGebraPage extends StatelessWidget {
       ),
       body: WebView(
         initialUrl: 'https://www.geogebra.org/classic',
-        javaScriptMode: JavaScriptMode.unrestricted,
+        javascriptMode: JavascriptMode.unrestricted,
       ),
     );
   }

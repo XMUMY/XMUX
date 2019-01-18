@@ -1,6 +1,6 @@
 part of 'error_widgets.dart';
 
-class EmptyErrorPage extends StatelessWidget {
+class _EmptyErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -12,12 +12,12 @@ class EmptyErrorPage extends StatelessWidget {
           ),
           Padding(padding: EdgeInsets.all(10.0)),
           Text(
-            "Oh! Nothing is here!\nPlease come later.",
+            'Oh! Nothing is here!\nPlease come later.',
             textAlign: TextAlign.center,
           ),
           Padding(padding: EdgeInsets.all(10.0)),
           Text(
-            "噢！这里什么也没有！\n请稍后再来。",
+            '噢！这里什么也没有！\n请稍后再来。',
             textAlign: TextAlign.center,
           )
         ],

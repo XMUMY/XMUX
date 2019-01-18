@@ -17,20 +17,19 @@ class TimeTablePage extends StatelessWidget {
   TimeTablePage(List<Lesson> timetable)
       : this.classes = timetable == null ? null : sortTimetable(timetable);
 
-  Widget _buildLastUpdateString(BuildContext context) => Center(
-        child: Padding(
-          padding: EdgeInsets.all(3.0),
-          child: Text(
-            i18n('Calendar/LastUpdate', context) +
-                DateFormat.yMMMd(Localizations.localeOf(context).languageCode)
-                    .format(store.state.acState.timestamp) +
-                ' ' +
-                DateFormat.Hms(Localizations.localeOf(context).languageCode)
-                    .format(store.state.acState.timestamp),
-            style: Theme.of(context).textTheme.caption,
-          ),
+  Widget _buildLastUpdateString(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(5.0),
+        child: Text(
+          "${i18n('Calendar/LastUpdate', context)} "
+              '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)} '
+              '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)}',
+          style: Theme.of(context).textTheme.caption,
         ),
-      );
+      ),
+    );
+  }
 
   Future<Null> _handleUpdate(BuildContext context) async {
     var action = UpdateAcAction(context: context);
@@ -91,10 +90,12 @@ class LessonCard extends StatefulWidget {
   @override
   _LessonCardState createState() => _LessonCardState();
 
-  String get lessonCredit => store.state.acState.courses
-      ?.firstWhere((c) => c.courseName.indexOf(lesson.courseName) != -1)
-      ?.credit
-      ?.toString();
+  String get lessonCredit =>
+      store.state.acState.courses
+          ?.firstWhere((c) => c.courseName.indexOf(lesson.courseName) != -1)
+          ?.credit
+          ?.toString() ??
+      '';
 }
 
 class _LessonCardState extends State<LessonCard> {
@@ -190,7 +191,7 @@ class _LessonCardState extends State<LessonCard> {
       onTapUp: (_) => setState(() => _elevation = 1.0),
       onTapCancel: () => setState(() => _elevation = 1.0),
       child: Card(
-        margin: EdgeInsets.all(8.0),
+        margin: const EdgeInsets.all(8.0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),
         elevation: _elevation,
         child: Column(

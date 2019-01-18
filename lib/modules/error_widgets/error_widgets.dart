@@ -7,8 +7,8 @@ part 'empty_error_button.dart';
 part 'empty_error_page.dart';
 
 class ErrorWidgets {
-  static EmptyErrorButton emptyErrorButton({AsyncCallback onRefresh}) =>
-      EmptyErrorButton(onRefresh: onRefresh);
+  static _EmptyErrorButton emptyErrorButton({AsyncCallback onRefresh}) =>
+      _EmptyErrorButton(onRefresh: onRefresh);
 
-  static EmptyErrorPage get emptyErrorPage => EmptyErrorPage();
+  static _EmptyErrorPage get emptyErrorPage => _EmptyErrorPage();
 }

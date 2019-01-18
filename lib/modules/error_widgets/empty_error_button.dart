@@ -1,9 +1,9 @@
 part of 'error_widgets.dart';
 
-class EmptyErrorButton extends StatelessWidget {
+class _EmptyErrorButton extends StatelessWidget {
   final AsyncCallback onRefresh;
 
-  EmptyErrorButton({AsyncCallback onRefresh})
+  _EmptyErrorButton({AsyncCallback onRefresh})
       : this.onRefresh = onRefresh ?? (() {});
 
   @override
@@ -22,12 +22,12 @@ class EmptyErrorButton extends StatelessWidget {
               ),
               Padding(padding: EdgeInsets.all(10.0)),
               Text(
-                "Oh! Nothing is here!\nPlease refresh or come later.",
+                'Oh! Nothing is here!\nPlease refresh or come later.',
                 textAlign: TextAlign.center,
               ),
               Padding(padding: EdgeInsets.all(10.0)),
               Text(
-                "噢！这里什么也没有！\n请刷新或稍后再来。",
+                '噢！这里什么也没有！\n请刷新或稍后再来。',
                 textAlign: TextAlign.center,
               )
             ],
