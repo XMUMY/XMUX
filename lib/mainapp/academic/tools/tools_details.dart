@@ -83,7 +83,7 @@ class _AcademicPageCard extends StatelessWidget {
                     ),
                     Divider(
                       height: 5.0,
-                      color: Theme.of(context).canvasColor,
+                      color: Colors.transparent,
                     ),
                     Text(
                       i18n(textUri + '/Caption', context),

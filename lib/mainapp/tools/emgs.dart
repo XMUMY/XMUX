@@ -184,7 +184,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
                         children: <Widget>[
                           Text(
                             i18n('Tools/Emgs/No', context),
-                            style: Theme.of(context).textTheme.title,
+                            style: Theme.of(context).textTheme.subtitle,
                           ),
                           Divider(height: 3.0, color: Colors.transparent),
                           Text(
@@ -198,7 +198,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
                         children: <Widget>[
                           Text(
                             i18n('Tools/Emgs/Type', context),
-                            style: Theme.of(context).textTheme.title,
+                            style: Theme.of(context).textTheme.subtitle,
                           ),
                           Divider(height: 3.0, color: Colors.transparent),
                           Text(
