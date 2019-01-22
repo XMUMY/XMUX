@@ -21,6 +21,7 @@ class FleaMarketPage extends StatelessWidget {
       ),
       body: FirebaseAnimatedList(
         query: FirebaseDatabase.instance.reference().child('flea_market'),
+        sort: (a, b) => b.key.compareTo(a.key),
         itemBuilder: (ctx, _, __, index) => ItemCard(Item.fromSnapshot(_)),
         defaultChild: Center(child: CircularProgressIndicator()),
       ),

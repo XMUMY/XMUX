@@ -131,10 +131,13 @@ class EndDrawer extends StatelessWidget {
         child: Column(
           children: <Widget>[
             DrawerHeader(
-              child: CircleAvatar(
-                radius: 40.0,
-                child: Text('X', style: TextStyle(fontSize: 50.0)),
-                backgroundColor: Colors.black,
+              child: Hero(
+                tag: 'χLogo',
+                child: CircleAvatar(
+                  radius: 40.0,
+                  child: Text('X', style: TextStyle(fontSize: 50.0)),
+                  backgroundColor: Colors.black,
+                ),
               ),
             ),
             Container(
@@ -145,13 +148,11 @@ class EndDrawer extends StatelessWidget {
                   RaisedButton(
                     onPressed: () => launch('https://xmux.xdea.top'),
                     child: Text(i18n('Home', context)),
-                    color: Theme.of(context).cardColor,
                   ),
                   RaisedButton(
                     onPressed: () =>
                         Navigator.of(context).popAndPushNamed('/About'),
                     child: Text(i18n('About', context)),
-                    color: Theme.of(context).cardColor,
                   ),
                 ],
               ),
