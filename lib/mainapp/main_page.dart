@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/academic/academic_page.dart';
 import 'package:xmux/mainapp/calendar/calendar_page.dart';
@@ -74,11 +75,11 @@ class _MainPageState extends State<MainPage> {
                 backgroundColor: Theme.of(context).primaryColor),
             BottomNavigationBarItem(
                 title: Text(i18n('Academic', context)),
-                icon: Icon(Icons.explore),
+                icon: Icon(FontAwesomeIcons.graduationCap),
                 backgroundColor: Colors.lightBlue),
             BottomNavigationBarItem(
                 title: Text(i18n('Explore', context)),
-                icon: Icon(Icons.search),
+                icon: Icon(Icons.explore),
                 backgroundColor: Colors.indigo[800]),
           ],
           currentIndex: _currentIndex,

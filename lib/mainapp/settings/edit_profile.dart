@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
 
-class ChangePersonalInfoPage extends StatefulWidget {
+class ChangeProfilePage extends StatefulWidget {
   @override
-  _ChangePersonalInfoPageState createState() => _ChangePersonalInfoPageState();
+  _ChangeProfilePageState createState() => _ChangeProfilePageState();
 }
 
-class _ChangePersonalInfoPageState extends State<ChangePersonalInfoPage> {
+class _ChangeProfilePageState extends State<ChangeProfilePage> {
   final _displayNameController =
       TextEditingController(text: firebaseUser?.displayName ?? 'User');
 
@@ -48,6 +48,7 @@ class _ChangePersonalInfoPageState extends State<ChangePersonalInfoPage> {
               decoration: InputDecoration(
                   labelText:
                       i18n('Settings/ChangeProfile/DisplayName', context)),
+              maxLength: 25,
               validator: (name) => name.isNotEmpty ? null : 'Format error',
             ),
           ],

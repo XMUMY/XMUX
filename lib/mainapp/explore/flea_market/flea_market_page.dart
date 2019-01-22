@@ -140,11 +140,17 @@ class _ItemCardState extends State<ItemCard> {
                   scrollDirection: Axis.horizontal,
                   itemCount: widget.item.photos.length,
                   itemBuilder: (_, index) => index == 0
-                      ? Hero(
-                          tag: widget.item.key,
-                          child: Image.network(widget.item.photos[index]),
+                      ? Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Hero(
+                            tag: widget.item.key,
+                            child: Image.network(widget.item.photos[index]),
+                          ),
                         )
-                      : Image.network(widget.item.photos[index]),
+                      : Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Image.network(widget.item.photos[index]),
+                        ),
                 ),
               ),
 

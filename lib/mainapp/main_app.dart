@@ -13,8 +13,8 @@ import 'package:xmux/mainapp/academic/tools/wolfram_engine/input_constructor.dar
 import 'package:xmux/mainapp/calendar/calendar_image.dart';
 import 'package:xmux/mainapp/explore/lost_and_found/lost_and_found_page.dart';
 import 'package:xmux/mainapp/main_page.dart';
-import 'package:xmux/mainapp/settings/change_personal_info.dart';
 import 'package:xmux/mainapp/settings/developer_options.dart';
+import 'package:xmux/mainapp/settings/edit_profile.dart';
 import 'package:xmux/mainapp/settings/settings_page.dart';
 import 'package:xmux/mainapp/tools/emergency.dart';
 import 'package:xmux/mainapp/tools/emgs.dart';
@@ -64,7 +64,7 @@ class MainApp extends StatelessWidget {
           '/Me/Emgs': (_) => EmgsPage(),
           '/Me/Emergency': (_) => EmergencyPage(),
           '/Settings': (_) => SettingsPage(),
-          '/Settings/ChangeProfile': (_) => ChangePersonalInfoPage(),
+          '/Settings/ChangeProfile': (_) => ChangeProfilePage(),
           '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
           '/explore/lostandfound': (_) => LostAndFoundPage()
         },
