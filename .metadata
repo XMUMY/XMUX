@@ -6,3 +6,5 @@
 version:
   revision: 2e449f06f0a3be076e336ad6b30b0e9ec99dbdfe
   channel: alpha
+
+project_type: app
