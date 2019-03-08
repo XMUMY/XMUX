@@ -63,10 +63,10 @@ class _EmgsPageState extends State<EmgsPage> {
         title: CachedNetworkImage(
           imageUrl:
               'https://educationmalaysia.gov.my/skin/frontend/emgs/default/images/logo-emgs.png',
-          placeholder: Text(
-            i18n('Tools/Emgs', context),
-            style: Theme.of(context).textTheme.title,
-          ),
+          placeholder: (ctx, _) => Text(
+                i18n('Tools/Emgs', context),
+                style: Theme.of(context).textTheme.title,
+              ),
         ),
         backgroundColor: Theme.of(context).canvasColor,
         elevation: _elevation,
