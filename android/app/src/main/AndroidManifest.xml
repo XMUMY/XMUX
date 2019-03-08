@@ -9,7 +9,9 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:icon="@mipmap/ic_launcher"
-        android:label="XMUX">
+        android:label="XMUX"
+        android:usesCleartextTraffic="true">
+        <!--Allow HTTP for rooms-->
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -30,8 +32,5 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <service
-            android:name="org.strongswan.android.logic.CharonVpnService"
-            android:permission="android.permission.BIND_VPN_SERVICE" />
     </application>
 </manifest>
