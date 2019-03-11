@@ -9,7 +9,7 @@ class DurationOfDay {
   DurationOfDay._(this.start, this.end);
 
   /// Parse string like "15:00-17:00".
-  static parse(String duration) {
+  static DurationOfDay parse(String duration) {
     List<String> _durationParts = duration.split("-");
 
     // Parse parts to int.

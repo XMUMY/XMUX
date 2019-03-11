@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/sign_in_button.dart';
+import 'package:xmux/modules/algorithms/algorithms.dart' show editDistance;
 import 'package:xmux/modules/common/blur_box.dart';
 import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
@@ -90,12 +91,19 @@ class LessonCard extends StatefulWidget {
   @override
   _LessonCardState createState() => _LessonCardState();
 
-  String get lessonCredit =>
-      store.state.acState.courses
+  int get lessonCredit {
+    try {
+      return store.state.acState.courses
           ?.firstWhere((c) => c.courseName.indexOf(lesson.courseName) != -1)
-          ?.credit
-          ?.toString() ??
-      '';
+          ?.credit;
+    } catch (e) {
+      var editDistances = store.state.acState.courses
+          .map((c) => editDistance(c.courseName, lesson.courseName))
+          .toList();
+      var index = editDistances.indexOf(editDistances.reduce(min));
+      return store.state.acState.courses[index].credit;
+    }
+  }
 }
 
 class _LessonCardState extends State<LessonCard> {
