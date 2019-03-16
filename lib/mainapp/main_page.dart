@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/academic/academic_page.dart';
 import 'package:xmux/mainapp/calendar/calendar_page.dart';
+import 'package:xmux/mainapp/campus/campus_page.dart';
 import 'package:xmux/mainapp/drawer.dart';
 import 'package:xmux/mainapp/explore/explore_page.dart';
 import 'package:xmux/mainapp/home/home_page.dart';
@@ -28,7 +28,7 @@ class _MainPageState extends State<MainPage> {
       case 1:
         return CalendarPage();
       case 2:
-        return AcademicPage();
+        return CampusPage();
       case 3:
         return ExplorePage();
       default:
@@ -74,8 +74,8 @@ class _MainPageState extends State<MainPage> {
                 icon: Icon(Icons.calendar_today),
                 backgroundColor: Theme.of(context).primaryColor),
             BottomNavigationBarItem(
-                title: Text(i18n('Academic', context)),
-                icon: Icon(FontAwesomeIcons.graduationCap),
+                title: Text(i18n('Campus', context)),
+                icon: Icon(FontAwesomeIcons.university),
                 backgroundColor: Colors.lightBlue),
             BottomNavigationBarItem(
                 title: Text(i18n('Explore', context)),

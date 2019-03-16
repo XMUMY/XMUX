@@ -46,7 +46,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(i18n('Academic/Tools/ExamResult/Title', context)),
+        title: Text(i18n('Campus/AcademicTools/ExamResult/Title', context)),
         backgroundColor: Colors.lightBlue,
       ),
       body: StoreConnector<MainAppState, List<SessionExamResult>>(
@@ -58,8 +58,8 @@ class _ExamResultPageState extends State<ExamResultPage> {
             padding: const EdgeInsets.all(5.0),
             children: <Widget>[
               ListTile(
-                title: Text(
-                    i18n('Academic/Tools/ExamResult/ChooseSession', context)),
+                title: Text(i18n(
+                    'Campus/AcademicTools/ExamResult/ChooseSession', context)),
                 trailing: DropdownButton<SessionExamResult>(
                   items: results
                       .map((session) => DropdownMenuItem(
@@ -139,7 +139,7 @@ class _ResultDetails extends StatelessWidget {
                       Text(
                         '${courseResult.courseCode}  '
                             '${courseResult.credit.toString()} '
-                            "${i18n('Academic/Tools/ExamResult/credits', context)}",
+                            "${i18n('Campus/AcademicTools/ExamResult/credits', context)}",
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ],

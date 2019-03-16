@@ -74,7 +74,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text(MainLocalizations.of(context)
-              .get("Academic/Tools/GPACalculator/Title")),
+              .get("Campus/AcademicTools/GPACalculator/Title")),
           backgroundColor: Colors.lightBlue,
         ),
         body: courses.isEmpty

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:xmux/mainapp/academic/tools/wolfram_engine/result.dart';
-import 'package:xmux/translations/translation.dart';
+import 'package:xmux/globals.dart';
+
+import 'result.dart';
 
 class InputConstructor extends StatefulWidget {
   @override
@@ -38,8 +39,8 @@ class _InputConstructorState extends State<InputConstructor> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.orange,
-          title: Text(MainLocalizations.of(context)
-              .get("Academic/Tools/WolframEngine/InputConstructor")),
+          title: Text(i18n(
+              'Campus/AcademicTools/WolframEngine/InputConstructor', context)),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,8 +54,9 @@ class _InputConstructorState extends State<InputConstructor> {
                     autofocus: true,
                     controller: _inputTextController,
                     decoration: InputDecoration(
-                        hintText: MainLocalizations.of(context).get(
-                            "Academic/Tools/WolframEngine/InputConstructor/SearchAnything")),
+                        hintText: i18n(
+                            'Campus/AcademicTools/WolframEngine/InputConstructor/SearchAnything',
+                            context)),
                   )),
                   IconButton(
                     icon: Icon(Icons.send),
@@ -72,12 +74,14 @@ class _InputConstructorState extends State<InputConstructor> {
               ),
             ),
             ListTile(
-              title: Text(MainLocalizations.of(context).get(
-                  "Academic/Tools/WolframEngine/InputConstructor/CommonlyUsed")),
+              title: Text(i18n(
+                  'Campus/AcademicTools/WolframEngine/InputConstructor/CommonlyUsed',
+                  context)),
               trailing: DropdownButton<String>(
                 value: dropdownValue,
-                hint: Text(MainLocalizations.of(context).get(
-                    "Academic/Tools/WolframEngine/InputConstructor/Choose")),
+                hint: Text(i18n(
+                    'Campus/AcademicTools/WolframEngine/InputConstructor/Choose',
+                    context)),
                 onChanged: (String command) => setState(() {
                       _inputTextController.text += command;
                       _inputTextController.selection = TextSelection.collapsed(
@@ -96,38 +100,30 @@ class _InputConstructorState extends State<InputConstructor> {
                     .toList(),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Wrap(
+              alignment: WrapAlignment.spaceAround,
+              spacing: 3.0,
               children: <Widget>[
-                _getInputButton("+"),
-                _getInputButton("-"),
-                _getInputButton("*"),
-                _getInputButton("/"),
-                _getInputButton("["),
-                _getInputButton("]"),
-                _getInputButton("^"),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _getInputButton("("),
-                _getInputButton(")"),
-                _getInputButton("{"),
-                _getInputButton("}"),
-                _getInputButton("="),
-                _getInputButton("x"),
-                _getInputButton("y"),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _getInputButton(","),
-                _getInputButton("%"),
+                _getInputButton('+'),
+                _getInputButton('-'),
+                _getInputButton('*'),
+                _getInputButton('/'),
+                _getInputButton('['),
+                _getInputButton(']'),
+                _getInputButton('^'),
+                _getInputButton('('),
+                _getInputButton(')'),
+                _getInputButton('{'),
+                _getInputButton('}'),
+                _getInputButton('='),
+                _getInputButton('x'),
+                _getInputButton('y'),
+                _getInputButton(','),
+                _getInputButton('%'),
                 FlatButton(
-                  child: Text(MainLocalizations.of(context).get(
-                      "Academic/Tools/WolframEngine/InputConstructor/ClearAll")),
+                  child: Text(i18n(
+                      'Campus/AcademicTools/WolframEngine/InputConstructor/ClearAll',
+                      context)),
                   onPressed: () {
                     _inputTextController.clear();
                   },

@@ -4,13 +4,13 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/about.dart';
-import 'package:xmux/mainapp/academic/tools/exam_result.dart';
-import 'package:xmux/mainapp/academic/tools/geogebra.dart';
-import 'package:xmux/mainapp/academic/tools/gpa_calculator.dart';
-import 'package:xmux/mainapp/academic/tools/tools_details.dart';
-import 'package:xmux/mainapp/academic/tools/vpn.dart';
-import 'package:xmux/mainapp/academic/tools/wolfram_engine/input_constructor.dart';
 import 'package:xmux/mainapp/calendar/calendar_image.dart';
+import 'package:xmux/mainapp/campus/academic_tools/exam_result.dart';
+import 'package:xmux/mainapp/campus/academic_tools/geogebra.dart';
+import 'package:xmux/mainapp/campus/academic_tools/gpa_calculator.dart';
+import 'package:xmux/mainapp/campus/academic_tools/tools_details.dart';
+import 'package:xmux/mainapp/campus/academic_tools/vpn.dart';
+import 'package:xmux/mainapp/campus/academic_tools/wolfram_engine/input_constructor.dart';
 import 'package:xmux/mainapp/explore/lost_and_found/lost_and_found_page.dart';
 import 'package:xmux/mainapp/main_page.dart';
 import 'package:xmux/mainapp/settings/developer_options.dart';
@@ -51,13 +51,13 @@ class MainApp extends StatelessWidget {
         // Define route for main app.
         routes: <String, WidgetBuilder>{
           '/About': (_) => AboutPage(),
-          '/Academic/Tools/Details': (_) => AcademicToolDetailsPage(),
-          '/Academic/Tools/ExamResult': (_) => ExamResultPage(),
-          '/Academic/Tools/WolframEngine': (_) => InputConstructor(),
-          '/Academic/Tools/GeoGebra': (_) => GeoGebraPage(),
-          '/Academic/Tools/GPACalculator': (_) => GPACalculatorPage(),
-          '/Academic/Tools/VPN': (_) => VPNPage(),
           '/Calendar/CalendarImage': (_) => CalendarImagePage(),
+          '/Campus/AcademicTools/Details': (_) => AcademicToolDetailsPage(),
+          '/Campus/AcademicTools/ExamResult': (_) => ExamResultPage(),
+          '/Campus/AcademicTools/WolframEngine': (_) => InputConstructor(),
+          '/Campus/AcademicTools/GeoGebra': (_) => GeoGebraPage(),
+          '/Campus/AcademicTools/GPACalculator': (_) => GPACalculatorPage(),
+          '/Campus/AcademicTools/VPN': (_) => VPNPage(),
           '/Explore/LostAndFound': (_) => LostAndFoundPage(),
           '/Me/Epayment': (_) => EPaymentPage(),
           '/Me/RoomReservation': (_) => RoomWebviewPage(),

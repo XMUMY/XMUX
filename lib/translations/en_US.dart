@@ -10,7 +10,7 @@ const Map<String, String> en_US = {
   // HomePage
   'Home': 'Home',
   'Calendar': 'Calendar',
-  'Academic': 'Academic',
+  'Campus': 'Campus',
   'Explore': 'Explore',
   'Me': 'Me',
   // Home
@@ -34,32 +34,32 @@ const Map<String, String> en_US = {
   'Calendar/SignIn/Finished': 'Success',
   'Calendar/SignIn/Failed': 'Failed',
   'Calendar/LastUpdate': 'Recent Update: ',
-  // Academic
-  'Academic/Tools': 'Utilities',
-  'Academic/More': 'More',
-  'Academic/Tools/ExamResult/Title': 'Result Inquiry',
-  'Academic/Tools/ExamResult/Caption': 'View examination results',
-  'Academic/Tools/ExamResult/ChooseSession': 'Choose an academic session:',
-  'Academic/Tools/ExamResult/credits': 'credits',
-  'Academic/Tools/WolframEngine/Title': 'Wolfram Engine',
-  'Academic/Tools/WolframEngine/Caption':
+  // Campus
+  'Campus/AcademicTools': 'Academic Utilities',
+  'Campus/More': 'More',
+  'Campus/AcademicTools/ExamResult/Title': 'Result Inquiry',
+  'Campus/AcademicTools/ExamResult/Caption': 'View examination results',
+  'Campus/AcademicTools/ExamResult/ChooseSession':
+      'Choose an academic session:',
+  'Campus/AcademicTools/ExamResult/credits': 'credits',
+  'Campus/AcademicTools/WolframEngine/Title': 'Wolfram Engine',
+  'Campus/AcademicTools/WolframEngine/Caption':
       'Search anything using powerful Wolfram Engine',
-  'Academic/Tools/WolframEngine/InputConstructor': 'Input Constructor',
-  'Academic/Tools/WolframEngine/InputConstructor/SearchAnything':
+  'Campus/AcademicTools/WolframEngine/InputConstructor': 'Input Constructor',
+  'Campus/AcademicTools/WolframEngine/InputConstructor/SearchAnything':
       'Search anything!',
-  'Academic/Tools/WolframEngine/InputConstructor/CommonlyUsed':
+  'Campus/AcademicTools/WolframEngine/InputConstructor/CommonlyUsed':
       'Commonly used: ',
-  'Academic/Tools/WolframEngine/InputConstructor/Choose': 'Choose',
-  'Academic/Tools/WolframEngine/InputConstructor/ClearAll': 'Clear all',
-  'Academic/Tools/WolframEngine/Result': 'Search Result',
-  'Academic/Tools/GeoGebra/Title': 'GeoGebra',
-  'Academic/Tools/GeoGebra/Caption':
+  'Campus/AcademicTools/WolframEngine/InputConstructor/Choose': 'Choose',
+  'Campus/AcademicTools/WolframEngine/InputConstructor/ClearAll': 'Clear all',
+  'Campus/AcademicTools/WolframEngine/Result': 'Search Result',
+  'Campus/AcademicTools/GeoGebra/Title': 'GeoGebra',
+  'Campus/AcademicTools/GeoGebra/Caption':
       ' Solve & plot with GeoGebra dynamic mathematics',
-  'Academic/Tools/GPACalculator/Title': 'GPA Calculator',
-  'Academic/Tools/GPACalculator/Caption': 'Calculate your GPA easily',
-  'Academic/Tools/VPN/Title': 'VPN',
-  'Academic/Tools/VPN/Caption': 'Library VPN access',
-  'Academic/PublicTalks': 'Public Talks',
+  'Campus/AcademicTools/GPACalculator/Title': 'GPA Calculator',
+  'Campus/AcademicTools/GPACalculator/Caption': 'Calculate your GPA easily',
+  'Campus/AcademicTools/VPN/Title': 'VPN',
+  'Campus/AcademicTools/VPN/Caption': 'Library VPN access',
   // Explore
   'XiA/Hint': 'May I help you?',
   'XiA/Intro': "Hi, I'm XiA. Your assistant.",

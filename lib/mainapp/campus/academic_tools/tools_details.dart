@@ -10,39 +10,39 @@ class AcademicToolDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(i18n('Academic/Tools', context)),
+        title: Text(i18n('Campus/AcademicTools', context)),
         backgroundColor: Colors.lightBlue,
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
         children: <Widget>[
           _AcademicPageCard(
-            textUri: 'Academic/Tools/WolframEngine',
+            textUri: 'Campus/AcademicTools/WolframEngine',
             image: 'res/academic/wolfram.svg',
-            route: '/Academic/Tools/WolframEngine',
+            route: '/Campus/AcademicTools/WolframEngine',
           ),
           _AcademicPageCard(
-            textUri: 'Academic/Tools/GeoGebra',
+            textUri: 'Campus/AcademicTools/GeoGebra',
             image: 'res/academic/geogebra.svg',
-            route: '/Academic/Tools/GeoGebra',
+            route: '/Campus/AcademicTools/GeoGebra',
           ),
           _AcademicPageCard(
-            textUri: 'Academic/Tools/GPACalculator',
+            textUri: 'Campus/AcademicTools/GPACalculator',
             image: 'res/academic/gpa_calculator.svg',
-            route: '/Academic/Tools/GPACalculator',
+            route: '/Campus/AcademicTools/GPACalculator',
           ),
           _AcademicPageCard(
-            textUri: 'Academic/Tools/ExamResult',
+            textUri: 'Campus/AcademicTools/ExamResult',
             image: 'res/academic/gpa.svg',
-            route: '/Academic/Tools/ExamResult',
+            route: '/Campus/AcademicTools/ExamResult',
           ),
           StoreConnector<MainAppState, bool>(
             converter: (s) => s.state.settingState.enableFunctionsUnderDev,
             builder: (_, e) => e
                 ? _AcademicPageCard(
-                    textUri: 'Academic/Tools/VPN',
+                    textUri: 'Campus/AcademicTools/VPN',
                     image: 'res/academic/vpn.svg',
-                    route: '/Academic/Tools/VPN',
+                    route: '/Campus/AcademicTools/VPN',
                   )
                 : Container(),
           ),

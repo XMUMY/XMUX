@@ -7,7 +7,7 @@ class GeoGebraPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(i18n('Academic/Tools/GeoGebra/Title', context)),
+        title: Text(i18n('Campus/AcademicTools/GeoGebra/Title', context)),
         backgroundColor: Colors.lightBlue,
       ),
       body: WebView(
