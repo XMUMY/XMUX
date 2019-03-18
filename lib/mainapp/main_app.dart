@@ -24,12 +24,6 @@ import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
 class MainApp extends StatelessWidget {
-  // Get Theme data dynamically.
-  ThemeData getThemeData() {
-    // TODO: get theme from redux.
-    return ThemeConfig.defaultTheme;
-  }
-
   @override
   Widget build(BuildContext context) {
     return StoreProvider<MainAppState>(
@@ -37,8 +31,8 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         title: 'XMUX',
         home: MainPage(),
-        theme: getThemeData(),
-        initialRoute: "/",
+        theme: ThemeConfig.defaultTheme,
+        initialRoute: '/',
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,

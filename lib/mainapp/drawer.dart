@@ -146,7 +146,7 @@ class EndDrawer extends StatelessWidget {
                 children: <Widget>[
                   Text('Designed by χ'),
                   RaisedButton(
-                    onPressed: () => launch('https://xmux.xdea.top'),
+                    onPressed: () => launch('https://xmux.xdea.io'),
                     child: Text(i18n('Home', context)),
                   ),
                   RaisedButton(
