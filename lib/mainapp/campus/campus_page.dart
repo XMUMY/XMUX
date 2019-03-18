@@ -49,13 +49,13 @@ class CampusPage extends StatelessWidget {
                   title: 'Campus/AcademicTools/GeoGebra/Title',
                   path: '/Campus/AcademicTools/GeoGebra'),
               _ToolsButton(
-                  icon: 'res/academic/gpa_calculator.svg',
-                  title: 'Campus/AcademicTools/GPACalculator/Title',
-                  path: '/Campus/AcademicTools/GPACalculator'),
-              _ToolsButton(
                   icon: 'res/academic/gpa.svg',
                   title: 'Campus/AcademicTools/ExamResult/Title',
                   path: '/Campus/AcademicTools/ExamResult'),
+              _ToolsButton(
+                  icon: 'res/academic/vpn.svg',
+                  title: 'Campus/AcademicTools/VPN/Title',
+                  path: '/Campus/AcademicTools/VPN'),
             ],
           ),
         ],

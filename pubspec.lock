@@ -249,6 +249,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_lottie:
+    dependency: "direct main"
+    description:
+      name: flutter_lottie
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   flutter_redux:
     dependency: "direct main"
     description:
@@ -281,7 +288,7 @@ packages:
       name: flutter_vpn
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "0.2.0"
   flutter_webview_plugin:
     dependency: "direct main"
     description:
@@ -526,7 +533,7 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.0"
+    version: "1.4.0"
   petitparser:
     dependency: transitive
     description:
@@ -657,7 +664,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.5"
+    version: "1.5.4"
   sqflite:
     dependency: transitive
     description:

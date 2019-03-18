@@ -1,9 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/redux/state.dart';
 
 class AcademicToolDetailsPage extends StatelessWidget {
   @override
@@ -36,16 +34,11 @@ class AcademicToolDetailsPage extends StatelessWidget {
             image: 'res/academic/gpa.svg',
             route: '/Campus/AcademicTools/ExamResult',
           ),
-          StoreConnector<MainAppState, bool>(
-            converter: (s) => s.state.settingState.enableFunctionsUnderDev,
-            builder: (_, e) => e
-                ? _AcademicPageCard(
-                    textUri: 'Campus/AcademicTools/VPN',
-                    image: 'res/academic/vpn.svg',
-                    route: '/Campus/AcademicTools/VPN',
-                  )
-                : Container(),
-          ),
+          _AcademicPageCard(
+            textUri: 'Campus/AcademicTools/VPN',
+            image: 'res/academic/vpn.svg',
+            route: '/Campus/AcademicTools/VPN',
+          )
         ],
       ),
     );

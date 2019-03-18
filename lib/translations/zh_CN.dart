@@ -55,6 +55,9 @@ const Map<String, String> zh_CN = {
   'Campus/AcademicTools/GPACalculator/Caption': '轻松计算平均学分绩点',
   'Campus/AcademicTools/VPN/Title': 'VPN',
   'Campus/AcademicTools/VPN/Caption': '图书馆 VPN 访问',
+  'Campus/AcademicTools/VPN/Warning': 'VPN 仅供学术研究使用',
+  'Campus/AcademicTools/VPN/Connect': '连接',
+  'Campus/AcademicTools/VPN/Disconnect': '断开连接',
   // Explore
   'XiA/Hint': '请问有什么可以帮助您？',
   'XiA/Intro': '你好，我是小夏。有什么可以帮您？',
