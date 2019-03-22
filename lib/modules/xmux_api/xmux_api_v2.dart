@@ -210,6 +210,19 @@ class XMUXApi {
     return _generateResponse<Map<String, dynamic>, Null>(response, (_) {});
   }
 
+  Future<Null> device(String id, String fcmKey, String remark) async {
+    // Refresh JWT token if getter not null.
+    if (getIdToken != null) configure(jwt: await getIdToken());
+
+    var a = await _dio.post('/notifications/devices', data: {
+      'deviceId': id,
+      'deviceType': 'fcm',
+      'key': fcmKey,
+      'remark': remark
+    });
+    print(a);
+  }
+
   Future<XMUXApiResponse<User>> getUser(String campusId) async {
     // Refresh JWT token if getter not null.
     if (getIdToken != null) configure(jwt: await getIdToken());

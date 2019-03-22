@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -80,6 +81,16 @@ Future<InitResult> init() async {
     await LoginHandler.login(
         store.state.authState.campusID, store.state.authState.campusIDPassword);
     await LoginHandler.createUser();
+  }
+
+  if (Platform.isAndroid) {
+    var deviceInfo = await DeviceInfoPlugin().androidInfo;
+    var token = await firebaseMessaging.getToken();
+    xmuxApi.device(deviceInfo.fingerprint, token, deviceInfo.model);
+  } else {
+    var deviceInfo = await DeviceInfoPlugin().iosInfo;
+    var token = await firebaseMessaging.getToken();
+    xmuxApi.device(deviceInfo.identifierForVendor, token, deviceInfo.model);
   }
 
   refreshData();
