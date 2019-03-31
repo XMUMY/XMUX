@@ -214,13 +214,12 @@ class XMUXApi {
     // Refresh JWT token if getter not null.
     if (getIdToken != null) configure(jwt: await getIdToken());
 
-    var a = await _dio.post('/notifications/devices', data: {
+    await _dio.post('/notifications/devices', data: {
       'deviceId': id,
       'deviceType': 'fcm',
       'key': fcmKey,
       'remark': remark
     });
-    print(a);
   }
 
   Future<XMUXApiResponse<User>> getUser(String campusId) async {

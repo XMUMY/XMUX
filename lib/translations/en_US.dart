@@ -62,8 +62,13 @@ const Map<String, String> en_US = {
   'Campus/AcademicTools/VPN/Caption': 'Library VPN access',
   'Campus/AcademicTools/VPN/Warning':
       'The VPN access is limited for academic and research purposes only.',
-  'Campus/AcademicTools/VPN/Connect': '连接',
-  'Campus/AcademicTools/VPN/Disconnect': '断开连接',
+  'Campus/AcademicTools/VPN/Connect': 'Connect',
+  'Campus/AcademicTools/VPN/Disconnect': 'Disconnect',
+  'Campus/AcademicTools/VPN/State/0': 'Disconnected',
+  'Campus/AcademicTools/VPN/State/1': 'Connecting',
+  'Campus/AcademicTools/VPN/State/2': 'Connected',
+  'Campus/AcademicTools/VPN/State/3': 'Disconnecting',
+  'Campus/AcademicTools/VPN/State/4': 'Error',
   // Explore
   'XiA/Hint': 'May I help you?',
   'XiA/Intro': "Hi, I'm XiA. Your assistant.",

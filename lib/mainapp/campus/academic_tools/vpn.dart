@@ -53,15 +53,15 @@ class _VPNPageState extends State<VPNPage> {
         title: Text('VPN'),
         backgroundColor: Colors.lightBlue,
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(10.0),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           // Animation & Icon.
           Stack(
             alignment: AlignmentDirectional.center,
             children: <Widget>[
               Container(
-                height: 150.0,
+                height: MediaQuery.of(context).size.width / 2.9,
                 child: LottieView.fromFile(
                   filePath: "res/animations/vpn.json",
                   autoPlay: false,
@@ -73,27 +73,39 @@ class _VPNPageState extends State<VPNPage> {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Hero(
-                  tag: 'res/academic/vpn.svg',
-                  child: SvgPicture.asset(
-                    'res/academic/vpn.svg',
-                    height: 66.0,
-                    width: 66.0,
-                    color: color,
-                  ),
+              Hero(
+                tag: 'res/academic/vpn.svg',
+                child: SvgPicture.asset(
+                  'res/academic/vpn.svg',
+                  height: 66.0,
+                  width: 66.0,
+                  color: color,
                 ),
               ),
             ],
           ),
-          Text(i18n('Campus/AcademicTools/VPN/Warning', context),
-              textAlign: TextAlign.center),
+          Divider(height: 10.0, color: Colors.transparent),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                i18n('Campus/AcademicTools/VPN/State/${currentState.index}',
+                    context),
+                style:
+                    Theme.of(context).textTheme.subtitle.copyWith(color: color),
+              ),
+            ),
+          ),
+          Divider(color: Colors.transparent),
+          Text(
+            i18n('Campus/AcademicTools/VPN/Warning', context),
+            textAlign: TextAlign.center,
+          ),
           Row(
             children: <Widget>[
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(20.0, 8.0, 8.0, 8.0),
                   child: RaisedButton(
                     onPressed: currentState == FlutterVpnState.connected
                         ? null
@@ -112,12 +124,12 @@ class _VPNPageState extends State<VPNPage> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 20.0, 8.0),
                   child: RaisedButton(
                     onPressed: () {
+                      FlutterVpn.disconnect();
                       _lottieController.playWithProgress(
                           fromProgress: 0.8, toProgress: 1.2);
-                      FlutterVpn.disconnect();
                     },
                     child: Text(
                         i18n('Campus/AcademicTools/VPN/Disconnect', context)),

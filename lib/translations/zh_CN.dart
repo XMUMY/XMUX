@@ -58,6 +58,11 @@ const Map<String, String> zh_CN = {
   'Campus/AcademicTools/VPN/Warning': 'VPN 仅供学术研究使用',
   'Campus/AcademicTools/VPN/Connect': '连接',
   'Campus/AcademicTools/VPN/Disconnect': '断开连接',
+  'Campus/AcademicTools/VPN/State/0': '已断开',
+  'Campus/AcademicTools/VPN/State/1': '正在连接',
+  'Campus/AcademicTools/VPN/State/2': '已连接',
+  'Campus/AcademicTools/VPN/State/3': '正在断开连接',
+  'Campus/AcademicTools/VPN/State/4': '异常',
   // Explore
   'XiA/Hint': '请问有什么可以帮助您？',
   'XiA/Intro': '你好，我是小夏。有什么可以帮您？',
