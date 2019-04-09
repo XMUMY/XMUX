@@ -10,17 +10,27 @@ import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'item_detail_page.dart';
 import 'item_edit_page.dart';
 import 'model.dart';
+import 'search.dart';
 
 class FleaMarketPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final query = FirebaseDatabase.instance.reference().child('flea_market');
+
     return Scaffold(
       appBar: AppBar(
         title: Text(i18n('FleaMarket', context)),
         backgroundColor: Colors.deepOrange,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.search, semanticLabel: 'Search'),
+            onPressed: () => showSearch(
+                context: context, delegate: MarketSearchDelegate(query)),
+          ),
+        ],
       ),
       body: FirebaseAnimatedList(
-        query: FirebaseDatabase.instance.reference().child('flea_market'),
+        query: query,
         sort: (a, b) => b.key.compareTo(a.key),
         itemBuilder: (ctx, _, __, index) => ItemCard(Item.fromSnapshot(_)),
         defaultChild: Center(child: CircularProgressIndicator()),

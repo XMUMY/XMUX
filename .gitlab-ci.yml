@@ -56,10 +56,8 @@ build:
 # Add apk version
     - export BV=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep -m 1 'BV=' | sed 's/BV=//')
     - export BN=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep -m 1 'BN=' | sed 's/BN=//')
-    - sed -i -E "s/versionCode [[:digit:]]+/versionCode $BV/g" ./android/app/build.gradle
-    - if [[ -n $BN ]]; then sed -i -E "s/versionName .*/versionName \"$BN\"/g" ./android/app/build.gradle; fi
   script:
-    - if [[ -n $BV ]]; then ./flutter/bin/flutter build apk; else exit 1; fi
+    - if [[ -n $BV ]]; then ./flutter/bin/flutter build apk --build-number=$BV; else exit 1; fi
   artifacts:
     expire_in: 1 hour
     paths:
