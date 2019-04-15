@@ -127,8 +127,9 @@ class _LessonCardState extends State<LessonCard> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Padding(
+                  Container(
                     padding: const EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 8.0),
+                    width: MediaQuery.of(context).size.width / 1.3,
                     child: Text(
                       widget.lesson.courseName,
                       style: Theme.of(context).textTheme.title,
