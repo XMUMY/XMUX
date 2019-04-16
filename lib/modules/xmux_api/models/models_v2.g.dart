@@ -165,9 +165,7 @@ Map<String, dynamic> _$ExamToJson(Exam instance) => <String, dynamic>{
       'Exam (Academic Session)': instance.session,
       'Exam Date':
           instance.date == null ? null : Exam._dateToJson(instance.date),
-      'Exam Time': instance.durationOfDay == null
-          ? null
-          : DurationOfDay.toJson(instance.durationOfDay),
+      'Exam Time': instance.durationOfDay,
       'Exam Venue': instance.venue,
       'Course Name': instance.courseName,
       'Exam Type': instance.type,

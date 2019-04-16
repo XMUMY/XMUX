@@ -5,6 +5,7 @@ import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/about.dart';
 import 'package:xmux/mainapp/calendar/calendar_image.dart';
+import 'package:xmux/mainapp/campus/academic_tools/ec_registration.dart';
 import 'package:xmux/mainapp/campus/academic_tools/exam_result.dart';
 import 'package:xmux/mainapp/campus/academic_tools/geogebra.dart';
 import 'package:xmux/mainapp/campus/academic_tools/gpa_calculator.dart';
@@ -52,6 +53,7 @@ class MainApp extends StatelessWidget {
           '/Campus/AcademicTools/GeoGebra': (_) => GeoGebraPage(),
           '/Campus/AcademicTools/GPACalculator': (_) => GPACalculatorPage(),
           '/Campus/AcademicTools/VPN': (_) => VPNPage(),
+          '/Campus/AcademicTools/ECR': (_) => ElectiveCourseRegistrationPage(),
           '/Explore/LostAndFound': (_) => LostAndFoundPage(),
           '/Me/Epayment': (_) => EPaymentPage(),
           '/Me/RoomReservation': (_) => RoomWebviewPage(),

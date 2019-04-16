@@ -90,10 +90,7 @@ class Exam {
   final String session;
   @JsonKey(name: 'Exam Date', fromJson: _dateFromJson, toJson: _dateToJson)
   final DateTime date;
-  @JsonKey(
-      name: 'Exam Time',
-      fromJson: DurationOfDay.parse,
-      toJson: DurationOfDay.toJson)
+  @JsonKey(name: 'Exam Time', fromJson: DurationOfDay.parse)
   final DurationOfDay durationOfDay;
   @JsonKey(name: 'Exam Venue')
   final String venue;

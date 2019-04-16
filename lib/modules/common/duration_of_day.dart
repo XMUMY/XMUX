@@ -28,7 +28,7 @@ class DurationOfDay {
       "${start.hour}:${start.minute}-${end.hour}:${end.minute}";
 
   /// Convert function for json serialize.
-  static toJson(DurationOfDay duration) => duration.toString();
+  String toJson() => this.toString();
 
   /// Get Duration.
   get duration => Duration();

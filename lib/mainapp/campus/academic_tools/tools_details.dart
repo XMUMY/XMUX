@@ -25,11 +25,6 @@ class AcademicToolDetailsPage extends StatelessWidget {
             route: '/Campus/AcademicTools/GeoGebra',
           ),
           _AcademicPageCard(
-            textUri: 'Campus/AcademicTools/GPACalculator',
-            image: 'res/academic/gpa_calculator.svg',
-            route: '/Campus/AcademicTools/GPACalculator',
-          ),
-          _AcademicPageCard(
             textUri: 'Campus/AcademicTools/ExamResult',
             image: 'res/academic/gpa.svg',
             route: '/Campus/AcademicTools/ExamResult',
@@ -38,7 +33,17 @@ class AcademicToolDetailsPage extends StatelessWidget {
             textUri: 'Campus/AcademicTools/VPN',
             image: 'res/academic/vpn.svg',
             route: '/Campus/AcademicTools/VPN',
-          )
+          ),
+          _AcademicPageCard(
+            textUri: 'Campus/AcademicTools/GPACalculator',
+            image: 'res/academic/gpa_calculator.svg',
+            route: '/Campus/AcademicTools/GPACalculator',
+          ),
+          _AcademicPageCard(
+            textUri: 'qq',
+            image: 'res/academic/geogebra.sv',
+            route: '/Campus/AcademicTools/ECR',
+          ),
         ],
       ),
     );
@@ -71,7 +76,7 @@ class _AcademicPageCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      i18n(textUri + '/Title', context),
+                      i18n('$textUri/Title', context),
                       style: Theme.of(context).textTheme.title,
                     ),
                     Divider(
@@ -79,7 +84,7 @@ class _AcademicPageCard extends StatelessWidget {
                       color: Colors.transparent,
                     ),
                     Text(
-                      i18n(textUri + '/Caption', context),
+                      i18n('$textUri/Caption', context),
                       style: Theme.of(context).textTheme.caption,
                       textAlign: TextAlign.center,
                     )
