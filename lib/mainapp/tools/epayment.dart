@@ -9,8 +9,6 @@ import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
 class EPaymentPage extends StatefulWidget {
-  final _passwordController = TextEditingController();
-
   EPaymentPage();
 
   @override
@@ -18,17 +16,18 @@ class EPaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<EPaymentPage> {
+  final passwordController = TextEditingController();
   var _isProcessing = false;
 
   Future<Null> _handleSave(BuildContext context) async {
-    if (widget._passwordController.text.isEmpty) return;
+    if (passwordController.text.isEmpty) return;
 
     setState(() => _isProcessing = true);
 
     var action = UpdateEPaymentRecordsAction(
         auth: XMUXApiAuth(
             campusID: store.state.authState.campusID,
-            ePaymentPassword: widget._passwordController.text),
+            ePaymentPassword: passwordController.text),
         context: context,
         onError: () => setState(() => _isProcessing = false));
     store.dispatch(action);
@@ -56,7 +55,7 @@ class _PaymentPageState extends State<EPaymentPage> {
             children: <Widget>[
               Flexible(
                 child: TextField(
-                  controller: widget._passwordController,
+                  controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                       hintText: i18n('Tools/EPayment/EPaymentPassword', ctx)),
@@ -66,7 +65,6 @@ class _PaymentPageState extends State<EPaymentPage> {
                   ? SpinKitDoubleBounce(color: Theme.of(context).accentColor)
                   : IconButton(
                       icon: Icon(Icons.save),
-                      color: Theme.of(context).buttonColor,
                       onPressed: () => _handleSave(ctx),
                     ),
             ],

@@ -69,14 +69,12 @@ Future<Null> apiCall(Store<MainAppState> store, XMUXApiAction action,
     // Sign out if wrong password.
     if (e is XMUXApiException && e.type == 'WrongPasswordError')
       signOut();
-    else if (action.context != null) {
-      Scaffold.of(action.context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
-      return;
-    } else if (action.onError != null) {
-      action.onError();
-      return;
-    } else
-      rethrow;
+    else {
+      if (action.context != null)
+        Scaffold.of(action.context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
+      if (action.onError != null) action.onError();
+      if (action.context == null && action.onError == null) rethrow;
+    }
   }
 }
