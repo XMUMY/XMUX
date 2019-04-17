@@ -63,6 +63,11 @@ const Map<String, String> zh_CN = {
   'Campus/AcademicTools/VPN/State/2': '已连接',
   'Campus/AcademicTools/VPN/State/3': '正在断开连接',
   'Campus/AcademicTools/VPN/State/4': '异常',
+  'Campus/AcademicTools/ECR/Title': '课程注册',
+  'Campus/AcademicTools/ECR/Caption': '注册您的选修课程',
+  'Campus/AcademicTools/ECR/Warning': '您可以在此注册您的选修课程，一切信息以 AC 网站为准。',
+  'Campus/AcademicTools/ECR/MaxCredit': '最大学分：',
+  'Campus/AcademicTools/ECR/Time': '时间：',
   // Explore
   'XiA/Hint': '请问有什么可以帮助您？',
   'XiA/Intro': '你好，我是小夏。有什么可以帮您？',

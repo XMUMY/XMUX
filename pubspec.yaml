@@ -66,6 +66,7 @@ flutter:
   assets:
     - res/initpage.jpg
     - res/logo.png
+    - res/academic/ecr.svg
     - res/academic/gpa_calculator.svg
     - res/academic/geogebra.svg
     - res/academic/gpa.svg

@@ -56,4 +56,26 @@ class ElectiveCourseRegistration {
 
     return courseList;
   }
+
+  ElectiveCourseRegistrationForm getForm(String entry) =>
+      entry.startsWith('/student/index.php?c=Xk')
+          ? ElectiveCourseRegistrationForm(_dio, entry)
+          : null;
+}
+
+class ElectiveCourseRegistrationForm {
+  final Dio _dio;
+  final String entry;
+
+  String currentState;
+
+  ElectiveCourseRegistrationForm(this._dio, this.entry);
+
+  void refresh() async {
+    var res = await _dio.get('http://ac.xmu.edu.my$entry');
+    var doc = parse(res.data);
+
+    currentState =
+        doc.querySelector('input[name="__VIEWSTATE"]').attributes['value'];
+  }
 }

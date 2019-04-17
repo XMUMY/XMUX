@@ -40,8 +40,8 @@ class AcademicToolDetailsPage extends StatelessWidget {
             route: '/Campus/AcademicTools/GPACalculator',
           ),
           _AcademicPageCard(
-            textUri: 'qq',
-            image: 'res/academic/geogebra.sv',
+            textUri: 'Campus/AcademicTools/ECR',
+            image: 'res/academic/ecr.svg',
             route: '/Campus/AcademicTools/ECR',
           ),
         ],

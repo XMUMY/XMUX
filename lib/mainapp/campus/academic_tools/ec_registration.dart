@@ -33,7 +33,9 @@ class _ElectiveCourseRegistrationPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('选课')),
+      appBar: AppBar(
+          title: Text(i18n('Campus/AcademicTools/ECR/Title', context)),
+          backgroundColor: Colors.lightBlue),
       body: courses == null
           ? SpinKitFoldingCube(color: Colors.black38)
           : courses.isEmpty ? ErrorWidgets.emptyErrorPage : buildBody(context),
@@ -42,9 +44,13 @@ class _ElectiveCourseRegistrationPageState
 
   Widget buildBody(BuildContext context) {
     return ListView.builder(
-      itemCount: courses.length,
+      itemCount: courses.length + 1,
       itemBuilder: (ctx, index) {
-        var course = courses[index];
+        if (index == 0)
+          return Padding(
+              padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0.0),
+              child: Text(i18n('Campus/AcademicTools/ECR/Warning', context)));
+        var course = courses[index - 1];
         return Padding(
           padding: const EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 8.0),
           child: RaisedButton(
@@ -57,25 +63,46 @@ class _ElectiveCourseRegistrationPageState
               children: <Widget>[
                 Text(
                   course.classification,
-                  style: Theme.of(context).textTheme.subtitle,
+                  style: Theme.of(context).textTheme.subhead,
                 ),
-                Row(
-                  children: <Widget>[
-                    Text('Max Credit:${course.maxCredit.toString()}   '),
-                    Text(course.round)
-                  ],
-                ),
-                Text(
-                  'From ${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(course.period.start)} '
-                      'To ${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(course.period.start)}',
-                  style: Theme.of(context).textTheme.caption,
-                )
+                Divider(height: 8.0),
+                Text('${course.round} '
+                    '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
+                    '${course.maxCredit.toString()}'),
+                Text('${i18n('Campus/AcademicTools/ECR/Time', context)}'
+                    '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(course.period.start)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(course.period.start)} '
+                    '- ${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(course.period.start)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(course.period.end)}  ')
               ],
             ),
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ElectiveCourseRegistrationFormPage(
+                        widget.ecr.getForm(course.entry)),
+                  ),
+                ),
           ),
         );
       },
+    );
+  }
+}
+
+class ElectiveCourseRegistrationFormPage extends StatefulWidget {
+  final ElectiveCourseRegistrationForm ecrForm;
+
+  const ElectiveCourseRegistrationFormPage(this.ecrForm);
+
+  @override
+  _ElectiveCourseRegistrationFormPageState createState() =>
+      _ElectiveCourseRegistrationFormPageState();
+}
+
+class _ElectiveCourseRegistrationFormPageState
+    extends State<ElectiveCourseRegistrationFormPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: widget.ecrForm == null ? ErrorWidgets.emptyErrorPage : Container(),
     );
   }
 }

@@ -69,6 +69,11 @@ const Map<String, String> en_US = {
   'Campus/AcademicTools/VPN/State/2': 'Connected',
   'Campus/AcademicTools/VPN/State/3': 'Disconnecting',
   'Campus/AcademicTools/VPN/State/4': 'Error',
+  'Campus/AcademicTools/ECR/Title': 'Course Registration',
+  'Campus/AcademicTools/ECR/Caption': '注册您的选修课程',
+  'Campus/AcademicTools/ECR/Warning': '您可以在此注册您的选修课程，一切信息以 AC 网站为准。',
+  'Campus/AcademicTools/ECR/MaxCredit': 'Max Credit: ',
+  'Campus/AcademicTools/ECR/Time': 'Time: ',
   // Explore
   'XiA/Hint': 'May I help you?',
   'XiA/Intro': "Hi, I'm XiA. Your assistant.",
