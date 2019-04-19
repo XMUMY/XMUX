@@ -58,7 +58,7 @@ class ElectiveCourseRegistration {
   }
 
   ElectiveCourseRegistrationForm getForm(String entry) =>
-      entry.startsWith('/student/index.php?c=Xk')
+      entry.startsWith('/student/index.php?c=Xk&')
           ? ElectiveCourseRegistrationForm(_dio, entry)
           : null;
 }
@@ -68,14 +68,64 @@ class ElectiveCourseRegistrationForm {
   final String entry;
 
   String currentState;
+  ElectiveCourseFormData data;
 
   ElectiveCourseRegistrationForm(this._dio, this.entry);
 
-  void refresh() async {
+  Future<Null> refresh() async {
     var res = await _dio.get('http://ac.xmu.edu.my$entry');
     var doc = parse(res.data);
 
     currentState =
         doc.querySelector('input[name="__VIEWSTATE"]').attributes['value'];
+
+    var generalInfoTable = doc.querySelector('#content table');
+    var infoHead = generalInfoTable.querySelectorAll('th').map((e) => e.text);
+    var infoMap = Map.fromIterables(infoHead,
+        generalInfoTable.querySelectorAll('.odd td').map((e) => e.text));
+
+    var selectedTable = doc.querySelector('#data_table2');
+    var selectedHead = selectedTable.querySelectorAll('th').map((e) => e.text);
+    var selectedCourses = selectedTable
+        .querySelectorAll('tbody tr')
+        .map((row) => row.children.map((e) {
+              if (e.text.replaceAll(RegExp('\n| '), '').isEmpty &&
+                  e.children.isNotEmpty)
+                return RegExp(",'(.*?)'")
+                    .firstMatch(e.children.first.attributes['onclick'])
+                    .group(0)
+                    .replaceAll(RegExp("'|,"), '');
+              return e.text.replaceAll(RegExp(r'^\s+|\s+$|\n'), '');
+            }))
+        .map((row) =>
+            row.length != 1 ? Map.fromIterables(selectedHead, row) : null)
+        .toList();
+
+    var unselectedTable = doc.querySelector('#data_table');
+    var unselectedHead = unselectedTable
+        .querySelectorAll('#data_table>thead>tr>th')
+        .map((e) => e.text);
+    var unselectedCourses = unselectedTable
+        .querySelectorAll('#data_table>tbody>tr:not([style="display: none"])')
+        .map((row) => row.children.map((e) {
+              if (e.text.replaceAll(RegExp('\n| '), '').isEmpty)
+                return RegExp(",'(.*?)'")
+                    .firstMatch(e.children.first.attributes['onclick'])
+                    .group(0)
+                    .replaceAll(RegExp("'|,"), '');
+              return e.text.replaceAll(RegExp(r'^\s+|\s+$|\n'), '');
+            }))
+        .map((row) => Map.fromIterables(unselectedHead, row))
+        .toList();
+
+    data = ElectiveCourseFormData.fromJson({
+      'formGeneralInfo': infoMap,
+      'coursesSelected': selectedCourses,
+      'coursesList': unselectedCourses
+    });
   }
+
+  Future<Null> add(String id) async {}
+
+  Future<Null> cancel(String id) async {}
 }
