@@ -134,7 +134,8 @@ CourseUnselected _$CourseUnselectedFromJson(Map<String, dynamic> json) {
       json['Quota'] == null ? null : int.parse(json['Quota'] as String),
       json['Applicant No.'] == null
           ? null
-          : int.parse(json['Applicant No.'] as String));
+          : int.parse(json['Applicant No.'] as String),
+      json['Option'] as String);
 }
 
 abstract class _$CourseUnselectedSerializerMixin {
@@ -145,6 +146,7 @@ abstract class _$CourseUnselectedSerializerMixin {
   String get timeAndVenue;
   int get quota;
   int get numChosen;
+  String get option;
   Map<String, dynamic> toJson() => <String, dynamic>{
         'Course Information (by group)': name,
         'Credit': credit,
@@ -152,6 +154,7 @@ abstract class _$CourseUnselectedSerializerMixin {
         'Lecturer': lecturer,
         'Time & Venue': timeAndVenue,
         'Quota': quota,
-        'Applicant No.': numChosen
+        'Applicant No.': numChosen,
+        'Option': option
       };
 }

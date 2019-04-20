@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -103,7 +105,19 @@ class _ElectiveCourseRegistrationFormPageState
   final _scrollController = ScrollController();
   final _generalInfoKey = GlobalKey();
 
-  var _infoCardIsPrimary = false;
+  var _infoCardPadding = 0.0;
+
+  // Add course and refresh.
+  void onAdd(String id) async {
+    await widget.ecrForm.add(id);
+    if (mounted) setState(() {});
+  }
+
+  // Delete course and refresh.
+  void onDel(String id) async {
+    await widget.ecrForm.cancel(id);
+    if (mounted) setState(() {});
+  }
 
   @override
   void initState() {
@@ -114,11 +128,13 @@ class _ElectiveCourseRegistrationFormPageState
     _scrollController.addListener(() {
       final topPadding = MediaQuery.of(context).padding.top;
       RenderBox box = _generalInfoKey.currentContext.findRenderObject();
-      var pos = box.localToGlobal(Offset.zero);
-      if (pos.dy < topPadding && !_infoCardIsPrimary)
-        setState(() => _infoCardIsPrimary = true);
-      else if (pos.dy > topPadding && _infoCardIsPrimary)
-        setState(() => _infoCardIsPrimary = false);
+      var cardPosition = box.localToGlobal(Offset.zero);
+      if (cardPosition.dy < topPadding)
+        setState(() => _infoCardPadding =
+            min(_infoCardPadding + (topPadding - cardPosition.dy), 24));
+      else if (cardPosition.dy > topPadding && !topPadding.isNegative)
+        setState(() => _infoCardPadding =
+            max(_infoCardPadding - (cardPosition.dy - topPadding), 0));
     });
     super.initState();
   }
@@ -147,52 +163,58 @@ class _ElectiveCourseRegistrationFormPageState
       SliverPersistentHeader(
         pinned: true,
         delegate: _SliverGeneralInfoTable(
-            primary: _infoCardIsPrimary,
+            topPadding: _infoCardPadding,
             generalInfoKey: _generalInfoKey,
             generalInfo: widget.ecrForm.data.formGeneralInfo),
       ),
+
+      // Registered courses.
       SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                '已注册的课程',
-                style: Theme.of(context).textTheme.title,
-              ),
-              Divider(height: 10.0),
-            ],
-          ),
+          child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              '已注册的课程',
+              style: Theme.of(context).textTheme.title,
+            ),
+            Divider(height: 10.0),
+          ],
         ),
-      ),
+      )),
       SliverList(
         delegate: SliverChildBuilderDelegate((ctx, index) {
           var course = widget.ecrForm.data.coursesSelected[index];
           return Padding(
-              padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-              child: RaisedButton(
-                  padding: const EdgeInsets.all(15.0),
-                  color: Theme.of(context).cardColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        course.name,
-                        style: Theme.of(context).textTheme.subhead,
-                      ),
-                      Divider(height: 8.0),
-                      Text('${course.timeAndVenue} '
-                          '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
-                          '${course.credit.toString()}'),
-                    ],
+            padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+            child: RaisedButton(
+              padding: const EdgeInsets.all(15.0),
+              color: Theme.of(context).cardColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    course.name,
+                    style: Theme.of(context).textTheme.subhead,
                   ),
-                  onPressed: () {}));
+                  Divider(height: 8.0),
+                  Text('${course.timeAndVenue}\n'
+                      '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
+                      '${course.credit.toString()} ${course.cancel}'),
+                ],
+              ),
+              onPressed:
+                  course.cancel.isEmpty ? null : () => onDel(course.cancel),
+            ),
+          );
         }, childCount: widget.ecrForm.data.coursesSelected.length),
       ),
+
+      // Unregistered courses.
       SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -211,6 +233,35 @@ class _ElectiveCourseRegistrationFormPageState
       ),
       SliverList(
         delegate: SliverChildBuilderDelegate((ctx, index) {
+          var course = widget.ecrForm.data.coursesList[index];
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+            child: RaisedButton(
+              padding: const EdgeInsets.all(15.0),
+              color: Theme.of(context).cardColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    course.name,
+                    style: Theme.of(context).textTheme.subhead,
+                  ),
+                  Divider(height: 8.0),
+                  Text('${course.timeAndVenue}\n'
+                      '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
+                      '${course.credit.toString()} ${course.option}'),
+                ],
+              ),
+              onPressed:
+                  course.option == 'Full' ? null : () => onAdd(course.option),
+            ),
+          );
+        }, childCount: widget.ecrForm.data.coursesList.length),
+      ),
+      SliverList(
+        delegate: SliverChildBuilderDelegate((ctx, index) {
           return Text(index.toString());
         }, childCount: 100),
       ),
@@ -219,18 +270,18 @@ class _ElectiveCourseRegistrationFormPageState
 }
 
 class _SliverGeneralInfoTable extends SliverPersistentHeaderDelegate {
-  final bool primary;
+  final double topPadding;
   final Key generalInfoKey;
   final FormGeneralInfo generalInfo;
 
   _SliverGeneralInfoTable(
-      {this.primary, this.generalInfoKey, this.generalInfo});
+      {this.topPadding, this.generalInfoKey, this.generalInfo});
 
   @override
-  double get minExtent => primary ? 76.0 : 60.0;
+  double get minExtent => topPadding + 70.0;
 
   @override
-  double get maxExtent => primary ? 76.0 : 60.0;
+  double get maxExtent => topPadding + 70.0;
 
   @override
   Widget build(
@@ -238,14 +289,22 @@ class _SliverGeneralInfoTable extends SliverPersistentHeaderDelegate {
     var card = Card(
       key: generalInfoKey,
       margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-      elevation: 8.0,
+      elevation: topPadding == 0 ? 1.0 : 3.0,
+      shape: RoundedRectangleBorder(),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
-            Text('${generalInfo.round}: ${generalInfo.stage}'),
             Text(
-                'Max Credit: ${generalInfo.maxCredit} Chosen: ${generalInfo.chosenCredit}'),
+              '${generalInfo.round}: ${generalInfo.stage}',
+              style: Theme.of(context).textTheme.subhead,
+            ),
+            Text(
+              '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
+              '${generalInfo.maxCredit} '
+              'Chosen: ${generalInfo.chosenCredit}',
+              style: Theme.of(context).textTheme.subtitle,
+            ),
           ],
         ),
       ),
@@ -257,8 +316,8 @@ class _SliverGeneralInfoTable extends SliverPersistentHeaderDelegate {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           AnimatedContainer(
-            height: primary ? MediaQuery.of(context).padding.top : 0.0,
-            duration: Duration(milliseconds: 300),
+            height: topPadding,
+            duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(color: Theme.of(context).cardColor),
           ),
           card,
@@ -269,7 +328,7 @@ class _SliverGeneralInfoTable extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(_SliverGeneralInfoTable oldDelegate) {
-    return primary != oldDelegate.primary ||
+    return topPadding != oldDelegate.topPadding ||
         generalInfo != oldDelegate.generalInfo;
   }
 }

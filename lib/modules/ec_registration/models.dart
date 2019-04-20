@@ -99,9 +99,11 @@ class CourseUnselected {
   final int quota;
   @JsonKey(name: 'Applicant No.', fromJson: int.parse)
   final int numChosen;
+  @JsonKey(name: 'Option')
+  final String option;
 
   CourseUnselected(this.name, this.credit, this.week, this.lecturer,
-      this.timeAndVenue, this.quota, this.numChosen);
+      this.timeAndVenue, this.quota, this.numChosen, this.option);
 
   static CourseUnselected fromJson(Map<String, dynamic> json) =>
       _$CourseUnselectedFromJson(json);

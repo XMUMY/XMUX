@@ -72,9 +72,12 @@ class ElectiveCourseRegistrationForm {
 
   ElectiveCourseRegistrationForm(this._dio, this.entry);
 
-  Future<Null> refresh() async {
-    var res = await _dio.get('http://ac.xmu.edu.my$entry');
-    var doc = parse(res.data);
+  Future<Null> refresh({String html}) async {
+    if (html == null) {
+      var res = await _dio.get('http://ac.xmu.edu.my$entry');
+      html = res.data;
+    }
+    var doc = parse(html);
 
     currentState =
         doc.querySelector('input[name="__VIEWSTATE"]').attributes['value'];
@@ -125,7 +128,33 @@ class ElectiveCourseRegistrationForm {
     });
   }
 
-  Future<Null> add(String id) async {}
+  Future<Null> add(String id) async {
+    var res = await _dio.post(
+      'http://ac.xmu.edu.my$entry',
+      options: Options(
+        contentType: ContentType.parse('application/x-www-form-urlencoded'),
+      ),
+      data: {
+        '__EVENTTARGET': '\$Add',
+        '__EVENTARGUMENT': '\$$id',
+        '__VIEWSTATE': currentState
+      },
+    );
+    await refresh(html: res.data);
+  }
 
-  Future<Null> cancel(String id) async {}
+  Future<Null> cancel(String id) async {
+    var res = await _dio.post(
+      'http://ac.xmu.edu.my$entry',
+      options: Options(
+        contentType: ContentType.parse('application/x-www-form-urlencoded'),
+      ),
+      data: {
+        '__EVENTTARGET': '\$Del',
+        '__EVENTARGUMENT': '\$$id',
+        '__VIEWSTATE': currentState
+      },
+    );
+    await refresh(html: res.data);
+  }
 }
