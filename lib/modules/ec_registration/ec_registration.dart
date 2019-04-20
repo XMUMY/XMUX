@@ -72,6 +72,9 @@ class ElectiveCourseRegistrationForm {
 
   ElectiveCourseRegistrationForm(this._dio, this.entry);
 
+  /// Refresh `data`.
+  ///
+  /// Will parse without request if `html != null`.
   Future<Null> refresh({String html}) async {
     if (html == null) {
       var res = await _dio.get('http://ac.xmu.edu.my$entry');
@@ -128,6 +131,7 @@ class ElectiveCourseRegistrationForm {
     });
   }
 
+  /// Add course of given ID.
   Future<Null> add(String id) async {
     var res = await _dio.post(
       'http://ac.xmu.edu.my$entry',
@@ -143,6 +147,7 @@ class ElectiveCourseRegistrationForm {
     await refresh(html: res.data);
   }
 
+  /// Cancel course of given ID.
   Future<Null> cancel(String id) async {
     var res = await _dio.post(
       'http://ac.xmu.edu.my$entry',

@@ -25,8 +25,8 @@ class ExamsPage extends StatelessWidget {
         padding: EdgeInsets.all(5.0),
         child: Text(
           "${i18n('Calendar/LastUpdate', context)} "
-              '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)} '
-              '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)}',
+          '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)} '
+          '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)}',
           style: Theme.of(context).textTheme.caption,
         ),
       ),
@@ -63,7 +63,7 @@ class _ExamCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.fromLTRB(8.0, 5.0, 8.0, 5.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

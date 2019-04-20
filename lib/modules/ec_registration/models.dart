@@ -107,4 +107,6 @@ class CourseUnselected {
 
   static CourseUnselected fromJson(Map<String, dynamic> json) =>
       _$CourseUnselectedFromJson(json);
+
+  bool get canSelect => option != 'Full';
 }

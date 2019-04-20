@@ -41,7 +41,10 @@ class _ElectiveCourseRegistrationPageState
           backgroundColor: Colors.lightBlue),
       body: courses == null
           ? SpinKitFoldingCube(color: Colors.black38)
-          : courses.isEmpty ? ErrorWidgets.emptyErrorPage : buildBody(context),
+          : courses.isEmpty
+              ? ErrorWidgets.emptyErrorPage
+              : RefreshIndicator(
+                  child: buildBody(context), onRefresh: loadECRList),
     );
   }
 
@@ -60,7 +63,7 @@ class _ElectiveCourseRegistrationPageState
             padding: const EdgeInsets.all(15.0),
             color: Theme.of(context).cardColor,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
+                borderRadius: BorderRadius.circular(7.0)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -69,12 +72,13 @@ class _ElectiveCourseRegistrationPageState
                   style: Theme.of(context).textTheme.subhead,
                 ),
                 Divider(height: 8.0),
-                Text('${course.round} '
+                Text('${course.round}  '
                     '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
                     '${course.maxCredit.toString()}'),
-                Text('${i18n('Campus/AcademicTools/ECR/Time', context)}'
-                    '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(course.period.start)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(course.period.start)} '
-                    '- ${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(course.period.start)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(course.period.end)}  ')
+                Text('${i18n('Campus/AcademicTools/ECR/StartTime', context)}'
+                    '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(course.period.start)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(course.period.start)}\n'
+                    '${i18n('Campus/AcademicTools/ECR/EndTime', context)}'
+                    '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(course.period.start)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(course.period.end)}  ')
               ],
             ),
             onPressed: () => Navigator.of(context).push(
@@ -103,30 +107,61 @@ class ElectiveCourseRegistrationFormPage extends StatefulWidget {
 class _ElectiveCourseRegistrationFormPageState
     extends State<ElectiveCourseRegistrationFormPage> {
   final _scrollController = ScrollController();
+
+  /// Key for info Card.
   final _generalInfoKey = GlobalKey();
 
+  /// Top padding for info card instead of `SafeArea`.
   var _infoCardPadding = 0.0;
 
-  // Add course and refresh.
+  /// Refresh form.
+  void onRefresh() async {
+    if (widget.ecrForm == null) return;
+    await widget.ecrForm.refresh();
+    if (mounted) setState(() {});
+  }
+
+  /// Add course and refresh.
   void onAdd(String id) async {
     await widget.ecrForm.add(id);
     if (mounted) setState(() {});
   }
 
-  // Delete course and refresh.
-  void onDel(String id) async {
+  /// Delete course and refresh.
+  void onDel(String id, {String name}) async {
+    var res = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (ctx) {
+          return AlertDialog(
+            title: Text(
+                i18n('Campus/AcademicTools/ECR/Form/CancelWarning', context)),
+            content: Text(name),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(i18n('Campus/AcademicTools/ECR/Form/Yes', context)),
+                onPressed: () => Navigator.of(context).pop(true),
+              ),
+              FlatButton(
+                child: Text(i18n('Campus/AcademicTools/ECR/Form/No', context)),
+                onPressed: () => Navigator.of(context).pop(false),
+              ),
+            ],
+          );
+        });
+    if (!res) return;
     await widget.ecrForm.cancel(id);
     if (mounted) setState(() {});
   }
 
   @override
   void initState() {
-    widget.ecrForm?.refresh()?.then((_) {
-      if (mounted) setState(() {});
-    });
+    // Manually refresh when init.
+    onRefresh();
 
+    // Add listener to add & remove padding to info card.
     _scrollController.addListener(() {
-      final topPadding = MediaQuery.of(context).padding.top;
+      var topPadding = MediaQuery.of(context).padding.top;
       RenderBox box = _generalInfoKey.currentContext.findRenderObject();
       var cardPosition = box.localToGlobal(Offset.zero);
       if (cardPosition.dy < topPadding)
@@ -159,7 +194,11 @@ class _ElectiveCourseRegistrationFormPageState
           title: Text('选课'),
           elevation: 0.0,
           forceElevated: true,
-          floating: true),
+          floating: true,
+          backgroundColor: Colors.lightBlue,
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.refresh), onPressed: onRefresh)
+          ]),
       SliverPersistentHeader(
         pinned: true,
         delegate: _SliverGeneralInfoTable(
@@ -177,7 +216,7 @@ class _ElectiveCourseRegistrationFormPageState
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              '已注册的课程',
+              i18n('Campus/AcademicTools/ECR/Form/Selected', context),
               style: Theme.of(context).textTheme.title,
             ),
             Divider(height: 10.0),
@@ -202,13 +241,18 @@ class _ElectiveCourseRegistrationFormPageState
                     style: Theme.of(context).textTheme.subhead,
                   ),
                   Divider(height: 8.0),
-                  Text('${course.timeAndVenue}\n'
+                  Text('${course.lecturer}\n'
                       '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
-                      '${course.credit.toString()} ${course.cancel}'),
+                      '${course.credit}  '
+                      '${i18n('Campus/AcademicTools/ECR/Form/Quota', context)}'
+                      '${course.numChosen}/${course.quota}'),
+                  Text(course.timeAndVenue,
+                      style: Theme.of(context).textTheme.caption)
                 ],
               ),
-              onPressed:
-                  course.cancel.isEmpty ? null : () => onDel(course.cancel),
+              onPressed: course.cancel.isEmpty
+                  ? null
+                  : () => onDel(course.cancel, name: course.name),
             ),
           );
         }, childCount: widget.ecrForm.data.coursesSelected.length),
@@ -223,7 +267,7 @@ class _ElectiveCourseRegistrationFormPageState
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                '可注册的课程',
+                i18n('Campus/AcademicTools/ECR/Form/Unselected', context),
                 style: Theme.of(context).textTheme.title,
               ),
               Divider(height: 10.0),
@@ -240,7 +284,7 @@ class _ElectiveCourseRegistrationFormPageState
               padding: const EdgeInsets.all(15.0),
               color: Theme.of(context).cardColor,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
+                  borderRadius: BorderRadius.circular(7.0)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -249,13 +293,16 @@ class _ElectiveCourseRegistrationFormPageState
                     style: Theme.of(context).textTheme.subhead,
                   ),
                   Divider(height: 8.0),
-                  Text('${course.timeAndVenue}\n'
+                  Text('${course.lecturer}\n'
                       '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
-                      '${course.credit.toString()} ${course.option}'),
+                      '${course.credit}  '
+                      '${i18n('Campus/AcademicTools/ECR/Form/Quota', context)}'
+                      '${course.numChosen}/${course.quota}'),
+                  Text(course.timeAndVenue,
+                      style: Theme.of(context).textTheme.caption)
                 ],
               ),
-              onPressed:
-                  course.option == 'Full' ? null : () => onAdd(course.option),
+              onPressed: course.canSelect ? () => onAdd(course.option) : null,
             ),
           );
         }, childCount: widget.ecrForm.data.coursesList.length),
@@ -301,8 +348,9 @@ class _SliverGeneralInfoTable extends SliverPersistentHeaderDelegate {
             ),
             Text(
               '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
-              '${generalInfo.maxCredit} '
-              'Chosen: ${generalInfo.chosenCredit}',
+              '${generalInfo.maxCredit}  '
+              '${i18n('Campus/AcademicTools/ECR/Form/CreditChosen', context)}'
+              '${generalInfo.chosenCredit}',
               style: Theme.of(context).textTheme.subtitle,
             ),
           ],

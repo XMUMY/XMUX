@@ -24,8 +24,8 @@ class TimeTablePage extends StatelessWidget {
         padding: EdgeInsets.all(5.0),
         child: Text(
           "${i18n('Calendar/LastUpdate', context)} "
-              '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)} '
-              '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)}',
+          '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)} '
+          '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)}',
           style: Theme.of(context).textTheme.caption,
         ),
       ),
@@ -196,7 +196,7 @@ class _LessonCardState extends State<LessonCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _showClassDetail,
-      onTapDown: (_) => setState(() => _elevation = 3.0),
+      onTapDown: (_) => setState(() => _elevation = 4.0),
       onTapUp: (_) => setState(() => _elevation = 1.0),
       onTapCancel: () => setState(() => _elevation = 1.0),
       child: Card(
@@ -215,9 +215,9 @@ class _LessonCardState extends State<LessonCard> {
               child: Center(
                 child: Text(
                   '${i18n('Weekdays/${widget.lesson.dayOfWeek + 1}', context)} '
-                      '${widget.lesson.startTimeOfDay.format(context)} - '
-                      '${widget.lesson.endTimeOfDay.format(context)} '
-                      '${widget.lesson.classroom}',
+                  '${widget.lesson.startTimeOfDay.format(context)} - '
+                  '${widget.lesson.endTimeOfDay.format(context)} '
+                  '${widget.lesson.classroom}',
                   style: TextStyle(color: Colors.white, fontSize: 18.0),
                   textAlign: TextAlign.center,
                 ),
@@ -244,8 +244,8 @@ class _LessonCardState extends State<LessonCard> {
                           children: <Widget>[
                             Text(
                               '${widget.lesson.courseCode} '
-                                  'Week ${widget.lesson.weeks}\n'
-                                  '${widget.lesson.lecturer}',
+                              'Week ${widget.lesson.weeks}\n'
+                              '${widget.lesson.lecturer}',
                             ),
                           ],
                         ),
