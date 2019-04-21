@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
@@ -70,7 +71,35 @@ class ElectiveCourseRegistrationForm {
   String currentState;
   ElectiveCourseFormData data;
 
+  /// For course listener.
+  Timer _timer;
+
   ElectiveCourseRegistrationForm(this._dio, this.entry);
+
+  /// Add course listener. Add automatically when available.
+  void listen(CourseUnselected course, VoidCallback onRegistered) {
+    _timer = Timer.periodic(Duration(seconds: 2), (_) async {
+      try {
+        await refresh();
+        var courseUnderListen =
+            data.coursesList.firstWhere((e) => e.name == course.name);
+        if (courseUnderListen.canSelect) {
+          await add(courseUnderListen.option);
+          onRegistered();
+        }
+      } catch (e) {
+        // If error, cancel directly.
+        onRegistered();
+        rethrow;
+      }
+    });
+  }
+
+  /// Cancel course listener.
+  void cancelListener() => _timer.cancel();
+
+  /// Whether listener is listening.
+  bool get isListening => _timer?.isActive ?? false;
 
   /// Refresh `data`.
   ///

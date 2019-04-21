@@ -76,6 +76,9 @@ const Map<String, String> zh_CN = {
   'Campus/AcademicTools/ECR/Form/CancelWarning': '确认取消这门课程？',
   'Campus/AcademicTools/ECR/Form/Yes': '是的',
   'Campus/AcademicTools/ECR/Form/No': '手滑了',
+  'Campus/AcademicTools/ECR/Form/Listening': '正在监听课程',
+  'Campus/AcademicTools/ECR/Form/ListeningInfo': '正在刷新您的课程，并在可用时自动注册。',
+  'Campus/AcademicTools/ECR/Form/Cancel': '取消',
   // Explore
   'XiA/Hint': '请问有什么可以帮助您？',
   'XiA/Intro': '你好，我是小夏。有什么可以帮您？',

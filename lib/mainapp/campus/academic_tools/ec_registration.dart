@@ -78,7 +78,7 @@ class _ElectiveCourseRegistrationPageState
                 Text('${i18n('Campus/AcademicTools/ECR/StartTime', context)}'
                     '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(course.period.start)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(course.period.start)}\n'
                     '${i18n('Campus/AcademicTools/ECR/EndTime', context)}'
-                    '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(course.period.start)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(course.period.end)}  ')
+                    '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(course.period.end)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(course.period.end)}  ')
               ],
             ),
             onPressed: () => Navigator.of(context).push(
@@ -154,6 +154,37 @@ class _ElectiveCourseRegistrationFormPageState
     if (mounted) setState(() {});
   }
 
+  /// When listening for full courses.
+  void onListen(CourseUnselected course) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) {
+        if (!widget.ecrForm.isListening) {
+          widget.ecrForm.listen(course, () {
+            widget.ecrForm.cancelListener();
+            Navigator.of(ctx).pop();
+          });
+        }
+        return AlertDialog(
+          title: Text(i18n('Campus/AcademicTools/ECR/Form/Listening', context)),
+          content: Text(
+              i18n('Campus/AcademicTools/ECR/Form/ListeningInfo', context)),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                widget.ecrForm.cancelListener();
+                Navigator.of(ctx).pop();
+              },
+              child:
+                  Text(i18n('Campus/AcademicTools/ECR/Form/Cancel', context)),
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     // Manually refresh when init.
@@ -191,7 +222,7 @@ class _ElectiveCourseRegistrationFormPageState
   List<Widget> buildSlivers() {
     return <Widget>[
       SliverAppBar(
-          title: Text('选课'),
+          title: Text(i18n('Campus/AcademicTools/ECR/Title', context)),
           elevation: 0.0,
           forceElevated: true,
           floating: true,
@@ -302,15 +333,12 @@ class _ElectiveCourseRegistrationFormPageState
                       style: Theme.of(context).textTheme.caption)
                 ],
               ),
-              onPressed: course.canSelect ? () => onAdd(course.option) : null,
+              onPressed: course.canSelect
+                  ? () => onAdd(course.option)
+                  : course.canListen ? () => onListen(course) : null,
             ),
           );
         }, childCount: widget.ecrForm.data.coursesList.length),
-      ),
-      SliverList(
-        delegate: SliverChildBuilderDelegate((ctx, index) {
-          return Text(index.toString());
-        }, childCount: 100),
       ),
     ];
   }

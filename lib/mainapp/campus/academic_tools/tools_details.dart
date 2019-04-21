@@ -57,43 +57,46 @@ class _AcademicPageCard extends StatelessWidget {
       {@required this.textUri, @required this.image, @required this.route});
 
   @override
-  Widget build(BuildContext context) => Card(
-        margin: EdgeInsets.fromLTRB(2.0, 5.0, 2.0, 5.0),
-        child: FlatButton(
-          padding: EdgeInsets.all(20.0),
-          child: Row(
-            children: <Widget>[
-              Hero(
-                tag: image,
-                child: SvgPicture.asset(
-                  image,
-                  height: 66.0,
-                  width: 66.0,
-                ),
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(2.0, 5.0, 2.0, 5.0),
+      child: RaisedButton(
+        color: Theme.of(context).cardColor,
+        padding: EdgeInsets.all(20.0),
+        child: Row(
+          children: <Widget>[
+            Hero(
+              tag: image,
+              child: SvgPicture.asset(
+                image,
+                height: 66.0,
+                width: 66.0,
               ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      i18n('$textUri/Title', context),
-                      style: Theme.of(context).textTheme.title,
-                    ),
-                    Divider(
-                      height: 5.0,
-                      color: Colors.transparent,
-                    ),
-                    Text(
-                      i18n('$textUri/Caption', context),
-                      style: Theme.of(context).textTheme.caption,
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    i18n('$textUri/Title', context),
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                  Divider(
+                    height: 5.0,
+                    color: Colors.transparent,
+                  ),
+                  Text(
+                    i18n('$textUri/Caption', context),
+                    style: Theme.of(context).textTheme.caption,
+                    textAlign: TextAlign.center,
+                  )
+                ],
               ),
-            ],
-          ),
-          onPressed: () => Navigator.pushNamed(context, route),
+            ),
+          ],
         ),
-      );
+        onPressed: () => Navigator.pushNamed(context, route),
+      ),
+    );
+  }
 }

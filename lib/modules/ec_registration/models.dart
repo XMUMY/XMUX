@@ -108,5 +108,9 @@ class CourseUnselected {
   static CourseUnselected fromJson(Map<String, dynamic> json) =>
       _$CourseUnselectedFromJson(json);
 
+  /// If course can be registered.
   bool get canSelect => option != 'Full';
+
+  /// If course is Full.
+  bool get canListen => option == 'Full';
 }

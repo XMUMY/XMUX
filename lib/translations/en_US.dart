@@ -83,6 +83,10 @@ const Map<String, String> en_US = {
   'Campus/AcademicTools/ECR/Form/CancelWarning': 'Sure to cancel?',
   'Campus/AcademicTools/ECR/Form/Yes': 'Sure',
   'Campus/AcademicTools/ECR/Form/No': 'No',
+  'Campus/AcademicTools/ECR/Form/Listening': 'Listening Course',
+  'Campus/AcademicTools/ECR/Form/ListeningInfo':
+      'Listening for this course. Your course will be registered automatically if available.',
+  'Campus/AcademicTools/ECR/Form/Cancel': 'Cancel',
   // Explore
   'XiA/Hint': 'May I help you?',
   'XiA/Intro': "Hi, I'm XiA. Your assistant.",
