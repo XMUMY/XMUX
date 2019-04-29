@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/exams.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/redux/redux.dart';
-import 'package:xmux/translations/translation.dart';
 
 class CalendarPage extends StatelessWidget {
   @override
@@ -14,43 +14,43 @@ class CalendarPage extends StatelessWidget {
       length: 3,
       initialIndex: 0,
       child: Scaffold(
-          appBar: AppBar(
-            leading: StoreConnector<MainAppState, VoidCallback>(
-              converter: (store) =>
-                  () => store.dispatch(OpenDrawerAction(true)),
-              builder: (context, callback) =>
-                  IconButton(icon: Icon(Icons.view_list), onPressed: callback),
-            ),
-            title: Text(MainLocalizations.of(context).get("Calendar")),
-            actions: <Widget>[
-              IconButton(
-                  icon: Icon(FontAwesomeIcons.calendarAlt),
-                  tooltip: MainLocalizations.of(context)
-                      .get("Calendar/CalendarImage"),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed("/Calendar/CalendarImage");
-                  })
-            ],
-            bottom: TabBar(isScrollable: false, tabs: <Tab>[
-              Tab(
-                text: MainLocalizations.of(context).get("Calendar/Classes"),
-              ),
-              Tab(
-                text: MainLocalizations.of(context).get("Calendar/Exams"),
-              ),
-              Tab(
-                text: MainLocalizations.of(context).get("Calendar/Assignments"),
-              ),
-            ]),
+        appBar: AppBar(
+          leading: StoreConnector<MainAppState, VoidCallback>(
+            converter: (store) => () => store.dispatch(OpenDrawerAction(true)),
+            builder: (context, callback) =>
+                IconButton(icon: Icon(Icons.view_list), onPressed: callback),
           ),
-          body: StoreConnector<MainAppState, AcState>(
-              builder: (BuildContext context, acState) =>
-                  TabBarView(children: <Widget>[
-                    TimeTablePage(acState.timetable),
-                    ExamsPage(acState.exams),
-                    AssignmentPage(acState.assignments),
-                  ]),
-              converter: (s) => s.state.acState)),
+          title: Text(i18n('Calendar', context)),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(FontAwesomeIcons.calendarAlt),
+                tooltip: i18n('Calendar/CalendarImage', context),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/Calendar/CalendarImage');
+                })
+          ],
+          bottom: TabBar(isScrollable: false, tabs: <Tab>[
+            Tab(
+              text: i18n('Calendar/Classes', context),
+            ),
+            Tab(
+              text: i18n('Calendar/Exams', context),
+            ),
+            Tab(
+              text: i18n('Calendar/Assignments', context),
+            ),
+          ]),
+        ),
+        body: StoreConnector<MainAppState, AcState>(
+          builder: (BuildContext context, acState) =>
+              TabBarView(children: <Widget>[
+                TimeTablePage(acState.timetable),
+                ExamsPage(acState.exams),
+                AssignmentPage(acState.assignments),
+              ]),
+          converter: (s) => s.state.acState,
+        ),
+      ),
     );
   }
 }
