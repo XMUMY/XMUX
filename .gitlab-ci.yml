@@ -7,15 +7,13 @@ stages:
   - build
   - deploy
 
-build:
+build:auto:
   stage: build
   tags:
-    - flutter
+    - x
   image: openjdk:8-jdk
   only:
-    - nightly
-    - alpha
-    - master
+    - dev
   before_script:
 # Install libraries
     - apt-get --quiet update --yes > apt.log
@@ -53,11 +51,8 @@ build:
     - echo "${GOOGLE_SERVICES_KEY}" > ./android/app/google-services.json
     - echo "${RELEASE_SIGN_KEY}" | base64 -d > ./android/app/x.jks
     - echo "${RELEASE_SIGN_KEY_PROPERTYS}" | base64 -d > ./android/key.properties
-# Add apk version
-    - export BV=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep -m 1 'BV=' | sed 's/BV=//')
-    - export BN=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep -m 1 'BN=' | sed 's/BN=//')
   script:
-    - if [[ -n $BV ]]; then ./flutter/bin/flutter build apk --build-number=$BV; else exit 1; fi
+    - ./flutter/bin/flutter build apk
   artifacts:
     expire_in: 1 hour
     paths:
@@ -66,24 +61,24 @@ build:
 deploy:internal:
   stage: deploy
   tags:
-    - flutter
-  image: ruby
+    - x
+  image: ruby:slim
   only:
-    - nightly
+    - dev
   variables:
     LC_ALL: en_US.UTF-8
     LANG: en_US.UTF-8
   before_script:
     - apt-get --quiet update --yes > apt.log
-    - apt-get --quiet install --yes ruby-dev gcc g++ make > apt.log
+    - apt-get --quiet install --yes ruby-dev gcc g++ make git > apt.log
     - gem install fastlane -NV > gem.log
     - echo "${GOOGLE_PLAY_KEY}" > play.json
-    - export BV=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep -m 1 'BV=' | sed 's/BV=//')
-    - export CHANGELOG=$(echo -n "$CI_COMMIT_DESCRIPTION" | grep . | grep -v BN | grep -v BV)
+    - export VERSION_CODE=$(git rev-list HEAD --count)
+    - export CHANGELOG=$CI_COMMIT_DESCRIPTION
   script:
     - fastlane supply init --json_key play.json --package_name org.ctbeta.xmux.xmux
-    - echo "$CHANGELOG" > ./metadata/en-US/changelogs/"$BV".txt
-    - echo "$CHANGELOG" > ./metadata/zh-CN/changelogs/"$BV".txt
+    - echo "$CHANGELOG" > ./metadata/en-US/changelogs/"$VERSION_CODE".txt
+    - echo "$CHANGELOG" > ./metadata/zh-CN/changelogs/"$VERSION_CODE".txt
     - fastlane supply --apk ./build/app/outputs/apk/release/app-release.apk --json_key play.json --package_name org.ctbeta.xmux.xmux --track internal --track_promote_to internal --skip_upload_aab true --skip_upload_images true
 
 deploy:alpha:

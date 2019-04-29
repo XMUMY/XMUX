@@ -12,11 +12,13 @@ if (flutterRoot == null) {
 }
 
 def getGitVersionCmd = 'git describe --tags'
-def gitVersionName = getGitVersionCmd.execute().text.trim()
+def getGitCommitCountCmd = 'git rev-list HEAD --count'
+def gitVersionName = getGitVersionCmd.execute().text.trim().substring(1)
+def gitVersionCode = getGitCommitCountCmd.execute().text.trim()
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '120'
+    flutterVersionCode = gitVersionCode
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
