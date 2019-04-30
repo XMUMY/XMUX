@@ -6,21 +6,22 @@ import 'dart:ui';
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sentry/sentry.dart' as sentry_lib;
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/login_handler.dart';
+import 'package:xmux/mainapp/main_app.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
-export 'init_app.dart';
+enum InitResult { notLogin, failed, finished }
 
-enum InitResult { notLogin, loginError, finished }
-
-Future<InitResult> init() async {
+Future<bool> init() async {
   // Register sentry to capture errors. (Release mode only)
   if (bool.fromEnvironment('dart.vm.product'))
     FlutterError.onError = (e) =>
@@ -59,27 +60,33 @@ Future<InitResult> init() async {
     store.dispatch(InitAction(initMap));
   } catch (e) {
     FirebaseAuth.instance.signOut();
-    return InitResult.notLogin;
+    return false;
   }
 
   // If haven't login.
   if (store.state.authState.campusID == null ||
-      store.state.authState.campusIDPassword == null)
-    return InitResult.notLogin;
+      store.state.authState.campusIDPassword == null) return false;
 
   if ((await LoginHandler.firebaseLogin()) != "success") {
     FirebaseAuth.instance.signOut();
-    return InitResult.loginError;
+    return false;
   }
 
+  postInit();
+  return true;
+}
+
+void postInit() async {
   XMUXApi.instance.getIdToken = firebaseUser.getIdToken;
+
+  sentry.userContext = sentry_lib.User(id: firebaseUser.uid);
 
   try {
     await XMUXApi.instance.getUser(firebaseUser.uid);
     await XMUXApi.instance.updateUser(User(
         firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl));
   } catch (e) {
-    await LoginHandler.login(
+    await LoginHandler.campus(
         store.state.authState.campusID, store.state.authState.campusIDPassword);
     await LoginHandler.createUser();
   }
@@ -95,9 +102,13 @@ Future<InitResult> init() async {
         .device(deviceInfo.identifierForVendor, token, deviceInfo.model);
   }
 
-  refreshData();
+  store.dispatch(UpdateInfoAction());
+  store.dispatch(UpdateHomepageAnnouncementsAction());
+  store.dispatch(UpdateAcAction());
+  store.dispatch(UpdateCoursesAction());
+  store.dispatch(UpdateAssignmentsAction());
 
-  return InitResult.finished;
+  runApp(MainApp());
 }
 
 void initFCM() {
@@ -111,13 +122,4 @@ void initFCM() {
   firebaseMessaging
       .getToken()
       .then((token) => print("FCM/Token got: " + token));
-}
-
-/// Refresh data from source.
-void refreshData() {
-  store.dispatch(UpdateInfoAction());
-  store.dispatch(UpdateHomepageAnnouncementsAction());
-  store.dispatch(UpdateAcAction());
-  store.dispatch(UpdateCoursesAction());
-  store.dispatch(UpdateAssignmentsAction());
 }

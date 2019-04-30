@@ -166,8 +166,8 @@ class XMUXApi {
     var selected = await Future.any(addresses.map((String address) async {
       var res = await _dio.get(address + '/test');
       if (res.statusCode == 200) return address;
-    }).toList())
-        .timeout(Duration(milliseconds: 2800), onTimeout: () => currentAddress)
+    }))
+        .timeout(Duration(milliseconds: 3000), onTimeout: () => currentAddress)
         .catchError((e) => currentAddress);
 
     currentAddress = selected;

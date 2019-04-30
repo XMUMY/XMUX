@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Create an animated XMUX logo with opacity and size from 0 to 1.
 class AnimatedLogo extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _AnimatedLogoState();
@@ -24,15 +25,17 @@ class _AnimatedLogoState extends State<AnimatedLogo>
   }
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Opacity(
-          opacity: animation.value,
-          child: Image.asset(
-            'res/logo.png',
-            height: animation.value * 100.0,
-            width: animation.value * 100.0,
-          ),
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Opacity(
+        opacity: animation.value,
+        child: Image.asset(
+          'res/logo.png',
+          height: animation.value * 100,
+          width: animation.value * 100,
         ),
-      );
+      ),
+    );
+  }
 }

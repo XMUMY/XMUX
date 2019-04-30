@@ -1,19 +1,13 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:xmux/init/init.dart';
-import 'package:xmux/init/login_app.dart';
-import 'package:xmux/mainapp/main_app.dart';
 
-Future main() async {
-  runApp(new InitApp());
+import 'init/init_app.dart';
+import 'init/init_handler.dart';
+import 'init/login_app.dart';
 
-  switch (await init()) {
-    case InitResult.notLogin:
-    case InitResult.loginError:
-      runApp(new LoginApp());
-      break;
-    case InitResult.finished:
-      runApp(new MainApp());
-  }
+void main() async {
+  // Attach init screen.
+  runApp(InitApp());
+
+  // Run `LoginApp` if init failed.
+  if (!await init()) runApp(new LoginApp());
 }

@@ -1,24 +1,20 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:platform/platform.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/components/animated_logo.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/init/animated_logo.dart';
-import 'package:xmux/init/init.dart';
+import 'package:xmux/init/init_handler.dart';
 import 'package:xmux/init/login_handler.dart';
 import 'package:xmux/mainapp/main_app.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 class LoginPage extends StatelessWidget {
-  // Controller for username & password.
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  // Form key for validation.
+  // Form key for id & password.
   final _usernameFormKey = GlobalKey<FormFieldState<String>>();
   final _passwordFormKey = GlobalKey<FormFieldState<String>>();
 
@@ -39,6 +35,15 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
+              Platform.isAndroid
+                  ? IconButton(
+                      icon: Icon(FontAwesomeIcons.googlePlay),
+                      onPressed: () => launch(
+                          'https://${BackendApiConfig.resourceAddress}/2018/01/01/gms/'),
+                      tooltip:
+                          i18n('SignInPage/ServiceDocs', context, app: 'l'),
+                    )
+                  : Container(),
               IconButton(
                 icon: Icon(FontAwesomeIcons.fileAlt),
                 onPressed: () => launch(
@@ -48,7 +53,8 @@ class LoginPage extends StatelessWidget {
               ),
               IconButton(
                 icon: Icon(FontAwesomeIcons.questionCircle),
-                onPressed: null,
+                onPressed: () =>
+                    launch('https://${BackendApiConfig.resourceAddress}/'),
                 tooltip: i18n('SignInPage/HelpDocs', context, app: 'l'),
               ),
             ],
@@ -65,7 +71,6 @@ class LoginPage extends StatelessWidget {
                     AnimatedLogo(),
                     TextFormField(
                       key: _usernameFormKey,
-                      controller: _usernameController,
                       decoration: InputDecoration(
                         hintText:
                             i18n('SignInPage/CampusID', context, app: 'l'),
@@ -75,14 +80,14 @@ class LoginPage extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      validator: (s) => RegExp('^[A-Za-z]{3}[0-9]{7}\$')
+                      validator: (s) => RegExp(
+                                  r'^[A-Za-z]{3}[0-9]{7}$|^[0-9]{7}$')
                               .hasMatch(s)
                           ? null
                           : i18n('SignInPage/FormatError', context, app: 'l'),
                     ),
                     TextFormField(
                       key: _passwordFormKey,
-                      controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText:
@@ -100,9 +105,8 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
-              LoginButton(_usernameController, _passwordController,
-                  _usernameFormKey, _passwordFormKey),
-              Padding(padding: EdgeInsets.all(8.0)),
+              LoginButton(_usernameFormKey, _passwordFormKey),
+              Divider(color: Colors.transparent),
               Text(
                 i18n('SignInPage/Read', context, app: 'l'),
                 textAlign: TextAlign.center,
@@ -115,14 +119,10 @@ class LoginPage extends StatelessWidget {
 }
 
 class LoginButton extends StatefulWidget {
-  final TextEditingController _usernameController;
-  final TextEditingController _passwordController;
-
   final GlobalKey<FormFieldState<String>> _usernameFormKey;
   final GlobalKey<FormFieldState<String>> _passwordFormKey;
 
-  LoginButton(this._usernameController, this._passwordController,
-      this._usernameFormKey, this._passwordFormKey);
+  LoginButton(this._usernameFormKey, this._passwordFormKey);
 
   @override
   _LoginButtonState createState() => _LoginButtonState();
@@ -133,9 +133,9 @@ class _LoginButtonState extends State<LoginButton> {
 
   Future<Null> _handleSignIn() async {
     // Demo login.
-    if (widget._usernameController.text == AppConfig.demoUsername &&
-        widget._passwordController.text == AppConfig.demoPassword &&
-        !(const LocalPlatform().isIOS)) {
+    if (widget._usernameFormKey.currentState.value == AppConfig.demoUsername &&
+        widget._passwordFormKey.currentState.value == AppConfig.demoPassword &&
+        !Platform.isIOS) {
       runApp(MainApp());
       return;
     }
@@ -148,8 +148,9 @@ class _LoginButtonState extends State<LoginButton> {
     setState(() => _isProcessing = true);
 
     // Handle login.
-    var loginResult = await LoginHandler.login(
-        widget._usernameController.text, widget._passwordController.text);
+    var loginResult = await LoginHandler.campus(
+        widget._usernameFormKey.currentState.value,
+        widget._passwordFormKey.currentState.value);
     if (loginResult != 'success') {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(
@@ -173,9 +174,7 @@ class _LoginButtonState extends State<LoginButton> {
     initFCM();
     XMUXApi.instance.getIdToken = firebaseUser.getIdToken;
 
-    refreshData();
-
-    runApp(MainApp());
+    postInit();
   }
 
   @override
@@ -189,9 +188,7 @@ class _LoginButtonState extends State<LoginButton> {
               width: 120.0,
               height: 40.0,
               child: Center(
-                child: Text(
-                  i18n('SignInPage/SignIn', context, app: 'l'),
-                ),
+                child: Text(i18n('SignInPage/SignIn', context, app: 'l')),
               ),
             ),
             onPressed: _handleSignIn,

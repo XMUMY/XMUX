@@ -169,7 +169,8 @@ const Map<String, String> zh_CN = {
 };
 
 const Map<String, String> zh_CN_login = {
-  'SignInPage/ServiceDocs': '服务文档',
+  'SignInPage/GooglePlay': '安装 GMS',
+  'SignInPage/Privacy': '隐私政策',
   'SignInPage/HelpDocs': '帮助文档',
   'SignInPage/CampusID': '校园ID',
   'SignInPage/Password': '密码',

@@ -8,7 +8,9 @@ import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
 class LoginHandler {
-  static Future<String> login(String id, String password) async {
+  static Future login() {}
+
+  static Future<String> campus(String id, String password) async {
     print('LoginHandler: Login: $id');
 
     try {

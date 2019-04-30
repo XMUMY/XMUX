@@ -183,7 +183,8 @@ const Map<String, String> en_US = {
 };
 
 const Map<String, String> en_US_login = {
-  'SignInPage/ServiceDocs': 'Service Docs',
+  'SignInPage/GooglePlay': 'Install GMS',
+  'SignInPage/Privacy': 'Privacy Policy',
   'SignInPage/HelpDocs': 'Help Docs',
   'SignInPage/CampusID': 'Campus ID',
   'SignInPage/Password': 'Password',
