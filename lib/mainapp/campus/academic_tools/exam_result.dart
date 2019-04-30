@@ -138,8 +138,8 @@ class _ResultDetails extends StatelessWidget {
                       Divider(height: 8.0, color: Colors.transparent),
                       Text(
                         '${courseResult.courseCode}  '
-                            '${courseResult.credit.toString()} '
-                            "${i18n('Campus/AcademicTools/ExamResult/credits', context)}",
+                        '${courseResult.credit.toString()} '
+                        '${i18n('Campus/AcademicTools/ExamResult/credits', context)}',
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ],
@@ -149,7 +149,7 @@ class _ResultDetails extends StatelessWidget {
                   margin: EdgeInsets.fromLTRB(3.0, 3.0, 12.0, 3.0),
                   child: Text(
                     '${courseResult.grade}\n'
-                        '${courseResult.gradePoint.toStringAsFixed(2)}',
+                    '${courseResult.gradePoint.toStringAsFixed(2)}',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.title.copyWith(
                         color: getPointColor(

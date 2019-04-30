@@ -64,7 +64,7 @@ class _ItemCardState extends State<ItemCard> {
   @override
   void initState() {
     // Get user by UID.
-    xmuxApi
+    XMUXApi.instance
         .getUser(widget.item.from)
         .then((u) => setState(() => user = u.data))
         .catchError(
@@ -104,7 +104,7 @@ class _ItemCardState extends State<ItemCard> {
                     child: user != null
                         ? CircleAvatar(
                             backgroundImage: NetworkImage(
-                                xmuxApi.convertAvatarUrl(user.photoUrl,
+                                XMUXApi.convertAvatarUrl(user.photoUrl,
                                     store.state.authState.moodleKey)),
                           )
                         : SpinKitPulse(color: Colors.white),

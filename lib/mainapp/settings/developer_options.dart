@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
 class DeveloperOptionsPage extends StatelessWidget {
@@ -64,20 +65,20 @@ class _XmuxApiSwitch extends StatefulWidget {
 }
 
 class _XmuxApiSwitchState extends State<_XmuxApiSwitch> {
-  List<DropdownMenuItem<String>> _items = xmuxApi.addresses
+  List<DropdownMenuItem<String>> _items = XMUXApi.instance.addresses
       .map((a) => DropdownMenuItem<String>(
             child: Text(_XmuxApiSwitch.addressToName(a)),
             value: a,
           ))
       .toList();
 
-  String get _current => xmuxApi.currentAddress;
+  String get _current => XMUXApi.instance.currentAddress;
 
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
         items: _items,
         value: _current,
-        onChanged: (_) => setState(() => xmuxApi.currentAddress = _));
+        onChanged: (_) => setState(() => XMUXApi.instance.currentAddress = _));
   }
 }

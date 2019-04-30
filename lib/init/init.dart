@@ -11,7 +11,7 @@ import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/initapp/login_handler.dart';
+import 'package:xmux/init/login_handler.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
@@ -30,14 +30,15 @@ Future<InitResult> init() async {
   packageInfo = await PackageInfo.fromPlatform();
 
   // Select XMUX API server.
-  xmuxApi = XMUXApi(BackendApiConfig.addresses);
+  XMUXApi(BackendApiConfig.addresses);
   await XMUXApi.selectingServer;
 
   // Register SystemChannel to handle lifecycle message.
   SystemChannels.lifecycle.setMessageHandler((msg) {
     print('SystemChannels/LifecycleMessage: $msg');
     // Update language for XMUX API.
-    if (msg == AppLifecycleState.resumed.toString()) xmuxApi.configure();
+    if (msg == AppLifecycleState.resumed.toString())
+      XMUXApi.instance.configure();
   });
 
   // Init XiA.
@@ -71,11 +72,11 @@ Future<InitResult> init() async {
     return InitResult.loginError;
   }
 
-  xmuxApi.getIdToken = firebaseUser.getIdToken;
+  XMUXApi.instance.getIdToken = firebaseUser.getIdToken;
 
   try {
-    await xmuxApi.getUser(firebaseUser.uid);
-    await xmuxApi.updateUser(User(
+    await XMUXApi.instance.getUser(firebaseUser.uid);
+    await XMUXApi.instance.updateUser(User(
         firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl));
   } catch (e) {
     await LoginHandler.login(
@@ -86,11 +87,12 @@ Future<InitResult> init() async {
   if (Platform.isAndroid) {
     var deviceInfo = await DeviceInfoPlugin().androidInfo;
     var token = await firebaseMessaging.getToken();
-    xmuxApi.device(deviceInfo.fingerprint, token, deviceInfo.model);
+    XMUXApi.instance.device(deviceInfo.fingerprint, token, deviceInfo.model);
   } else {
     var deviceInfo = await DeviceInfoPlugin().iosInfo;
     var token = await firebaseMessaging.getToken();
-    xmuxApi.device(deviceInfo.identifierForVendor, token, deviceInfo.model);
+    XMUXApi.instance
+        .device(deviceInfo.identifierForVendor, token, deviceInfo.model);
   }
 
   refreshData();

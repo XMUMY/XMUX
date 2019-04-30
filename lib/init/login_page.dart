@@ -7,10 +7,11 @@ import 'package:platform/platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/initapp/animated_logo.dart';
-import 'package:xmux/initapp/init.dart';
-import 'package:xmux/initapp/login_handler.dart';
+import 'package:xmux/init/animated_logo.dart';
+import 'package:xmux/init/init.dart';
+import 'package:xmux/init/login_handler.dart';
 import 'package:xmux/mainapp/main_app.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 class LoginPage extends StatelessWidget {
   // Controller for username & password.
@@ -132,8 +133,8 @@ class _LoginButtonState extends State<LoginButton> {
 
   Future<Null> _handleSignIn() async {
     // Demo login.
-    if (widget._usernameController.text == AppInfo.demoUsername &&
-        widget._passwordController.text == AppInfo.demoPassword &&
+    if (widget._usernameController.text == AppConfig.demoUsername &&
+        widget._passwordController.text == AppConfig.demoPassword &&
         !(const LocalPlatform().isIOS)) {
       runApp(MainApp());
       return;
@@ -170,7 +171,7 @@ class _LoginButtonState extends State<LoginButton> {
     // Continue init.
     await LoginHandler.createUser();
     initFCM();
-    xmuxApi.getIdToken = firebaseUser.getIdToken;
+    XMUXApi.instance.getIdToken = firebaseUser.getIdToken;
 
     refreshData();
 

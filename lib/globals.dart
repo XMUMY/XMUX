@@ -6,9 +6,10 @@ import 'package:redux/redux.dart';
 import 'package:sentry/sentry.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/modules/xia/xia.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
+
+import 'init/login_app.dart';
 
 /// Firebase messaging instance.
 final firebaseMessaging = FirebaseMessaging();
@@ -23,6 +24,7 @@ FirebaseUser firebaseUser;
 /// Default is `null`. Will be assigned during init.
 PackageInfo packageInfo;
 
+/// Sentry client. Handle unhandled exception.
 final SentryClient sentry = SentryClient(dsn: ApiKeyConfig.sentryDsn);
 
 /// Main store for redux.
@@ -34,11 +36,6 @@ final store = Store<MainAppState>(appReducer,
 ///
 /// Default is `null`. Will be assigned during init.
 XiA xiA;
-
-/// XMUX API instance.
-///
-/// Default is `null`. Will be selected during init.
-XMUXApi xmuxApi;
 
 /// Function for internationalization.
 /// It will return localized text if available and return origin text if error.
@@ -53,4 +50,12 @@ String i18n(String text, BuildContext context, {String app}) {
   } catch (_) {
     return text;
   }
+}
+
+/// Handle logout and run `LoginApp`.
+Future<Null> logout() async {
+  await FirebaseAuth.instance.signOut();
+  firebaseUser = null;
+  store.dispatch(LogoutAction());
+  runApp(LoginApp());
 }

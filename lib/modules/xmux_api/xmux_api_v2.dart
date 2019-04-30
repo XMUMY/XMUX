@@ -84,13 +84,13 @@ class XMUXApi {
   /// Future of selectServer function for listening selecting status.
   static Future<Null> selectingServer;
 
-  /// Instance to make the object unique.
-  static XMUXApi _instance;
+  /// Unique instance of XMUXApi.
+  static XMUXApi instance;
 
   factory XMUXApi(List<String> addresses, {Connectivity connectivity}) {
-    if (_instance == null)
-      _instance = XMUXApi._(addresses, connectivity ?? Connectivity());
-    return _instance;
+    if (instance == null)
+      instance = XMUXApi._(addresses, connectivity ?? Connectivity());
+    return instance;
   }
 
   XMUXApi._(this.addresses, this._connectivity) {
@@ -126,7 +126,7 @@ class XMUXApi {
   }
 
   /// Convert photo url with moodleKey.
-  String convertAvatarUrl(String originUrl, String moodleKey) =>
+  static String convertAvatarUrl(String originUrl, String moodleKey) =>
       originUrl == null
           ? ''
           : originUrl.replaceFirst(

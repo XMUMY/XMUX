@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/emgs/emgs.dart' as emgs show getCountryCode;
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
 class DrawerPage extends StatelessWidget {
@@ -43,7 +44,7 @@ class DrawerPage extends StatelessWidget {
                         tag: 'UserAvatar',
                         child: CircleAvatar(
                           backgroundImage: NetworkImage(
-                              xmuxApi.convertAvatarUrl(firebaseUser?.photoUrl,
+                              XMUXApi.convertAvatarUrl(firebaseUser?.photoUrl,
                                   store.state.authState.moodleKey)),
                           radius: 30.0,
                         ),

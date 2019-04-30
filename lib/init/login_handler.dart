@@ -13,7 +13,7 @@ class LoginHandler {
 
     try {
       // Get response from backend.
-      var res = await xmuxApi
+      var res = await XMUXApi.instance
           .login(XMUXApiAuth(campusID: id, campusIDPassword: password));
       // Dispatch LoginAction.
       store.dispatch(LoginAction(
@@ -47,7 +47,7 @@ class LoginHandler {
     print('LoginHandler: Creating user: ${store.state.authState.campusID}');
 
     try {
-      await xmuxApi.createUser(
+      await XMUXApi.instance.createUser(
           XMUXApiAuth(
               campusID: store.state.authState.campusID.toLowerCase(),
               campusIDPassword: store.state.authState.campusIDPassword),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppInfo {
+class AppConfig {
   static const demoUsername = "XDemoUserNameX";
   static const demoPassword = "XDemoUserPasswordX";
 }

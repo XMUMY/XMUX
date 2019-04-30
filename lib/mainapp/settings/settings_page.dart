@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/main.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -17,7 +17,7 @@ class SettingsPage extends StatelessWidget {
                 Hero(
                   tag: 'UserAvatar',
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage(xmuxApi.convertAvatarUrl(
+                    backgroundImage: NetworkImage(XMUXApi.convertAvatarUrl(
                         firebaseUser?.photoUrl,
                         store.state.authState.moodleKey)),
                     radius: 30.0,
@@ -53,7 +53,7 @@ class SettingsPage extends StatelessWidget {
                   Icon(Icons.exit_to_app),
                 ],
               ),
-              onPressed: signOut,
+              onPressed: logout,
             ),
           ],
         ),

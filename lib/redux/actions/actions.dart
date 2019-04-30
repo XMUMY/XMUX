@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:xmux/globals.dart';
 import 'package:xmux/modules/emgs/emgs.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 

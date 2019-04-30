@@ -48,7 +48,7 @@ class UpdateAcAction extends XMUXApiAction {
 
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
-    var response = await xmuxApi.ac(auth);
+    var response = await XMUXApi.instance.ac(auth);
     assign(response);
     acData = response.data;
   }
@@ -60,7 +60,7 @@ class UpdateAssignmentsAction extends XMUXApiAction {
 
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
-    var response = await xmuxApi.moodle(auth);
+    var response = await XMUXApi.instance.moodle(auth);
     assign(response);
     moodleData = response.data;
     moodleKey = response.moodleKey;
@@ -77,7 +77,7 @@ class UpdateEPaymentRecordsAction extends XMUXApiAction {
 
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
-    var response = await xmuxApi.bill(this.auth ?? auth);
+    var response = await XMUXApi.instance.bill(this.auth ?? auth);
     assign(response);
     ePaymentRecords = response.data;
   }
@@ -88,7 +88,7 @@ class UpdateCoursesAction extends XMUXApiAction {
 
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
-    var response = await xmuxApi.acCourses(auth);
+    var response = await XMUXApi.instance.acCourses(auth);
     assign(response);
     acData = response.data;
   }
@@ -99,7 +99,7 @@ class UpdateInfoAction extends XMUXApiAction {
 
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
-    var response = await xmuxApi.acInfo(auth);
+    var response = await XMUXApi.instance.acInfo(auth);
     assign(response);
     info = response.data;
   }
@@ -113,7 +113,7 @@ class UpdateHomepageAnnouncementsAction extends XMUXApiAction {
 
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
-    var response = await xmuxApi.homepageAnnouncements(auth);
+    var response = await XMUXApi.instance.homepageAnnouncements(auth);
     assign(response);
     announcements = response.data;
   }
@@ -127,7 +127,7 @@ class UpdateHomepageNewsAction extends XMUXApiAction {
 
   @override
   Future<Null> call(XMUXApiAuth auth, {Map<String, dynamic> params}) async {
-    var response = await xmuxApi.homepageNews();
+    var response = await XMUXApi.instance.homepageNews();
     assign(response);
     news = response.data;
   }

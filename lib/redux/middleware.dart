@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:redux/redux.dart';
-import 'package:xmux/main.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 import 'actions/actions.dart';
@@ -68,7 +68,7 @@ Future<Null> apiCall(Store<MainAppState> store, XMUXApiAction action,
   } catch (e) {
     // Sign out if wrong password.
     if (e is XMUXApiException && e.type == 'WrongPasswordError')
-      signOut();
+      logout();
     else {
       if (action.context != null)
         Scaffold.of(action.context)

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:xmux/initapp/login_page.dart';
+import 'package:xmux/init/login_page.dart';
 import 'package:xmux/translations/translation.dart';
 
 class LoginApp extends StatelessWidget {
