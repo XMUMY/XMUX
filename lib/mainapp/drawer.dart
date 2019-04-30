@@ -9,14 +9,10 @@ import 'package:xmux/redux/redux.dart';
 
 class DrawerPage extends StatelessWidget {
   Widget _buildButton(BuildContext ctx,
-      {String routeName,
-      String text,
-      IconData icon,
-      Color color,
-      double size}) {
+      {String routeName, String text, IconData icon, Color color}) {
     return ListTile(
       leading: Icon(icon,
-          size: size, color: color ?? Theme.of(ctx).textTheme.button.color),
+          size: 23, color: color ?? Theme.of(ctx).textTheme.button.color),
       onTap: () => Navigator.of(ctx).popAndPushNamed(routeName),
       title: Text(
         i18n(text, ctx),
@@ -52,8 +48,8 @@ class DrawerPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        "${i18n('Me/Header/Welcome', context)}\n" +
-                            (firebaseUser?.displayName ?? 'User'),
+                        "${i18n('Me/Header/Welcome', context)}\n"
+                        '${firebaseUser?.displayName ?? 'User'}',
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -69,7 +65,7 @@ class DrawerPage extends StatelessWidget {
                     context,
                     routeName: '/Me/Epayment',
                     text: 'Tools/EPayment',
-                    icon: Icons.credit_card,
+                    icon: FontAwesomeIcons.creditCard,
                   ),
 
                   // Room Reservation
@@ -78,7 +74,6 @@ class DrawerPage extends StatelessWidget {
                     routeName: '/Me/RoomReservation',
                     text: 'Tools/RoomReservation',
                     icon: FontAwesomeIcons.table,
-                    size: 21.0,
                   ),
 
                   // VISA status
@@ -94,7 +89,6 @@ class DrawerPage extends StatelessWidget {
                             routeName: '/Me/Emgs',
                             text: 'Tools/Emgs',
                             icon: FontAwesomeIcons.passport,
-                            size: 21.0,
                           )
                         : Container(),
                   ),
@@ -110,12 +104,25 @@ class DrawerPage extends StatelessWidget {
                 ],
               ),
             ),
-            _buildButton(
-              context,
-              routeName: '/Settings',
-              text: 'Settings',
-              icon: Icons.settings,
-            ),
+            ListTile(
+              leading: Icon(Icons.settings,
+                  color: Theme.of(context).textTheme.button.color),
+              onTap: () => Navigator.of(context).popAndPushNamed('/Settings'),
+              title: Text(i18n('/Settings', context)),
+              trailing: StoreConnector<MainAppState, bool>(
+                converter: (s) => s.state.uiState.darkMode,
+                builder: (_, isDark) => IconButton(
+                      icon: Icon(
+                        FontAwesomeIcons.moon,
+                        size: 20.0,
+                        color: isDark
+                            ? Colors.cyan
+                            : Theme.of(context).iconTheme.color,
+                      ),
+                      onPressed: () => store.dispatch(ToggleDarkModeAction()),
+                    ),
+              ),
+            )
           ],
         ),
       ),

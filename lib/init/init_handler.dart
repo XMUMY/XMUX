@@ -67,6 +67,7 @@ Future<bool> init() async {
   if (store.state.authState.campusID == null ||
       store.state.authState.campusIDPassword == null) return false;
 
+  // If login firebase failed.
   if ((await LoginHandler.firebaseLogin()) != "success") {
     FirebaseAuth.instance.signOut();
     return false;
@@ -76,9 +77,12 @@ Future<bool> init() async {
   return true;
 }
 
+/// Post initialization after authentication.
 void postInit() async {
+  // Configure JWT generator for current user.
   XMUXApi.instance.getIdToken = firebaseUser.getIdToken;
 
+  // Set user info for sentry report.
   sentry.userContext = sentry_lib.User(id: firebaseUser.uid);
 
   try {

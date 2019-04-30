@@ -54,6 +54,10 @@ class OpenDrawerAction extends MainAppAction {
   final needSave = false;
 }
 
+class ToggleDarkModeAction extends MainAppAction{
+  final needSave = false;
+}
+
 class UpdateEPaymentPasswordAction extends MainAppAction {
   final String ePaymentPassword;
 

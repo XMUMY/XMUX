@@ -29,40 +29,47 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<MainAppState>(
       store: store,
-      child: MaterialApp(
-        title: 'XMUX',
-        home: MainPage(),
-        theme: ThemeConfig.defaultTheme,
-        initialRoute: '/',
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          MainLocalizationsDelegate.delegate,
-        ],
-        supportedLocales: [
-          Locale('en', 'US'),
-          Locale('zh', 'CN'),
-        ],
-        // Define route for main app.
-        routes: <String, WidgetBuilder>{
-          '/About': (_) => AboutPage(),
-          '/Calendar/CalendarImage': (_) => CalendarImagePage(),
-          '/Campus/AcademicTools/Details': (_) => AcademicToolDetailsPage(),
-          '/Campus/AcademicTools/ExamResult': (_) => ExamResultPage(),
-          '/Campus/AcademicTools/WolframEngine': (_) => InputConstructor(),
-          '/Campus/AcademicTools/GeoGebra': (_) => GeoGebraPage(),
-          '/Campus/AcademicTools/GPACalculator': (_) => GPACalculatorPage(),
-          '/Campus/AcademicTools/VPN': (_) => VPNPage(),
-          '/Campus/AcademicTools/ECR': (_) => ElectiveCourseRegistrationPage(),
-          '/Explore/LostAndFound': (_) => LostAndFoundPage(),
-          '/Me/Epayment': (_) => EPaymentPage(),
-          '/Me/RoomReservation': (_) => RoomWebviewPage(),
-          '/Me/Emgs': (_) => EmgsPage(),
-          '/Me/Emergency': (_) => EmergencyPage(),
-          '/Settings': (_) => SettingsPage(),
-          '/Settings/ChangeProfile': (_) => ChangeProfilePage(),
-          '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
-          '/explore/lostandfound': (_) => LostAndFoundPage()
+      child: StoreBuilder<MainAppState>(
+        builder: (_, s) {
+          return MaterialApp(
+            title: 'XMUX',
+            home: MainPage(),
+            theme: s.state.uiState.darkMode
+                ? ThemeConfig.defaultDarkTheme
+                : ThemeConfig.defaultTheme,
+            initialRoute: '/',
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              MainLocalizationsDelegate.delegate,
+            ],
+            supportedLocales: [
+              Locale('en', 'US'),
+              Locale('zh', 'CN'),
+            ],
+            // Define route for main app.
+            routes: <String, WidgetBuilder>{
+              '/About': (_) => AboutPage(),
+              '/Calendar/CalendarImage': (_) => CalendarImagePage(),
+              '/Campus/AcademicTools/Details': (_) => AcademicToolDetailsPage(),
+              '/Campus/AcademicTools/ExamResult': (_) => ExamResultPage(),
+              '/Campus/AcademicTools/WolframEngine': (_) => InputConstructor(),
+              '/Campus/AcademicTools/GeoGebra': (_) => GeoGebraPage(),
+              '/Campus/AcademicTools/GPACalculator': (_) => GPACalculatorPage(),
+              '/Campus/AcademicTools/VPN': (_) => VPNPage(),
+              '/Campus/AcademicTools/ECR': (_) =>
+                  ElectiveCourseRegistrationPage(),
+              '/Explore/LostAndFound': (_) => LostAndFoundPage(),
+              '/Me/Epayment': (_) => EPaymentPage(),
+              '/Me/RoomReservation': (_) => RoomWebviewPage(),
+              '/Me/Emgs': (_) => EmgsPage(),
+              '/Me/Emergency': (_) => EmergencyPage(),
+              '/Settings': (_) => SettingsPage(),
+              '/Settings/ChangeProfile': (_) => ChangeProfilePage(),
+              '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
+              '/explore/lostandfound': (_) => LostAndFoundPage()
+            },
+          );
         },
       ),
     );

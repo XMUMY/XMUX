@@ -16,8 +16,8 @@ build:auto:
     - dev
   before_script:
 # Install libraries
-    - apt-get --quiet update --yes > apt_update.log
-    - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 fonts-droid-fallback > apt_install.log
+    - apt-get --quiet update --yes > /dev/null
+    - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 fonts-droid-fallback > /dev/null
 # Install Android SDK manager
     - if [ ! -d "android-sdk-linux" ]; then
       wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOL_VERSION}.zip;
@@ -36,7 +36,7 @@ build:auto:
     - export ANDROID_HOME=ANDROID_SDK_HOME
 # Install Flutter SDK
     - if [ ! -d "flutter" ];then git clone https://github.com/flutter/flutter.git -b beta; fi
-    - ./flutter/bin/flutter upgrade > flutter_upgrade.log
+    - ./flutter/bin/flutter upgrade -f > /dev/null
     - ./flutter/bin/flutter doctor
 # Add config and key
     - mv ./lib/config.sample.dart ./lib/config.dart

@@ -23,7 +23,6 @@ class _MainPageState extends State<MainPage> {
   Widget _getPage(int index) {
     switch (index) {
       case 0:
-        store.dispatch(UpdateHomepageAnnouncementsAction());
         return HomePage();
       case 1:
         return CalendarPage();
@@ -76,11 +75,15 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(
                 title: Text(i18n('Campus', context)),
                 icon: Icon(FontAwesomeIcons.university),
-                backgroundColor: Colors.lightBlue),
+                backgroundColor: Theme.of(context).brightness == Brightness.dark
+                    ? Theme.of(context).primaryColor
+                    : Colors.lightBlue),
             BottomNavigationBarItem(
                 title: Text(i18n('Explore', context)),
                 icon: Icon(Icons.explore),
-                backgroundColor: Colors.indigo[800]),
+                backgroundColor: Theme.of(context).brightness == Brightness.dark
+                    ? Theme.of(context).primaryColor
+                    : Colors.indigo[800]),
           ],
           currentIndex: _currentIndex,
           type: BottomNavigationBarType.shifting,

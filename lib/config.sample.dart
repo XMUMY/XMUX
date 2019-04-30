@@ -26,4 +26,9 @@ class ThemeConfig {
     accentColor: Colors.orangeAccent,
     accentColorBrightness: Brightness.dark,
   );
+
+  static ThemeData defaultDarkTheme = ThemeData(
+    primarySwatch: Colors.cyan,
+    brightness: Brightness.dark,
+  );
 }

@@ -193,23 +193,32 @@ class UIState {
   /// Drawer is open.
   final bool drawerIsOpen;
 
+  /// Dark mode.
+  final bool darkMode;
+
   /// Homepage sliders.
   final List<News> homepageNews;
 
   /// Homepage announcements.
   final List<Announcement> announcements;
 
-  UIState(this.drawerIsOpen, this.homepageNews, this.announcements);
+  UIState(
+      this.drawerIsOpen, this.darkMode, this.homepageNews, this.announcements);
 
   UIState.def()
       : this.drawerIsOpen = false,
+        this.darkMode = false,
         this.homepageNews = null,
         this.announcements = null;
 
   UIState copyWith(
-          {bool drawerIsOpen, List<News> homepageNews, List announcements}) =>
+          {bool drawerIsOpen,
+          bool darkMode,
+          List<News> homepageNews,
+          List announcements}) =>
       UIState(
           drawerIsOpen ?? this.drawerIsOpen,
+          darkMode ?? this.darkMode,
           homepageNews ?? this.homepageNews,
           announcements ?? this.announcements);
 }
