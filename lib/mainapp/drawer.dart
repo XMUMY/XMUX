@@ -108,7 +108,7 @@ class DrawerPage extends StatelessWidget {
               leading: Icon(Icons.settings,
                   color: Theme.of(context).textTheme.button.color),
               onTap: () => Navigator.of(context).popAndPushNamed('/Settings'),
-              title: Text(i18n('/Settings', context)),
+              title: Text(i18n('Settings', context)),
               trailing: StoreConnector<MainAppState, bool>(
                 converter: (s) => s.state.uiState.darkMode,
                 builder: (_, isDark) => IconButton(
