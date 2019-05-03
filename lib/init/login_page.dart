@@ -160,7 +160,7 @@ class _LoginButtonState extends State<LoginButton> {
     }
 
     // Handle firebase login.
-    var firebaseResult = await LoginHandler.firebaseLogin();
+    var firebaseResult = await LoginHandler.firebase();
     if (firebaseResult != 'success') {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(

@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
@@ -10,6 +11,9 @@ import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
 import 'init/login_app.dart';
+
+/// Firebase analytics instance.
+final firebaseAnalytics = FirebaseAnalytics();
 
 /// Firebase messaging instance.
 final firebaseMessaging = FirebaseMessaging();

@@ -68,7 +68,7 @@ Future<bool> init() async {
       store.state.authState.campusIDPassword == null) return false;
 
   // If login firebase failed.
-  if ((await LoginHandler.firebaseLogin()) != "success") {
+  if ((await LoginHandler.firebase()) != "success") {
     FirebaseAuth.instance.signOut();
     return false;
   }

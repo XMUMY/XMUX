@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -38,6 +39,9 @@ class MainApp extends StatelessWidget {
                 ? ThemeConfig.defaultDarkTheme
                 : ThemeConfig.defaultTheme,
             initialRoute: '/',
+            navigatorObservers: <NavigatorObserver>[
+              FirebaseAnalyticsObserver(analytics: firebaseAnalytics),
+            ],
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,

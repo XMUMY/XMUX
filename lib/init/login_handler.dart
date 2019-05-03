@@ -8,8 +8,6 @@ import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
 class LoginHandler {
-  static Future login() {}
-
   static Future<String> campus(String id, String password) async {
     print('LoginHandler: Login: $id');
 
@@ -28,7 +26,7 @@ class LoginHandler {
     return 'success';
   }
 
-  static Future<String> firebaseLogin() async {
+  static Future<String> firebase() async {
     print('LoginHandler: Login firebase: ${store.state.authState.campusID}');
 
     try {
