@@ -23,6 +23,7 @@ dependencies:
   firebase_database: 2.0.2
   firebase_messaging: 4.0.0+1
   firebase_storage: 2.1.0
+  flare_flutter: ^1.5.0
   flutter_lottie: ^0.2.0
   flutter_redux: ^0.5.3
   flutter_spinkit: ^3.1.0
@@ -72,6 +73,7 @@ flutter:
     - res/academic/gpa.svg
     - res/academic/vpn.svg
     - res/academic/wolfram.svg
+    - res/animations/stars.flr
     - res/animations/vpn.json
     - res/home/news.svg
   #  - images/a_dot_ham.jpeg

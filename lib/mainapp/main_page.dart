@@ -18,7 +18,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   StreamSubscription _drawerListener;
-  int _currentIndex = 0;
+  var _currentIndex = 0;
+  var _bottomNavigationBarElevation = 0.0;
 
   Widget _getPage(int index) {
     switch (index) {
@@ -55,43 +56,47 @@ class _MainPageState extends State<MainPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        key: _scaffoldKey,
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
 
-        // Main pages.
-        body: _getPage(_currentIndex),
+      // Main pages.
+      body: _getPage(_currentIndex),
 
-        // Bottom navigation.
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-                title: Text(i18n('Home', context)),
-                icon: Icon(Icons.home),
-                backgroundColor: Theme.of(context).primaryColor),
-            BottomNavigationBarItem(
-                title: Text(i18n('Calendar', context)),
-                icon: Icon(Icons.calendar_today),
-                backgroundColor: Theme.of(context).primaryColor),
-            BottomNavigationBarItem(
-                title: Text(i18n('Campus', context)),
-                icon: Icon(FontAwesomeIcons.university),
-                backgroundColor: Theme.of(context).brightness == Brightness.dark
-                    ? Theme.of(context).primaryColor
-                    : Colors.lightBlue),
-            BottomNavigationBarItem(
-                title: Text(i18n('Explore', context)),
-                icon: Icon(Icons.explore),
-                backgroundColor: Theme.of(context).brightness == Brightness.dark
-                    ? Theme.of(context).primaryColor
-                    : Colors.indigo[800]),
-          ],
-          currentIndex: _currentIndex,
-          type: BottomNavigationBarType.shifting,
-          onTap: (int index) => setState(() => _currentIndex = index),
-        ),
+      // Bottom navigation.
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: _bottomNavigationBarElevation,
+        items: [
+          BottomNavigationBarItem(
+              title: Text(i18n('Home', context)),
+              icon: Icon(Icons.home),
+              backgroundColor: Theme.of(context).primaryColor),
+          BottomNavigationBarItem(
+              title: Text(i18n('Calendar', context)),
+              icon: Icon(Icons.calendar_today),
+              backgroundColor: Theme.of(context).primaryColor),
+          BottomNavigationBarItem(
+              title: Text(i18n('Campus', context)),
+              icon: Icon(FontAwesomeIcons.university),
+              backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Theme.of(context).primaryColor
+                  : Colors.lightBlue),
+          BottomNavigationBarItem(
+              title: Text(i18n('Explore', context)),
+              icon: Icon(Icons.explore),
+              backgroundColor: Color(0xFF231E5E)),
+        ],
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.shifting,
+        onTap: (int index) => setState(() {
+              _currentIndex = index;
+              _bottomNavigationBarElevation = _currentIndex == 3 ? 0.0 : 8.0;
+            }),
+      ),
 
-        // Drawers.
-        drawer: DrawerPage(),
-        endDrawer: EndDrawer(),
-      );
+      // Drawers.
+      drawer: DrawerPage(),
+      endDrawer: EndDrawer(),
+    );
+  }
 }

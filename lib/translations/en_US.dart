@@ -90,8 +90,6 @@ const Map<String, String> en_US = {
   // Explore
   'XiA/Hint': 'May I help you?',
   'XiA/Intro': "Hi, I'm XiA. Your assistant.",
-  'Warning':
-      ' Warning! These functions are under development. Room reservation is only available when connected to the campus network.',
   'lostandfound': 'Lost and Found',
   'lostandfound/location': 'Location : ',
   'lostandfound/things': 'Things : ',

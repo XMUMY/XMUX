@@ -9,5 +9,5 @@ void main() async {
   runApp(InitApp());
 
   // Run `LoginApp` if init failed.
-  if (!await init()) runApp(new LoginApp());
+  if (!await init()) runApp(LoginApp());
 }

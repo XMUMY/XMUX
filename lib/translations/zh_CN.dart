@@ -82,7 +82,6 @@ const Map<String, String> zh_CN = {
   // Explore
   'XiA/Hint': '请问有什么可以帮助您？',
   'XiA/Intro': '你好，我是小夏。有什么可以帮您？',
-  'Warning': '警告：这些功能尚在试验阶段，它们可能不太稳定，教室预定仅在连接校园网情况下可用。',
   'lostandfound': '失物招领',
   'lostandfound/location': '地点：',
   'lostandfound/things': '物件：',
