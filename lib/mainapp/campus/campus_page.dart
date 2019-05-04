@@ -30,8 +30,8 @@ class CampusPage extends StatelessWidget {
             ),
             FlatButton(
               child: Text(i18n('Campus/More', context)),
-              onPressed: () => Navigator.of(context)
-                  .pushNamed('/Campus/AcademicTools/Details'),
+              onPressed: () =>
+                  Navigator.of(context).pushNamed('/Campus/ACTools/Details'),
             ),
           ]),
           Divider(
@@ -43,19 +43,19 @@ class CampusPage extends StatelessWidget {
               _ToolsButton(
                   icon: 'res/academic/wolfram.svg',
                   title: 'Campus/AcademicTools/WolframEngine/Title',
-                  path: '/Campus/AcademicTools/WolframEngine'),
+                  path: '/Campus/ACTools/WolframEngine'),
               _ToolsButton(
                   icon: 'res/academic/geogebra.svg',
                   title: 'Campus/AcademicTools/GeoGebra/Title',
-                  path: '/Campus/AcademicTools/GeoGebra'),
+                  path: '/Campus/ACTools/GeoGebra'),
               _ToolsButton(
                   icon: 'res/academic/gpa.svg',
                   title: 'Campus/AcademicTools/ExamResult/Title',
-                  path: '/Campus/AcademicTools/ExamResult'),
+                  path: '/Campus/ACTools/ExamResult'),
               _ToolsButton(
                   icon: 'res/academic/vpn.svg',
                   title: 'Campus/AcademicTools/VPN/Title',
-                  path: '/Campus/AcademicTools/VPN'),
+                  path: '/Campus/ACTools/VPN'),
             ],
           ),
         ],

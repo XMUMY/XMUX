@@ -55,14 +55,13 @@ class MainApp extends StatelessWidget {
             routes: <String, WidgetBuilder>{
               '/About': (_) => AboutPage(),
               '/Calendar/CalendarImage': (_) => CalendarImagePage(),
-              '/Campus/AcademicTools/Details': (_) => AcademicToolDetailsPage(),
-              '/Campus/AcademicTools/ExamResult': (_) => ExamResultPage(),
-              '/Campus/AcademicTools/WolframEngine': (_) => InputConstructor(),
-              '/Campus/AcademicTools/GeoGebra': (_) => GeoGebraPage(),
-              '/Campus/AcademicTools/GPACalculator': (_) => GPACalculatorPage(),
-              '/Campus/AcademicTools/VPN': (_) => VPNPage(),
-              '/Campus/AcademicTools/ECR': (_) =>
-                  ElectiveCourseRegistrationPage(),
+              '/Campus/ACTools/Details': (_) => AcademicToolDetailsPage(),
+              '/Campus/ACTools/ExamResult': (_) => ExamResultPage(),
+              '/Campus/ACTools/WolframEngine': (_) => InputConstructor(),
+              '/Campus/ACTools/GeoGebra': (_) => GeoGebraPage(),
+              '/Campus/ACTools/GPACalculator': (_) => GPACalculatorPage(),
+              '/Campus/ACTools/VPN': (_) => VPNPage(),
+              '/Campus/ACTools/ECR': (_) => ElectiveCourseRegistrationPage(),
               '/Explore/LostAndFound': (_) => LostAndFoundPage(),
               '/Me/Epayment': (_) => EPaymentPage(),
               '/Me/RoomReservation': (_) => RoomWebviewPage(),
@@ -71,7 +70,6 @@ class MainApp extends StatelessWidget {
               '/Settings': (_) => SettingsPage(),
               '/Settings/ChangeProfile': (_) => ChangeProfilePage(),
               '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
-              '/explore/lostandfound': (_) => LostAndFoundPage()
             },
           );
         },

@@ -17,32 +17,32 @@ class AcademicToolDetailsPage extends StatelessWidget {
           _AcademicPageCard(
             textUri: 'Campus/AcademicTools/WolframEngine',
             image: 'res/academic/wolfram.svg',
-            route: '/Campus/AcademicTools/WolframEngine',
+            route: '/Campus/ACTools/WolframEngine',
           ),
           _AcademicPageCard(
             textUri: 'Campus/AcademicTools/GeoGebra',
             image: 'res/academic/geogebra.svg',
-            route: '/Campus/AcademicTools/GeoGebra',
+            route: '/Campus/ACTools/GeoGebra',
           ),
           _AcademicPageCard(
             textUri: 'Campus/AcademicTools/ExamResult',
             image: 'res/academic/gpa.svg',
-            route: '/Campus/AcademicTools/ExamResult',
+            route: '/Campus/ACTools/ExamResult',
           ),
           _AcademicPageCard(
             textUri: 'Campus/AcademicTools/VPN',
             image: 'res/academic/vpn.svg',
-            route: '/Campus/AcademicTools/VPN',
+            route: '/Campus/ACTools/VPN',
           ),
           _AcademicPageCard(
             textUri: 'Campus/AcademicTools/GPACalculator',
             image: 'res/academic/gpa_calculator.svg',
-            route: '/Campus/AcademicTools/GPACalculator',
+            route: '/Campus/ACTools/GPACalculator',
           ),
           _AcademicPageCard(
             textUri: 'Campus/AcademicTools/ECR',
             image: 'res/academic/ecr.svg',
-            route: '/Campus/AcademicTools/ECR',
+            route: '/Campus/ACTools/ECR',
           ),
         ],
       ),
