@@ -209,7 +209,9 @@ class _LessonCardState extends State<LessonCard> {
             Container(
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                  color: LessonCard.dayColor[widget.lesson.dayOfWeek],
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white10
+                      : LessonCard.dayColor[widget.lesson.dayOfWeek],
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(7.0))),
               child: Center(

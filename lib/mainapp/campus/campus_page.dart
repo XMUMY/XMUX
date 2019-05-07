@@ -16,7 +16,9 @@ class CampusPage extends StatelessWidget {
               IconButton(icon: Icon(Icons.view_list), onPressed: callback),
         ),
         title: Text(i18n('Campus', context)),
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Theme.of(context).primaryColor
+            : Colors.lightBlue,
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
@@ -58,6 +60,23 @@ class CampusPage extends StatelessWidget {
                   path: '/Campus/ACTools/VPN'),
             ],
           ),
+          Row(children: <Widget>[
+            Expanded(
+              child: Text(
+                ' ' + i18n('Campus/Tools', context),
+                style: Theme.of(context).textTheme.title,
+              ),
+            ),
+          ]),
+          Wrap(
+            alignment: WrapAlignment.spaceAround,
+            children: <Widget>[
+              _ToolsButton(
+                  icon: 'res/academic/ecr.svg',
+                  title: 'Campus/Tools/BusSchedule',
+                  path: '/Campus/Tools/BusSchedule'),
+            ],
+          ),
         ],
       ),
     );
@@ -71,10 +90,13 @@ class _ToolsButton extends StatelessWidget {
 
   /// Title for tooltip.
   final String title;
+
+  /// Path for `Navigator`.
   final String path;
 
   _ToolsButton(
-      {@required this.icon, @required this.title, @required this.path});
+      {Key key, @required this.icon, @required this.title, @required this.path})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => IconButton(

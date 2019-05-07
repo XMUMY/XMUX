@@ -4,26 +4,28 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/about.dart';
-import 'package:xmux/mainapp/calendar/calendar_image.dart';
-import 'package:xmux/mainapp/campus/academic_tools/ec_registration.dart';
-import 'package:xmux/mainapp/campus/academic_tools/exam_result.dart';
-import 'package:xmux/mainapp/campus/academic_tools/geogebra.dart';
-import 'package:xmux/mainapp/campus/academic_tools/gpa_calculator.dart';
-import 'package:xmux/mainapp/campus/academic_tools/tools_details.dart';
-import 'package:xmux/mainapp/campus/academic_tools/vpn.dart';
-import 'package:xmux/mainapp/campus/academic_tools/wolfram_engine/input_constructor.dart';
-import 'package:xmux/mainapp/explore/lost_and_found/lost_and_found_page.dart';
-import 'package:xmux/mainapp/main_page.dart';
-import 'package:xmux/mainapp/settings/developer_options.dart';
-import 'package:xmux/mainapp/settings/edit_profile.dart';
-import 'package:xmux/mainapp/settings/settings_page.dart';
-import 'package:xmux/mainapp/tools/emergency.dart';
-import 'package:xmux/mainapp/tools/emgs.dart';
-import 'package:xmux/mainapp/tools/epayment.dart';
-import 'package:xmux/mainapp/tools/room_reservation.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
+
+import 'about.dart';
+import 'calendar/academic_calendar.dart';
+import 'campus/academic_tools/ec_registration.dart';
+import 'campus/academic_tools/exam_result.dart';
+import 'campus/academic_tools/geogebra.dart';
+import 'campus/academic_tools/gpa_calculator.dart';
+import 'campus/academic_tools/tools_details.dart';
+import 'campus/academic_tools/vpn.dart';
+import 'campus/academic_tools/wolfram_engine/input_constructor.dart';
+import 'campus/bus_schedule.dart';
+import 'explore/lost_and_found/lost_and_found_page.dart';
+import 'main_page.dart';
+import 'settings/developer_options.dart';
+import 'settings/edit_profile.dart';
+import 'settings/settings_page.dart';
+import 'tools/emergency.dart';
+import 'tools/emgs.dart';
+import 'tools/epayment.dart';
+import 'tools/room_reservation.dart';
 
 class MainApp extends StatelessWidget {
   @override
@@ -54,7 +56,7 @@ class MainApp extends StatelessWidget {
             // Define route for main app.
             routes: <String, WidgetBuilder>{
               '/About': (_) => AboutPage(),
-              '/Calendar/CalendarImage': (_) => CalendarImagePage(),
+              '/Calendar/CalendarImage': (_) => AcademicCalendarPage(),
               '/Campus/ACTools/Details': (_) => AcademicToolDetailsPage(),
               '/Campus/ACTools/ExamResult': (_) => ExamResultPage(),
               '/Campus/ACTools/WolframEngine': (_) => InputConstructor(),
@@ -62,6 +64,7 @@ class MainApp extends StatelessWidget {
               '/Campus/ACTools/GPACalculator': (_) => GPACalculatorPage(),
               '/Campus/ACTools/VPN': (_) => VPNPage(),
               '/Campus/ACTools/ECR': (_) => ElectiveCourseRegistrationPage(),
+              '/Campus/Tools/BusSchedule': (_) => BusSchedulePage(),
               '/Explore/LostAndFound': (_) => LostAndFoundPage(),
               '/Me/Epayment': (_) => EPaymentPage(),
               '/Me/RoomReservation': (_) => RoomWebviewPage(),

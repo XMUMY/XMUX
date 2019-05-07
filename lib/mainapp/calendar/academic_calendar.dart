@@ -4,7 +4,7 @@ import 'package:photo_view/photo_view.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/translations/translation.dart';
 
-class CalendarImagePage extends StatelessWidget {
+class AcademicCalendarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
