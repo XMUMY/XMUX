@@ -9,8 +9,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:googleapis/dialogflow/v2.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:http/http.dart';
+import 'package:xmux/components/blur_box.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/common/blur_box.dart';
 
 part 'dialogflow.dart';
 part 'xia_ui.dart';

@@ -66,6 +66,7 @@ class XMUXApi {
 
   /// The API address currently used.
   String get currentAddress => _dio.options.baseUrl.replaceAll('/v2', '');
+
   set currentAddress(String a) => _dio.options.baseUrl = '$a/v2';
 
   /// Connectivity instance.

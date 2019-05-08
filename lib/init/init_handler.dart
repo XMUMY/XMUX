@@ -5,6 +5,7 @@ import 'dart:ui';
 
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,6 +45,11 @@ Future<bool> init() async {
 
   // Init XiA.
   xiA = await XiA.init(ApiKeyConfig.dialogflowToken).catchError((e) {});
+
+  // Init remote config.
+  firebaseRemoteConfig = await RemoteConfig.instance;
+  firebaseRemoteConfig.fetch();
+  await firebaseRemoteConfig.activateFetched();
 
   // Init FCM.
   initFCM();

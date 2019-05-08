@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/ec_registration/ec_registration.dart';
-import 'package:xmux/modules/error_widgets/error_widgets.dart';
+import 'package:xmux/modules/elective_course_registration/ecr.dart';
 
 class ElectiveCourseRegistrationPage extends StatefulWidget {
   final ecr = ElectiveCourseRegistration(
@@ -42,7 +42,7 @@ class _ElectiveCourseRegistrationPageState
       body: courses == null
           ? SpinKitFoldingCube(color: Colors.black38)
           : courses.isEmpty
-              ? ErrorWidgets.emptyErrorPage
+              ? EmptyErrorPage()
               : RefreshIndicator(
                   child: buildBody(context), onRefresh: loadECRList),
     );
@@ -209,7 +209,7 @@ class _ElectiveCourseRegistrationFormPageState
   Widget build(BuildContext context) {
     return Scaffold(
       body: widget.ecrForm == null
-          ? ErrorWidgets.emptyErrorPage
+          ? EmptyErrorPage()
           : widget.ecrForm.data == null
               ? SpinKitFoldingCube(color: Colors.black38)
               : CustomScrollView(

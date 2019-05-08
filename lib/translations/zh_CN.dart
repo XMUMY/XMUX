@@ -21,7 +21,7 @@ const Map<String, String> zh_CN = {
   'Calendar/Classes': '课程',
   'Calendar/Exams': '考试',
   'Calendar/Assignments': '作业',
-  'Calendar/CalendarImage': '校历',
+  'Calendar/Academic': '校历',
   'Calendar/ClassCard/Code': '课程编号',
   'Calendar/ClassCard/Credit': '学分',
   'Calendar/ClassCard/Weeks': '上课星期',

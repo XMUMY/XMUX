@@ -21,7 +21,7 @@ const Map<String, String> en_US = {
   'Calendar/Classes': 'Classes',
   'Calendar/Exams': 'Exams',
   'Calendar/Assignments': 'Assignments',
-  'Calendar/CalendarImage': 'Academic Calendar',
+  'Calendar/Academic': 'Academic Calendar',
   'Calendar/ClassCard/Code': 'Course code',
   'Calendar/ClassCard/Credit': 'Credit',
   'Calendar/ClassCard/Weeks': 'Weeks',

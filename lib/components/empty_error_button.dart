@@ -1,9 +1,10 @@
-part of 'error_widgets.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
-class _EmptyErrorButton extends StatelessWidget {
+class EmptyErrorButton extends StatelessWidget {
   final AsyncCallback onRefresh;
 
-  _EmptyErrorButton({AsyncCallback onRefresh})
+  EmptyErrorButton({AsyncCallback onRefresh})
       : this.onRefresh = onRefresh ?? (() {});
 
   @override

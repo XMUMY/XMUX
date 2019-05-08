@@ -54,7 +54,7 @@ class OpenDrawerAction extends MainAppAction {
   final needSave = false;
 }
 
-class ToggleDarkModeAction extends MainAppAction{
+class ToggleDarkModeAction extends MainAppAction {
   final needSave = false;
 }
 

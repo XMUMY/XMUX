@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:xmux/globals.dart';
 
 class BusSchedulePage extends StatelessWidget {
   @override
@@ -7,8 +9,8 @@ class BusSchedulePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Bus Schedule')),
       body: PhotoView(
-        imageProvider: NetworkImage(
-            'http://www.xmu.edu.my/_upload/article/images/7a/24/ad85b64f496e9abc7833d44c0069/81a03f09-caf3-468b-adbf-26d5150239fe_d.png'),
+        imageProvider: CachedNetworkImageProvider(
+            firebaseRemoteConfig.getString('bus_schedule')),
         maxScale: 2.0,
         minScale: 0.3,
       ),

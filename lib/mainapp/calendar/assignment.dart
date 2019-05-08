@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
@@ -25,7 +25,7 @@ class AssignmentPage extends StatelessWidget {
   Widget build(BuildContext context) => new RefreshIndicator(
         onRefresh: _handleUpdate,
         child: assignments == null
-            ? ErrorWidgets.emptyErrorButton(
+            ? EmptyErrorButton(
                 onRefresh: _handleUpdate,
               )
             : ListView.builder(

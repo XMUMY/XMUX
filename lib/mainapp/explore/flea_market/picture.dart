@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:xmux/modules/common/page_routes.dart';
+import 'package:xmux/components/page_routes.dart';
 
 /// Item picture that can construct from url or file.
 class Picture extends StatelessWidget {

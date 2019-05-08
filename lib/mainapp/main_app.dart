@@ -9,7 +9,7 @@ import 'package:xmux/translations/translation.dart';
 
 import 'about.dart';
 import 'calendar/academic_calendar.dart';
-import 'campus/academic_tools/ec_registration.dart';
+import 'campus/academic_tools/ecr.dart';
 import 'campus/academic_tools/exam_result.dart';
 import 'campus/academic_tools/geogebra.dart';
 import 'campus/academic_tools/gpa_calculator.dart';

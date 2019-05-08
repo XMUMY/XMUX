@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -52,7 +52,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
       body: StoreConnector<MainAppState, List<SessionExamResult>>(
         converter: (s) => s.state.acState.examResult,
         builder: (ctx, results) {
-          if (results.isEmpty) return ErrorWidgets.emptyErrorPage;
+          if (results.isEmpty) return EmptyErrorPage();
           if (currentSession == null) currentSession = results[0];
           return ListView(
             padding: const EdgeInsets.all(5.0),

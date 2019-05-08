@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:xmux/components/empty_error_button.dart';
+import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -35,9 +36,9 @@ class ExamsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => exams == null
-      ? ErrorWidgets.emptyErrorButton(onRefresh: _handleUpdate)
+      ? EmptyErrorButton(onRefresh: _handleUpdate)
       : exams.isEmpty
-          ? ErrorWidgets.emptyErrorPage
+          ? EmptyErrorPage()
           : RefreshIndicator(
               onRefresh: _handleUpdate,
               child: ListView.builder(

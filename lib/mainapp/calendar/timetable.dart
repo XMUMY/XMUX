@@ -4,11 +4,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:xmux/components/blur_box.dart';
+import 'package:xmux/components/empty_error_button.dart';
+import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/sign_in_button.dart';
 import 'package:xmux/modules/algorithms/algorithms.dart' show editDistance;
-import 'package:xmux/modules/common/blur_box.dart';
-import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -59,9 +60,9 @@ class TimeTablePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => classes == null
-      ? ErrorWidgets.emptyErrorButton(onRefresh: () => _handleUpdate(context))
+      ? EmptyErrorButton(onRefresh: () => _handleUpdate(context))
       : classes.isEmpty
-          ? ErrorWidgets.emptyErrorPage
+          ? EmptyErrorPage()
           : RefreshIndicator(
               onRefresh: () => _handleUpdate(context),
               child: ListView.builder(
@@ -120,32 +121,30 @@ class _LessonCardState extends State<LessonCard> {
         transitionDuration: Duration(milliseconds: 400),
         barrierColor: Colors.black12.withOpacity(0.2),
         pageBuilder: (context, animation, _) {
-          return Center(
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 8.0),
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    child: Text(
-                      widget.lesson.courseName,
-                      style: Theme.of(context).textTheme.title,
-                      textAlign: TextAlign.center,
-                    ),
+          return Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 8.0),
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  child: Text(
+                    widget.lesson.courseName,
+                    style: Theme.of(context).textTheme.title,
+                    textAlign: TextAlign.center,
                   ),
-                  Container(
-                    height: min(MediaQuery.of(context).size.height / 2, 350.0),
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    child: ListView(
-                      padding: EdgeInsets.all(15.0),
-                      children: _buildDialogWidgetList(),
-                    ),
+                ),
+                Container(
+                  height: min(MediaQuery.of(context).size.height / 2, 350.0),
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  child: ListView(
+                    padding: EdgeInsets.all(15.0),
+                    children: _buildDialogWidgetList(),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },
@@ -157,6 +156,7 @@ class _LessonCardState extends State<LessonCard> {
             },
             child: GaussianBlurBox(
               sigma: (animation.value * 30).round() / 10,
+              centered: true,
               child: FadeTransition(
                 opacity: animation,
                 child: ScaleTransition(

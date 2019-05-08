@@ -29,45 +29,44 @@ class _XiAPageState extends State<XiAPage> {
     return GaussianBlurBox(
       sigma: 3.0,
       color: Colors.grey.shade200.withOpacity(0.0),
-      child: Center(
-        child: Container(
-          margin: EdgeInsets.all(12.0),
-          height: MediaQuery.of(context).size.height / 1.4,
-          width: MediaQuery.of(context).size.width / 1.2,
-          decoration: BoxDecoration(
-              border: Border.all(width: 2.0, color: Colors.white),
-              borderRadius: BorderRadius.circular(13.0)),
-          child: Column(
-            children: <Widget>[
-              Flexible(
-                child: ListView.builder(
-                  itemCount: messages.length,
-                  padding: EdgeInsets.all(5.0),
-                  itemBuilder: (_, i) => messages[i],
-                ),
+      centered: true,
+      child: Container(
+        margin: EdgeInsets.all(12.0),
+        height: MediaQuery.of(context).size.height / 1.4,
+        width: MediaQuery.of(context).size.width / 1.2,
+        decoration: BoxDecoration(
+            border: Border.all(width: 2.0, color: Colors.white),
+            borderRadius: BorderRadius.circular(13.0)),
+        child: Column(
+          children: <Widget>[
+            Flexible(
+              child: ListView.builder(
+                itemCount: messages.length,
+                padding: EdgeInsets.all(5.0),
+                itemBuilder: (_, i) => messages[i],
               ),
-              Divider(color: Colors.white, height: 8.0),
-              Material(
-                color: Color(0),
-                child: Row(
-                  children: <Widget>[
-                    SpinKitRipple(color: Colors.white),
-                    Flexible(
-                      child: TextField(
-                        controller: _queryController,
-                        decoration: InputDecoration.collapsed(
-                          hintText: i18n('XiA/Hint', context),
-                          hintStyle: TextStyle(color: Colors.white70),
-                        ),
-                        style: TextStyle(color: Colors.white),
-                        onSubmitted: _handleQuery,
+            ),
+            Divider(color: Colors.white, height: 8.0),
+            Material(
+              color: Color(0),
+              child: Row(
+                children: <Widget>[
+                  SpinKitRipple(color: Colors.white),
+                  Flexible(
+                    child: TextField(
+                      controller: _queryController,
+                      decoration: InputDecoration.collapsed(
+                        hintText: i18n('XiA/Hint', context),
+                        hintStyle: TextStyle(color: Colors.white70),
                       ),
+                      style: TextStyle(color: Colors.white),
+                      onSubmitted: _handleQuery,
                     ),
-                  ],
-                ),
-              )
-            ],
-          ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/emgs/emgs.dart';
-import 'package:xmux/modules/error_widgets/error_widgets.dart';
 import 'package:xmux/redux/redux.dart';
 
 class EmgsPage extends StatefulWidget {
@@ -75,7 +75,7 @@ class _EmgsPageState extends State<EmgsPage> {
       body: StoreBuilder<MainAppState>(
         builder: (ctx, store) {
           if (store.state.acState.info == null || _hasError)
-            return ErrorWidgets.emptyErrorPage;
+            return EmptyErrorPage();
           if (store.state.queryState.emgsApplicationResult == null)
             return Center(child: SpinKitFoldingCube(color: Colors.black38));
           return RefreshIndicator(

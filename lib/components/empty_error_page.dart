@@ -1,6 +1,6 @@
-part of 'error_widgets.dart';
+import 'package:flutter/material.dart';
 
-class _EmptyErrorPage extends StatelessWidget {
+class EmptyErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,

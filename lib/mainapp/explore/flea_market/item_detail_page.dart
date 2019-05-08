@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/common/page_routes.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 import 'item_edit_page.dart';

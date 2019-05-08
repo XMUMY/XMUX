@@ -33,6 +33,7 @@ class Item {
   /// BUG: Firebase database cannot convert json serializable instance.
   static Price _priceFromJson(Map p) =>
       Price.fromJson(Map<String, dynamic>.from(p));
+
   static Map<String, dynamic> _priceToJson(Price p) => _$PriceToJson(p);
 }
 
