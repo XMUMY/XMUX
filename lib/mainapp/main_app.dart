@@ -42,7 +42,7 @@ class MainApp extends StatelessWidget {
                 : ThemeConfig.defaultTheme,
             initialRoute: '/',
             navigatorObservers: <NavigatorObserver>[
-              FirebaseAnalyticsObserver(analytics: firebaseAnalytics),
+              FirebaseAnalyticsObserver(analytics: firebase.analytics),
             ],
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,

@@ -1,7 +1,4 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/widgets.dart';
 import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
@@ -9,20 +6,13 @@ import 'package:sentry/sentry.dart';
 
 import 'config.dart';
 import 'init/login_app.dart';
+import 'modules/firebase/firebase.dart';
 import 'modules/xia/xia.dart';
 import 'redux/redux.dart';
 import 'translations/translation.dart';
 
-/// Firebase analytics instance.
-final firebaseAnalytics = FirebaseAnalytics();
-
-/// Firebase messaging instance.
-final firebaseMessaging = FirebaseMessaging();
-
-/// Firebase remote config instance.
-///
-/// Default is `null`. Will be assigned during init.
-RemoteConfig firebaseRemoteConfig;
+/// Firebase instance.
+Firebase firebase;
 
 /// Firebase user instance.
 ///

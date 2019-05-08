@@ -10,7 +10,7 @@ class BusSchedulePage extends StatelessWidget {
       appBar: AppBar(title: Text('Bus Schedule')),
       body: PhotoView(
         imageProvider: CachedNetworkImageProvider(
-            firebaseRemoteConfig.getString('bus_schedule')),
+            firebase.remoteConfigs.staticResources.busScheduleImage),
         maxScale: 2.0,
         minScale: 0.3,
       ),

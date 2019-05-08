@@ -5,7 +5,6 @@ import 'dart:ui';
 
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +15,7 @@ import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/login_handler.dart';
 import 'package:xmux/mainapp/main_app.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
@@ -31,6 +31,9 @@ Future<bool> init() async {
   // Get package Info.
   packageInfo = await PackageInfo.fromPlatform();
 
+  // Init firebase services.
+  firebase = await Firebase.init();
+
   // Select XMUX API server.
   XMUXApi(BackendApiConfig.addresses);
   await XMUXApi.selectingServer;
@@ -45,11 +48,6 @@ Future<bool> init() async {
 
   // Init XiA.
   xiA = await XiA.init(ApiKeyConfig.dialogflowToken).catchError((e) {});
-
-  // Init remote config.
-  firebaseRemoteConfig = await RemoteConfig.instance;
-  firebaseRemoteConfig.fetch();
-  await firebaseRemoteConfig.activateFetched();
 
   // Init FCM.
   initFCM();
@@ -103,11 +101,11 @@ void postInit() async {
 
   if (Platform.isAndroid) {
     var deviceInfo = await DeviceInfoPlugin().androidInfo;
-    var token = await firebaseMessaging.getToken();
+    var token = await firebase.messaging.getToken();
     XMUXApi.instance.device(deviceInfo.fingerprint, token, deviceInfo.model);
   } else {
     var deviceInfo = await DeviceInfoPlugin().iosInfo;
-    var token = await firebaseMessaging.getToken();
+    var token = await firebase.messaging.getToken();
     XMUXApi.instance
         .device(deviceInfo.identifierForVendor, token, deviceInfo.model);
   }
@@ -123,13 +121,13 @@ void postInit() async {
 
 void initFCM() {
   // Request notification Permission
-  firebaseMessaging.requestNotificationPermissions();
+  firebase.messaging.requestNotificationPermissions();
 
   // Configure FCM.
-  firebaseMessaging.configure();
+  firebase.messaging.configure();
 
   // Get FCM token.
-  firebaseMessaging
+  firebase.messaging
       .getToken()
       .then((token) => print("FCM/Token got: " + token));
 }
