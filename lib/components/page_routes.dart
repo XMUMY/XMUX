@@ -1,5 +1,3 @@
-library common.page_routes;
-
 import 'package:flutter/material.dart';
 
 class SlideLeftRoute extends PageRouteBuilder {

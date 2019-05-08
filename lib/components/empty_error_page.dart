@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 
+/// Display an empty error page.
 class EmptyErrorPage extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Icon(
-            Icons.hourglass_empty,
-            size: 50.0,
-          ),
-          Padding(padding: EdgeInsets.all(10.0)),
-          Text(
-            'Oh! Nothing is here!\nPlease come later.',
-            textAlign: TextAlign.center,
-          ),
-          Padding(padding: EdgeInsets.all(10.0)),
-          Text(
-            '噢！这里什么也没有！\n请稍后再来。',
-            textAlign: TextAlign.center,
-          )
-        ],
-      );
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(
+          Icons.hourglass_empty,
+          size: 50.0,
+        ),
+        Divider(color: Colors.transparent),
+        Text(
+          'Oh! Nothing is here!\nPlease come later.',
+          textAlign: TextAlign.center,
+        ),
+        Divider(color: Colors.transparent),
+        Text(
+          '噢！这里什么也没有！\n请稍后再来。',
+          textAlign: TextAlign.center,
+        )
+      ],
+    );
+  }
 }

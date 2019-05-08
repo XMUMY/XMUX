@@ -1,5 +1,3 @@
-library common.blur_box;
-
 import 'dart:ui';
 
 import 'package:flutter/material.dart';

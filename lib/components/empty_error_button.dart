@@ -2,37 +2,39 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class EmptyErrorButton extends StatelessWidget {
+  /// Callback to refresh data.
   final AsyncCallback onRefresh;
 
   EmptyErrorButton({AsyncCallback onRefresh})
       : this.onRefresh = onRefresh ?? (() {});
 
   @override
-  Widget build(BuildContext context) => Card(
-        margin: EdgeInsets.all(20.0),
-        child: FlatButton(
-          onPressed: onRefresh,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Icon(
-                Icons.hourglass_empty,
-                size: 50.0,
-                color: Theme.of(context).errorColor,
-              ),
-              Padding(padding: EdgeInsets.all(10.0)),
-              Text(
-                'Oh! Nothing is here!\nPlease refresh or come later.',
-                textAlign: TextAlign.center,
-              ),
-              Padding(padding: EdgeInsets.all(10.0)),
-              Text(
-                '噢！这里什么也没有！\n请刷新或稍后再来。',
-                textAlign: TextAlign.center,
-              )
-            ],
-          ),
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(20.0),
+      child: FlatButton(
+        onPressed: onRefresh,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              Icons.hourglass_empty,
+              size: 50.0,
+              color: Theme.of(context).errorColor,
+            ),
+            Divider(color: Colors.transparent),
+            Text(
+              'Oh! Nothing is here!\nTap to refresh or come later.',
+              textAlign: TextAlign.center,
+            ),
+            Divider(color: Colors.transparent),
+            Text(
+              '噢！这里什么也没有！\n点击刷新或稍后再来。',
+              textAlign: TextAlign.center,
+            )
+          ],
         ),
-      );
+      ),
+    );
+  }
 }
