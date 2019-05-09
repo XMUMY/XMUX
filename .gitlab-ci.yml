@@ -14,6 +14,8 @@ build:auto:
   image: openjdk:8-jdk
   only:
     - dev
+  except:
+    - tags
   before_script:
 # Install libraries
     - apt-get --quiet update --yes > /dev/null
@@ -63,6 +65,8 @@ deploy:internal:
   image: ruby:slim
   only:
     - dev
+  except:
+    - tags
   variables:
     LC_ALL: en_US.UTF-8
     LANG: en_US.UTF-8

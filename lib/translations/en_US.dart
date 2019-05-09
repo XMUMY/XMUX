@@ -89,6 +89,7 @@ const Map<String, String> en_US = {
   'Campus/AcademicTools/ECR/Form/Cancel': 'Cancel',
   'Campus/Tools': 'Campus Utilities',
   'Campus/Tools/BusSchedule': 'Bus Schedule',
+  'Campus/Tools/KliaExpress': 'KLIA Express',
   // Explore
   'XiA/Hint': 'May I help you?',
   'XiA/Intro': "Hi, I'm XiA. Your assistant.",

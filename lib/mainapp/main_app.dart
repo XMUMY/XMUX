@@ -17,6 +17,7 @@ import 'campus/academic_tools/tools_details.dart';
 import 'campus/academic_tools/vpn.dart';
 import 'campus/academic_tools/wolfram_engine/input_constructor.dart';
 import 'campus/bus_schedule.dart';
+import 'campus/klia_express.dart';
 import 'explore/lost_and_found/lost_and_found_page.dart';
 import 'main_page.dart';
 import 'settings/developer_options.dart';
@@ -40,6 +41,7 @@ class MainApp extends StatelessWidget {
     '/Campus/ACTools/VPN': (_) => VPNPage(),
     '/Campus/ACTools/ECR': (_) => ElectiveCourseRegistrationPage(),
     '/Campus/Tools/BusSchedule': (_) => BusSchedulePage(),
+    '/Campus/Tools/KliaExpress': (_) => KliaExpressPage(),
     '/Explore/LostAndFound': (_) => LostAndFoundPage(),
     '/Me/Epayment': (_) => EPaymentPage(),
     '/Me/RoomReservation': (_) => RoomWebviewPage(),

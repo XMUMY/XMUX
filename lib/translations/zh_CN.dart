@@ -81,6 +81,7 @@ const Map<String, String> zh_CN = {
   'Campus/AcademicTools/ECR/Form/Cancel': '取消',
   'Campus/Tools': '校园工具',
   'Campus/Tools/BusSchedule': '巴士时刻表',
+  'Campus/Tools/KliaExpress': '机场快线',
   // Explore
   'XiA/Hint': '请问有什么可以帮助您？',
   'XiA/Intro': '你好，我是小夏。有什么可以帮您？',

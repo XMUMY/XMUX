@@ -7,7 +7,7 @@ class BusSchedulePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Bus Schedule')),
+      appBar: AppBar(title: Text(i18n('Campus/Tools/BusSchedule', context))),
       body: PhotoView(
         imageProvider: CachedNetworkImageProvider(
             firebase.remoteConfigs.staticResources.busScheduleImage),

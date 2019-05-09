@@ -43,19 +43,19 @@ class CampusPage extends StatelessWidget {
             alignment: WrapAlignment.spaceAround,
             children: <Widget>[
               _ToolsButton(
-                  icon: 'res/academic/wolfram.svg',
+                  svg: 'res/academic/wolfram.svg',
                   title: 'Campus/AcademicTools/WolframEngine/Title',
                   path: '/Campus/ACTools/WolframEngine'),
               _ToolsButton(
-                  icon: 'res/academic/geogebra.svg',
+                  svg: 'res/academic/geogebra.svg',
                   title: 'Campus/AcademicTools/GeoGebra/Title',
                   path: '/Campus/ACTools/GeoGebra'),
               _ToolsButton(
-                  icon: 'res/academic/gpa.svg',
+                  svg: 'res/academic/gpa.svg',
                   title: 'Campus/AcademicTools/ExamResult/Title',
                   path: '/Campus/ACTools/ExamResult'),
               _ToolsButton(
-                  icon: 'res/academic/vpn.svg',
+                  svg: 'res/academic/vpn.svg',
                   title: 'Campus/AcademicTools/VPN/Title',
                   path: '/Campus/ACTools/VPN'),
             ],
@@ -72,9 +72,13 @@ class CampusPage extends StatelessWidget {
             alignment: WrapAlignment.spaceAround,
             children: <Widget>[
               _ToolsButton(
-                  icon: 'res/academic/ecr.svg',
+                  child: Icon(Icons.directions_bus, color: Color(0xFF5DC3F1)),
                   title: 'Campus/Tools/BusSchedule',
                   path: '/Campus/Tools/BusSchedule'),
+              _ToolsButton(
+                  child: Icon(Icons.train, color: Color(0xFF5DC3F1)),
+                  title: 'Campus/Tools/KliaExpress',
+                  path: '/Campus/Tools/KliaExpress'),
             ],
           ),
         ],
@@ -84,9 +88,13 @@ class CampusPage extends StatelessWidget {
 }
 
 class _ToolsButton extends StatelessWidget {
+  /// Icon to display.
+  /// The icon name also used as tag for hero animation.
+  final Widget child;
+
   /// The asset name of *SVG* file of icon.
   /// The asset name also used as tag for hero animation.
-  final String icon;
+  final String svg;
 
   /// Title for tooltip.
   final String title;
@@ -95,12 +103,17 @@ class _ToolsButton extends StatelessWidget {
   final String path;
 
   _ToolsButton(
-      {Key key, @required this.icon, @required this.title, @required this.path})
-      : super(key: key);
+      {Key key,
+      this.child,
+      this.svg,
+      @required this.title,
+      @required this.path})
+      : assert(!(child == null && svg == null)),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) => IconButton(
-        icon: Hero(tag: icon, child: SvgPicture.asset(icon)),
+        icon: Hero(tag: child ?? svg, child: child ?? SvgPicture.asset(svg)),
         onPressed: () => Navigator.of(context).pushNamed(path),
         tooltip: i18n(title, context),
         iconSize: MediaQuery.of(context).size.width / 6,
