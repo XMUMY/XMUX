@@ -28,6 +28,28 @@ import 'tools/epayment.dart';
 import 'tools/room_reservation.dart';
 
 class MainApp extends StatelessWidget {
+  /// Routes for main app.
+  static final routes = <String, WidgetBuilder>{
+    '/About': (_) => AboutPage(),
+    '/Calendar/CalendarImage': (_) => AcademicCalendarPage(),
+    '/Campus/ACTools/Details': (_) => AcademicToolDetailsPage(),
+    '/Campus/ACTools/ExamResult': (_) => ExamResultPage(),
+    '/Campus/ACTools/WolframEngine': (_) => InputConstructor(),
+    '/Campus/ACTools/GeoGebra': (_) => GeoGebraPage(),
+    '/Campus/ACTools/GPACalculator': (_) => GPACalculatorPage(),
+    '/Campus/ACTools/VPN': (_) => VPNPage(),
+    '/Campus/ACTools/ECR': (_) => ElectiveCourseRegistrationPage(),
+    '/Campus/Tools/BusSchedule': (_) => BusSchedulePage(),
+    '/Explore/LostAndFound': (_) => LostAndFoundPage(),
+    '/Me/Epayment': (_) => EPaymentPage(),
+    '/Me/RoomReservation': (_) => RoomWebviewPage(),
+    '/Me/Emgs': (_) => EmgsPage(),
+    '/Me/Emergency': (_) => EmergencyPage(),
+    '/Settings': (_) => SettingsPage(),
+    '/Settings/ChangeProfile': (_) => ChangeProfilePage(),
+    '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
+  };
+
   @override
   Widget build(BuildContext context) {
     return StoreProvider<MainAppState>(
@@ -40,7 +62,7 @@ class MainApp extends StatelessWidget {
             theme: s.state.uiState.darkMode
                 ? ThemeConfig.defaultDarkTheme
                 : ThemeConfig.defaultTheme,
-            initialRoute: '/',
+            darkTheme: ThemeData.dark(),
             navigatorObservers: <NavigatorObserver>[
               FirebaseAnalyticsObserver(analytics: firebase.analytics),
             ],
@@ -53,27 +75,8 @@ class MainApp extends StatelessWidget {
               Locale('en', 'US'),
               Locale('zh', 'CN'),
             ],
-            // Define route for main app.
-            routes: <String, WidgetBuilder>{
-              '/About': (_) => AboutPage(),
-              '/Calendar/CalendarImage': (_) => AcademicCalendarPage(),
-              '/Campus/ACTools/Details': (_) => AcademicToolDetailsPage(),
-              '/Campus/ACTools/ExamResult': (_) => ExamResultPage(),
-              '/Campus/ACTools/WolframEngine': (_) => InputConstructor(),
-              '/Campus/ACTools/GeoGebra': (_) => GeoGebraPage(),
-              '/Campus/ACTools/GPACalculator': (_) => GPACalculatorPage(),
-              '/Campus/ACTools/VPN': (_) => VPNPage(),
-              '/Campus/ACTools/ECR': (_) => ElectiveCourseRegistrationPage(),
-              '/Campus/Tools/BusSchedule': (_) => BusSchedulePage(),
-              '/Explore/LostAndFound': (_) => LostAndFoundPage(),
-              '/Me/Epayment': (_) => EPaymentPage(),
-              '/Me/RoomReservation': (_) => RoomWebviewPage(),
-              '/Me/Emgs': (_) => EmgsPage(),
-              '/Me/Emergency': (_) => EmergencyPage(),
-              '/Settings': (_) => SettingsPage(),
-              '/Settings/ChangeProfile': (_) => ChangeProfilePage(),
-              '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
-            },
+            initialRoute: '/',
+            routes: routes,
           );
         },
       ),

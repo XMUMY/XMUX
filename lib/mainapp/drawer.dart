@@ -110,7 +110,9 @@ class DrawerPage extends StatelessWidget {
               onTap: () => Navigator.of(context).popAndPushNamed('/Settings'),
               title: Text(i18n('Settings', context)),
               trailing: StoreConnector<MainAppState, bool>(
-                converter: (s) => s.state.uiState.darkMode,
+                converter: (s) =>
+                    s.state.uiState.darkMode ||
+                    MediaQuery.platformBrightnessOf(context) == Brightness.dark,
                 builder: (_, isDark) => IconButton(
                       icon: Icon(
                         FontAwesomeIcons.moon,
@@ -119,7 +121,11 @@ class DrawerPage extends StatelessWidget {
                             ? Colors.cyan
                             : Theme.of(context).iconTheme.color,
                       ),
-                      onPressed: () => store.dispatch(ToggleDarkModeAction()),
+                      onPressed: () {
+                        if (MediaQuery.platformBrightnessOf(context) !=
+                            Brightness.dark)
+                          store.dispatch(ToggleDarkModeAction());
+                      },
                     ),
               ),
             )
