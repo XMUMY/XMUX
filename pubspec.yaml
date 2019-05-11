@@ -4,7 +4,7 @@ description: XMUX Client
 #version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -18,12 +18,12 @@ dependencies:
   connectivity: ^0.4.2
   device_info: ^0.4.0+1
   dio: ^2.1.0
-  firebase_analytics: 2.1.1
-  firebase_auth: 0.8.4
-  firebase_database: 2.0.2
-  firebase_messaging: 4.0.0+1
+  firebase_analytics: 3.0.1
+  firebase_auth: 0.11.0
+  firebase_database: 3.0.0
+  firebase_messaging: 5.0.1+1
   firebase_remote_config: ^0.2.0
-  firebase_storage: 2.1.0
+  firebase_storage: 3.0.0
   flare_flutter: ^1.5.0
   flutter_lottie: ^0.2.0
   flutter_redux: ^0.5.3

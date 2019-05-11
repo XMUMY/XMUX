@@ -39,11 +39,12 @@ class AcademicToolDetailsPage extends StatelessWidget {
             image: 'res/academic/gpa_calculator.svg',
             route: '/Campus/ACTools/GPACalculator',
           ),
-          _AcademicPageCard(
-            textUri: 'Campus/AcademicTools/ECR',
-            image: 'res/academic/ecr.svg',
-            route: '/Campus/ACTools/ECR',
-          ),
+          if (store.state.settingState.enableFunctionsUnderDev)
+            _AcademicPageCard(
+              textUri: 'Campus/AcademicTools/ECR',
+              image: 'res/academic/ecr.svg',
+              route: '/Campus/ACTools/ECR',
+            ),
         ],
       ),
     );
