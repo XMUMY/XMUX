@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'remote_config.g.dart';
 
 class RemoteConfigs {
-  StaticResources staticResources;
+  StaticResources staticResources = StaticResources();
 }
 
 @JsonSerializable(createToJson: false)
@@ -13,8 +13,11 @@ class StaticResources {
   final String kliaTransitScheduleImage;
   final String kliaExpressScheduleImage;
 
-  StaticResources(this.academicCalendarImage, this.busScheduleImage,
-      this.kliaTransitScheduleImage, this.kliaExpressScheduleImage);
+  StaticResources(
+      {this.academicCalendarImage,
+      this.busScheduleImage,
+      this.kliaTransitScheduleImage,
+      this.kliaExpressScheduleImage});
 
   factory StaticResources.fromJson(Map<String, dynamic> json) =>
       _$StaticResourcesFromJson(json);
