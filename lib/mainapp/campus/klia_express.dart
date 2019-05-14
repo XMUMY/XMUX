@@ -12,6 +12,9 @@ class KliaExpressPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(i18n('Campus/Tools/KliaExpress', context)),
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? Theme.of(context).primaryColor
+              : Colors.lightBlue,
           bottom: TabBar(tabs: <Widget>[
             Tab(text: 'Transit'),
             Tab(text: 'Express'),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,7 +11,9 @@ class AcademicToolDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(i18n('Campus/AcademicTools', context)),
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Theme.of(context).primaryColor
+            : Colors.lightBlue,
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
@@ -29,11 +33,12 @@ class AcademicToolDetailsPage extends StatelessWidget {
             image: 'res/academic/gpa.svg',
             route: '/Campus/ACTools/ExamResult',
           ),
-          _AcademicPageCard(
-            textUri: 'Campus/AcademicTools/VPN',
-            image: 'res/academic/vpn.svg',
-            route: '/Campus/ACTools/VPN',
-          ),
+          if (!Platform.isIOS)
+            _AcademicPageCard(
+              textUri: 'Campus/AcademicTools/VPN',
+              image: 'res/academic/vpn.svg',
+              route: '/Campus/ACTools/VPN',
+            ),
           _AcademicPageCard(
             textUri: 'Campus/AcademicTools/GPACalculator',
             image: 'res/academic/gpa_calculator.svg',

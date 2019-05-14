@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -54,10 +56,16 @@ class CampusPage extends StatelessWidget {
                   svg: 'res/academic/gpa.svg',
                   title: 'Campus/AcademicTools/ExamResult/Title',
                   path: '/Campus/ACTools/ExamResult'),
-              _ToolsButton(
-                  svg: 'res/academic/vpn.svg',
-                  title: 'Campus/AcademicTools/VPN/Title',
-                  path: '/Campus/ACTools/VPN'),
+              if (Platform.isIOS)
+                _ToolsButton(
+                    svg: 'res/academic/gpa_calculator.svg',
+                    title: 'Campus/AcademicTools/GPACalculator/Title',
+                    path: '/Campus/ACTools/GPACalculator'),
+              if (!Platform.isIOS)
+                _ToolsButton(
+                    svg: 'res/academic/vpn.svg',
+                    title: 'Campus/AcademicTools/VPN/Title',
+                    path: '/Campus/ACTools/VPN'),
             ],
           ),
           Row(children: <Widget>[
