@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -38,9 +39,7 @@ class CampusPage extends StatelessWidget {
                   Navigator.of(context).pushNamed('/Campus/ACTools/Details'),
             ),
           ]),
-          Divider(
-            height: 3.0,
-          ),
+          Divider(height: 3.0),
           Wrap(
             alignment: WrapAlignment.spaceAround,
             children: <Widget>[
@@ -76,6 +75,7 @@ class CampusPage extends StatelessWidget {
               ),
             ),
           ]),
+          Divider(),
           Wrap(
             alignment: WrapAlignment.spaceAround,
             children: <Widget>[
@@ -87,6 +87,12 @@ class CampusPage extends StatelessWidget {
                   child: Icon(Icons.train, color: Color(0xFF5DC3F1)),
                   title: 'Campus/Tools/KliaExpress',
                   path: '/Campus/Tools/KliaExpress'),
+              if (store.state.settingState.enableFunctionsUnderDev)
+                _ToolsButton(
+                    child: Icon(FontAwesomeIcons.ticketAlt,
+                        color: Color(0xFF5DC3F1)),
+                    title: 'Campus/Tools/Travelviser',
+                    path: '/Campus/Tools/Travelviser'),
             ],
           ),
         ],

@@ -18,6 +18,7 @@ import 'campus/academic_tools/vpn.dart';
 import 'campus/academic_tools/wolfram_engine/input_constructor.dart';
 import 'campus/bus_schedule.dart';
 import 'campus/klia_express.dart';
+import 'campus/travelviser.dart';
 import 'explore/lost_and_found/lost_and_found_page.dart';
 import 'main_page.dart';
 import 'settings/developer_options.dart';
@@ -42,6 +43,7 @@ class MainApp extends StatelessWidget {
     '/Campus/ACTools/ECR': (_) => ElectiveCourseRegistrationPage(),
     '/Campus/Tools/BusSchedule': (_) => BusSchedulePage(),
     '/Campus/Tools/KliaExpress': (_) => KliaExpressPage(),
+    '/Campus/Tools/Travelviser': (_) => TravelviserPage(),
     '/Explore/LostAndFound': (_) => LostAndFoundPage(),
     '/Me/Epayment': (_) => EPaymentPage(),
     '/Me/RoomReservation': (_) => RoomWebviewPage(),
@@ -66,7 +68,9 @@ class MainApp extends StatelessWidget {
                 : ThemeConfig.defaultTheme,
             darkTheme: ThemeData.dark(),
             navigatorObservers: <NavigatorObserver>[
-              FirebaseAnalyticsObserver(analytics: firebase.analytics),
+              // Only trace in release mode.
+              if (bool.fromEnvironment('dart.vm.product'))
+                FirebaseAnalyticsObserver(analytics: firebase.analytics),
             ],
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,
