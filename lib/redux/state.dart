@@ -114,8 +114,9 @@ class AuthState {
   /// Moodle key.
   final String moodleKey;
 
-  AuthState(this.campusID, this.campusIDPassword, this.ePaymentPassword,
-      this.moodleKey);
+  AuthState(String campusID, this.campusIDPassword, this.ePaymentPassword,
+      this.moodleKey)
+      : this.campusID = campusID.toLowerCase();
 
   AuthState.def()
       : this.campusID = null,

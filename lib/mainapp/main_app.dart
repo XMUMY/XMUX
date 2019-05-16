@@ -44,6 +44,7 @@ class MainApp extends StatelessWidget {
     '/Campus/Tools/BusSchedule': (_) => BusSchedulePage(),
     '/Campus/Tools/KliaExpress': (_) => KliaExpressPage(),
     '/Campus/Tools/Travelviser': (_) => TravelviserPage(),
+    '/Campus/Tools/Travelviser/DigitalPass': (_) => DigitalPassPage(),
     '/Explore/LostAndFound': (_) => LostAndFoundPage(),
     '/Me/Epayment': (_) => EPaymentPage(),
     '/Me/RoomReservation': (_) => RoomWebviewPage(),

@@ -49,7 +49,7 @@ class LoginHandler {
     try {
       await XMUXApi.instance.createUser(
           XMUXApiAuth(
-              campusID: store.state.authState.campusID.toLowerCase(),
+              campusID: store.state.authState.campusID,
               campusIDPassword: store.state.authState.campusIDPassword),
           User(store.state.authState.campusID, firebaseUser.displayName,
               firebaseUser.photoUrl));

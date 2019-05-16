@@ -20,6 +20,9 @@ build:auto:
 # Install libraries
     - apt-get --quiet update --yes > /dev/null
     - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 fonts-droid-fallback > /dev/null
+# SSH deploy key for private module.
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$DEPLOY_TRAVELVISER")
 # Install Android SDK manager
     - if [ ! -d "android-sdk-linux" ]; then
       wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOL_VERSION}.zip;

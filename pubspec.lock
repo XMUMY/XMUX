@@ -777,6 +777,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1+1"
+  travelviser_dart:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "2a8c75525ecd6720b20e614058ab6ff6cd113bbf"
+      url: "git@cloud.xdea.xyz:XMUX/travelviser_dart.git"
+    source: git
+    version: "0.0.1"
   typed_data:
     dependency: transitive
     description:
