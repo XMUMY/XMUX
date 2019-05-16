@@ -4,6 +4,10 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.widget.RemoteViews
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.io.File
+
 
 class CalendarWidget : AppWidgetProvider() {
 
@@ -23,15 +27,27 @@ class CalendarWidget : AppWidgetProvider() {
   }
 
   companion object {
+    val gson = Gson()
 
     internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager,
                                  appWidgetId: Int) {
+      getNextClass(context)
+
       // Construct the RemoteViews object
       val views = RemoteViews(context.packageName, R.layout.calendar_widget)
 
       // Instruct the widget manager to update the widget
       appWidgetManager.updateAppWidget(appWidgetId, views)
     }
+
+    private fun getNextClass(context: Context) {
+      val stateStr = File("${context.filesDir.parent}/app_flutter/state.dat").readText()
+      val state = gson.fromJson<Map<String, Any>>(stateStr, Map::class.java)
+      val encodedLessons = gson.toJson((state["acState"] as Map<*, *>)["timetable"])
+      val lessons = gson.fromJson<Array<Lesson>>(encodedLessons, Array<Lesson>::class.java)
+    }
   }
 }
 
+
+data class Lesson(val courseCode: String, val courseName: String, val classroom: String)
