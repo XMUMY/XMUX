@@ -1,23 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:travelviser_dart/travelviser_dart.dart';
+import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/globals.dart';
 
-class TravelviserPage extends StatelessWidget {
+class TravelviserPage extends StatefulWidget {
+  final travelviser = Travelviser(firebaseUser.email, '');
+
+  @override
+  _TravelviserPageState createState() => _TravelviserPageState();
+}
+
+class _TravelviserPageState extends State<TravelviserPage> {
+  List<BookingRecord> _bookingRecords;
+
+  Future<Null> refresh() async {
+    try {
+      await widget.travelviser.user;
+    } catch (e) {
+      return;
+    }
+    _bookingRecords = await widget.travelviser.getBookingRecords();
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void initState() {
+    refresh();
+    super.initState();
+  }
+
+  Widget _buildRecord(BuildContext context, BookingRecord record) {
+    var dateTime = record.dateTime;
+    var timeOfDay = TimeOfDay.fromDateTime(dateTime);
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              record.route,
+              style: Theme.of(context).textTheme.subhead,
+            ),
+            Divider(),
+            Text(
+                '${DateFormat.yMd().format(dateTime)} ${DateFormat.E().format(dateTime)} ${timeOfDay.format(context)}\n'
+                'From ${record.from}\n'
+                'To ${record.to}')
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Travelviser'),
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Theme.of(context).primaryColor
+            : Colors.lightBlue,
         actions: <Widget>[
           IconButton(
             icon: Icon(FontAwesomeIcons.qrcode),
             onPressed: () => Navigator.of(context)
                 .pushNamed('/Campus/Tools/Travelviser/DigitalPass'),
+            tooltip: 'Digital Pass',
           )
         ],
       ),
-      body: Container(),
+      body: _bookingRecords == null
+          ? Center(child: CircularProgressIndicator())
+          : _bookingRecords.isEmpty
+              ? EmptyErrorButton(onRefresh: refresh)
+              : RefreshIndicator(
+                  onRefresh: refresh,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(10.0),
+                    itemCount: _bookingRecords.length,
+                    itemBuilder: (ctx, index) =>
+                        _buildRecord(context, _bookingRecords[index]),
+                  ),
+                ),
     );
   }
 }
