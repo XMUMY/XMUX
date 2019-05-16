@@ -20,34 +20,34 @@ class AcademicToolDetailsPage extends StatelessWidget {
         children: <Widget>[
           _AcademicPageCard(
             textUri: 'Campus/AcademicTools/WolframEngine',
-            image: 'res/academic/wolfram.svg',
+            image: 'res/campus/wolfram.svg',
             route: '/Campus/ACTools/WolframEngine',
           ),
           _AcademicPageCard(
             textUri: 'Campus/AcademicTools/GeoGebra',
-            image: 'res/academic/geogebra.svg',
+            image: 'res/campus/geogebra.svg',
             route: '/Campus/ACTools/GeoGebra',
           ),
           _AcademicPageCard(
             textUri: 'Campus/AcademicTools/ExamResult',
-            image: 'res/academic/gpa.svg',
+            image: 'res/campus/gpa.svg',
             route: '/Campus/ACTools/ExamResult',
           ),
           if (!Platform.isIOS)
             _AcademicPageCard(
               textUri: 'Campus/AcademicTools/VPN',
-              image: 'res/academic/vpn.svg',
+              image: 'res/campus/vpn.svg',
               route: '/Campus/ACTools/VPN',
             ),
           _AcademicPageCard(
             textUri: 'Campus/AcademicTools/GPACalculator',
-            image: 'res/academic/gpa_calculator.svg',
+            image: 'res/campus/gpa_calculator.svg',
             route: '/Campus/ACTools/GPACalculator',
           ),
           if (store.state.settingState.enableFunctionsUnderDev)
             _AcademicPageCard(
               textUri: 'Campus/AcademicTools/ECR',
-              image: 'res/academic/ecr.svg',
+              image: 'res/campus/ecr.svg',
               route: '/Campus/ACTools/ECR',
             ),
         ],

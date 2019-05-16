@@ -74,9 +74,9 @@ class _VPNPageState extends State<VPNPage> {
                 ),
               ),
               Hero(
-                tag: 'res/academic/vpn.svg',
+                tag: 'res/campus/vpn.svg',
                 child: SvgPicture.asset(
-                  'res/academic/vpn.svg',
+                  'res/campus/vpn.svg',
                   height: 66.0,
                   width: 66.0,
                   color: color,

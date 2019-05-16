@@ -22,7 +22,7 @@ class ItemEditPage extends StatefulWidget {
   /// Static method for compressing image using another isolate.
   static List<int> _compressImage(File f) {
     var image = Im.decodeImage(f.readAsBytesSync());
-    image = Im.copyResize(image, 1080);
+    image = Im.copyResize(image, width: 1080);
     var bytes = Im.encodeJpg(image, quality: 55);
     return bytes;
   }

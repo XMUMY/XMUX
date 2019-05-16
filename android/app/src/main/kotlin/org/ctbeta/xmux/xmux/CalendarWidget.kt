@@ -5,7 +5,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.widget.RemoteViews
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.google.gson.annotations.SerializedName
 import java.io.File
 
 
@@ -50,4 +50,6 @@ class CalendarWidget : AppWidgetProvider() {
 }
 
 
-data class Lesson(val courseCode: String, val courseName: String, val classroom: String)
+data class Lesson(val courseCode: String,
+                  val courseName: String,
+                  @SerializedName("classRoom") val classroom: String)

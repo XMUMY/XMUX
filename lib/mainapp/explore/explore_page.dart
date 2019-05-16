@@ -23,6 +23,7 @@ class ExplorePage extends StatelessWidget {
             ),
           ),
           ListView(
+            physics: NeverScrollableScrollPhysics(),
             padding:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height / 1.8),
             children: <Widget>[

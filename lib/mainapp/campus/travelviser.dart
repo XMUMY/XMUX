@@ -28,7 +28,7 @@ class DigitalPassPage extends StatelessWidget {
     return <Widget>[
       Positioned(
         top: 5.0,
-        right: 20.0,
+        right: 18.0,
         child: RaisedButton(
           elevation: 0.0,
           color: Colors.blue[700],

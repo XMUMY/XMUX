@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -44,25 +43,25 @@ class CampusPage extends StatelessWidget {
             alignment: WrapAlignment.spaceAround,
             children: <Widget>[
               _ToolsButton(
-                  svg: 'res/academic/wolfram.svg',
+                  svg: 'res/campus/wolfram.svg',
                   title: 'Campus/AcademicTools/WolframEngine/Title',
                   path: '/Campus/ACTools/WolframEngine'),
               _ToolsButton(
-                  svg: 'res/academic/geogebra.svg',
+                  svg: 'res/campus/geogebra.svg',
                   title: 'Campus/AcademicTools/GeoGebra/Title',
                   path: '/Campus/ACTools/GeoGebra'),
               _ToolsButton(
-                  svg: 'res/academic/gpa.svg',
+                  svg: 'res/campus/gpa.svg',
                   title: 'Campus/AcademicTools/ExamResult/Title',
                   path: '/Campus/ACTools/ExamResult'),
               if (Platform.isIOS)
                 _ToolsButton(
-                    svg: 'res/academic/gpa_calculator.svg',
+                    svg: 'res/campus/gpa_calculator.svg',
                     title: 'Campus/AcademicTools/GPACalculator/Title',
                     path: '/Campus/ACTools/GPACalculator'),
               if (!Platform.isIOS)
                 _ToolsButton(
-                    svg: 'res/academic/vpn.svg',
+                    svg: 'res/campus/vpn.svg',
                     title: 'Campus/AcademicTools/VPN/Title',
                     path: '/Campus/ACTools/VPN'),
             ],
@@ -84,13 +83,12 @@ class CampusPage extends StatelessWidget {
                   title: 'Campus/Tools/BusSchedule',
                   path: '/Campus/Tools/BusSchedule'),
               _ToolsButton(
-                  child: Icon(Icons.train, color: Color(0xFF5DC3F1)),
+                  svg: 'res/campus/klia_express.svg',
                   title: 'Campus/Tools/KliaExpress',
                   path: '/Campus/Tools/KliaExpress'),
               if (store.state.settingState.enableFunctionsUnderDev)
                 _ToolsButton(
-                    child: Icon(FontAwesomeIcons.ticketAlt,
-                        color: Color(0xFF5DC3F1)),
+                    svg: 'res/campus/travelviser.svg',
                     title: 'Campus/Tools/Travelviser',
                     path: '/Campus/Tools/Travelviser'),
             ],
