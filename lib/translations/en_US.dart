@@ -90,6 +90,12 @@ const Map<String, String> en_US = {
   'Campus/Tools': 'Campus Utilities',
   'Campus/Tools/BusSchedule': 'Bus Schedule',
   'Campus/Tools/KliaExpress': 'KLIA Express',
+  'Campus/Tools/Travelviser/DigitalPass': 'Digital Pass',
+  'Campus/Tools/Travelviser/Booked': 'Booked',
+  'Campus/Tools/Travelviser/Expired': 'Expired',
+  'Campus/Tools/Travelviser/From': 'From: ',
+  'Campus/Tools/Travelviser/To': 'To: ',
+  'Campus/Tools/Travelviser/Boarded': 'Boarded',
   // Explore
   'XiA/Hint': 'May I help you?',
   'XiA/Intro': "Hi, I'm XiA. Your assistant.",

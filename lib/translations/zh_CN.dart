@@ -82,6 +82,12 @@ const Map<String, String> zh_CN = {
   'Campus/Tools': '校园工具',
   'Campus/Tools/BusSchedule': '巴士时刻表',
   'Campus/Tools/KliaExpress': '机场快线',
+  'Campus/Tools/Travelviser/DigitalPass': '电子通行证',
+  'Campus/Tools/Travelviser/Booked': '已预定',
+  'Campus/Tools/Travelviser/Expired': '已过期',
+  'Campus/Tools/Travelviser/From': '出发地：',
+  'Campus/Tools/Travelviser/To': '目的地：',
+  'Campus/Tools/Travelviser/Boarded': '已上车',
   // Explore
   'XiA/Hint': '请问有什么可以帮助您？',
   'XiA/Intro': '你好，我是小夏。有什么可以帮您？',

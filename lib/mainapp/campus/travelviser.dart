@@ -15,6 +15,9 @@ class TravelviserPage extends StatefulWidget {
 
 class _TravelviserPageState extends State<TravelviserPage> {
   List<BookingRecord> _bookingRecords;
+  // Separated booking records.
+  List<BookingRecord> _bookedRecords;
+  List<BookingRecord> _expiredRecords;
 
   Future<Null> refresh() async {
     try {
@@ -23,6 +26,14 @@ class _TravelviserPageState extends State<TravelviserPage> {
       return;
     }
     _bookingRecords = await widget.travelviser.getBookingRecords();
+    _bookedRecords = _bookingRecords
+            ?.where((r) => r.dateTime.isAfter(DateTime.now()))
+            ?.toList() ??
+        [];
+    _expiredRecords = _bookingRecords
+            ?.where((r) => r.dateTime.isBefore(DateTime.now()))
+            ?.toList() ??
+        [];
     if (mounted) setState(() {});
   }
 
@@ -32,7 +43,7 @@ class _TravelviserPageState extends State<TravelviserPage> {
     super.initState();
   }
 
-  Widget _buildRecord(BuildContext context, BookingRecord record) {
+  Widget _buildBookedRecord(BuildContext context, BookingRecord record) {
     var dateTime = record.dateTime;
     var timeOfDay = TimeOfDay.fromDateTime(dateTime);
     return Card(
@@ -47,11 +58,33 @@ class _TravelviserPageState extends State<TravelviserPage> {
             ),
             Divider(),
             Text(
-                '${DateFormat.yMd().format(dateTime)} ${DateFormat.E().format(dateTime)} ${timeOfDay.format(context)}\n'
-                'From ${record.from}\n'
-                'To ${record.to}')
+                '${DateFormat.yMd(Localizations.localeOf(context).languageCode).format(dateTime)} ${DateFormat.E(Localizations.localeOf(context).languageCode).format(dateTime)} ${timeOfDay.format(context)}\n'
+                '${i18n('Campus/Tools/Travelviser/From', context)} ${record.from}\n'
+                '${i18n('Campus/Tools/Travelviser/To', context)} ${record.to}')
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildExpiredRecord(BuildContext context, BookingRecord record) {
+    var dateTime = record.dateTime;
+    var timeOfDay = TimeOfDay.fromDateTime(dateTime);
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            '${record.route} ${record.boardingDate == null ? '' : ' ${i18n('Campus/Tools/Travelviser/Boarded', context)}'}',
+            style: Theme.of(context).textTheme.subhead,
+          ),
+          Divider(height: 5.0, color: Colors.transparent),
+          Text(
+              '${DateFormat.yMd(Localizations.localeOf(context).languageCode).format(dateTime)} ${DateFormat.E(Localizations.localeOf(context).languageCode).format(dateTime)} ${timeOfDay.format(context)}\n'
+              '${i18n('Campus/Tools/Travelviser/From', context)} ${record.from}\n'
+              '${i18n('Campus/Tools/Travelviser/To', context)} ${record.to}'),
+        ],
       ),
     );
   }
@@ -69,7 +102,7 @@ class _TravelviserPageState extends State<TravelviserPage> {
             icon: Icon(FontAwesomeIcons.qrcode),
             onPressed: () => Navigator.of(context)
                 .pushNamed('/Campus/Tools/Travelviser/DigitalPass'),
-            tooltip: 'Digital Pass',
+            tooltip: i18n('Campus/Tools/Travelviser/DigitalPass', context),
           )
         ],
       ),
@@ -79,13 +112,42 @@ class _TravelviserPageState extends State<TravelviserPage> {
               ? EmptyErrorButton(onRefresh: refresh)
               : RefreshIndicator(
                   onRefresh: refresh,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(10.0),
-                    itemCount: _bookingRecords.length,
-                    itemBuilder: (ctx, index) =>
-                        _buildRecord(context, _bookingRecords[index]),
+                  child: ListView(
+                    padding: const EdgeInsets.all(12.0),
+                    children: <Widget>[
+                      Text(
+                          ' ${i18n('Campus/Tools/Travelviser/Booked', context)}',
+                          style: Theme.of(context).textTheme.title),
+                      Divider(),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemCount: _bookedRecords.length,
+                        itemBuilder: (ctx, index) =>
+                            _buildBookedRecord(context, _bookedRecords[index]),
+                      ),
+                      Divider(color: Colors.transparent),
+                      Text(
+                          ' ${i18n('Campus/Tools/Travelviser/Expired', context)}',
+                          style: Theme.of(context).textTheme.title),
+                      Divider(),
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemCount: _expiredRecords.length,
+                        itemBuilder: (ctx, index) => _buildExpiredRecord(
+                            context, _expiredRecords[index]),
+                        separatorBuilder: (_, __) => Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Divider(height: 3.0)),
+                      ),
+                    ],
                   ),
                 ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
@@ -155,11 +217,11 @@ class DigitalPassPage extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(1.0),
                   child: Column(
                     children: <Widget>[
                       Icon(FontAwesomeIcons.qrcode, color: Colors.blue[700]),
-                      Divider(height: 2.0, color: Colors.transparent),
+                      Divider(height: 5.0, color: Colors.transparent),
                       Text('QRCODE', style: TextStyle(color: Colors.blue[700])),
                     ],
                   ),
@@ -167,11 +229,11 @@ class DigitalPassPage extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(1.0),
                   child: Column(
                     children: <Widget>[
                       Icon(Icons.map),
-                      Divider(height: 2.0, color: Colors.transparent),
+                      Divider(height: 5.0, color: Colors.transparent),
                       Text('MAPS'),
                     ],
                   ),
@@ -179,11 +241,11 @@ class DigitalPassPage extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(1.0),
                   child: Column(
                     children: <Widget>[
                       Icon(FontAwesomeIcons.ticketAlt),
-                      Divider(height: 2.0, color: Colors.transparent),
+                      Divider(height: 5.0, color: Colors.transparent),
                       Text('BOOKINGS'),
                     ],
                   ),
