@@ -101,10 +101,21 @@ void postInit() async {
 
   if (Platform.isAndroid) {
     var deviceInfo = await DeviceInfoPlugin().androidInfo;
+
+    // Replace android transition theme if >= 9.0
+    if (int.parse(deviceInfo.version.release) >= 9)
+      ThemeConfig.defaultTheme = ThemeConfig.defaultTheme.copyWith(
+          pageTransitionsTheme: PageTransitionsTheme(builders: {
+        TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
+      }));
+
     var token = await firebase.messaging.getToken();
     XMUXApi.instance.device(deviceInfo.fingerprint, token, deviceInfo.model);
-  } else {
+  }
+
+  if (Platform.isIOS) {
     var deviceInfo = await DeviceInfoPlugin().iosInfo;
+
     var token = await firebase.messaging.getToken();
     XMUXApi.instance
         .device(deviceInfo.identifierForVendor, token, deviceInfo.model);

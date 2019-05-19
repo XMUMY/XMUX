@@ -24,7 +24,7 @@ class CalendarPage extends StatelessWidget {
           actions: <Widget>[
             IconButton(
                 icon: Icon(FontAwesomeIcons.calendarAlt),
-                tooltip: i18n('Calendar/CalendarImage', context),
+                tooltip: i18n('Calendar/Academic', context),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/Calendar/CalendarImage');
                 })
