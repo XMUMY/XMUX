@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:travelviser_dart/travelviser_dart.dart';
 import 'package:xmux/components/empty_error_button.dart';
+import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
 
@@ -169,9 +170,57 @@ class TravelviserBookingPage extends StatefulWidget {
 }
 
 class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
+  List<Route> routes;
+  Map<Route, List<Trip>> trips = {};
+
+  Route _selectedRoute;
+  Trip _selectedTrip;
+
+  bool get canBook => routes != null && routes.isNotEmpty;
+
   /// Load tickets.
-  Future<List<Route>> load() async {
-    return await widget.travelviser.getRoutes();
+  Future<Null> load() async {
+    routes = await widget.travelviser.getRoutes();
+    if (_selectedRoute == null && routes.isNotEmpty)
+      _selectedRoute = routes.first;
+
+    trips = Map.fromIterables(routes,
+        await Future.wait(routes.map((r) => widget.travelviser.getTrips(r))));
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void initState() {
+    load();
+    super.initState();
+  }
+
+  List<Widget> buildSelections(BuildContext context) {
+    return [
+      DropdownButton(
+        value: _selectedRoute,
+        items: routes
+            .map((route) =>
+                DropdownMenuItem(child: Text(route.name), value: route))
+            .toList(),
+        onChanged: (route) => setState(() {
+              _selectedTrip = trips[route].first;
+              _selectedRoute = route;
+            }),
+      ),
+      if (trips.isNotEmpty)
+        ListTile(
+          title: Text('Select Trip'),
+          trailing: DropdownButton(
+            value: _selectedTrip,
+            items: trips[_selectedRoute]
+                .map((trip) =>
+                    DropdownMenuItem(child: Text(trip.title), value: trip))
+                .toList(),
+            onChanged: (trip) => setState(() => _selectedTrip = trip),
+          ),
+        ),
+    ];
   }
 
   @override
@@ -189,16 +238,15 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
                   style: Theme.of(context).textTheme.title),
             ),
             Divider(height: 20.0, color: Colors.transparent),
-            FutureBuilder<List<Route>>(
-              future: load(),
-              builder: (ctx, snap) {
-                if (snap.connectionState == ConnectionState.done)
-                  return Column(
-                    children: snap.data.map((r) => Text(r.name)).toList(),
-                  );
-                return Center(child: CircularProgressIndicator());
-              },
-            ),
+            if (routes == null) Center(child: CircularProgressIndicator()),
+            if (routes?.isEmpty ?? false) EmptyErrorPage(),
+            if (routes != null && routes.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Builder(
+                    builder: (ctx) => Column(children: buildSelections(ctx))),
+              ),
+            Divider(height: 40.0, color: Colors.transparent),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -209,10 +257,12 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
                       Icon(Icons.close, color: Theme.of(context).accentColor),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
-                FloatingActionButton(
-                  child: Icon(Icons.check),
-                  onPressed: () {},
-                )
+                if (routes?.isNotEmpty ?? true)
+                  FloatingActionButton(
+                    disabledElevation: 0.0,
+                    child: Icon(Icons.check),
+                    onPressed: canBook ? () {} : null,
+                  )
               ],
             )
           ],
