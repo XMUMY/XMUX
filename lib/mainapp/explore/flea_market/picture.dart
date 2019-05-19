@@ -31,7 +31,7 @@ class Picture extends StatelessWidget {
   Widget _buildPicture(BuildContext context, Widget child) {
     return GestureDetector(
       onTap: () => Navigator.of(context)
-          .push(FadeRoute((context) => _buildPhotoView(context))),
+          .push(FadePageRoute(child: _buildPhotoView(context))),
       onLongPress: onDelete == null ? null : () => onDelete(this),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(1.0, 0.0, 1.0, 0.0),

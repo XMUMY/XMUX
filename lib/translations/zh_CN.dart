@@ -88,6 +88,7 @@ const Map<String, String> zh_CN = {
   'Campus/Tools/Travelviser/From': '出发地：',
   'Campus/Tools/Travelviser/To': '目的地：',
   'Campus/Tools/Travelviser/Boarded': '已上车',
+  'Campus/Tools/Travelviser/New': '预定车票',
   // Explore
   'XiA/Hint': '请问有什么可以帮助您？',
   'XiA/Intro': '你好，我是小夏。有什么可以帮您？',

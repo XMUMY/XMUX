@@ -147,7 +147,7 @@ class ItemDetailPage extends StatelessWidget {
                       onPressed: () async {
                         var res = await Navigator.of(context)
                             .push<ItemEditResult>(
-                                FadeRoute((_) => ItemEditPage(item)));
+                                FadePageRoute(child: ItemEditPage(item)));
                         if (res == ItemEditResult.deleted ||
                             res == ItemEditResult.succeed)
                           Navigator.of(context).pop();

@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Route;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:travelviser_dart/travelviser_dart.dart';
 import 'package:xmux/components/empty_error_button.dart';
+import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
 
 class TravelviserPage extends StatefulWidget {
@@ -15,6 +16,7 @@ class TravelviserPage extends StatefulWidget {
 
 class _TravelviserPageState extends State<TravelviserPage> {
   List<BookingRecord> _bookingRecords;
+
   // Separated booking records.
   List<BookingRecord> _bookedRecords;
   List<BookingRecord> _expiredRecords;
@@ -145,8 +147,76 @@ class _TravelviserPageState extends State<TravelviserPage> {
                   ),
                 ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        tooltip: i18n('Campus/Tools/Travelviser/New', context),
         child: Icon(Icons.add),
+        onPressed: () => Navigator.of(context).push(
+              FadePageRoute(
+                  child: TravelviserBookingPage(widget.travelviser),
+                  fullscreenDialog: true),
+            ),
+      ),
+    );
+  }
+}
+
+class TravelviserBookingPage extends StatefulWidget {
+  final Travelviser travelviser;
+
+  const TravelviserBookingPage(this.travelviser);
+
+  @override
+  _TravelviserBookingPageState createState() => _TravelviserBookingPageState();
+}
+
+class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
+  /// Load tickets.
+  Future<List<Route>> load() async {
+    return await widget.travelviser.getRoutes();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(i18n('Campus/Tools/Travelviser/New', context),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.title),
+            ),
+            Divider(height: 20.0, color: Colors.transparent),
+            FutureBuilder<List<Route>>(
+              future: load(),
+              builder: (ctx, snap) {
+                if (snap.connectionState == ConnectionState.done)
+                  return Column(
+                    children: snap.data.map((r) => Text(r.name)).toList(),
+                  );
+                return Center(child: CircularProgressIndicator());
+              },
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                FloatingActionButton(
+                  heroTag: 'x',
+                  backgroundColor: Theme.of(context).canvasColor,
+                  child:
+                      Icon(Icons.close, color: Theme.of(context).accentColor),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                FloatingActionButton(
+                  child: Icon(Icons.check),
+                  onPressed: () {},
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

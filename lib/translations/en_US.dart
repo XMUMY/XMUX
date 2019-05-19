@@ -96,6 +96,7 @@ const Map<String, String> en_US = {
   'Campus/Tools/Travelviser/From': 'From: ',
   'Campus/Tools/Travelviser/To': 'To: ',
   'Campus/Tools/Travelviser/Boarded': 'Boarded',
+  'Campus/Tools/Travelviser/New': 'Book New Tickets',
   // Explore
   'XiA/Hint': 'May I help you?',
   'XiA/Intro': "Hi, I'm XiA. Your assistant.",
