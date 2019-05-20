@@ -99,11 +99,15 @@ const Map<String, String> en_US = {
   'Campus/Tools/Travelviser/To': 'To: ',
   'Campus/Tools/Travelviser/Boarded': 'Boarded',
   'Campus/Tools/Travelviser/New': 'Book New Tickets',
-  'Campus/Tools/Travelviser/RoundTrip': 'Round Trip',
-  'Campus/Tools/Travelviser/RoundTrip/Caption': 'Book round trip if available',
-  'Campus/Tools/Travelviser/RoundTrip/Error': 'Failed to book a round trip',
-  'Campus/Tools/Travelviser/RoundTrip/Separately': 'Book separately',
-  'Campus/Tools/Travelviser/SelectShift': 'Select Shift',
+  'Campus/Tools/Travelviser/New/RoundTrip': 'Round Trip',
+  'Campus/Tools/Travelviser/New/RoundTrip/Caption':
+      'Book round trip if available',
+  'Campus/Tools/Travelviser/New/RoundTrip/Error':
+      'Failed to book a round trip.',
+  'Campus/Tools/Travelviser/New/RoundTrip/Separately': 'Book separately',
+  'Campus/Tools/Travelviser/New/SelectShift': 'Select Shift',
+  'Campus/Tools/Travelviser/New/InvalidTime':
+      'You can only book tickets for this week.',
   // Explore
   'XiA/Hint': 'May I help you?',
   'XiA/Intro': "Hi, I'm XiA. Your assistant.",

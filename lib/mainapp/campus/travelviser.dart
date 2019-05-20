@@ -204,6 +204,7 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
   Trip _selectedTrip;
 
   bool _isBooking = false;
+
   bool get canBook => !_isBooking && routes != null && routes.isNotEmpty;
 
   /// Load tickets.
@@ -236,26 +237,36 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
         bookingQueue.add(Tuple2(anotherRoute, anotherTrip));
       } on StateError catch (_) {
         Scaffold.of(context).showSnackBar(SnackBar(
-          content:
-              Text(i18n('Campus/Tools/Travelviser/RoundTrip/Error', context)),
+          content: Text(
+              i18n('Campus/Tools/Travelviser/New/RoundTrip/Error', context)),
           action: SnackBarAction(
               label: i18n(
-                  'Campus/Tools/Travelviser/RoundTrip/Separately', context),
+                  'Campus/Tools/Travelviser/New/RoundTrip/Separately', context),
               onPressed: () => setState(() => _roundTrip = false)),
         ));
         setState(() => _isBooking = false);
         return;
       }
 
+    // Book
     try {
       await Future.wait(
           bookingQueue.map((e) => widget.travelviser.book(e.item1, e.item2)));
+    } on WrongDateException catch (_) {
+      if (!mounted) return;
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content:
+            Text(i18n('Campus/Tools/Travelviser/New/InvalidTime', context)),
+      ));
+      setState(() => _isBooking = false);
+      return;
     } on InvalidBookingException catch (e) {
       if (!mounted) return;
       Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.message)));
       setState(() => _isBooking = false);
       return;
     }
+
     Navigator.of(context).pop(true);
   }
 
@@ -279,15 +290,16 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
             }),
       ),
       CheckboxListTile(
-        title: Text(i18n('Campus/Tools/Travelviser/RoundTrip', context)),
-        subtitle:
-            Text(i18n('Campus/Tools/Travelviser/RoundTrip/Caption', context)),
+        title: Text(i18n('Campus/Tools/Travelviser/New/RoundTrip', context)),
+        subtitle: Text(
+            i18n('Campus/Tools/Travelviser/New/RoundTrip/Caption', context)),
         value: _roundTrip,
         onChanged: (v) => setState(() => _roundTrip = v),
       ),
       if (trips.isNotEmpty && !_roundTrip)
         ListTile(
-          title: Text(i18n('Campus/Tools/Travelviser/SelectShift', context)),
+          title:
+              Text(i18n('Campus/Tools/Travelviser/New/SelectShift', context)),
           trailing: DropdownButton(
             value: _selectedTrip,
             items: trips[_selectedRoute]
