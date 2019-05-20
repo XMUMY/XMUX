@@ -90,6 +90,8 @@ const Map<String, String> en_US = {
   'Campus/Tools': 'Campus Utilities',
   'Campus/Tools/BusSchedule': 'Bus Schedule',
   'Campus/Tools/KliaExpress': 'KLIA Express',
+  'Campus/Tools/Travelviser/NotRegistered':
+      'User not registered yet\nPlease register using\nTravelvier Passenger',
   'Campus/Tools/Travelviser/DigitalPass': 'Digital Pass',
   'Campus/Tools/Travelviser/Booked': 'Booked',
   'Campus/Tools/Travelviser/Expired': 'Expired',
@@ -97,6 +99,11 @@ const Map<String, String> en_US = {
   'Campus/Tools/Travelviser/To': 'To: ',
   'Campus/Tools/Travelviser/Boarded': 'Boarded',
   'Campus/Tools/Travelviser/New': 'Book New Tickets',
+  'Campus/Tools/Travelviser/RoundTrip': 'Round Trip',
+  'Campus/Tools/Travelviser/RoundTrip/Caption': 'Book round trip if available',
+  'Campus/Tools/Travelviser/RoundTrip/Error': 'Failed to book a round trip',
+  'Campus/Tools/Travelviser/RoundTrip/Separately': 'Book separately',
+  'Campus/Tools/Travelviser/SelectShift': 'Select Shift',
   // Explore
   'XiA/Hint': 'May I help you?',
   'XiA/Intro': "Hi, I'm XiA. Your assistant.",

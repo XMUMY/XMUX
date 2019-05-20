@@ -82,6 +82,8 @@ const Map<String, String> zh_CN = {
   'Campus/Tools': '校园工具',
   'Campus/Tools/BusSchedule': '巴士时刻表',
   'Campus/Tools/KliaExpress': '机场快线',
+  'Campus/Tools/Travelviser/NotRegistered':
+      '用户未注册\n请先使用 Travelvier Passenger\n注册并完成邮箱验证',
   'Campus/Tools/Travelviser/DigitalPass': '电子通行证',
   'Campus/Tools/Travelviser/Booked': '已预定',
   'Campus/Tools/Travelviser/Expired': '已过期',
@@ -89,6 +91,11 @@ const Map<String, String> zh_CN = {
   'Campus/Tools/Travelviser/To': '目的地：',
   'Campus/Tools/Travelviser/Boarded': '已上车',
   'Campus/Tools/Travelviser/New': '预定车票',
+  'Campus/Tools/Travelviser/RoundTrip': '往返',
+  'Campus/Tools/Travelviser/RoundTrip/Caption': '尝试同时预定往返车票',
+  'Campus/Tools/Travelviser/RoundTrip/Error': '预定往返车票失败',
+  'Campus/Tools/Travelviser/RoundTrip/Separately': '尝试单程',
+  'Campus/Tools/Travelviser/SelectShift': '选择班次',
   // Explore
   'XiA/Hint': '请问有什么可以帮助您？',
   'XiA/Intro': '你好，我是小夏。有什么可以帮您？',

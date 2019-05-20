@@ -782,10 +782,17 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "0e4efbe13b50f36be39b2cf32a95c21162368b79"
+      resolved-ref: ce6ba69c4def73a078ea6a14e4fd3781697746fa
       url: "git@cloud.xdea.xyz:XMUX/travelviser_dart.git"
     source: git
-    version: "0.2.0"
+    version: "0.3.0"
+  tuple:
+    dependency: "direct main"
+    description:
+      name: tuple
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   typed_data:
     dependency: transitive
     description:

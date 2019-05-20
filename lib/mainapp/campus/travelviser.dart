@@ -3,19 +3,21 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:travelviser_dart/travelviser_dart.dart';
-import 'package:xmux/components/empty_error_button.dart';
+import 'package:tuple/tuple.dart';
+import 'package:xmux/components/animated_insertion.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
 
 class TravelviserPage extends StatefulWidget {
-  final travelviser = Travelviser(firebaseUser.email, '');
+  final travelviser = Travelviser(firebaseUser.email);
 
   @override
   _TravelviserPageState createState() => _TravelviserPageState();
 }
 
 class _TravelviserPageState extends State<TravelviserPage> {
+  bool registered = true;
   List<BookingRecord> _bookingRecords;
 
   // Separated booking records.
@@ -26,6 +28,7 @@ class _TravelviserPageState extends State<TravelviserPage> {
     try {
       await widget.travelviser.user;
     } catch (e) {
+      if (mounted) setState(() => registered = false);
       return;
     }
     _bookingRecords = await widget.travelviser.getBookingRecords();
@@ -109,10 +112,24 @@ class _TravelviserPageState extends State<TravelviserPage> {
           )
         ],
       ),
-      body: _bookingRecords == null
-          ? Center(child: CircularProgressIndicator())
-          : _bookingRecords.isEmpty
-              ? EmptyErrorButton(onRefresh: refresh)
+      body: !registered
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.warning,
+                  size: 50.0,
+                  color: Colors.red,
+                ),
+                Divider(height: 30.0, color: Colors.transparent),
+                Text(
+                  i18n('Campus/Tools/Travelviser/NotRegistered', context),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            )
+          : _bookingRecords == null
+              ? Center(child: CircularProgressIndicator())
               : RefreshIndicator(
                   onRefresh: refresh,
                   child: ListView(
@@ -126,8 +143,12 @@ class _TravelviserPageState extends State<TravelviserPage> {
                         shrinkWrap: true,
                         physics: ClampingScrollPhysics(),
                         itemCount: _bookedRecords.length,
-                        itemBuilder: (ctx, index) =>
-                            _buildBookedRecord(context, _bookedRecords[index]),
+                        itemBuilder: (_, index) => AnimatedInsertion(
+                              (_, animation) => FadeTransition(
+                                  opacity: animation,
+                                  child: _buildBookedRecord(
+                                      context, _bookedRecords[index])),
+                            ),
                       ),
                       Divider(color: Colors.transparent),
                       Text(
@@ -150,11 +171,16 @@ class _TravelviserPageState extends State<TravelviserPage> {
       floatingActionButton: FloatingActionButton(
         tooltip: i18n('Campus/Tools/Travelviser/New', context),
         child: Icon(Icons.add),
-        onPressed: () => Navigator.of(context).push(
-              FadePageRoute(
-                  child: TravelviserBookingPage(widget.travelviser),
-                  fullscreenDialog: true),
-            ),
+        onPressed: registered
+            ? () async {
+                var result = await Navigator.of(context).push<bool>(
+                  FadePageRoute(
+                      child: TravelviserBookingPage(widget.travelviser),
+                      fullscreenDialog: true),
+                );
+                if (result) refresh();
+              }
+            : null,
       ),
     );
   }
@@ -188,13 +214,14 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
 
     trips = Map.fromIterables(routes,
         await Future.wait(routes.map((r) => widget.travelviser.getTrips(r))));
+    _selectedTrip = trips[_selectedRoute].first;
     if (mounted) setState(() {});
   }
 
   Future<Null> handleBooking(BuildContext context) async {
     setState(() => _isBooking = true);
-    Set<Map<Route, Trip>> bookingQueue = {
-      {_selectedRoute: _selectedTrip}
+    Set<Tuple2<Route, Trip>> bookingQueue = {
+      Tuple2(_selectedRoute, _selectedTrip)
     };
 
     // Get another route & trip if is round trip.
@@ -206,19 +233,30 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
                 r.name.startsWith(_selectedRoute.name.split(']').first))
             .first;
         var anotherTrip = trips[anotherRoute].first;
-        bookingQueue.add({anotherRoute: anotherTrip});
+        bookingQueue.add(Tuple2(anotherRoute, anotherTrip));
       } on StateError catch (_) {
         Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text('Cannot Book round trip.'),
+          content:
+              Text(i18n('Campus/Tools/Travelviser/RoundTrip/Error', context)),
           action: SnackBarAction(
-              label: 'Book separately',
+              label: i18n(
+                  'Campus/Tools/Travelviser/RoundTrip/Separately', context),
               onPressed: () => setState(() => _roundTrip = false)),
         ));
         setState(() => _isBooking = false);
+        return;
       }
 
-//    await Future.wait(bookingQueue.map((e) =>
-//        widget.travelviser.book(e.keys.first, e.values.first, DateTime.now())));
+    try {
+      await Future.wait(
+          bookingQueue.map((e) => widget.travelviser.book(e.item1, e.item2)));
+    } on InvalidBookingException catch (e) {
+      if (!mounted) return;
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+      setState(() => _isBooking = false);
+      return;
+    }
+    Navigator.of(context).pop(true);
   }
 
   @override
@@ -241,14 +279,15 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
             }),
       ),
       CheckboxListTile(
-        title: Text('Round Trip'),
-        subtitle: Text('Book back trip if available'),
+        title: Text(i18n('Campus/Tools/Travelviser/RoundTrip', context)),
+        subtitle:
+            Text(i18n('Campus/Tools/Travelviser/RoundTrip/Caption', context)),
         value: _roundTrip,
         onChanged: (v) => setState(() => _roundTrip = v),
       ),
       if (trips.isNotEmpty && !_roundTrip)
         ListTile(
-          title: Text('Select Trip'),
+          title: Text(i18n('Campus/Tools/Travelviser/SelectShift', context)),
           trailing: DropdownButton(
             value: _selectedTrip,
             items: trips[_selectedRoute]
@@ -292,7 +331,7 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
                   backgroundColor: Theme.of(context).canvasColor,
                   child:
                       Icon(Icons.close, color: Theme.of(context).accentColor),
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () => Navigator.of(context).pop(false),
                 ),
                 if (routes?.isNotEmpty ?? true)
                   FloatingActionButton(
