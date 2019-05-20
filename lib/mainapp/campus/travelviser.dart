@@ -173,10 +173,12 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
   List<Route> routes;
   Map<Route, List<Trip>> trips = {};
 
+  bool _roundTrip = true;
   Route _selectedRoute;
   Trip _selectedTrip;
 
-  bool get canBook => routes != null && routes.isNotEmpty;
+  bool _isBooking = false;
+  bool get canBook => !_isBooking && routes != null && routes.isNotEmpty;
 
   /// Load tickets.
   Future<Null> load() async {
@@ -187,6 +189,36 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
     trips = Map.fromIterables(routes,
         await Future.wait(routes.map((r) => widget.travelviser.getTrips(r))));
     if (mounted) setState(() {});
+  }
+
+  Future<Null> handleBooking(BuildContext context) async {
+    setState(() => _isBooking = true);
+    Set<Map<Route, Trip>> bookingQueue = {
+      {_selectedRoute: _selectedTrip}
+    };
+
+    // Get another route & trip if is round trip.
+    if (_roundTrip)
+      try {
+        var anotherRoute = routes
+            .where((r) =>
+                r != _selectedRoute &&
+                r.name.startsWith(_selectedRoute.name.split(']').first))
+            .first;
+        var anotherTrip = trips[anotherRoute].first;
+        bookingQueue.add({anotherRoute: anotherTrip});
+      } on StateError catch (_) {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text('Cannot Book round trip.'),
+          action: SnackBarAction(
+              label: 'Book separately',
+              onPressed: () => setState(() => _roundTrip = false)),
+        ));
+        setState(() => _isBooking = false);
+      }
+
+//    await Future.wait(bookingQueue.map((e) =>
+//        widget.travelviser.book(e.keys.first, e.values.first, DateTime.now())));
   }
 
   @override
@@ -208,7 +240,13 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
               _selectedRoute = route;
             }),
       ),
-      if (trips.isNotEmpty)
+      CheckboxListTile(
+        title: Text('Round Trip'),
+        subtitle: Text('Book back trip if available'),
+        value: _roundTrip,
+        onChanged: (v) => setState(() => _roundTrip = v),
+      ),
+      if (trips.isNotEmpty && !_roundTrip)
         ListTile(
           title: Text('Select Trip'),
           trailing: DropdownButton(
@@ -226,8 +264,8 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
+      body: Builder(builder: (context) {
+        return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -243,8 +281,7 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
             if (routes != null && routes.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: Builder(
-                    builder: (ctx) => Column(children: buildSelections(ctx))),
+                child: Column(children: buildSelections(context)),
               ),
             Divider(height: 40.0, color: Colors.transparent),
             Row(
@@ -261,13 +298,13 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
                   FloatingActionButton(
                     disabledElevation: 0.0,
                     child: Icon(Icons.check),
-                    onPressed: canBook ? () {} : null,
+                    onPressed: canBook ? () => handleBooking(context) : null,
                   )
               ],
             )
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

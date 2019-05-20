@@ -782,10 +782,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "1a787f9496920f8d578cf21034069903dd3d32b1"
+      resolved-ref: "0e4efbe13b50f36be39b2cf32a95c21162368b79"
       url: "git@cloud.xdea.xyz:XMUX/travelviser_dart.git"
     source: git
-    version: "0.0.1"
+    version: "0.2.0"
   typed_data:
     dependency: transitive
     description:
