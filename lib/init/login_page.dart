@@ -40,8 +40,7 @@ class LoginPage extends StatelessWidget {
                       icon: Icon(FontAwesomeIcons.googlePlay),
                       onPressed: () => launch(
                           'https://${BackendApiConfig.resourceAddress}/2018/01/01/gms/'),
-                      tooltip:
-                          i18n('SignInPage/ServiceDocs', context, app: 'l'),
+                      tooltip: i18n('SignInPage/GooglePlay', context, app: 'l'),
                     )
                   : Container(),
               IconButton(
@@ -49,7 +48,7 @@ class LoginPage extends StatelessWidget {
                 onPressed: () => launch(
                     'https://${BackendApiConfig.resourceAddress}/privacy.html',
                     forceWebView: true),
-                tooltip: i18n('SignInPage/ServiceDocs', context, app: 'l'),
+                tooltip: i18n('SignInPage/Privacy', context, app: 'l'),
               ),
               IconButton(
                 icon: Icon(FontAwesomeIcons.questionCircle),
