@@ -110,7 +110,7 @@ void postInit() async {
       }));
 
     var token = await firebase.messaging.getToken();
-    XMUXApi.instance.device(deviceInfo.fingerprint, token, deviceInfo.model);
+    XMUXApi.instance.device(deviceInfo.androidId, token, deviceInfo.model);
   }
 
   if (Platform.isIOS) {

@@ -86,11 +86,10 @@ class CampusPage extends StatelessWidget {
                   svg: 'res/campus/klia_express.svg',
                   title: 'Campus/Tools/KliaExpress',
                   path: '/Campus/Tools/KliaExpress'),
-              if (store.state.settingState.enableFunctionsUnderDev)
-                _ToolsButton(
-                    svg: 'res/campus/travelviser.svg',
-                    title: 'Campus/Tools/Travelviser',
-                    path: '/Campus/Tools/Travelviser'),
+              _ToolsButton(
+                  svg: 'res/campus/travelviser.svg',
+                  title: 'Campus/Tools/Travelviser',
+                  path: '/Campus/Tools/Travelviser'),
             ],
           ),
         ],
