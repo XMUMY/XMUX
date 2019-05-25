@@ -29,8 +29,16 @@ class Firebase {
 
   /// Update and parse remote configs.
   Future<Null> updateRemoteConfig() async {
-    await remoteConfig.fetch();
-    await remoteConfig.activateFetched();
+    try {
+      await remoteConfig.fetch();
+      await remoteConfig.activateFetched();
+    } catch (_) {
+      // Use old if fetch failed.
+      var staticRes = remoteConfig.getString('static_resources');
+      remoteConfigs.staticResources =
+          StaticResources.fromJson(jsonDecode(staticRes));
+      rethrow;
+    }
     var staticRes = remoteConfig.getString('static_resources');
     remoteConfigs.staticResources =
         StaticResources.fromJson(jsonDecode(staticRes));
