@@ -313,9 +313,11 @@ packages:
   flutter_vpn:
     dependency: "direct main"
     description:
-      name: flutter_vpn
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: rm-ios
+      resolved-ref: "93044b885cf67d707083aca9919d20584e64c081"
+      url: "https://github.com/X-dea/Flutter_VPN.git"
+    source: git
     version: "0.4.0"
   flutter_webview_plugin:
     dependency: "direct main"
