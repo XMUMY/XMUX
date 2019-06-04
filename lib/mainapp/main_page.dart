@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/calendar_page.dart';
@@ -23,6 +24,10 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
+    // Lock the screen orientation.
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
     // Add listener for drawer.
     _drawerListener = store.onChange.listen((s) {
       if (s.uiState.drawerIsOpen) {

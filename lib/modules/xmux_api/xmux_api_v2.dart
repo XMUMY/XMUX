@@ -116,7 +116,7 @@ class XMUXApi {
     // Add system language to header.
     _dio.options.headers.addAll({
       'Accept-Language':
-          '${Platform.localeName.replaceAll('_', '-')},${Platform.localeName?.substring(0, 2)};q=0.9',
+          '${Platform.localeName?.replaceAll('_', '-') ?? "en-US"},${Platform.localeName?.substring(0, 2) ?? "en"};q=0.9',
     });
 
     // Add JWT token if exist.

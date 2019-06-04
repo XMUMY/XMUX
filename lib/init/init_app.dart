@@ -8,25 +8,30 @@ class InitApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.black,
-        body: DecoratedBox(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage('res/initpage.jpg'),
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'χ',
-                style: TextStyle(color: Colors.white, fontSize: 120.0),
+        body: LayoutBuilder(builder: (context, constraints) {
+          return DecoratedBox(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: constraints.maxHeight / constraints.maxWidth > 16 / 9
+                    ? BoxFit.fitHeight
+                    : BoxFit.fitWidth,
+                alignment: Alignment.bottomCenter,
+                image: AssetImage('res/initpage.jpg'),
               ),
-              Divider(height: 30.0, color: Colors.transparent),
-              SpinKitThreeBounce(color: Colors.white, size: 30.0),
-            ],
-          ),
-        ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'χ',
+                  style: TextStyle(color: Colors.white, fontSize: 120.0),
+                ),
+                Divider(height: 30.0, color: Colors.transparent),
+                SpinKitThreeBounce(color: Colors.white, size: 30.0),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

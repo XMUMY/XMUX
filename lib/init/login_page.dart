@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -11,7 +12,6 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/init/init_handler.dart';
 import 'package:xmux/init/login_handler.dart';
 import 'package:xmux/mainapp/main_app.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 class LoginPage extends StatelessWidget {
   // Form key for id & password.
@@ -19,18 +19,72 @@ class LoginPage extends StatelessWidget {
   final _passwordFormKey = GlobalKey<FormFieldState<String>>();
 
   @override
-  Widget build(BuildContext context) => Stack(
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      var mainWidgets = Container(
+        width: min(constraints.maxWidth, 450.0),
+        margin: EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            AnimatedLogo(),
+            TextFormField(
+              key: _usernameFormKey,
+              decoration: InputDecoration(
+                hintText: i18n('SignInPage/CampusID', context, app: 'l'),
+                hintStyle: TextStyle(color: Colors.white70),
+                icon: Icon(
+                  Icons.account_box,
+                  color: Colors.white,
+                ),
+              ),
+              validator: (s) =>
+                  RegExp(r'^[A-Za-z]{3}[0-9]{7}$|^[0-9]{7}$').hasMatch(s)
+                      ? null
+                      : i18n('SignInPage/FormatError', context, app: 'l'),
+            ),
+            TextFormField(
+              key: _passwordFormKey,
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: i18n('SignInPage/Password', context, app: 'l'),
+                hintStyle: TextStyle(color: Colors.white70),
+                icon: Icon(
+                  Icons.lock,
+                  color: Colors.white,
+                ),
+              ),
+              validator: (s) => s.isNotEmpty
+                  ? null
+                  : i18n('SignInPage/FormatError', context, app: 'l'),
+            ),
+            Divider(color: Colors.transparent),
+            _LoginButton(_usernameFormKey, _passwordFormKey),
+            Divider(color: Colors.transparent),
+            Text(
+              i18n('SignInPage/Read', context, app: 'l'),
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.redAccent),
+            )
+          ],
+        ),
+      );
+
+      return Stack(
         fit: StackFit.expand,
         children: <Widget>[
           // Background image.
           Image(
             image: AssetImage('res/initpage.jpg'),
-            fit: BoxFit.fill,
+            fit: constraints.maxHeight / constraints.maxWidth > 16 / 9
+                ? BoxFit.fitHeight
+                : BoxFit.fitWidth,
+            alignment: Alignment.bottomCenter,
             color: Colors.black45,
             colorBlendMode: BlendMode.darken,
           ),
 
-          // Bottom button.
+          // Bottom buttons.
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -39,7 +93,7 @@ class LoginPage extends StatelessWidget {
                   ? IconButton(
                       icon: Icon(FontAwesomeIcons.googlePlay),
                       onPressed: () => launch(
-                          'https://${BackendApiConfig.resourceAddress}/2018/01/01/gms/'),
+                          'https://${BackendApiConfig.resourceAddress}/2019/01/01/gms/'),
                       tooltip: i18n('SignInPage/GooglePlay', context, app: 'l'),
                     )
                   : Container(),
@@ -60,74 +114,24 @@ class LoginPage extends StatelessWidget {
           ),
 
           // Main widgets.
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
-                child: Column(
-                  children: <Widget>[
-                    AnimatedLogo(),
-                    TextFormField(
-                      key: _usernameFormKey,
-                      decoration: InputDecoration(
-                        hintText:
-                            i18n('SignInPage/CampusID', context, app: 'l'),
-                        hintStyle: TextStyle(color: Colors.white70),
-                        icon: Icon(
-                          Icons.account_box,
-                          color: Colors.white,
-                        ),
-                      ),
-                      validator: (s) => RegExp(
-                                  r'^[A-Za-z]{3}[0-9]{7}$|^[0-9]{7}$')
-                              .hasMatch(s)
-                          ? null
-                          : i18n('SignInPage/FormatError', context, app: 'l'),
-                    ),
-                    TextFormField(
-                      key: _passwordFormKey,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText:
-                            i18n('SignInPage/Password', context, app: 'l'),
-                        hintStyle: TextStyle(color: Colors.white70),
-                        icon: Icon(
-                          Icons.lock,
-                          color: Colors.white,
-                        ),
-                      ),
-                      validator: (s) => s.isNotEmpty
-                          ? null
-                          : i18n('SignInPage/FormatError', context, app: 'l'),
-                    ),
-                  ],
-                ),
-              ),
-              LoginButton(_usernameFormKey, _passwordFormKey),
-              Divider(color: Colors.transparent),
-              Text(
-                i18n('SignInPage/Read', context, app: 'l'),
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.redAccent),
-              )
-            ],
-          ),
+          Center(child: mainWidgets),
         ],
       );
+    });
+  }
 }
 
-class LoginButton extends StatefulWidget {
+class _LoginButton extends StatefulWidget {
   final GlobalKey<FormFieldState<String>> _usernameFormKey;
   final GlobalKey<FormFieldState<String>> _passwordFormKey;
 
-  LoginButton(this._usernameFormKey, this._passwordFormKey);
+  _LoginButton(this._usernameFormKey, this._passwordFormKey);
 
   @override
   _LoginButtonState createState() => _LoginButtonState();
 }
 
-class _LoginButtonState extends State<LoginButton> {
+class _LoginButtonState extends State<_LoginButton> {
   bool _isProcessing = false;
 
   Future<Null> _handleSignIn() async {
@@ -171,7 +175,6 @@ class _LoginButtonState extends State<LoginButton> {
     // Continue init.
     await LoginHandler.createUser();
     initFCM();
-    XMUXApi.instance.getIdToken = firebaseUser.getIdToken;
 
     postInit();
   }
