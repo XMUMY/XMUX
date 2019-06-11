@@ -1,55 +1,57 @@
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'model.g.dart';
 
 @JsonSerializable()
 class EmgsApplicationResult {
-  @JsonKey(name: 'FullName')
+  @JsonKey(name: 'applicant_fullname')
   final String fullName;
-  @JsonKey(name: 'TravelDocumentNumber')
+  @JsonKey(name: 'applicant_traveldocno')
   final String travelDocumentNumber;
-  @JsonKey(name: 'ApplicationNumber')
-  final String applicationNumber;
-  @JsonKey(name: 'ApplicationType')
+  @JsonKey(name: 'applicant_id')
+  final String applicationId;
+  @JsonKey(name: 'type')
   final String applicationType;
-  @JsonKey(name: 'ApplicationStatus')
+  @JsonKey(name: 'state')
   final String applicationStatus;
-
-  final double percentage;
+  @JsonKey(name: 'status_historys')
   final List<EmgsHistoryRecord> history;
 
   EmgsApplicationResult(
       this.fullName,
       this.travelDocumentNumber,
-      this.applicationNumber,
+      this.applicationId,
       this.applicationType,
       this.applicationStatus,
-      this.percentage,
       this.history);
 
   factory EmgsApplicationResult.fromJson(Map<String, dynamic> json) =>
       _$EmgsApplicationResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$EmgsApplicationResultToJson(this);
+
+  double get percentage =>
+      history.reduce((a, b) => a.percentage > b.percentage ? a : b).percentage;
 }
 
 @JsonSerializable()
 class EmgsHistoryRecord {
-  @JsonKey(fromJson: _dateTimeFromJson)
+  @JsonKey(name: 'created_at', fromJson: _dateTimeFromJson)
   final DateTime date;
+  @JsonKey(name: 'status_title')
   final String status;
   final String remark;
+  @JsonKey(name: 'complete', fromJson: double.parse)
+  final double percentage;
 
-  EmgsHistoryRecord(this.date, this.status, this.remark);
+  EmgsHistoryRecord(this.date, this.status, this.remark, this.percentage);
 
   factory EmgsHistoryRecord.fromJson(Map<String, dynamic> json) =>
       _$EmgsHistoryRecordFromJson(json);
 
   Map<String, dynamic> toJson() => _$EmgsHistoryRecordToJson(this);
 
-  static DateTime _dateTimeFromJson(String json) {
-    if (!json.contains('/')) return DateTime.parse(json);
-    var l = json.split('/').map((e) => int.parse(e)).toList();
-    return DateTime(l[2], l[1], l[0]);
-  }
+  static DateTime _dateTimeFromJson(String json) =>
+      DateFormat('d/M/y').parse(json);
 }

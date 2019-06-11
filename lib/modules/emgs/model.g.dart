@@ -9,13 +9,12 @@ part of 'model.dart';
 EmgsApplicationResult _$EmgsApplicationResultFromJson(
     Map<String, dynamic> json) {
   return EmgsApplicationResult(
-      json['FullName'] as String,
-      json['TravelDocumentNumber'] as String,
-      json['ApplicationNumber'] as String,
-      json['ApplicationType'] as String,
-      json['ApplicationStatus'] as String,
-      (json['percentage'] as num)?.toDouble(),
-      (json['history'] as List)
+      json['applicant_fullname'] as String,
+      json['applicant_traveldocno'] as String,
+      json['applicant_id'] as String,
+      json['type'] as String,
+      json['state'] as String,
+      (json['status_historys'] as List)
           ?.map((e) => e == null
               ? null
               : EmgsHistoryRecord.fromJson(e as Map<String, dynamic>))
@@ -25,27 +24,30 @@ EmgsApplicationResult _$EmgsApplicationResultFromJson(
 Map<String, dynamic> _$EmgsApplicationResultToJson(
         EmgsApplicationResult instance) =>
     <String, dynamic>{
-      'FullName': instance.fullName,
-      'TravelDocumentNumber': instance.travelDocumentNumber,
-      'ApplicationNumber': instance.applicationNumber,
-      'ApplicationType': instance.applicationType,
-      'ApplicationStatus': instance.applicationStatus,
-      'percentage': instance.percentage,
-      'history': instance.history
+      'applicant_fullname': instance.fullName,
+      'applicant_traveldocno': instance.travelDocumentNumber,
+      'applicant_id': instance.applicationId,
+      'type': instance.applicationType,
+      'state': instance.applicationStatus,
+      'status_historys': instance.history
     };
 
 EmgsHistoryRecord _$EmgsHistoryRecordFromJson(Map<String, dynamic> json) {
   return EmgsHistoryRecord(
-      json['date'] == null
+      json['created_at'] == null
           ? null
-          : EmgsHistoryRecord._dateTimeFromJson(json['date'] as String),
-      json['status'] as String,
-      json['remark'] as String);
+          : EmgsHistoryRecord._dateTimeFromJson(json['created_at'] as String),
+      json['status_title'] as String,
+      json['remark'] as String,
+      json['complete'] == null
+          ? null
+          : double.parse(json['complete'] as String));
 }
 
 Map<String, dynamic> _$EmgsHistoryRecordToJson(EmgsHistoryRecord instance) =>
     <String, dynamic>{
-      'date': instance.date?.toIso8601String(),
-      'status': instance.status,
-      'remark': instance.remark
+      'created_at': instance.date?.toIso8601String(),
+      'status_title': instance.status,
+      'remark': instance.remark,
+      'complete': instance.percentage
     };

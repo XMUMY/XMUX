@@ -188,7 +188,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
                           ),
                           Divider(height: 3.0, color: Colors.transparent),
                           Text(
-                            widget._result.applicationNumber,
+                            widget._result.applicationId,
                           ),
                         ],
                       ),
@@ -222,28 +222,27 @@ class _EmgsDetailsState extends State<EmgsDetails>
             style: Theme.of(context).textTheme.title,
           ),
         ),
-        ListView.builder(
+        ListView.separated(
           padding: const EdgeInsets.all(8.0),
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           itemCount: widget._result.history.length * 2 - 1,
-          itemBuilder: (context, index) => index % 2 == 0
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      widget._result.history[(index + 1) ~/ 2].status,
-                      style: Theme.of(context).textTheme.subhead,
-                    ),
-                    Text(
-                      DateFormat.yMd().format(
-                          widget._result.history[(index + 1) ~/ 2].date),
-                      style: Theme.of(context).textTheme.caption,
-                    ),
-                    Text(widget._result.history[(index + 1) ~/ 2].remark)
-                  ],
-                )
-              : Divider(),
+          itemBuilder: (context, index) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    widget._result.history[(index + 1) ~/ 2].status,
+                    style: Theme.of(context).textTheme.subhead,
+                  ),
+                  Text(
+                    DateFormat.yMd()
+                        .format(widget._result.history[(index + 1) ~/ 2].date),
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  Text(widget._result.history[(index + 1) ~/ 2].remark)
+                ],
+              ),
+          separatorBuilder: (context, index) => Divider(),
         )
       ],
     );
