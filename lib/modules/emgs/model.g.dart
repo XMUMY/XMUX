@@ -46,8 +46,12 @@ EmgsHistoryRecord _$EmgsHistoryRecordFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$EmgsHistoryRecordToJson(EmgsHistoryRecord instance) =>
     <String, dynamic>{
-      'created_at': instance.date?.toIso8601String(),
+      'created_at': instance.date == null
+          ? null
+          : EmgsHistoryRecord._dateTimeToJson(instance.date),
       'status_title': instance.status,
       'remark': instance.remark,
-      'complete': instance.percentage
+      'complete': instance.percentage == null
+          ? null
+          : EmgsHistoryRecord._percentageToJson(instance.percentage)
     };

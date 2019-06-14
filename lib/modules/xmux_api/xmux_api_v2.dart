@@ -99,7 +99,7 @@ class XMUXApi {
     selectingServer = selectServer();
 
     // Dio options.
-    _dio.options.connectTimeout = 3000;
+    _dio.options.connectTimeout = 5000;
     configure();
 
     // Listen and reselect server when connectivity change.
@@ -152,7 +152,7 @@ class XMUXApi {
   Future<Map<String, bool>> get serverStatus async {
     var res = await Future.wait(addresses.map((String address) async {
       var res = await _dio.get(address + '/test').timeout(
-          Duration(milliseconds: 2800),
+          Duration(milliseconds: 4800),
           onTimeout: () => Response(statusCode: 504));
       return res.statusCode == 200;
     }).toList());
@@ -168,7 +168,7 @@ class XMUXApi {
       var res = await _dio.get(address + '/test');
       if (res.statusCode == 200) return address;
     }))
-        .timeout(Duration(milliseconds: 3000), onTimeout: () => currentAddress)
+        .timeout(Duration(milliseconds: 5000), onTimeout: () => currentAddress)
         .catchError((e) => currentAddress);
 
     currentAddress = selected;

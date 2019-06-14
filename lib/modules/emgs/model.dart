@@ -37,12 +37,13 @@ class EmgsApplicationResult {
 
 @JsonSerializable()
 class EmgsHistoryRecord {
-  @JsonKey(name: 'created_at', fromJson: _dateTimeFromJson)
+  @JsonKey(
+      name: 'created_at', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
   final DateTime date;
   @JsonKey(name: 'status_title')
   final String status;
   final String remark;
-  @JsonKey(name: 'complete', fromJson: double.parse)
+  @JsonKey(name: 'complete', fromJson: double.parse, toJson: _percentageToJson)
   final double percentage;
 
   EmgsHistoryRecord(this.date, this.status, this.remark, this.percentage);
@@ -54,4 +55,9 @@ class EmgsHistoryRecord {
 
   static DateTime _dateTimeFromJson(String json) =>
       DateFormat('d/M/y').parse(json);
+
+  static String _dateTimeToJson(DateTime date) =>
+      DateFormat('d/M/y').format(date);
+
+  static String _percentageToJson(double percentage) => percentage.toString();
 }
