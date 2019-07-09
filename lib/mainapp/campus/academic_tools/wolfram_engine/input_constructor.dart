@@ -83,10 +83,10 @@ class _InputConstructorState extends State<InputConstructor> {
                     'Campus/AcademicTools/WolframEngine/InputConstructor/Choose',
                     context)),
                 onChanged: (String command) => setState(() {
-                      _inputTextController.text += command;
-                      _inputTextController.selection = TextSelection.collapsed(
-                          offset: _inputTextController.text.length);
-                    }),
+                  _inputTextController.text += command;
+                  _inputTextController.selection = TextSelection.collapsed(
+                      offset: _inputTextController.text.length);
+                }),
                 items: <String>[
                   'solve',
                   'upper triangular',

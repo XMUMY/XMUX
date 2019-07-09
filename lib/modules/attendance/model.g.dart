@@ -9,6 +9,7 @@ part of 'model.dart';
 AttendanceRecord _$AttendanceRecordFromJson(Map<String, dynamic> json) {
   return AttendanceRecord(
       _$enumDecodeNullable(_$AttendanceStatusEnumMap, json['status']),
+      json['courseid'] as String,
       json['message'] as String,
       json['timestamp'] == null
           ? null
@@ -18,6 +19,7 @@ AttendanceRecord _$AttendanceRecordFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$AttendanceRecordToJson(AttendanceRecord instance) =>
     <String, dynamic>{
       'status': _$AttendanceStatusEnumMap[instance.status],
+      'courseid': instance.cid,
       'message': instance.message,
       'timestamp': instance.timestamp?.toIso8601String()
     };
@@ -46,4 +48,24 @@ const _$AttendanceStatusEnumMap = <AttendanceStatus, dynamic>{
   AttendanceStatus.marked: 'marked',
   AttendanceStatus.success: 'success',
   AttendanceStatus.failed: 'failed'
+};
+
+AttendResult _$AttendResultFromJson(Map<String, dynamic> json) {
+  return AttendResult(
+      _$enumDecodeNullable(_$AttendStatusEnumMap, json['status']),
+      json['message'] as String,
+      json['id'] as String);
+}
+
+Map<String, dynamic> _$AttendResultToJson(AttendResult instance) =>
+    <String, dynamic>{
+      'status': _$AttendStatusEnumMap[instance.status],
+      'message': instance.message,
+      'id': instance.id
+    };
+
+const _$AttendStatusEnumMap = <AttendStatus, dynamic>{
+  AttendStatus.marked: 'marked',
+  AttendStatus.duplicated: 'duplicated',
+  AttendStatus.failed: 'failed'
 };

@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/assignment.dart';
-import 'package:xmux/mainapp/calendar/exams.dart';
+import 'package:xmux/mainapp/calendar/exam.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -23,11 +23,17 @@ class CalendarPage extends StatelessWidget {
           title: Text(i18n('Calendar', context)),
           actions: <Widget>[
             IconButton(
-                icon: Icon(FontAwesomeIcons.calendarAlt),
-                tooltip: i18n('Calendar/Academic', context),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/Calendar/CalendarImage');
-                })
+              icon: Icon(FontAwesomeIcons.history),
+              tooltip: i18n('Calendar/SignInHistory', context),
+              onPressed: () =>
+                  Navigator.of(context).pushNamed('/Calendar/SignInHistory'),
+            ),
+            IconButton(
+              icon: Icon(FontAwesomeIcons.calendarAlt),
+              tooltip: i18n('Calendar/Academic', context),
+              onPressed: () =>
+                  Navigator.of(context).pushNamed('/Calendar/CalendarImage'),
+            )
           ],
           bottom: TabBar(isScrollable: false, tabs: <Tab>[
             Tab(
@@ -44,10 +50,10 @@ class CalendarPage extends StatelessWidget {
         body: StoreConnector<MainAppState, AcState>(
           builder: (BuildContext context, acState) =>
               TabBarView(children: <Widget>[
-                TimeTablePage(acState.timetable),
-                ExamsPage(acState.exams),
-                AssignmentPage(acState.assignments),
-              ]),
+            TimeTablePage(acState.timetable),
+            ExamsPage(acState.exams),
+            AssignmentPage(acState.assignments),
+          ]),
           converter: (s) => s.state.acState,
         ),
       ),

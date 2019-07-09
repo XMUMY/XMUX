@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/calendar/calendar_page.dart';
+import 'package:xmux/mainapp/calendar/calendar.dart';
 import 'package:xmux/mainapp/campus/campus_page.dart';
 import 'package:xmux/mainapp/drawer.dart';
 import 'package:xmux/mainapp/explore/explore_page.dart';
@@ -98,9 +98,9 @@ class _MainPageState extends State<MainPage> {
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.shifting,
         onTap: (int index) => setState(() {
-              _currentIndex = index;
-              _bottomNavigationBarElevation = _currentIndex == 3 ? 0.0 : 8.0;
-            }),
+          _currentIndex = index;
+          _bottomNavigationBarElevation = _currentIndex == 3 ? 0.0 : 8.0;
+        }),
       ),
 
       // Drawers.

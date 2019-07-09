@@ -41,8 +41,8 @@ class _HomeSliderState extends State<HomeSlider> {
                 ?.toList() ??
             [SvgPicture.asset("res/home/news.svg")],
         builder: (_, pages) => SimpleSlider(
-              pages: pages,
-              autoPlayDuration: Duration(seconds: 4),
-            ),
+          pages: pages,
+          autoPlayDuration: Duration(seconds: 4),
+        ),
       );
 }

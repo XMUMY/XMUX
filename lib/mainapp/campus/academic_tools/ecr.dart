@@ -82,11 +82,11 @@ class _ElectiveCourseRegistrationPageState
               ],
             ),
             onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => ElectiveCourseRegistrationFormPage(
-                        widget.ecr.getForm(course.entry)),
-                  ),
-                ),
+              MaterialPageRoute(
+                builder: (_) => ElectiveCourseRegistrationFormPage(
+                    widget.ecr.getForm(course.entry)),
+              ),
+            ),
           ),
         );
       },

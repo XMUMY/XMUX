@@ -64,9 +64,9 @@ class _EmgsPageState extends State<EmgsPage> {
           imageUrl:
               'https://educationmalaysia.gov.my/skin/frontend/emgs/default/images/logo-emgs.png',
           placeholder: (ctx, _) => Text(
-                i18n('Tools/Emgs', context),
-                style: Theme.of(context).textTheme.title,
-              ),
+            i18n('Tools/Emgs', context),
+            style: Theme.of(context).textTheme.title,
+          ),
         ),
         backgroundColor: Theme.of(context).canvasColor,
         elevation: _elevation,
@@ -228,20 +228,20 @@ class _EmgsDetailsState extends State<EmgsDetails>
           physics: ClampingScrollPhysics(),
           itemCount: widget._result.history.length * 2 - 1,
           itemBuilder: (context, index) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    widget._result.history[(index + 1) ~/ 2].status,
-                    style: Theme.of(context).textTheme.subhead,
-                  ),
-                  Text(
-                    DateFormat.yMd()
-                        .format(widget._result.history[(index + 1) ~/ 2].date),
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                  Text(widget._result.history[(index + 1) ~/ 2].remark)
-                ],
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                widget._result.history[(index + 1) ~/ 2].status,
+                style: Theme.of(context).textTheme.subhead,
               ),
+              Text(
+                DateFormat.yMd()
+                    .format(widget._result.history[(index + 1) ~/ 2].date),
+                style: Theme.of(context).textTheme.caption,
+              ),
+              Text(widget._result.history[(index + 1) ~/ 2].remark)
+            ],
+          ),
           separatorBuilder: (context, index) => Divider(),
         )
       ],

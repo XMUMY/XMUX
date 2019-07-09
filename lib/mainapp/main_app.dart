@@ -9,6 +9,7 @@ import 'package:xmux/translations/translation.dart';
 
 import 'about.dart';
 import 'calendar/academic_calendar.dart';
+import 'calendar/sign_in_history.dart';
 import 'campus/academic_tools/ecr.dart';
 import 'campus/academic_tools/exam_result.dart';
 import 'campus/academic_tools/geogebra.dart';
@@ -34,6 +35,7 @@ class MainApp extends StatelessWidget {
   static final routes = <String, WidgetBuilder>{
     '/About': (_) => AboutPage(),
     '/Calendar/CalendarImage': (_) => AcademicCalendarPage(),
+    '/Calendar/SignInHistory': (_) => SignInHistoryPage(),
     '/Campus/ACTools/Details': (_) => AcademicToolDetailsPage(),
     '/Campus/ACTools/ExamResult': (_) => ExamResultPage(),
     '/Campus/ACTools/WolframEngine': (_) => InputConstructor(),

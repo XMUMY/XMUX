@@ -144,11 +144,11 @@ class _TravelviserPageState extends State<TravelviserPage> {
                         physics: ClampingScrollPhysics(),
                         itemCount: _bookedRecords.length,
                         itemBuilder: (_, index) => AnimatedInsertion(
-                              (_, animation) => FadeTransition(
-                                  opacity: animation,
-                                  child: _buildBookedRecord(
-                                      context, _bookedRecords[index])),
-                            ),
+                          (_, animation) => FadeTransition(
+                              opacity: animation,
+                              child: _buildBookedRecord(
+                                  context, _bookedRecords[index])),
+                        ),
                       ),
                       Divider(color: Colors.transparent),
                       Text(
@@ -285,9 +285,9 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
                 DropdownMenuItem(child: Text(route.name), value: route))
             .toList(),
         onChanged: (route) => setState(() {
-              _selectedTrip = trips[route].first;
-              _selectedRoute = route;
-            }),
+          _selectedTrip = trips[route].first;
+          _selectedRoute = route;
+        }),
       ),
       CheckboxListTile(
         title: Text(i18n('Campus/Tools/Travelviser/New/RoundTrip', context)),

@@ -21,8 +21,21 @@ class AttendanceApi {
   AttendanceApi._(this.address);
 
   /// Sign in a class.
-  Future<Null> attend(String uid, String cid, String ip) async {
-    // TODO: Handle attendance.
+  Future<AttendResult> attend(
+      String uid, String cid, String ip, List<int> signature) async {
+    var uri = Uri.parse('$address/attend.php');
+
+    var req = http.MultipartRequest('POST', uri);
+    req.fields['uid'] = uid;
+    req.fields['cid'] = cid;
+    req.fields['ip'] = ip;
+    req.files.add(http.MultipartFile.fromBytes('signature', signature));
+
+    var resStream = await req.send();
+    var res = await resStream.stream.bytesToString();
+    Map<String, dynamic> json = jsonDecode(res);
+
+    return AttendResult.fromJson(json);
   }
 
   /// Get attendance record status by ID.
@@ -35,11 +48,10 @@ class AttendanceApi {
 
   /// Get attendance history.
   Future<List<AttendanceRecord>> getHistory(String uid, {String cid}) async {
-    var uri = Uri.parse('$address/history.php')
-      ..replace(queryParameters: {
-        'uid': uid,
-        if (cid != null) 'cid': cid,
-      });
+    var uri = Uri.parse('$address/history.php').replace(queryParameters: {
+      'uid': uid,
+      if (cid != null) 'cid': cid,
+    });
     var res = await http.get(uri);
     List json = jsonDecode(res.body);
 

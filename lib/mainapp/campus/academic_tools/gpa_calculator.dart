@@ -45,20 +45,20 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
   Widget _buildList() => ListView.builder(
         itemCount: courses.length,
         itemBuilder: (_, index) => ListTile(
-              title: Text(courses[index].name),
-              trailing: DropdownButton<String>(
-                value: courses[index].chosenGrade,
-                items: GPACalculatorPage.gradePoints.keys
-                    .toList()
-                    .map((point) => DropdownMenuItem<String>(
-                          value: point,
-                          child: Text(point),
-                        ))
-                    .toList(),
-                onChanged: (grade) =>
-                    setState(() => courses[index].chosenGrade = grade),
-              ),
-            ),
+          title: Text(courses[index].name),
+          trailing: DropdownButton<String>(
+            value: courses[index].chosenGrade,
+            items: GPACalculatorPage.gradePoints.keys
+                .toList()
+                .map((point) => DropdownMenuItem<String>(
+                      value: point,
+                      child: Text(point),
+                    ))
+                .toList(),
+            onChanged: (grade) =>
+                setState(() => courses[index].chosenGrade = grade),
+          ),
+        ),
       );
 
   @override

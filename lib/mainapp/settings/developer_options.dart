@@ -32,15 +32,15 @@ class DeveloperOptionsPage extends StatelessWidget {
             converter: (store) =>
                 store.state.settingState.enableFunctionsUnderDev,
             builder: (context, value) => SwitchListTile(
-                  title: Text(i18n(
-                      'Settings/DeveloperOptions/EnFuncsUnderDev', context)),
-                  subtitle: Text(i18n(
-                      'Settings/DeveloperOptions/EnFuncsUnderDev/Caption',
-                      context)),
-                  value: value,
-                  onChanged: (v) =>
-                      store.dispatch(EnableFunctionsUnderDevAction(!value)),
-                ),
+              title: Text(
+                  i18n('Settings/DeveloperOptions/EnFuncsUnderDev', context)),
+              subtitle: Text(i18n(
+                  'Settings/DeveloperOptions/EnFuncsUnderDev/Caption',
+                  context)),
+              value: value,
+              onChanged: (v) =>
+                  store.dispatch(EnableFunctionsUnderDevAction(!value)),
+            ),
           ),
 
           // XMUX API address selector.
