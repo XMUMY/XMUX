@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/emgs/emgs.dart' as emgs show getCountryCode;
-import 'package:xmux/modules/sketch/sketch.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -102,11 +101,6 @@ class DrawerPage extends StatelessWidget {
                     icon: Icons.error_outline,
                     color: Colors.red,
                   ),
-
-                  RaisedButton(
-                    onPressed: () => Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (_) => SketchPage())),
-                  )
                 ],
               ),
             ),
