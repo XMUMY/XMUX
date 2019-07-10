@@ -26,8 +26,10 @@ class SketchState extends State<Sketch> {
     _painter = _SingleBrushPainter(_points);
 
     return GestureDetector(
-      onPanUpdate: (details) =>
-          setState(() => _points.add(details.localPosition)),
+      onPanUpdate: (details) {
+        if (details.localPosition > Offset.zero)
+          setState(() => _points.add(details.localPosition));
+      },
       onPanStart: (details) =>
           setState(() => _points.add(details.localPosition)),
       onPanEnd: (details) => setState(() => _points.add(null)),
