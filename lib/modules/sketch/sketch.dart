@@ -18,6 +18,9 @@ class SketchState extends State<Sketch> {
   /// Painter stored for image recording.
   _SingleBrushPainter _painter;
 
+  /// Clear the sketch.
+  void clear() => setState(() => _points.clear());
+
   /// Get [ui.Image] from current sketch.
   Future<ui.Image> get image => _painter.image;
 

@@ -24,7 +24,9 @@ class _SingleBrushPainter extends CustomPainter {
     for (int i = 0; i < points.length; i++) {
       if (i == 0 || points[i - 1] == null)
         path.moveTo(points[i].dx, points[i].dy);
-      else if (points[i] != null) path.lineTo(points[i].dx, points[i].dy);
+      else if (points[i] != null &&
+          points[i].dx < size.width &&
+          points[i].dy < size.height) path.lineTo(points[i].dx, points[i].dy);
     }
 
     canvas.drawPath(path, brush);

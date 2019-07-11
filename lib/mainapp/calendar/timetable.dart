@@ -93,17 +93,14 @@ class LessonCard extends StatefulWidget {
   _LessonCardState createState() => _LessonCardState();
 
   int get lessonCredit {
-    try {
-      return store.state.acState.courses
-          ?.firstWhere((c) => c.courseName.indexOf(lesson.courseName) != -1)
-          ?.credit;
-    } catch (e) {
+    return store.state.acState.courses?.firstWhere(
+        (c) => c.courseName.indexOf(lesson.courseName) != -1, orElse: () {
       var editDistances = store.state.acState.courses
           .map((c) => editDistance(c.courseName, lesson.courseName))
           .toList();
-      var index = editDistances.indexOf(editDistances.reduce(min));
-      return store.state.acState.courses[index].credit;
-    }
+      return store.state.acState
+          .courses[editDistances.indexOf(editDistances.reduce(min))];
+    })?.credit;
   }
 }
 
