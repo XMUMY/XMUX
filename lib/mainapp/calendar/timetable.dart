@@ -7,9 +7,11 @@ import 'package:intl/intl.dart';
 import 'package:xmux/components/blur_box.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
+import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/sign_in_button.dart';
 import 'package:xmux/modules/algorithms/algorithms.dart' show editDistance;
+import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -110,70 +112,44 @@ class _LessonCardState extends State<LessonCard> {
   void _showClassDetail() {
     // Prevent pop twice.
     var isPopping = false;
+    // TODO: Optimize performance for GaussianBlur.
     showGeneralDialog(
-        context: context,
-        barrierDismissible: true,
-        barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
-        transitionDuration: Duration(milliseconds: 400),
-        barrierColor: Colors.black12.withOpacity(0.2),
-        pageBuilder: (context, animation, _) {
-          return Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 8.0),
-                  width: MediaQuery.of(context).size.width / 1.3,
-                  child: Text(
-                    widget.lesson.courseName,
-                    style: Theme.of(context).textTheme.title,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Container(
-                  height: min(MediaQuery.of(context).size.height / 2, 350.0),
-                  width: MediaQuery.of(context).size.width / 1.3,
-                  child: ListView(
-                    padding: EdgeInsets.all(15.0),
-                    children: _buildDialogWidgetList(),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-        transitionBuilder: (context, animation, _, child) {
-          return GestureDetector(
-            onTap: () {
-              if (!isPopping) Navigator.of(context).pop();
-              isPopping = true;
-            },
-            child: GaussianBlurBox(
-              sigma: (animation.value * 30).round() / 10,
-              centered: true,
-              child: FadeTransition(
-                opacity: animation,
-                child: ScaleTransition(
-                  scale: Tween<double>(
-                    begin: 0.7,
-                    end: 1.0,
-                  ).animate(CurvedAnimation(
-                      parent: animation,
-                      curve: Curves.elasticOut,
-                      reverseCurve: Curves.fastOutSlowIn)),
-                  child: child,
-                ),
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      transitionDuration: Duration(milliseconds: 400),
+      barrierColor: Colors.black12.withOpacity(0.2),
+      pageBuilder: (context, _, __) => _buildDialogWidgets(),
+      transitionBuilder: (context, animation, _, child) {
+        return GestureDetector(
+          onTap: () {
+            if (!isPopping) Navigator.of(context).pop();
+            isPopping = true;
+          },
+          child: GaussianBlurBox(
+            sigma: (animation.value * 30).round() / 10,
+            centered: true,
+            child: FadeTransition(
+              opacity: animation,
+              child: ScaleTransition(
+                scale: Tween<double>(
+                  begin: 0.7,
+                  end: 1.0,
+                ).animate(CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.elasticOut,
+                    reverseCurve: Curves.fastOutSlowIn)),
+                child: child,
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
-  List<Widget> _buildDialogWidgetList() {
-    return [
+  Widget _buildDialogWidgets() {
+    var list = [
       Text(
           '${i18n('Calendar/ClassCard/Code', context)}: ${widget.lesson.courseCode}\n'
           '${i18n('Calendar/ClassCard/Credit', context)}: ${widget.lessonCredit}\n'
@@ -184,9 +160,60 @@ class _LessonCardState extends State<LessonCard> {
           '${i18n('Calendar/ClassCard/Room', context)}: ${widget.lesson.classroom}\n'
           '${i18n('Calendar/ClassCard/Lecturer', context)}: ${widget.lesson.lecturer}'),
       Divider(),
-      Text(
-          '${i18n('Calendar/SignIn/Status', context)}: Temporarily unavailable.')
+      Text('${i18n('Calendar/SignIn/Status', context)}'),
+      FutureBuilder<List<AttendanceRecord>>(
+        future: AttendanceApi(BackendApiConfig.signInAddress).getHistory(
+            store.state.authState.campusID,
+            cid: widget.lesson.courseCode),
+        builder: (ctx, snap) {
+          switch (snap.connectionState) {
+            case ConnectionState.done:
+              if (!snap.hasError)
+                return ListView(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  children: snap.data
+                      .map((e) => Text(
+                          '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
+                          '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
+                          '${e.message}'))
+                      .toList(),
+                );
+              else
+                return Center(child: CircularProgressIndicator());
+              break;
+            default:
+              return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
     ];
+
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 8.0),
+            width: MediaQuery.of(context).size.width / 1.3,
+            child: Text(
+              widget.lesson.courseName,
+              style: Theme.of(context).textTheme.title,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Container(
+            height: min(MediaQuery.of(context).size.height / 2, 350.0),
+            width: MediaQuery.of(context).size.width / 1.3,
+            child: ListView(
+              padding: EdgeInsets.all(15.0),
+              children: list,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -242,7 +269,7 @@ class _LessonCardState extends State<LessonCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '${widget.lesson.courseCode} '
+                              '${widget.lesson.courseCode}  '
                               'Week ${widget.lesson.weeks}\n'
                               '${widget.lesson.lecturer}',
                             ),

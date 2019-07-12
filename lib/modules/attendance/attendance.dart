@@ -26,8 +26,8 @@ class AttendanceApi {
     var uri = Uri.parse('$address/attend.php');
 
     var req = http.MultipartRequest('POST', uri);
-    req.fields['uid'] = uid;
-    req.fields['cid'] = cid;
+    req.fields['uid'] = uid.toUpperCase();
+    req.fields['cid'] = cid.toUpperCase();
     req.fields['ip'] = ip;
     req.files.add(http.MultipartFile.fromBytes('signature', signature));
 

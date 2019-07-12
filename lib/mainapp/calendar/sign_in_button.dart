@@ -2,9 +2,12 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/sketch/sketch.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
+import 'package:connectivity/connectivity.dart';
 
 class SignInButton extends StatefulWidget {
   /// Current Lesson.
@@ -29,20 +32,32 @@ class _SignInButtonState extends State<SignInButton> {
 
     var image = await showDialog<ui.Image>(
       context: context,
-      builder: (ctx) => _buildSignatureSketch(),
+      builder: (ctx) => _buildSignatureSketch(ctx),
     );
+
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
     var bytes = (await image.toByteData(format: ui.ImageByteFormat.png))
         .buffer
         .asUint8List();
 
-//    AttendanceApi(BackendApiConfig.signInAddress).attend(
-//        store.state.authState.campusID, widget.lesson.courseCode, '', bytes);
+    var ip = await Connectivity().getWifiIP();
+    if (ip == null) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(
+              'Cannot get your address. Please connect to WiFi and try again.')));
+      return;
+    }
 
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    var res = await AttendanceApi(BackendApiConfig.signInAddress).attend(
+        store.state.authState.campusID, widget.lesson.courseCode, ip, bytes);
+
+    if (res.status == AttendStatus.failed)
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text(res.message)));
   }
 
-  Widget _buildSignatureSketch() {
+  Widget _buildSignatureSketch(BuildContext ctx) {
     var key = GlobalKey<SketchState>();
 
     return Center(
@@ -55,7 +70,7 @@ class _SignInButtonState extends State<SignInButton> {
             Padding(
               padding: const EdgeInsets.only(left: 10.0, top: 10.0),
               child: Text(
-                'Sign your name here',
+                'Sign your name here | Landscape to get better experience',
                 style: Theme.of(context).textTheme.caption,
               ),
             ),
@@ -65,7 +80,7 @@ class _SignInButtonState extends State<SignInButton> {
               child: FloatingActionButton(
                 child: Icon(Icons.done),
                 onPressed: () async =>
-                    Navigator.of(context).pop(await key.currentState.image),
+                    Navigator.of(ctx).pop(await key.currentState.image),
               ),
             ),
           ]),
@@ -77,7 +92,7 @@ class _SignInButtonState extends State<SignInButton> {
   @override
   Widget build(BuildContext context) => widget._canSign
       ? FlatButton(
-          onPressed: widget._canSign ? () => _showSignInDialog() : null,
+          onPressed: _showSignInDialog,
           child: Text(i18n('Calendar/SignIn', context)),
         )
       : Container();
