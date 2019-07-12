@@ -8,6 +8,7 @@ enum AttendanceStatus { marked, success, failed }
 @JsonSerializable()
 class AttendanceRecord {
   final AttendanceStatus status;
+
   // TODO: Use cid instead.
   @JsonKey(name: 'courseid')
   final String cid;

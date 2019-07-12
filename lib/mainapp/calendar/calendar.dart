@@ -25,14 +25,14 @@ class CalendarPage extends StatelessWidget {
             IconButton(
               icon: Icon(FontAwesomeIcons.history),
               tooltip: i18n('Calendar/SignInHistory', context),
-              onPressed: () =>
-                  Navigator.of(context).pushNamed('/Calendar/SignInHistory'),
+              onPressed: () => Navigator.of(context, rootNavigator: true)
+                  .pushNamed('/Calendar/SignInHistory'),
             ),
             IconButton(
               icon: Icon(FontAwesomeIcons.calendarAlt),
               tooltip: i18n('Calendar/Academic', context),
-              onPressed: () =>
-                  Navigator.of(context).pushNamed('/Calendar/CalendarImage'),
+              onPressed: () => Navigator.of(context, rootNavigator: true)
+                  .pushNamed('/Calendar/CalendarImage'),
             )
           ],
           bottom: TabBar(isScrollable: false, tabs: <Tab>[

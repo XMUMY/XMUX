@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/calendar.dart';
 import 'package:xmux/mainapp/campus/campus_page.dart';
@@ -17,7 +18,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  /// Used to control the route for home pages.
+  final _homePageNavigatorKey = GlobalKey<NavigatorState>();
+
   StreamSubscription _drawerListener;
   var _currentIndex = 0;
   var _bottomNavigationBarElevation = 0.0;
@@ -51,25 +56,35 @@ class _MainPageState extends State<MainPage> {
       key: _scaffoldKey,
 
       // Main pages.
-      body: Stack(
-        children: <Widget>[
-          Offstage(
-            offstage: _currentIndex != 0,
-            child: HomePage(),
-          ),
-          Offstage(
-            offstage: _currentIndex != 1,
-            child: CalendarPage(),
-          ),
-          Offstage(
-            offstage: _currentIndex != 2,
-            child: CampusPage(),
-          ),
-          Offstage(
-            offstage: _currentIndex != 3,
-            child: ExplorePage(),
-          ),
-        ],
+      body: Navigator(
+        key: _homePageNavigatorKey,
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case '/':
+            case '/HomePages/0':
+              return FadePageRoute(
+                  transitionDuration: const Duration(milliseconds: 150),
+                  pageBuilder: (_, __, ___) => HomePage());
+              break;
+            case '/HomePages/1':
+              return FadePageRoute(
+                  transitionDuration: const Duration(milliseconds: 150),
+                  pageBuilder: (_, __, ___) => CalendarPage());
+              break;
+            case '/HomePages/2':
+              return FadePageRoute(
+                  transitionDuration: const Duration(milliseconds: 150),
+                  pageBuilder: (_, __, ___) => CampusPage());
+              break;
+            case '/HomePages/3':
+              return FadePageRoute(
+                  transitionDuration: const Duration(milliseconds: 150),
+                  pageBuilder: (_, __, ___) => ExplorePage());
+              break;
+            default:
+              return null;
+          }
+        },
       ),
 
       // Bottom navigation.
@@ -98,6 +113,8 @@ class _MainPageState extends State<MainPage> {
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.shifting,
         onTap: (int index) => setState(() {
+          _homePageNavigatorKey.currentState
+              .pushReplacementNamed('/HomePages/$index');
           _currentIndex = index;
           _bottomNavigationBarElevation = _currentIndex == 3 ? 0.0 : 8.0;
         }),

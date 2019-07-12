@@ -34,8 +34,8 @@ class CampusPage extends StatelessWidget {
             ),
             FlatButton(
               child: Text(i18n('Campus/More', context)),
-              onPressed: () =>
-                  Navigator.of(context).pushNamed('/Campus/ACTools/Details'),
+              onPressed: () => Navigator.of(context, rootNavigator: true)
+                  .pushNamed('/Campus/ACTools/Details'),
             ),
           ]),
           Divider(height: 3.0),
@@ -125,7 +125,8 @@ class _ToolsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => IconButton(
         icon: Hero(tag: child ?? svg, child: child ?? SvgPicture.asset(svg)),
-        onPressed: () => Navigator.of(context).pushNamed(path),
+        onPressed: () =>
+            Navigator.of(context, rootNavigator: true).pushNamed(path),
         tooltip: i18n(title, context),
         iconSize: MediaQuery.of(context).size.width / 6,
       );

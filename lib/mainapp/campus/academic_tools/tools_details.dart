@@ -101,7 +101,7 @@ class _AcademicPageCard extends StatelessWidget {
             ),
           ],
         ),
-        onPressed: () => Navigator.pushNamed(context, route),
+        onPressed: () => Navigator.of(context).pushNamed(route),
       ),
     );
   }

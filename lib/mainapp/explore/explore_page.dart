@@ -38,8 +38,8 @@ class ExplorePage extends StatelessWidget {
                     .subhead
                     .copyWith(color: Colors.white),
               ),
-              onTap: () =>
-                  Navigator.pushNamed(context, "/Explore/LostAndFound"),
+              onTap: () => Navigator.of(context, rootNavigator: true)
+                  .pushNamed("/Explore/LostAndFound"),
             ),
             ListTile(
               leading: Icon(Icons.chat, color: Colors.white70),
@@ -50,8 +50,9 @@ class ExplorePage extends StatelessWidget {
                     .subhead
                     .copyWith(color: Colors.white),
               ),
-              onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (_) => new GlobalChatroomPage())),
+              onTap: () => Navigator.of(context, rootNavigator: true).push(
+                  new MaterialPageRoute(
+                      builder: (_) => new GlobalChatroomPage())),
             ),
             ListTile(
               leading: Icon(Icons.store, color: Colors.white70),
@@ -62,7 +63,7 @@ class ExplorePage extends StatelessWidget {
                     .subhead
                     .copyWith(color: Colors.white),
               ),
-              onTap: () => Navigator.of(context).push(
+              onTap: () => Navigator.of(context, rootNavigator: true).push(
                   new MaterialPageRoute(builder: (_) => new FleaMarketPage())),
             ),
           ],
