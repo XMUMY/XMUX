@@ -7,7 +7,7 @@ import 'model.dart';
 export 'model.dart';
 
 /// Parse nationality to country code.
-/// Return `null` if unsupported.
+/// Return [null] if unsupported.
 String getCountryCode(String nationality) {
   switch (nationality) {
     case 'Chinese':

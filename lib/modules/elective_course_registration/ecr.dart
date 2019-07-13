@@ -16,7 +16,7 @@ class ElectiveCourseRegistration {
   ElectiveCourseRegistration(this._uid, this._password);
 
   /// Ensure login successfully with given credential.
-  /// Throws `Exception` if failed.
+  /// Throws [Exception] if failed.
   Future<Null> ensureLogin() async {
     try {
       await _dio.post('http://ac.xmu.edu.my/index.php?c=Login&a=login',
