@@ -4,7 +4,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:xmux/components/blur_box.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/config.dart';
@@ -109,117 +108,72 @@ class LessonCard extends StatefulWidget {
 class _LessonCardState extends State<LessonCard> {
   double _elevation = 1.0;
 
-  void _showClassDetail() {
-    // Prevent pop twice.
-    var isPopping = false;
-    // TODO: Optimize performance for GaussianBlur.
-    showGeneralDialog(
-      context: context,
-      barrierDismissible: true,
-      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-      transitionDuration: Duration(milliseconds: 400),
-      barrierColor: Colors.black12.withOpacity(0.2),
-      pageBuilder: (context, _, __) => _buildDialogWidgets(),
-      transitionBuilder: (context, animation, _, child) {
-        return GestureDetector(
-          onTap: () {
-            if (!isPopping) Navigator.of(context).pop();
-            isPopping = true;
-          },
-          child: GaussianBlurBox(
-            sigma: (animation.value * 30).round() / 10,
-            centered: true,
-            child: FadeTransition(
-              opacity: animation,
-              child: ScaleTransition(
-                scale: Tween<double>(
-                  begin: 0.7,
-                  end: 1.0,
-                ).animate(CurvedAnimation(
-                    parent: animation,
-                    curve: Curves.elasticOut,
-                    reverseCurve: Curves.fastOutSlowIn)),
-                child: child,
-              ),
-            ),
-          ),
-        );
+  Widget _buildDialogWidgets(BuildContext context) {
+    var attendance = FutureBuilder<List<AttendanceRecord>>(
+      future: AttendanceApi(BackendApiConfig.signInAddress).getHistory(
+          store.state.authState.campusID,
+          cid: widget.lesson.courseCode),
+      builder: (ctx, snap) {
+        switch (snap.connectionState) {
+          case ConnectionState.done:
+            if (!snap.hasError)
+              return ListView(
+                children: snap.data
+                    .map((e) => Text(
+                        '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
+                        '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
+                        '${e.message}'))
+                    .toList(),
+              );
+            else
+              return Center(child: CircularProgressIndicator());
+            break;
+          default:
+            return Center(child: CircularProgressIndicator());
+        }
       },
     );
-  }
 
-  Widget _buildDialogWidgets() {
-    var list = [
-      Text(
-          '${i18n('Calendar/ClassCard/Code', context)}: ${widget.lesson.courseCode}\n'
-          '${i18n('Calendar/ClassCard/Credit', context)}: ${widget.lessonCredit}\n'
-          '${i18n('Calendar/ClassCard/Weeks', context)}: ${widget.lesson.weeks}\n'
-          '${i18n('Calendar/ClassCard/Time', context)}: ${i18n('Weekdays/${widget.lesson.dayOfWeek + 1}', context)} '
-          '${widget.lesson.startTimeOfDay.format(context)} - '
-          '${widget.lesson.endTimeOfDay.format(context)}\n'
-          '${i18n('Calendar/ClassCard/Room', context)}: ${widget.lesson.classroom}\n'
-          '${i18n('Calendar/ClassCard/Lecturer', context)}: ${widget.lesson.lecturer}'),
-      Divider(),
-      Text('${i18n('Calendar/SignIn/Status', context)}'),
-      FutureBuilder<List<AttendanceRecord>>(
-        future: AttendanceApi(BackendApiConfig.signInAddress).getHistory(
-            store.state.authState.campusID,
-            cid: widget.lesson.courseCode),
-        builder: (ctx, snap) {
-          switch (snap.connectionState) {
-            case ConnectionState.done:
-              if (!snap.hasError)
-                return ListView(
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  children: snap.data
-                      .map((e) => Text(
-                          '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
-                          '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
-                          '${e.message}'))
-                      .toList(),
-                );
-              else
-                return Center(child: CircularProgressIndicator());
-              break;
-            default:
-              return Center(child: CircularProgressIndicator());
-          }
-        },
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),
+      title: Text(
+        widget.lesson.courseName,
+        style: Theme.of(context).textTheme.title,
+        textAlign: TextAlign.center,
       ),
-    ];
-
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 8.0),
-            width: MediaQuery.of(context).size.width / 1.3,
-            child: Text(
-              widget.lesson.courseName,
-              style: Theme.of(context).textTheme.title,
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Container(
-            height: min(MediaQuery.of(context).size.height / 2, 350.0),
-            width: MediaQuery.of(context).size.width / 1.3,
-            child: ListView(
-              padding: EdgeInsets.all(15.0),
-              children: list,
-            ),
-          ),
-        ],
-      ),
+      titlePadding:
+          const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+      contentPadding:
+          const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
+      children: <Widget>[
+        Text(
+            '${i18n('Calendar/ClassCard/Code', context)}: ${widget.lesson.courseCode}\n'
+            '${i18n('Calendar/ClassCard/Credit', context)}: ${widget.lessonCredit}\n'
+            '${i18n('Calendar/ClassCard/Weeks', context)}: ${widget.lesson.weeks}\n'
+            '${i18n('Calendar/ClassCard/Time', context)}: ${i18n('Weekdays/${widget.lesson.dayOfWeek + 1}', context)} '
+            '${widget.lesson.startTimeOfDay.format(context)} - '
+            '${widget.lesson.endTimeOfDay.format(context)}\n'
+            '${i18n('Calendar/ClassCard/Room', context)}: ${widget.lesson.classroom}\n'
+            '${i18n('Calendar/ClassCard/Lecturer', context)}: ${widget.lesson.lecturer}'),
+        Divider(),
+        Text('${i18n('Calendar/SignIn/Status', context)}'),
+        SizedBox(
+          height: min(MediaQuery.of(context).size.height / 3, 250.0),
+          width: MediaQuery.of(context).size.width / 1.3,
+          child: attendance,
+        ),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _showClassDetail,
+      onTap: () => showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: _buildDialogWidgets,
+      ),
       onTapDown: (_) => setState(() => _elevation = 4.0),
       onTapUp: (_) => setState(() => _elevation = 1.0),
       onTapCancel: () => setState(() => _elevation = 1.0),

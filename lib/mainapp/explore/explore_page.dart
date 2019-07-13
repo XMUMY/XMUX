@@ -1,6 +1,7 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:xmux/components/blur_box.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/explore/chat_room_page.dart';
 import 'package:xmux/mainapp/explore/flea_market/flea_market_page.dart';
@@ -81,8 +82,39 @@ class ExplorePage extends StatelessWidget {
         builder: (_, v) => (v == true)
             ? FloatingActionButton(
                 child: Icon(Icons.android),
-                onPressed: () =>
-                    showDialog(context: context, builder: (_) => xiA.page),
+                onPressed: () => showGeneralDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  barrierLabel: MaterialLocalizations.of(context)
+                      .modalBarrierDismissLabel,
+                  transitionDuration: Duration(milliseconds: 400),
+                  barrierColor: Colors.black12.withOpacity(0.2),
+                  pageBuilder: (context, _, __) => xiA.page,
+                  transitionBuilder: (context, animation, _, child) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: GaussianBlurBox(
+                        sigma: (animation.value * 30).round() / 10,
+                        centered: true,
+                        child: FadeTransition(
+                          opacity: animation,
+                          child: ScaleTransition(
+                            scale: Tween<double>(
+                              begin: 0.95,
+                              end: 1.0,
+                            ).animate(CurvedAnimation(
+                                parent: animation,
+                                curve: Curves.easeIn,
+                                reverseCurve: Curves.fastOutSlowIn)),
+                            child: child,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               )
             : Container(),
       ),
