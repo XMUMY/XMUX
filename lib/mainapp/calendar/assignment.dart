@@ -45,18 +45,18 @@ class _AssCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      margin: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
+      margin: const EdgeInsets.fromLTRB(5, 5, 5, 0),
       child: new Card(
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             new Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   new Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
+                    padding: const EdgeInsets.only(bottom: 8),
                     child: new Text(
                       assData.courseFullName,
                       style: Theme.of(context)
@@ -128,7 +128,7 @@ class _AssButton extends StatelessWidget {
             ],
           ),
           new Divider(
-            height: 5.0,
+            height: 5,
           )
         ],
       ),

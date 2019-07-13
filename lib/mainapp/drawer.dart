@@ -24,7 +24,7 @@ class DrawerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 250.0,
+      width: 250,
       child: Drawer(
         child: Column(
           children: <Widget>[
@@ -35,14 +35,14 @@ class DrawerPage extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(10),
                       child: Hero(
                         tag: 'UserAvatar',
                         child: CircleAvatar(
                           backgroundImage: NetworkImage(
                               XMUXApi.convertAvatarUrl(firebaseUser?.photoUrl,
                                   store.state.authState.moodleKey)),
-                          radius: 30.0,
+                          radius: 30,
                         ),
                       ),
                     ),
@@ -116,7 +116,7 @@ class DrawerPage extends StatelessWidget {
                 builder: (_, isDark) => IconButton(
                   icon: Icon(
                     FontAwesomeIcons.moon,
-                    size: 20.0,
+                    size: 20,
                     color: isDark
                         ? Colors.cyan
                         : Theme.of(context).iconTheme.color,
@@ -139,7 +139,7 @@ class EndDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150.0,
+      width: 150,
       child: Drawer(
         child: Column(
           children: <Widget>[
@@ -147,14 +147,14 @@ class EndDrawer extends StatelessWidget {
               child: Hero(
                 tag: 'χLogo',
                 child: CircleAvatar(
-                  radius: 40.0,
-                  child: Text('X', style: TextStyle(fontSize: 50.0)),
+                  radius: 40,
+                  child: Text('X', style: TextStyle(fontSize: 50)),
                   backgroundColor: Colors.black,
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.all(15.0),
+              margin: EdgeInsets.all(15),
               child: Column(
                 children: <Widget>[
                   Text('Designed by χ'),

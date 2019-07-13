@@ -182,13 +182,13 @@ class _LoginButtonState extends State<_LoginButton> {
   @override
   Widget build(BuildContext context) {
     return _isProcessing
-        ? SpinKitDoubleBounce(color: Colors.white, size: 40.0)
+        ? SpinKitDoubleBounce(color: Colors.white, size: 40)
         : OutlineButton(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Container(
-              width: 120.0,
-              height: 40.0,
+              width: 120,
+              height: 40,
               child: Center(
                 child: Text(i18n('SignInPage/SignIn', context, app: 'l')),
               ),

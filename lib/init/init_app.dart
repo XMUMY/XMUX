@@ -24,10 +24,10 @@ class InitApp extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'χ',
-                  style: TextStyle(color: Colors.white, fontSize: 120.0),
+                  style: TextStyle(color: Colors.white, fontSize: 120),
                 ),
-                Divider(height: 30.0, color: Colors.transparent),
-                SpinKitThreeBounce(color: Colors.white, size: 30.0),
+                Divider(height: 30, color: Colors.transparent),
+                SpinKitThreeBounce(color: Colors.white, size: 30),
               ],
             ),
           );

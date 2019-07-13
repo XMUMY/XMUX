@@ -35,7 +35,7 @@ class MainApp extends StatelessWidget {
   static final routes = <String, WidgetBuilder>{
     '/About': (_) => AboutPage(),
     '/Calendar/CalendarImage': (_) => AcademicCalendarPage(),
-    '/Calendar/SignInHistory': (_) => SignInHistoryPage(),
+    '/Calendar/AttendanceHistory': (_) => AttendanceHistory(),
     '/Campus/ACTools/Details': (_) => AcademicToolDetailsPage(),
     '/Campus/ACTools/ExamResult': (_) => ExamResultPage(),
     '/Campus/ACTools/WolframEngine': (_) => InputConstructor(),

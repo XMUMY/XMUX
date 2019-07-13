@@ -23,7 +23,7 @@ class LostAndFoundPageState extends State<LostAndFoundPage> {
       body: new FirebaseAnimatedList(
         query: FirebaseDatabase.instance.reference().child('lostandfound'),
         sort: (a, b) => b.key.compareTo(a.key),
-        padding: new EdgeInsets.all(3.0),
+        padding: new EdgeInsets.all(3),
         reverse: false,
         itemBuilder:
             (_, DataSnapshot snapshot, Animation<double> animation, int index) {
@@ -68,16 +68,16 @@ class LostAndFoundCard extends StatelessWidget {
           );
         },
         child: new Container(
-          margin: const EdgeInsets.symmetric(vertical: 8.0),
+          margin: const EdgeInsets.symmetric(vertical: 8),
           child: new Row(
             children: <Widget>[
               new Container(
-                margin: const EdgeInsets.only(right: 16.0),
+                margin: const EdgeInsets.only(right: 16),
                 child: new CircleAvatar(
                   backgroundImage: new NetworkImage(XMUXApi.convertAvatarUrl(
                       dataSnapshot.value['senderPhotoUrl'],
                       store.state.authState.moodleKey)),
-                  radius: 25.0,
+                  radius: 25,
                 ),
               ),
               new Expanded(
@@ -89,7 +89,7 @@ class LostAndFoundCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.subhead,
                     ),
                     new Divider(
-                      height: 5.0,
+                      height: 5,
                       color: Theme.of(context).canvasColor,
                     ),
                     new Text(
@@ -108,7 +108,7 @@ class LostAndFoundCard extends StatelessWidget {
               ),
               new Card(
                 child: new Padding(
-                  padding: const EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.all(5),
                   child: new Column(
                     children: <Widget>[
                       new Text(

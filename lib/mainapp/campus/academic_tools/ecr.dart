@@ -54,16 +54,16 @@ class _ElectiveCourseRegistrationPageState
       itemBuilder: (ctx, index) {
         if (index == 0)
           return Padding(
-              padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0.0),
+              padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
               child: Text(i18n('Campus/AcademicTools/ECR/Warning', context)));
         var course = courses[index - 1];
         return Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 8.0),
+          padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
           child: RaisedButton(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15),
             color: Theme.of(context).cardColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(7.0)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -71,7 +71,7 @@ class _ElectiveCourseRegistrationPageState
                   course.classification,
                   style: Theme.of(context).textTheme.subhead,
                 ),
-                Divider(height: 8.0),
+                Divider(height: 8),
                 Text('${course.round}  '
                     '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
                     '${course.maxCredit.toString()}'),
@@ -223,7 +223,7 @@ class _ElectiveCourseRegistrationFormPageState
     return <Widget>[
       SliverAppBar(
           title: Text(i18n('Campus/AcademicTools/ECR/Title', context)),
-          elevation: 0.0,
+          elevation: 0,
           forceElevated: true,
           floating: true,
           backgroundColor: Colors.lightBlue,
@@ -241,7 +241,7 @@ class _ElectiveCourseRegistrationFormPageState
       // Registered courses.
       SliverToBoxAdapter(
           child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -250,7 +250,7 @@ class _ElectiveCourseRegistrationFormPageState
               i18n('Campus/AcademicTools/ECR/Form/Selected', context),
               style: Theme.of(context).textTheme.title,
             ),
-            Divider(height: 10.0),
+            Divider(height: 10),
           ],
         ),
       )),
@@ -258,12 +258,12 @@ class _ElectiveCourseRegistrationFormPageState
         delegate: SliverChildBuilderDelegate((ctx, index) {
           var course = widget.ecrForm.data.coursesSelected[index];
           return Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
             child: RaisedButton(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(15),
               color: Theme.of(context).cardColor,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
+                  borderRadius: BorderRadius.circular(10)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -271,7 +271,7 @@ class _ElectiveCourseRegistrationFormPageState
                     course.name,
                     style: Theme.of(context).textTheme.subhead,
                   ),
-                  Divider(height: 8.0),
+                  Divider(height: 8),
                   Text('${course.lecturer}\n'
                       '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
                       '${course.credit}  '
@@ -292,7 +292,7 @@ class _ElectiveCourseRegistrationFormPageState
       // Unregistered courses.
       SliverToBoxAdapter(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -301,7 +301,7 @@ class _ElectiveCourseRegistrationFormPageState
                 i18n('Campus/AcademicTools/ECR/Form/Unselected', context),
                 style: Theme.of(context).textTheme.title,
               ),
-              Divider(height: 10.0),
+              Divider(height: 10),
             ],
           ),
         ),
@@ -310,12 +310,12 @@ class _ElectiveCourseRegistrationFormPageState
         delegate: SliverChildBuilderDelegate((ctx, index) {
           var course = widget.ecrForm.data.coursesList[index];
           return Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
             child: RaisedButton(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(15),
               color: Theme.of(context).cardColor,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7.0)),
+                  borderRadius: BorderRadius.circular(7)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -323,7 +323,7 @@ class _ElectiveCourseRegistrationFormPageState
                     course.name,
                     style: Theme.of(context).textTheme.subhead,
                   ),
-                  Divider(height: 8.0),
+                  Divider(height: 8),
                   Text('${course.lecturer}\n'
                       '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
                       '${course.credit}  '
@@ -353,21 +353,21 @@ class _SliverGeneralInfoTable extends SliverPersistentHeaderDelegate {
       {this.topPadding, this.generalInfoKey, this.generalInfo});
 
   @override
-  double get minExtent => topPadding + 70.0;
+  double get minExtent => topPadding + 70;
 
   @override
-  double get maxExtent => topPadding + 70.0;
+  double get maxExtent => topPadding + 70;
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     var card = Card(
       key: generalInfoKey,
-      margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-      elevation: topPadding == 0 ? 1.0 : 3.0,
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+      elevation: topPadding == 0 ? 1 : 3,
       shape: RoundedRectangleBorder(),
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
             Text(

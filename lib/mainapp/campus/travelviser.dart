@@ -54,7 +54,7 @@ class _TravelviserPageState extends State<TravelviserPage> {
     var timeOfDay = TimeOfDay.fromDateTime(dateTime);
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -77,7 +77,7 @@ class _TravelviserPageState extends State<TravelviserPage> {
     var dateTime = record.dateTime;
     var timeOfDay = TimeOfDay.fromDateTime(dateTime);
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -85,7 +85,7 @@ class _TravelviserPageState extends State<TravelviserPage> {
             '${record.route} ${record.boardingDate == null ? '' : ' ${i18n('Campus/Tools/Travelviser/Boarded', context)}'}',
             style: Theme.of(context).textTheme.subhead,
           ),
-          Divider(height: 5.0, color: Colors.transparent),
+          Divider(height: 5, color: Colors.transparent),
           Text(
               '${DateFormat.yMd(Localizations.localeOf(context).languageCode).format(dateTime)} ${DateFormat.E(Localizations.localeOf(context).languageCode).format(dateTime)} ${timeOfDay.format(context)}\n'
               '${i18n('Campus/Tools/Travelviser/From', context)} ${record.from}\n'
@@ -118,10 +118,10 @@ class _TravelviserPageState extends State<TravelviserPage> {
               children: <Widget>[
                 Icon(
                   Icons.warning,
-                  size: 50.0,
+                  size: 50,
                   color: Colors.red,
                 ),
-                Divider(height: 30.0, color: Colors.transparent),
+                Divider(height: 30, color: Colors.transparent),
                 Text(
                   i18n('Campus/Tools/Travelviser/NotRegistered', context),
                   textAlign: TextAlign.center,
@@ -133,7 +133,7 @@ class _TravelviserPageState extends State<TravelviserPage> {
               : RefreshIndicator(
                   onRefresh: refresh,
                   child: ListView(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(12),
                     children: <Widget>[
                       Text(
                           ' ${i18n('Campus/Tools/Travelviser/Booked', context)}',
@@ -163,7 +163,7 @@ class _TravelviserPageState extends State<TravelviserPage> {
                             context, _expiredRecords[index]),
                         separatorBuilder: (_, __) => Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Divider(height: 3.0)),
+                            child: Divider(height: 3)),
                       ),
                     ],
                   ),
@@ -321,20 +321,20 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10),
               child: Text(i18n('Campus/Tools/Travelviser/New', context),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.title),
             ),
-            Divider(height: 20.0, color: Colors.transparent),
+            Divider(height: 20, color: Colors.transparent),
             if (routes == null) Center(child: CircularProgressIndicator()),
             if (routes?.isEmpty ?? false) EmptyErrorPage(),
             if (routes != null && routes.isNotEmpty)
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(children: buildSelections(context)),
               ),
-            Divider(height: 40.0, color: Colors.transparent),
+            Divider(height: 40, color: Colors.transparent),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -347,7 +347,7 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
                 ),
                 if (routes?.isNotEmpty ?? true)
                   FloatingActionButton(
-                    disabledElevation: 0.0,
+                    disabledElevation: 0,
                     child: Icon(Icons.check),
                     onPressed: canBook ? () => handleBooking(context) : null,
                   )
@@ -365,15 +365,15 @@ class DigitalPassPage extends StatelessWidget {
   List<Widget> _buildStackChildren(BuildContext context) {
     return <Widget>[
       Positioned(
-        top: 5.0,
-        right: 18.0,
+        top: 5,
+        right: 18,
         child: RaisedButton(
-          elevation: 0.0,
+          elevation: 0,
           color: Colors.blue[700],
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Text('Sign Out', style: TextStyle(color: Colors.white)),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(20),
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -382,17 +382,16 @@ class DigitalPassPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 15.0, 0.0, 2.0),
+            padding: const EdgeInsets.fromLTRB(10, 15, 0, 2),
             child: Text('Digital Pass',
                 style:
-                    Theme.of(context).textTheme.title.copyWith(fontSize: 20.0)),
+                    Theme.of(context).textTheme.title.copyWith(fontSize: 20)),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 2.0, 0.0, 10.0),
+            padding: const EdgeInsets.fromLTRB(10, 2, 0, 10),
             child: Text(
               'Flash QR code to the scanner',
-              style:
-                  Theme.of(context).textTheme.caption.copyWith(fontSize: 15.0),
+              style: Theme.of(context).textTheme.caption.copyWith(fontSize: 15),
             ),
           ),
           Center(
@@ -405,14 +404,13 @@ class DigitalPassPage extends StatelessWidget {
           Center(
             child: Text(
               firebaseUser.displayName,
-              style: Theme.of(context).textTheme.title.copyWith(fontSize: 20.0),
+              style: Theme.of(context).textTheme.title.copyWith(fontSize: 20),
             ),
           ),
           Center(
             child: Text(
               '${firebaseUser.uid} | ${firebaseUser.email}',
-              style:
-                  Theme.of(context).textTheme.caption.copyWith(fontSize: 15.0),
+              style: Theme.of(context).textTheme.caption.copyWith(fontSize: 15),
             ),
           )
         ],
@@ -425,11 +423,11 @@ class DigitalPassPage extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(1.0),
+                  padding: const EdgeInsets.all(1),
                   child: Column(
                     children: <Widget>[
                       Icon(FontAwesomeIcons.qrcode, color: Colors.blue[700]),
-                      Divider(height: 5.0, color: Colors.transparent),
+                      Divider(height: 5, color: Colors.transparent),
                       Text('QRCODE', style: TextStyle(color: Colors.blue[700])),
                     ],
                   ),
@@ -437,11 +435,11 @@ class DigitalPassPage extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(1.0),
+                  padding: const EdgeInsets.all(1),
                   child: Column(
                     children: <Widget>[
                       Icon(Icons.map),
-                      Divider(height: 5.0, color: Colors.transparent),
+                      Divider(height: 5, color: Colors.transparent),
                       Text('MAPS'),
                     ],
                   ),
@@ -449,11 +447,11 @@ class DigitalPassPage extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(1.0),
+                  padding: const EdgeInsets.all(1),
                   child: Column(
                     children: <Widget>[
                       Icon(FontAwesomeIcons.ticketAlt),
-                      Divider(height: 5.0, color: Colors.transparent),
+                      Divider(height: 5, color: Colors.transparent),
                       Text('BOOKINGS'),
                     ],
                   ),

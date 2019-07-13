@@ -23,7 +23,7 @@ class ExamsPage extends StatelessWidget {
   Widget _buildLastUpdateString(BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(5.0),
+        padding: EdgeInsets.all(5),
         child: Text(
           "${i18n('Calendar/LastUpdate', context)} "
           '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)} '
@@ -63,15 +63,15 @@ class _ExamCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.fromLTRB(8.0, 5.0, 8.0, 5.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),
+      margin: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(bottom: 8.0),
+              padding: EdgeInsets.only(bottom: 8),
               child: Text(
                 examData.courseName,
                 style: Theme.of(context).textTheme.subhead,

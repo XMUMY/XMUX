@@ -16,7 +16,7 @@ class WolframResult extends StatelessWidget {
         ),
         body: ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.all(1.0),
+          padding: EdgeInsets.all(1),
           children: <Widget>[
             Stack(
               children: <Widget>[

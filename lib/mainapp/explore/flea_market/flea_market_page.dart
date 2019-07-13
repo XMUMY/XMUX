@@ -84,15 +84,15 @@ class _ItemCardState extends State<ItemCard> {
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
           builder: (_) => ItemDetailPage(
               widget.item, user?.name ?? '...', user?.photoUrl ?? ''))),
-      onTapDown: (_) => setState(() => _elevation = 3.0),
-      onTapUp: (_) => setState(() => _elevation = 0.0),
-      onTapCancel: () => setState(() => _elevation = 0.0),
+      onTapDown: (_) => setState(() => _elevation = 3),
+      onTapUp: (_) => setState(() => _elevation = 0),
+      onTapCancel: () => setState(() => _elevation = 0),
       child: Card(
         elevation: _elevation,
-        margin: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+        margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
         shape: RoundedRectangleBorder(),
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -100,7 +100,7 @@ class _ItemCardState extends State<ItemCard> {
                 children: <Widget>[
                   // Build user avatar.
                   Padding(
-                    padding: const EdgeInsets.all(13.0),
+                    padding: const EdgeInsets.all(13),
                     child: user != null
                         ? CircleAvatar(
                             backgroundImage: NetworkImage(
@@ -131,7 +131,7 @@ class _ItemCardState extends State<ItemCard> {
 
                   // Build price.
                   Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(15),
                     child: Text(
                       '${widget.item.price.currencies} ${widget.item.price.value.toStringAsFixed(2)}',
                       style: Theme.of(context)
@@ -145,20 +145,20 @@ class _ItemCardState extends State<ItemCard> {
 
               // Build slidable photos.
               Container(
-                height: 100.0,
+                height: 100,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: widget.item.photos.length,
                   itemBuilder: (_, index) => index == 0
                       ? Padding(
-                          padding: const EdgeInsets.all(1.0),
+                          padding: const EdgeInsets.all(1),
                           child: Hero(
                             tag: widget.item.key,
                             child: Image.network(widget.item.photos[index]),
                           ),
                         )
                       : Padding(
-                          padding: const EdgeInsets.all(1.0),
+                          padding: const EdgeInsets.all(1),
                           child: Image.network(widget.item.photos[index]),
                         ),
                 ),
@@ -166,7 +166,7 @@ class _ItemCardState extends State<ItemCard> {
 
               // Build title.
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: Text(
                   widget.item.name,
                   style: Theme.of(context).textTheme.subhead,

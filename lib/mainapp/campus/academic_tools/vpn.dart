@@ -69,7 +69,7 @@ class _VPNPageState extends State<VPNPage> {
                   onViewCreated: (c) {
                     _lottieController = c;
                     if (currentState == FlutterVpnState.connected)
-                      c.playWithProgress(fromProgress: 0.0, toProgress: 0.8);
+                      c.playWithProgress(fromProgress: 0, toProgress: 0.8);
                   },
                 ),
               ),
@@ -77,17 +77,17 @@ class _VPNPageState extends State<VPNPage> {
                 tag: 'res/campus/vpn.svg',
                 child: SvgPicture.asset(
                   'res/campus/vpn.svg',
-                  height: 66.0,
-                  width: 66.0,
+                  height: 66,
+                  width: 66,
                   color: color,
                 ),
               ),
             ],
           ),
-          Divider(height: 10.0, color: Colors.transparent),
+          Divider(height: 10, color: Colors.transparent),
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10),
               child: Text(
                 i18n('Campus/AcademicTools/VPN/State/${currentState.index}',
                     context),
@@ -105,13 +105,13 @@ class _VPNPageState extends State<VPNPage> {
             children: <Widget>[
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 8.0, 8.0, 8.0),
+                  padding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
                   child: RaisedButton(
                     onPressed: currentState == FlutterVpnState.connected
                         ? null
                         : () {
                             _lottieController.playWithProgress(
-                                fromProgress: 0.0, toProgress: 0.8);
+                                fromProgress: 0, toProgress: 0.8);
                             FlutterVpn.simpleConnect(
                                 'ikev2.xmu.edu.my',
                                 firebaseUser.uid,
@@ -124,7 +124,7 @@ class _VPNPageState extends State<VPNPage> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 20.0, 8.0),
+                  padding: const EdgeInsets.fromLTRB(8, 8, 20, 8),
                   child: RaisedButton(
                     onPressed: () {
                       FlutterVpn.disconnect();

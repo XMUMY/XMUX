@@ -23,7 +23,7 @@ class TimeTablePage extends StatelessWidget {
   Widget _buildLastUpdateString(BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(5.0),
+        padding: EdgeInsets.all(5),
         child: Text(
           "${i18n('Calendar/LastUpdate', context)} "
           '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)} '
@@ -106,10 +106,10 @@ class LessonCard extends StatefulWidget {
 }
 
 class _LessonCardState extends State<LessonCard> {
-  double _elevation = 1.0;
+  var _elevation = 1.0;
 
   Widget _buildDialogWidgets(BuildContext context) {
-    var attendance = FutureBuilder<List<AttendanceRecord>>(
+    var history = FutureBuilder<List<AttendanceRecord>>(
       future: AttendanceApi(BackendApiConfig.signInAddress).getHistory(
           store.state.authState.campusID,
           cid: widget.lesson.courseCode),
@@ -135,16 +135,14 @@ class _LessonCardState extends State<LessonCard> {
     );
 
     return SimpleDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       title: Text(
         widget.lesson.courseName,
         style: Theme.of(context).textTheme.title,
         textAlign: TextAlign.center,
       ),
-      titlePadding:
-          const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-      contentPadding:
-          const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
+      titlePadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
       children: <Widget>[
         Text(
             '${i18n('Calendar/ClassCard/Code', context)}: ${widget.lesson.courseCode}\n'
@@ -158,9 +156,9 @@ class _LessonCardState extends State<LessonCard> {
         Divider(),
         Text('${i18n('Calendar/SignIn/Status', context)}'),
         SizedBox(
-          height: min(MediaQuery.of(context).size.height / 3, 250.0),
+          height: min(MediaQuery.of(context).size.height / 3.5, 200),
           width: MediaQuery.of(context).size.width / 1.3,
-          child: attendance,
+          child: history,
         ),
       ],
     );
@@ -174,42 +172,41 @@ class _LessonCardState extends State<LessonCard> {
         barrierDismissible: true,
         builder: _buildDialogWidgets,
       ),
-      onTapDown: (_) => setState(() => _elevation = 4.0),
-      onTapUp: (_) => setState(() => _elevation = 1.0),
-      onTapCancel: () => setState(() => _elevation = 1.0),
+      onTapDown: (_) => setState(() => _elevation = 4),
+      onTapUp: (_) => setState(() => _elevation = 1),
+      onTapCancel: () => setState(() => _elevation = 1),
       child: Card(
-        margin: const EdgeInsets.all(8.0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),
+        margin: const EdgeInsets.all(8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
         elevation: _elevation,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white10
                       : LessonCard.dayColor[widget.lesson.dayOfWeek],
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(7.0))),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(7))),
               child: Center(
                 child: Text(
                   '${i18n('Weekdays/${widget.lesson.dayOfWeek + 1}', context)} '
                   '${widget.lesson.startTimeOfDay.format(context)} - '
                   '${widget.lesson.endTimeOfDay.format(context)} '
                   '${widget.lesson.classroom}',
-                  style: TextStyle(color: Colors.white, fontSize: 18.0),
+                  style: TextStyle(color: Colors.white, fontSize: 18),
                   textAlign: TextAlign.center,
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(15.0),
+              padding: EdgeInsets.all(15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(bottom: 8.0),
+                    padding: EdgeInsets.only(bottom: 8),
                     child: Text(
                       widget.lesson.courseName,
                       style: Theme.of(context).textTheme.subhead,

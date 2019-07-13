@@ -7,10 +7,7 @@ class EmptyErrorPage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(
-          Icons.hourglass_empty,
-          size: 50.0,
-        ),
+        Icon(Icons.hourglass_empty, size: 50),
         Divider(color: Colors.transparent),
         Text(
           'Oh! Nothing is here!\nPlease come later.',

@@ -4,9 +4,9 @@ import 'package:xmux/globals.dart';
 
 class EmergencyPage extends StatelessWidget {
   Widget _buildCard(BuildContext context, List<Widget> children) => Card(
-        margin: EdgeInsets.all(5.0),
+        margin: EdgeInsets.all(5),
         child: Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(10),
           child: Column(children: children),
         ),
       );
@@ -19,13 +19,13 @@ class EmergencyPage extends StatelessWidget {
         backgroundColor: Colors.red,
       ),
       body: ListView(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(10),
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(20),
             child: Icon(
               Icons.error_outline,
-              size: 60.0,
+              size: 60,
               color: Colors.red,
             ),
           ),
@@ -34,7 +34,7 @@ class EmergencyPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           Padding(
-            padding: EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(5),
           ),
           _buildCard(
             context,
@@ -52,7 +52,7 @@ class EmergencyPage extends StatelessWidget {
                     onPressed: () => launch('tel:0192959998'),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(5.0),
+                    padding: EdgeInsets.all(5),
                   ),
                   RaisedButton(
                     child: Text('019-348-9999'),
@@ -82,7 +82,7 @@ class EmergencyPage extends StatelessWidget {
                     onPressed: () => launch('tel:017-746-8876'),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(5.0),
+                    padding: EdgeInsets.all(5),
                   ),
                   RaisedButton(
                     child: Text('019-806-7551'),

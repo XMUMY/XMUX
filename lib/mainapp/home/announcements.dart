@@ -19,7 +19,7 @@ class HomeAnnouncements extends StatelessWidget {
         ),
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10),
             child: Text(
               announcement.detail,
               style: Theme.of(context).textTheme.body1,
@@ -37,7 +37,7 @@ class HomeAnnouncements extends StatelessWidget {
                 style: Theme.of(context).textTheme.caption,
               ),
               Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(10),
               ),
               announcement.uri.isEmpty
                   ? Container()
@@ -55,9 +55,9 @@ class HomeAnnouncements extends StatelessWidget {
   Widget build(BuildContext context) =>
       (announcements != null && announcements.isNotEmpty)
           ? Card(
-              margin: EdgeInsets.all(10.0),
+              margin: EdgeInsets.all(10),
               child: Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(10),
                 child: Column(
                   children: <Widget>[
                     Text(
@@ -74,7 +74,7 @@ class HomeAnnouncements extends StatelessWidget {
                 ),
               ),
               shape: BeveledRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
             )
           : Container();

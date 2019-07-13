@@ -12,13 +12,13 @@ class DeveloperOptionsPage extends StatelessWidget {
         title: Text(i18n('Settings/DeveloperOptions', context)),
       ),
       body: ListView(
-        padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(20),
             child: Icon(
               Icons.warning,
-              size: 50.0,
+              size: 50,
             ),
           ),
           Text(

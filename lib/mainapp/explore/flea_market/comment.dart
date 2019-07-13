@@ -22,8 +22,8 @@ class _CommentDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      contentPadding: const EdgeInsets.all(8.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+      contentPadding: const EdgeInsets.all(8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       children: <Widget>[
         TextField(
           controller: _controller,
@@ -67,7 +67,7 @@ class _CommentCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15),
           child: CircleAvatar(
             child: FutureBuilder<XMUXApiResponse<User>>(
               future: XMUXApi.instance.getUser(_comment.from),
@@ -95,7 +95,7 @@ class _CommentCard extends StatelessWidget {
                 '${DateFormat.yMd(Localizations.localeOf(context).languageCode).format(_comment.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(_comment.timestamp)}',
                 style: Theme.of(context).textTheme.caption,
               ),
-              Padding(padding: const EdgeInsets.all(2.0)),
+              Padding(padding: const EdgeInsets.all(2)),
               Text(_comment.comment),
             ],
           ),

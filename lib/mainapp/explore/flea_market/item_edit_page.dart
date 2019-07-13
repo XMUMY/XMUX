@@ -181,8 +181,8 @@ class _ItemEditPageState extends State<ItemEditPage> {
               : Container(),
           _isProcessing
               ? Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SpinKitFadingFour(color: Colors.white, size: 30.0))
+                  padding: const EdgeInsets.all(10),
+                  child: SpinKitFadingFour(color: Colors.white, size: 30))
               : IconButton(
                   icon: Icon(Icons.done),
                   onPressed:
@@ -196,9 +196,9 @@ class _ItemEditPageState extends State<ItemEditPage> {
           // Build title & description.
           Card(
             shape: RoundedRectangleBorder(),
-            margin: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+            margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
             child: Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(5),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -215,7 +215,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
                           ? i18n('FleaMarket/Edit/MustFill', context)
                           : null,
                     ),
-                    Divider(height: 6.0),
+                    Divider(height: 6),
                     TextFormField(
                       controller: _descriptionController,
                       textCapitalization: TextCapitalization.words,
@@ -238,12 +238,12 @@ class _ItemEditPageState extends State<ItemEditPage> {
           // Build pictures.
           Card(
             shape: RoundedRectangleBorder(),
-            margin: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+            margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 5.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 5, 0),
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -262,9 +262,9 @@ class _ItemEditPageState extends State<ItemEditPage> {
                   ),
                 ),
                 Container(
-                  height: 110.0,
+                  height: 110,
                   child: ListView.builder(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     scrollDirection: Axis.horizontal,
                     itemCount: _pictures.length,
                     itemBuilder: (_, index) => _pictures[index],
@@ -277,14 +277,14 @@ class _ItemEditPageState extends State<ItemEditPage> {
           // Build pictures.
           Card(
             shape: RoundedRectangleBorder(),
-            margin: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+            margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
             child: Form(
               key: _priceFormKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 15.0),
+                    padding: const EdgeInsets.fromLTRB(15, 15, 0, 15),
                     child: Text(
                       i18n('FleaMarket/Edit/Price', context),
                       style: Theme.of(context).textTheme.subhead,
@@ -297,7 +297,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
                       labelText: i18n('FleaMarket/Edit/Price/Value', context),
                       border: InputBorder.none,
                       icon: Padding(
-                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 8.0),
+                        padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
                         child: Icon(Icons.attach_money),
                       ),
                     ),
@@ -309,7 +309,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
 //                      labelText: '原价',
 //                      border: InputBorder.none,
 //                      icon: Padding(
-//                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 8.0),
+//                        padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
 //                        child: Icon(Icons.store),
 //                      ),
 //                    ),

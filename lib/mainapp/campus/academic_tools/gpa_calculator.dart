@@ -26,8 +26,8 @@ class GPACalculatorPage extends StatefulWidget {
   }
 
   static double calculateGPA(List<_CourseInfo> courses) {
-    int totalCredits = 0;
-    double gpa = 0.0;
+    var totalCredits = 0;
+    var gpa = 0.0;
     for (var i in courses) totalCredits += i.credits;
     for (var i in courses) {
       gpa += gradePoints[i.chosenGrade] * i.credits / totalCredits;
@@ -85,9 +85,9 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Card(
-                    margin: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 10.0),
+                    margin: EdgeInsets.fromLTRB(30, 20, 30, 10),
                     child: Padding(
-                        padding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 20.0),
+                        padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
                         child: Text(
                           "GPA : " +
                               GPACalculatorPage.calculateGPA(courses)
@@ -97,7 +97,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
                                   GPACalculatorPage.calculateGPA(courses))),
                         )),
                     shape: BeveledRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                   ),
                   Flexible(
                     child: _buildList(),

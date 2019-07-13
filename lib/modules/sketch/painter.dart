@@ -14,7 +14,7 @@ class _SingleBrushPainter extends CustomPainter {
           ..color = Colors.black
           ..style = PaintingStyle.stroke
           ..strokeCap = StrokeCap.round
-          ..strokeWidth = 5.0;
+          ..strokeWidth = 5;
 
   @override
   void paint(Canvas canvas, Size size) {

@@ -16,7 +16,7 @@ class BusSchedulePage extends StatelessWidget {
       body: PhotoView(
         imageProvider: CachedNetworkImageProvider(
             firebase.remoteConfigs.staticResources.busScheduleImage),
-        maxScale: 2.0,
+        maxScale: 2,
         minScale: 0.3,
       ),
     );

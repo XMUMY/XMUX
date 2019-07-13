@@ -18,11 +18,11 @@ class ExplorePage extends StatelessWidget {
                 : BoxFit.fitWidth,
             animation: 'idle'),
         Positioned(
-          left: 20.0,
-          top: 50.0,
+          left: 20,
+          top: 50,
           child: Text(
             i18n('Explore', context),
-            style: TextStyle(fontSize: 50.0, color: Colors.white70),
+            style: TextStyle(fontSize: 50, color: Colors.white70),
           ),
         ),
         ListView(
@@ -103,7 +103,7 @@ class ExplorePage extends StatelessWidget {
                           child: ScaleTransition(
                             scale: Tween<double>(
                               begin: 0.95,
-                              end: 1.0,
+                              end: 1,
                             ).animate(CurvedAnimation(
                                 parent: animation,
                                 curve: Curves.easeIn,

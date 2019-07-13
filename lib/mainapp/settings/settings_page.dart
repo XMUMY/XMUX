@@ -9,7 +9,7 @@ class SettingsPage extends StatelessWidget {
           title: Text(i18n('Settings', context)),
         ),
         body: ListView(
-          padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
+          padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -20,15 +20,15 @@ class SettingsPage extends StatelessWidget {
                     backgroundImage: NetworkImage(XMUXApi.convertAvatarUrl(
                         firebaseUser?.photoUrl,
                         store.state.authState.moodleKey)),
-                    radius: 30.0,
+                    radius: 30,
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(5.0),
+                  padding: EdgeInsets.all(5),
                 ),
                 Text(firebaseUser?.displayName ?? 'User'),
                 Padding(
-                  padding: EdgeInsets.all(5.0),
+                  padding: EdgeInsets.all(5),
                 ),
               ],
             ),

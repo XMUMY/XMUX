@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: CircleAvatar(
-            radius: 18.0,
+            radius: 18,
             backgroundImage: NetworkImage(XMUXApi.convertAvatarUrl(
                 firebaseUser?.photoUrl, store.state.authState.moodleKey)),
           ),

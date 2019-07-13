@@ -37,7 +37,7 @@ class _ChangeProfilePageState extends State<ChangeProfilePage> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10),
           children: <Widget>[
             Text(
               i18n('Settings/ChangeProfile/Caption', context),

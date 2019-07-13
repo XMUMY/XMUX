@@ -69,19 +69,19 @@ class _SignInButtonState extends State<SignInButton> {
       child: AspectRatio(
         aspectRatio: 16 / 9,
         child: Card(
-          margin: const EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(10),
           child: Stack(children: <Widget>[
             SizedBox.expand(child: Sketch(key: key)),
             Padding(
-              padding: const EdgeInsets.only(left: 10.0, top: 10.0),
+              padding: const EdgeInsets.only(left: 10, top: 10),
               child: Text(
                 'Sign your name here | Landscape to get better experience',
                 style: Theme.of(context).textTheme.caption,
               ),
             ),
             Positioned(
-              right: 8.0,
-              bottom: 8.0,
+              right: 8,
+              bottom: 8,
               child: FloatingActionButton(
                 child: Icon(Icons.done),
                 onPressed: () async =>

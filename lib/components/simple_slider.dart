@@ -27,17 +27,17 @@ class DotsIndicator extends AnimatedWidget {
   final Color color;
 
   // The base size of the dots
-  static const double _kDotSize = 5.0;
+  static const _kDotSize = 5.0;
 
   // The increase in the size of the selected dot
-  static const double _kMaxZoom = 1.8;
+  static const _kMaxZoom = 1.8;
 
   // The distance between the center of each dot
-  static const double _kDotSpacing = 20.0;
+  static const _kDotSpacing = 20.0;
 
   Widget _buildDot(int index) {
-    var selected = max(0.0, 1.0 - ((controller.page ?? 0) - index).abs());
-    var zoom = 1.0 + (_kMaxZoom - 1.0) * selected;
+    var selected = max(0, 1 - ((controller.page ?? 0) - index).abs());
+    var zoom = 1 + (_kMaxZoom - 1) * selected;
     return Container(
       width: _kDotSpacing,
       height: _kDotSize * 2,
@@ -125,11 +125,11 @@ class _SimpleSliderState extends State<SimpleSlider> {
 
           // Build dot indicators.
           Positioned(
-            bottom: 0.0,
-            left: 0.0,
-            right: 0.0,
+            bottom: 0,
+            left: 0,
+            right: 0,
             child: Padding(
-              padding: EdgeInsets.all(7.0),
+              padding: EdgeInsets.all(7),
               child: Center(
                 child: DotsIndicator(
                   controller: _controller,

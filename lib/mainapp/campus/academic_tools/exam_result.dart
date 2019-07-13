@@ -55,7 +55,7 @@ class _ExamResultPageState extends State<ExamResultPage> {
           if (results.isEmpty) return EmptyErrorPage();
           if (currentSession == null) currentSession = results[0];
           return ListView(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(5),
             children: <Widget>[
               ListTile(
                 title: Text(i18n(
@@ -74,9 +74,9 @@ class _ExamResultPageState extends State<ExamResultPage> {
                 ),
               ),
               Card(
-                  margin: const EdgeInsets.all(5.0),
+                  margin: const EdgeInsets.all(5),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10),
                     child: Row(
                       children: <Widget>[
                         Expanded(
@@ -117,7 +117,7 @@ class _ResultDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(15, 5, 15, 0),
       child: ListView.builder(
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
@@ -135,7 +135,7 @@ class _ResultDetails extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.subhead,
                       ),
-                      Divider(height: 8.0, color: Colors.transparent),
+                      Divider(height: 8, color: Colors.transparent),
                       Text(
                         '${courseResult.courseCode}  '
                         '${courseResult.credit.toString()} '
@@ -146,7 +146,7 @@ class _ResultDetails extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(3.0, 3.0, 12.0, 3.0),
+                  margin: EdgeInsets.fromLTRB(3, 3, 12, 3),
                   child: Text(
                     '${courseResult.grade}\n'
                     '${courseResult.gradePoint.toStringAsFixed(2)}',

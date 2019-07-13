@@ -18,16 +18,16 @@ class LostAndFoundDetailPage extends StatelessWidget {
       body: new ListView(
         children: <Widget>[
           new Container(
-            margin: const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 10.0),
+            margin: const EdgeInsets.fromLTRB(10, 30, 10, 10),
             child: new Column(
               children: <Widget>[
                 new CircleAvatar(
-                  radius: 30.0,
+                  radius: 30,
                   backgroundImage:
                       new NetworkImage(dataSnapshot.value['senderPhotoUrl']),
                 ),
                 new Divider(
-                  height: 20.0,
+                  height: 20,
                   color: Theme.of(context).canvasColor,
                 ),
                 new Text(
@@ -35,12 +35,12 @@ class LostAndFoundDetailPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.subhead,
                 ),
                 new Divider(
-                  height: 20.0,
+                  height: 20,
                   color: Theme.of(context).canvasColor,
                 ),
                 new Card(
                   child: new Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10),
                     child: new Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -72,7 +72,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
                   ),
                 ),
                 new Divider(
-                  height: 20.0,
+                  height: 20,
                   color: Theme.of(context).canvasColor,
                 ),
                 dataSnapshot.value['uid'] == firebaseUser.uid

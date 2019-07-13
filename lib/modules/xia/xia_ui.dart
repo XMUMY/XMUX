@@ -27,26 +27,26 @@ class _XiAPageState extends State<XiAPage> {
     if (messages.isEmpty)
       messages.add(_MessageCard(i18n('XiA/Intro', context), false));
     return GaussianBlurBox(
-      sigma: 3.0,
-      color: Colors.grey.shade200.withOpacity(0.0),
+      sigma: 3,
+      color: Colors.grey.shade200.withOpacity(0),
       centered: true,
       child: Container(
-        margin: EdgeInsets.all(12.0),
+        margin: EdgeInsets.all(12),
         height: MediaQuery.of(context).size.height / 1.4,
         width: MediaQuery.of(context).size.width / 1.2,
         decoration: BoxDecoration(
-            border: Border.all(width: 2.0, color: Colors.white),
-            borderRadius: BorderRadius.circular(13.0)),
+            border: Border.all(width: 2, color: Colors.white),
+            borderRadius: BorderRadius.circular(13)),
         child: Column(
           children: <Widget>[
             Flexible(
               child: ListView.builder(
                 itemCount: messages.length,
-                padding: EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(5),
                 itemBuilder: (_, i) => messages[i],
               ),
             ),
-            Divider(color: Colors.white, height: 8.0),
+            Divider(color: Colors.white, height: 8),
             Material(
               color: Color(0),
               child: Row(
@@ -82,7 +82,7 @@ class _MessageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(10),
       child: Text(
         message,
         style: TextStyle(color: Colors.white),

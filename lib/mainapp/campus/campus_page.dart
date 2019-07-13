@@ -23,7 +23,7 @@ class CampusPage extends StatelessWidget {
             : Colors.lightBlue,
       ),
       body: ListView(
-        padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
+        padding: EdgeInsets.fromLTRB(8, 10, 8, 0),
         children: <Widget>[
           Row(children: <Widget>[
             Expanded(
@@ -38,7 +38,7 @@ class CampusPage extends StatelessWidget {
                   .pushNamed('/Campus/ACTools/Details'),
             ),
           ]),
-          Divider(height: 3.0),
+          Divider(height: 3),
           Wrap(
             alignment: WrapAlignment.spaceAround,
             children: <Widget>[

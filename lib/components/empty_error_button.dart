@@ -11,7 +11,7 @@ class EmptyErrorButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(20.0),
+      margin: const EdgeInsets.all(20),
       child: FlatButton(
         onPressed: onRefresh,
         child: Column(
@@ -19,7 +19,7 @@ class EmptyErrorButton extends StatelessWidget {
           children: <Widget>[
             Icon(
               Icons.hourglass_empty,
-              size: 50.0,
+              size: 50,
               color: Theme.of(context).errorColor,
             ),
             Divider(color: Colors.transparent),

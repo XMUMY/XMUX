@@ -5,14 +5,14 @@ import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
 
-class SignInHistoryPage extends StatefulWidget {
+class AttendanceHistory extends StatefulWidget {
   final api = AttendanceApi(BackendApiConfig.signInAddress);
 
   @override
-  _SignInHistoryPageState createState() => _SignInHistoryPageState();
+  _AttendanceHistoryState createState() => _AttendanceHistoryState();
 }
 
-class _SignInHistoryPageState extends State<SignInHistoryPage> {
+class _AttendanceHistoryState extends State<AttendanceHistory> {
   List<AttendanceRecord> history;
 
   Future<Null> update() async {
@@ -33,7 +33,7 @@ class _SignInHistoryPageState extends State<SignInHistoryPage> {
         orElse: () => null);
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
             Text(
@@ -60,7 +60,7 @@ class _SignInHistoryPageState extends State<SignInHistoryPage> {
               : RefreshIndicator(
                   onRefresh: update,
                   child: ListView.builder(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10),
                     itemCount: history.length,
                     itemBuilder: (_, index) => buildCard(index),
                   ),

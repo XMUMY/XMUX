@@ -62,7 +62,7 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
         ],
       ),
       body: new ListView(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15),
         children: <Widget>[
           new ListTile(
             title: new Text(MainLocalizations.of(context)
@@ -102,7 +102,7 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
                   style: Theme.of(context).textTheme.body1,
                 ),
               ),
-              const SizedBox(width: 12.0),
+              const SizedBox(width: 12),
               new Expanded(
                 flex: 1,
                 child: new TextField(
@@ -151,7 +151,7 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
             style: Theme.of(context).textTheme.body1,
           ),
           new Divider(
-            height: 10.0,
+            height: 10,
             color: Theme.of(context).canvasColor,
           ),
         ],
@@ -249,7 +249,7 @@ class _DateTimePicker extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(width: 12.0),
+        const SizedBox(width: 12),
         new Expanded(
           flex: 3,
           child: new _InputDropdown(

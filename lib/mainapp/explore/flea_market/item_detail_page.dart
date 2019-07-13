@@ -26,7 +26,7 @@ class ItemDetailPage extends StatelessWidget {
       Row(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15),
             child: photoUrl != null
                 ? CircleAvatar(
                     backgroundImage: NetworkImage(XMUXApi.convertAvatarUrl(
@@ -49,7 +49,7 @@ class ItemDetailPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(18.0),
+            padding: const EdgeInsets.all(18),
             child: Text(
               '${item.price.currencies} ${item.price.value.toStringAsFixed(2)}',
               style: Theme.of(context)
@@ -61,18 +61,18 @@ class ItemDetailPage extends StatelessWidget {
         ],
       ),
       Padding(
-        padding: const EdgeInsets.fromLTRB(13.0, 0.0, 13.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
         child: Divider(),
       ),
       Padding(
-        padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
         child: Text(
           item.name,
           style: Theme.of(context).textTheme.title,
         ),
       ),
       Padding(
-        padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
         child: Text(
           item.description,
           style: Theme.of(context).textTheme.subhead,
@@ -83,16 +83,16 @@ class ItemDetailPage extends StatelessWidget {
 
   List<Widget> _buildComments(BuildContext context) {
     return <Widget>[
-      Padding(padding: const EdgeInsets.all(8.0)),
+      Padding(padding: const EdgeInsets.all(8)),
       Card(
-        margin: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
-        elevation: 0.0,
+        margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+        elevation: 0,
         shape: RoundedRectangleBorder(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.fromLTRB(15.0, 10.0, 5.0, 0.0),
+              padding: const EdgeInsets.fromLTRB(15, 10, 5, 0),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -136,7 +136,7 @@ class ItemDetailPage extends StatelessWidget {
           SliverAppBar(
             title: Text(i18n('FleaMarket/Details', context)),
             backgroundColor: Colors.deepOrange,
-            expandedHeight: 200.0,
+            expandedHeight: 200,
             pinned: true,
             actions: <Widget>[
               // Edit button if isOwner.
@@ -164,14 +164,14 @@ class ItemDetailPage extends StatelessWidget {
                     child: Image.network(
                       item.photos[0],
                       fit: BoxFit.cover,
-                      height: 20.0,
+                      height: 20,
                     ),
                   ),
                   DecoratedBox(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        begin: Alignment(0.0, -1.0),
-                        end: Alignment(0.0, 1.0),
+                        begin: Alignment(0, -1),
+                        end: Alignment(0, 1),
                         colors: <Color>[
                           Color(0x60000000),
                           Color(0),

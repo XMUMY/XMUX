@@ -23,14 +23,14 @@ class Message extends StatelessWidget {
   Widget build(BuildContext context) {
     return new SizeTransition(
       sizeFactor: new CurvedAnimation(parent: animation, curve: Curves.easeOut),
-      axisAlignment: 0.0,
+      axisAlignment: 0,
       child: new Container(
-        margin: const EdgeInsets.symmetric(vertical: 10.0),
+        margin: const EdgeInsets.symmetric(vertical: 10),
         child: new Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             new Container(
-              margin: const EdgeInsets.only(right: 16.0),
+              margin: const EdgeInsets.only(right: 16),
               child: new CircleAvatar(
                   backgroundImage:
                       new NetworkImage(snapshot.value['senderPhotoUrl'])),
@@ -42,11 +42,11 @@ class Message extends StatelessWidget {
                   new Text(snapshot.value['senderName'],
                       style: Theme.of(context).textTheme.subhead),
                   new Container(
-                    margin: const EdgeInsets.only(top: 5.0),
+                    margin: const EdgeInsets.only(top: 5),
                     child: snapshot.value['imageUrl'] != null
                         ? new Image.network(
                             snapshot.value['imageUrl'],
-                            width: 250.0,
+                            width: 250,
                           )
                         : new Text(snapshot.value['text']),
                   ),
@@ -88,7 +88,7 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
                 : new FirebaseAnimatedList(
                     query: reference,
                     sort: (a, b) => b.key.compareTo(a.key),
-                    padding: new EdgeInsets.all(8.0),
+                    padding: new EdgeInsets.all(8),
                     reverse: true,
                     itemBuilder: (_, DataSnapshot snapshot,
                         Animation<double> animation, int index) {
@@ -97,7 +97,7 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
                     },
                   ),
           ),
-          new Divider(height: 1.0),
+          new Divider(height: 1),
           new Container(
             decoration: new BoxDecoration(color: Theme.of(context).cardColor),
             child: _buildTextComposer(),
@@ -109,10 +109,10 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
     return new IconTheme(
       data: new IconThemeData(color: Theme.of(context).accentColor),
       child: new Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+          margin: const EdgeInsets.symmetric(horizontal: 8),
           child: new Row(children: <Widget>[
             new Container(
-              margin: new EdgeInsets.symmetric(horizontal: 4.0),
+              margin: new EdgeInsets.symmetric(horizontal: 4),
               child: new IconButton(
                   icon: new Icon(Icons.photo_camera),
                   onPressed: () async {
@@ -141,7 +141,7 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
               ),
             ),
             new Container(
-                margin: new EdgeInsets.symmetric(horizontal: 4.0),
+                margin: new EdgeInsets.symmetric(horizontal: 4),
                 child: Theme.of(context).platform == TargetPlatform.iOS
                     ? new CupertinoButton(
                         child: new Text("Send"),

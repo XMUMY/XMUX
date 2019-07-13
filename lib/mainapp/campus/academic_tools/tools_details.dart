@@ -16,7 +16,7 @@ class AcademicToolDetailsPage extends StatelessWidget {
             : Colors.lightBlue,
       ),
       body: ListView(
-        padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
+        padding: EdgeInsets.fromLTRB(8, 10, 8, 0),
         children: <Widget>[
           _AcademicPageCard(
             textUri: 'Campus/AcademicTools/WolframEngine',
@@ -65,18 +65,18 @@ class _AcademicPageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(2.0, 5.0, 2.0, 5.0),
+      padding: EdgeInsets.fromLTRB(2, 5, 2, 5),
       child: RaisedButton(
         color: Theme.of(context).cardColor,
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(20),
         child: Row(
           children: <Widget>[
             Hero(
               tag: image,
               child: SvgPicture.asset(
                 image,
-                height: 66.0,
-                width: 66.0,
+                height: 66,
+                width: 66,
               ),
             ),
             Expanded(
@@ -88,7 +88,7 @@ class _AcademicPageCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.title,
                   ),
                   Divider(
-                    height: 5.0,
+                    height: 5,
                     color: Colors.transparent,
                   ),
                   Text(

@@ -39,18 +39,18 @@ class _PaymentPageState extends State<EPaymentPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(20),
           child: Icon(
             Icons.lock_outline,
-            size: 60.0,
+            size: 60,
           ),
         ),
         Container(
-          padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
           child: Text(i18n('Tools/EPayment/NeedLogin', ctx)),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 30.0),
+          padding: EdgeInsets.fromLTRB(30, 0, 30, 30),
           child: Row(
             children: <Widget>[
               Flexible(
@@ -110,14 +110,14 @@ class _BillingRecordCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.fromLTRB(8.0, 8.0, 3.0, 3.0),
+      margin: EdgeInsets.fromLTRB(8, 8, 3, 3),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(bottom: 8.0),
+              padding: EdgeInsets.only(bottom: 8),
               child: Text(
                 paymentData.item,
                 style: Theme.of(context).textTheme.subhead,

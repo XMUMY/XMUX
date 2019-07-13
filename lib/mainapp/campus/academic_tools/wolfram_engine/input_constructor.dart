@@ -14,7 +14,7 @@ class _InputConstructorState extends State<InputConstructor> {
   Widget _getInputButton(String inputButton) => IconButton(
       icon: Text(
         inputButton,
-        style: TextStyle(fontSize: 25.0),
+        style: TextStyle(fontSize: 25),
       ),
       onPressed: () {
         if (_inputTextController.text.isNotEmpty) {
@@ -46,7 +46,7 @@ class _InputConstructorState extends State<InputConstructor> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(left: 10.0),
+              margin: EdgeInsets.only(left: 10),
               child: Row(
                 children: <Widget>[
                   Flexible(
@@ -102,7 +102,7 @@ class _InputConstructorState extends State<InputConstructor> {
             ),
             Wrap(
               alignment: WrapAlignment.spaceAround,
-              spacing: 3.0,
+              spacing: 3,
               children: <Widget>[
                 _getInputButton('+'),
                 _getInputButton('-'),

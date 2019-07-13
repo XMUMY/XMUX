@@ -109,9 +109,8 @@ class _EmgsDetailsState extends State<EmgsDetails>
     _controller =
         AnimationController(duration: Duration(milliseconds: 700), vsync: this);
 
-    _percentageAnimation =
-        Tween(begin: 0.0, end: widget._result.percentage / 100)
-            .animate(_controller);
+    _percentageAnimation = Tween(begin: 0, end: widget._result.percentage / 100)
+        .animate(_controller);
     _colorAnimation = ColorTween(begin: Colors.red, end: Colors.green)
         .animate(_controller)
           ..addListener(() => setState(() {}));
@@ -130,22 +129,22 @@ class _EmgsDetailsState extends State<EmgsDetails>
   Widget build(BuildContext context) {
     return ListView(
       controller: widget._scrollController,
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(12),
       children: <Widget>[
         Stack(
           alignment: AlignmentDirectional.center,
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.width / 3.0,
-              width: MediaQuery.of(context).size.width / 3.0,
+              height: MediaQuery.of(context).size.width / 3,
+              width: MediaQuery.of(context).size.width / 3,
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
                 shape: BoxShape.circle,
-                boxShadow: [BoxShadow(color: Colors.black38, blurRadius: 5.0)],
+                boxShadow: [BoxShadow(color: Colors.black38, blurRadius: 5)],
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20),
               height: MediaQuery.of(context).size.width / 2.5,
               width: MediaQuery.of(context).size.width / 2.5,
               child: CircularProgressIndicator(
@@ -155,28 +154,28 @@ class _EmgsDetailsState extends State<EmgsDetails>
             ),
             Text(
               '${(_percentageAnimation.value * 100).toInt()}%',
-              style: TextStyle(fontSize: 40.0),
+              style: TextStyle(fontSize: 40),
             ),
           ],
         ),
         Card(
-          margin: const EdgeInsets.all(5.0),
-          elevation: 3.0,
+          margin: const EdgeInsets.all(5),
+          elevation: 3,
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: <Widget>[
                 Text(
                   widget._result.fullName,
                   style: Theme.of(context).textTheme.title,
                 ),
-                Divider(height: 10.0, color: Colors.transparent),
+                Divider(height: 10, color: Colors.transparent),
                 Text(
                   widget._result.applicationStatus,
                   style: Theme.of(context).textTheme.subhead,
                   textAlign: TextAlign.center,
                 ),
-                Divider(height: 12.0, color: Colors.transparent),
+                Divider(height: 12, color: Colors.transparent),
                 Row(
                   children: <Widget>[
                     Expanded(
@@ -186,7 +185,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
                             i18n('Tools/Emgs/No', context),
                             style: Theme.of(context).textTheme.subtitle,
                           ),
-                          Divider(height: 3.0, color: Colors.transparent),
+                          Divider(height: 3, color: Colors.transparent),
                           Text(
                             widget._result.applicationId,
                           ),
@@ -200,7 +199,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
                             i18n('Tools/Emgs/Type', context),
                             style: Theme.of(context).textTheme.subtitle,
                           ),
-                          Divider(height: 3.0, color: Colors.transparent),
+                          Divider(height: 3, color: Colors.transparent),
                           Text(
                             widget._result.applicationType,
                           ),
@@ -216,14 +215,14 @@ class _EmgsDetailsState extends State<EmgsDetails>
 
         // History.
         Padding(
-          padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
           child: Text(
             i18n('Tools/Emgs/History', context),
             style: Theme.of(context).textTheme.title,
           ),
         ),
         ListView.separated(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           itemCount: widget._result.history.length * 2 - 1,

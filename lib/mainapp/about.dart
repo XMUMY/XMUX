@@ -8,17 +8,17 @@ class AboutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(i18n('About', context))),
       body: ListView(
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(15),
         children: <Widget>[
           Hero(
             tag: 'χLogo',
             child: CircleAvatar(
-              radius: 40.0,
-              child: Text('X', style: TextStyle(fontSize: 50.0)),
+              radius: 40,
+              child: Text('X', style: TextStyle(fontSize: 50)),
               backgroundColor: Colors.black,
             ),
           ),
-          Divider(height: 10.0, color: Colors.transparent),
+          Divider(height: 10, color: Colors.transparent),
           Text(
             i18n('About/Caption', context),
             textAlign: TextAlign.center,
@@ -31,7 +31,7 @@ Maintenance by XMUM Student Council.
 XMUX app is an open source project licenced by GPLv3.""",
             textAlign: TextAlign.center,
           ),
-          Padding(padding: EdgeInsets.all(5.0)),
+          Padding(padding: EdgeInsets.all(5)),
           Text(
             i18n('About/ContactUs/Detail', context),
             textAlign: TextAlign.center,
