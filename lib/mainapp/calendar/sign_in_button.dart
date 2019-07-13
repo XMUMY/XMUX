@@ -19,7 +19,7 @@ class SignInButton extends StatefulWidget {
   /// - LessonStart-30min < CurrentTime < LessonStart+30min.
   final bool _canSign;
 
-  SignInButton(this.lesson)
+  SignInButton(this.lesson) // TODO: For debug
       : this._canSign = lesson.dayOfWeek == DateTime.now().weekday - 1 || true;
 
   @override
