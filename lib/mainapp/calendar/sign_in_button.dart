@@ -19,6 +19,10 @@ class SignInButton extends StatefulWidget {
   /// - LessonStart-30min < CurrentTime < LessonStart+30min.
   final bool _canSign;
 
+  final attendanceApi = AttendanceApi(BackendApiConfig.signInAddress,
+      uid: store.state.authState.campusID,
+      password: store.state.authState.campusIDPassword);
+
   SignInButton(this.lesson) // TODO: For debug
       : this._canSign = lesson.dayOfWeek == DateTime.now().weekday - 1 || true;
 
@@ -55,8 +59,8 @@ class _SignInButtonState extends State<SignInButton> {
     var bytes = (await image.toByteData(format: ui.ImageByteFormat.png))
         .buffer
         .asUint8List();
-    var res = await AttendanceApi(BackendApiConfig.signInAddress).attend(
-        store.state.authState.campusID, widget.lesson.courseCode, ip, bytes);
+    var res =
+        await widget.attendanceApi.attend(widget.lesson.courseCode, ip, bytes);
 
     if (res.status == AttendStatus.failed)
       Scaffold.of(context).showSnackBar(SnackBar(content: Text(res.message)));

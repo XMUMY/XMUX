@@ -13,8 +13,17 @@ class AttendanceApi {
   /// e.g. https://example.com
   String address;
 
-  factory AttendanceApi(String address) {
+  /// Campus ID.
+  String uid;
+
+  /// Campus ID password.
+  String password;
+
+  factory AttendanceApi(String address, {String uid, String password}) {
     if (_instance == null) _instance = AttendanceApi._(address);
+
+    _instance.uid ??= uid;
+    _instance.password ??= password;
     return _instance;
   }
 
@@ -22,7 +31,7 @@ class AttendanceApi {
 
   /// Sign in a class.
   Future<AttendResult> attend(
-      String uid, String cid, String ip, List<int> signature) async {
+      String cid, String ip, List<int> signature) async {
     var uri = Uri.parse('$address/attend.php');
 
     var req = http.MultipartRequest('POST', uri);
@@ -30,6 +39,10 @@ class AttendanceApi {
     req.fields['cid'] = cid.toUpperCase();
     req.fields['ip'] = ip;
     req.files.add(http.MultipartFile.fromBytes('signature', signature));
+
+    // Apply basic authorization.
+    req.headers['Authorization'] =
+        'Basic ${base64Encode(utf8.encode("$uid:$password"))}';
 
     var resStream = await req.send();
     var res = await resStream.stream.bytesToString();
@@ -47,7 +60,7 @@ class AttendanceApi {
   }
 
   /// Get attendance history.
-  Future<List<AttendanceRecord>> getHistory(String uid, {String cid}) async {
+  Future<List<AttendanceRecord>> getHistory({String cid}) async {
     var uri = Uri.parse('$address/history.php').replace(queryParameters: {
       'uid': uid,
       if (cid != null) 'cid': cid,

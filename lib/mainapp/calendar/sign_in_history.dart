@@ -6,7 +6,8 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
 
 class AttendanceHistory extends StatefulWidget {
-  final api = AttendanceApi(BackendApiConfig.signInAddress);
+  final api = AttendanceApi(BackendApiConfig.signInAddress,
+      uid: store.state.authState.campusID);
 
   @override
   _AttendanceHistoryState createState() => _AttendanceHistoryState();
@@ -16,7 +17,7 @@ class _AttendanceHistoryState extends State<AttendanceHistory> {
   List<AttendanceRecord> history;
 
   Future<Null> update() async {
-    history = await widget.api.getHistory(store.state.authState.campusID);
+    history = await widget.api.getHistory();
     if (mounted) setState(() {});
   }
 
@@ -39,7 +40,7 @@ class _AttendanceHistoryState extends State<AttendanceHistory> {
               : RefreshIndicator(
                   onRefresh: update,
                   child: ListView.separated(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(15),
                     itemCount: history.length,
                     separatorBuilder: (_, __) => Divider(),
                     itemBuilder: (_, index) =>
@@ -84,7 +85,9 @@ class AttendanceHistoryItem extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Icon(record.status == AttendanceStatus.success
               ? Icons.done
-              : Icons.error_outline),
+              : record.status == AttendanceStatus.failed
+                  ? Icons.error_outline
+                  : Icons.access_time),
         )
       ],
     );

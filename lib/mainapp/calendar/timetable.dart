@@ -76,6 +76,17 @@ class TimeTablePage extends StatelessWidget {
 }
 
 class LessonCard extends StatefulWidget {
+  /// Lesson information.
+  final Lesson lesson;
+
+  final attendanceApi = AttendanceApi(BackendApiConfig.signInAddress,
+      uid: store.state.authState.campusID);
+
+  LessonCard(this.lesson);
+
+  @override
+  _LessonCardState createState() => _LessonCardState();
+
   // Colors from monday to friday.
   static const List<Color> dayColor = [
     const Color(0xFFF48FB1),
@@ -84,14 +95,6 @@ class LessonCard extends StatefulWidget {
     const Color(0xFF90CAF9),
     const Color(0xFFE1BEE7),
   ];
-
-  /// Lesson information.
-  final Lesson lesson;
-
-  LessonCard(this.lesson);
-
-  @override
-  _LessonCardState createState() => _LessonCardState();
 
   int get lessonCredit {
     return store.state.acState.courses?.firstWhere(
@@ -110,9 +113,7 @@ class _LessonCardState extends State<LessonCard> {
 
   Widget _buildDialogWidgets(BuildContext context) {
     var history = FutureBuilder<List<AttendanceRecord>>(
-      future: AttendanceApi(BackendApiConfig.signInAddress).getHistory(
-          store.state.authState.campusID,
-          cid: widget.lesson.courseCode),
+      future: widget.attendanceApi.getHistory(cid: widget.lesson.courseCode),
       builder: (ctx, snap) {
         switch (snap.connectionState) {
           case ConnectionState.done:
