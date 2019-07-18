@@ -109,8 +109,9 @@ class _EmgsDetailsState extends State<EmgsDetails>
     _controller =
         AnimationController(duration: Duration(milliseconds: 700), vsync: this);
 
-    _percentageAnimation = Tween(begin: 0, end: widget._result.percentage / 100)
-        .animate(_controller);
+    _percentageAnimation =
+        Tween(begin: 0.0, end: widget._result.percentage / 100)
+            .animate(_controller);
     _colorAnimation = ColorTween(begin: Colors.red, end: Colors.green)
         .animate(_controller)
           ..addListener(() => setState(() {}));

@@ -39,11 +39,12 @@ Future<bool> init() async {
   await XMUXApi.selectingServer;
 
   // Register SystemChannel to handle lifecycle message.
-  SystemChannels.lifecycle.setMessageHandler((msg) {
+  SystemChannels.lifecycle.setMessageHandler((msg) async {
     print('SystemChannels/LifecycleMessage: $msg');
     // Update language for XMUX API.
     if (msg == AppLifecycleState.resumed.toString())
       XMUXApi.instance.configure();
+    return msg;
   });
 
   // Init XiA.

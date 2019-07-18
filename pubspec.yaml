@@ -30,6 +30,7 @@ dependencies:
       path: flare_flutter
       ref: dev
   flutter_lottie: ^0.2.0
+  flutter_mobx: ^0.3.0
   flutter_redux: ^0.5.3
   flutter_spinkit: ^3.1.0
   flutter_svg: ^0.13.0
@@ -45,6 +46,7 @@ dependencies:
   image: ^2.1.4
   image_picker: ^0.6.0
   json_annotation: ^2.3.0
+  mobx: ^0.3.3
   package_info: ^0.4.0
   path_provider: ^1.1.0
   photo_view: ^0.4.0
@@ -62,6 +64,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.6.1
   json_serializable: ^2.3.0
+  mobx_codegen: ^0.3.3
   mockito: ^4.1.0
 
 # For information on the generic Dart part of this file, see the

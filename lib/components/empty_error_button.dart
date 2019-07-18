@@ -6,7 +6,7 @@ class EmptyErrorButton extends StatelessWidget {
   final AsyncCallback onRefresh;
 
   EmptyErrorButton({AsyncCallback onRefresh})
-      : this.onRefresh = onRefresh ?? (() {});
+      : this.onRefresh = onRefresh ?? (() async {});
 
   @override
   Widget build(BuildContext context) {
