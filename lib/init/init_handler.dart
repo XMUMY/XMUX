@@ -100,35 +100,39 @@ void postInit() async {
     await LoginHandler.createUser();
   }
 
-  if (Platform.isAndroid) {
-    var deviceInfo = await DeviceInfoPlugin().androidInfo;
+  try {
+    if (Platform.isAndroid) {
+      var deviceInfo = await DeviceInfoPlugin().androidInfo;
 
-    // Replace android transition theme if >= 9.0
-    if (int.parse(deviceInfo.version.release) >= 9)
-      ThemeConfig.defaultTheme = ThemeConfig.defaultTheme.copyWith(
-          pageTransitionsTheme: PageTransitionsTheme(builders: {
-        TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
-      }));
+      // Replace android transition theme if >= 9.0
+      if (int.parse(deviceInfo.version.release.split('.').first) >= 9)
+        ThemeConfig.defaultTheme = ThemeConfig.defaultTheme.copyWith(
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
+          TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
+        }));
 
-    var token = await firebase.messaging.getToken();
-    XMUXApi.instance.device(deviceInfo.androidId, token, deviceInfo.model);
+      var token = await firebase.messaging.getToken();
+      XMUXApi.instance.device(deviceInfo.androidId, token, deviceInfo.model);
+    }
+
+    if (Platform.isIOS) {
+      var deviceInfo = await DeviceInfoPlugin().iosInfo;
+
+      var token = await firebase.messaging.getToken();
+      XMUXApi.instance
+          .device(deviceInfo.identifierForVendor, token, deviceInfo.model);
+    }
+  } catch (e) {
+    rethrow;
+  } finally {
+    store.dispatch(UpdateInfoAction());
+    store.dispatch(UpdateHomepageAnnouncementsAction());
+    store.dispatch(UpdateAcAction());
+    store.dispatch(UpdateCoursesAction());
+    store.dispatch(UpdateAssignmentsAction());
+
+    runApp(MainApp());
   }
-
-  if (Platform.isIOS) {
-    var deviceInfo = await DeviceInfoPlugin().iosInfo;
-
-    var token = await firebase.messaging.getToken();
-    XMUXApi.instance
-        .device(deviceInfo.identifierForVendor, token, deviceInfo.model);
-  }
-
-  store.dispatch(UpdateInfoAction());
-  store.dispatch(UpdateHomepageAnnouncementsAction());
-  store.dispatch(UpdateAcAction());
-  store.dispatch(UpdateCoursesAction());
-  store.dispatch(UpdateAssignmentsAction());
-
-  runApp(MainApp());
 }
 
 void initFCM() {
