@@ -26,13 +26,13 @@ class KliaExpressPage extends StatelessWidget {
             PhotoView(
               imageProvider: CachedNetworkImageProvider(firebase
                   .remoteConfigs.staticResources.kliaTransitScheduleImage),
-              maxScale: 2,
+              maxScale: 2.0,
               minScale: 0.3,
             ),
             PhotoView(
               imageProvider: CachedNetworkImageProvider(firebase
                   .remoteConfigs.staticResources.kliaExpressScheduleImage),
-              maxScale: 2,
+              maxScale: 2.0,
               minScale: 0.2,
             ),
           ],

@@ -112,7 +112,7 @@ packages:
       name: cached_network_image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   charcode:
     dependency: transitive
     description:
@@ -217,7 +217,7 @@ packages:
       name: firebase_database
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.3"
+    version: "3.0.5"
   firebase_messaging:
     dependency: "direct main"
     description:
@@ -275,7 +275,7 @@ packages:
       name: flutter_cache_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -288,13 +288,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
-  flutter_mobx:
-    dependency: "direct main"
-    description:
-      name: flutter_mobx
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.0+1"
   flutter_redux:
     dependency: "direct main"
     description:
@@ -327,7 +320,7 @@ packages:
       path: "."
       ref: rm-ios
       resolved-ref: "7e691d64cf930b95d61b62db22002b052101d641"
-      url: "https://github.com/X-dea/Flutter_VPN.git"
+      url: "https://github.com/X-dea/Flutter-VPN.git"
     source: git
     version: "0.5.0"
   flutter_webview_plugin:
@@ -747,7 +740,7 @@ packages:
       path: "."
       ref: HEAD
       resolved-ref: "32c15f36461e6acaf6b63071cb19df5be734042e"
-      url: "git@cloud.xdea.xyz:XMUX/travelviser_dart.git"
+      url: "git@cloud.xdea.xyz:XMUX/travelviser-dart.git"
     source: git
     version: "0.3.0"
   tuple:
