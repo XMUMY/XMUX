@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/modules/maintenance/my_question.dart' as myQuestion;
 
 class SubmitFormPage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
         final snackBar = SnackBar(
           content: Text(error.toString()),
           action: SnackBarAction(
-            label: 'Retry',
+            label: i18n('Campus/Tools/Maintenance/Retry', context),
             onPressed: () => _getForm(),
           ),
           duration: Duration(days: 1),
@@ -75,7 +76,7 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
                         value: formFieldState.value,
                         items: roomUsageItem,
                         hint: Text(
-                          'Room Usage',
+                          i18n('Campus/Tools/Maintenance/RoomUsage', context),
                         ),
                         onChanged: (selectedVal) {
                           formFieldState.didChange(selectedVal);
@@ -92,7 +93,7 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
                     ]),
                 validator: (selectedValue) {
                   if (selectedValue == null)
-                    return "Please choose an option";
+                    return i18n('Campus/Tools/Maintenance/ChooseEmptyError', context);
                   else
                     return null;
                 },
@@ -104,7 +105,7 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
                   value: formFieldState.value,
                   items: categoryItem,
                   hint: Text(
-                    'Problem Category',
+                    i18n('Campus/Tools/Maintenance/ProblemCategory', context),
                   ),
                   onChanged: (selectedVal) {
                     formFieldState.didChange(selectedVal);
@@ -120,7 +121,7 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
               ]),
               validator: (selectedValue) {
                 if (selectedValue == null) {
-                  return "Please choose an option";
+                  return i18n('Campus/Tools/Maintenance/ChooseEmptyError', context);
                 } else
                   return null;
               },
@@ -142,7 +143,7 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
                                   value: formFieldState.value,
                                   items: blockItem,
                                   hint: Text(
-                                    'Block',
+                                    i18n('Campus/Tools/Maintenance/Block', context),
                                   ),
                                   onChanged: (selectedVal) {
                                     formFieldState.didChange(selectedVal);
@@ -151,7 +152,7 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
                                 ),
                                 validator: (selectedValue) {
                                   if (selectedValue == null)
-                                    return "Please choose an option";
+                                    return i18n('Campus/Tools/Maintenance/ChooseEmptyError', context);
                                   else
                                     return null;
                                 },
@@ -164,7 +165,7 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
                                   value: formFieldState.value,
                                   items: wingItem,
                                   hint: Text(
-                                    'Wing',
+                                    i18n('Campus/Tools/Maintenance/Wing', context),
                                   ),
                                   onChanged: (selectedVal) {
                                     formFieldState.didChange(selectedVal);
@@ -173,7 +174,7 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
                                 ),
                                 validator: (selectedValue) {
                                   if (selectedValue == null)
-                                    return "Please choose an option";
+                                    return i18n('Campus/Tools/Maintenance/ChooseEmptyError', context);
                                   else
                                     return null;
                                 },
@@ -210,10 +211,10 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                           border: UnderlineInputBorder(),
-                          labelText: 'Room No.'),
+                          labelText: i18n('Campus/Tools/Maintenance/RoomNo', context)),
                       validator: (currentValue) {
                         if (currentValue.isEmpty)
-                          return 'Please fill in room number';
+                          return i18n('Campus/Tools/Maintenance/FormEmptyError', context) + i18n('Campus/Tools/Maintenance/RoomNo', context);
                         else
                           return null;
                       },
@@ -227,11 +228,11 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
               padding: EdgeInsets.all(8.0),
               child: TextFormField(
                 decoration: InputDecoration(
-                    border: UnderlineInputBorder(), labelText: 'Phone Number'),
+                    border: UnderlineInputBorder(), labelText: i18n('Campus/Tools/Maintenance/PhoneNo', context)),
                 keyboardType: TextInputType.number,
                 validator: (currentValue) {
                   if (currentValue.isEmpty)
-                    return 'Please fill in phone number';
+                    return i18n('Campus/Tools/Maintenance/FormEmptyError', context) + i18n('Campus/Tools/Maintenance/PhoneNo', context);
                   else
                     return null;
                 },
@@ -246,11 +247,11 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText:
-                        'Please describe the problem (up to 100 characters)',
-                    labelText: 'Description'),
+                        i18n('Campus/Tools/Maintenance/DescriptionHint', context),
+                    labelText: i18n('Campus/Tools/Maintenance/Description', context)),
                 validator: (currentValue) {
                   if (currentValue.isEmpty)
-                    return 'Please fill in description';
+                    return i18n('Campus/Tools/Maintenance/FormEmptyError', context) + i18n('Campus/Tools/Maintenance/Description', context);
                   else if (currentValue.length > 100)
                     return 'Description should be less than 100 characters';
                   else
@@ -260,7 +261,7 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
               ),
             ),
             CheckboxListTile(
-              title: Text('Recurring problem'),
+              title: Text(i18n('Campus/Tools/Maintenance/Recurring', context)),
               value: formData.isrecurringProblem,
               onChanged: (checked) =>
                   setState(() => formData.isrecurringProblem = checked),
@@ -274,7 +275,7 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
                     _maintenance.formSender(formData).then((r) {
                       if (mounted) {
                         final snackBar = SnackBar(
-                          content: Text('Form successfully submitted! '),
+                          content: Text(i18n('Campus/Tools/Maintenance/SubmissionSuccess', context)),
                         );
                         Scaffold.of(context).showSnackBar(snackBar);
                       }
@@ -288,7 +289,7 @@ class _SubmitFormPageState extends State<SubmitFormPage> {
                     });
                   }
                 },
-                child: Text('Submit Form'),
+                child: Text(i18n('Campus/Tools/Maintenance/SubmitBtn', context)),
               ),
             )
           ],

@@ -30,8 +30,10 @@ class _MaintenancePageState extends State<MaintenancePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Maintenance'),
-        backgroundColor: Colors.deepOrange,
+        title: Text(i18n('Campus/Tools/Maintenance', context)),
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Theme.of(context).primaryColor
+            : Colors.lightBlue,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.question_answer),
@@ -46,10 +48,10 @@ class _MaintenancePageState extends State<MaintenancePage>
         bottom: TabBar(
           tabs: <Tab>[
             Tab(
-              text: 'New form',
+              text: i18n('Campus/Tools/Maintenance/FormPage', context),
             ),
             Tab(
-              text: 'My complaint',
+              text: i18n('Campus/Tools/Maintenance/MyComplaint', context),
             ),
           ],
           controller: controller,

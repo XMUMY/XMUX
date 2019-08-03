@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/modules/maintenance/my_question.dart';
 
 class FaqPage extends StatefulWidget {
@@ -73,7 +74,7 @@ class _FaqPageState extends State<FaqPage> {
           content: Text(e.toString()),
           duration: Duration(days: 1),
           action: SnackBarAction(
-              label: 'Reload',
+              label: i18n('Campus/Tools/Maintenance/Retry', context),
               onPressed: () => WidgetsBinding.instance.addPostFrameCallback(
                   (_) => _refreshIndicatorKey.currentState.show())),
         );
@@ -104,7 +105,7 @@ class _FaqPageState extends State<FaqPage> {
               child: ButtonBar(
                 children: <Widget>[
                   FlatButton(
-                      child: const Text('Details'),
+                      child: Text(i18n('Campus/Tools/Maintenance/Details', context)),
                       onPressed: () => _showDetail(q, context))
                 ],
               ),
@@ -116,7 +117,9 @@ class _FaqPageState extends State<FaqPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('FAQ'),
-          backgroundColor: Colors.deepOrange,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Theme.of(context).primaryColor
+            : Colors.lightBlue,
         ),
         body: RefreshIndicator(
           key: _refreshIndicatorKey,

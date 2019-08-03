@@ -92,7 +92,7 @@ class CampusPage extends StatelessWidget {
                   title: 'Campus/Tools/Travelviser',
                   path: '/Campus/Tools/Travelviser'),
                   _ToolsButton(
-                  child: Icon(FontAwesomeIcons.toolbox),
+                  child: Icon(FontAwesomeIcons.hammer, color: Color(0xFF5DC3F1)),
                   title: 'Campus/Tools/Maintenance',
                   path: '/Campus/Tools/Maintenance'),
             ],
