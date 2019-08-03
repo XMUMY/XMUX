@@ -4,9 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CampusPage extends StatelessWidget {
   @override
@@ -26,73 +26,66 @@ class CampusPage extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.fromLTRB(8, 10, 8, 0),
         children: <Widget>[
-          Row(children: <Widget>[
-            Expanded(
-              child: Text(
-                ' ' + i18n('Campus/AcademicTools', context),
-                style: Theme.of(context).textTheme.title,
-              ),
-            ),
-            FlatButton(
-              child: Text(i18n('Campus/More', context)),
-              onPressed: () => Navigator.of(context, rootNavigator: true)
-                  .pushNamed('/Campus/ACTools/Details'),
-            ),
-          ]),
+          Text(
+            ' ' + i18n('Campus/AcademicTools', context),
+            style: Theme.of(context).textTheme.title,
+          ),
           Divider(height: 3),
           Wrap(
-            alignment: WrapAlignment.spaceAround,
+            alignment: WrapAlignment.spaceEvenly,
             children: <Widget>[
-              _ToolsButton(
+              _ToolButton(
                   svg: 'res/campus/wolfram.svg',
                   title: 'Campus/AcademicTools/WolframEngine/Title',
                   path: '/Campus/ACTools/WolframEngine'),
-              _ToolsButton(
+              _ToolButton(
                   svg: 'res/campus/geogebra.svg',
                   title: 'Campus/AcademicTools/GeoGebra/Title',
                   path: '/Campus/ACTools/GeoGebra'),
-              _ToolsButton(
+              _ToolButton(
                   svg: 'res/campus/gpa.svg',
                   title: 'Campus/AcademicTools/ExamResult/Title',
                   path: '/Campus/ACTools/ExamResult'),
-              if (Platform.isIOS)
-                _ToolsButton(
-                    svg: 'res/campus/gpa_calculator.svg',
-                    title: 'Campus/AcademicTools/GPACalculator/Title',
-                    path: '/Campus/ACTools/GPACalculator'),
+              _ToolButton(
+                  svg: 'res/campus/gpa_calculator.svg',
+                  title: 'Campus/AcademicTools/GPACalculator/Title',
+                  path: '/Campus/ACTools/GPACalculator'),
               if (!Platform.isIOS)
-                _ToolsButton(
+                _ToolButton(
                     svg: 'res/campus/vpn.svg',
                     title: 'Campus/AcademicTools/VPN/Title',
                     path: '/Campus/ACTools/VPN'),
+              if (store.state.settingState.enableFunctionsUnderDev)
+                _ToolButton(
+                  title: 'Campus/AcademicTools/ECR',
+                  path: '/Campus/ACTools/ECR',
+                  svg: 'res/campus/ecr.svg',
+                ),
             ],
           ),
-          Row(children: <Widget>[
-            Expanded(
-              child: Text(
-                ' ' + i18n('Campus/Tools', context),
-                style: Theme.of(context).textTheme.title,
-              ),
-            ),
-          ]),
+          Text(
+            ' ' + i18n('Campus/Tools', context),
+            style: Theme.of(context).textTheme.title,
+          ),
           Divider(),
           Wrap(
-            alignment: WrapAlignment.spaceAround,
+            alignment: WrapAlignment.spaceEvenly,
             children: <Widget>[
-              _ToolsButton(
+              _ToolButton(
                   child: Icon(Icons.directions_bus, color: Color(0xFF5DC3F1)),
                   title: 'Campus/Tools/BusSchedule',
                   path: '/Campus/Tools/BusSchedule'),
-              _ToolsButton(
+              _ToolButton(
                   svg: 'res/campus/klia_express.svg',
                   title: 'Campus/Tools/KliaExpress',
                   path: '/Campus/Tools/KliaExpress'),
-              _ToolsButton(
+              _ToolButton(
                   svg: 'res/campus/travelviser.svg',
                   title: 'Campus/Tools/Travelviser',
                   path: '/Campus/Tools/Travelviser'),
-                  _ToolsButton(
-                  child: Icon(FontAwesomeIcons.hammer, color: Color(0xFF5DC3F1)),
+              _ToolButton(
+                  child: Icon(FontAwesomeIcons.hammer,
+                      color: Color(0xFF5DC3F1), size: 55),
                   title: 'Campus/Tools/Maintenance',
                   path: '/Campus/Tools/Maintenance'),
             ],
@@ -103,7 +96,7 @@ class CampusPage extends StatelessWidget {
   }
 }
 
-class _ToolsButton extends StatelessWidget {
+class _ToolButton extends StatelessWidget {
   /// Icon to display.
   /// The icon name also used as tag for hero animation.
   final Widget child;
@@ -118,7 +111,7 @@ class _ToolsButton extends StatelessWidget {
   /// Path for `Navigator`.
   final String path;
 
-  _ToolsButton(
+  _ToolButton(
       {Key key,
       this.child,
       this.svg,
@@ -128,11 +121,22 @@ class _ToolsButton extends StatelessWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) => IconButton(
-        icon: Hero(tag: child ?? svg, child: child ?? SvgPicture.asset(svg)),
-        onPressed: () =>
-            Navigator.of(context, rootNavigator: true).pushNamed(path),
-        tooltip: i18n(title, context),
-        iconSize: MediaQuery.of(context).size.width / 6,
-      );
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        IconButton(
+          icon: Hero(tag: child ?? svg, child: child ?? SvgPicture.asset(svg)),
+          onPressed: () =>
+              Navigator.of(context, rootNavigator: true).pushNamed(path),
+          tooltip: i18n(title, context),
+          iconSize: MediaQuery.of(context).size.width / 6,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 5),
+          child: Text(i18n(title, context),
+              style: Theme.of(context).textTheme.caption),
+        )
+      ],
+    );
+  }
 }

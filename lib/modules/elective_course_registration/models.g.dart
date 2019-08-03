@@ -21,15 +21,10 @@ ElectiveCourse _$ElectiveCourseFromJson(Map<String, dynamic> json) {
 
 abstract class _$ElectiveCourseSerializerMixin {
   String get classification;
-
   int get maxCredit;
-
   String get round;
-
   PeriodOfDate get period;
-
   String get entry;
-
   Map<String, dynamic> toJson() => <String, dynamic>{
         'Classification': classification,
         'Credits(max)': maxCredit,
@@ -60,11 +55,8 @@ ElectiveCourseFormData _$ElectiveCourseFormDataFromJson(
 
 abstract class _$ElectiveCourseFormDataSerializerMixin {
   FormGeneralInfo get formGeneralInfo;
-
   List<CourseSelected> get coursesSelected;
-
   List<CourseUnselected> get coursesList;
-
   Map<String, dynamic> toJson() => <String, dynamic>{
         'formGeneralInfo': formGeneralInfo,
         'coursesSelected': coursesSelected,
@@ -86,13 +78,9 @@ FormGeneralInfo _$FormGeneralInfoFromJson(Map<String, dynamic> json) {
 
 abstract class _$FormGeneralInfoSerializerMixin {
   String get round;
-
   String get stage;
-
   int get maxCredit;
-
   int get chosenCredit;
-
   Map<String, dynamic> toJson() => <String, dynamic>{
         'Round': round,
         'Stage': stage,
@@ -117,21 +105,13 @@ CourseSelected _$CourseSelectedFromJson(Map<String, dynamic> json) {
 
 abstract class _$CourseSelectedSerializerMixin {
   String get name;
-
   int get credit;
-
   String get week;
-
   String get lecturer;
-
   String get timeAndVenue;
-
   int get quota;
-
   int get numChosen;
-
   String get cancel;
-
   Map<String, dynamic> toJson() => <String, dynamic>{
         'Waiting List': name,
         'Credit': credit,
@@ -160,21 +140,13 @@ CourseUnselected _$CourseUnselectedFromJson(Map<String, dynamic> json) {
 
 abstract class _$CourseUnselectedSerializerMixin {
   String get name;
-
   int get credit;
-
   String get week;
-
   String get lecturer;
-
   String get timeAndVenue;
-
   int get quota;
-
   int get numChosen;
-
   String get option;
-
   Map<String, dynamic> toJson() => <String, dynamic>{
         'Course Information (by group)': name,
         'Credit': credit,

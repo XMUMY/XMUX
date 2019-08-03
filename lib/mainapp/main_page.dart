@@ -5,12 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/calendar/calendar.dart';
-import 'package:xmux/mainapp/campus/campus_page.dart';
 import 'package:xmux/mainapp/drawer.dart';
-import 'package:xmux/mainapp/explore/explore_page.dart';
-import 'package:xmux/mainapp/home/home_page.dart';
 import 'package:xmux/redux/redux.dart';
+
+import 'calendar/calendar.dart';
+import 'campus/campus.dart';
+import 'explore/explore_page.dart';
+import 'home/home_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
