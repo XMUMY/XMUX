@@ -57,9 +57,9 @@ class CampusPage extends StatelessWidget {
                     path: '/Campus/ACTools/VPN'),
               if (store.state.settingState.enableFunctionsUnderDev)
                 _ToolButton(
-                  title: 'Campus/AcademicTools/ECR',
-                  path: '/Campus/ACTools/ECR',
                   svg: 'res/campus/ecr.svg',
+                  title: 'Campus/AcademicTools/ECR/Title',
+                  path: '/Campus/ACTools/ECR',
                 ),
             ],
           ),

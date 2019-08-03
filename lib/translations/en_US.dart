@@ -7,7 +7,7 @@ const Map<String, String> en_US = {
   'Weekdays/5': 'Friday',
   'Weekdays/6': 'Saturday',
   'Weekdays/7': 'Sunday',
-  // HomePage
+  // Home Tabs
   'Home': 'Home',
   'Calendar': 'Calendar',
   'Campus': 'Campus',
@@ -35,16 +35,13 @@ const Map<String, String> en_US = {
   'Calendar/SignIn/Failed': 'Failed',
   'Calendar/LastUpdate': 'Recent Update: ',
   // Campus
+  // Academic Tools
   'Campus/AcademicTools': 'Academic Utilities',
-  'Campus/More': 'More',
   'Campus/AcademicTools/ExamResult/Title': 'Result Inquiry',
-  'Campus/AcademicTools/ExamResult/Caption': 'View examination results',
   'Campus/AcademicTools/ExamResult/ChooseSession':
       'Choose an academic session:',
   'Campus/AcademicTools/ExamResult/credits': 'credits',
   'Campus/AcademicTools/WolframEngine/Title': 'Wolfram Engine',
-  'Campus/AcademicTools/WolframEngine/Caption':
-      'Search anything using powerful Wolfram Engine',
   'Campus/AcademicTools/WolframEngine/InputConstructor': 'Input Constructor',
   'Campus/AcademicTools/WolframEngine/InputConstructor/SearchAnything':
       'Search anything!',
@@ -54,12 +51,8 @@ const Map<String, String> en_US = {
   'Campus/AcademicTools/WolframEngine/InputConstructor/ClearAll': 'Clear all',
   'Campus/AcademicTools/WolframEngine/Result': 'Search Result',
   'Campus/AcademicTools/GeoGebra/Title': 'GeoGebra',
-  'Campus/AcademicTools/GeoGebra/Caption':
-      ' Solve & plot with GeoGebra dynamic mathematics',
   'Campus/AcademicTools/GPACalculator/Title': 'GPA Calculator',
-  'Campus/AcademicTools/GPACalculator/Caption': 'Calculate your GPA easily',
   'Campus/AcademicTools/VPN/Title': 'VPN',
-  'Campus/AcademicTools/VPN/Caption': 'Library VPN access',
   'Campus/AcademicTools/VPN/Warning':
       'The VPN access is limited for academic and research purposes only.',
   'Campus/AcademicTools/VPN/Connect': 'Connect',
@@ -70,7 +63,6 @@ const Map<String, String> en_US = {
   'Campus/AcademicTools/VPN/State/3': 'Disconnecting',
   'Campus/AcademicTools/VPN/State/4': 'Error',
   'Campus/AcademicTools/ECR/Title': 'Course Registration',
-  'Campus/AcademicTools/ECR/Caption': 'Register elective courses',
   'Campus/AcademicTools/ECR/Warning':
       'You can register elective courses here. All information subject to AC website.',
   'Campus/AcademicTools/ECR/MaxCredit': 'Max Credit: ',
@@ -87,27 +79,29 @@ const Map<String, String> en_US = {
   'Campus/AcademicTools/ECR/Form/ListeningInfo':
       'Listening for this course. Your course will be registered automatically if available.',
   'Campus/AcademicTools/ECR/Form/Cancel': 'Cancel',
+  // Campus Tools
   'Campus/Tools': 'Campus Utilities',
   'Campus/Tools/BusSchedule': 'Bus Schedule',
   'Campus/Tools/KliaExpress': 'KLIA Express',
-  'Campus/Tools/Maintenance': 'Maintenance', 
+  'Campus/Tools/Maintenance': 'Maintenance',
   'Campus/Tools/Maintenance/FormPage': 'New form',
-  'Campus/Tools/Maintenance/MyComplaint': 'My complaint', 
-  'Campus/Tools/Maintenance/Retry': 'retry', 
-  'Campus/Tools/Maintenance/Details': 'Detail', 
-  'Campus/Tools/Maintenance/ChooseEmptyError': 'Please choose an option', 
-  'Campus/Tools/Maintenance/FormEmptyError': 'Please fill in ', 
-  'Campus/Tools/Maintenance/RoomUsage': 'Room Usage', 
-  'Campus/Tools/Maintenance/ProblemCategory': 'Problem Category', 
+  'Campus/Tools/Maintenance/MyComplaint': 'My complaint',
+  'Campus/Tools/Maintenance/Retry': 'retry',
+  'Campus/Tools/Maintenance/Details': 'Detail',
+  'Campus/Tools/Maintenance/ChooseEmptyError': 'Please choose an option',
+  'Campus/Tools/Maintenance/FormEmptyError': 'Please fill in ',
+  'Campus/Tools/Maintenance/RoomUsage': 'Room Usage',
+  'Campus/Tools/Maintenance/ProblemCategory': 'Problem Category',
   'Campus/Tools/Maintenance/Block': 'Block',
-  'Campus/Tools/Maintenance/Wing': 'Wing', 
-  'Campus/Tools/Maintenance/RoomNo': 'Room No.', 
-  'Campus/Tools/Maintenance/PhoneNo': 'Phone Number', 
-  'Campus/Tools/Maintenance/Description': 'Description', 
-  'Campus/Tools/Maintenance/DescriptionHint': 'Please describe the problem (up to 100 characters)',
-  'Campus/Tools/Maintenance/Recurring': 'Recurring problem', 
-  'Campus/Tools/Maintenance/SubmissionSuccess': 'Form successfully submitted! ', 
-  'Campus/Tools/Maintenance/SubmitBtn': 'Submit Form', 
+  'Campus/Tools/Maintenance/Wing': 'Wing',
+  'Campus/Tools/Maintenance/RoomNo': 'Room No.',
+  'Campus/Tools/Maintenance/PhoneNo': 'Phone Number',
+  'Campus/Tools/Maintenance/Description': 'Description',
+  'Campus/Tools/Maintenance/DescriptionHint':
+      'Please describe the problem (up to 100 characters)',
+  'Campus/Tools/Maintenance/Recurring': 'Recurring problem',
+  'Campus/Tools/Maintenance/SubmissionSuccess': 'Form successfully submitted! ',
+  'Campus/Tools/Maintenance/SubmitBtn': 'Submit Form',
   'Campus/Tools/Travelviser/NotRegistered':
       'User not registered yet\nPlease register using\nTravelvier Passenger',
   'Campus/Tools/Travelviser/DigitalPass': 'Digital Pass',
