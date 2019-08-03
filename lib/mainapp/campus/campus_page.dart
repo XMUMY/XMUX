@@ -6,6 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CampusPage extends StatelessWidget {
   @override
@@ -90,6 +91,10 @@ class CampusPage extends StatelessWidget {
                   svg: 'res/campus/travelviser.svg',
                   title: 'Campus/Tools/Travelviser',
                   path: '/Campus/Tools/Travelviser'),
+                  _ToolsButton(
+                  child: Icon(FontAwesomeIcons.toolbox),
+                  title: 'Campus/Tools/Maintenance',
+                  path: '/Campus/Tools/Maintenance'),
             ],
           ),
         ],
