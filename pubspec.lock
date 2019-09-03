@@ -42,14 +42,14 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   boolean_selector:
     dependency: transitive
     description:
       name: boolean_selector
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.5"
   build:
     dependency: transitive
     description:
@@ -249,21 +249,17 @@ packages:
   flare_dart:
     dependency: transitive
     description:
-      path: flare_dart
-      ref: dev
-      resolved-ref: "307d63f824042d61059edf1cec54b96789625d97"
-      url: "git://github.com/2d-inc/Flare-Flutter.git"
-    source: git
-    version: "1.4.3"
+      name: flare_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.5"
   flare_flutter:
     dependency: "direct main"
     description:
-      path: flare_flutter
-      ref: dev
-      resolved-ref: "307d63f824042d61059edf1cec54b96789625d97"
-      url: "https://github.com/2d-inc/Flare-Flutter.git"
-    source: git
-    version: "1.5.4"
+      name: flare_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.7"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -476,7 +472,7 @@ packages:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.6"
+    version: "1.1.7"
   mime:
     dependency: transitive
     description:
@@ -560,7 +556,7 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.0"
+    version: "1.8.0+1"
   petitparser:
     dependency: transitive
     description:
@@ -822,4 +818,4 @@ packages:
     version: "2.1.16"
 sdks:
   dart: ">=2.4.0 <3.0.0"
-  flutter: ">=1.5.9-pre.94 <2.0.0"
+  flutter: ">=1.7.8+hotfix.3 <2.0.0"

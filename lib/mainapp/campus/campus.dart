@@ -84,8 +84,11 @@ class CampusPage extends StatelessWidget {
                   title: 'Campus/Tools/Travelviser',
                   path: '/Campus/Tools/Travelviser'),
               _ToolButton(
-                  child: Icon(FontAwesomeIcons.hammer,
-                      color: Color(0xFF5DC3F1), size: 55),
+                  child: Icon(
+                    FontAwesomeIcons.hammer,
+                    color: Color(0xFF5DC3F1),
+                    size: 60,
+                  ),
                   title: 'Campus/Tools/Maintenance',
                   path: '/Campus/Tools/Maintenance'),
             ],
@@ -129,12 +132,17 @@ class _ToolButton extends StatelessWidget {
           onPressed: () =>
               Navigator.of(context, rootNavigator: true).pushNamed(path),
           tooltip: i18n(title, context),
-          iconSize: MediaQuery.of(context).size.width / 6,
+          iconSize: 70,
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: Text(i18n(title, context),
-              style: Theme.of(context).textTheme.caption),
+        IntrinsicHeight(),
+        Container(
+          width: 85,
+          margin: const EdgeInsets.only(bottom: 5),
+          child: Text(
+            i18n(title, context),
+            style: Theme.of(context).textTheme.caption,
+            textAlign: TextAlign.center,
+          ),
         )
       ],
     );

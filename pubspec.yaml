@@ -24,11 +24,7 @@ dependencies:
   firebase_messaging: 5.0.4
   firebase_remote_config: ^0.2.0
   firebase_storage: 3.0.2
-  flare_flutter:
-    git:
-      url: https://github.com/2d-inc/Flare-Flutter.git
-      path: flare_flutter
-      ref: dev
+  flare_flutter: ^1.5.7
   flutter_lottie: ^0.2.0
   flutter_redux: ^0.5.3
   flutter_spinkit: ^3.1.0
