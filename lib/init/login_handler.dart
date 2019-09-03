@@ -31,9 +31,10 @@ class LoginHandler {
 
     try {
       firebaseUser = (await FirebaseAuth.instance.currentUser()) ??
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-              email: store.state.authState.campusID + '@xmu.edu.my',
-              password: store.state.authState.campusIDPassword);
+          (await FirebaseAuth.instance.signInWithEmailAndPassword(
+                  email: store.state.authState.campusID + '@xmu.edu.my',
+                  password: store.state.authState.campusIDPassword))
+              .user;
     } on PlatformException catch (e) {
       return e.message;
     } catch (e) {

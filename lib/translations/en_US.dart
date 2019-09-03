@@ -214,14 +214,19 @@ const Map<String, String> en_US = {
 };
 
 const Map<String, String> en_US_login = {
-  'SignInPage/GooglePlay': 'Install GMS',
-  'SignInPage/Privacy': 'Privacy Policy',
-  'SignInPage/HelpDocs': 'Help Docs',
-  'SignInPage/CampusID': 'Campus ID',
-  'SignInPage/Password': 'Password',
-  'SignInPage/Read':
-      'By signing in, you agree to our privacy policy & disclaimer',
-  'SignInPage/SignIn': 'Sign in',
-  'SignInPage/Error': 'Error: ',
-  'SignInPage/FormatError': 'Format error, please check.',
+  'SignIn/GooglePlay': 'Install GMS',
+  'SignIn/Privacy': 'Privacy Policy',
+  'SignIn/HelpDocs': 'Help Docs',
+  'SignIn/CampusID': 'Campus ID',
+  'SignIn/Password': 'Password',
+  'SignIn/Read': 'By signing in, you agree to our privacy policy & disclaimer',
+  'SignIn/SignIn': 'Sign in',
+  'SignIn/Error': 'Error: ',
+  'SignIn/FormatError': 'Format error, please check.',
+  'Register/Title': 'Welcome to XMUM!',
+  'Register/Caption':
+      'We still need some information to finish your registeration.',
+  'Register/DisplayName': 'Display Name',
+  'Register/Email': 'Email',
+  'Register/Register': 'Continue'
 };

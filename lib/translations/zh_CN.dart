@@ -199,13 +199,18 @@ const Map<String, String> zh_CN = {
 };
 
 const Map<String, String> zh_CN_login = {
-  'SignInPage/GooglePlay': '安装 GMS',
-  'SignInPage/Privacy': '隐私政策',
-  'SignInPage/HelpDocs': '帮助文档',
-  'SignInPage/CampusID': '校园ID',
-  'SignInPage/Password': '密码',
-  'SignInPage/Read': '登录即代表您同意我们的隐私政策和免责声明',
-  'SignInPage/SignIn': '登录',
-  'SignInPage/Error': '错误：',
-  'SignInPage/FormatError': '格式不正确，请检查。',
+  'SignIn/GooglePlay': '安装 GMS',
+  'SignIn/Privacy': '隐私政策',
+  'SignIn/HelpDocs': '帮助文档',
+  'SignIn/CampusID': '校园ID',
+  'SignIn/Password': '密码',
+  'SignIn/Read': '登录即代表您同意我们的隐私政策和免责声明',
+  'SignIn/SignIn': '登录',
+  'SignIn/Error': '错误：',
+  'SignIn/FormatError': '格式不正确，请检查。',
+  'Register/Title': '欢迎来到 XMUM！',
+  'Register/Caption': '我们仍需要以下信息以完成注册。',
+  'Register/DisplayName': '昵称',
+  'Register/Email': '邮箱',
+  'Register/Register': '继续'
 };
