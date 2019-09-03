@@ -85,7 +85,8 @@ Future<bool> init() async {
 /// Post initialization after authentication.
 void postInit() async {
   // Configure JWT generator for current user.
-  XMUXApi.instance.getIdToken = firebaseUser.getIdToken;
+  XMUXApi.instance.getIdToken =
+      () async => (await firebaseUser.getIdToken()).token;
 
   // Set user info for sentry report.
   sentry.userContext = sentry_lib.User(id: firebaseUser.uid);
