@@ -43,25 +43,23 @@ class XMUXApi {
   /// Unique instance of XMUXApi.
   static XMUXApi _instance;
 
-  /// Back-end API addresses.
-  final String address;
-
   /// HTTP client for API calls.
-  final XMUXHttpClient _client = null;
+  final XMUXHttpClient _client;
 
   /// Callback to get ID token for firebaseUser.
   /// Should be assigned before using APIs need JWT token.
   Future<String> Function() getIdToken;
 
   factory XMUXApi(String address) {
-    if (_instance == null) _instance = XMUXApi._(address);
+    if (_instance == null) _instance = XMUXApi._(XMUXHttpClient(address));
     return _instance;
   }
 
-  XMUXApi._(this.address);
+  XMUXApi._(this._client);
 
   /// Parse HTTP response to XMUXApiResponse.
-  XMUXApiResponse<T> decodeResponse<T>(
+  /// [convertFunc] will be called only when data is not null.
+  XMUXApiResponse<T> _decodeResponse<T>(
     http.Response response,
     T Function(Map<String, dynamic>) convertFunc,
   ) {
@@ -75,12 +73,49 @@ class XMUXApi {
       timestamp = HttpDate.parse(response.headers['Date']);
 
     Map<String, dynamic> decodedBody = jsonDecode(response.body);
+    Map<String, dynamic> data = decodedBody['data'];
 
     return XMUXApiResponse<T>(
       decodedBody['code'],
       decodedBody['message'],
       timestamp,
-      convertFunc(decodedBody['data']),
+      data == null ? null : convertFunc(data),
     );
+  }
+
+  Future<XMUXApiResponse<Null>> login(String uid, String password) async {
+    var resp = await _client.get(
+      '/user/login',
+      auth: Authorization.basic(uid, password),
+    );
+    return _decodeResponse(resp, (_) => null);
+  }
+
+  Future<XMUXApiResponse<Null>> register(
+      String uid, String password, String displayName, String email) async {
+    var res = await _client.post(
+      '/user/register',
+      {'DisplayName': displayName, 'Email': email},
+      auth: Authorization.basic(uid, password),
+    );
+    return _decodeResponse(res, (_) => null);
+  }
+
+  Future<XMUXApiResponse<Null>> refreshDevice(
+    Authorization auth,
+    String deviceId,
+    String deviceModel,
+    String deviceName, {
+    String pushChannel,
+    String pushKey,
+  }) async {
+    var resp = await _client.put('/user/device', {
+      'DeviceId': deviceId,
+      'DeviceModel': deviceModel,
+      'DeviceName': deviceName,
+      'PushChannel': pushChannel,
+      'PushKey': pushKey,
+    });
+    return _decodeResponse(resp, (_) => null);
   }
 }

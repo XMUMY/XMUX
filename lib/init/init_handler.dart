@@ -17,7 +17,8 @@ import 'package:xmux/init/login_handler.dart';
 import 'package:xmux/mainapp/main_app.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/modules/xia/xia.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
+import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 import 'package:xmux/redux/redux.dart';
 
 enum InitResult { notLogin, failed, finished }
@@ -35,15 +36,17 @@ Future<bool> init() async {
   firebase = await Firebase.init();
 
   // Select XMUX API server.
-  XMUXApi(BackendApiConfig.addresses);
-  await XMUXApi.selectingServer;
+  v2.XMUXApi([BackendApiConfig.address]);
+  await v2.XMUXApi.selectingServer;
+
+  XMUXApi(BackendApiConfig.address);
 
   // Register SystemChannel to handle lifecycle message.
   SystemChannels.lifecycle.setMessageHandler((msg) async {
     print('SystemChannels/LifecycleMessage: $msg');
     // Update language for XMUX API.
     if (msg == AppLifecycleState.resumed.toString())
-      XMUXApi.instance.configure();
+      v2.XMUXApi.instance.configure();
     return msg;
   });
 
@@ -85,15 +88,15 @@ Future<bool> init() async {
 /// Post initialization after authentication.
 void postInit() async {
   // Configure JWT generator for current user.
-  XMUXApi.instance.getIdToken =
+  v2.XMUXApi.instance.getIdToken =
       () async => (await firebaseUser.getIdToken()).token;
 
   // Set user info for sentry report.
   sentry.userContext = sentry_lib.User(id: firebaseUser.uid);
 
   try {
-    await XMUXApi.instance.getUser(firebaseUser.uid);
-    await XMUXApi.instance.updateUser(User(
+    await v2.XMUXApi.instance.getUser(firebaseUser.uid);
+    await v2.XMUXApi.instance.updateUser(v2.User(
         firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl));
   } catch (e) {
     await LoginHandler.campus(
@@ -113,14 +116,14 @@ void postInit() async {
         }));
 
       var token = await firebase.messaging.getToken();
-      XMUXApi.instance.device(deviceInfo.androidId, token, deviceInfo.model);
+      v2.XMUXApi.instance.device(deviceInfo.androidId, token, deviceInfo.model);
     }
 
     if (Platform.isIOS) {
       var deviceInfo = await DeviceInfoPlugin().iosInfo;
 
       var token = await firebase.messaging.getToken();
-      XMUXApi.instance
+      v2.XMUXApi.instance
           .device(deviceInfo.identifierForVendor, token, deviceInfo.model);
     }
   } catch (e) {

@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 
-class AppConfig {
-  static const demoUsername = "XDemoUserNameX";
-  static const demoPassword = "XDemoUserPasswordX";
-}
-
 class ApiKeyConfig {
   static const dialogflowToken = "XDialogflowTokenX";
   static const wolframAppID = "XWolframAppIDX";
@@ -12,9 +7,9 @@ class ApiKeyConfig {
 }
 
 class BackendApiConfig {
-  static const addresses = ["XBackendAddressesX"];
-  static const resourceAddress = "XResourceAddressX";
-  static const signInAddress = "XSignInAddressX";
+  static const address = "XBackendAddressX";
+  static const websiteAddress = "XWebsiteAddressX";
+  static const attendanceAddress = "XAttendanceAddressX";
 }
 
 class ThemeConfig {

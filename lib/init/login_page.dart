@@ -93,21 +93,20 @@ class LoginPage extends StatelessWidget {
                   ? IconButton(
                       icon: Icon(FontAwesomeIcons.googlePlay),
                       onPressed: () => launch(
-                          'https://${BackendApiConfig.resourceAddress}/2019/01/01/gms/'),
+                          '${BackendApiConfig.websiteAddress}/2019/01/01/gms/'),
                       tooltip: i18n('SignIn/GooglePlay', context, app: 'l'),
                     )
                   : Container(),
               IconButton(
                 icon: Icon(FontAwesomeIcons.fileAlt),
                 onPressed: () => launch(
-                    'https://${BackendApiConfig.resourceAddress}/privacy.html',
+                    '${BackendApiConfig.websiteAddress}/privacy.html',
                     forceWebView: true),
                 tooltip: i18n('SignIn/Privacy', context, app: 'l'),
               ),
               IconButton(
                 icon: Icon(FontAwesomeIcons.questionCircle),
-                onPressed: () =>
-                    launch('https://${BackendApiConfig.resourceAddress}/'),
+                onPressed: () => launch(BackendApiConfig.websiteAddress),
                 tooltip: i18n('SignIn/HelpDocs', context, app: 'l'),
               ),
             ],

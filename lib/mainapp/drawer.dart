@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/emgs/emgs.dart' as emgs show getCountryCode;
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
@@ -159,7 +160,7 @@ class EndDrawer extends StatelessWidget {
                 children: <Widget>[
                   Text('Designed by χ'),
                   RaisedButton(
-                    onPressed: () => launch('https://xmux.xdea.io'),
+                    onPressed: () => launch(BackendApiConfig.websiteAddress),
                     child: Text(i18n('Home', context)),
                   ),
                   RaisedButton(

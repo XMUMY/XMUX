@@ -6,7 +6,7 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
 
 class AttendanceHistory extends StatefulWidget {
-  final api = AttendanceApi(BackendApiConfig.signInAddress,
+  final api = AttendanceApi(BackendApiConfig.attendanceAddress,
       uid: store.state.authState.campusID);
 
   @override
