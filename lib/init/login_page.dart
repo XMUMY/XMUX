@@ -169,9 +169,8 @@ class _LoginButtonState extends State<_LoginButton> {
 
     // Login firebase.
     try {
-      var firebaseLoginResp = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithCustomToken(token: loginResp.data.customToken);
-      firebaseUser = firebaseLoginResp.user;
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
@@ -185,7 +184,6 @@ class _LoginButtonState extends State<_LoginButton> {
       return;
     }
 
-    initFCM();
     postInit();
   }
 

@@ -57,8 +57,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^1.6.1
-  json_annotation: ^2.3.0
-  json_serializable: ^2.3.0
+  json_annotation: ^3.0.0
+  json_serializable: ^3.2.2
   mobx_codegen: ^0.3.7
   mockito: ^4.1.0
 

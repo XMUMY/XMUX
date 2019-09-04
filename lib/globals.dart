@@ -54,8 +54,8 @@ String i18n(String text, BuildContext context, {String app}) {
 
 /// Handle logout and run `LoginApp`.
 Future<Null> logout({String message}) async {
-  await FirebaseAuth.instance.signOut();
   firebaseUser = null;
+  await FirebaseAuth.instance.signOut();
   store.dispatch(LogoutAction());
   runApp(LoginApp(message: message));
 }

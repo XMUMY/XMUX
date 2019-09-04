@@ -24,7 +24,9 @@ class Firebase {
   static Future<Firebase> init() async {
     // Init remote config.
     var remoteConfigInstance = await RemoteConfig.instance;
-    return Firebase._(remoteConfigInstance)..updateRemoteConfig();
+    return Firebase._(remoteConfigInstance)
+      ..updateRemoteConfig()
+      ..messaging.requestNotificationPermissions();
   }
 
   /// Update and parse remote configs.
@@ -33,14 +35,11 @@ class Firebase {
       await remoteConfig.fetch();
       await remoteConfig.activateFetched();
     } catch (_) {
-      // Use old if fetch failed.
+      rethrow;
+    } finally {
       var staticRes = remoteConfig.getString('static_resources');
       remoteConfigs.staticResources =
           StaticResources.fromJson(jsonDecode(staticRes));
-      rethrow;
     }
-    var staticRes = remoteConfig.getString('static_resources');
-    remoteConfigs.staticResources =
-        StaticResources.fromJson(jsonDecode(staticRes));
   }
 }

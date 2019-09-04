@@ -3,7 +3,7 @@ import 'package:xmux/modules/common/period_of_date.dart';
 
 part 'models.g.dart';
 
-@JsonSerializable(generateToJsonFunction: false)
+@JsonSerializable(createToJson: false)
 class ElectiveCourse {
   @JsonKey(name: 'Classification')
   final String classification;
@@ -27,7 +27,7 @@ class ElectiveCourse {
       end: DateTime.parse(deadline.substring(16)));
 }
 
-@JsonSerializable(generateToJsonFunction: false)
+@JsonSerializable(createToJson: false)
 class ElectiveCourseFormData {
   final FormGeneralInfo formGeneralInfo;
   final List<CourseSelected> coursesSelected;
@@ -40,7 +40,7 @@ class ElectiveCourseFormData {
       _$ElectiveCourseFormDataFromJson(json);
 }
 
-@JsonSerializable(generateToJsonFunction: false)
+@JsonSerializable(createToJson: false)
 class FormGeneralInfo {
   @JsonKey(name: 'Round')
   final String round;
@@ -57,7 +57,7 @@ class FormGeneralInfo {
       _$FormGeneralInfoFromJson(json);
 }
 
-@JsonSerializable(generateToJsonFunction: false)
+@JsonSerializable(createToJson: false)
 class CourseSelected {
   @JsonKey(name: 'Waiting List')
   final String name;
@@ -83,7 +83,7 @@ class CourseSelected {
       _$CourseSelectedFromJson(json);
 }
 
-@JsonSerializable(generateToJsonFunction: false)
+@JsonSerializable(createToJson: false)
 class CourseUnselected {
   @JsonKey(name: 'Course Information (by group)')
   final String name;

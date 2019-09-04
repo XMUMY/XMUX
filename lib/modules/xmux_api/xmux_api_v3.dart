@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:xmux/modules/xmux_api/http_wrapper.dart';
 import 'package:xmux/modules/xmux_api/models/models_v3.dart';
 
+export 'http_wrapper.dart';
+
 /// The general exception for XMUX API.
 class XMUXApiException implements Exception {
   /// E-code returned from server.
@@ -103,20 +105,24 @@ class XMUXApi {
   }
 
   Future<XMUXApiResponse<Null>> refreshDevice(
-    Authorization auth,
     String deviceId,
     String deviceModel,
     String deviceName, {
+    Authorization auth,
     String pushChannel,
     String pushKey,
   }) async {
-    var resp = await _client.put('/user/device', {
-      'DeviceId': deviceId,
-      'DeviceModel': deviceModel,
-      'DeviceName': deviceName,
-      'PushChannel': pushChannel,
-      'PushKey': pushKey,
-    });
+    var resp = await _client.put(
+      '/user/device',
+      {
+        'DeviceId': deviceId,
+        'DeviceModel': deviceModel,
+        'DeviceName': deviceName,
+        'PushChannel': pushChannel,
+        'PushKey': pushKey,
+      },
+      auth: auth ?? Authorization.bearer(await getIdToken()),
+    );
     return _decodeResponse(resp, (_) => null);
   }
 }

@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
@@ -16,24 +14,6 @@ class LoginHandler {
           .login(XMUXApiAuth(campusID: id, campusIDPassword: password));
     } catch (e) {
       return e.message ?? e.toString();
-    }
-
-    return 'success';
-  }
-
-  static Future<String> firebase() async {
-    print('LoginHandler: Login firebase: ${store.state.authState.campusID}');
-
-    try {
-      firebaseUser = (await FirebaseAuth.instance.currentUser()) ??
-          (await FirebaseAuth.instance.signInWithEmailAndPassword(
-                  email: store.state.authState.campusID + '@xmu.edu.my',
-                  password: store.state.authState.campusIDPassword))
-              .user;
-    } on PlatformException catch (e) {
-      return e.message;
-    } catch (e) {
-      return e.toString();
     }
 
     return 'success';

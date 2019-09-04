@@ -28,11 +28,11 @@ class XiA {
   XiA._(Client client) : this._dialogflow = Dialogflow(client);
 
   /// Init XiA instance from GCP credentials.
-  static Future<XiA> init(String credentials) async {
-    final _credentials = ServiceAccountCredentials.fromJson(
-        String.fromCharCodes(base64Decode(credentials)));
-    const _SCOPES = const [DialogflowApi.CloudPlatformScope];
-    return XiA(await clientViaServiceAccount(_credentials, _SCOPES));
+  static Future<XiA> init(String encodedCredentials) async {
+    final credentials = ServiceAccountCredentials.fromJson(
+        String.fromCharCodes(base64Decode(encodedCredentials)));
+    const scopes = const [DialogflowApi.CloudPlatformScope];
+    return XiA(await clientViaServiceAccount(credentials, scopes));
   }
 
   /// Get widget of XiA.

@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'models_v3.g.dart';
 
-@JsonSerializable(generateToJsonFunction: false)
+@JsonSerializable(createToJson: false)
 class LoginResp {
   final String customToken;
 

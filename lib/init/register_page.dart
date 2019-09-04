@@ -156,9 +156,8 @@ class _RegisterButtonState extends State<_RegisterButton> {
 
     // Login firebase.
     try {
-      var firebaseLoginResp = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithCustomToken(token: registerResp.data.customToken);
-      firebaseUser = firebaseLoginResp.user;
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
