@@ -10,7 +10,9 @@ import 'models.dart';
 export 'models.dart';
 
 class ElectiveCourseRegistration {
-  final _dio = Dio()..interceptors.add(CookieManager(CookieJar()));
+  final _dio = Dio()
+    ..interceptors.add(CookieManager(CookieJar()))
+    ..options.baseUrl = 'https://ac.xmu.edu.my';
   final String _uid, _password;
 
   ElectiveCourseRegistration(this._uid, this._password);
@@ -19,7 +21,7 @@ class ElectiveCourseRegistration {
   /// Throws [Exception] if failed.
   Future<Null> ensureLogin() async {
     try {
-      await _dio.post('http://ac.xmu.edu.my/index.php?c=Login&a=login',
+      await _dio.post('/index.php?c=Login&a=login',
           options: Options(
             contentType: ContentType.parse('application/x-www-form-urlencoded'),
           ),
@@ -31,13 +33,12 @@ class ElectiveCourseRegistration {
     } on DioError catch (e) {
       if (e.response.statusCode == 302) return;
     }
-    throw Exception('Login failed.');
+    throw Exception('Login failed');
   }
 
   /// Get list for registration available.
   Future<List<ElectiveCourse>> getList() async {
-    var res =
-        await _dio.post('http://ac.xmu.edu.my/student/index.php?c=Xk&a=index');
+    var res = await _dio.post('/student/index.php?c=Xk&a=index');
     var table = parse(res.data).querySelector('#data_table');
 
     var heads = table.querySelectorAll('th').map((e) => e.text).toList();
@@ -106,7 +107,7 @@ class ElectiveCourseRegistrationForm {
   /// Will parse without request if `html != null`.
   Future<Null> refresh({String html}) async {
     if (html == null) {
-      var res = await _dio.get('http://ac.xmu.edu.my$entry');
+      var res = await _dio.get('$entry');
       html = res.data;
     }
     var doc = parse(html);
@@ -163,7 +164,7 @@ class ElectiveCourseRegistrationForm {
   /// Add course of given ID.
   Future<Null> add(String id) async {
     var res = await _dio.post(
-      'http://ac.xmu.edu.my$entry',
+      '$entry',
       options: Options(
         contentType: ContentType.parse('application/x-www-form-urlencoded'),
       ),
@@ -179,7 +180,7 @@ class ElectiveCourseRegistrationForm {
   /// Cancel course of given ID.
   Future<Null> cancel(String id) async {
     var res = await _dio.post(
-      'http://ac.xmu.edu.my$entry',
+      '$entry',
       options: Options(
         contentType: ContentType.parse('application/x-www-form-urlencoded'),
       ),

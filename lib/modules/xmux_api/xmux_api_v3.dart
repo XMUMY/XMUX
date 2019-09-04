@@ -41,7 +41,7 @@ class XMUXApiResponse<T> {
 /// XMUX API V2
 class XMUXApi {
   /// Unique instance of XMUXApi.
-  static XMUXApi _instance;
+  static XMUXApi instance;
 
   /// HTTP client for API calls.
   final XMUXHttpClient _client;
@@ -51,8 +51,8 @@ class XMUXApi {
   Future<String> Function() getIdToken;
 
   factory XMUXApi(String address) {
-    if (_instance == null) _instance = XMUXApi._(XMUXHttpClient(address));
-    return _instance;
+    if (instance == null) instance = XMUXApi._(XMUXHttpClient(address));
+    return instance;
   }
 
   XMUXApi._(this._client);

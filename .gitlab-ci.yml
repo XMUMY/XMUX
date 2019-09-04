@@ -51,7 +51,7 @@ build:auto:
     - sed -i "s/"XWolframAppIDX"/"$CONFIG_WOLFRAM_APIKEY"/g" ./lib/config.dart
     - sed -i "s#"XSentryDsnX"#"$CONFIG_SENTRY_DSN"#g" ./lib/config.dart
     - sed -i "s#"XBackendAddressX"#"$CONFIG_BACKEND_ADDR"#g" ./lib/config.dart
-    - sed -i "s/"XWebsiteAddressX"/"$CONFIG_WEBSITE_ADDR"/g" ./lib/config.dart
+    - sed -i "s#"XWebsiteAddressX"#"$CONFIG_WEBSITE_ADDR"#g" ./lib/config.dart
     - sed -i "s#"XAttendanceAddressX"#"$CONFIG_ATTENDANCE_ADDR"#g" ./lib/config.dart
     - echo "${GOOGLE_SERVICES_KEY}" > ./android/app/google-services.json
     - echo "${RELEASE_SIGN_KEY}" | base64 -d > ./android/app/x.jks
