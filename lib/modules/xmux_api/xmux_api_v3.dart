@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:xmux/modules/xmux_api/http_wrapper.dart';
+import 'package:xmux/modules/xmux_api/models/models_v3.dart';
 
 /// The general exception for XMUX API.
 class XMUXApiException implements Exception {
@@ -83,22 +84,22 @@ class XMUXApi {
     );
   }
 
-  Future<XMUXApiResponse<Null>> login(String uid, String password) async {
+  Future<XMUXApiResponse<LoginResp>> login(String uid, String password) async {
     var resp = await _client.get(
       '/user/login',
       auth: Authorization.basic(uid, password),
     );
-    return _decodeResponse(resp, (_) => null);
+    return _decodeResponse(resp, LoginResp.fromJson);
   }
 
-  Future<XMUXApiResponse<Null>> register(
+  Future<XMUXApiResponse<LoginResp>> register(
       String uid, String password, String displayName, String email) async {
     var res = await _client.post(
-      '/user/register',
+      '/user/login',
       {'DisplayName': displayName, 'Email': email},
       auth: Authorization.basic(uid, password),
     );
-    return _decodeResponse(res, (_) => null);
+    return _decodeResponse(res, LoginResp.fromJson);
   }
 
   Future<XMUXApiResponse<Null>> refreshDevice(

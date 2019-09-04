@@ -1,11 +1,14 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tuple/tuple.dart';
 import 'package:xmux/globals.dart';
-
-import 'init_handler.dart';
+import 'package:xmux/init/init_handler.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
+import 'package:xmux/redux/actions/actions.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -138,7 +141,37 @@ class _RegisterButtonState extends State<_RegisterButton> {
     // Switch to processing state.
     setState(() => _isProcessing = true);
 
-    // TODO: Implement register
+    // Register
+    var registerResp = await XMUXApi.instance
+        .register(widget._uid, widget._password, name, email);
+    if (registerResp.code != 0) {
+      if (mounted) setState(() => _isProcessing = false);
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(
+        '${i18n('SignIn/Error', context, app: 'l')}${registerResp.message}',
+      )));
+      return;
+    }
+    store.dispatch(LoginAction(widget._uid, widget._password));
+
+    // Login firebase.
+    try {
+      var firebaseLoginResp = await FirebaseAuth.instance
+          .signInWithCustomToken(token: registerResp.data.customToken);
+      firebaseUser = firebaseLoginResp.user;
+    } on PlatformException catch (e) {
+      if (mounted) setState(() => _isProcessing = false);
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text('${i18n('SignIn/Error', context, app: 'l')}'
+              '${i18n('Error/GMS', context, app: 'l')} $e')));
+      return;
+    } catch (e) {
+      if (mounted) setState(() => _isProcessing = false);
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text('${i18n('SignIn/Error', context, app: 'l')}$e')));
+      return;
+    }
+
     postInit();
   }
 

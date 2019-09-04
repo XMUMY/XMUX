@@ -212,5 +212,7 @@ const Map<String, String> zh_CN_login = {
   'Register/Caption': '我们仍需要以下信息以完成注册。',
   'Register/DisplayName': '昵称',
   'Register/Email': '邮箱',
-  'Register/Register': '继续'
+  'Register/Register': '继续',
+  'Error/InvalidPassword': '用户名或密码无效',
+  'Error/GMS': 'GMS 未正常工作',
 };

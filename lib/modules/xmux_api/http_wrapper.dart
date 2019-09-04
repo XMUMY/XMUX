@@ -33,7 +33,7 @@ class XMUXHttpClient {
   final _client = Client();
 
   /// The locale used for `Accept-Language` in header.
-  Locale locale = window.locale;
+  Locale get locale => window.locale;
 
   /// The url of API server.
   ///
@@ -41,9 +41,9 @@ class XMUXHttpClient {
   String baseUrl;
 
   /// The version of APIs.
-  int version = 3;
+  int version;
 
-  XMUXHttpClient(this.baseUrl, {this.locale, this.version});
+  XMUXHttpClient(this.baseUrl, {int version}) : this.version = version ?? 3;
 
   Map<String, String> _withLocale() => {
         'Accept-Language': '${locale.languageCode}-${locale.countryCode},'
@@ -59,7 +59,7 @@ class XMUXHttpClient {
     var headers = {
       if (withLocale) ..._withLocale(),
       if (auth != null) ...auth.header,
-      ...additionalHeaders,
+      if (additionalHeaders != null) ...additionalHeaders,
     };
 
     var res = await _client.get('$baseUrl/v$version$api', headers: headers);
@@ -76,7 +76,7 @@ class XMUXHttpClient {
     var headers = {
       if (withLocale) ..._withLocale(),
       if (auth != null) ...auth.header,
-      ...additionalHeaders,
+      if (additionalHeaders != null) ...additionalHeaders,
     };
 
     var res = await _client.post('$baseUrl/v$version$api',
@@ -94,7 +94,7 @@ class XMUXHttpClient {
     var headers = {
       if (withLocale) ..._withLocale(),
       if (auth != null) ...auth.header,
-      ...additionalHeaders,
+      if (additionalHeaders != null) ...additionalHeaders,
     };
 
     var res = await _client.put('$baseUrl/v$version$api',

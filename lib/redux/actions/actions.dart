@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:xmux/modules/emgs/emgs.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
@@ -33,13 +34,20 @@ class InitAction extends MainAppAction {
 }
 
 class LoginAction extends MainAppAction {
-  final XMUXApiAuth auth;
+  final String campusId, password;
 
-  final String moodleKey;
-
-  LoginAction(this.auth, this.moodleKey);
+  LoginAction(this.campusId, this.password);
 
   final sync = true;
+}
+
+class LoginFirebaseAction extends MainAppAction {
+  final FirebaseUser user;
+
+  LoginFirebaseAction(this.user);
+
+  @override
+  final needSave = false;
 }
 
 class LogoutAction extends MainAppAction {

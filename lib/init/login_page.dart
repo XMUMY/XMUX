@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tuple/tuple.dart';
@@ -11,7 +13,8 @@ import 'package:xmux/components/animated_logo.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/init_handler.dart';
-import 'package:xmux/init/login_handler.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
+import 'package:xmux/redux/actions/actions.dart';
 
 class LoginPage extends StatelessWidget {
   // Form key for id & password.
@@ -145,37 +148,44 @@ class _LoginButtonState extends State<_LoginButton> {
     // Switch to processing state.
     setState(() => _isProcessing = true);
 
-    // Handle login.
-    var loginResult = await LoginHandler.campus(
-        widget._usernameFormKey.currentState.value,
-        widget._passwordFormKey.currentState.value);
-    if (loginResult != 'success') {
+    // Login.
+    var loginResp = await XMUXApi.instance.login(username, password);
+    if (loginResp.code == 1) {
+      // Need register.
+      Navigator.of(context)
+          .pushNamed('/Register', arguments: Tuple2(username, password));
+      return;
+    }
+    if (loginResp.code != 0) {
+      if (mounted) setState(() => _isProcessing = false);
+      var msg = loginResp.code == -403
+          ? i18n('Error/InvalidPassword', context, app: 'l')
+          : loginResp.message;
       Scaffold.of(context).showSnackBar(SnackBar(
-          content:
-              Text('${i18n('SignIn/Error', context, app: 'l')}$loginResult')));
-      setState(() => _isProcessing = false);
+          content: Text('${i18n('SignIn/Error', context, app: 'l')}$msg')));
+      return;
+    }
+    store.dispatch(LoginAction(username, password));
+
+    // Login firebase.
+    try {
+      var firebaseLoginResp = await FirebaseAuth.instance
+          .signInWithCustomToken(token: loginResp.data.customToken);
+      firebaseUser = firebaseLoginResp.user;
+    } on PlatformException catch (e) {
+      if (mounted) setState(() => _isProcessing = false);
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text('${i18n('SignIn/Error', context, app: 'l')}'
+              '${i18n('Error/GMS', context, app: 'l')} $e')));
+      return;
+    } catch (e) {
+      if (mounted) setState(() => _isProcessing = false);
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text('${i18n('SignIn/Error', context, app: 'l')}$e')));
       return;
     }
 
-    // Need register
-    // TODO: Check if need
-    Navigator.of(context)
-        .pushNamed('/Register', arguments: Tuple2(username, password));
-
-    // Handle firebase login.
-    var firebaseResult = await LoginHandler.firebase();
-    if (firebaseResult != 'success') {
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(
-              '${i18n('SignIn/Error', context, app: 'l')}$firebaseResult')));
-      setState(() => _isProcessing = false);
-      return;
-    }
-
-    // Continue init.
-    await LoginHandler.createUser();
     initFCM();
-
     postInit();
   }
 

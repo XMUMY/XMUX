@@ -9,7 +9,7 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 import 'actions/actions.dart';
-import 'state.dart';
+import 'state/state.dart';
 
 /// Flag for saving status.
 bool _isSaving = false;

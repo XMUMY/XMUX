@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:xmux/modules/emgs/emgs.dart';
@@ -9,6 +10,9 @@ part 'state.g.dart';
 @immutable
 @JsonSerializable()
 class MainAppState {
+  @JsonKey(ignore: true)
+  final FirebaseUser firebaseUser;
+
   /// AC state include timetable, exams, examResult and other academic data.
   @JsonKey(nullable: false)
   final AcState acState;
@@ -30,12 +34,13 @@ class MainAppState {
   final UIState uiState;
 
   MainAppState(this.acState, this.authState, this.queryState, this.settingState,
-      {UIState uiState})
+      {UIState uiState, this.firebaseUser})
       : this.uiState = uiState ?? UIState.def();
 
   /// Init MainAppState as default.
   MainAppState.def()
-      : this.acState = AcState.def(),
+      : this.firebaseUser = null,
+        this.acState = AcState.def(),
         this.authState = AuthState.def(),
         this.queryState = QueryState.def(),
         this.settingState = SettingState.def(),

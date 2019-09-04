@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
-import 'package:xmux/redux/redux.dart';
 
 class LoginHandler {
   static Future<String> campus(String id, String password) async {
@@ -15,10 +14,6 @@ class LoginHandler {
       // Get response from backend.
       var res = await XMUXApi.instance
           .login(XMUXApiAuth(campusID: id, campusIDPassword: password));
-      // Dispatch LoginAction.
-      store.dispatch(LoginAction(
-          XMUXApiAuth(campusID: id, campusIDPassword: password),
-          res.moodleKey));
     } catch (e) {
       return e.message ?? e.toString();
     }

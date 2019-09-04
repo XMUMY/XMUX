@@ -228,5 +228,7 @@ const Map<String, String> en_US_login = {
       'We still need some information to finish your registeration.',
   'Register/DisplayName': 'Display Name',
   'Register/Email': 'Email',
-  'Register/Register': 'Continue'
+  'Register/Register': 'Continue',
+  'Error/InvalidPassword': 'Invalid username or password.',
+  'Error/GMS': 'GMS not working properly.',
 };

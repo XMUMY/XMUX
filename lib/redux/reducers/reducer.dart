@@ -1,7 +1,7 @@
 import 'package:redux/redux.dart';
 
 import '../actions/actions.dart';
-import '../state.dart';
+import '../state/state.dart';
 
 part 'ac_reducers.dart';
 part 'query_reduer.dart';
@@ -34,9 +34,9 @@ final Reducer<AuthState> authReducers = combineReducers([
 
 AuthState _loginReducer(AuthState oldState, LoginAction action) =>
     oldState.copyWith(
-        campusID: action.auth.campusID,
-        campusIDPassword: action.auth.campusIDPassword,
-        moodleKey: action.moodleKey);
+      campusID: action.campusId,
+      campusIDPassword: action.password,
+    );
 
 /// Update ePayment password when first login.
 AuthState _updateEPaymentPasswordReducer(
