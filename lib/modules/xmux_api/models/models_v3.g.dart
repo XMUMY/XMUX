@@ -7,11 +7,7 @@ part of 'models_v3.dart';
 // **************************************************************************
 
 LoginResp _$LoginRespFromJson(Map<String, dynamic> json) {
-  return LoginResp(json['customToken'] as String);
-}
-
-abstract class _$LoginRespSerializerMixin {
-  String get customToken;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'customToken': customToken};
+  return LoginResp(
+    json['customToken'] as String,
+  );
 }

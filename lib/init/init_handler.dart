@@ -67,6 +67,11 @@ Future<bool> init() async {
   if (store.state.authState.campusID == null ||
       store.state.authState.campusIDPassword == null) return false;
 
+  // Make sure firebase logged in.
+  if (firebaseUser == null)
+    firebaseUser = await FirebaseAuth.instance.currentUser();
+  if (firebaseUser == null) return false;
+
   postInit();
   return true;
 }
@@ -147,7 +152,7 @@ Future<Null> androidInit() async {
     XMUXApi.instance.refreshDevice(
       deviceInfo.androidId,
       deviceInfo.model,
-      deviceInfo.host,
+      '${deviceInfo.manufacturer} ${deviceInfo.model}',
       pushChannel: 'fcm',
       pushKey: await firebase.messaging.getToken(),
     );

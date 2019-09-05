@@ -8,17 +8,28 @@ class RemoteConfigs {
 
 @JsonSerializable(createToJson: false)
 class StaticResources {
-  final String academicCalendarImage;
+  final AcademicCalendarImages academicCalendarImages;
   final String busScheduleImage;
   final String kliaTransitScheduleImage;
   final String kliaExpressScheduleImage;
 
   StaticResources(
-      {this.academicCalendarImage,
+      {this.academicCalendarImages,
       this.busScheduleImage,
       this.kliaTransitScheduleImage,
       this.kliaExpressScheduleImage});
 
   factory StaticResources.fromJson(Map<String, dynamic> json) =>
       _$StaticResourcesFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class AcademicCalendarImages {
+  final Map<String, String> undergraduate;
+  final Map<String, String> foundation;
+
+  AcademicCalendarImages({this.undergraduate, this.foundation});
+
+  factory AcademicCalendarImages.fromJson(Map<String, dynamic> json) =>
+      _$AcademicCalendarImagesFromJson(json);
 }
