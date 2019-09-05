@@ -13,7 +13,8 @@ class AcademicCalendarPage extends StatelessWidget {
       firebase.remoteConfigs.staticResources.academicCalendarImages.foundation;
 
   @override
-  Widget build(BuildContext context) => DefaultTabController(
+  Widget build(BuildContext context) {
+    return DefaultTabController(
       length: isFoundation ? foundation.length : undergraduate.length,
       child: Scaffold(
         appBar: AppBar(
@@ -44,5 +45,7 @@ class AcademicCalendarPage extends StatelessWidget {
                 ),
           ],
         ),
-      ));
+      ),
+    );
+  }
 }

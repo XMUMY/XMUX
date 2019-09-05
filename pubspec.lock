@@ -326,13 +326,6 @@ packages:
       url: "https://github.com/X-dea/Flutter-VPN.git"
     source: git
     version: "0.5.0"
-  flutter_webview_plugin:
-    dependency: "direct main"
-    description:
-      name: flutter_webview_plugin
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.7"
   font_awesome_flutter:
     dependency: "direct main"
     description:

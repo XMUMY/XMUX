@@ -33,7 +33,6 @@ dependencies:
     git: 
       url: https://github.com/X-dea/Flutter-VPN.git
       ref: rm-ios
-  flutter_webview_plugin: ^0.3.7
   font_awesome_flutter: ^8.4.0
   googleapis: 0.54.0
   googleapis_auth: ^0.2.10

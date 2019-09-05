@@ -70,7 +70,7 @@ Future<bool> init() async {
   // Make sure firebase logged in.
   if (firebaseUser == null)
     firebaseUser = await FirebaseAuth.instance.currentUser();
-  if (firebaseUser == null) return false;
+  if (firebaseUser == null) return true;
 
   postInit();
   return true;

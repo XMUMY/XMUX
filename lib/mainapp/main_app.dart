@@ -49,7 +49,7 @@ class MainApp extends StatelessWidget {
     '/Campus/Tools/Travelviser/DigitalPass': (_) => DigitalPassPage(),
     '/Explore/LostAndFound': (_) => LostAndFoundPage(),
     '/Me/Epayment': (_) => EPaymentPage(),
-    '/Me/RoomReservation': (_) => RoomWebviewPage(),
+    '/Me/RoomReservation': (_) => RoomWebViewPage(),
     '/Me/Emgs': (_) => EmgsPage(),
     '/Me/Emergency': (_) => EmergencyPage(),
     '/Settings': (_) => SettingsPage(),
