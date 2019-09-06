@@ -2,7 +2,6 @@ library xmux.api_v2;
 
 import 'dart:io';
 
-import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 
 import 'models/models_v2.dart';
@@ -69,12 +68,6 @@ class XMUXApi {
 
   set currentAddress(String a) => _dio.options.baseUrl = '$a/v2';
 
-  /// Connectivity instance.
-  final Connectivity _connectivity;
-
-  /// Last connection status.
-  ConnectivityResult _lastConnectivityResult;
-
   /// Dio instance for http requests.
   final _dio = Dio();
 
@@ -82,33 +75,20 @@ class XMUXApi {
   /// Should be assigned before using APIs need JWT token.
   Future<String> Function() getIdToken;
 
-  /// Future of selectServer function for listening selecting status.
-  static Future<Null> selectingServer;
-
   /// Unique instance of XMUXApi.
   static XMUXApi instance;
 
-  factory XMUXApi(List<String> addresses, {Connectivity connectivity}) {
-    if (instance == null)
-      instance = XMUXApi._(addresses, connectivity ?? Connectivity());
+  factory XMUXApi(List<String> addresses) {
+    if (instance == null) instance = XMUXApi._(addresses);
     return instance;
   }
 
-  XMUXApi._(this.addresses, this._connectivity) {
+  XMUXApi._(this.addresses) {
     currentAddress = addresses[0];
-    selectingServer = selectServer();
 
     // Dio options.
     _dio.options.connectTimeout = 5000;
     configure();
-
-    // Listen and reselect server when connectivity change.
-    _connectivity.onConnectivityChanged.listen((result) {
-      if (result != ConnectivityResult.none &&
-          result != _lastConnectivityResult &&
-          _lastConnectivityResult != null) selectingServer = selectServer();
-      _lastConnectivityResult = result;
-    });
   }
 
   /// Configure XMUX API V2.
@@ -157,23 +137,6 @@ class XMUXApi {
       return res.statusCode == 200;
     }).toList());
     return Map.fromIterables(addresses, res);
-  }
-
-  Future<Null> selectServer() async {
-    print('XMUXApiV2/ServerSelector: Selecting...');
-
-    // Select the fastest server in 5 second.
-    // When timeout or error, it will return the last address.
-    var selected = await Future.any(addresses.map((String address) async {
-      var res = await _dio.get(address + '/test');
-      if (res.statusCode == 200) return address;
-    }))
-        .timeout(Duration(milliseconds: 5000), onTimeout: () => currentAddress)
-        .catchError((e) => currentAddress);
-
-    currentAddress = selected;
-    _dio.options.baseUrl = selected + '/v2';
-    print('XMUXApiV2/ServerSelector: Selected: $currentAddress');
   }
 
   Future<XMUXApiResponse<AcData>> ac(XMUXApiAuth auth) async {

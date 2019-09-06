@@ -28,19 +28,19 @@ void init() async {
     FlutterError.onError = (e) =>
         sentry.captureException(exception: e.exception, stackTrace: e.stack);
 
-  if ((Platform.isAndroid || Platform.isIOS) && !await mobileInit()) return;
-
   // Create APIv3 Client.
   XMUXApi(BackendApiConfig.address);
+  // Select XMUX API server. (Deprecated)
+  v2.XMUXApi([BackendApiConfig.address]);
+
+  // Mobile specific initialization.
+  if ((Platform.isAndroid || Platform.isIOS) && !await mobileInit()) return;
 
   // Init XiA async.
   XiA.init(ApiKeyConfig.dialogflowToken)
       .then((x) => xiA = x)
-      .catchError((_) {});
+      .catchError((e) => sentry.captureException(exception: e));
 
-  // Select XMUX API server. (Deprecated)
-  v2.XMUXApi([BackendApiConfig.address]);
-  await v2.XMUXApi.selectingServer;
   // Register SystemChannel to handle lifecycle message. (Deprecated)
   SystemChannels.lifecycle.setMessageHandler((msg) async {
     print('SystemChannels/LifecycleMessage: $msg');
@@ -74,32 +74,37 @@ void init() async {
 
 /// Post initialization after authentication.
 void postInit() async {
-  // Set user info for sentry report.
-  sentry.userContext = sentry_lib.User(id: store.state.authState.campusID);
-
-  // Register APIv2 user. (Deprecated)
   try {
-    await v2.XMUXApi.instance.getUser(firebaseUser.uid);
-    await v2.XMUXApi.instance.updateUser(v2.User(
-        firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl));
+    // Set user info for sentry report.
+    sentry.userContext = sentry_lib.User(id: store.state.authState.campusID);
+
+    // Register APIv2 user. (Deprecated)
+    try {
+      await v2.XMUXApi.instance.getUser(firebaseUser.uid);
+      await v2.XMUXApi.instance.updateUser(v2.User(
+          firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl));
+    } catch (e) {
+      await LoginHandler.campus(store.state.authState.campusID,
+          store.state.authState.campusIDPassword);
+      await LoginHandler.createUser();
+    }
+
+    if (Platform.isAndroid) await androidInit();
+    if (Platform.isIOS) await iOSInit();
   } catch (e) {
-    await LoginHandler.campus(
-        store.state.authState.campusID, store.state.authState.campusIDPassword);
-    await LoginHandler.createUser();
+    sentry.captureException(exception: e);
+  } finally {
+    store.dispatch(UpdateAssignmentsAction());
+    store.dispatch(UpdateInfoAction());
+    store.dispatch(UpdateHomepageAnnouncementsAction());
+    store.dispatch(UpdateAcAction());
+    store.dispatch(UpdateCoursesAction());
+
+    runApp(MainApp());
   }
-
-  if (Platform.isAndroid) await androidInit();
-  if (Platform.isIOS) await iOSInit();
-
-  store.dispatch(UpdateAssignmentsAction());
-  store.dispatch(UpdateInfoAction());
-  store.dispatch(UpdateHomepageAnnouncementsAction());
-  store.dispatch(UpdateAcAction());
-  store.dispatch(UpdateCoursesAction());
-
-  runApp(MainApp());
 }
 
+// Return `false` to stop main initialization progress.
 Future<bool> mobileInit() async {
   // Get package Info.
   packageInfo = await PackageInfo.fromPlatform();
@@ -114,7 +119,8 @@ Future<bool> mobileInit() async {
         );
 
   // Init firebase services.
-  firebase = await Firebase.init();
+  firebase = await Firebase.init()
+      .catchError((e) => sentry.captureException(exception: e));
 
   // Version check.
   var currentBuild = int.tryParse(packageInfo?.buildNumber ?? '0') ?? 0;
@@ -144,40 +150,32 @@ Future<bool> mobileInit() async {
 }
 
 Future<Null> androidInit() async {
-  try {
-    var deviceInfo = await DeviceInfoPlugin().androidInfo;
+  var deviceInfo = await DeviceInfoPlugin().androidInfo;
 
-    // Replace android transition theme if >= 9.0
-    if (int.parse(deviceInfo.version.release.split('.').first) >= 9)
-      ThemeConfig.defaultTheme = ThemeConfig.defaultTheme.copyWith(
-          pageTransitionsTheme: PageTransitionsTheme(builders: {
-        TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
-      }));
+  // Replace android transition theme if >= 9.0
+  if (int.parse(deviceInfo.version.release.split('.').first) >= 9)
+    ThemeConfig.defaultTheme = ThemeConfig.defaultTheme.copyWith(
+        pageTransitionsTheme: PageTransitionsTheme(builders: {
+      TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
+    }));
 
-    XMUXApi.instance.refreshDevice(
-      deviceInfo.androidId,
-      deviceInfo.model,
-      '${deviceInfo.manufacturer} ${deviceInfo.model}',
-      pushChannel: 'fcm',
-      pushKey: await firebase.messaging.getToken(),
-    );
-  } catch (e) {
-    rethrow;
-  } finally {}
+  XMUXApi.instance.refreshDevice(
+    deviceInfo.androidId,
+    deviceInfo.model,
+    '${deviceInfo.manufacturer} ${deviceInfo.model}',
+    pushChannel: 'fcm',
+    pushKey: await firebase.messaging.getToken(),
+  );
 }
 
 Future<Null> iOSInit() async {
-  try {
-    var deviceInfo = await DeviceInfoPlugin().iosInfo;
+  var deviceInfo = await DeviceInfoPlugin().iosInfo;
 
-    XMUXApi.instance.refreshDevice(
-      deviceInfo.identifierForVendor,
-      deviceInfo.model,
-      deviceInfo.name,
-      pushChannel: 'fcm',
-      pushKey: await firebase.messaging.getToken(),
-    );
-  } catch (e) {
-    rethrow;
-  } finally {}
+  XMUXApi.instance.refreshDevice(
+    deviceInfo.identifierForVendor,
+    deviceInfo.model,
+    deviceInfo.name,
+    pushChannel: 'fcm',
+    pushKey: await firebase.messaging.getToken(),
+  );
 }
