@@ -41,11 +41,11 @@ dependencies:
   image_picker: ^0.6.1
   mobx: ^0.3.7
   package_info: ^0.4.0
-  path_provider: ^1.2.0
   photo_view: ^0.4.2
   qr_flutter: ^3.0.1
   redux: ^3.0.0
   sentry: ^2.2.0
+  shared_preferences: ^0.5.3
   travelviser_dart:
     git: git@cloud.xdea.xyz:XMUX/travelviser-dart.git
   tuple: ^1.0.2

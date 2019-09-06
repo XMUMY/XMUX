@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
+@deprecated
 class LoginHandler {
   static Future<String> campus(String id, String password) async {
     print('LoginHandler: Login: $id');

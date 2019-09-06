@@ -9,8 +9,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sentry/sentry.dart' as sentry_lib;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/login_handler.dart';
@@ -52,9 +52,9 @@ Future<bool> init() async {
 
   // Check if local state is available.
   try {
-    var appDocDir = (await getApplicationDocumentsDirectory()).path;
-    var initMap =
-        jsonDecode(await (File('$appDocDir/state.dat')).readAsString());
+    var prefs = await SharedPreferences.getInstance();
+    var state = prefs.getString('state');
+    Map<String, dynamic> initMap = jsonDecode(state);
 
     // Init store from initMap
     store.dispatch(InitAction(initMap));
