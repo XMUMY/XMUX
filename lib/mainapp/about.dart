@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 
 class AboutPage extends StatelessWidget {
@@ -12,13 +14,14 @@ class AboutPage extends StatelessWidget {
         children: <Widget>[
           Hero(
             tag: 'χLogo',
-            child: CircleAvatar(
-              radius: 40,
-              child: Text('X', style: TextStyle(fontSize: 50)),
-              backgroundColor: Colors.black,
+            child: Text(
+              'χ',
+              textAlign: TextAlign.center,
+              style:
+                  Theme.of(context).textTheme.headline.copyWith(fontSize: 60),
             ),
           ),
-          Divider(height: 10, color: Colors.transparent),
+          Divider(height: 25, color: Colors.transparent),
           Text(
             i18n('About/Caption', context),
             textAlign: TextAlign.center,
@@ -26,12 +29,11 @@ class AboutPage extends StatelessWidget {
           Divider(),
           Text(
             """
-Developed by χ Team.
-Maintenance by XMUM Student Council.
-XMUX app is an open source project licenced by GPLv3.""",
+XMUX is Developed by χ Team and maintenanced by XMUM Student Council. Feel free to contact us if you are interested in contributing to this project.
+XMUX client is an open source project licenced by GPLv3. The code can be found at github.com/X-dea/XMUX""",
             textAlign: TextAlign.center,
           ),
-          Padding(padding: EdgeInsets.all(5)),
+          Divider(color: Colors.transparent),
           Text(
             i18n('About/ContactUs/Detail', context),
             textAlign: TextAlign.center,
@@ -48,9 +50,27 @@ XMUX app is an open source project licenced by GPLv3.""",
           ),
           Divider(),
           Text(
-            '© 2017-2018 χ dev | Build: ${packageInfo.buildNumber}',
+            '© 2017-2019 χ Team \n'
+            'Ver: ${packageInfo.version} | ${packageInfo.buildNumber}',
             textAlign: TextAlign.center,
           ),
+          if (int.parse(packageInfo.buildNumber) <
+              firebase.remoteConfigs.versions.latestBuildReleased)
+            Text.rich(
+              TextSpan(
+                text:
+                    'New version available: ${firebase.remoteConfigs.versions.latestVersionReleased}\n'
+                    'Tap to upgrade.',
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () =>
+                      launch('${BackendApiConfig.websiteAddress}/downloads'),
+              ),
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .subhead
+                  .copyWith(color: Theme.of(context).errorColor),
+            )
         ],
       ),
     );

@@ -34,25 +34,23 @@ class SettingsPage extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Text(i18n('Settings/ChangeProfile', context)),
+            title: Text(i18n('Settings/ChangeProfile', context)),
             onTap: () =>
                 Navigator.of(context).pushNamed('/Settings/ChangeProfile'),
           ),
           ListTile(
-            leading: Text(i18n('Settings/DeveloperOptions', context)),
+            title: Text(i18n('Settings/DeveloperOptions', context)),
             onTap: () =>
                 Navigator.of(context).pushNamed('/Settings/DeveloperOptions'),
           ),
+          ListTile(
+            title: Text(i18n('About', context)),
+            onTap: () => Navigator.of(context).pushNamed('/About'),
+          ),
           Divider(),
-          FlatButton(
-            color: Theme.of(context).splashColor,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(i18n('Settings/SignOut', context)),
-                Icon(Icons.exit_to_app),
-              ],
-            ),
+          RaisedButton.icon(
+            label: Text(i18n('Settings/SignOut', context)),
+            icon: Icon(Icons.exit_to_app),
             onPressed: logout,
           ),
         ],

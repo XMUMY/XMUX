@@ -142,37 +142,35 @@ class EndDrawer extends StatelessWidget {
     return SizedBox(
       width: 150,
       child: Drawer(
-        child: Column(
+        child: ListView(
+          padding: const EdgeInsets.all(15),
           children: <Widget>[
-            DrawerHeader(
-              child: Hero(
-                tag: 'χLogo',
-                child: CircleAvatar(
-                  radius: 40,
-                  child: Text('X', style: TextStyle(fontSize: 50)),
-                  backgroundColor: Colors.black,
+            Hero(
+              tag: 'χLogo',
+              child: Padding(
+                padding: const EdgeInsets.all(25),
+                child: Text(
+                  'χ',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline
+                      .copyWith(fontSize: 55),
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.all(15),
-              child: Column(
-                children: <Widget>[
-                  Text('Designed by χ'),
-                  RaisedButton(
-                    onPressed: () => launch(BackendApiConfig.websiteAddress),
-                    child: Text(i18n('Home', context)),
-                  ),
-                  RaisedButton(
-                    onPressed: () =>
-                        Navigator.of(context).popAndPushNamed('/About'),
-                    child: Text(i18n('About', context)),
-                  ),
-                ],
-              ),
+            Divider(),
+            RaisedButton(
+              onPressed: () => launch(BackendApiConfig.websiteAddress),
+              child: Text(i18n('Home', context)),
             ),
+            RaisedButton(
+              onPressed: () => Navigator.of(context).popAndPushNamed('/About'),
+              child: Text(i18n('About', context)),
+            ),
+            Divider(),
             Text(
-              'Version : \n${packageInfo.version}',
+              packageInfo.version,
               textAlign: TextAlign.center,
             ),
           ],

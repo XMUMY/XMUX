@@ -209,7 +209,7 @@ const Map<String, String> en_US = {
   'About/Feedback': 'Feedback',
   'About/ContactUs/Detail':
       'Contact us if you have any questions or suggestions:\n Email: x@xdea.xyz   QQ Group: 585779547',
-  'About/EMailUs': 'E-Mail us',
+  'About/EMailUs': 'Email us',
   'About/JoinQQGroup': 'Join QQ Group',
 };
 

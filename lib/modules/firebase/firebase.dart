@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -37,9 +35,9 @@ class Firebase {
     } catch (_) {
       rethrow;
     } finally {
-      var staticRes = remoteConfig.getString('static_resources');
-      remoteConfigs.staticResources =
-          StaticResources.fromJson(jsonDecode(staticRes));
+      remoteConfigs
+          .updateStaticResources(remoteConfig.getString('static_resources'));
+      remoteConfigs.updateVersions(remoteConfig.getString('versions'));
     }
   }
 }

@@ -29,3 +29,12 @@ AcademicCalendarImages _$AcademicCalendarImagesFromJson(
     ),
   );
 }
+
+Versions _$VersionsFromJson(Map<String, dynamic> json) {
+  return Versions(
+    latestBuildReleased: json['latestBuildReleased'] as int,
+    latestVersionReleased: json['latestVersionReleased'] as String,
+    minBuildSupported: json['minBuildSupported'] as int,
+    minVersionSupported: json['minVersionSupported'] as String,
+  );
+}
