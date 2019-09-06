@@ -22,13 +22,13 @@ import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 import 'package:xmux/redux/redux.dart';
 
 /// Main initialization progress.
-Future<bool> init() async {
+void init() async {
   // Register sentry to capture errors. (Release mode only)
   if (bool.fromEnvironment('dart.vm.product'))
     FlutterError.onError = (e) =>
         sentry.captureException(exception: e.exception, stackTrace: e.stack);
 
-  if (Platform.isAndroid || Platform.isIOS) await mobileInit();
+  if ((Platform.isAndroid || Platform.isIOS) && !await mobileInit()) return;
 
   // Create APIv3 Client.
   XMUXApi(BackendApiConfig.address);
@@ -59,21 +59,17 @@ Future<bool> init() async {
     // Init store from initMap
     store.dispatch(InitAction(initMap));
   } catch (e) {
-    FirebaseAuth.instance.signOut();
-    return false;
+    // campusId.toLowerCase() will called on null if user not login yet.
+    logout();
+    return;
   }
-
-  // If not login yet.
-  if (store.state.authState.campusID == null ||
-      store.state.authState.campusIDPassword == null) return false;
 
   // Make sure firebase logged in.
   if (firebaseUser == null)
     firebaseUser = await FirebaseAuth.instance.currentUser();
-  if (firebaseUser == null) return true;
+  if (firebaseUser == null) return;
 
   postInit();
-  return true;
 }
 
 /// Post initialization after authentication.
@@ -104,7 +100,7 @@ void postInit() async {
   runApp(MainApp());
 }
 
-Future<Null> mobileInit() async {
+Future<bool> mobileInit() async {
   // Get package Info.
   packageInfo = await PackageInfo.fromPlatform();
 
@@ -119,6 +115,14 @@ Future<Null> mobileInit() async {
 
   // Init firebase services.
   firebase = await Firebase.init();
+
+  // Version check.
+  var currentBuild = int.tryParse(packageInfo?.buildNumber ?? '0') ?? 0;
+  var minBuild = firebase.remoteConfigs.versions?.minBuildSupported ?? 0;
+  if (currentBuild < minBuild) {
+    logout(message: 'deprecated');
+    return false;
+  }
 
   // Register FirebaseAuth state listener.
   FirebaseAuth.instance.onAuthStateChanged.listen((user) {
@@ -136,6 +140,7 @@ Future<Null> mobileInit() async {
 
   // Configure FCM.
   firebase.messaging.configure();
+  return true;
 }
 
 Future<Null> androidInit() async {

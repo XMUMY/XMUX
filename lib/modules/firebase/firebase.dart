@@ -5,6 +5,9 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'remote_config.dart';
 
 class Firebase {
+  // Unique instance for firebase.
+  static Firebase instance;
+
   /// Firebase analytics instance.
   final analytics = FirebaseAnalytics();
 
@@ -20,11 +23,11 @@ class Firebase {
   Firebase._(this.remoteConfig);
 
   static Future<Firebase> init() async {
-    // Init remote config.
-    var remoteConfigInstance = await RemoteConfig.instance;
-    return Firebase._(remoteConfigInstance)
-      ..updateRemoteConfig()
+    if (instance != null) return instance;
+    instance = Firebase._(await RemoteConfig.instance)
       ..messaging.requestNotificationPermissions();
+    await instance.updateRemoteConfig();
+    return instance;
   }
 
   /// Update and parse remote configs.

@@ -13,6 +13,7 @@ import 'package:xmux/components/animated_logo.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/init_handler.dart';
+import 'package:xmux/init/login_app.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 import 'package:xmux/redux/actions/actions.dart';
 
@@ -134,9 +135,18 @@ class _LoginButton extends StatefulWidget {
 }
 
 class _LoginButtonState extends State<_LoginButton> {
-  bool _isProcessing = false;
+  var _isProcessing = false;
+
+  // If this version is deprecated.
+  var _isDeprecated = false;
 
   Future<Null> _handleSignIn() async {
+    if (_isDeprecated) {
+      Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text(i18n('Error/Deprecated', context, app: 'l'))));
+      return;
+    }
+
     // Validate format.
     if (!widget._usernameFormKey.currentState.validate() ||
         !widget._passwordFormKey.currentState.validate()) return;
@@ -185,6 +195,13 @@ class _LoginButtonState extends State<_LoginButton> {
     }
 
     postInit();
+  }
+
+  @override
+  void initState() {
+    LoginApp app = context.ancestorWidgetOfExactType(LoginApp);
+    _isDeprecated = app.message == 'deprecated';
+    super.initState();
   }
 
   @override

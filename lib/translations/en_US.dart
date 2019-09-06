@@ -231,4 +231,6 @@ const Map<String, String> en_US_login = {
   'Register/Register': 'Continue',
   'Error/InvalidPassword': 'Invalid username or password.',
   'Error/GMS': 'GMS not working properly.',
+  'Error/Deprecated':
+      'Please upgrade! The version of app is nolonger supported!'
 };

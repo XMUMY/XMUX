@@ -214,4 +214,5 @@ const Map<String, String> zh_CN_login = {
   'Register/Register': '继续',
   'Error/InvalidPassword': '用户名或密码无效',
   'Error/GMS': 'GMS 未正常工作',
+  'Error/Deprecated': '该版本应用已不再受到支持，请更新！'
 };
