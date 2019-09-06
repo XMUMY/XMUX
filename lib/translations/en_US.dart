@@ -163,7 +163,7 @@ const Map<String, String> en_US = {
   'Settings/SignOut': 'Sign out',
   'Settings/ChangeProfile': 'Edit Profile',
   'Settings/ChangeProfile/Caption':
-      'You can edit part of your profile here. User avatar can be edit in Moodle and new avatar is available after relogin the app.',
+      'You can edit part of your profile here. User avatar can be edit in Gravatar.',
   'Settings/ChangeProfile/DisplayName': 'Display Name',
   'Settings/DeveloperOptions': 'Developer Options',
   'Settings/DeveloperOptions/Warning':
@@ -172,9 +172,9 @@ const Map<String, String> en_US = {
       'Enable Functions under Development',
   'Settings/DeveloperOptions/EnFuncsUnderDev/Caption':
       'These functions are still under development and are highly unstable',
-  'Settings/DeveloperOptions/Servers': 'Servers',
-  'Settings/DeveloperOptions/Servers/Caption':
-      'Normally the app will select the best server automatically',
+  'Settings/DeveloperOptions/MyPushToken': 'My Notification Token',
+  'Settings/DeveloperOptions/MyPushToken/Caption':
+      'Press to copy my notification token',
   // Me
   'Me/Header/Welcome': 'Hello,',
   // Tools

@@ -152,16 +152,15 @@ const Map<String, String> zh_CN = {
   'Settings': '设置',
   'Settings/SignOut': '登出',
   'Settings/ChangeProfile': '更改个人资料',
-  'Settings/ChangeProfile/Caption':
-      '您可以在此更改您的部分个人信息，用户头像请在 Moodle 内修改，新的头像将在重新登陆后生效。',
+  'Settings/ChangeProfile/Caption': '您可以在此更改您的部分个人信息，用户头像请在 Gravatar 内修改。',
   'Settings/ChangeProfile/DisplayName': '昵称',
   'Settings/DeveloperOptions': '开发者选项',
   'Settings/DeveloperOptions/Warning':
       '警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常及数据的丢失或泄漏。',
   'Settings/DeveloperOptions/EnFuncsUnderDev': '启用正在开发中的功能',
   'Settings/DeveloperOptions/EnFuncsUnderDev/Caption': '这些功能尚在开发中且十分不稳定',
-  'Settings/DeveloperOptions/Servers': '服务器',
-  'Settings/DeveloperOptions/Servers/Caption': '选择为应用提供服务的服务器',
+  'Settings/DeveloperOptions/MyPushToken': '通知推送令牌',
+  'Settings/DeveloperOptions/MyPushToken/Caption': '点击以复制我的通知推送令牌',
   // Me
   'Me/Header/Welcome': '您好，',
   // Tools

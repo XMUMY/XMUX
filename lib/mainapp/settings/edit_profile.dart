@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
 
-class ChangeProfilePage extends StatefulWidget {
+class EditProfilePage extends StatefulWidget {
   @override
-  _ChangeProfilePageState createState() => _ChangeProfilePageState();
+  _EditProfilePageState createState() => _EditProfilePageState();
 }
 
-class _ChangeProfilePageState extends State<ChangeProfilePage> {
+class _EditProfilePageState extends State<EditProfilePage> {
   final _displayNameController =
       TextEditingController(text: firebaseUser?.displayName ?? 'User');
 

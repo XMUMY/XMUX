@@ -24,7 +24,7 @@ import 'explore/lost_and_found/lost_and_found_page.dart';
 import 'main_page.dart';
 import 'settings/developer_options.dart';
 import 'settings/edit_profile.dart';
-import 'settings/settings_page.dart';
+import 'settings/settings.dart';
 import 'tools/emergency.dart';
 import 'tools/emgs.dart';
 import 'tools/epayment.dart';
@@ -53,7 +53,7 @@ class MainApp extends StatelessWidget {
     '/Me/Emgs': (_) => EmgsPage(),
     '/Me/Emergency': (_) => EmergencyPage(),
     '/Settings': (_) => SettingsPage(),
-    '/Settings/ChangeProfile': (_) => ChangeProfilePage(),
+    '/Settings/ChangeProfile': (_) => EditProfilePage(),
     '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
   };
 
