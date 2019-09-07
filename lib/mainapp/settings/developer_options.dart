@@ -45,9 +45,9 @@ class DeveloperOptionsPage extends StatelessWidget {
 
           // Copy FCM key.
           ListTile(
-            title: Text(i18n('Settings/DeveloperOptions/MyPushKey', context)),
+            title: Text(i18n('Settings/DeveloperOptions/MyPushToken', context)),
             subtitle: Text(
-                i18n('Settings/DeveloperOptions/MyPushKey/Caption', context)),
+                i18n('Settings/DeveloperOptions/MyPushToken/Caption', context)),
             onTap: () async => Clipboard.setData(
                 ClipboardData(text: await firebase.messaging.getToken())),
           ),
