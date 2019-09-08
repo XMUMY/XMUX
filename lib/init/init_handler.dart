@@ -84,8 +84,6 @@ void postInit() async {
       await v2.XMUXApi.instance.updateUser(v2.User(
           firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl));
     } catch (e) {
-      await LoginHandler.campus(store.state.authState.campusID,
-          store.state.authState.campusIDPassword);
       await LoginHandler.createUser();
     }
 

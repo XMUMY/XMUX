@@ -6,20 +6,6 @@ import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 @deprecated
 class LoginHandler {
-  static Future<String> campus(String id, String password) async {
-    print('LoginHandler: Login: $id');
-
-    try {
-      // Get response from backend.
-      var res = await XMUXApi.instance
-          .login(XMUXApiAuth(campusID: id, campusIDPassword: password));
-    } catch (e) {
-      return e.message ?? e.toString();
-    }
-
-    return 'success';
-  }
-
   static Future<Null> createUser() async {
     print('LoginHandler: Creating user: ${store.state.authState.campusID}');
 
