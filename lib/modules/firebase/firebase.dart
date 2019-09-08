@@ -35,12 +35,12 @@ class Firebase {
     try {
       await remoteConfig.fetch();
       await remoteConfig.activateFetched();
-    } catch (_) {
-      rethrow;
-    } finally {
-      remoteConfigs
-          .updateStaticResources(remoteConfig.getString('static_resources'));
-      remoteConfigs.updateVersions(remoteConfig.getString('versions'));
+    } catch (_) {} finally {
+      var staticResources = remoteConfig.getString('static_resources');
+      if (staticResources.isNotEmpty)
+        remoteConfigs.updateStaticResources(staticResources);
+      var versions = remoteConfig.getString('versions');
+      if (versions.isNotEmpty) remoteConfigs.updateVersions(versions);
     }
   }
 }

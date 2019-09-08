@@ -65,9 +65,11 @@ void init() async {
   }
 
   // Make sure firebase logged in.
-  if (firebaseUser == null)
-    firebaseUser = await FirebaseAuth.instance.currentUser();
-  if (firebaseUser == null) return;
+  if (firebaseUser == null &&
+      (firebaseUser = await FirebaseAuth.instance.currentUser()) == null) {
+    logout();
+    return;
+  }
 
   postInit();
 }
@@ -117,8 +119,7 @@ Future<bool> mobileInit() async {
         );
 
   // Init firebase services.
-  firebase = await Firebase.init()
-      .catchError((e) => sentry.captureException(exception: e));
+  firebase = await Firebase.init();
 
   // Version check.
   var currentBuild = int.tryParse(packageInfo?.buildNumber ?? '0') ?? 0;
