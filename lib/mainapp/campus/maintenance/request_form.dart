@@ -32,17 +32,19 @@ class _RequestFormPageState extends State<RequestFormPage> {
         maxLengthEnforced: true,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
-          labelText: 'Descriprion',
+          labelText: i18n('Campus/Tools/Maintenance/New/Description', context),
         ),
         onChanged: (v) => form.description = v,
-        validator: (v) => v.isNotEmpty ? null : 'gg',
+        validator: (v) => v.isNotEmpty
+            ? null
+            : i18n('Campus/Tools/Maintenance/New/FormatError', context),
       ),
       Row(
         children: <Widget>[
           Expanded(
             child: Observer(
               builder: (_) => DropdownButtonFormField(
-                hint: Text('Block'),
+                hint: Text(i18n('Campus/Tools/Maintenance/New/Block', context)),
                 items: form.blocks
                     .map((u) => DropdownMenuItem(child: Text(u), value: u))
                     .toList(),
@@ -50,7 +52,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
                 onChanged: (v) => form.block = v,
                 validator: (v) => v != null && form.blocks.contains(v)
                     ? null
-                    : 'Format Error',
+                    : i18n('Campus/Tools/Maintenance/New/FormatError', context),
               ),
             ),
           ),
@@ -58,24 +60,27 @@ class _RequestFormPageState extends State<RequestFormPage> {
           Expanded(
             child: Observer(
               builder: (_) => DropdownButtonFormField(
-                hint: Text('Wing'),
+                hint: Text(i18n('Campus/Tools/Maintenance/New/Wing', context)),
                 items: form.wings
                     .map((u) => DropdownMenuItem(child: Text(u), value: u))
                     .toList(),
                 value: form.wing,
                 onChanged: (v) => form.wing = v,
-                validator: (v) =>
-                    v != null && form.wings.contains(v) ? null : 'Format Error',
+                validator: (v) => v != null && form.wings.contains(v)
+                    ? null
+                    : i18n('Campus/Tools/Maintenance/New/FormatError', context),
               ),
             ),
           ),
           VerticalDivider(),
           Expanded(
             child: TextFormField(
-              decoration: InputDecoration(hintText: 'Room'),
+              decoration: InputDecoration(
+                  hintText: i18n('Campus/Tools/Maintenance/New/Room', context)),
               onChanged: (v) => form.room = v,
-              validator: (v) =>
-                  v != null && v.isNotEmpty ? null : 'Format Error',
+              validator: (v) => v != null && v.isNotEmpty
+                  ? null
+                  : i18n('Campus/Tools/Maintenance/New/FormatError', context),
             ),
           )
         ],
@@ -86,14 +91,16 @@ class _RequestFormPageState extends State<RequestFormPage> {
         duration: const Duration(milliseconds: 100),
         child: Observer(
           builder: (_) => DropdownButtonFormField(
-            decoration: InputDecoration(labelText: 'Room Usage'),
+            decoration: InputDecoration(
+                labelText: i18n('Campus/Tools/Maintenance/New/Usage', context)),
             items: form.usages
                 .map((u) => DropdownMenuItem(child: Text(u), value: u))
                 .toList(),
             value: form.usage,
             onChanged: (v) => form.usage = v,
-            validator: (v) =>
-                v != null && form.usages.contains(v) ? null : 'Format Error',
+            validator: (v) => v != null && form.usages.contains(v)
+                ? null
+                : i18n('Campus/Tools/Maintenance/New/FormatError', context),
           ),
         ),
       ),
@@ -103,7 +110,9 @@ class _RequestFormPageState extends State<RequestFormPage> {
         duration: const Duration(milliseconds: 100),
         child: Observer(
           builder: (_) => DropdownButtonFormField(
-            decoration: InputDecoration(labelText: 'Category'),
+            decoration: InputDecoration(
+                labelText:
+                    i18n('Campus/Tools/Maintenance/New/Category', context)),
             items: form.categories
                 .map((u) => DropdownMenuItem(child: Text(u), value: u))
                 .toList(),
@@ -111,7 +120,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
             onChanged: (v) => form.category = v,
             validator: (v) => v != null && form.categories.contains(v)
                 ? null
-                : 'Format Error',
+                : i18n('Campus/Tools/Maintenance/New/FormatError', context),
           ),
         ),
       ),
@@ -120,10 +129,13 @@ class _RequestFormPageState extends State<RequestFormPage> {
         duration: const Duration(milliseconds: 100),
         child: TextFormField(
           initialValue: form.phoneNumber,
-          decoration: InputDecoration(labelText: 'Contact Number'),
+          decoration: InputDecoration(
+              labelText: i18n('Campus/Tools/Maintenance/New/Contact', context)),
           keyboardType: TextInputType.phone,
           onChanged: (v) => form.phoneNumber = v,
-          validator: (v) => v != null && v.isNotEmpty ? null : 'Format Error',
+          validator: (v) => v != null && v.isNotEmpty
+              ? null
+              : i18n('Campus/Tools/Maintenance/New/FormatError', context),
         ),
       ),
       AnimatedPadding(
@@ -132,7 +144,8 @@ class _RequestFormPageState extends State<RequestFormPage> {
         duration: const Duration(milliseconds: 100),
         child: Observer(
           builder: (context) => CheckboxListTile(
-            title: Text('Recurring Problem'),
+            title:
+                Text(i18n('Campus/Tools/Maintenance/New/Recurring', context)),
             value: form.recurringProblem,
             onChanged: (v) => form.recurringProblem = v,
           ),
@@ -159,7 +172,9 @@ class _RequestFormPageState extends State<RequestFormPage> {
               builder: (context) => FloatingActionButton(
                 heroTag: 'camera',
                 backgroundColor: Theme.of(context).canvasColor,
-                tooltip: 'Add Photo',
+                tooltip: i18n(
+                    'Campus/Tools/Maintenance/New/${form.file == null ? 'Add' : 'Delete'}Photo',
+                    context),
                 child: Icon(
                   form.file == null ? Icons.camera : Icons.delete_outline,
                   color: Theme.of(context).accentColor,
@@ -197,7 +212,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
       appBar: AppBar(
         leading: Container(),
         title: Text(
-          'Request Maintenance',
+          i18n('Campus/Tools/Maintenance/New/Title', context),
           style: Theme.of(context).textTheme.title,
         ),
         centerTitle: true,

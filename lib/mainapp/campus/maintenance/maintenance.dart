@@ -22,10 +22,10 @@ class MaintenancePage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Maintenance'),
+          title: Text(i18n('Campus/Tools/Maintenance', context)),
           bottom: TabBar(
             tabs: <Widget>[
-              Tab(text: 'My Requests'),
+              Tab(text: i18n('Campus/Tools/Maintenance/MyRequests', context)),
               Tab(text: 'FAQ'),
             ],
           ),
