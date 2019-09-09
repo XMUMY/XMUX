@@ -81,7 +81,8 @@ class _RequestFormPageState extends State<RequestFormPage> {
         ],
       ),
       AnimatedPadding(
-        padding: EdgeInsets.only(right: hasKeyBoard ? 0 : 140),
+        padding: EdgeInsets.only(
+            right: hasKeyBoard ? 0 : MediaQuery.of(context).size.width / 3),
         duration: const Duration(milliseconds: 100),
         child: Observer(
           builder: (_) => DropdownButtonFormField(
@@ -97,7 +98,8 @@ class _RequestFormPageState extends State<RequestFormPage> {
         ),
       ),
       AnimatedPadding(
-        padding: EdgeInsets.only(right: hasKeyBoard ? 0 : 140),
+        padding: EdgeInsets.only(
+            right: hasKeyBoard ? 0 : MediaQuery.of(context).size.width / 3),
         duration: const Duration(milliseconds: 100),
         child: Observer(
           builder: (_) => DropdownButtonFormField(
@@ -125,7 +127,8 @@ class _RequestFormPageState extends State<RequestFormPage> {
         ),
       ),
       AnimatedPadding(
-        padding: EdgeInsets.only(right: hasKeyBoard ? 0 : 140),
+        padding: EdgeInsets.only(
+            right: hasKeyBoard ? 0 : MediaQuery.of(context).size.width / 3),
         duration: const Duration(milliseconds: 100),
         child: Observer(
           builder: (context) => CheckboxListTile(
@@ -136,54 +139,54 @@ class _RequestFormPageState extends State<RequestFormPage> {
         ),
       ),
       Divider(height: 10, color: Colors.transparent),
-      Row(
-        mainAxisAlignment: hasKeyBoard
-            ? MainAxisAlignment.spaceEvenly
-            : MainAxisAlignment.start,
-        children: <Widget>[
-          if (!hasKeyBoard) VerticalDivider(width: 30),
-          FloatingActionButton(
-            heroTag: 'x',
-            backgroundColor: Theme.of(context).canvasColor,
-            child: Icon(
-              Icons.close,
-              color: Theme.of(context).accentColor,
-            ),
-            onPressed: () => Navigator.of(context).pop(false),
-          ),
-          if (!hasKeyBoard) VerticalDivider(width: 25),
-          Observer(
-            builder: (context) => FloatingActionButton(
-              heroTag: 'camera',
+      AnimatedPadding(
+        padding: EdgeInsets.only(
+            right: hasKeyBoard ? 0 : MediaQuery.of(context).size.width / 3),
+        duration: const Duration(milliseconds: 100),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            FloatingActionButton(
+              heroTag: 'x',
               backgroundColor: Theme.of(context).canvasColor,
-              tooltip: 'Add Photo',
               child: Icon(
-                form.file == null ? Icons.camera : Icons.delete_outline,
+                Icons.close,
                 color: Theme.of(context).accentColor,
               ),
-              onPressed: () async {
-                if (form.file != null) {
-                  form.file = null;
-                  return;
-                }
-                var imageFile =
-                    await ImagePicker.pickImage(source: ImageSource.camera);
-                form.file = imageFile;
-              },
+              onPressed: () => Navigator.of(context).pop(false),
             ),
-          ),
-          if (!hasKeyBoard) VerticalDivider(width: 25),
-          FloatingActionButton(
-            disabledElevation: 0,
-            child: Icon(Icons.check),
-            onPressed: () async {
-              if (!formKey.currentState.validate() || _isSubmitting) return;
-              _isSubmitting = true;
-              await widget.maintenance.sendForm(form);
-              Navigator.of(context).pop();
-            },
-          )
-        ],
+            Observer(
+              builder: (context) => FloatingActionButton(
+                heroTag: 'camera',
+                backgroundColor: Theme.of(context).canvasColor,
+                tooltip: 'Add Photo',
+                child: Icon(
+                  form.file == null ? Icons.camera : Icons.delete_outline,
+                  color: Theme.of(context).accentColor,
+                ),
+                onPressed: () async {
+                  if (form.file != null) {
+                    form.file = null;
+                    return;
+                  }
+                  var imageFile =
+                      await ImagePicker.pickImage(source: ImageSource.camera);
+                  form.file = imageFile;
+                },
+              ),
+            ),
+            FloatingActionButton(
+              disabledElevation: 0,
+              child: Icon(Icons.check),
+              onPressed: () async {
+                if (!formKey.currentState.validate() || _isSubmitting) return;
+                _isSubmitting = true;
+                await widget.maintenance.sendForm(form);
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        ),
       ),
     ];
   }
@@ -206,8 +209,11 @@ class _RequestFormPageState extends State<RequestFormPage> {
           if (!hasKeyBoard)
             Positioned(
               right: 5,
-              bottom: 20,
-              child: SvgPicture.asset('res/campus/maintenance.svg', width: 125),
+              bottom: 10,
+              child: SvgPicture.asset(
+                'res/campus/maintenance.svg',
+                width: MediaQuery.of(context).size.width / 3.3,
+              ),
             ),
           if (form == null) Center(child: CircularProgressIndicator()),
           if (form != null)
