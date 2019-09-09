@@ -1,6 +1,7 @@
-import 'package:dio/dio.dart';
-import 'package:cookie_jar/cookie_jar.dart';
 import 'dart:io';
+
+import 'package:cookie_jar/cookie_jar.dart';
+import 'package:dio/dio.dart';
 
 class NBCookieManager extends Interceptor {
   /// Cookie manager for http requests。Learn more details about

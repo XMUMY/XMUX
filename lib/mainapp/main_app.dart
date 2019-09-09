@@ -18,7 +18,7 @@ import 'campus/academic_tools/vpn.dart';
 import 'campus/academic_tools/wolfram_engine/input_constructor.dart';
 import 'campus/bus_schedule.dart';
 import 'campus/klia_express.dart';
-import 'campus/maintenance/main_view.dart';
+import 'campus/maintenance/maintenance.dart';
 import 'campus/travelviser.dart';
 import 'explore/lost_and_found/lost_and_found_page.dart';
 import 'main_page.dart';

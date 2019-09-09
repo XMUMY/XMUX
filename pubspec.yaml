@@ -26,6 +26,7 @@ dependencies:
   firebase_storage: 3.0.6
   flare_flutter: ^1.5.7
   flutter_lottie: ^0.2.0
+  flutter_mobx: ^0.3.2
   flutter_redux: ^0.5.3
   flutter_spinkit: ^4.0.0
   flutter_svg: ^0.14.0
@@ -76,14 +77,7 @@ flutter:
   assets:
     - res/initpage.jpg
     - res/logo.png
-    - res/campus/ecr.svg
-    - res/campus/gpa_calculator.svg
-    - res/campus/geogebra.svg
-    - res/campus/gpa.svg
-    - res/campus/klia_express.svg
-    - res/campus/travelviser.svg
-    - res/campus/vpn.svg
-    - res/campus/wolfram.svg
+    - res/campus/
     - res/animations/stars.flr
     - res/animations/vpn.json
     - res/home/news.svg
