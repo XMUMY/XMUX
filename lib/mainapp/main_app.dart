@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/voting/voting.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
@@ -55,6 +56,7 @@ class MainApp extends StatelessWidget {
     '/Settings': (_) => SettingsPage(),
     '/Settings/ChangeProfile': (_) => EditProfilePage(),
     '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
+    '/Voting19': (_) => VotingPage(),
   };
 
   @override
