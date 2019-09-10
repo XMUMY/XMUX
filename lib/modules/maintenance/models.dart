@@ -14,7 +14,7 @@ class FaqQuestion {
 }
 
 class MyRequest {
-  final int id;
+  final String id;
   final DateTime date;
   final String title;
   final String category;

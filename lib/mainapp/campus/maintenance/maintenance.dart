@@ -8,7 +8,7 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/modules/maintenance/maintenance.dart';
 
 part 'faq.dart';
-part 'my_requests.dart';
+part 'my_complaint.dart';
 part 'request_form.dart';
 
 class MaintenancePage extends StatelessWidget {
@@ -32,7 +32,7 @@ class MaintenancePage extends StatelessWidget {
         ),
         body: TabBarView(
           children: <Widget>[
-            MyRequestsPage(maintenance),
+            MyComplaintsPage(maintenance),
             FaqPage(),
           ],
         ),

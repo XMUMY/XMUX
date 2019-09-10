@@ -1,21 +1,22 @@
 part of 'maintenance.dart';
 
-class MyRequestsPage extends StatefulWidget {
+class MyComplaintsPage extends StatefulWidget {
   final Maintenance maintenance;
-  final List<MyRequest> myRequests = [];
+  final List<MyRequest> myComplaints = [];
 
-  MyRequestsPage(this.maintenance);
+  MyComplaintsPage(this.maintenance);
 
   @override
-  _MyRequestsPageState createState() => _MyRequestsPageState();
+  _MyComplaintsPageState createState() => _MyComplaintsPageState();
 }
 
-class _MyRequestsPageState extends State<MyRequestsPage> {
+class _MyComplaintsPageState extends State<MyComplaintsPage> {
   @override
   void initState() {
-    if (widget.myRequests.isEmpty)
-      widget.maintenance.myRequests.then((requests) =>
-          mounted ? setState(() => widget.myRequests.addAll(requests)) : null);
+    if (widget.myComplaints.isEmpty)
+      widget.maintenance.myRequests.then((requests) => mounted
+          ? setState(() => widget.myComplaints.addAll(requests))
+          : null);
     super.initState();
   }
 
@@ -23,9 +24,9 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.all(10),
-      itemCount: widget.myRequests.length,
+      itemCount: widget.myComplaints.length,
       itemBuilder: (context, index) {
-        var req = widget.myRequests[index];
+        var req = widget.myComplaints[index];
         return Card(
           child: Padding(
             padding: const EdgeInsets.all(10),
@@ -33,11 +34,12 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  req.title,
+                  '${req.title}',
                   style: Theme.of(context).textTheme.subhead,
                 ),
                 Text(
-                  '${DateFormat.yMMMd().format(req.date)} ${req.usage} ${req.category}',
+                  '${req.id} ${DateFormat.yMMMd().format(req.date)} '
+                  '${req.usage} ${req.category}',
                   style: Theme.of(context).textTheme.caption,
                 ),
                 Divider(height: 8),

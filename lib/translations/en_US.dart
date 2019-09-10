@@ -83,7 +83,7 @@ const Map<String, String> en_US = {
   'Campus/Tools': 'Campus Utilities',
   'Campus/Tools/BusSchedule': 'Bus Schedule',
   'Campus/Tools/KliaExpress': 'KLIA Express',
-  'Campus/Tools/Maintenance/MyRequests': 'My Requests',
+  'Campus/Tools/Maintenance/MyRequests': 'My Complaints',
   'Campus/Tools/Maintenance/New/Title': 'Request Maintenance',
   'Campus/Tools/Maintenance/New/Description': 'Description',
   'Campus/Tools/Maintenance/New/Block': 'Block',
@@ -93,7 +93,7 @@ const Map<String, String> en_US = {
   'Campus/Tools/Maintenance/New/Category': 'Category',
   'Campus/Tools/Maintenance/New/Contact': 'Contact Number',
   'Campus/Tools/Maintenance/New/Recurring': 'Recurring Problem',
-  'Campus/Tools/Maintenance/New/FormatError': 'Error format',
+  'Campus/Tools/Maintenance/New/FormatError': 'Format error',
   'Campus/Tools/Maintenance/New/AddPhoto': 'Add Photo',
   'Campus/Tools/Maintenance/New/DeletePhoto': 'Delete Photo',
   'Campus/Tools/Travelviser/NotRegistered':

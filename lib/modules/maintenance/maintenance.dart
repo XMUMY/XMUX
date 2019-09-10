@@ -91,11 +91,11 @@ class Maintenance {
           .replaceAll(RegExp(r'^\s+|\s+$|\n'), '')
           .split(' - ');
       myRequests.add(MyRequest(
-        id: int.parse(myRequestPage[i]
+        id: myRequestPage[i]
             .nodes[0]
             .text
-            .replaceAll(RegExp(r'^\s+|\s+$|\n|\.'), '')),
-        date: DateFormat('yyyy-MM-dd').parse(myRequestPage[i]
+            .replaceAll(RegExp(r'^\s+|\s+$|\n|\.'), ''),
+        date: DateFormat('yyyy/MM/dd HH:mm:ss').parse(myRequestPage[i]
             .nodes[2]
             .text
             .replaceAll(RegExp(r'^\s+|\s+$|\n'), '')),
@@ -142,7 +142,7 @@ class Maintenance {
     );
   }
 
-  Future<bool> sendForm(RequestForm form) async {
+  Future<Null> sendForm(RequestForm form) async {
     var formData = FormData.from({
       'agree': 'true',
       '__RequestVerificationToken': form.token,
@@ -165,8 +165,8 @@ class Maintenance {
           contentType: ContentType.parse('image/jpeg'),
         )
     });
-//    print(formData);
-//    await _dio.post('/Reader/Ask/Create',
-//        data: formData, options: Options(followRedirects: true));
+
+    await _dio.post('/Reader/Ask/Create',
+        data: formData, options: Options(validateStatus: (s) => s == 302));
   }
 }
