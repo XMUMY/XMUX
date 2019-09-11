@@ -159,15 +159,6 @@ class _RequestFormPageState extends State<RequestFormPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            FloatingActionButton(
-              heroTag: 'x',
-              backgroundColor: Theme.of(context).canvasColor,
-              child: Icon(
-                Icons.close,
-                color: Theme.of(context).accentColor,
-              ),
-              onPressed: () => Navigator.of(context).pop(false),
-            ),
             Observer(
               builder: (context) => FloatingActionButton(
                 heroTag: 'camera',
@@ -210,7 +201,11 @@ class _RequestFormPageState extends State<RequestFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Container(),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+          color: Theme.of(context).textTheme.headline.color,
+        ),
         title: Text(
           i18n('Campus/Tools/Maintenance/New/Title', context),
           style: Theme.of(context).textTheme.title,
