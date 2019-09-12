@@ -2,18 +2,18 @@ library swagger.api;
 
 import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart';
 
-part 'api_client.dart';
-part 'api_helper.dart';
-part 'api_exception.dart';
-part 'auth/authentication.dart';
-part 'auth/api_key_auth.dart';
-part 'auth/oauth.dart';
-part 'auth/http_basic_auth.dart';
+import 'package:http/http.dart';
+import 'package:xmux/globals.dart';
 
 part 'api/xmux_voting_v1_voting_api.dart';
-
+part 'api_client.dart';
+part 'api_exception.dart';
+part 'api_helper.dart';
+part 'auth/api_key_auth.dart';
+part 'auth/authentication.dart';
+part 'auth/http_basic_auth.dart';
+part 'auth/oauth.dart';
 part 'model/inline_response200.dart';
 part 'model/inline_response2001.dart';
 part 'model/inline_response2002.dart';
@@ -40,6 +40,5 @@ part 'model/xmux_voting_v1_vote_req.dart';
 part 'model/xmux_voting_v1_vote_resp.dart';
 part 'model/xmux_voting_v1_voted_ev_req.dart';
 part 'model/xmux_voting_v1_voted_ev_resp.dart';
-
 
 ApiClient defaultApiClient = new ApiClient();
