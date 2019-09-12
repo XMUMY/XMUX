@@ -22,8 +22,11 @@ class _HomeSliderState extends State<HomeSlider> {
           FlatButton(
               onPressed: n.uri.isEmpty
                   ? null
-                  : () => Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(builder: (_) => WebViewPage(n.uri))),
+                  : !n.uri.startsWith('/')
+                      ? () => Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(builder: (_) => WebViewPage(n.uri)))
+                      : () => Navigator.of(context, rootNavigator: true)
+                          .pushNamed(n.uri),
               child: null),
         ],
       );

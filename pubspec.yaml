@@ -77,6 +77,7 @@ flutter:
   assets:
     - res/initpage.jpg
     - res/logo.png
+    - res/voting19.jpg
     - res/campus/
     - res/animations/stars.flr
     - res/animations/vpn.json

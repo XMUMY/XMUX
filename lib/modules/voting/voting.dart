@@ -63,8 +63,7 @@ class _VotingPageState extends State<VotingPage> {
             controller: backgroundController,
             child: Stack(
               children: <Widget>[
-                Image.network(
-                    'https://i.jpg.dog/img/75b89185f88ef619e6073891fbef9121.jpg'),
+                Image.asset('res/voting19.jpg'),
                 SizedBox(
                   height: MediaQuery.of(context).size.height,
                   child: GaussianBlurBox(
@@ -86,6 +85,15 @@ class _VotingPageState extends State<VotingPage> {
               )
             ],
           ),
+          Positioned(
+            left: 5.0,
+            top: MediaQuery.of(context).padding.top,
+            child: IconButton(
+              icon: Icon(Icons.arrow_back),
+              color: Colors.white70,
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          )
         ],
       ),
     );
