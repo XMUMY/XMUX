@@ -25,6 +25,12 @@ class _AnimatedLogoState extends State<AnimatedLogo>
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(10),
