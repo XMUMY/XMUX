@@ -345,14 +345,14 @@ class XmuxVotingV1VotingApi {
     Map<String, String> formParams = {};
     if (activity != null) {
       queryParams.addAll(
-          _convertParametersForCollectionFormat("", "activity", activity));
+          _convertParametersForCollectionFormat("", "Activity", activity));
     }
     if (beg != null) {
-      queryParams.addAll(_convertParametersForCollectionFormat("", "beg", beg));
+      queryParams.addAll(_convertParametersForCollectionFormat("", "Beg", beg));
     }
     if (amount != null) {
       queryParams
-          .addAll(_convertParametersForCollectionFormat("", "amount", amount));
+          .addAll(_convertParametersForCollectionFormat("", "Amount", amount));
     }
 
     List<String> contentTypes = ["application/json", "multipart/form-data"];

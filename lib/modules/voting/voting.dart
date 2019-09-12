@@ -23,12 +23,17 @@ class _VotingPageState extends State<VotingPage> {
   Future<Null> _handleRefresh() async {
     var evs =
         await api.v3VotingVotesGet(activity: 'Ori1909', beg: 0, amount: -1);
-    events = evs.data.events;
+    events = evs.data.events
+        .map((e) => e
+          ..ID ??= 0
+          ..vote ??= 0)
+        .toList();
     if (mounted) setState(() {});
   }
 
   @override
   void initState() {
+    _handleRefresh();
     backgroundController.addListener(() {
       setState(() =>
           sigma = min(max((backgroundController.offset - 150) / 15, 0), 6.0));
