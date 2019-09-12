@@ -77,6 +77,17 @@ class WebViewPageState extends State<WebViewPage> {
       body: WebView(
         initialUrl: widget.url,
         onWebViewCreated: (c) => controller = c,
+        javascriptMode: JavascriptMode.unrestricted,
+        onPageFinished: (url) async {
+          var uri = Uri.parse(url);
+          if (controller != null &&
+              uri.scheme == 'https' &&
+              uri.host.endsWith('xdea.io')) {
+            var token = (await firebaseUser.getIdToken()).token;
+            controller
+                .evaluateJavascript('function getToken(){return "$token"}');
+          }
+        },
       ),
     );
   }
