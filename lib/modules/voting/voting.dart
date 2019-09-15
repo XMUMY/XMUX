@@ -73,17 +73,20 @@ class _VotingPageState extends State<VotingPage> {
               ],
             ),
           ),
-          ListView(
-            controller: foregroundController,
-            children: <Widget>[
-              Divider(height: 430, color: Colors.transparent),
-              Column(
-                children: <Widget>[
-                  for (var i = 0; i < events.length; i++)
-                    VoteButton(api, events[i])
-                ],
-              )
-            ],
+          RefreshIndicator(
+            onRefresh: _handleRefresh,
+            child: ListView(
+              controller: foregroundController,
+              children: <Widget>[
+                Divider(height: 430, color: Colors.transparent),
+                Column(
+                  children: <Widget>[
+                    for (var i = 0; i < events.length; i++)
+                      VoteButton(api, events[i])
+                  ],
+                )
+              ],
+            ),
           ),
           Positioned(
             left: 5.0,
