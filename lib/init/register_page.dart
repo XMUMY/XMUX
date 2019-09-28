@@ -142,13 +142,16 @@ class _RegisterButtonState extends State<_RegisterButton> {
     setState(() => _isProcessing = true);
 
     // Register
-    var registerResp = await XMUXApi.instance
-        .register(widget._uid, widget._password, name, email);
-    if (registerResp.code != 0) {
+    String customToken;
+    try {
+      var registerResp = await XMUXApi.instance
+          .register(widget._uid, widget._password, name, email);
+      customToken = registerResp.data.customToken;
+    } on XMUXApiException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(
-        '${i18n('SignIn/Error', context, app: 'l')}${registerResp.message}',
+        '${i18n('SignIn/Error', context, app: 'l')}${e.message}',
       )));
       return;
     }
@@ -156,8 +159,7 @@ class _RegisterButtonState extends State<_RegisterButton> {
 
     // Login firebase.
     try {
-      await FirebaseAuth.instance
-          .signInWithCustomToken(token: registerResp.data.customToken);
+      await FirebaseAuth.instance.signInWithCustomToken(token: customToken);
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(

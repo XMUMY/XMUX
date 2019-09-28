@@ -158,19 +158,22 @@ class _LoginButtonState extends State<_LoginButton> {
     // Switch to processing state.
     setState(() => _isProcessing = true);
 
-    // Login.
-    var loginResp = await XMUXApi.instance.login(username, password);
-    if (loginResp.code == 1) {
-      // Need register.
-      Navigator.of(context)
-          .pushNamed('/Register', arguments: Tuple2(username, password));
-      return;
-    }
-    if (loginResp.code != 0) {
+    // Login and get custom token.
+    String customToken;
+    try {
+      var loginResp = await XMUXApi.instance.login(username, password);
+      customToken = loginResp.data.customToken;
+      if (loginResp.code == 1) {
+        // Need register.
+        Navigator.of(context)
+            .pushNamed('/Register', arguments: Tuple2(username, password));
+        return;
+      }
+    } on XMUXApiException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      var msg = loginResp.code == -403
+      var msg = e.code == -403
           ? i18n('Error/InvalidPassword', context, app: 'l')
-          : loginResp.message;
+          : e.message;
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text('${i18n('SignIn/Error', context, app: 'l')}$msg')));
       return;
@@ -179,8 +182,7 @@ class _LoginButtonState extends State<_LoginButton> {
 
     // Login firebase.
     try {
-      await FirebaseAuth.instance
-          .signInWithCustomToken(token: loginResp.data.customToken);
+      await FirebaseAuth.instance.signInWithCustomToken(token: customToken);
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(

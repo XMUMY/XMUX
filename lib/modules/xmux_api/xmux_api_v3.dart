@@ -15,7 +15,7 @@ class XMUXApiException implements Exception {
   /// May represent different error in each API.
   final int code;
 
-  /// The message from server.
+  /// The error message from server.
   final String message;
 
   XMUXApiException(this.code, this.message);
@@ -41,7 +41,7 @@ class XMUXApiResponse<T> {
   XMUXApiResponse(this.code, this.message, this.timestamp, this.data);
 }
 
-/// XMUX API V2
+/// XMUX API V3
 class XMUXApi {
   /// Unique instance of XMUXApi.
   static XMUXApi instance;
@@ -76,7 +76,12 @@ class XMUXApi {
       timestamp = HttpDate.parse(response.headers['Date']);
 
     Map<String, dynamic> decodedBody = jsonDecode(response.body);
+    int code = decodedBody['code'];
     Map<String, dynamic> data = decodedBody['data'];
+
+    // Throw exception when error is serious.
+    if (code > 100 || code <= -400)
+      throw XMUXApiException(code, decodedBody['message']);
 
     return XMUXApiResponse<T>(
       decodedBody['code'],
@@ -86,6 +91,8 @@ class XMUXApi {
     );
   }
 
+  /// Login with given credential.
+  /// Returns firebase custom token in order to login firebase client.
   Future<XMUXApiResponse<LoginResp>> login(String uid, String password) async {
     var resp = await _client.get(
       '/user/login',
@@ -94,6 +101,7 @@ class XMUXApi {
     return _decodeResponse(resp, LoginResp.fromJson);
   }
 
+  /// Register user if server cannot get adequate information to register automatically.
   Future<XMUXApiResponse<LoginResp>> register(
       String uid, String password, String displayName, String email) async {
     var res = await _client.post(
@@ -104,6 +112,7 @@ class XMUXApi {
     return _decodeResponse(res, LoginResp.fromJson);
   }
 
+  /// Refresh device and push channel/key.
   Future<XMUXApiResponse<Null>> refreshDevice(
     String deviceId,
     String deviceModel,
@@ -124,5 +133,18 @@ class XMUXApi {
       auth: auth ?? Authorization.bearer(await getIdToken()),
     );
     return _decodeResponse(resp, (_) => null);
+  }
+
+  /// Get timetable of current semester from academic system.
+  Future<XMUXApiResponse<List<TimetableClass>>> getTimetable(
+      Authorization auth) async {
+    var resp = await _client.get('/ac/timetable', auth: auth);
+
+    return _decodeResponse(
+      resp,
+      (data) => (data['timetable'] as List<Map<String, dynamic>>)
+          .map(TimetableClass.fromJson)
+          .toList(),
+    );
   }
 }
