@@ -30,7 +30,7 @@ final SentryClient sentry = SentryClient(dsn: ApiKeyConfig.sentryDsn);
 /// Main store for redux.
 final store = Store<MainAppState>(appReducer,
     initialState: MainAppState.def(),
-    middleware: [apiRequestMiddleware, saveMiddleware]);
+    middleware: [apiRequestMiddlewareV2, saveMiddleware]);
 
 /// Instance of XiA.
 ///

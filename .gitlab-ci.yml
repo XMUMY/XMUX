@@ -10,12 +10,8 @@ stages:
 build:auto:
   stage: build
   tags:
-    - x
+    - xmux
   image: openjdk:8-jdk
-  only:
-    - dev
-  except:
-    - tags
   before_script:
 # Install libraries
     - apt-get --quiet update --yes > /dev/null
@@ -66,10 +62,10 @@ build:auto:
 deploy:internal:
   stage: deploy
   tags:
-    - x
+    - xmux
   image: ruby:slim
   only:
-    - dev
+    - master
   except:
     - tags
   variables:
@@ -87,29 +83,6 @@ deploy:internal:
     - echo "$CHANGELOG" > ./metadata/en-US/changelogs/"$VERSION_CODE".txt
     - echo "$CHANGELOG" > ./metadata/zh-CN/changelogs/"$VERSION_CODE".txt
     - fastlane supply --apk ./build/app/outputs/apk/release/app-release.apk --json_key play.json --package_name org.ctbeta.xmux.xmux --track internal --track_promote_to internal --skip_upload_aab true --skip_upload_images true
-
-deploy:alpha:
-  stage: deploy
-  tags:
-    - flutter
-  image: ruby
-  only:
-    - alpha
-  variables:
-    LC_ALL: en_US.UTF-8
-    LANG: en_US.UTF-8
-  before_script:
-    - apt-get --quiet update --yes > /dev/null
-    - apt-get --quiet install --yes ruby-dev gcc g++ make git > /dev/null
-    - gem install fastlane -NV > /dev/null
-    - echo "${GOOGLE_PLAY_KEY}" > play.json
-    - export VERSION_CODE=$(git rev-list HEAD --count)
-    - export CHANGELOG=$CI_COMMIT_DESCRIPTION
-  script:
-    - fastlane supply init --json_key play.json --package_name org.ctbeta.xmux.xmux
-    - echo "$CHANGELOG" > ./metadata/en-US/changelogs/"$VERSION_CODE".txt
-    - echo "$CHANGELOG" > ./metadata/zh-CN/changelogs/"$VERSION_CODE".txt
-    - fastlane supply --apk ./build/app/outputs/apk/release/app-release.apk --json_key play.json --package_name org.ctbeta.xmux.xmux --track alpha --track_promote_to alpha --skip_upload_aab true --skip_upload_images true
 
 cache:
   paths:

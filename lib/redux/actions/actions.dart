@@ -1,7 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:xmux/mainapp/main_page.dart';
 import 'package:xmux/modules/emgs/emgs.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
+import 'package:xmux/modules/xmux_api/models/models_v3.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
+import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 
 part 'xmux_api_actions.dart';
 
@@ -19,51 +21,58 @@ abstract class MainAppAction {
   toString() => "MainAppAction: ${this.runtimeType}";
 }
 
-class EnableFunctionsUnderDevAction extends MainAppAction {
-  final bool enableFunctionsUnderDev;
+// ****** General Actions ******
 
-  EnableFunctionsUnderDevAction(this.enableFunctionsUnderDev);
-}
-
+/// Init the whole state by using the state stored before.
 class InitAction extends MainAppAction {
   final Map<String, dynamic> initMap;
 
   InitAction(this.initMap);
 
+  @override
   final needSave = false;
 }
 
+/// Store uid and password after login.
 class LoginAction extends MainAppAction {
   final String campusId, password;
 
   LoginAction(this.campusId, this.password);
 
-  final sync = true;
-}
-
-class LoginFirebaseAction extends MainAppAction {
-  final FirebaseUser user;
-
-  LoginFirebaseAction(this.user);
-
   @override
-  final needSave = false;
-}
-
-class LogoutAction extends MainAppAction {
   final sync = true;
 }
 
+/// Logout and restore the whole state to default.
+class LogoutAction extends MainAppAction {
+  @override
+  final sync = true;
+}
+
+// ****** UI Actions ******
+
+/// Open the drawer in [MainPage].
 class OpenDrawerAction extends MainAppAction {
   final bool drawerIsOpen;
 
   OpenDrawerAction(this.drawerIsOpen);
 
+  @override
   final needSave = false;
 }
 
 class ToggleDarkModeAction extends MainAppAction {
+  @override
   final needSave = false;
+}
+
+// ****** Setting Actions ******
+
+/// Enable functions under development.
+class EnableFunctionsUnderDevAction extends MainAppAction {
+  final bool enableFunctionsUnderDev;
+
+  EnableFunctionsUnderDevAction(this.enableFunctionsUnderDev);
 }
 
 class UpdateEPaymentPasswordAction extends MainAppAction {
