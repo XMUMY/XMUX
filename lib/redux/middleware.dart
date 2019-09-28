@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/xmux_api/http_wrapper.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 import 'actions/actions.dart';
@@ -58,7 +59,12 @@ void apiRequestMiddleware(
 Future<Null> apiCall(Store<MainAppState> store, XMUXApiAction action,
     NextDispatcher next) async {
   try {
-    await action();
+    await action(
+      auth: Authorization.basic(
+        store.state.authState.campusID,
+        store.state.authState.campusIDPassword,
+      ),
+    );
     next(action);
   } catch (e) {
     if (action.onError != null)

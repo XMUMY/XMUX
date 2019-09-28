@@ -23,8 +23,8 @@ class SignInButton extends StatefulWidget {
       uid: store.state.authState.campusID,
       password: store.state.authState.campusIDPassword);
 
-  SignInButton(this.lesson) // TODO: For debug
-      : this._canSign = lesson.dayOfWeek == DateTime.now().weekday - 1 || true;
+  SignInButton(this.lesson)
+      : this._canSign = lesson.dayOfWeek == DateTime.now().weekday - 1;
 
   @override
   _SignInButtonState createState() => _SignInButtonState();

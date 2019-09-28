@@ -24,7 +24,7 @@ abstract class XMUXApiAction extends MainAppAction {
 
 /// Update timetable of current semester.
 class UpdateTimetableAction extends XMUXApiAction {
-  List<TimetableClass> timetable;
+  GetTimetableResp timetable;
 
   UpdateTimetableAction();
 

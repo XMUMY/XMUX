@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
@@ -44,12 +45,18 @@ class ExamsPage extends StatelessWidget {
               child: ListView.builder(
                 itemCount: exams.length + 1,
                 itemBuilder: (_, int index) {
-                  if (index == exams.length)
-                    // Build last update string.
-                    return _buildLastUpdateString(context);
-                  else
-                    // Build exam card.
-                    return _ExamCard(exams[index]);
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: const Duration(milliseconds: 250),
+                    child: SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(
+                        child: index == exams.length
+                            ? _buildLastUpdateString(context)
+                            : _ExamCard(exams[index]),
+                      ),
+                    ),
+                  );
                 },
               ),
             );

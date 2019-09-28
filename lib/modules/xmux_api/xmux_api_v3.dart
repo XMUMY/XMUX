@@ -136,15 +136,13 @@ class XMUXApi {
   }
 
   /// Get timetable of current semester from academic system.
-  Future<XMUXApiResponse<List<TimetableClass>>> getTimetable(
+  Future<XMUXApiResponse<GetTimetableResp>> getTimetable(
       Authorization auth) async {
     var resp = await _client.get('/ac/timetable', auth: auth);
 
     return _decodeResponse(
       resp,
-      (data) => (data['timetable'] as List<Map<String, dynamic>>)
-          .map(TimetableClass.fromJson)
-          .toList(),
+      GetTimetableResp.fromJson,
     );
   }
 }

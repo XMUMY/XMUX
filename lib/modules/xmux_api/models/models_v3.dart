@@ -12,7 +12,22 @@ class LoginResp {
       _$LoginRespFromJson(json);
 }
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable()
+class GetTimetableResp {
+  final List<TimetableClass> timetable;
+
+  @JsonKey(name: 'recentUpdateS')
+  final DateTime recentUpdate;
+
+  GetTimetableResp(this.timetable, this.recentUpdate);
+
+  static GetTimetableResp fromJson(Map<String, dynamic> json) =>
+      _$GetTimetableRespFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GetTimetableRespToJson(this);
+}
+
+@JsonSerializable()
 class TimetableClass {
   final String cid;
   final String name;
@@ -27,4 +42,6 @@ class TimetableClass {
 
   static TimetableClass fromJson(Map<String, dynamic> json) =>
       _$TimetableClassFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TimetableClassToJson(this);
 }
