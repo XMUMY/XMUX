@@ -29,6 +29,7 @@ dependencies:
   flutter_mobx: ^0.3.2
   flutter_redux: ^0.5.3
   flutter_spinkit: ^4.0.0
+  flutter_staggered_animations: ^0.1.2
   flutter_svg: ^0.14.0
   flutter_vpn: 
     git: 

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
@@ -68,9 +69,20 @@ class TimeTablePage extends StatelessWidget {
               onRefresh: () => _handleUpdate(context),
               child: ListView.builder(
                 itemCount: classes.length + 1,
-                itemBuilder: (_, int index) => index == classes.length
-                    ? _buildLastUpdateString(context)
-                    : LessonCard(classes[index]),
+                itemBuilder: (_, int index) {
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: const Duration(milliseconds: 250),
+                    child: SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(
+                        child: index == classes.length
+                            ? _buildLastUpdateString(context)
+                            : LessonCard(classes[index]),
+                      ),
+                    ),
+                  );
+                },
               ),
             );
 }

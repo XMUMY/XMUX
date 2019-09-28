@@ -43,17 +43,33 @@ Future<Null> _saveState(Store<MainAppState> store, bool sync) async {
 ///
 /// If an action is *XMUXApiAction*, the middleware will call for API request
 /// before go to next middleware.
-void apiRequestMiddlewareV2(
+void apiRequestMiddleware(
     Store<MainAppState> store, action, NextDispatcher next) {
-  if (action is XMUXApiActionV2) {
+  if (action is XMUXApiAction || action is XMUXApiActionV2) {
     print(
         '[Redux/apiRequestMiddleware] Invoked (Action: ${action.runtimeType})');
-    action.listener = apiCall(store, action, next);
+    if (action is XMUXApiAction) action.future = apiCall(store, action, next);
+    if (action is XMUXApiActionV2)
+      action.listener = apiCallV2(store, action, next);
   } else
     next(action);
 }
 
-Future<Null> apiCall(Store<MainAppState> store, XMUXApiActionV2 action,
+Future<Null> apiCall(Store<MainAppState> store, XMUXApiAction action,
+    NextDispatcher next) async {
+  try {
+    await action();
+    next(action);
+  } catch (e) {
+    if (action.onError != null)
+      action.onError(e);
+    else
+      rethrow;
+  }
+}
+
+@deprecated
+Future<Null> apiCallV2(Store<MainAppState> store, XMUXApiActionV2 action,
     NextDispatcher next) async {
   try {
     await action(
