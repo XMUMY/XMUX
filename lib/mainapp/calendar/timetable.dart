@@ -12,48 +12,35 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/sign_in_button.dart';
 import 'package:xmux/modules/algorithms/algorithms.dart' show editDistance;
 import 'package:xmux/modules/attendance/attendance.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
+import 'package:xmux/modules/xmux_api/models/models_v3.dart';
 import 'package:xmux/redux/redux.dart';
 
 class TimeTablePage extends StatelessWidget {
-  final List<Lesson> classes;
+  final List<TimetableClass> timetable;
+  final DateTime recentUpdate;
 
-  TimeTablePage(List<Lesson> timetable)
-      : this.classes = timetable == null ? null : sortTimetable(timetable);
-
-  Widget _buildLastUpdateString(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.all(5),
-        child: Text(
-          "${i18n('Calendar/LastUpdate', context)} "
-          '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)} '
-          '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)}',
-          style: Theme.of(context).textTheme.caption,
-        ),
-      ),
-    );
-  }
+  TimeTablePage(GetTimetableResp resp)
+      : this.timetable = resp == null ? null : sortTimetable(resp.timetable),
+        this.recentUpdate = resp?.recentUpdate;
 
   Future<Null> _handleUpdate(BuildContext context) async {
-    var action = UpdateAcAction(context: context);
+    var action = UpdateTimetableAction();
     store.dispatch(action);
-    await action.listener;
+    await action.future;
   }
 
   /// Sort timetable according to the end of class and now.
-  static List<Lesson> sortTimetable(List<Lesson> timetable) {
+  static List<TimetableClass> sortTimetable(List<TimetableClass> timetable) {
     var now = DateTime.now();
     var nowMin = now.weekday * 1440 + now.hour * 60 + now.minute;
 
-    int _getLessonMin(Lesson l) =>
-        (l.dayOfWeek + 1) * 1440 +
-        l.endTimeOfDay.hour * 60 +
-        l.endTimeOfDay.minute;
+    int _getLessonMin(TimetableClass l) =>
+        l.day * 1440 + l.end.hour * 60 + l.end.minute;
 
-    var before = <Lesson>[];
-    var after = <Lesson>[];
+    var before = <TimetableClass>[];
+    var after = <TimetableClass>[];
 
+    timetable.sort((a, b) => _getLessonMin(a) - _getLessonMin(b));
     for (var i in timetable)
       _getLessonMin(i) < nowMin ? before.add(i) : after.add(i);
 
@@ -61,37 +48,51 @@ class TimeTablePage extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => classes == null
-      ? EmptyErrorButton(onRefresh: () => _handleUpdate(context))
-      : classes.isEmpty
-          ? EmptyErrorPage()
-          : RefreshIndicator(
-              onRefresh: () => _handleUpdate(context),
-              child: ListView.builder(
-                itemCount: classes.length + 1,
-                itemBuilder: (_, int index) {
-                  return AnimationConfiguration.staggeredList(
-                    position: index,
-                    duration: const Duration(milliseconds: 250),
-                    child: SlideAnimation(
-                      verticalOffset: 50.0,
-                      child: FadeInAnimation(
-                        child: index == classes.length
-                            ? _buildLastUpdateString(context)
-                            : LessonCard(classes[index]),
-                      ),
-                    ),
-                  );
-                },
+  Widget build(BuildContext context) {
+    if (timetable == null)
+      return EmptyErrorButton(onRefresh: () => _handleUpdate(context));
+    if (timetable.isEmpty) return EmptyErrorPage();
+
+    var lastUpdate = Center(
+      child: Padding(
+        padding: EdgeInsets.all(5),
+        child: Text(
+          "${i18n('Calendar/LastUpdate', context)} "
+          '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(recentUpdate)} '
+          '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(recentUpdate)}',
+          style: Theme.of(context).textTheme.caption,
+        ),
+      ),
+    );
+
+    return RefreshIndicator(
+      onRefresh: () => _handleUpdate(context),
+      child: ListView.builder(
+        itemCount: timetable.length + 1,
+        itemBuilder: (_, int index) {
+          return AnimationConfiguration.staggeredList(
+            position: index,
+            duration: const Duration(milliseconds: 250),
+            child: SlideAnimation(
+              verticalOffset: 50.0,
+              child: FadeInAnimation(
+                child: index == timetable.length
+                    ? lastUpdate
+                    : LessonCard(timetable[index]),
               ),
-            );
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
 
 class LessonCard extends StatefulWidget {
   /// Lesson information.
-  final Lesson lesson;
+  final TimetableClass lesson;
 
-  final attendanceApi = AttendanceApi(BackendApiConfig.attendanceAddress,
+  static final attendanceApi = AttendanceApi(BackendApiConfig.attendanceAddress,
       uid: store.state.authState.campusID);
 
   LessonCard(this.lesson);
@@ -110,9 +111,9 @@ class LessonCard extends StatefulWidget {
 
   int get lessonCredit {
     return store.state.acState.courses?.firstWhere(
-        (c) => c.courseName.indexOf(lesson.courseName) != -1, orElse: () {
+        (c) => c.courseName.indexOf(lesson.name) != -1, orElse: () {
       var editDistances = store.state.acState.courses
-          .map((c) => editDistance(c.courseName, lesson.courseName))
+          .map((c) => editDistance(c.courseName, lesson.name))
           .toList();
       return store.state.acState
           .courses[editDistances.indexOf(editDistances.reduce(min))];
@@ -125,7 +126,7 @@ class _LessonCardState extends State<LessonCard> {
 
   Widget _buildDialogWidgets(BuildContext context) {
     var history = FutureBuilder<List<AttendanceRecord>>(
-      future: widget.attendanceApi.getHistory(cid: widget.lesson.courseCode),
+      future: LessonCard.attendanceApi.getHistory(cid: widget.lesson.cid),
       builder: (ctx, snap) {
         switch (snap.connectionState) {
           case ConnectionState.done:
@@ -150,7 +151,7 @@ class _LessonCardState extends State<LessonCard> {
     return SimpleDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       title: Text(
-        widget.lesson.courseName,
+        widget.lesson.name,
         style: Theme.of(context).textTheme.title,
         textAlign: TextAlign.center,
       ),
@@ -158,13 +159,12 @@ class _LessonCardState extends State<LessonCard> {
       contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
       children: <Widget>[
         Text(
-            '${i18n('Calendar/ClassCard/Code', context)}: ${widget.lesson.courseCode}\n'
+            '${i18n('Calendar/ClassCard/Code', context)}: ${widget.lesson.cid}\n'
             '${i18n('Calendar/ClassCard/Credit', context)}: ${widget.lessonCredit}\n'
-            '${i18n('Calendar/ClassCard/Weeks', context)}: ${widget.lesson.weeks}\n'
-            '${i18n('Calendar/ClassCard/Time', context)}: ${i18n('Weekdays/${widget.lesson.dayOfWeek + 1}', context)} '
-            '${widget.lesson.startTimeOfDay.format(context)} - '
-            '${widget.lesson.endTimeOfDay.format(context)}\n'
-            '${i18n('Calendar/ClassCard/Room', context)}: ${widget.lesson.classroom}\n'
+            '${i18n('Calendar/ClassCard/Time', context)}: ${i18n('Weekdays/${widget.lesson.day}', context)} '
+            '${widget.lesson.start.format(context)} - '
+            '${widget.lesson.end.format(context)}\n'
+            '${i18n('Calendar/ClassCard/Room', context)}: ${widget.lesson.room}\n'
             '${i18n('Calendar/ClassCard/Lecturer', context)}: ${widget.lesson.lecturer}'),
         Divider(),
         Text('${i18n('Calendar/SignIn/Status', context)}'),
@@ -200,14 +200,14 @@ class _LessonCardState extends State<LessonCard> {
               decoration: BoxDecoration(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white10
-                      : LessonCard.dayColor[widget.lesson.dayOfWeek],
+                      : LessonCard.dayColor[widget.lesson.day - 1],
                   borderRadius: BorderRadius.vertical(top: Radius.circular(7))),
               child: Center(
                 child: Text(
-                  '${i18n('Weekdays/${widget.lesson.dayOfWeek + 1}', context)} '
-                  '${widget.lesson.startTimeOfDay.format(context)} - '
-                  '${widget.lesson.endTimeOfDay.format(context)} '
-                  '${widget.lesson.classroom}',
+                  '${i18n('Weekdays/${widget.lesson.day}', context)} '
+                  '${widget.lesson.start.format(context)} - '
+                  '${widget.lesson.end.format(context)} '
+                  '${widget.lesson.room}',
                   style: TextStyle(color: Colors.white, fontSize: 18),
                   textAlign: TextAlign.center,
                 ),
@@ -221,9 +221,9 @@ class _LessonCardState extends State<LessonCard> {
                   Padding(
                     padding: EdgeInsets.only(bottom: 8),
                     child: Text(
-                      widget.lesson.courseName,
+                      widget.lesson.name,
                       style: Theme.of(context).textTheme.subhead,
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.start,
                     ),
                   ),
                   Row(
@@ -233,8 +233,7 @@ class _LessonCardState extends State<LessonCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '${widget.lesson.courseCode}  '
-                              'Week ${widget.lesson.weeks}\n'
+                              '${widget.lesson.cid} '
                               '${widget.lesson.lecturer}',
                             ),
                           ],

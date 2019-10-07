@@ -7,11 +7,11 @@ import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/sketch/sketch.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
+import 'package:xmux/modules/xmux_api/models/models_v3.dart';
 
 class SignInButton extends StatefulWidget {
   /// Current Lesson.
-  final Lesson lesson;
+  final TimetableClass lesson;
 
   /// The lesson can sign in now if satisfy following condition.
   ///
@@ -24,7 +24,7 @@ class SignInButton extends StatefulWidget {
       password: store.state.authState.campusIDPassword);
 
   SignInButton(this.lesson)
-      : this._canSign = lesson.dayOfWeek == DateTime.now().weekday - 1;
+      : this._canSign = lesson.day == DateTime.now().weekday;
 
   @override
   _SignInButtonState createState() => _SignInButtonState();
@@ -59,8 +59,7 @@ class _SignInButtonState extends State<SignInButton> {
     var bytes = (await image.toByteData(format: ui.ImageByteFormat.png))
         .buffer
         .asUint8List();
-    var res =
-        await widget.attendanceApi.attend(widget.lesson.courseCode, ip, bytes);
+    var res = await widget.attendanceApi.attend(widget.lesson.cid, ip, bytes);
 
     if (res.status == AttendStatus.failed)
       Scaffold.of(context).showSnackBar(SnackBar(content: Text(res.message)));

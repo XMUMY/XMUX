@@ -4,10 +4,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:xmux/modules/xmux_api/http_wrapper.dart';
-import 'package:xmux/modules/xmux_api/models/models_v3.dart';
+
+import 'http_wrapper.dart';
+import 'models/models_v3.dart';
 
 export 'http_wrapper.dart';
+export 'models/models_v3.dart';
 
 /// The general exception for XMUX API.
 class XMUXApiException implements Exception {

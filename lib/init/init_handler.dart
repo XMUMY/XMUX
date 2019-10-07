@@ -99,6 +99,7 @@ void postInit() async {
     store.dispatch(UpdateHomepageAnnouncementsAction());
     store.dispatch(UpdateAcAction());
     store.dispatch(UpdateCoursesAction());
+    store.dispatch(UpdateTimetableAction());
 
     runApp(MainApp());
   }

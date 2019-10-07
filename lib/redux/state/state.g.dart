@@ -84,6 +84,17 @@ Map<String, dynamic> _$AuthStateToJson(AuthState instance) => <String, dynamic>{
       'moodleKey': instance.moodleKey,
     };
 
+SettingState _$SettingStateFromJson(Map<String, dynamic> json) {
+  return SettingState(
+    json['enableFunctionsUnderDev'] as bool ?? false,
+  );
+}
+
+Map<String, dynamic> _$SettingStateToJson(SettingState instance) =>
+    <String, dynamic>{
+      'enableFunctionsUnderDev': instance.enableFunctionsUnderDev,
+    };
+
 QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
   return QueryState(
     (json['ePaymentRecords'] as List)
@@ -95,6 +106,9 @@ QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
         ? null
         : EmgsApplicationResult.fromJson(
             json['emgsApplicationResult'] as Map<String, dynamic>),
+    json['timetable'] == null
+        ? null
+        : GetTimetableResp.fromJson(json['timetable'] as Map<String, dynamic>),
   );
 }
 
@@ -102,15 +116,5 @@ Map<String, dynamic> _$QueryStateToJson(QueryState instance) =>
     <String, dynamic>{
       'ePaymentRecords': instance.ePaymentRecords,
       'emgsApplicationResult': instance.emgsApplicationResult,
-    };
-
-SettingState _$SettingStateFromJson(Map<String, dynamic> json) {
-  return SettingState(
-    json['enableFunctionsUnderDev'] as bool ?? false,
-  );
-}
-
-Map<String, dynamic> _$SettingStateToJson(SettingState instance) =>
-    <String, dynamic>{
-      'enableFunctionsUnderDev': instance.enableFunctionsUnderDev,
+      'timetable': instance.timetable,
     };

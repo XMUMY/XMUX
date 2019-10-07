@@ -4,6 +4,7 @@ final Reducer<QueryState> queryReducers = combineReducers([
   TypedReducer<QueryState, UpdateEPaymentRecordsAction>(_updateBillReducer),
   TypedReducer<QueryState, UpdateEmgsApplicationResultAction>(
       _updateEmgsReducer),
+  TypedReducer<QueryState, UpdateTimetableAction>(_updateTimetableReducer),
 ]);
 
 QueryState _updateBillReducer(
@@ -13,3 +14,7 @@ QueryState _updateBillReducer(
 QueryState _updateEmgsReducer(
         QueryState oldState, UpdateEmgsApplicationResultAction action) =>
     oldState.copyWith(emgsApplicationResult: action.result);
+
+QueryState _updateTimetableReducer(
+        QueryState oldState, UpdateTimetableAction action) =>
+    oldState.copyWith(timetable: action.timetable);

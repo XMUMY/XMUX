@@ -34,7 +34,7 @@ class _AttendanceHistoryState extends State<AttendanceHistory> {
         title: Text('Attendace'),
       ),
       body: history == null
-          ? CircularProgressIndicator()
+          ? Center(child: CircularProgressIndicator())
           : history.isEmpty
               ? EmptyErrorPage()
               : RefreshIndicator(
