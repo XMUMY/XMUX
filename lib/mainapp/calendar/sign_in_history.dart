@@ -58,9 +58,8 @@ class AttendanceHistoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var course = store.state.acState.timetable.firstWhere(
-        (c) => c.courseCode.toUpperCase() == record.cid,
-        orElse: () => null);
+    var course = store.state.queryState.timetable.timetable
+        .firstWhere((c) => c.cid == record.cid, orElse: () => null);
 
     return Row(
       children: <Widget>[
@@ -69,7 +68,7 @@ class AttendanceHistoryItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                course?.courseName ?? 'Unknown',
+                course?.name ?? 'Unknown',
                 style: Theme.of(context).textTheme.subhead,
               ),
               Text(

@@ -66,5 +66,6 @@ class TimetableClass {
       int.parse(json.substring(4, 6)),
       int.parse(json.substring(6, 8)));
 
-  static String _dayToJson(DateTime day) => '${day.year}${day.month}${day.day}';
+  static String _dayToJson(DateTime day) =>
+      '${day.year}${day.month.toString().padLeft(2, '0')}${day.day.toString().padLeft(2, '0')}';
 }
