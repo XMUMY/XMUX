@@ -165,7 +165,7 @@ class _LessonCardState extends State<LessonCard> {
             '${widget.lesson.start.format(context)} - '
             '${widget.lesson.end.format(context)}\n'
             '${i18n('Calendar/ClassCard/Room', context)}: ${widget.lesson.room}\n'
-            '${i18n('Calendar/ClassCard/Lecturer', context)}: ${widget.lesson.lecturer}'),
+            '${i18n('Calendar/ClassCard/Lecturer', context)}: ${widget.lesson.lecturer.split(',').join(', ')}'),
         Divider(),
         Text('${i18n('Calendar/SignIn/Status', context)}'),
         SizedBox(
@@ -233,7 +233,7 @@ class _LessonCardState extends State<LessonCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '${widget.lesson.cid} '
+                              '${widget.lesson.cid} \n'
                               '${widget.lesson.lecturer}',
                             ),
                           ],

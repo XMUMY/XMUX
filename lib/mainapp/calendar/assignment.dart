@@ -59,10 +59,7 @@ class _AssCard extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 8),
                     child: new Text(
                       assData.courseFullName,
-                      style: Theme.of(context)
-                          .textTheme
-                          .subhead
-                          .copyWith(color: Colors.black54),
+                      style: Theme.of(context).textTheme.subhead,
                     ),
                   ),
                   new Column(
