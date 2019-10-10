@@ -56,6 +56,23 @@ class AttendanceHistoryItem extends StatelessWidget {
 
   AttendanceHistoryItem(this.record);
 
+  /// Localize message from response.
+  static String parseMessage(BuildContext context, AttendanceRecord record) {
+    var message = record.message;
+    switch (record.status) {
+      case AttendanceStatus.marked:
+        message = i18n('Calendar/SignIn/Marked', context);
+        break;
+      case AttendanceStatus.success:
+        message = i18n('Calendar/SignIn/Finished', context);
+        break;
+      case AttendanceStatus.failed:
+        message = '${i18n('Calendar/SignIn/Failed', context)}: $message';
+        break;
+    }
+    return message;
+  }
+
   @override
   Widget build(BuildContext context) {
     var course = store.state.queryState.timetable.timetable
@@ -76,7 +93,7 @@ class AttendanceHistoryItem extends StatelessWidget {
                 '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(record.timestamp)}',
                 style: Theme.of(context).textTheme.caption,
               ),
-              Text(record.message)
+              Text(AttendanceHistoryItem.parseMessage(context, record))
             ],
           ),
         ),

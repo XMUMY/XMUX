@@ -9,19 +9,11 @@ part of 'model.dart';
 AttendanceRecord _$AttendanceRecordFromJson(Map<String, dynamic> json) {
   return AttendanceRecord(
     _$enumDecodeNullable(_$AttendanceStatusEnumMap, json['status']),
-    json['courseid'] as String,
+    json['cid'] as String,
     json['message'] as String,
     AttendanceRecord._timestampFromJson(json['timestamp'] as int),
   );
 }
-
-Map<String, dynamic> _$AttendanceRecordToJson(AttendanceRecord instance) =>
-    <String, dynamic>{
-      'status': _$AttendanceStatusEnumMap[instance.status],
-      'courseid': instance.cid,
-      'message': instance.message,
-      'timestamp': instance.timestamp?.toIso8601String(),
-    };
 
 T _$enumDecode<T>(
   Map<T, dynamic> enumValues,
@@ -68,13 +60,6 @@ AttendResult _$AttendResultFromJson(Map<String, dynamic> json) {
     json['id'] as String,
   );
 }
-
-Map<String, dynamic> _$AttendResultToJson(AttendResult instance) =>
-    <String, dynamic>{
-      'status': _$AttendStatusEnumMap[instance.status],
-      'message': instance.message,
-      'id': instance.id,
-    };
 
 const _$AttendStatusEnumMap = {
   AttendStatus.marked: 'marked',

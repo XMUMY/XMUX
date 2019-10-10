@@ -10,6 +10,7 @@ import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/sign_in_button.dart';
+import 'package:xmux/mainapp/calendar/sign_in_history.dart';
 import 'package:xmux/modules/algorithms/algorithms.dart' show editDistance;
 import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/xmux_api/models/models_v3.dart';
@@ -136,7 +137,7 @@ class _LessonCardState extends State<LessonCard> {
                     .map((e) => Text(
                         '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
                         '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
-                        '${e.message}'))
+                        '${AttendanceHistoryItem.parseMessage(context, e)}'))
                     .toList(),
               );
             else

@@ -5,12 +5,9 @@ part 'model.g.dart';
 enum AttendStatus { marked, duplicated, failed }
 enum AttendanceStatus { marked, success, failed }
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class AttendanceRecord {
   final AttendanceStatus status;
-
-  // TODO: Use cid instead.
-  @JsonKey(name: 'courseid')
   final String cid;
   final String message;
   @JsonKey(fromJson: _timestampFromJson)
@@ -23,11 +20,9 @@ class AttendanceRecord {
 
   static DateTime _timestampFromJson(int timestamp) =>
       DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-
-  Map<String, dynamic> toJson() => _$AttendanceRecordToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class AttendResult {
   final AttendStatus status;
   final String message;
@@ -37,6 +32,4 @@ class AttendResult {
 
   factory AttendResult.fromJson(Map<String, dynamic> json) =>
       _$AttendResultFromJson(json);
-
-  Map<String, dynamic> toJson() => _$AttendResultToJson(this);
 }

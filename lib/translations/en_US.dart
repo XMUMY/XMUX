@@ -29,7 +29,7 @@ const Map<String, String> en_US = {
   'Calendar/ClassCard/Lecturer': 'Lecturer',
   'Calendar/SignIn': 'Sign in',
   'Calendar/SignIn/Status': 'Attendence status',
-  'Calendar/SignIn/Signing': 'OK',
+  'Calendar/SignIn/Marked': 'Waiting...',
   'Calendar/SignIn/Finished': 'Success',
   'Calendar/SignIn/Failed': 'Failed',
   'Calendar/LastUpdate': 'Recent Update: ',

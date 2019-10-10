@@ -29,7 +29,7 @@ const Map<String, String> zh_CN = {
   'Calendar/ClassCard/Lecturer': '讲师',
   'Calendar/SignIn': '签到',
   'Calendar/SignIn/Status': '考勤状态',
-  'Calendar/SignIn/Signing': '登记成功',
+  'Calendar/SignIn/Marked': '等待确认',
   'Calendar/SignIn/Finished': '签到成功',
   'Calendar/SignIn/Failed': '签到失败',
   'Calendar/LastUpdate': '最近更新：',
