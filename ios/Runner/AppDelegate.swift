@@ -10,7 +10,7 @@ import Flutter
         
         let controller : FlutterViewController = window?.rootViewController as! FlutterViewController;
         let ipChannel = FlutterMethodChannel.init(name: "OSUtilities",
-                                                       binaryMessenger: controller);
+                                                  binaryMessenger: controller as! FlutterBinaryMessenger);
         ipChannel.setMethodCallHandler({
             (call: FlutterMethodCall, result: FlutterResult) -> Void in
             if ("getIPAddress" == call.method) {
