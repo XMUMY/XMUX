@@ -40,8 +40,10 @@ TimetableClass _$TimetableClassFromJson(Map<String, dynamic> json) {
     json['day'] as int,
     TimetableClass._timeOfDayFromJson(json['start'] as String),
     TimetableClass._timeOfDayFromJson(json['end'] as String),
-    TimetableClass._dayFromJson(json['startDay'] as String),
-    TimetableClass._dayFromJson(json['endDay'] as String),
+    json['startDay'] == null
+        ? null
+        : DateTime.parse(json['startDay'] as String),
+    json['endDay'] == null ? null : DateTime.parse(json['endDay'] as String),
   );
 }
 
@@ -54,6 +56,6 @@ Map<String, dynamic> _$TimetableClassToJson(TimetableClass instance) =>
       'day': instance.day,
       'start': TimetableClass._timeOfDayToJson(instance.start),
       'end': TimetableClass._timeOfDayToJson(instance.end),
-      'startDay': TimetableClass._dayToJson(instance.startDay),
-      'endDay': TimetableClass._dayToJson(instance.endDay),
+      'startDay': instance.startDay?.toIso8601String(),
+      'endDay': instance.endDay?.toIso8601String(),
     };

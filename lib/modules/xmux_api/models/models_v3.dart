@@ -42,9 +42,7 @@ class TimetableClass {
   @JsonKey(fromJson: _timeOfDayFromJson, toJson: _timeOfDayToJson)
   final TimeOfDay end;
 
-  @JsonKey(fromJson: _dayFromJson, toJson: _dayToJson)
   final DateTime startDay;
-  @JsonKey(fromJson: _dayFromJson, toJson: _dayToJson)
   final DateTime endDay;
 
   TimetableClass(this.cid, this.name, this.lecturer, this.room, this.day,
@@ -60,12 +58,4 @@ class TimetableClass {
 
   static String _timeOfDayToJson(TimeOfDay timeOfDay) =>
       '${timeOfDay.hour}:${timeOfDay.minute}';
-
-  static DateTime _dayFromJson(String json) => DateTime(
-      int.parse(json.substring(0, 4)),
-      int.parse(json.substring(4, 6)),
-      int.parse(json.substring(6, 8)));
-
-  static String _dayToJson(DateTime day) =>
-      '${day.year}${day.month.toString().padLeft(2, '0')}${day.day.toString().padLeft(2, '0')}';
 }
