@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:html/parser.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:intl/intl.dart';
 
 import 'cookie_manager.dart';
@@ -32,12 +31,12 @@ class Maintenance {
       await _dio.post(
         '/Account/Login',
         data: {
-          "__RequestVerificationToken": token,
-          "CampusID": this._uid,
-          "Password": this._password
+          '__RequestVerificationToken': token,
+          'CampusID': this._uid,
+          'Password': this._password
         },
         options: Options(
-          contentType: ContentType.parse("application/x-www-form-urlencoded"),
+          contentType: 'application/x-www-form-urlencoded',
           followRedirects: true,
         ),
       );
@@ -143,7 +142,7 @@ class Maintenance {
   }
 
   Future<Null> sendForm(RequestForm form) async {
-    var formData = FormData.from({
+    var formData = FormData.fromMap({
       'agree': 'true',
       '__RequestVerificationToken': form.token,
       'Gender': form.gender,
@@ -159,10 +158,10 @@ class Maintenance {
       'Telephone': form.phoneNumber,
       'RecurringProblem': form.recurringProblem ? 'yes' : 'no',
       if (form.file != null)
-        'FileName': UploadFileInfo(
-          form.file,
-          'pic.jpg',
-          contentType: ContentType.parse('image/jpeg'),
+        'FileName': MultipartFile.fromFile(
+          form.file.path,
+          filename: 'pic.jpg',
+          contentType: MediaType.parse('image/jpeg'),
         )
     });
 

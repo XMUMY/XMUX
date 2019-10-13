@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:html/parser.dart';
 
 import 'models.dart';
@@ -22,9 +22,7 @@ class ElectiveCourseRegistration {
   Future<Null> ensureLogin() async {
     try {
       await _dio.post('/index.php?c=Login&a=login',
-          options: Options(
-            contentType: ContentType.parse('application/x-www-form-urlencoded'),
-          ),
+          options: Options(contentType: 'application/x-www-form-urlencoded'),
           data: {
             'username': _uid,
             'password': _password,
@@ -165,9 +163,7 @@ class ElectiveCourseRegistrationForm {
   Future<Null> add(String id) async {
     var res = await _dio.post(
       '$entry',
-      options: Options(
-        contentType: ContentType.parse('application/x-www-form-urlencoded'),
-      ),
+      options: Options(contentType: 'application/x-www-form-urlencoded'),
       data: {
         '__EVENTTARGET': '\$Add',
         '__EVENTARGUMENT': '\$$id',
@@ -181,9 +177,7 @@ class ElectiveCourseRegistrationForm {
   Future<Null> cancel(String id) async {
     var res = await _dio.post(
       '$entry',
-      options: Options(
-        contentType: ContentType.parse('application/x-www-form-urlencoded'),
-      ),
+      options: Options(contentType: 'application/x-www-form-urlencoded'),
       data: {
         '__EVENTTARGET': '\$Del',
         '__EVENTARGUMENT': '\$$id',

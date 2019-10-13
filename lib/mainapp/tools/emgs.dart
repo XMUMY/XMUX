@@ -62,7 +62,7 @@ class _EmgsPageState extends State<EmgsPage> {
         ),
         title: CachedNetworkImage(
           imageUrl:
-              'https://educationmalaysia.gov.my/skin/frontend/emgs/default/images/logo-emgs.png',
+              'https://visa.educationmalaysia.gov.my/skin/frontend/emgs/visa/images/logo-emgs.png',
           placeholder: (ctx, _) => Text(
             i18n('Tools/Emgs', context),
             style: Theme.of(context).textTheme.title,
