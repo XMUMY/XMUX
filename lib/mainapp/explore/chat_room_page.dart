@@ -137,7 +137,7 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
                   });
                 },
                 decoration: new InputDecoration.collapsed(
-                    hintText: "Problems & Suggesstions"),
+                    hintText: "Problems & Suggestions"),
               ),
             ),
             new Container(

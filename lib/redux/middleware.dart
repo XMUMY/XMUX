@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/xmux_api/http_wrapper.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v3.dart' show Authorization;
 
 import 'actions/actions.dart';
 import 'state/state.dart';

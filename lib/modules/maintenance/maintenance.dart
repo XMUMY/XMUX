@@ -158,7 +158,7 @@ class Maintenance {
       'Telephone': form.phoneNumber,
       'RecurringProblem': form.recurringProblem ? 'yes' : 'no',
       if (form.file != null)
-        'FileName': MultipartFile.fromFile(
+        'FileName': await MultipartFile.fromFile(
           form.file.path,
           filename: 'pic.jpg',
           contentType: MediaType.parse('image/jpeg'),

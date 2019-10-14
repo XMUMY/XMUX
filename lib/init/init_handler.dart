@@ -136,11 +136,9 @@ Future<bool> mobileInit() async {
     if (user != null) {
       firebaseUser = user;
 
-      // Configure JWT generator for current user.
-      XMUXApi.instance.getIdToken =
-          () async => (await firebaseUser.getIdToken()).token;
       // APIv2 JWT configure. (Deprecated)
-      v2.XMUXApi.instance.getIdToken = XMUXApi.instance.getIdToken;
+      v2.XMUXApi.instance.getIdToken =
+          () async => (await firebaseUser.getIdToken()).token;
     }
   });
 
@@ -160,6 +158,7 @@ Future<Null> androidInit() async {
     }));
 
   XMUXApi.instance.refreshDevice(
+    Authorization.bearer((await firebaseUser.getIdToken()).token),
     deviceInfo.androidId,
     deviceInfo.model,
     '${deviceInfo.manufacturer} ${deviceInfo.model}',
@@ -172,6 +171,7 @@ Future<Null> iOSInit() async {
   var deviceInfo = await DeviceInfoPlugin().iosInfo;
 
   XMUXApi.instance.refreshDevice(
+    Authorization.bearer((await firebaseUser.getIdToken()).token),
     deviceInfo.identifierForVendor,
     deviceInfo.model,
     deviceInfo.name,
