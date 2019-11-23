@@ -1,32 +1,32 @@
 # XMUX
-XMUX is a powerful mobile application for everyone in Xiamen University Malaysia.
 
-[![Build Status](https://travis-ci.org/X-dea/XMUX.svg?branch=master)](https://travis-ci.org/X-dea/XMUX)
+A powerful application for everyone in Xiamen University Malaysia.
 
-## Main functions
+## Main Functions
 
-Messages:
+Home:
 Latest news and announcements in one page.
 
 Calendar:
-Get your classes timetable / exams / assignments / school calendar in one page.  
+Get your timetable / exams / assignments / academic calendar in one page.
 Sign in online for your class.
 
-Academic:
-Use Wolfram Engine to solve problems.
-Use GeoGebra for mathematical solve & plot.
-Calculate GPA easily.
+Campus:
+Use Wolfram Engine / GeoGebra to solve problems & plot graphs.
+Calculate GPA & checking exam result easily.
+Connect to campus VPN within one tap.
+Schedule for Shuttle bus & KLIA Express.
 
 Explore:
-Latest functions like room reservations and lost & found.
+Latest functions like Flea Market / lost & found.
 
 Tools:
-E-Payment & exam result checking, etc.
+E-Payment & Room Reservation, etc.
 
-## Download releases
+## Installation Guide
 
-[Google Play](https://play.google.com/store/apps/details?id=org.ctbeta.xmux.xmux)  
-[App Store](https://itunes.apple.com/us/app/xmux/id1366324008)
+[Get Started](https://docs.xmux.xdea.io/app/get-started/)
+[Documents](https://docs.xmux.xdea.io/)
 
 ## License
 This project is licensed under the GPLv3 License - see the LICENSE.md file for details.
