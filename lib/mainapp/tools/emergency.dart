@@ -71,28 +71,28 @@ class EmergencyPage extends StatelessWidget {
               Text(i18n(
                   'Tools/Emergency/EmergencyContactAfterOfficeHour', context)),
               Divider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text('017-746-8876'),
-                    textColor: Colors.white,
-                    color: Colors.orange,
-                    highlightColor: Colors.pinkAccent,
-                    onPressed: () => launch('tel:017-746-8876'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(5),
-                  ),
-                  RaisedButton(
-                    child: Text('019-806-7551'),
-                    textColor: Colors.white,
-                    color: Colors.orange,
-                    highlightColor: Colors.pinkAccent,
-                    onPressed: () => launch('tel:019-806-7551'),
-                  ),
-                ],
-              ),
+              Wrap(
+                  spacing: 10.0,
+                  children: <String, String>{
+                    'Ms. KUNG': '017-5117483',
+                    'Ms. MAYBELLINE': '011-36895790',
+                    'Ms. TEY': '018-2050552',
+                    'Ms. DENISE': '018-9584237',
+                    'Ms. LEE': '016-9087407',
+                    'Mr. YAN': '017-2327860',
+                    'Mr. POTTER': '017-7468876',
+                    'Mr. IVAN': '018-2855466',
+                    'Dr. ALEX': '019-6102628'
+                  }
+                      .entries
+                      .map((m) => RaisedButton(
+                            child: Text(m.key),
+                            textColor: Colors.white,
+                            color: Colors.orange,
+                            highlightColor: Colors.pinkAccent,
+                            onPressed: () => launch('tel:${m.value}'),
+                          ))
+                      .toList()),
             ],
           ),
           Row(
@@ -188,35 +188,6 @@ class EmergencyPage extends StatelessWidget {
                           color: Colors.orange,
                           highlightColor: Colors.pinkAccent,
                           onPressed: () => launch('tel:994'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: _buildCard(
-                  context,
-                  <Widget>[
-                    Text(i18n('Tools/Emergency/LostKey', context)),
-                    Text(
-                      i18n('Tools/Emergency/LostKey/Caption', context),
-                      style: Theme.of(context).textTheme.caption,
-                    ),
-                    Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        RaisedButton(
-                          child: Text('016-6310-3574'),
-                          textColor: Colors.white,
-                          color: Colors.orange,
-                          highlightColor: Colors.pinkAccent,
-                          onPressed: () => launch('tel:016-6310-3574'),
                         ),
                       ],
                     ),
