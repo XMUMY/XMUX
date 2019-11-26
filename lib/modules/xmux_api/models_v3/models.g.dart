@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'models_v3.dart';
+part of 'models.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -59,3 +59,14 @@ Map<String, dynamic> _$TimetableClassToJson(TimetableClass instance) =>
       'startDay': instance.startDay?.toIso8601String(),
       'endDay': instance.endDay?.toIso8601String(),
     };
+
+Device _$DeviceFromJson(Map<String, dynamic> json) {
+  return Device(
+    json['deviceId'] as String,
+    json['deviceModel'] as String,
+    json['deviceName'] as String,
+    json['lastSeenS'] == null
+        ? null
+        : DateTime.parse(json['lastSeenS'] as String),
+  );
+}

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'models_v3.g.dart';
+part 'models.g.dart';
 
 @JsonSerializable(createToJson: false)
 class LoginResp {
@@ -58,4 +58,17 @@ class TimetableClass {
 
   static String _timeOfDayToJson(TimeOfDay timeOfDay) =>
       '${timeOfDay.hour}:${timeOfDay.minute}';
+}
+
+@JsonSerializable(createToJson: false)
+class Device {
+  final String deviceId;
+  final String deviceModel;
+  final String deviceName;
+  @JsonKey(name: 'lastSeenS')
+  final DateTime lastSeen;
+
+  Device(this.deviceId, this.deviceModel, this.deviceName, this.lastSeen);
+
+  static Device fromJson(Map<String, dynamic> json) => _$DeviceFromJson(json);
 }

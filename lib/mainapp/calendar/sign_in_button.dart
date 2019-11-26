@@ -7,7 +7,7 @@ import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/sketch/sketch.dart';
-import 'package:xmux/modules/xmux_api/models/models_v3.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 
 class SignInButton extends StatefulWidget {
   /// Current Lesson.

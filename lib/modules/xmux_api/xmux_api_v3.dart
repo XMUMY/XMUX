@@ -7,9 +7,9 @@ import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:xmux/config.dart';
 
-import 'models/models_v3.dart';
+import 'models_v3/models.dart';
 
-export 'models/models_v3.dart';
+export 'models_v3/models.dart';
 
 class Authorization {
   /// Basic
@@ -164,6 +164,19 @@ class XMUXApi {
       options: Options(headers: auth.header),
     );
     return _decodeResponse(resp, (_) => null);
+  }
+
+  /// Get devices associated with user.
+  Future<XMUXApiResponse<List<Device>>> getDevices(Authorization auth) async {
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/user/devices',
+      options: Options(headers: auth.header),
+    );
+    return _decodeResponse(
+        resp,
+        (data) => List<Map<String, dynamic>>.from(data['devices'])
+            .map(Device.fromJson)
+            .toList());
   }
 
   /// Get timetable of current semester from academic system.

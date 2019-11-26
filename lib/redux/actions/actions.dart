@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:xmux/mainapp/main_page.dart';
 import 'package:xmux/modules/emgs/emgs.dart';
-import 'package:xmux/modules/xmux_api/models/models_v3.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
 import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 
