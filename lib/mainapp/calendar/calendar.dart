@@ -48,12 +48,13 @@ class CalendarPage extends StatelessWidget {
           ]),
         ),
         body: StoreBuilder<MainAppState>(
-          builder: (BuildContext context, store) =>
-              TabBarView(children: <Widget>[
-            TimeTablePage(store.state.queryState.timetable),
-            ExamsPage(store.state.acState.exams),
-            AssignmentPage(store.state.acState.assignments),
-          ]),
+          builder: (BuildContext context, store) => TabBarView(
+            children: <Widget>[
+              TimeTablePage(store.state.queryState.timetable),
+              ExamsPage(store.state.acState.exams),
+              AssignmentPage(store.state.acState.assignments),
+            ],
+          ),
         ),
       ),
     );

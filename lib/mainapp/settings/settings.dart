@@ -39,6 +39,10 @@ class SettingsPage extends StatelessWidget {
                 Navigator.of(context).pushNamed('/Settings/ChangeProfile'),
           ),
           ListTile(
+            title: Text(i18n('Settings/Sessions', context)),
+            onTap: () => Navigator.of(context).pushNamed('/Settings/Sessions'),
+          ),
+          ListTile(
             title: Text(i18n('Settings/DeveloperOptions', context)),
             onTap: () =>
                 Navigator.of(context).pushNamed('/Settings/DeveloperOptions'),

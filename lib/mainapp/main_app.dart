@@ -24,6 +24,7 @@ import 'explore/lost_and_found/lost_and_found_page.dart';
 import 'main_page.dart';
 import 'settings/developer_options.dart';
 import 'settings/edit_profile.dart';
+import 'settings/sessions.dart';
 import 'settings/settings.dart';
 import 'tools/emergency.dart';
 import 'tools/emgs.dart';
@@ -54,6 +55,7 @@ class MainApp extends StatelessWidget {
     '/Me/Emergency': (_) => EmergencyPage(),
     '/Settings': (_) => SettingsPage(),
     '/Settings/ChangeProfile': (_) => EditProfilePage(),
+    '/Settings/Sessions': (_) => SessionsPage(),
     '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
   };
 
