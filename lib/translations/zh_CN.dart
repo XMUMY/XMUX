@@ -189,23 +189,3 @@ const Map<String, String> zh_CN = {
   'About/EMailUs': '使用电子邮件联系',
   'About/JoinQQGroup': '加入QQ群',
 };
-
-const Map<String, String> zh_CN_login = {
-  'SignIn/GooglePlay': '安装 GMS',
-  'SignIn/Privacy': '隐私政策',
-  'SignIn/HelpDocs': '帮助文档',
-  'SignIn/CampusID': '校园ID',
-  'SignIn/Password': '密码',
-  'SignIn/Read': '登录即代表您同意我们的隐私政策和免责声明',
-  'SignIn/SignIn': '登录',
-  'SignIn/Error': '错误：',
-  'SignIn/FormatError': '格式不正确，请检查。',
-  'Register/Title': '欢迎来到 XMUM！',
-  'Register/Caption': '我们仍需要以下信息以完成注册。',
-  'Register/DisplayName': '昵称',
-  'Register/Email': '邮箱',
-  'Register/Register': '继续',
-  'Error/InvalidPassword': '用户名或密码无效',
-  'Error/GMS': 'GMS 未正常工作',
-  'Error/Deprecated': '该版本应用已不再受到支持，请更新！'
-};

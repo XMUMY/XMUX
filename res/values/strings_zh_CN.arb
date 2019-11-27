@@ -1,0 +1,19 @@
+{
+  "General_Continue": "继续",
+  "General_ErrorTip": "错误：$tip",
+  "SignIn_CampusID": "校园ID",
+  "SignIn_Password": "密码",
+  "SignIn_SignIn": "登录",
+  "SignIn_Read": "登录即代表您同意我们的隐私政策和免责声明",
+  "SignIn_InstallGMS": "安装 GMS",
+  "SignIn_Privacy": "隐私政策",
+  "SignIn_Docs": "帮助文档",
+  "SignIn_RegisterTitle": "欢迎来到 XMUM！",
+  "SignIn_RegisterCaption": "我们仍需要以下信息以完成注册。",
+  "SingIn_RegisterDisplayName": "昵称",
+  "SignIn_RegisterEmail": "邮箱",
+  "SignIn_ErrorFormat": "格式不正确，请检查。",
+  "SignIn_ErrorInvalidPassword": "用户名或密码无效",
+  "SignIn_ErrorGMS": "GMS 未正常工作",
+  "SignIn_ErrorDeprecated": "该版本应用已不再受到支持，请更新！"
+}

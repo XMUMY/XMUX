@@ -37,37 +37,3 @@ class MainLocalizationsDelegate
 
   static MainLocalizationsDelegate delegate = const MainLocalizationsDelegate();
 }
-
-class LoginLocalizations {
-  final Locale locale;
-
-  LoginLocalizations(this.locale);
-
-  static Map<String, Map<String, String>> _localizedValues = {
-    'en': en_US_login,
-    'zh': zh_CN_login,
-  };
-
-  String get(String title) => _localizedValues[locale.languageCode][title];
-
-  static LoginLocalizations of(BuildContext context) =>
-      Localizations.of(context, LoginLocalizations);
-}
-
-class LoginLocalizationsDelegate
-    extends LocalizationsDelegate<LoginLocalizations> {
-  const LoginLocalizationsDelegate();
-
-  @override
-  bool isSupported(Locale locale) => ['en', 'zh'].contains(locale.languageCode);
-
-  @override
-  Future<LoginLocalizations> load(Locale locale) =>
-      new SynchronousFuture<LoginLocalizations>(new LoginLocalizations(locale));
-
-  @override
-  bool shouldReload(LocalizationsDelegate<LoginLocalizations> old) => false;
-
-  static LoginLocalizationsDelegate delegate =
-      const LoginLocalizationsDelegate();
-}

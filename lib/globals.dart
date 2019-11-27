@@ -42,8 +42,6 @@ XiA xiA;
 String i18n(String text, BuildContext context, {String app}) {
   try {
     switch (app) {
-      case 'l':
-        return LoginLocalizations.of(context).get(text) ?? text.split('/').last;
       default:
         return MainLocalizations.of(context).get(text) ?? text.split('/').last;
     }

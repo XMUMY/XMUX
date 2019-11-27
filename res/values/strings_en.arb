@@ -1,0 +1,19 @@
+{
+  "General_Continue": "Continue",
+  "General_Error": "Error: $tip",
+  "SignIn_CampusID": "Campus ID",
+  "SignIn_Password": "Password",
+  "SignIn_SignIn": "Sign in",
+  "SignIn_Read": "By signing in, you agree to our privacy policy & disclaimer",
+  "SignIn_InstallGMS": "Install GMS",
+  "SignIn_Privacy": "Privacy Policy",
+  "SignIn_Docs": "Help Docs",
+  "SignIn_RegisterTitle": "Welcome to XMUM!",
+  "SignIn_RegisterCaption": "We still need some information to finish your registration.",
+  "SignIn_RegisterDisplayName": "Display Name",
+  "SignIn_RegisterEmail": "Email",
+  "SignIn_ErrorFormat": "Format error, please check.",
+  "SignIn_ErrorInvalidPassword": "Invalid username or password.",
+  "SignIn_ErrorGMS": "GMS not working properly.",
+  "SignIn_ErrorDeprecated": "Please upgrade! The version of app is no longer supported!"
+}

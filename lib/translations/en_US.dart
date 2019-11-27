@@ -203,25 +203,3 @@ const Map<String, String> en_US = {
   'About/EMailUs': 'Email us',
   'About/JoinQQGroup': 'Join QQ Group',
 };
-
-const Map<String, String> en_US_login = {
-  'SignIn/GooglePlay': 'Install GMS',
-  'SignIn/Privacy': 'Privacy Policy',
-  'SignIn/HelpDocs': 'Help Docs',
-  'SignIn/CampusID': 'Campus ID',
-  'SignIn/Password': 'Password',
-  'SignIn/Read': 'By signing in, you agree to our privacy policy & disclaimer',
-  'SignIn/SignIn': 'Sign in',
-  'SignIn/Error': 'Error: ',
-  'SignIn/FormatError': 'Format error, please check.',
-  'Register/Title': 'Welcome to XMUM!',
-  'Register/Caption':
-      'We still need some information to finish your registeration.',
-  'Register/DisplayName': 'Display Name',
-  'Register/Email': 'Email',
-  'Register/Register': 'Continue',
-  'Error/InvalidPassword': 'Invalid username or password.',
-  'Error/GMS': 'GMS not working properly.',
-  'Error/Deprecated':
-      'Please upgrade! The version of app is nolonger supported!'
-};

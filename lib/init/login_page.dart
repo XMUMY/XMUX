@@ -11,6 +11,7 @@ import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/animated_logo.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/init_handler.dart';
 import 'package:xmux/init/login_app.dart';
@@ -35,7 +36,7 @@ class LoginPage extends StatelessWidget {
             TextFormField(
               key: _usernameFormKey,
               decoration: InputDecoration(
-                hintText: i18n('SignIn/CampusID', context, app: 'l'),
+                hintText: S.of(context).SignIn_CampusID,
                 hintStyle: TextStyle(color: Colors.white70),
                 icon: Icon(
                   Icons.account_box,
@@ -45,28 +46,27 @@ class LoginPage extends StatelessWidget {
               validator: (s) =>
                   RegExp(r'^[A-Za-z]{3}[0-9]{7}$|^[0-9]{7}$').hasMatch(s)
                       ? null
-                      : i18n('SignIn/FormatError', context, app: 'l'),
+                      : S.of(context).SignIn_ErrorFormat,
             ),
             TextFormField(
               key: _passwordFormKey,
               obscureText: true,
               decoration: InputDecoration(
-                hintText: i18n('SignIn/Password', context, app: 'l'),
+                hintText: S.of(context).SignIn_Password,
                 hintStyle: TextStyle(color: Colors.white70),
                 icon: Icon(
                   Icons.lock,
                   color: Colors.white,
                 ),
               ),
-              validator: (s) => s.isNotEmpty
-                  ? null
-                  : i18n('SignIn/FormatError', context, app: 'l'),
+              validator: (s) =>
+                  s.isNotEmpty ? null : S.of(context).SignIn_ErrorFormat,
             ),
             Divider(color: Colors.transparent),
             _LoginButton(_usernameFormKey, _passwordFormKey),
             Divider(color: Colors.transparent),
             Text(
-              i18n('SignIn/Read', context, app: 'l'),
+              S.of(context).SignIn_Read,
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.redAccent),
             )
@@ -98,7 +98,7 @@ class LoginPage extends StatelessWidget {
                       icon: Icon(FontAwesomeIcons.googlePlay),
                       onPressed: () => launch(
                           '${BackendApiConfig.websiteAddress}/2019/01/01/gms/'),
-                      tooltip: i18n('SignIn/GooglePlay', context, app: 'l'),
+                      tooltip: S.of(context).SignIn_InstallGMS,
                     )
                   : Container(),
               IconButton(
@@ -106,12 +106,12 @@ class LoginPage extends StatelessWidget {
                 onPressed: () => launch(
                     '${BackendApiConfig.websiteAddress}/privacy.html',
                     forceWebView: true),
-                tooltip: i18n('SignIn/Privacy', context, app: 'l'),
+                tooltip: S.of(context).SignIn_Privacy,
               ),
               IconButton(
                 icon: Icon(FontAwesomeIcons.questionCircle),
-                onPressed: () => launch(BackendApiConfig.websiteAddress),
-                tooltip: i18n('SignIn/HelpDocs', context, app: 'l'),
+                onPressed: () => launch('https://docs.xmux.xdea.io'),
+                tooltip: S.of(context).SignIn_Docs,
               ),
             ],
           ),
@@ -143,7 +143,7 @@ class _LoginButtonState extends State<_LoginButton> {
   Future<Null> _handleSignIn() async {
     if (_isDeprecated) {
       Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(i18n('Error/Deprecated', context, app: 'l'))));
+          SnackBar(content: Text(S.of(context).SignIn_ErrorDeprecated)));
       return;
     }
 
@@ -172,10 +172,10 @@ class _LoginButtonState extends State<_LoginButton> {
     } on XMUXApiException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       var msg = e.code == -403
-          ? i18n('Error/InvalidPassword', context, app: 'l')
+          ? S.of(context).SignIn_ErrorInvalidPassword
           : e.message;
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text('${i18n('SignIn/Error', context, app: 'l')}$msg')));
+      Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text(S.of(context).General_Error(msg))));
       return;
     }
     store.dispatch(LoginAction(username, password));
@@ -186,13 +186,14 @@ class _LoginButtonState extends State<_LoginButton> {
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text('${i18n('SignIn/Error', context, app: 'l')}'
-              '${i18n('Error/GMS', context, app: 'l')} $e')));
+        content: Text(
+            S.of(context).General_Error('${S.of(context).SignIn_ErrorGMS} $e')),
+      ));
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text('${i18n('SignIn/Error', context, app: 'l')}$e')));
+      Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text(S.of(context).General_Error(e))));
       return;
     }
 
@@ -219,7 +220,7 @@ class _LoginButtonState extends State<_LoginButton> {
           width: 120,
           height: 40,
           child: Center(
-            child: Text(i18n('SignIn/SignIn', context, app: 'l')),
+            child: Text(S.of(context).SignIn_SignIn),
           ),
         ),
         onPressed: _handleSignIn,

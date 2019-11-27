@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:xmux/components/transition_builders.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/init/login_page.dart';
 import 'package:xmux/init/register_page.dart';
-import 'package:xmux/translations/translation.dart';
 
 class LoginApp extends StatelessWidget {
   final String message;
@@ -25,14 +25,11 @@ class LoginApp extends StatelessWidget {
       ),
       home: Scaffold(body: LoginPage()),
       localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        LoginLocalizationsDelegate.delegate,
+        GlobalMaterialLocalizations.delegate,
+        S.delegate,
       ],
-      supportedLocales: [
-        Locale('en', 'US'),
-        Locale('zh', 'CN'),
-      ],
+      supportedLocales: S.delegate.supportedLocales,
       routes: <String, WidgetBuilder>{
         '/Register': (_) => Scaffold(body: RegisterPage()),
       },
