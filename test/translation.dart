@@ -7,10 +7,6 @@ void main() {
     expect(en_US.keys.length == zh_CN.keys.length, true,
         reason: 'The zh_CN has ${zh_CN.keys.length} keys, '
             'but en_US has ${en_US.keys.length} keys.');
-
-    expect(en_US_login.keys.length == zh_CN_login.keys.length, true,
-        reason: 'The zh_CN_login has ${zh_CN_login.keys.length} keys, '
-            'but en_US_login has ${en_US_login.keys.length} keys.');
   });
 
   test('Test for keys of translations for each language.', () {

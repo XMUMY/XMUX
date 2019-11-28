@@ -11,7 +11,7 @@ class CalendarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: store.state.authState.isStudent ? 3 : 1,
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
@@ -22,12 +22,13 @@ class CalendarPage extends StatelessWidget {
           ),
           title: Text(i18n('Calendar', context)),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(FontAwesomeIcons.history),
-              tooltip: i18n('Calendar/AttendanceHistory', context),
-              onPressed: () => Navigator.of(context, rootNavigator: true)
-                  .pushNamed('/Calendar/AttendanceHistory'),
-            ),
+            if (store.state.authState.isStudent)
+              IconButton(
+                icon: Icon(FontAwesomeIcons.history),
+                tooltip: i18n('Calendar/AttendanceHistory', context),
+                onPressed: () => Navigator.of(context, rootNavigator: true)
+                    .pushNamed('/Calendar/AttendanceHistory'),
+              ),
             IconButton(
               icon: Icon(FontAwesomeIcons.calendarAlt),
               tooltip: i18n('Calendar/Academic', context),
@@ -36,23 +37,21 @@ class CalendarPage extends StatelessWidget {
             )
           ],
           bottom: TabBar(isScrollable: false, tabs: <Tab>[
-            Tab(
-              text: i18n('Calendar/Classes', context),
-            ),
-            Tab(
-              text: i18n('Calendar/Exams', context),
-            ),
-            Tab(
-              text: i18n('Calendar/Assignments', context),
-            ),
+            Tab(text: i18n('Calendar/Classes', context)),
+            if (store.state.authState.isStudent) ...{
+              Tab(text: i18n('Calendar/Exams', context)),
+              Tab(text: i18n('Calendar/Assignments', context)),
+            }
           ]),
         ),
         body: StoreBuilder<MainAppState>(
           builder: (BuildContext context, store) => TabBarView(
             children: <Widget>[
               TimeTablePage(store.state.queryState.timetable),
-              ExamsPage(store.state.acState.exams),
-              AssignmentPage(store.state.acState.assignments),
+              if (store.state.authState.isStudent) ...{
+                ExamsPage(store.state.acState.exams),
+                AssignmentPage(store.state.acState.assignments),
+              }
             ],
           ),
         ),

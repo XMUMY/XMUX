@@ -96,7 +96,7 @@ const Map<String, String> en_US = {
   'Campus/Tools/Maintenance/New/AddPhoto': 'Add Photo',
   'Campus/Tools/Maintenance/New/DeletePhoto': 'Delete Photo',
   'Campus/Tools/Travelviser/NotRegistered':
-      'User not registered yet\nPlease register using\nTravelvier Passenger',
+      'User not registered yet\nPlease register using\nTravelviser Passenger',
   'Campus/Tools/Travelviser/DigitalPass': 'Digital Pass',
   'Campus/Tools/Travelviser/Booked': 'Booked',
   'Campus/Tools/Travelviser/Expired': 'Expired',

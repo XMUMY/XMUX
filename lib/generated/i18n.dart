@@ -22,6 +22,13 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get General_Continue => "Continue";
+  String get General_Weekday1 => "Monday";
+  String get General_Weekday2 => "Tuesday";
+  String get General_Weekday3 => "Wednesday";
+  String get General_Weekday4 => "Thursday";
+  String get General_Weekday5 => "Friday";
+  String get General_Weekday6 => "Saturday";
+  String get General_Weekday7 => "Sunday";
   String get SignIn_CampusID => "Campus ID";
   String get SignIn_Docs => "Help Docs";
   String get SignIn_ErrorDeprecated => "Please upgrade! The version of app is no longer supported!";
@@ -32,6 +39,7 @@ class S implements WidgetsLocalizations {
   String get SignIn_Password => "Password";
   String get SignIn_Privacy => "Privacy Policy";
   String get SignIn_Read => "By signing in, you agree to our privacy policy & disclaimer";
+  String get SignIn_Register => "Register";
   String get SignIn_RegisterCaption => "We still need some information to finish your registration.";
   String get SignIn_RegisterDisplayName => "Display Name";
   String get SignIn_RegisterEmail => "Email";
@@ -51,9 +59,23 @@ class $zh_CN extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
-  String get SignIn_ErrorGMS => "GMS 未正常工作";
-  @override
   String get SignIn_ErrorFormat => "格式不正确，请检查。";
+  @override
+  String get SignIn_InstallGMS => "安装 GMS";
+  @override
+  String get SignIn_CampusID => "校园ID";
+  @override
+  String get SignIn_Register => "注册";
+  @override
+  String get SignIn_Privacy => "隐私政策";
+  @override
+  String get SignIn_Password => "密码";
+  @override
+  String get SignIn_ErrorDeprecated => "该版本应用已不再受到支持，请更新！";
+  @override
+  String get SignIn_Docs => "帮助文档";
+  @override
+  String get SignIn_ErrorGMS => "GMS 未正常工作";
   @override
   String get SignIn_SignIn => "登录";
   @override
@@ -61,23 +83,25 @@ class $zh_CN extends S {
   @override
   String get SignIn_ErrorInvalidPassword => "用户名或密码无效";
   @override
-  String get SignIn_InstallGMS => "安装 GMS";
+  String get General_Weekday7 => "周日";
   @override
-  String get SignIn_CampusID => "校园ID";
+  String get General_Weekday6 => "周六";
+  @override
+  String get General_Weekday5 => "周五";
+  @override
+  String get General_Weekday4 => "周四";
+  @override
+  String get General_Weekday3 => "周三";
   @override
   String get General_Continue => "继续";
   @override
-  String get SignIn_Privacy => "隐私政策";
+  String get General_Weekday2 => "周二";
   @override
-  String get SignIn_Password => "密码";
+  String get General_Weekday1 => "周一";
   @override
   String get SignIn_RegisterEmail => "邮箱";
   @override
   String get SignIn_RegisterCaption => "我们仍需要以下信息以完成注册。";
-  @override
-  String get SignIn_ErrorDeprecated => "该版本应用已不再受到支持，请更新！";
-  @override
-  String get SignIn_Docs => "帮助文档";
   @override
   String get SignIn_Read => "登录即代表您同意我们的隐私政策和免责声明";
 }

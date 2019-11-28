@@ -94,13 +94,14 @@ void postInit() async {
   } catch (e) {
     sentry.captureException(exception: e);
   } finally {
-    store.dispatch(UpdateAssignmentsAction());
-    store.dispatch(UpdateInfoAction());
     store.dispatch(UpdateHomepageAnnouncementsAction());
-    store.dispatch(UpdateAcAction());
-    store.dispatch(UpdateCoursesAction());
     store.dispatch(UpdateTimetableAction());
-
+    if (store.state.authState.isStudent) {
+      store.dispatch(UpdateAssignmentsAction());
+      store.dispatch(UpdateInfoAction());
+      store.dispatch(UpdateAcAction());
+      store.dispatch(UpdateCoursesAction());
+    }
     runApp(MainApp());
   }
 }

@@ -162,13 +162,13 @@ class _LoginButtonState extends State<_LoginButton> {
     String customToken;
     try {
       var loginResp = await XMUXApi.instance.login(username, password);
-      customToken = loginResp.data.customToken;
       if (loginResp.code == 1) {
         // Need register.
         Navigator.of(context)
             .pushNamed('/Register', arguments: Tuple2(username, password));
         return;
       }
+      customToken = loginResp.data.customToken;
     } on XMUXApiException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       var msg = e.code == -403
@@ -176,6 +176,11 @@ class _LoginButtonState extends State<_LoginButton> {
           : e.message;
       Scaffold.of(context).showSnackBar(
           SnackBar(content: Text(S.of(context).General_Error(msg))));
+      return;
+    } catch (e) {
+      if (mounted) setState(() => _isProcessing = false);
+      Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text(S.of(context).General_Error(e.toString()))));
       return;
     }
     store.dispatch(LoginAction(username, password));

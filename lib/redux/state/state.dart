@@ -107,6 +107,8 @@ class AcState {
 /// Personal info state include uid, password, etc.
 @JsonSerializable()
 class AuthState {
+  static final studentIdExp = RegExp(r'^[A-Za-z]{3}[0-9]{7}$');
+
   /// User authentication (Campus ID).
   final String campusID, campusIDPassword;
 
@@ -141,6 +143,8 @@ class AuthState {
           campusIDPassword ?? this.campusIDPassword,
           ePaymentPassword ?? this.ePaymentPassword,
           moodleKey ?? this.moodleKey);
+
+  bool get isStudent => studentIdExp.hasMatch(campusID);
 }
 
 /// Settings state include ePaymentPassword, etc.

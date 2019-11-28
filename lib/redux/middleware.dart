@@ -89,7 +89,9 @@ Future<Null> apiCallV2(Store<MainAppState> store, XMUXApiActionV2 action,
     next(action);
   } catch (e) {
     // Sign out if wrong password.
-    if (e is XMUXApiException && e.type == 'WrongPasswordError')
+    if (e is XMUXApiException &&
+        e.type == 'WrongPasswordError' &&
+        store.state.authState.isStudent)
       logout();
     else {
       if (action.context != null)

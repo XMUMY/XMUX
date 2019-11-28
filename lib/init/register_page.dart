@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tuple/tuple.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/init_handler.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
@@ -28,12 +29,12 @@ class _RegisterPageState extends State<RegisterPage> {
     return LayoutBuilder(builder: (context, constraints) {
       var mainWidgets = <Widget>[
         Text(
-          i18n('Register/Title', context, app: 'l'),
+          S.of(context).SignIn_RegisterTitle,
           style: Theme.of(context).textTheme.headline,
         ),
         Divider(color: Colors.transparent),
         Text(
-          i18n('Register/Caption', context, app: 'l'),
+          S.of(context).SignIn_RegisterCaption,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.title,
         ),
@@ -42,31 +43,29 @@ class _RegisterPageState extends State<RegisterPage> {
           key: _displayNameFormKey,
           maxLength: 50,
           decoration: InputDecoration(
-            hintText: i18n('Register/DisplayName', context, app: 'l'),
+            hintText: S.of(context).SignIn_RegisterDisplayName,
             hintStyle: TextStyle(color: Colors.white70),
             icon: Icon(
               Icons.perm_identity,
               color: Colors.white,
             ),
           ),
-          validator: (s) => s.isNotEmpty
-              ? null
-              : i18n('SignIn/FormatError', context, app: 'l'),
+          validator: (s) =>
+              s.isNotEmpty ? null : S.of(context).SignIn_ErrorFormat,
         ),
         TextFormField(
           key: _emailFormKey,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            hintText: i18n('Register/Email', context, app: 'l'),
+            hintText: S.of(context).SignIn_RegisterEmail,
             hintStyle: TextStyle(color: Colors.white70),
             icon: Icon(
               Icons.email,
               color: Colors.white,
             ),
           ),
-          validator: (s) => s.contains('@')
-              ? null
-              : i18n('SignIn/FormatError', context, app: 'l'),
+          validator: (s) =>
+              s.contains('@') ? null : S.of(context).SignIn_ErrorFormat,
         ),
         Divider(color: Colors.transparent),
         _RegisterButton(
@@ -149,10 +148,8 @@ class _RegisterButtonState extends State<_RegisterButton> {
       customToken = registerResp.data.customToken;
     } on XMUXApiException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(
-        '${i18n('SignIn/Error', context, app: 'l')}${e.message}',
-      )));
+      Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text(S.of(context).General_Error(e.message))));
       return;
     }
     store.dispatch(LoginAction(widget._uid, widget._password));
@@ -163,13 +160,14 @@ class _RegisterButtonState extends State<_RegisterButton> {
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text('${i18n('SignIn/Error', context, app: 'l')}'
-              '${i18n('Error/GMS', context, app: 'l')} $e')));
+          content: Text(S
+              .of(context)
+              .General_Error('${S.of(context).SignIn_ErrorGMS} $e'))));
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text('${i18n('SignIn/Error', context, app: 'l')}$e')));
+      Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text(S.of(context).General_Error(e))));
       return;
     }
 
@@ -189,7 +187,7 @@ class _RegisterButtonState extends State<_RegisterButton> {
           width: 120,
           height: 40,
           child: Center(
-            child: Text(i18n('Register/Register', context, app: 'l')),
+            child: Text(S.of(context).SignIn_Register),
           ),
         ),
         onPressed: _handleSignIn,
