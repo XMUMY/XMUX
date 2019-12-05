@@ -137,7 +137,7 @@ class XMUXApi {
       String uid, String password, String displayName, String email) async {
     var res = await _dio.post<Map<String, dynamic>>(
       '/user/login',
-      data: {'DisplayName': displayName, 'Email': email},
+      data: {'displayName': displayName, 'email': email},
       options: Options(headers: Authorization.basic(uid, password).header),
     );
     return _decodeResponse(res, LoginResp.fromJson);
@@ -155,11 +155,11 @@ class XMUXApi {
     var resp = await _dio.put<Map<String, dynamic>>(
       '/user/device',
       data: {
-        'DeviceId': deviceId,
-        'DeviceModel': deviceModel,
-        'DeviceName': deviceName,
-        'PushChannel': pushChannel,
-        'PushKey': pushKey,
+        'deviceId': deviceId,
+        'deviceModel': deviceModel,
+        'deviceName': deviceName,
+        'pushChannel': pushChannel,
+        'pushKey': pushKey,
       },
       options: Options(headers: auth.header),
     );

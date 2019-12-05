@@ -11,8 +11,9 @@ import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/sign_in_button.dart';
 import 'package:xmux/mainapp/calendar/sign_in_history.dart';
-import 'package:xmux/modules/algorithms/algorithms.dart' show editDistance;
+import 'package:xmux/modules/algorithms/edit_distance.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
+import 'package:xmux/modules/common/translation_mapper.dart' show weekdays;
 import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -164,7 +165,7 @@ class _LessonCardState extends State<LessonCard> {
         Text(
             '${i18n('Calendar/ClassCard/Code', context)}: ${widget.lesson.cid}\n'
             '${i18n('Calendar/ClassCard/Credit', context)}: ${widget.lessonCredit}\n'
-            '${i18n('Calendar/ClassCard/Time', context)}: ${i18n('Weekdays/${widget.lesson.day}', context)} '
+            '${i18n('Calendar/ClassCard/Time', context)}: ${weekdays(context, widget.lesson.day)} '
             '${widget.lesson.start.format(context)} - '
             '${widget.lesson.end.format(context)}\n'
             '${i18n('Calendar/ClassCard/Room', context)}: ${widget.lesson.room}\n'
@@ -207,7 +208,7 @@ class _LessonCardState extends State<LessonCard> {
                   borderRadius: BorderRadius.vertical(top: Radius.circular(7))),
               child: Center(
                 child: Text(
-                  '${i18n('Weekdays/${widget.lesson.day}', context)} '
+                  '${weekdays(context, widget.lesson.day)} '
                   '${widget.lesson.start.format(context)} - '
                   '${widget.lesson.end.format(context)} '
                   '${widget.lesson.room}',

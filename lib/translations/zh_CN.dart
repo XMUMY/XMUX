@@ -1,12 +1,4 @@
 const Map<String, String> zh_CN = {
-  // General
-  'Weekdays/1': '周一',
-  'Weekdays/2': '周二',
-  'Weekdays/3': '周三',
-  'Weekdays/4': '周四',
-  'Weekdays/5': '周五',
-  'Weekdays/6': '周六',
-  'Weekdays/7': '周日',
   // Home Tabs
   'Home': '首页',
   'Calendar': '日程',

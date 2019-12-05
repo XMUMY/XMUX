@@ -1,12 +1,4 @@
 const Map<String, String> en_US = {
-  // General
-  'Weekdays/1': 'Monday',
-  'Weekdays/2': 'Tuesday',
-  'Weekdays/3': 'Wednesday',
-  'Weekdays/4': 'Thursday',
-  'Weekdays/5': 'Friday',
-  'Weekdays/6': 'Saturday',
-  'Weekdays/7': 'Sunday',
   // Home Tabs
   'Home': 'Home',
   'Calendar': 'Calendar',

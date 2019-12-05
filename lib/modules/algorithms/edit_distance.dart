@@ -1,5 +1,6 @@
 import 'dart:math';
 
+/// Compute edit distance between two strings.
 int editDistance(String str1, String str2) {
   var dp =
       List.generate(str1.length + 1, (_) => List.filled(str2.length + 1, 0));

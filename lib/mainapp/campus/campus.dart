@@ -42,14 +42,16 @@ class CampusPage extends StatelessWidget {
                   svg: 'res/campus/geogebra.svg',
                   title: 'Campus/AcademicTools/GeoGebra/Title',
                   path: '/Campus/ACTools/GeoGebra'),
-              _ToolButton(
-                  svg: 'res/campus/gpa.svg',
-                  title: 'Campus/AcademicTools/ExamResult/Title',
-                  path: '/Campus/ACTools/ExamResult'),
-              _ToolButton(
-                  svg: 'res/campus/gpa_calculator.svg',
-                  title: 'Campus/AcademicTools/GPACalculator/Title',
-                  path: '/Campus/ACTools/GPACalculator'),
+              if (store.state.user.isStudent)
+                _ToolButton(
+                    svg: 'res/campus/gpa.svg',
+                    title: 'Campus/AcademicTools/ExamResult/Title',
+                    path: '/Campus/ACTools/ExamResult'),
+              if (store.state.user.isStudent)
+                _ToolButton(
+                    svg: 'res/campus/gpa_calculator.svg',
+                    title: 'Campus/AcademicTools/GPACalculator/Title',
+                    path: '/Campus/ACTools/GPACalculator'),
               if (!Platform.isIOS)
                 _ToolButton(
                     svg: 'res/campus/vpn.svg',

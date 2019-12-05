@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/common/translation_mapper.dart' show weekdays;
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -85,7 +86,7 @@ class _ExamCard extends StatelessWidget {
               ),
             ),
             Text('${examData.date.toString().substring(0, 10)} '
-                "${i18n('Weekdays/${examData.date.weekday}', context)} "
+                '${weekdays(context, examData.date.weekday)} '
                 '${examData.durationOfDay.start.format(context)} - '
                 '${examData.durationOfDay.end.format(context)}'),
             Text(examData.venue),

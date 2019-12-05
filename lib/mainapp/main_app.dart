@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
@@ -81,11 +82,9 @@ class MainApp extends StatelessWidget {
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               MainLocalizationsDelegate.delegate,
+              S.delegate,
             ],
-            supportedLocales: [
-              Locale('en', 'US'),
-              Locale('zh', 'CN'),
-            ],
+            supportedLocales: S.delegate.supportedLocales,
             initialRoute: '/',
             routes: routes,
           );
