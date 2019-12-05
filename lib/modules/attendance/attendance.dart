@@ -19,11 +19,16 @@ class AttendanceApi {
   /// Campus ID password.
   String password;
 
-  factory AttendanceApi(String address, {String uid, String password}) {
-    if (_instance == null) _instance = AttendanceApi._(address);
+  factory AttendanceApi({String address, String uid, String password}) {
+    if (_instance == null) {
+      if (address != null)
+        _instance = AttendanceApi._(address);
+      else
+        throw Exception('address not found');
+    }
 
-    _instance.uid ??= uid;
-    _instance.password ??= password;
+    if (uid != null) _instance.uid = uid;
+    if (password != null) _instance.password = password;
     return _instance;
   }
 
