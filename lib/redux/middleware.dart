@@ -61,8 +61,8 @@ Future<Null> apiCall(Store<MainAppState> store, XMUXApiAction action,
   try {
     await action(
       auth: Authorization.basic(
-        store.state.authState.campusID,
-        store.state.authState.campusIDPassword,
+        store.state.user.campusId,
+        store.state.user.password,
       ),
     );
     next(action);
@@ -80,10 +80,10 @@ Future<Null> apiCallV2(Store<MainAppState> store, XMUXApiActionV2 action,
   try {
     await action(
       XMUXApiAuth(
-          campusID: store.state.authState.campusID,
-          campusIDPassword: store.state.authState.campusIDPassword,
-          ePaymentPassword: store.state.authState.ePaymentPassword,
-          moodleKey: store.state.authState.moodleKey),
+          campusID: store.state.user.campusId,
+          campusIDPassword: store.state.user.password,
+          ePaymentPassword: store.state.user.ePaymentPassword,
+          moodleKey: store.state.user.moodleKey),
       params: action.params,
     );
     next(action);
@@ -91,7 +91,7 @@ Future<Null> apiCallV2(Store<MainAppState> store, XMUXApiActionV2 action,
     // Sign out if wrong password.
     if (e is XMUXApiException &&
         e.type == 'WrongPasswordError' &&
-        store.state.authState.isStudent)
+        store.state.user.isStudent)
       logout();
     else {
       if (action.context != null)

@@ -104,8 +104,8 @@ class _ItemCardState extends State<ItemCard> {
                     child: user != null
                         ? CircleAvatar(
                             backgroundImage: NetworkImage(
-                                XMUXApi.convertAvatarUrl(user.photoUrl,
-                                    store.state.authState.moodleKey)),
+                                XMUXApi.convertAvatarUrl(
+                                    user.photoUrl, store.state.user.moodleKey)),
                           )
                         : SpinKitPulse(color: Colors.white),
                   ),

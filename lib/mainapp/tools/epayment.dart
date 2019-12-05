@@ -26,7 +26,7 @@ class _PaymentPageState extends State<EPaymentPage> {
 
     var action = UpdateEPaymentRecordsAction(
         auth: XMUXApiAuth(
-            campusID: store.state.authState.campusID,
+            campusID: store.state.user.campusId,
             ePaymentPassword: passwordController.text),
         context: context,
         onError: () => setState(() => _isProcessing = false));
@@ -76,7 +76,7 @@ class _PaymentPageState extends State<EPaymentPage> {
 
   @override
   void initState() {
-    if (store.state.authState.ePaymentPassword != null)
+    if (store.state.user.ePaymentPassword != null)
       store.dispatch(UpdateEPaymentRecordsAction());
     super.initState();
   }

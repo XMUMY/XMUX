@@ -4,8 +4,7 @@ import 'package:photo_view/photo_view.dart';
 import 'package:xmux/globals.dart';
 
 class AcademicCalendarPage extends StatelessWidget {
-  final isFoundation =
-      store.state.authState.campusID.startsWith(RegExp('fia|fis'));
+  final isFoundation = store.state.user.campusId.startsWith(RegExp('fia|fis'));
 
   final undergraduate = firebase
       .remoteConfigs.staticResources.academicCalendarImages.undergraduate;

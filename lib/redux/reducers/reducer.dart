@@ -17,35 +17,33 @@ MainAppState appReducer(MainAppState oldState, dynamic action) {
   else
     return MainAppState(
       acReducers(oldState.acState, action),
-      authReducers(oldState.authState, action),
+      userReducers(oldState.user, action),
       queryReducers(oldState.queryState, action),
       settingReducers(oldState.settingState, action),
       uiState: uiReducers(oldState.uiState, action),
     );
 }
 
-/// Reducers for AuthState.
-final Reducer<AuthState> authReducers = combineReducers([
-  TypedReducer<AuthState, LoginAction>(_loginReducer),
-  TypedReducer<AuthState, UpdateEPaymentRecordsAction>(
+/// Reducers for user.
+final Reducer<User> userReducers = combineReducers([
+  TypedReducer<User, LoginAction>(_loginReducer),
+  TypedReducer<User, UpdateEPaymentRecordsAction>(
       _updateEPaymentPasswordReducer),
-  TypedReducer<AuthState, UpdateAssignmentsAction>(_updateMoodleKeyReducer),
+  TypedReducer<User, UpdateAssignmentsAction>(_updateMoodleKeyReducer),
 ]);
 
-AuthState _loginReducer(AuthState oldState, LoginAction action) =>
-    oldState.copyWith(
+User _loginReducer(User oldState, LoginAction action) => oldState.copyWith(
       campusID: action.campusId,
       campusIDPassword: action.password,
     );
 
 /// Update ePayment password when first login.
-AuthState _updateEPaymentPasswordReducer(
-        AuthState oldState, UpdateEPaymentRecordsAction action) =>
+User _updateEPaymentPasswordReducer(
+        User oldState, UpdateEPaymentRecordsAction action) =>
     action.auth == null
         ? oldState
         : oldState.copyWith(ePaymentPassword: action.auth.ePaymentPassword);
 
 /// Update moodleKey when updating assignments.
-AuthState _updateMoodleKeyReducer(
-        AuthState oldState, UpdateAssignmentsAction action) =>
+User _updateMoodleKeyReducer(User oldState, UpdateAssignmentsAction action) =>
     oldState.copyWith(moodleKey: action.moodleKey);

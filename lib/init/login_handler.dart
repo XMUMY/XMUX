@@ -7,14 +7,14 @@ import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 @deprecated
 class LoginHandler {
   static Future<Null> createUser() async {
-    print('LoginHandler: Creating user: ${store.state.authState.campusID}');
+    print('LoginHandler: Creating user: ${store.state.user.campusId}');
 
     try {
       await XMUXApi.instance.createUser(
           XMUXApiAuth(
-              campusID: store.state.authState.campusID,
-              campusIDPassword: store.state.authState.campusIDPassword),
-          User(store.state.authState.campusID, firebaseUser.displayName,
+              campusID: store.state.user.campusId,
+              campusIDPassword: store.state.user.password),
+          User(store.state.user.campusId, firebaseUser.displayName,
               firebaseUser.photoUrl));
     } on DioError catch (e) {
       if (e.response != null)

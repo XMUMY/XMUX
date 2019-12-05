@@ -112,10 +112,8 @@ class _VPNPageState extends State<VPNPage> {
                         : () {
                             _lottieController.playWithProgress(
                                 fromProgress: 0, toProgress: 0.8);
-                            FlutterVpn.simpleConnect(
-                                'ikev2.xmu.edu.my',
-                                firebaseUser.uid,
-                                store.state.authState.campusIDPassword);
+                            FlutterVpn.simpleConnect('ikev2.xmu.edu.my',
+                                firebaseUser.uid, store.state.user.password);
                           },
                     child:
                         Text(i18n('Campus/AcademicTools/VPN/Connect', context)),

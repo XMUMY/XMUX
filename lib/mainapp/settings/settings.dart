@@ -19,7 +19,7 @@ class SettingsPage extends StatelessWidget {
                 tag: 'UserAvatar',
                 child: CircleAvatar(
                   backgroundImage: NetworkImage(XMUXApi.convertAvatarUrl(
-                      firebaseUser?.photoUrl, store.state.authState.moodleKey)),
+                      firebaseUser?.photoUrl, store.state.user.moodleKey)),
                   radius: 30,
                 ),
               ),

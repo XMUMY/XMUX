@@ -30,7 +30,7 @@ class ItemDetailPage extends StatelessWidget {
             child: photoUrl != null
                 ? CircleAvatar(
                     backgroundImage: NetworkImage(XMUXApi.convertAvatarUrl(
-                        photoUrl, store.state.authState.moodleKey)),
+                        photoUrl, store.state.user.moodleKey)),
                   )
                 : SpinKitPulse(color: Colors.white),
           ),

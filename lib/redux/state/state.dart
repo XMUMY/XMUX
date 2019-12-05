@@ -4,8 +4,9 @@ import 'package:xmux/modules/emgs/emgs.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v3.dart' show GetTimetableResp;
 
-part 'query_state.dart';
+part 'query.dart';
 part 'state.g.dart';
+part 'user.dart';
 
 /// Main state for app.
 @immutable
@@ -15,9 +16,9 @@ class MainAppState {
   @JsonKey(nullable: false)
   final AcState acState;
 
-  /// Auth state for all authentication.
+  /// User state for all information of current user.
   @JsonKey(nullable: false)
-  final AuthState authState;
+  final User user;
 
   /// Query state stores all query information.
   @JsonKey(nullable: false)
@@ -31,14 +32,14 @@ class MainAppState {
   @JsonKey(ignore: true)
   final UIState uiState;
 
-  MainAppState(this.acState, this.authState, this.queryState, this.settingState,
+  MainAppState(this.acState, this.user, this.queryState, this.settingState,
       {UIState uiState})
       : this.uiState = uiState ?? UIState.def();
 
   /// Init MainAppState as default.
   MainAppState.def()
       : this.acState = AcState.def(),
-        this.authState = AuthState.def(),
+        this.user = User.def(),
         this.queryState = QueryState.def(),
         this.settingState = SettingState.def(),
         this.uiState = UIState.def();
@@ -102,49 +103,6 @@ class AcState {
           examResult ?? this.examResult,
           courses ?? this.courses,
           assignments ?? this.assignments);
-}
-
-/// Personal info state include uid, password, etc.
-@JsonSerializable()
-class AuthState {
-  static final studentIdExp = RegExp(r'^[A-Za-z]{3}[0-9]{7}$');
-
-  /// User authentication (Campus ID).
-  final String campusID, campusIDPassword;
-
-  /// E-payment password.
-  final String ePaymentPassword;
-
-  /// Moodle key.
-  final String moodleKey;
-
-  AuthState(String campusID, this.campusIDPassword, this.ePaymentPassword,
-      this.moodleKey)
-      : this.campusID = campusID.toLowerCase();
-
-  AuthState.def()
-      : this.campusID = null,
-        this.campusIDPassword = null,
-        this.ePaymentPassword = null,
-        this.moodleKey = null;
-
-  factory AuthState.fromJson(Map<String, dynamic> json) =>
-      _$AuthStateFromJson(json);
-
-  Map<String, dynamic> toJson() => _$AuthStateToJson(this);
-
-  AuthState copyWith(
-          {String campusID,
-          String campusIDPassword,
-          String ePaymentPassword,
-          String moodleKey}) =>
-      AuthState(
-          campusID ?? this.campusID,
-          campusIDPassword ?? this.campusIDPassword,
-          ePaymentPassword ?? this.ePaymentPassword,
-          moodleKey ?? this.moodleKey);
-
-  bool get isStudent => studentIdExp.hasMatch(campusID);
 }
 
 /// Settings state include ePaymentPassword, etc.

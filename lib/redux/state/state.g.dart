@@ -9,7 +9,7 @@ part of 'state.dart';
 MainAppState _$MainAppStateFromJson(Map<String, dynamic> json) {
   return MainAppState(
     AcState.fromJson(json['acState'] as Map<String, dynamic>),
-    AuthState.fromJson(json['authState'] as Map<String, dynamic>),
+    User.fromJson(json['user'] as Map<String, dynamic>),
     QueryState.fromJson(json['queryState'] as Map<String, dynamic>),
     SettingState.fromJson(json['settingState'] as Map<String, dynamic>),
   );
@@ -18,7 +18,7 @@ MainAppState _$MainAppStateFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$MainAppStateToJson(MainAppState instance) =>
     <String, dynamic>{
       'acState': instance.acState,
-      'authState': instance.authState,
+      'user': instance.user,
       'queryState': instance.queryState,
       'settingState': instance.settingState,
     };
@@ -68,22 +68,6 @@ Map<String, dynamic> _$AcStateToJson(AcState instance) => <String, dynamic>{
       'assignments': instance.assignments,
     };
 
-AuthState _$AuthStateFromJson(Map<String, dynamic> json) {
-  return AuthState(
-    json['campusID'] as String,
-    json['campusIDPassword'] as String,
-    json['ePaymentPassword'] as String,
-    json['moodleKey'] as String,
-  );
-}
-
-Map<String, dynamic> _$AuthStateToJson(AuthState instance) => <String, dynamic>{
-      'campusID': instance.campusID,
-      'campusIDPassword': instance.campusIDPassword,
-      'ePaymentPassword': instance.ePaymentPassword,
-      'moodleKey': instance.moodleKey,
-    };
-
 SettingState _$SettingStateFromJson(Map<String, dynamic> json) {
   return SettingState(
     json['enableFunctionsUnderDev'] as bool ?? false,
@@ -117,4 +101,20 @@ Map<String, dynamic> _$QueryStateToJson(QueryState instance) =>
       'ePaymentRecords': instance.ePaymentRecords,
       'emgsApplicationResult': instance.emgsApplicationResult,
       'timetable': instance.timetable,
+    };
+
+User _$UserFromJson(Map<String, dynamic> json) {
+  return User(
+    json['campusId'] as String,
+    json['password'] as String,
+    json['ePaymentPassword'] as String,
+    json['moodleKey'] as String,
+  );
+}
+
+Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+      'campusId': instance.campusId,
+      'password': instance.password,
+      'ePaymentPassword': instance.ePaymentPassword,
+      'moodleKey': instance.moodleKey,
     };

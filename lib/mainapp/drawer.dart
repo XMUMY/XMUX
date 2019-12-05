@@ -42,7 +42,7 @@ class DrawerPage extends StatelessWidget {
                         child: CircleAvatar(
                           backgroundImage: NetworkImage(
                               XMUXApi.convertAvatarUrl(firebaseUser?.photoUrl,
-                                  store.state.authState.moodleKey)),
+                                  store.state.user.moodleKey)),
                           radius: 30,
                         ),
                       ),

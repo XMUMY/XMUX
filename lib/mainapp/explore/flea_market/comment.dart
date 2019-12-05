@@ -73,7 +73,7 @@ class _CommentCard extends StatelessWidget {
               future: XMUXApi.instance.getUser(_comment.from),
               builder: (_, snap) => snap.hasData
                   ? Image.network(XMUXApi.convertAvatarUrl(
-                      snap.data.data.photoUrl, store.state.authState.moodleKey))
+                      snap.data.data.photoUrl, store.state.user.moodleKey))
                   : SpinKitPulse(color: Colors.white),
             ),
           ),

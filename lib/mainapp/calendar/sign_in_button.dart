@@ -20,8 +20,7 @@ class SignInButton extends StatefulWidget {
   final bool _canSign;
 
   final attendanceApi = AttendanceApi(BackendApiConfig.attendanceAddress,
-      uid: store.state.authState.campusID,
-      password: store.state.authState.campusIDPassword);
+      uid: store.state.user.campusId, password: store.state.user.password);
 
   SignInButton(this.lesson)
       : this._canSign = lesson.day == DateTime.now().weekday;

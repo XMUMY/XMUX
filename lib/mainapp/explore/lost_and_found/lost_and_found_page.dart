@@ -76,7 +76,7 @@ class LostAndFoundCard extends StatelessWidget {
                 child: new CircleAvatar(
                   backgroundImage: new NetworkImage(XMUXApi.convertAvatarUrl(
                       dataSnapshot.value['senderPhotoUrl'],
-                      store.state.authState.moodleKey)),
+                      store.state.user.moodleKey)),
                   radius: 25,
                 ),
               ),

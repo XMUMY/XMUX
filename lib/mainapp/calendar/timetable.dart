@@ -94,7 +94,7 @@ class LessonCard extends StatefulWidget {
   final TimetableClass lesson;
 
   static final attendanceApi = AttendanceApi(BackendApiConfig.attendanceAddress,
-      uid: store.state.authState.campusID);
+      uid: store.state.user.campusId);
 
   LessonCard(this.lesson);
 

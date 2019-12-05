@@ -78,7 +78,7 @@ void init() async {
 void postInit() async {
   try {
     // Set user info for sentry report.
-    sentry.userContext = sentry_lib.User(id: store.state.authState.campusID);
+    sentry.userContext = sentry_lib.User(id: store.state.user.campusId);
 
     // Register APIv2 user. (Deprecated)
     try {
@@ -96,7 +96,7 @@ void postInit() async {
   } finally {
     store.dispatch(UpdateHomepageAnnouncementsAction());
     store.dispatch(UpdateTimetableAction());
-    if (store.state.authState.isStudent) {
+    if (store.state.user.isStudent) {
       store.dispatch(UpdateAssignmentsAction());
       store.dispatch(UpdateInfoAction());
       store.dispatch(UpdateAcAction());

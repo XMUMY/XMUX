@@ -10,7 +10,7 @@ import 'package:xmux/modules/elective_course_registration/ecr.dart';
 
 class ElectiveCourseRegistrationPage extends StatefulWidget {
   final ecr = ElectiveCourseRegistration(
-      store.state.authState.campusID, store.state.authState.campusIDPassword);
+      store.state.user.campusId, store.state.user.password);
 
   @override
   _ElectiveCourseRegistrationPageState createState() =>

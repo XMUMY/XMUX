@@ -11,7 +11,7 @@ class CalendarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: store.state.authState.isStudent ? 3 : 1,
+      length: store.state.user.isStudent ? 3 : 1,
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
@@ -22,7 +22,7 @@ class CalendarPage extends StatelessWidget {
           ),
           title: Text(i18n('Calendar', context)),
           actions: <Widget>[
-            if (store.state.authState.isStudent)
+            if (store.state.user.isStudent)
               IconButton(
                 icon: Icon(FontAwesomeIcons.history),
                 tooltip: i18n('Calendar/AttendanceHistory', context),
@@ -38,7 +38,7 @@ class CalendarPage extends StatelessWidget {
           ],
           bottom: TabBar(isScrollable: false, tabs: <Tab>[
             Tab(text: i18n('Calendar/Classes', context)),
-            if (store.state.authState.isStudent) ...{
+            if (store.state.user.isStudent) ...{
               Tab(text: i18n('Calendar/Exams', context)),
               Tab(text: i18n('Calendar/Assignments', context)),
             }
@@ -48,7 +48,7 @@ class CalendarPage extends StatelessWidget {
           builder: (BuildContext context, store) => TabBarView(
             children: <Widget>[
               TimeTablePage(store.state.queryState.timetable),
-              if (store.state.authState.isStudent) ...{
+              if (store.state.user.isStudent) ...{
                 ExamsPage(store.state.acState.exams),
                 AssignmentPage(store.state.acState.assignments),
               }

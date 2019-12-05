@@ -12,9 +12,9 @@ part 'my_complaint.dart';
 part 'request_form.dart';
 
 class MaintenancePage extends StatelessWidget {
-  final maintenance = Maintenance(
-      store.state.authState.campusID, store.state.authState.campusIDPassword)
-    ..ensureLogin();
+  final maintenance =
+      Maintenance(store.state.user.campusId, store.state.user.password)
+        ..ensureLogin();
 
   @override
   Widget build(BuildContext context) {
