@@ -22,7 +22,8 @@ class TimeTablePage extends StatelessWidget {
   final DateTime recentUpdate;
 
   TimeTablePage(GetTimetableResp resp)
-      : this.timetable = resp == null ? null : sortTimetable(resp.timetable),
+      : this.timetable =
+            resp.timetable == null ? null : sortTimetable(resp.timetable),
         this.recentUpdate = resp?.recentUpdate;
 
   Future<Null> _handleUpdate(BuildContext context) async {

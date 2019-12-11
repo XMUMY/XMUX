@@ -5,7 +5,6 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:dio/dio.dart';
-import 'package:xmux/config.dart';
 
 import 'models_v3/models.dart';
 
@@ -71,15 +70,12 @@ class XMUXApi {
   static XMUXApi instance;
 
   /// HTTP client for API calls.
-  final Dio _dio = Dio(BaseOptions(
-    baseUrl: '${BackendApiConfig.address}/v3',
-    connectTimeout: 3500,
-    receiveTimeout: 60000,
-  ));
+  final Dio _dio;
 
-  factory XMUXApi(String address) {
+  factory XMUXApi([String address]) {
     if (instance != null) return instance;
-    instance = XMUXApi._()
+    if (address == null) throw Exception('Address unavailable.');
+    instance = XMUXApi._(address)
       // Add interceptors to add `Accept-Language`.
       .._dio.interceptors.add(InterceptorsWrapper(onRequest: (options) {
         options.headers['Accept-Language'] =
@@ -89,7 +85,12 @@ class XMUXApi {
     return instance;
   }
 
-  XMUXApi._();
+  XMUXApi._(String address)
+      : _dio = Dio(BaseOptions(
+          baseUrl: '$address/v3',
+          connectTimeout: 3500,
+          receiveTimeout: 60000,
+        ));
 
   /// Parse HTTP response to XMUXApiResponse.
   /// [convertFunc] will be called only when data is not null.

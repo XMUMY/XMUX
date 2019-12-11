@@ -3,10 +3,10 @@ import 'dart:ui' as ui;
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:xmux/components/sketch.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
-import 'package:xmux/modules/sketch/sketch.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 
 class SignInButton extends StatefulWidget {
