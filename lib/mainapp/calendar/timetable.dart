@@ -24,7 +24,7 @@ class TimeTablePage extends StatelessWidget {
   TimeTablePage(GetTimetableResp resp)
       : this.timetable =
             resp.timetable == null ? null : sortTimetable(resp.timetable),
-        this.recentUpdate = resp?.recentUpdate;
+        this.recentUpdate = resp?.recentUpdate?.toLocal();
 
   Future<Null> _handleUpdate(BuildContext context) async {
     var action = UpdateTimetableAction();
@@ -56,13 +56,14 @@ class TimeTablePage extends StatelessWidget {
       return EmptyErrorButton(onRefresh: () => _handleUpdate(context));
     if (timetable.isEmpty) return EmptyErrorPage();
 
+    var languageCode = Localizations.localeOf(context).languageCode;
     var lastUpdate = Center(
       child: Padding(
         padding: EdgeInsets.all(5),
         child: Text(
           "${i18n('Calendar/LastUpdate', context)} "
-          '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(recentUpdate)} '
-          '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(recentUpdate)}',
+          '${DateFormat.yMMMd(languageCode).format(recentUpdate)} '
+          '${DateFormat.Hms(languageCode).format(recentUpdate)}',
           style: Theme.of(context).textTheme.caption,
         ),
       ),

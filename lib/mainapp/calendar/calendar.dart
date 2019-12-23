@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/assignment.dart';
+import 'package:xmux/mainapp/calendar/attendance.dart';
 import 'package:xmux/mainapp/calendar/exam.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/redux/redux.dart';
@@ -11,7 +12,7 @@ class CalendarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: store.state.user.isStudent ? 3 : 1,
+      length: store.state.user.isStudent ? 3 : 2,
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
@@ -41,7 +42,8 @@ class CalendarPage extends StatelessWidget {
             if (store.state.user.isStudent) ...{
               Tab(text: i18n('Calendar/Exams', context)),
               Tab(text: i18n('Calendar/Assignments', context)),
-            }
+            },
+            Tab(text: i18n('Attendance', context)),
           ]),
         ),
         body: StoreBuilder<MainAppState>(
@@ -51,7 +53,8 @@ class CalendarPage extends StatelessWidget {
               if (store.state.user.isStudent) ...{
                 ExamsPage(store.state.acState.exams),
                 AssignmentPage(store.state.acState.assignments),
-              }
+              },
+              AttendancePage(),
             ],
           ),
         ),

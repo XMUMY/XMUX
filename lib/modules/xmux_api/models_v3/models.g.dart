@@ -70,3 +70,26 @@ Device _$DeviceFromJson(Map<String, dynamic> json) {
         : DateTime.parse(json['lastSeenS'] as String),
   );
 }
+
+StudentAttendanceBrief _$StudentAttendanceBriefFromJson(
+    Map<String, dynamic> json) {
+  return StudentAttendanceBrief(
+    json['cid'] as String,
+    json['name'] as String,
+    json['timestampS'] == null
+        ? null
+        : DateTime.parse(json['timestampS'] as String),
+    json['total'] as int,
+    json['attended'] as int,
+  );
+}
+
+Map<String, dynamic> _$StudentAttendanceBriefToJson(
+        StudentAttendanceBrief instance) =>
+    <String, dynamic>{
+      'cid': instance.cid,
+      'name': instance.name,
+      'timestampS': instance.timestamp?.toIso8601String(),
+      'total': instance.total,
+      'attended': instance.attended,
+    };

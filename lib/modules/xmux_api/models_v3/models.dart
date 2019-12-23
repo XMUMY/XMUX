@@ -72,3 +72,18 @@ class Device {
 
   static Device fromJson(Map<String, dynamic> json) => _$DeviceFromJson(json);
 }
+
+@JsonSerializable()
+class StudentAttendanceBrief {
+  final String cid;
+  final String name;
+  @JsonKey(name: 'timestampS')
+  final DateTime timestamp;
+  final int total;
+  final int attended;
+
+  StudentAttendanceBrief(
+      this.cid, this.name, this.timestamp, this.total, this.attended);
+
+  static StudentAttendanceBrief fromJson(Map<String, dynamic> json) => _$StudentAttendanceBriefFromJson(json);
+}

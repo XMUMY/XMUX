@@ -180,6 +180,20 @@ class XMUXApi {
             .toList());
   }
 
+  Future<XMUXApiResponse<List<StudentAttendanceBrief>>>
+      getStudentAttendanceBriefs(Authorization auth, {String cid}) async {
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/ac/attendance/briefs',
+      queryParameters: {'cid': cid},
+      options: Options(headers: auth.header),
+    );
+    return _decodeResponse(
+        resp,
+        (data) => List<Map<String, dynamic>>.from(data['briefs'])
+            .map(StudentAttendanceBrief.fromJson)
+            .toList());
+  }
+
   /// Get timetable of current semester from academic system.
   Future<XMUXApiResponse<GetTimetableResp>> getTimetable(
       Authorization auth) async {
