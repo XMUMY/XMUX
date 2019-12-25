@@ -189,7 +189,7 @@ class XMUXApi {
     );
     return _decodeResponse(
         resp,
-        (data) => List<Map<String, dynamic>>.from(data['briefs'])
+        (data) => List<Map<String, dynamic>>.from(data['briefs'] ?? [])
             .map(StudentAttendanceBrief.fromJson)
             .toList());
   }

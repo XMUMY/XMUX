@@ -1,31 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:intl/intl.dart';
+import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 
-class AttendancePage extends StatefulWidget {
-  @override
-  _AttendancePageState createState() => _AttendancePageState();
-}
-
-class _AttendancePageState extends State<AttendancePage> {
-  List<StudentAttendanceBrief> briefs;
-
-  Future<Null> _handleUpdate() async {
+class AttendancePage extends StatelessWidget {
+  Future<List<StudentAttendanceBrief>> _handleUpdate() async {
     var resp = await XMUXApi.instance.getStudentAttendanceBriefs(
         Authorization.basic(
             store.state.user.campusId, store.state.user.password));
-    briefs = resp.data;
-    setState(() {});
+    return [StudentAttendanceBrief("CST101", "nameee", DateTime.now(), 5, 4)];
   }
 
-  @override
-  void initState() {
-    _handleUpdate();
-    super.initState();
+  Widget buildList(BuildContext context, List<StudentAttendanceBrief> briefs) {
+    return ListView.builder(
+      itemCount: briefs.length,
+      itemBuilder: (context, index) {
+        var brief = briefs[index];
+
+        var card = Card(
+          margin: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    brief.name,
+                    style: Theme.of(context).textTheme.subhead,
+                  ),
+                ),
+                Text(brief.cid),
+                Text(
+                    '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(brief.timestamp)}'),
+                Text('Attendance: ${brief.attended}/${brief.total}')
+              ],
+            ),
+          ),
+        );
+
+        return AnimationConfiguration.staggeredList(
+          position: index,
+          duration: const Duration(milliseconds: 250),
+          child: SlideAnimation(
+            verticalOffset: 50.0,
+            child: FadeInAnimation(child: card),
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Refreshable(
+      builder: buildList,
+      onRefresh: _handleUpdate,
+      isEmpty: (list) => list.isEmpty,
+    );
   }
 }
