@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -93,14 +94,13 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Platform.isAndroid
-                  ? IconButton(
-                      icon: Icon(FontAwesomeIcons.googlePlay),
-                      onPressed: () => launch(
-                          '${BackendApiConfig.websiteAddress}/2019/01/01/gms/'),
-                      tooltip: S.of(context).SignIn_InstallGMS,
-                    )
-                  : Container(),
+              if (!kIsWeb && Platform.isAndroid)
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.googlePlay),
+                  onPressed: () => launch(
+                      '${BackendApiConfig.websiteAddress}/2019/01/01/gms/'),
+                  tooltip: S.of(context).SignIn_InstallGMS,
+                ),
               IconButton(
                 icon: Icon(FontAwesomeIcons.fileAlt),
                 onPressed: () => launch(
