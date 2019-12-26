@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
+import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
@@ -10,7 +11,7 @@ class AttendancePage extends StatelessWidget {
     var resp = await XMUXApi.instance.getStudentAttendanceBriefs(
         Authorization.basic(
             store.state.user.campusId, store.state.user.password));
-    return [StudentAttendanceBrief("CST101", "nameee", DateTime.now(), 5, 4)];
+    return [StudentAttendanceBrief("CST101", "name", DateTime.now(), 5, 4)];
   }
 
   Widget buildList(BuildContext context, List<StudentAttendanceBrief> briefs) {
@@ -19,27 +20,25 @@ class AttendancePage extends StatelessWidget {
       itemBuilder: (context, index) {
         var brief = briefs[index];
 
-        var card = Card(
+        var card = FloatingCard(
           margin: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+          padding: const EdgeInsets.all(16),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    brief.name,
-                    style: Theme.of(context).textTheme.subhead,
-                  ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Text(
+                  brief.name,
+                  style: Theme.of(context).textTheme.subhead,
                 ),
-                Text(brief.cid),
-                Text(
-                    '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(brief.timestamp)}'),
-                Text('Attendance: ${brief.attended}/${brief.total}')
-              ],
-            ),
+              ),
+              Text(brief.cid),
+              Text(
+                  '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(brief.timestamp)}'),
+              Text('Attendance: ${brief.attended}/${brief.total}')
+            ],
           ),
         );
 
