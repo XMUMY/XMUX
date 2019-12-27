@@ -29,12 +29,13 @@ class Refreshable<T> extends StatefulWidget {
 class RefreshableState<T> extends State<Refreshable<T>> {
   T data;
 
-  void refresh() =>
-      widget.onRefresh().then((v) => mounted ? setState(() => data = v) : null);
+  Future<void> refresh() async => await widget
+      .onRefresh()
+      .then((v) => mounted ? setState(() => data = v) : null);
 
   @override
   void initState() {
-    widget.onRefresh().then((v) => mounted ? setState(() => data = v) : null);
+    refresh();
     super.initState();
   }
 
@@ -45,7 +46,7 @@ class RefreshableState<T> extends State<Refreshable<T>> {
     if (widget.isEmpty != null && widget.isEmpty(data)) return EmptyErrorPage();
 
     return RefreshIndicator(
-      onRefresh: widget.onRefresh,
+      onRefresh: refresh,
       child: widget.builder(context, data),
     );
   }
