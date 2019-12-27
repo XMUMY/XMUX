@@ -86,6 +86,9 @@ class _MainPageState extends State<MainPage> {
               return null;
           }
         },
+        observers: <NavigatorObserver>[
+          HeroController(),
+        ],
       ),
 
       // Bottom navigation.

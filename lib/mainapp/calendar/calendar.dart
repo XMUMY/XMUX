@@ -12,7 +12,7 @@ class CalendarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: store.state.user.isStudent ? 3 : 2,
+      length: store.state.user.isStudent ? 4 : 2,
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
@@ -23,13 +23,6 @@ class CalendarPage extends StatelessWidget {
           ),
           title: Text(i18n('Calendar', context)),
           actions: <Widget>[
-            if (store.state.user.isStudent)
-              IconButton(
-                icon: Icon(FontAwesomeIcons.history),
-                tooltip: i18n('Calendar/AttendanceHistory', context),
-                onPressed: () => Navigator.of(context, rootNavigator: true)
-                    .pushNamed('/Calendar/AttendanceHistory'),
-              ),
             IconButton(
               icon: Icon(FontAwesomeIcons.calendarAlt),
               tooltip: i18n('Calendar/Academic', context),
@@ -37,14 +30,17 @@ class CalendarPage extends StatelessWidget {
                   .pushNamed('/Calendar/CalendarImage'),
             )
           ],
-          bottom: TabBar(isScrollable: false, tabs: <Tab>[
-            Tab(text: i18n('Calendar/Classes', context)),
-            if (store.state.user.isStudent) ...{
-              Tab(text: i18n('Calendar/Exams', context)),
-              Tab(text: i18n('Calendar/Assignments', context)),
-            },
-            Tab(text: i18n('Attendance', context)),
-          ]),
+          bottom: TabBar(
+            isScrollable: true,
+            tabs: <Tab>[
+              Tab(text: i18n('Calendar/Classes', context)),
+              if (store.state.user.isStudent) ...{
+                Tab(text: i18n('Calendar/Exams', context)),
+                Tab(text: i18n('Calendar/Assignments', context)),
+              },
+              Tab(text: i18n('Attendance', context)),
+            ],
+          ),
         ),
         body: StoreBuilder<MainAppState>(
           builder: (BuildContext context, store) => TabBarView(

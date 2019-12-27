@@ -1,65 +1,119 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
+import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/floating_card.dart';
+import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/components/refreshable.dart';
+import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 
-class AttendancePage extends StatelessWidget {
-  Future<List<StudentAttendanceBrief>> _handleUpdate() async {
-    var resp = await XMUXApi.instance.getStudentAttendanceBriefs(
-        Authorization.basic(
-            store.state.user.campusId, store.state.user.password));
-    return [StudentAttendanceBrief("CST101", "name", DateTime.now(), 5, 4)];
+part 'attendance_lecturer.dart';
+
+// ignore: non_constant_identifier_names
+Widget AttendancePage() =>
+    store.state.user.isStudent ? _StudentPage() : _LecturerPage();
+
+class _StudentPage extends StatefulWidget {
+  final api = AttendanceApi(
+    address: BackendApiConfig.attendanceAddress,
+    uid: store.state.user.campusId,
+  );
+
+  @override
+  _StudentPageState createState() => _StudentPageState();
+}
+
+class _StudentPageState extends State<_StudentPage> {
+  List<AttendanceRecord> history;
+
+  Future<Null> update() async {
+    history = await widget.api.getHistory();
+    if (mounted) setState(() {});
   }
 
-  Widget buildList(BuildContext context, List<StudentAttendanceBrief> briefs) {
-    return ListView.builder(
-      itemCount: briefs.length,
-      itemBuilder: (context, index) {
-        var brief = briefs[index];
-
-        var card = FloatingCard(
-          margin: const EdgeInsets.fromLTRB(8, 5, 8, 5),
-          padding: const EdgeInsets.all(16),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child: Text(
-                  brief.name,
-                  style: Theme.of(context).textTheme.subhead,
-                ),
-              ),
-              Text(brief.cid),
-              Text(
-                  '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(brief.timestamp)}'),
-              Text('Attendance: ${brief.attended}/${brief.total}')
-            ],
-          ),
-        );
-
-        return AnimationConfiguration.staggeredList(
-          position: index,
-          duration: const Duration(milliseconds: 250),
-          child: SlideAnimation(
-            verticalOffset: 50.0,
-            child: FadeInAnimation(child: card),
-          ),
-        );
-      },
-    );
+  @override
+  void initState() {
+    update();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Refreshable(
-      builder: buildList,
-      onRefresh: _handleUpdate,
-      isEmpty: (list) => list.isEmpty,
+    return history == null
+        ? Center(child: CircularProgressIndicator())
+        : history.isEmpty
+            ? EmptyErrorPage()
+            : RefreshIndicator(
+                onRefresh: update,
+                child: ListView.separated(
+                  padding: const EdgeInsets.all(15),
+                  itemCount: history.length,
+                  separatorBuilder: (_, __) => Divider(),
+                  itemBuilder: (_, index) =>
+                      AttendanceHistoryItem(history[index]),
+                ),
+              );
+  }
+}
+
+class AttendanceHistoryItem extends StatelessWidget {
+  final AttendanceRecord record;
+
+  AttendanceHistoryItem(this.record);
+
+  /// Localize message from response.
+  static String parseMessage(BuildContext context, AttendanceRecord record) {
+    var message = record.message;
+    switch (record.status) {
+      case AttendanceStatus.marked:
+        message = i18n('Calendar/SignIn/Marked', context);
+        break;
+      case AttendanceStatus.success:
+        message = i18n('Calendar/SignIn/Finished', context);
+        break;
+      case AttendanceStatus.failed:
+        message = '${i18n('Calendar/SignIn/Failed', context)}: $message';
+        break;
+    }
+    return message;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var course = store.state.queryState.timetable.timetable
+        .firstWhere((c) => c.cid == record.cid, orElse: () => null);
+
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                course?.name ?? 'Unknown',
+                style: Theme.of(context).textTheme.subhead,
+              ),
+              Text(
+                '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(record.timestamp)} '
+                '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(record.timestamp)}',
+                style: Theme.of(context).textTheme.caption,
+              ),
+              Text(AttendanceHistoryItem.parseMessage(context, record))
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(record.status == AttendanceStatus.success
+              ? Icons.done
+              : record.status == AttendanceStatus.failed
+                  ? Icons.error_outline
+                  : Icons.access_time),
+        )
+      ],
     );
   }
 }
