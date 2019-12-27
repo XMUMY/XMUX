@@ -194,6 +194,19 @@ class XMUXApi {
             .toList());
   }
 
+  Future<XMUXApiResponse<StudentAttendanceDetail>> getStudentAttendanceDetail(
+      Authorization auth, String cid, DateTime timestamp) async {
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/ac/attendance/detail',
+      queryParameters: {
+        'cid': cid,
+        'timestamp': timestamp.toIso8601String() + '+0800'
+      },
+      options: Options(headers: auth.header),
+    );
+    return _decodeResponse(resp, StudentAttendanceDetail.fromJson);
+  }
+
   /// Get timetable of current semester from academic system.
   Future<XMUXApiResponse<GetTimetableResp>> getTimetable(
       Authorization auth) async {

@@ -23,10 +23,10 @@ class Refreshable<T> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _RefreshableState createState() => _RefreshableState<T>();
+  RefreshableState createState() => RefreshableState<T>();
 }
 
-class _RefreshableState<T> extends State<Refreshable<T>> {
+class RefreshableState<T> extends State<Refreshable<T>> {
   T data;
 
   @override

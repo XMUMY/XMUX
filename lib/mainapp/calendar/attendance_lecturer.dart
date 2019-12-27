@@ -5,7 +5,10 @@ class _LecturerPage extends StatelessWidget {
     var resp = await XMUXApi.instance.getStudentAttendanceBriefs(
         Authorization.basic(
             store.state.user.campusId, store.state.user.password));
-    return [StudentAttendanceBrief("CST101", "name", DateTime.now(), 5, 4)];
+    return [
+      StudentAttendanceBrief(
+          'CST101', 'Principles of Computer Composition', DateTime.now(), 5, 4)
+    ];
   }
 
   Widget buildList(BuildContext context, List<StudentAttendanceBrief> briefs) {
@@ -64,24 +67,83 @@ class _LecturerPage extends StatelessWidget {
   }
 }
 
-class _LecturerDetailPage extends StatefulWidget {
+class _LecturerDetailPage extends StatelessWidget {
   final StudentAttendanceBrief brief;
 
-  const _LecturerDetailPage({Key key, this.brief}) : super(key: key);
+  _LecturerDetailPage({Key key, this.brief}) : super(key: key);
 
-  @override
-  _LecturerDetailPageState createState() => _LecturerDetailPageState();
-}
+  Future<StudentAttendanceDetail> _handleUpdate() async {
+//    var resp = await XMUXApi.instance.getStudentAttendanceDetail(
+//        Authorization.basic(
+//            store.state.user.campusId, store.state.user.password),
+//        widget.brief.cid,
+//        widget.brief.timestamp);
+    return StudentAttendanceDetail(
+        'CST101', 'AdvancedMath1', DateTime.now(), 5, 4, [
+      for (var i = 0; i < 20; i++)
+        StudentAttendance(
+          'CST1709001',
+          'Jack',
+          StudentAttendanceStatus.attended,
+        )
+    ]);
+  }
 
-class _LecturerDetailPageState extends State<_LecturerDetailPage> {
+  Widget buildDataTable(BuildContext context, StudentAttendanceDetail detail) {
+    return DataTable(
+      columns: <DataColumn>[
+        DataColumn(label: Text('Campus ID')),
+        DataColumn(label: Text('Name')),
+        DataColumn(label: Text('Status')),
+      ],
+      rows: detail.students
+          .map((s) => DataRow(
+                selected: s.selected,
+                onSelectChanged: (selected) => s.selected = selected,
+                cells: [
+                  DataCell(Text(s.uid)),
+                  DataCell(Text(s.name)),
+                  DataCell(Text(s.status.toString().split('.').last))
+                ],
+              ))
+          .toList(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 0,
         title: Hero(
-          tag: widget.brief.timestamp,
-          child: Text(widget.brief.name),
+          tag: brief.timestamp,
+          child: Text(brief.name),
         ),
+        actions: <Widget>[
+          Center(
+            child: Text(
+                DateFormat.MEd(Localizations.localeOf(context).languageCode)
+                    .format(brief.timestamp)),
+          ),
+          VerticalDivider(width: 5)
+        ],
+      ),
+      body: Refreshable<StudentAttendanceDetail>(
+        onRefresh: _handleUpdate,
+        builder: (context, detail) {
+          return Scrollbar(
+            child: ListView(
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Observer(
+                    builder: (context) => buildDataTable(context, detail),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

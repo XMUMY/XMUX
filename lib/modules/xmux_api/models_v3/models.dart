@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mobx/mobx.dart';
 
+part 'attendance.dart';
 part 'models.g.dart';
 
 @JsonSerializable(createToJson: false)
@@ -71,19 +73,4 @@ class Device {
   Device(this.deviceId, this.deviceModel, this.deviceName, this.lastSeen);
 
   static Device fromJson(Map<String, dynamic> json) => _$DeviceFromJson(json);
-}
-
-@JsonSerializable()
-class StudentAttendanceBrief {
-  final String cid;
-  final String name;
-  @JsonKey(name: 'timestampS')
-  final DateTime timestamp;
-  final int total;
-  final int attended;
-
-  StudentAttendanceBrief(
-      this.cid, this.name, this.timestamp, this.total, this.attended);
-
-  static StudentAttendanceBrief fromJson(Map<String, dynamic> json) => _$StudentAttendanceBriefFromJson(json);
 }
