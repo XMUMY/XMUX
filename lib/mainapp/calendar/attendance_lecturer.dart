@@ -130,20 +130,30 @@ class _LecturerDetailPage extends StatelessWidget {
       ),
       body: Refreshable<StudentAttendanceDetail>(
         onRefresh: _handleUpdate,
-        builder: (context, detail) {
-          return Scrollbar(
-            child: ListView(
-              children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Observer(
-                    builder: (context) => buildDataTable(context, detail),
+        builder: (context, detail) => Observer(
+          builder: (context) => Scaffold(
+            body: Scrollbar(
+              child: ListView(
+                children: [
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Observer(
+                      builder: (context) => buildDataTable(context, detail),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          );
-        },
+            floatingActionButton: detail.students.selectedCount == 0
+                ? null
+                : FloatingActionButton.extended(
+                    icon: Icon(Icons.add),
+                    label:
+                        Text('${detail.students.selectedCount}/${brief.total}'),
+                    onPressed: () {},
+                  ),
+          ),
+        ),
       ),
     );
   }

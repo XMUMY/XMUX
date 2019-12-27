@@ -35,6 +35,12 @@ class StudentAttendanceDetail {
       _$StudentAttendanceDetailFromJson(json);
 }
 
+extension StudentAttendanceListWithCount on List<StudentAttendance> {
+  /// Get selected student count.
+  int get selectedCount =>
+      this.fold<int>(0, (sum, s) => s.selected ? sum + 1 : sum);
+}
+
 @JsonSerializable()
 class StudentAttendance extends _StudentAttendance with _$StudentAttendance {
   StudentAttendance(String uid, String name, StudentAttendanceStatus status)

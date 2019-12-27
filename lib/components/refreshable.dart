@@ -29,6 +29,9 @@ class Refreshable<T> extends StatefulWidget {
 class RefreshableState<T> extends State<Refreshable<T>> {
   T data;
 
+  void refresh() =>
+      widget.onRefresh().then((v) => mounted ? setState(() => data = v) : null);
+
   @override
   void initState() {
     widget.onRefresh().then((v) => mounted ? setState(() => data = v) : null);
