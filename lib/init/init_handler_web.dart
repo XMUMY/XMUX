@@ -1,23 +1,23 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:sentry/sentry.dart' as sentry_lib;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/mainapp/main_app.dart';
 import 'package:xmux/modules/xia/xia.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
 import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 import 'package:xmux/redux/redux.dart';
 
 /// Main initialization progress.
 void init() async {
-  // Register sentry to capture errors.
-  FlutterError.onError = (e) =>
-      sentry.captureException(exception: e.exception, stackTrace: e.stack);
-
   // Create APIv3 Client.
   XMUXApi(BackendApiConfig.address);
+  // Select XMUX API server. (Deprecated)
+  v2.XMUXApi([BackendApiConfig.address]);
 
   // Init XiA async.
   XiA.init(ApiKeyConfig.dialogflowToken)
@@ -43,5 +43,26 @@ void init() async {
       (firebaseUser = await FirebaseAuth.instance.currentUser()) == null) {
     logout();
     return;
+  }
+  postInit();
+}
+
+/// Post initialization after authentication.
+void postInit() async {
+  try {
+    // Set user info for sentry report.
+    sentry.userContext = sentry_lib.User(id: store.state.user.campusId);
+  } catch (e) {
+    sentry.captureException(exception: e);
+  } finally {
+    store.dispatch(UpdateHomepageAnnouncementsAction());
+    store.dispatch(UpdateTimetableAction());
+    if (store.state.user.isStudent) {
+      store.dispatch(UpdateAssignmentsAction());
+      store.dispatch(UpdateInfoAction());
+      store.dispatch(UpdateAcAction());
+      store.dispatch(UpdateCoursesAction());
+    }
+    runApp(MainApp());
   }
 }

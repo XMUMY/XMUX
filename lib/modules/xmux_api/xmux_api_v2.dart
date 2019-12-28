@@ -1,6 +1,6 @@
 library xmux.api_v2;
 
-import 'dart:io';
+import 'dart:ui';
 
 import 'package:dio/dio.dart';
 
@@ -96,7 +96,8 @@ class XMUXApi {
     // Add system language to header.
     _dio.options.headers.addAll({
       'Accept-Language':
-          '${Platform.localeName?.replaceAll('_', '-') ?? "en-US"},${Platform.localeName?.substring(0, 2) ?? "en"};q=0.9',
+          '${window.locale.languageCode}-${window.locale.countryCode},'
+              '${window.locale.languageCode};q=0.9'
     });
 
     // Add JWT token if exist.

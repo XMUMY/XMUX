@@ -52,7 +52,7 @@ class CampusPage extends StatelessWidget {
                     svg: 'res/campus/gpa_calculator.svg',
                     title: 'Campus/AcademicTools/GPACalculator/Title',
                     path: '/Campus/ACTools/GPACalculator'),
-              if (!Platform.isIOS)
+              if (!kIsWeb && !Platform.isIOS)
                 _ToolButton(
                     svg: 'res/campus/vpn.svg',
                     title: 'Campus/AcademicTools/VPN/Title',

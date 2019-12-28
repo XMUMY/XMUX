@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/observer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -73,7 +74,7 @@ class MainApp extends StatelessWidget {
             darkTheme: ThemeData.dark(),
             navigatorObservers: <NavigatorObserver>[
               // Only trace in release mode.
-              if (bool.fromEnvironment('dart.vm.product'))
+              if (!kIsWeb && bool.fromEnvironment('dart.vm.product'))
                 FirebaseAnalyticsObserver(analytics: firebase.analytics),
             ],
             localizationsDelegates: [

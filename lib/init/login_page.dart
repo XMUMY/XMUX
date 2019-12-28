@@ -207,7 +207,7 @@ class _LoginButtonState extends State<_LoginButton> {
 
   @override
   void initState() {
-    LoginApp app = context.ancestorWidgetOfExactType(LoginApp);
+    LoginApp app = context.findAncestorWidgetOfExactType<LoginApp>();
     _isDeprecated = app.message == 'deprecated';
     super.initState();
   }
