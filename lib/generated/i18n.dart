@@ -21,6 +21,11 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  String get Calendar_Attendance => "Attendance";
+  String get Calendar_AttendanceRate => "Attendance";
+  String get Calendar_AttendanceSignIn => "Sign in";
+  String get Calendar_AttendanceSignInFinished => "Succeeded";
+  String get Calendar_AttendanceSignInMarked => "Waiting...";
   String get General_Continue => "Continue";
   String get General_Weekday1 => "Monday";
   String get General_Weekday2 => "Tuesday";
@@ -45,6 +50,7 @@ class S implements WidgetsLocalizations {
   String get SignIn_RegisterEmail => "Email";
   String get SignIn_RegisterTitle => "Welcome to XMUM!";
   String get SignIn_SignIn => "Sign in";
+  String Calendar_AttendanceSignInFailed(String tip) => "Failed: $tip";
   String General_Error(String tip) => "Error: $tip";
 }
 
@@ -59,6 +65,8 @@ class $zh_CN extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
+  String get Calendar_Attendance => "考勤";
+  @override
   String get SignIn_ErrorFormat => "格式不正确，请检查。";
   @override
   String get SignIn_InstallGMS => "安装 GMS";
@@ -67,11 +75,17 @@ class $zh_CN extends S {
   @override
   String get SignIn_Register => "注册";
   @override
+  String get Calendar_AttendanceSignInMarked => "等待确认···";
+  @override
   String get SignIn_Privacy => "隐私政策";
   @override
   String get SignIn_Password => "密码";
   @override
   String get SignIn_ErrorDeprecated => "该版本应用已不再受到支持，请更新！";
+  @override
+  String get Calendar_AttendanceSignIn => "签到";
+  @override
+  String get Calendar_AttendanceRate => "出勤率";
   @override
   String get SignIn_Docs => "帮助文档";
   @override
@@ -101,9 +115,13 @@ class $zh_CN extends S {
   @override
   String get SignIn_RegisterEmail => "邮箱";
   @override
+  String get Calendar_AttendanceSignInFinished => "签到成功";
+  @override
   String get SignIn_RegisterCaption => "我们仍需要以下信息以完成注册。";
   @override
   String get SignIn_Read => "登录即代表您同意我们的隐私政策和免责声明";
+  @override
+  String Calendar_AttendanceSignInFailed(String tip) => "签到失败： $tip";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {

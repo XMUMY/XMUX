@@ -19,11 +19,6 @@ const Map<String, String> zh_CN = {
   'Calendar/ClassCard/Time': '时间',
   'Calendar/ClassCard/Room': '教室',
   'Calendar/ClassCard/Lecturer': '讲师',
-  'Calendar/SignIn': '签到',
-  'Calendar/SignIn/Status': '考勤状态',
-  'Calendar/SignIn/Marked': '等待确认',
-  'Calendar/SignIn/Finished': '签到成功',
-  'Calendar/SignIn/Failed': '签到失败',
   'Calendar/LastUpdate': '最近更新：',
   // Campus
   // Academic Tools

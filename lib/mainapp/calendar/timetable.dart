@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/attendance.dart';
 import 'package:xmux/mainapp/calendar/sign_in_button.dart';
@@ -173,7 +174,7 @@ class _LessonCardState extends State<LessonCard> {
             '${i18n('Calendar/ClassCard/Room', context)}: ${widget.lesson.room}\n'
             '${i18n('Calendar/ClassCard/Lecturer', context)}: ${widget.lesson.lecturer.split(',').join(', ')}'),
         Divider(),
-        Text('${i18n('Calendar/SignIn/Status', context)}'),
+        Text(S.of(context).Calendar_Attendance),
         SizedBox(
           height: min(MediaQuery.of(context).size.height / 3.5, 200),
           width: MediaQuery.of(context).size.width / 1.3,

@@ -19,11 +19,6 @@ const Map<String, String> en_US = {
   'Calendar/ClassCard/Time': 'Time',
   'Calendar/ClassCard/Room': 'Classroom',
   'Calendar/ClassCard/Lecturer': 'Lecturer',
-  'Calendar/SignIn': 'Sign in',
-  'Calendar/SignIn/Status': 'Attendence status',
-  'Calendar/SignIn/Marked': 'Waiting...',
-  'Calendar/SignIn/Finished': 'Success',
-  'Calendar/SignIn/Failed': 'Failed',
   'Calendar/LastUpdate': 'Recent Update: ',
   // Campus
   // Academic Tools

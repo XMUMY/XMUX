@@ -7,6 +7,7 @@ import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
@@ -70,13 +71,13 @@ class AttendanceHistoryItem extends StatelessWidget {
     var message = record.message;
     switch (record.status) {
       case AttendanceStatus.marked:
-        message = i18n('Calendar/SignIn/Marked', context);
+        message = S.of(context).Calendar_AttendanceSignInMarked;
         break;
       case AttendanceStatus.success:
-        message = i18n('Calendar/SignIn/Finished', context);
+        message = S.of(context).Calendar_AttendanceSignInFinished;
         break;
       case AttendanceStatus.failed:
-        message = '${i18n('Calendar/SignIn/Failed', context)}: $message';
+        message = S.of(context).Calendar_AttendanceSignInFailed(message);
         break;
     }
     return message;

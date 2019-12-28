@@ -23,5 +23,11 @@
   "SignIn_ErrorFormat": "Format error, please check.",
   "SignIn_ErrorInvalidPassword": "Invalid username or password.",
   "SignIn_ErrorGMS": "GMS not working properly.",
-  "SignIn_ErrorDeprecated": "Please upgrade! The version of app is no longer supported!"
+  "SignIn_ErrorDeprecated": "Please upgrade! The version of app is no longer supported!",
+  "Calendar_Attendance": "Attendance",
+  "Calendar_AttendanceRate": "Attendance",
+  "Calendar_AttendanceSignIn": "Sign in",
+  "Calendar_AttendanceSignInMarked": "Waiting...",
+  "Calendar_AttendanceSignInFinished": "Succeeded",
+  "Calendar_AttendanceSignInFailed": "Failed: $tip"
 }

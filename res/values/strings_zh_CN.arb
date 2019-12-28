@@ -23,5 +23,11 @@
   "SignIn_ErrorFormat": "格式不正确，请检查。",
   "SignIn_ErrorInvalidPassword": "用户名或密码无效",
   "SignIn_ErrorGMS": "GMS 未正常工作",
-  "SignIn_ErrorDeprecated": "该版本应用已不再受到支持，请更新！"
+  "SignIn_ErrorDeprecated": "该版本应用已不再受到支持，请更新！",
+  "Calendar_Attendance": "考勤",
+  "Calendar_AttendanceRate": "出勤率",
+  "Calendar_AttendanceSignIn": "签到",
+  "Calendar_AttendanceSignInMarked": "等待确认···",
+  "Calendar_AttendanceSignInFinished": "签到成功",
+  "Calendar_AttendanceSignInFailed": "签到失败： $tip"
 }

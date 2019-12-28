@@ -40,7 +40,8 @@ class _LecturerPage extends StatelessWidget {
               Text('${brief.cid} '
                   '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(brief.timestamp)} '
                   '${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(brief.timestamp)}'),
-              Text('Attendance: ${brief.attended}/${brief.total}  '
+              Text(
+                  '${S.of(context).Calendar_AttendanceRate}: ${brief.attended}/${brief.total}  '
                   '(${brief.attended / brief.total * 100}%)')
             ],
           ),

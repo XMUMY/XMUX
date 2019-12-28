@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/attendance.dart';
@@ -38,7 +39,7 @@ class CalendarPage extends StatelessWidget {
                 Tab(text: i18n('Calendar/Exams', context)),
                 Tab(text: i18n('Calendar/Assignments', context)),
               },
-              Tab(text: i18n('Attendance', context)),
+              Tab(text: S.of(context).Calendar_Attendance),
             ],
           ),
         ),
