@@ -5,10 +5,7 @@ class _LecturerPage extends StatelessWidget {
     var resp = await XMUXApi.instance.getStudentAttendanceBriefs(
         Authorization.basic(
             store.state.user.campusId, store.state.user.password));
-    return [
-      StudentAttendanceBrief(
-          'CST101', 'Principles of Computer Composition', DateTime.now(), 5, 4)
-    ];
+    return resp.data;
   }
 
   Widget buildList(BuildContext context, List<StudentAttendanceBrief> briefs) {
@@ -30,7 +27,9 @@ class _LecturerPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: Hero(
-                  tag: brief.timestamp,
+                  // TODO: Remove random.
+                  tag: brief.timestamp.toString() +
+                      Random().nextInt(100).toString(),
                   child: Text(
                     brief.name,
                     style: Theme.of(context).textTheme.subhead,
@@ -38,11 +37,11 @@ class _LecturerPage extends StatelessWidget {
                 ),
               ),
               Text('${brief.cid} '
-                  '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(brief.timestamp)} '
-                  '${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(brief.timestamp)}'),
+                  '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(brief.timestamp.toLocal())} '
+                  '${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(brief.timestamp.toLocal())}'),
               Text(
                   '${S.of(context).Calendar_AttendanceRate}: ${brief.attended}/${brief.total}  '
-                  '(${brief.attended / brief.total * 100}%)')
+                  '(${(brief.attended / brief.total * 100).toStringAsFixed(2)}%)')
             ],
           ),
         );
@@ -71,24 +70,31 @@ class _LecturerPage extends StatelessWidget {
 
 class _LecturerDetailPage extends StatelessWidget {
   final StudentAttendanceBrief brief;
+  final detailKey = GlobalKey<RefreshableState<StudentAttendanceDetail>>();
 
   _LecturerDetailPage({Key key, this.brief}) : super(key: key);
 
   Future<StudentAttendanceDetail> _handleUpdate() async {
-//    var resp = await XMUXApi.instance.getStudentAttendanceDetail(
-//        Authorization.basic(
-//            store.state.user.campusId, store.state.user.password),
-//        widget.brief.cid,
-//        widget.brief.timestamp);
-    return StudentAttendanceDetail(
-        'CST101', 'AdvancedMath1', DateTime.now(), 5, 4, [
-      for (var i = 0; i < 20; i++)
-        StudentAttendance(
-          'CST1709001',
-          'Jack',
-          StudentAttendanceStatus.attended,
-        )
-    ]);
+    var resp = await XMUXApi.instance.getStudentAttendanceDetail(
+        Authorization.basic(
+            store.state.user.campusId, store.state.user.password),
+        brief.cid,
+        brief.timestamp);
+    return resp.data;
+  }
+
+  Future<void> _updateStatus(StudentAttendanceStatus status) async {
+    await XMUXApi.instance.updateStudentAttendance(
+        Authorization.basic(
+            store.state.user.campusId, store.state.user.password),
+        brief.cid,
+        brief.timestamp,
+        status,
+        detailKey.currentState.data.students
+            .where((s) => s.selected)
+            .map((s) => s.uid)
+            .toList());
+    await detailKey.currentState.refresh();
   }
 
   Widget buildDataTable(BuildContext context, StudentAttendanceDetail detail) {
@@ -131,6 +137,7 @@ class _LecturerDetailPage extends StatelessWidget {
         ],
       ),
       body: Refreshable<StudentAttendanceDetail>(
+        key: detailKey,
         onRefresh: _handleUpdate,
         builder: (context, detail) => Observer(
           builder: (context) => Scaffold(
@@ -146,14 +153,24 @@ class _LecturerDetailPage extends StatelessWidget {
                 ],
               ),
             ),
-            floatingActionButton: detail.students.selectedCount == 0
-                ? null
-                : FloatingActionButton.extended(
-                    icon: Icon(Icons.add),
-                    label:
-                        Text('${detail.students.selectedCount}/${brief.total}'),
-                    onPressed: () {},
-                  ),
+            floatingActionButton: SpeedDial(
+              visible: detail.students.selectedCount != 0,
+              child: Text('${detail.students.selectedCount}/${brief.total}'),
+              children: <SpeedDialChild>[
+                SpeedDialChild(
+                  label: S.of(context).Calendar_AttendanceMarkAttended,
+                  child: Icon(Icons.add),
+                  backgroundColor: Colors.green,
+                  onTap: () => _updateStatus(StudentAttendanceStatus.attended),
+                ),
+                SpeedDialChild(
+                  label: S.of(context).Calendar_AttendanceMarkAbsent,
+                  child: Icon(Icons.cancel),
+                  backgroundColor: Colors.red,
+                  onTap: () => _updateStatus(StudentAttendanceStatus.none),
+                ),
+              ],
+            ),
           ),
         ),
       ),

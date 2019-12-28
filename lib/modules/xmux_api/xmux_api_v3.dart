@@ -200,7 +200,7 @@ class XMUXApi {
       '/ac/attendance/detail',
       queryParameters: {
         'cid': cid,
-        'timestamp': timestamp.toIso8601String() + '+0800'
+        'timestampS': timestamp.toLocal().toIso8601String() + '+0800'
       },
       options: Options(headers: auth.header),
     );
@@ -214,9 +214,25 @@ class XMUXApi {
       '/ac/timetable',
       options: Options(headers: auth.header),
     );
-    return _decodeResponse(
-      resp,
-      GetTimetableResp.fromJson,
+    return _decodeResponse(resp, GetTimetableResp.fromJson);
+  }
+
+  Future<XMUXApiResponse<Null>> updateStudentAttendance(
+      Authorization auth,
+      String cid,
+      DateTime timestamp,
+      StudentAttendanceStatus status,
+      List<String> update) async {
+    var resp = await _dio.post<Map<String, dynamic>>(
+      '/ac/attendance/update',
+      data: {
+        'cid': cid,
+        'timestampS': timestamp.toLocal().toIso8601String() + '+0800',
+        'status': status.toString().split('.').last,
+        'update': update
+      },
+      options: Options(headers: auth.header),
     );
+    return _decodeResponse(resp, (data) => null);
   }
 }

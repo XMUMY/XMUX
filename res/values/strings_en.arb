@@ -29,5 +29,7 @@
   "Calendar_AttendanceSignIn": "Sign in",
   "Calendar_AttendanceSignInMarked": "Waiting...",
   "Calendar_AttendanceSignInFinished": "Succeeded",
-  "Calendar_AttendanceSignInFailed": "Failed: $tip"
+  "Calendar_AttendanceSignInFailed": "Failed: $tip",
+  "Calendar_AttendanceMarkAttended": "Mark as Attended",
+  "Calendar_AttendanceMarkAbsent": "Mark as Absent"
 }

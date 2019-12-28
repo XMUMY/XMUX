@@ -29,19 +29,26 @@ class Refreshable<T> extends StatefulWidget {
 class RefreshableState<T> extends State<Refreshable<T>> {
   T data;
 
+  /// When initializing widget state, data will be automatically load.
+  /// Flag will be true if first load has been completed.
+  var firstLoadCompleted = false;
+
   Future<void> refresh() async => await widget
       .onRefresh()
       .then((v) => mounted ? setState(() => data = v) : null);
 
   @override
   void initState() {
-    refresh();
+    refresh().then((_) => firstLoadCompleted = true);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (data == null) return EmptyErrorButton(onRefresh: widget.onRefresh);
+    if (data == null) if (!firstLoadCompleted)
+      return Center(child: CircularProgressIndicator());
+    else
+      return EmptyErrorButton(onRefresh: refresh);
 
     if (widget.isEmpty != null && widget.isEmpty(data)) return EmptyErrorPage();
 
