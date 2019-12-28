@@ -32,18 +32,22 @@ class _FloatingCardState extends State<FloatingCard> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onTap,
-      onTapDown: (_) => setState(() => _elevation = 4),
-      onTapUp: (_) => setState(() => _elevation = 1),
-      onTapCancel: () => setState(() => _elevation = 1),
-      child: Card(
-        margin: widget.margin,
-        shape: widget.shape,
-        elevation: _elevation,
-        child: Padding(
-          padding: widget.padding,
-          child: widget.child,
+    return MouseRegion(
+      onEnter: (_) => setState(() => _elevation = 4),
+      onExit: (_) => setState(() => _elevation = 1),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        onTapDown: (_) => setState(() => _elevation = 4),
+        onTapUp: (_) => setState(() => _elevation = 1),
+        onTapCancel: () => setState(() => _elevation = 1),
+        child: Card(
+          margin: widget.margin,
+          shape: widget.shape,
+          elevation: _elevation,
+          child: Padding(
+            padding: widget.padding,
+            child: widget.child,
+          ),
         ),
       ),
     );

@@ -7,6 +7,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
+import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
@@ -186,74 +187,67 @@ class _LessonCardState extends State<LessonCard> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return FloatingCard(
       onTap: () => showDialog(
         context: context,
         barrierDismissible: true,
         builder: _buildDialogWidgets,
       ),
-      onTapDown: (_) => setState(() => _elevation = 4),
-      onTapUp: (_) => setState(() => _elevation = 1),
-      onTapCancel: () => setState(() => _elevation = 1),
-      child: Card(
-        margin: const EdgeInsets.all(8),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-        elevation: _elevation,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white10
-                      : LessonCard.dayColor[widget.lesson.day - 1],
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(7))),
-              child: Center(
-                child: Text(
-                  '${weekdays(context, widget.lesson.day)} '
-                  '${widget.lesson.start.format(context)} - '
-                  '${widget.lesson.end.format(context)} '
-                  '${widget.lesson.room}',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                  textAlign: TextAlign.center,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white10
+                    : LessonCard.dayColor[widget.lesson.day - 1],
+                borderRadius: BorderRadius.vertical(top: Radius.circular(7))),
+            child: Center(
+              child: Text(
+                '${weekdays(context, widget.lesson.day)} '
+                '${widget.lesson.start.format(context)} - '
+                '${widget.lesson.end.format(context)} '
+                '${widget.lesson.room}',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    widget.lesson.name,
+                    style: Theme.of(context).textTheme.subhead,
+                    textAlign: TextAlign.start,
+                  ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 8),
-                    child: Text(
-                      widget.lesson.name,
-                      style: Theme.of(context).textTheme.subhead,
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              '${widget.lesson.cid} \n'
-                              '${widget.lesson.lecturer}',
-                            ),
-                          ],
-                        ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            '${widget.lesson.cid} \n'
+                            '${widget.lesson.lecturer}',
+                          ),
+                        ],
                       ),
-                      SignInButton(widget.lesson),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                    SignInButton(widget.lesson),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
