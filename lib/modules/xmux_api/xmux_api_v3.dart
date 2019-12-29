@@ -228,7 +228,7 @@ class XMUXApi {
       data: {
         'cid': cid,
         'timestampS': timestamp.toLocal().toIso8601String() + '+0800',
-        'status': status.toString().split('.').last,
+        'status': 3 - status.index,
         'update': update
       },
       options: Options(headers: auth.header),

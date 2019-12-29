@@ -2,13 +2,14 @@ part of 'models.dart';
 
 enum StudentAttendanceStatus { none, waiting, attended, failed }
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class StudentAttendanceBrief {
   final String cid;
   final String name;
   @JsonKey(name: 'timestampS')
   final DateTime timestamp;
   final int total;
+  @JsonKey(defaultValue: 0)
   final int attended;
 
   StudentAttendanceBrief(
@@ -18,13 +19,14 @@ class StudentAttendanceBrief {
       _$StudentAttendanceBriefFromJson(json);
 }
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class StudentAttendanceDetail {
   final String cid;
   final String name;
   @JsonKey(name: 'timestampS')
   final DateTime timestamp;
   final int total;
+  @JsonKey(defaultValue: 0)
   final int attended;
   final List<StudentAttendance> students;
 
@@ -41,7 +43,7 @@ extension StudentAttendanceListWithCount on List<StudentAttendance> {
       this.fold<int>(0, (sum, s) => s.selected ? sum + 1 : sum);
 }
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class StudentAttendance extends _StudentAttendance with _$StudentAttendance {
   StudentAttendance(String uid, String name, StudentAttendanceStatus status)
       : super(uid, name, status);

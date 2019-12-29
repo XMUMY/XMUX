@@ -165,7 +165,7 @@ class _LecturerDetailPage extends StatelessWidget {
                   label: S.of(context).Calendar_AttendanceMarkAbsent,
                   child: Icon(Icons.cancel),
                   backgroundColor: Colors.red,
-                  onTap: () => _updateStatus(StudentAttendanceStatus.none),
+                  onTap: () => _updateStatus(StudentAttendanceStatus.failed),
                 ),
               ],
             ),

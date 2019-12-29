@@ -80,19 +80,9 @@ StudentAttendanceBrief _$StudentAttendanceBriefFromJson(
         ? null
         : DateTime.parse(json['timestampS'] as String),
     json['total'] as int,
-    json['attended'] as int,
+    json['attended'] as int ?? 0,
   );
 }
-
-Map<String, dynamic> _$StudentAttendanceBriefToJson(
-        StudentAttendanceBrief instance) =>
-    <String, dynamic>{
-      'cid': instance.cid,
-      'name': instance.name,
-      'timestampS': instance.timestamp?.toIso8601String(),
-      'total': instance.total,
-      'attended': instance.attended,
-    };
 
 StudentAttendanceDetail _$StudentAttendanceDetailFromJson(
     Map<String, dynamic> json) {
@@ -103,7 +93,7 @@ StudentAttendanceDetail _$StudentAttendanceDetailFromJson(
         ? null
         : DateTime.parse(json['timestampS'] as String),
     json['total'] as int,
-    json['attended'] as int,
+    json['attended'] as int ?? 0,
     (json['students'] as List)
         ?.map((e) => e == null
             ? null
@@ -112,17 +102,6 @@ StudentAttendanceDetail _$StudentAttendanceDetailFromJson(
   );
 }
 
-Map<String, dynamic> _$StudentAttendanceDetailToJson(
-        StudentAttendanceDetail instance) =>
-    <String, dynamic>{
-      'cid': instance.cid,
-      'name': instance.name,
-      'timestampS': instance.timestamp?.toIso8601String(),
-      'total': instance.total,
-      'attended': instance.attended,
-      'students': instance.students,
-    };
-
 StudentAttendance _$StudentAttendanceFromJson(Map<String, dynamic> json) {
   return StudentAttendance(
     json['uid'] as String,
@@ -130,13 +109,6 @@ StudentAttendance _$StudentAttendanceFromJson(Map<String, dynamic> json) {
     _$enumDecodeNullable(_$StudentAttendanceStatusEnumMap, json['status']),
   );
 }
-
-Map<String, dynamic> _$StudentAttendanceToJson(StudentAttendance instance) =>
-    <String, dynamic>{
-      'uid': instance.uid,
-      'name': instance.name,
-      'status': _$StudentAttendanceStatusEnumMap[instance.status],
-    };
 
 T _$enumDecode<T>(
   Map<T, dynamic> enumValues,
