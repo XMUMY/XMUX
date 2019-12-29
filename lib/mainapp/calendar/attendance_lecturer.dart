@@ -27,9 +27,7 @@ class _LecturerPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: Hero(
-                  // TODO: Remove random.
-                  tag: brief.timestamp.toString() +
-                      Random().nextInt(100).toString(),
+                  tag: brief.timestamp,
                   child: Text(
                     brief.name,
                     style: Theme.of(context).textTheme.subhead,

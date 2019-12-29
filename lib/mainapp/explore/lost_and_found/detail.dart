@@ -65,6 +65,8 @@ class LostAndFoundDetailPage extends StatelessWidget {
                         new Text(MainLocalizations.of(context)
                                 .get("lostandfound/things") +
                             dataSnapshot.value['brief']),
+                        Text(
+                            'Contact: ${dataSnapshot.value['uid']}@xmu.edu.my'),
                         new Divider(),
                         new Text(dataSnapshot.value['details']),
                       ],
