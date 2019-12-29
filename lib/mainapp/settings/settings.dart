@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
@@ -39,7 +40,7 @@ class SettingsPage extends StatelessWidget {
                 Navigator.of(context).pushNamed('/Settings/ChangeProfile'),
           ),
           ListTile(
-            title: Text(i18n('Settings/Sessions', context)),
+            title: Text(S.of(context).Settings_Sessions),
             onTap: () => Navigator.of(context).pushNamed('/Settings/Sessions'),
           ),
           ListTile(

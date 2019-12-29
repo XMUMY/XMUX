@@ -1,41 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:xmux/components/empty_error_button.dart';
+import 'package:xmux/components/refreshable.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 
-class SessionsPage extends StatefulWidget {
-  @override
-  _SessionsPageState createState() => _SessionsPageState();
-}
-
-class _SessionsPageState extends State<SessionsPage> {
-  List<Device> devices;
-
-  Future<Null> handleRefresh() async {
+class SessionsPage extends StatelessWidget {
+  Future<List<Device>> handleRefresh() async {
     var resp = await XMUXApi.instance.getDevices(
         Authorization.bearer((await firebaseUser.getIdToken()).token));
-    devices = resp.data;
-    if (mounted) setState(() {});
-  }
-
-  @override
-  void initState() {
-    handleRefresh();
-    super.initState();
+    return resp.data;
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget body;
-    if (devices == null)
-      body = Center(child: CircularProgressIndicator());
-    else if (devices.isEmpty)
-      body = EmptyErrorButton(onRefresh: handleRefresh);
-    else
-      body = RefreshIndicator(
+    return Scaffold(
+      appBar: AppBar(title: Text(S.of(context).Settings_Sessions)),
+      body: Refreshable<List<Device>>(
         onRefresh: handleRefresh,
-        child: ListView.separated(
+        builder: (context, devices) => ListView.separated(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           itemCount: devices.length,
           itemBuilder: (context, index) {
@@ -52,8 +35,7 @@ class _SessionsPageState extends State<SessionsPage> {
           },
           separatorBuilder: (context, index) => Divider(),
         ),
-      );
-
-    return Scaffold(appBar: AppBar(title: Text('Sessions')), body: body);
+      ),
+    );
   }
 }

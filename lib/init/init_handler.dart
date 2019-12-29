@@ -152,11 +152,16 @@ Future<Null> androidInit() async {
   var deviceInfo = await DeviceInfoPlugin().androidInfo;
 
   // Replace android transition theme if >= 9.0
-  if (int.parse(deviceInfo.version.release.split('.').first) >= 9)
+  if (int.parse(deviceInfo.version.release.split('.').first) >= 9) {
     ThemeConfig.defaultTheme = ThemeConfig.defaultTheme.copyWith(
         pageTransitionsTheme: PageTransitionsTheme(builders: {
       TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
     }));
+    ThemeConfig.defaultDarkTheme = ThemeConfig.defaultDarkTheme.copyWith(
+        pageTransitionsTheme: PageTransitionsTheme(builders: {
+      TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
+    }));
+  }
 
   XMUXApi.instance.refreshDevice(
     Authorization.bearer((await firebaseUser.getIdToken()).token),

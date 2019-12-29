@@ -36,6 +36,7 @@ class S implements WidgetsLocalizations {
   String get General_Weekday5 => "Friday";
   String get General_Weekday6 => "Saturday";
   String get General_Weekday7 => "Sunday";
+  String get Settings_Sessions => "Sessions";
   String get SignIn_CampusID => "Campus ID";
   String get SignIn_Docs => "Help Docs";
   String get SignIn_ErrorDeprecated => "Please upgrade! The version of app is no longer supported!";
@@ -100,6 +101,8 @@ class $zh_CN extends S {
   String get SignIn_RegisterTitle => "欢迎来到 XMUM！";
   @override
   String get SignIn_ErrorInvalidPassword => "用户名或密码无效";
+  @override
+  String get Settings_Sessions => "会话";
   @override
   String get General_Weekday7 => "周日";
   @override

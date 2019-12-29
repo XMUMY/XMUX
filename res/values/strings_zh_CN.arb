@@ -31,5 +31,6 @@
   "Calendar_AttendanceSignInFinished": "签到成功",
   "Calendar_AttendanceSignInFailed": "签到失败： $tip",
   "Calendar_AttendanceMarkAttended": "标记为出席",
-  "Calendar_AttendanceMarkAbsent": "标记为缺席"
+  "Calendar_AttendanceMarkAbsent": "标记为缺席",
+  "Settings_Sessions": "会话"
 }

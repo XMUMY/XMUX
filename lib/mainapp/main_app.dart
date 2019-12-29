@@ -71,7 +71,7 @@ class MainApp extends StatelessWidget {
             theme: s.state.uiState.darkMode
                 ? ThemeConfig.defaultDarkTheme
                 : ThemeConfig.defaultTheme,
-            darkTheme: ThemeData.dark(),
+            darkTheme: ThemeConfig.defaultDarkTheme,
             navigatorObservers: <NavigatorObserver>[
               // Only trace in release mode.
               if (!kIsWeb && bool.fromEnvironment('dart.vm.product'))
