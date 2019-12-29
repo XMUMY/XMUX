@@ -28,7 +28,7 @@
   "Calendar_AttendanceRate": "出勤率",
   "Calendar_AttendanceSignIn": "签到",
   "Calendar_AttendanceSignInMarked": "等待确认···",
-  "Calendar_AttendanceSignInFinished": "签到成功",
+  "Calendar_AttendanceSignInSucceeded": "签到成功",
   "Calendar_AttendanceSignInFailed": "签到失败： $tip",
   "Calendar_AttendanceMarkAttended": "标记为出席",
   "Calendar_AttendanceMarkAbsent": "标记为缺席",

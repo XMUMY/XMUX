@@ -69,8 +69,8 @@ class AttendanceHistoryItem extends StatelessWidget {
       case AttendanceStatus.marked:
         message = S.of(context).Calendar_AttendanceSignInMarked;
         break;
-      case AttendanceStatus.success:
-        message = S.of(context).Calendar_AttendanceSignInFinished;
+      case AttendanceStatus.succeeded:
+        message = S.of(context).Calendar_AttendanceSignInSucceeded;
         break;
       case AttendanceStatus.failed:
         message = S.of(context).Calendar_AttendanceSignInFailed(message);
@@ -105,7 +105,7 @@ class AttendanceHistoryItem extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Icon(record.status == AttendanceStatus.success
+          child: Icon(record.status == AttendanceStatus.succeeded
               ? Icons.done
               : record.status == AttendanceStatus.failed
                   ? Icons.error_outline

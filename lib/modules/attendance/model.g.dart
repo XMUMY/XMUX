@@ -49,7 +49,7 @@ T _$enumDecodeNullable<T>(
 
 const _$AttendanceStatusEnumMap = {
   AttendanceStatus.marked: 'marked',
-  AttendanceStatus.success: 'success',
+  AttendanceStatus.succeeded: 'success',
   AttendanceStatus.failed: 'failed',
 };
 

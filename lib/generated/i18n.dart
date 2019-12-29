@@ -26,8 +26,8 @@ class S implements WidgetsLocalizations {
   String get Calendar_AttendanceMarkAttended => "Mark as Attended";
   String get Calendar_AttendanceRate => "Attendance";
   String get Calendar_AttendanceSignIn => "Sign in";
-  String get Calendar_AttendanceSignInFinished => "Succeeded";
   String get Calendar_AttendanceSignInMarked => "Waiting...";
+  String get Calendar_AttendanceSignInSucceeded => "Succeeded";
   String get General_Continue => "Continue";
   String get General_Weekday1 => "Monday";
   String get General_Weekday2 => "Tuesday";
@@ -120,9 +120,9 @@ class $zh_CN extends S {
   @override
   String get General_Weekday1 => "周一";
   @override
-  String get SignIn_RegisterEmail => "邮箱";
+  String get Calendar_AttendanceSignInSucceeded => "签到成功";
   @override
-  String get Calendar_AttendanceSignInFinished => "签到成功";
+  String get SignIn_RegisterEmail => "邮箱";
   @override
   String get Calendar_AttendanceMarkAbsent => "标记为缺席";
   @override
