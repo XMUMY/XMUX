@@ -30,7 +30,6 @@ class AcademicCalendarPage extends StatelessWidget {
               for (var k in undergraduate.keys)
                 PhotoView(
                   imageProvider: CachedNetworkImageProvider(undergraduate[k]),
-                  loadingChild: Center(child: CircularProgressIndicator()),
                   maxScale: 1.5,
                   minScale: 0.3,
                 ),
@@ -38,7 +37,6 @@ class AcademicCalendarPage extends StatelessWidget {
               for (var k in foundation.keys)
                 PhotoView(
                   imageProvider: CachedNetworkImageProvider(foundation[k]),
-                  loadingChild: Center(child: CircularProgressIndicator()),
                   maxScale: 1.5,
                   minScale: 0.3,
                 ),

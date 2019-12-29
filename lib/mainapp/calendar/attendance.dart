@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
-import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/components/refreshable.dart';
@@ -21,46 +18,42 @@ part 'attendance_lecturer.dart';
 Widget AttendancePage() =>
     store.state.user.isStudent ? _StudentPage() : _LecturerPage();
 
-class _StudentPage extends StatefulWidget {
+class _StudentPage extends StatelessWidget {
   final api = AttendanceApi(
     address: BackendApiConfig.attendanceAddress,
     uid: store.state.user.campusId,
   );
 
-  @override
-  _StudentPageState createState() => _StudentPageState();
-}
-
-class _StudentPageState extends State<_StudentPage> {
-  List<AttendanceRecord> history;
-
-  Future<Null> update() async {
-    history = await widget.api.getHistory();
-    if (mounted) setState(() {});
-  }
-
-  @override
-  void initState() {
-    update();
-    super.initState();
-  }
+  Future<List<AttendanceRecord>> _handleUpdate() async =>
+      await api.getHistory();
 
   @override
   Widget build(BuildContext context) {
-    return history == null
-        ? Center(child: CircularProgressIndicator())
-        : history.isEmpty
-            ? EmptyErrorPage()
-            : RefreshIndicator(
-                onRefresh: update,
-                child: ListView.separated(
-                  padding: const EdgeInsets.all(15),
-                  itemCount: history.length,
-                  separatorBuilder: (_, __) => Divider(),
-                  itemBuilder: (_, index) =>
-                      AttendanceHistoryItem(history[index]),
-                ),
-              );
+    return Refreshable(
+      onRefresh: _handleUpdate,
+      builder: (context, history) => ListView.separated(
+        padding: const EdgeInsets.all(15),
+        itemCount: history.length,
+        separatorBuilder: (_, index) => AnimationConfiguration.staggeredList(
+          position: index,
+          duration: const Duration(milliseconds: 250),
+          child: SlideAnimation(
+            verticalOffset: 50,
+            child: Divider(),
+          ),
+        ),
+        itemBuilder: (_, index) => AnimationConfiguration.staggeredList(
+          position: index,
+          duration: const Duration(milliseconds: 250),
+          child: SlideAnimation(
+            verticalOffset: 50,
+            child: FadeInAnimation(
+              child: AttendanceHistoryItem(history[index]),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

@@ -57,7 +57,8 @@ class CampusPage extends StatelessWidget {
                     svg: 'res/campus/vpn.svg',
                     title: 'Campus/AcademicTools/VPN/Title',
                     path: '/Campus/ACTools/VPN'),
-              if (store.state.settingState.enableFunctionsUnderDev)
+              if (store.state.settingState.enableFunctionsUnderDev &&
+                  store.state.user.isStudent)
                 _ToolButton(
                   svg: 'res/campus/ecr.svg',
                   title: 'Campus/AcademicTools/ECR/Title',
