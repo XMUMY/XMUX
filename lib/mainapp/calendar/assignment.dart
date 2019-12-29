@@ -62,11 +62,14 @@ class _AssCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   ),
-                  new Column(
-                    children: assData.assignments
-                        .map((var e) => new _AssButton(e))
-                        .toList(),
-                  ),
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemCount: assData.assignments.length,
+                    itemBuilder: (_, index) =>
+                        _AssButton(assData.assignments[index]),
+                    separatorBuilder: (_, index) => Divider(),
+                  )
                 ],
               ),
             ),
@@ -110,23 +113,18 @@ class _AssButton extends StatelessWidget {
                     .format(_assTime),
                 style: Theme.of(context).textTheme.body1,
               ),
-              _assTime.isAfter(new DateTime.now())
-                  ? new Text(
-                      " (" +
-                          _assTime
-                              .difference(new DateTime.now())
-                              .inDays
-                              .toString() +
-                          MainLocalizations.of(context)
-                              .get("lostandfound/day") +
-                          ")",
-                      style: Theme.of(context).textTheme.body1)
-                  : new Container(),
+              if (_assTime.isAfter(DateTime.now()))
+                new Text(
+                    " (" +
+                        _assTime
+                            .difference(new DateTime.now())
+                            .inDays
+                            .toString() +
+                        MainLocalizations.of(context).get("lostandfound/day") +
+                        ")",
+                    style: Theme.of(context).textTheme.body1),
             ],
           ),
-          new Divider(
-            height: 5,
-          )
         ],
       ),
     );
