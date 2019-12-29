@@ -60,12 +60,15 @@ class _EmgsPageState extends State<EmgsPage> {
         leading: BackButton(
           color: Theme.of(context).textTheme.button.color,
         ),
-        title: CachedNetworkImage(
-          imageUrl:
-              'https://visa.educationmalaysia.gov.my/skin/frontend/emgs/visa/images/logo-emgs.png',
-          placeholder: (ctx, _) => Text(
-            i18n('Tools/Emgs', context),
-            style: Theme.of(context).textTheme.title,
+        title: SizedBox(
+          height: kToolbarHeight,
+          child: CachedNetworkImage(
+            imageUrl:
+                'https://cdn.educationmalaysia.gov.my/wp-content/uploads/2019/11/08054212/emgs-logo1.png',
+            placeholder: (ctx, _) => Text(
+              i18n('Tools/Emgs', context),
+              style: Theme.of(context).textTheme.title,
+            ),
           ),
         ),
         backgroundColor: Theme.of(context).canvasColor,
