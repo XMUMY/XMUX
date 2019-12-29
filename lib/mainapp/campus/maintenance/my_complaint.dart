@@ -1,34 +1,17 @@
 part of 'maintenance.dart';
 
-class MyComplaintsPage extends StatefulWidget {
+class MyComplaintsPage extends StatelessWidget {
   final Maintenance maintenance;
 
   MyComplaintsPage(this.maintenance);
 
-  @override
-  _MyComplaintsPageState createState() => _MyComplaintsPageState();
-}
-
-class _MyComplaintsPageState extends State<MyComplaintsPage> {
-  List<MyRequest> myComplaints;
-
-  Future<Null> _handleUpdate() async {
-    var myRequests = await widget.maintenance.myRequests;
-    if (mounted) setState(() => myComplaints = myRequests);
-  }
-
-  @override
-  void initState() {
-    _handleUpdate();
-    super.initState();
-  }
+  Future<List<MyRequest>> _handleUpdate() async => await maintenance.myRequests;
 
   @override
   Widget build(BuildContext context) {
-    if (myComplaints == null) return Center(child: CircularProgressIndicator());
-    return RefreshIndicator(
+    return Refreshable<List<MyRequest>>(
       onRefresh: _handleUpdate,
-      child: ListView.builder(
+      builder: (context, myComplaints) => ListView.builder(
         padding: const EdgeInsets.all(10),
         itemCount: myComplaints.length,
         itemBuilder: (context, index) {

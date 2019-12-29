@@ -15,13 +15,22 @@ class Maintenance {
   final _dio = Dio()
     ..interceptors.add(NBCookieManager(CookieJar()))
     ..options.baseUrl = MAINTENANCE_URL;
+
   final String _uid, _password;
-  var _isLogin = false;
+
+  /// Future for login procedure.
+  Future<void> loginFuture;
 
   Maintenance(this._uid, this._password);
 
-  /// Ensure login successfully with given credential.
+  /// Ensure login successfully.
   Future<void> ensureLogin() async {
+    if (loginFuture == null) loginFuture = login();
+    await loginFuture;
+  }
+
+  /// Login with given credential.
+  Future<void> login() async {
     try {
       var loginPage = await _dio.get('/Account/Login');
       var token = parse(loginPage.data)
@@ -42,7 +51,7 @@ class Maintenance {
       );
     } on DioError catch (e) {
       if (e.response == null || e.response.statusCode != 302) rethrow;
-      if (e.response.statusCode == 302) _isLogin = true;
+      if (e.response.statusCode == 302) return;
     }
   }
 
@@ -75,7 +84,7 @@ class Maintenance {
 
   /// Get my requests.
   Future<List<MyRequest>> get myRequests async {
-    if (!_isLogin) await ensureLogin();
+    await ensureLogin();
     var myRequestPageResp = await _dio.get('/Reader/Ask');
 
     var myRequestPage = parse(myRequestPageResp.data)
@@ -114,7 +123,7 @@ class Maintenance {
 
   /// Get my form.
   Future<RequestForm> get form async {
-    if (!_isLogin) await ensureLogin();
+    await ensureLogin();
     var askPageResp = await _dio.get('/Reader/Ask/Create');
     var askPage = parse(askPageResp.data);
     var selections = ['#RoomUsage', '#Category', '#Block', '#Wing']

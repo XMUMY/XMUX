@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/page_routes.dart';
+import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/maintenance/maintenance.dart';
 
@@ -13,8 +14,7 @@ part 'request_form.dart';
 
 class MaintenancePage extends StatelessWidget {
   final maintenance =
-      Maintenance(store.state.user.campusId, store.state.user.password)
-        ..ensureLogin();
+      Maintenance(store.state.user.campusId, store.state.user.password);
 
   @override
   Widget build(BuildContext context) {
