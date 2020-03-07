@@ -3,7 +3,12 @@ import 'package:json_annotation/json_annotation.dart';
 part 'model.g.dart';
 
 enum AttendStatus { marked, duplicated, failed }
-enum AttendanceStatus { marked, succeeded, failed }
+enum AttendanceStatus {
+  marked,
+  @JsonValue('success')
+  succeeded,
+  failed
+}
 
 @JsonSerializable(createToJson: false)
 class AttendanceRecord {

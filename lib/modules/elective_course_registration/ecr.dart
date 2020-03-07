@@ -152,6 +152,7 @@ class ElectiveCourseRegistrationForm {
         .map((row) => Map.fromIterables(unselectedHead, row))
         .toList();
 
+    selectedCourses.removeWhere((c) => c == null);
     data = ElectiveCourseFormData.fromJson({
       'formGeneralInfo': infoMap,
       'coursesSelected': selectedCourses,

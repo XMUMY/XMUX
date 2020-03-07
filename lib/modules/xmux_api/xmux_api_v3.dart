@@ -43,7 +43,7 @@ class XMUXApiException implements Exception {
 
   XMUXApiException(this.code, this.message);
 
-  String toString() => 'XMUXApiV2/ReceivedError: $code $message';
+  String toString() => 'XMUXApiV3/ReceivedError: $code $message';
 }
 
 /// The general response of XMUX API V2 from server.
