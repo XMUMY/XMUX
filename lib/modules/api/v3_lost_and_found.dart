@@ -26,16 +26,22 @@ class LostAndFoundApi {
 
   Future<XmuxApiResponse<List<LostAndFoundBrief>>> getBriefs(
       {DateTime timestamp}) async {
-    var resp = await _dio.get('/briefs', queryParameters: {
-      if (timestamp != null) 'timestamp': timestampToJson(timestamp),
-    });
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/briefs',
+      queryParameters: {
+        if (timestamp != null) 'timestamp': timestampToJson(timestamp),
+      },
+    );
     return decodeList(resp, 'briefs', LostAndFoundBrief.fromJson);
   }
 
   Future<XmuxApiResponse<LostAndFoundDetail>> getDetail(String id) async {
-    var resp = await _dio.get('/item', queryParameters: {
-      'id': id,
-    });
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/item',
+      queryParameters: {
+        'id': id,
+      },
+    );
     return decodeResponse(resp, LostAndFoundDetail.fromJson);
   }
 }

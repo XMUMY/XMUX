@@ -3,7 +3,13 @@ import 'dart:ui';
 import 'package:dio/dio.dart';
 
 import 'authorization.dart';
+import 'common.dart';
+import 'models/v3_bridge.dart';
+import 'models/v3_user.dart';
 import 'v3_lost_and_found.dart';
+
+export 'authorization.dart';
+export 'common.dart' show XmuxApiResponse, XmuxApiException;
 
 class XmuxApi {
   /// Unique instance of XMUXApi.
@@ -46,5 +52,111 @@ class XmuxApi {
       {bool eraseAuthorization = false, Authorization authorization}) {
     if (eraseAuthorization) _authorization.erase();
     if (authorization != null) _authorization.mergeFrom(authorization);
+  }
+
+  /// Login with given credential.
+  /// Returns firebase custom token in order to login firebase client.
+  Future<XmuxApiResponse<LoginResp>> login(String uid, String password) async {
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/user/login',
+      options: await Authorization.basic(uid, password).options,
+    );
+    return decodeResponse(resp, LoginResp.fromJson);
+  }
+
+  /// Register user if server cannot get adequate information to register automatically.
+  Future<XmuxApiResponse<LoginResp>> register(
+      String uid, String password, String displayName, String email) async {
+    var res = await _dio.post<Map<String, dynamic>>(
+      '/user/login',
+      data: {'displayName': displayName, 'email': email},
+      options: await Authorization.basic(uid, password).options,
+    );
+    return decodeResponse(res, LoginResp.fromJson);
+  }
+
+  /// Refresh device and push channel/key.
+  Future<XmuxApiResponse<Null>> refreshDevice(
+    String deviceId,
+    String deviceModel,
+    String deviceName, {
+    String pushChannel,
+    String pushKey,
+  }) async {
+    var resp = await _dio.put<Map<String, dynamic>>(
+      '/user/device',
+      data: {
+        'deviceId': deviceId,
+        'deviceModel': deviceModel,
+        'deviceName': deviceName,
+        'pushChannel': pushChannel,
+        'pushKey': pushKey,
+      },
+      options: await _authorization.options,
+    );
+    return decodeResponse(resp, (_) => null);
+  }
+
+  /// Get devices associated with user.
+  Future<XmuxApiResponse<List<Device>>> get devices async {
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/user/devices',
+      options: await _authorization.options,
+    );
+    return decodeList(resp, 'devices', Device.fromJson);
+  }
+
+  Future<XmuxApiResponse<List<StudentAttendanceBrief>>>
+      getStudentAttendanceBriefs({String cid}) async {
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/ac/attendance/briefs',
+      queryParameters: {'cid': cid},
+      options: await _authorization.options,
+    );
+    return decodeResponse(
+        resp,
+        (data) => List<Map<String, dynamic>>.from(data['briefs'] ?? [])
+            .map(StudentAttendanceBrief.fromJson)
+            .toList());
+  }
+
+  Future<XmuxApiResponse<StudentAttendanceDetail>> getStudentAttendanceDetail(
+      String cid, DateTime timestamp) async {
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/ac/attendance/detail',
+      queryParameters: {
+        'cid': cid,
+        'timestampS': timestamp.toUtc().toIso8601String() + '+0000'
+      },
+      options: await _authorization.options,
+    );
+    return decodeResponse(resp, StudentAttendanceDetail.fromJson);
+  }
+
+  /// Get timetable of current semester from academic system.
+  Future<XmuxApiResponse<GetTimetableResp>> get timetable async {
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/ac/timetable',
+      options: Options(headers: _authorization.basicHeader),
+    );
+    return decodeResponse(resp, GetTimetableResp.fromJson);
+  }
+
+  Future<XmuxApiResponse<Null>> updateStudentAttendance(
+      String cid,
+      DateTime timestamp,
+      StudentAttendanceStatus status,
+      List<String> update) async {
+    var resp = await _dio.post<Map<String, dynamic>>(
+      '/ac/attendance/update',
+      data: {
+        'cid': cid,
+        'timestampS': timestamp.toUtc().toIso8601String() + '+0000',
+        'status': 3 - status.index,
+        'update': update
+      },
+      options: await _authorization.options,
+    );
+    return decodeResponse(resp, (_) => null);
   }
 }

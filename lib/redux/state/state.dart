@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:xmux/modules/api/models/v3_bridge.dart';
 import 'package:xmux/modules/emgs/emgs.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v3.dart' show GetTimetableResp;
 
 part 'query.dart';
 part 'state.g.dart';

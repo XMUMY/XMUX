@@ -6,7 +6,6 @@ import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v3.dart' show Authorization;
 
 import 'actions/actions.dart';
 import 'state/state.dart';
@@ -59,12 +58,7 @@ void apiRequestMiddleware(
 Future<Null> apiCall(Store<MainAppState> store, XMUXApiAction action,
     NextDispatcher next) async {
   try {
-    await action(
-      auth: Authorization.basic(
-        store.state.user.campusId,
-        store.state.user.password,
-      ),
-    );
+    await action();
     next(action);
   } catch (e) {
     if (action.onError != null)

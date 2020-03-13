@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:sentry/sentry.dart';
+import 'package:xmux/modules/api/xmux_api.dart';
 
 import 'config.dart';
 import 'init/login_app.dart';
@@ -54,6 +55,7 @@ String i18n(String text, BuildContext context, {String app}) {
 Future<Null> logout({String message}) async {
   firebaseUser = null;
   await FirebaseAuth.instance.signOut();
+  XmuxApi.instance.configure(eraseAuthorization: true);
   store.dispatch(LogoutAction());
   runApp(LoginApp(message: message));
 }

@@ -2,9 +2,7 @@ part of 'attendance.dart';
 
 class _LecturerPage extends StatelessWidget {
   Future<List<StudentAttendanceBrief>> _handleUpdate() async {
-    var resp = await XMUXApi.instance.getStudentAttendanceBriefs(
-        Authorization.basic(
-            store.state.user.campusId, store.state.user.password));
+    var resp = await XmuxApi.instance.getStudentAttendanceBriefs();
     return resp.data;
   }
 
@@ -73,18 +71,13 @@ class _LecturerDetailPage extends StatelessWidget {
   _LecturerDetailPage({Key key, this.brief}) : super(key: key);
 
   Future<StudentAttendanceDetail> _handleUpdate() async {
-    var resp = await XMUXApi.instance.getStudentAttendanceDetail(
-        Authorization.basic(
-            store.state.user.campusId, store.state.user.password),
-        brief.cid,
-        brief.timestamp);
+    var resp = await XmuxApi.instance
+        .getStudentAttendanceDetail(brief.cid, brief.timestamp);
     return resp.data;
   }
 
   Future<void> _updateStatus(StudentAttendanceStatus status) async {
-    await XMUXApi.instance.updateStudentAttendance(
-        Authorization.basic(
-            store.state.user.campusId, store.state.user.password),
+    await XmuxApi.instance.updateStudentAttendance(
         brief.cid,
         brief.timestamp,
         status,

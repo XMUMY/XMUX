@@ -8,7 +8,7 @@ import 'package:tuple/tuple.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/init_handler.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
+import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/redux/actions/actions.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -143,16 +143,18 @@ class _RegisterButtonState extends State<_RegisterButton> {
     // Register
     String customToken;
     try {
-      var registerResp = await XMUXApi.instance
+      var registerResp = await XmuxApi.instance
           .register(widget._uid, widget._password, name, email);
       customToken = registerResp.data.customToken;
-    } on XMUXApiException catch (e) {
+    } on XmuxApiException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(
           SnackBar(content: Text(S.of(context).General_Error(e.message))));
       return;
     }
     store.dispatch(LoginAction(widget._uid, widget._password));
+    XmuxApi.instance.configure(
+        authorization: Authorization.basic(widget._uid, widget._password));
 
     // Login firebase.
     try {

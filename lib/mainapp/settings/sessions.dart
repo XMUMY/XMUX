@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/generated/i18n.dart';
-import 'package:xmux/globals.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
+import 'package:xmux/modules/api/models/v3_user.dart';
+import 'package:xmux/modules/api/xmux_api.dart';
 
 class SessionsPage extends StatelessWidget {
   Future<List<Device>> handleRefresh() async {
-    var resp = await XMUXApi.instance.getDevices(
-        Authorization.bearer((await firebaseUser.getIdToken()).token));
+    var resp = await XmuxApi.instance.devices;
     return resp.data;
   }
 

@@ -1,16 +1,10 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'models.dart';
+part of 'v3_bridge.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
-
-LoginResp _$LoginRespFromJson(Map<String, dynamic> json) {
-  return LoginResp(
-    json['customToken'] as String,
-  );
-}
 
 GetTimetableResp _$GetTimetableRespFromJson(Map<String, dynamic> json) {
   return GetTimetableResp(
@@ -60,17 +54,6 @@ Map<String, dynamic> _$TimetableClassToJson(TimetableClass instance) =>
       'endDay': instance.endDay?.toIso8601String(),
     };
 
-Device _$DeviceFromJson(Map<String, dynamic> json) {
-  return Device(
-    json['deviceId'] as String,
-    json['deviceModel'] as String,
-    json['deviceName'] as String,
-    json['lastSeenS'] == null
-        ? null
-        : DateTime.parse(json['lastSeenS'] as String),
-  );
-}
-
 StudentAttendanceBrief _$StudentAttendanceBriefFromJson(
     Map<String, dynamic> json) {
   return StudentAttendanceBrief(
@@ -106,48 +89,9 @@ StudentAttendance _$StudentAttendanceFromJson(Map<String, dynamic> json) {
   return StudentAttendance(
     json['uid'] as String,
     json['name'] as String,
-    _$enumDecodeNullable(_$StudentAttendanceStatusEnumMap, json['status']),
+    json['status'],
   );
 }
-
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
-}
-
-const _$StudentAttendanceStatusEnumMap = {
-  StudentAttendanceStatus.none: 'none',
-  StudentAttendanceStatus.waiting: 'waiting',
-  StudentAttendanceStatus.attended: 'attended',
-  StudentAttendanceStatus.failed: 'failed',
-};
 
 // **************************************************************************
 // StoreGenerator

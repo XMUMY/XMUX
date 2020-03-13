@@ -1,4 +1,55 @@
-part of 'models.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mobx/mobx.dart';
+
+part 'v3_bridge.g.dart';
+
+@JsonSerializable()
+class GetTimetableResp {
+  final List<TimetableClass> timetable;
+
+  @JsonKey(name: 'recentUpdateS')
+  final DateTime recentUpdate;
+
+  GetTimetableResp(this.timetable, this.recentUpdate);
+
+  static GetTimetableResp fromJson(Map<String, dynamic> json) =>
+      _$GetTimetableRespFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GetTimetableRespToJson(this);
+}
+
+@JsonSerializable()
+class TimetableClass {
+  final String cid;
+  final String name;
+  final String lecturer;
+  final String room;
+  final int day;
+
+  @JsonKey(fromJson: _timeOfDayFromJson, toJson: _timeOfDayToJson)
+  final TimeOfDay start;
+  @JsonKey(fromJson: _timeOfDayFromJson, toJson: _timeOfDayToJson)
+  final TimeOfDay end;
+
+  final DateTime startDay;
+  final DateTime endDay;
+
+  TimetableClass(this.cid, this.name, this.lecturer, this.room, this.day,
+      this.start, this.end, this.startDay, this.endDay);
+
+  static TimetableClass fromJson(Map<String, dynamic> json) =>
+      _$TimetableClassFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TimetableClassToJson(this);
+
+  static TimeOfDay _timeOfDayFromJson(String json) =>
+      TimeOfDay.fromDateTime(DateFormat('HH:mm').parse(json));
+
+  static String _timeOfDayToJson(TimeOfDay timeOfDay) =>
+      '${timeOfDay.hour}:${timeOfDay.minute}';
+}
 
 enum StudentAttendanceStatus { none, waiting, attended, failed }
 

@@ -13,12 +13,11 @@ import 'package:sentry/sentry.dart' as sentry_lib;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/init/login_handler.dart';
 import 'package:xmux/mainapp/main_app.dart';
+import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
-import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 import 'package:xmux/redux/redux.dart';
 
 /// Main initialization progress.
@@ -29,7 +28,7 @@ void init() async {
         sentry.captureException(exception: e.exception, stackTrace: e.stack);
 
   // Create APIv3 Client.
-  XMUXApi(BackendApiConfig.address);
+  XmuxApi(BackendApiConfig.address);
   // Select XMUX API server. (Deprecated)
   v2.XMUXApi([BackendApiConfig.address]);
 
@@ -63,6 +62,9 @@ void init() async {
     logout();
     return;
   }
+  XmuxApi.instance.configure(
+      authorization: Authorization.basic(
+          store.state.user.campusId, store.state.user.password));
 
   // Make sure firebase logged in.
   if (firebaseUser == null &&
@@ -79,15 +81,6 @@ void postInit() async {
   try {
     // Set user info for sentry report.
     sentry.userContext = sentry_lib.User(id: store.state.user.campusId);
-
-    // Register APIv2 user. (Deprecated)
-    try {
-      await v2.XMUXApi.instance.getUser(firebaseUser.uid);
-      await v2.XMUXApi.instance.updateUser(v2.User(
-          firebaseUser.uid, firebaseUser.displayName, firebaseUser.photoUrl));
-    } catch (e) {
-      await LoginHandler.createUser();
-    }
 
     if (Platform.isAndroid) await androidInit();
     if (Platform.isIOS) await iOSInit();
@@ -136,6 +129,9 @@ Future<bool> mobileInit() async {
     if (user == null && firebaseUser != null) logout();
     if (user != null) {
       firebaseUser = user;
+      XmuxApi.instance.configure(
+          authorization: Authorization()
+            ..bearerRefresher = () async => (await user.getIdToken()).token);
 
       // APIv2 JWT configure. (Deprecated)
       v2.XMUXApi.instance.getIdToken =
@@ -163,8 +159,7 @@ Future<Null> androidInit() async {
     }));
   }
 
-  XMUXApi.instance.refreshDevice(
-    Authorization.bearer((await firebaseUser.getIdToken()).token),
+  XmuxApi.instance.refreshDevice(
     deviceInfo.androidId,
     deviceInfo.model,
     '${deviceInfo.manufacturer} ${deviceInfo.model}',
@@ -176,8 +171,7 @@ Future<Null> androidInit() async {
 Future<Null> iOSInit() async {
   var deviceInfo = await DeviceInfoPlugin().iosInfo;
 
-  XMUXApi.instance.refreshDevice(
-    Authorization.bearer((await firebaseUser.getIdToken()).token),
+  XmuxApi.instance.refreshDevice(
     deviceInfo.identifierForVendor,
     deviceInfo.model,
     deviceInfo.name,

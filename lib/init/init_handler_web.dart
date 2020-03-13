@@ -7,15 +7,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/main_app.dart';
+import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
-import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 import 'package:xmux/redux/redux.dart';
 
 /// Main initialization progress.
 void init() async {
   // Create APIv3 Client.
-  XMUXApi(BackendApiConfig.address);
+  XmuxApi(BackendApiConfig.address);
   // Select XMUX API server. (Deprecated)
   v2.XMUXApi([BackendApiConfig.address]);
 

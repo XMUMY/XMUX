@@ -4,8 +4,8 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/mainapp/home/announcements.dart';
 import 'package:xmux/mainapp/home/home_slider.dart';
+import 'package:xmux/modules/api/models/v3_bridge.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v3.dart' hide XMUXApi;
 import 'package:xmux/redux/redux.dart';
 
 class HomePage extends StatelessWidget {

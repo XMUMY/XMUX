@@ -13,13 +13,13 @@ abstract class XMUXApiAction extends MainAppAction {
   final Map<String, String> params;
 
   /// Original API response.
-  XMUXApiResponse response;
+  XmuxApiResponse response;
 
   XMUXApiAction({this.params});
 
   /// Make the action callable.
   /// Should be implemented by different API requests.
-  Future<Null> call({Authorization auth, Map<String, dynamic> params});
+  Future<Null> call({Map<String, dynamic> params});
 }
 
 /// Update timetable of current semester.
@@ -29,10 +29,9 @@ class UpdateTimetableAction extends XMUXApiAction {
   UpdateTimetableAction();
 
   @override
-  Future<Null> call({Authorization auth, Map<String, dynamic> params}) async {
-    var resp = await XMUXApi.instance.getTimetable(auth);
-    timetable = resp.data;
-    response = resp;
+  Future<Null> call({Map<String, dynamic> params}) async {
+    response = await XmuxApi.instance.timetable;
+    timetable = response.data;
   }
 }
 

@@ -16,7 +16,7 @@ import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/init_handler.dart';
 import 'package:xmux/init/login_app.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
+import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/redux/actions/actions.dart';
 
 class LoginPage extends StatelessWidget {
@@ -161,7 +161,7 @@ class _LoginButtonState extends State<_LoginButton> {
     // Login and get custom token.
     String customToken;
     try {
-      var loginResp = await XMUXApi.instance.login(username, password);
+      var loginResp = await XmuxApi.instance.login(username, password);
       if (loginResp.code == 1) {
         // Need register.
         Navigator.of(context)
@@ -169,7 +169,7 @@ class _LoginButtonState extends State<_LoginButton> {
         return;
       }
       customToken = loginResp.data.customToken;
-    } on XMUXApiException catch (e) {
+    } on XmuxApiException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       var msg = e.code == -403
           ? S.of(context).SignIn_ErrorInvalidPassword
@@ -184,6 +184,8 @@ class _LoginButtonState extends State<_LoginButton> {
       return;
     }
     store.dispatch(LoginAction(username, password));
+    XmuxApi.instance
+        .configure(authorization: Authorization.basic(username, password));
 
     // Login firebase.
     try {

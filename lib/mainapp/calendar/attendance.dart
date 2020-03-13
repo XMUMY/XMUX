@@ -9,8 +9,9 @@ import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/api/models/v3_bridge.dart';
+import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v3.dart';
 
 part 'attendance_lecturer.dart';
 
