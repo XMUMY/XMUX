@@ -12,9 +12,7 @@ LostAndFoundBrief _$LostAndFoundBriefFromJson(Map<String, dynamic> json) {
     json['uid'] as String,
     _$enumDecodeNullable(_$LostAndFoundTypeEnumMap, json['type']),
     json['name'] as String,
-    json['timestamp'] == null
-        ? null
-        : DateTime.parse(json['timestamp'] as String),
+    timestampFromJson(json['timestamp'] as int),
     json['location'] as String,
   );
 }
@@ -62,9 +60,7 @@ LostAndFoundDetail _$LostAndFoundDetailFromJson(Map<String, dynamic> json) {
     json['uid'] as String,
     _$enumDecodeNullable(_$LostAndFoundTypeEnumMap, json['type']),
     json['name'] as String,
-    json['timestamp'] == null
-        ? null
-        : DateTime.parse(json['timestamp'] as String),
+    timestampFromJson(json['timestamp'] as int),
     json['location'] as String,
     json['description'] as String,
     (json['contacts'] as Map<String, dynamic>)?.map(

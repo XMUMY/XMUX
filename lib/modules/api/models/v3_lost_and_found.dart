@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../common.dart';
+
 part 'v3_lost_and_found.g.dart';
 
 enum LostAndFoundType {
@@ -15,6 +17,7 @@ class LostAndFoundBrief {
   final String uid;
   final LostAndFoundType type;
   final String name;
+  @JsonKey(fromJson: timestampFromJson)
   final DateTime timestamp;
   final String location;
 
