@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/emgs/emgs.dart' as emgs show getCountryCode;
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
 class DrawerPage extends StatelessWidget {
@@ -24,40 +23,36 @@ class DrawerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var header = FlatButton(
+      onPressed: () => Navigator.of(context).popAndPushNamed('/Settings'),
+      child: Row(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Hero(
+              tag: 'UserAvatar',
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(firebaseUser?.photoUrl),
+                radius: 30,
+              ),
+            ),
+          ),
+          Expanded(
+            child: StoreConnector<MainAppState, String>(
+              converter: (s) => s.state.user.profile?.displayName ?? 'User',
+              builder: (context, s) => Text(s, textAlign: TextAlign.center),
+            ),
+          ),
+        ],
+      ),
+    );
+
     return SizedBox(
       width: 250,
       child: Drawer(
         child: Column(
           children: <Widget>[
-            DrawerHeader(
-              child: FlatButton(
-                onPressed: () =>
-                    Navigator.of(context).popAndPushNamed('/Settings'),
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Hero(
-                        tag: 'UserAvatar',
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              XMUXApi.convertAvatarUrl(firebaseUser?.photoUrl,
-                                  store.state.user.moodleKey)),
-                          radius: 30,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        "${i18n('Me/Header/Welcome', context)}\n"
-                        '${firebaseUser?.displayName ?? 'User'}',
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            DrawerHeader(child: header),
             Expanded(
               child: ListView(
                 children: <Widget>[
@@ -154,7 +149,7 @@ class EndDrawer extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
-                      .headline
+                      .headline2
                       .copyWith(fontSize: 55),
                 ),
               ),

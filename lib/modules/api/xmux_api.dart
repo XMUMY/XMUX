@@ -106,6 +106,15 @@ class XmuxApi {
     return decodeList(resp, 'devices', Device.fromJson);
   }
 
+  Future<XmuxApiResponse<Profile>> get profile async {
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/user/profile',
+      // TODO: Allow JWT
+      options: Options(headers: _authorization.basicHeader),
+    );
+    return decodeResponse(resp, Profile.fromJson);
+  }
+
   Future<XmuxApiResponse<List<StudentAttendanceBrief>>>
       getStudentAttendanceBriefs({String cid}) async {
     var resp = await _dio.get<Map<String, dynamic>>(

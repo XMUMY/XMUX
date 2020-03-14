@@ -17,4 +17,4 @@ QueryState _updateEmgsReducer(
 
 QueryState _updateTimetableReducer(
         QueryState oldState, UpdateTimetableAction action) =>
-    oldState.copyWith(timetable: action.timetable);
+    oldState.copyWith(timetable: action.response.data);

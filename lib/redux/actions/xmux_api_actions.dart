@@ -1,7 +1,7 @@
 part of 'actions.dart';
 
 /// General actions for XMUX API.
-abstract class XMUXApiAction extends MainAppAction {
+abstract class XmuxApiAction<T> extends MainAppAction {
   /// A [Future] of API request process.
   /// It is [null] by default and will be assign by [apiRequestMiddleware].
   Future future;
@@ -13,9 +13,9 @@ abstract class XMUXApiAction extends MainAppAction {
   final Map<String, String> params;
 
   /// Original API response.
-  XmuxApiResponse response;
+  XmuxApiResponse<T> response;
 
-  XMUXApiAction({this.params});
+  XmuxApiAction({this.params});
 
   /// Make the action callable.
   /// Should be implemented by different API requests.
@@ -23,15 +23,17 @@ abstract class XMUXApiAction extends MainAppAction {
 }
 
 /// Update timetable of current semester.
-class UpdateTimetableAction extends XMUXApiAction {
-  GetTimetableResp timetable;
-
-  UpdateTimetableAction();
-
+class UpdateTimetableAction extends XmuxApiAction<GetTimetableResp> {
   @override
   Future<Null> call({Map<String, dynamic> params}) async {
     response = await XmuxApi.instance.timetable;
-    timetable = response.data;
+  }
+}
+
+class UpdateUserProfileAction extends XmuxApiAction<Profile> {
+  @override
+  Future<Null> call({Map<String, dynamic> params}) async {
+    response = await XmuxApi.instance.profile;
   }
 }
 

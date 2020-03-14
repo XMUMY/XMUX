@@ -24,3 +24,15 @@ class Device {
 
   static Device fromJson(Map<String, dynamic> json) => _$DeviceFromJson(json);
 }
+
+@JsonSerializable()
+class Profile {
+  final String displayName;
+  final String name;
+
+  Profile(this.displayName, this.name);
+
+  static Profile fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProfileToJson(this);
+}

@@ -26,16 +26,19 @@ MainAppState appReducer(MainAppState oldState, dynamic action) {
 
 /// Reducers for user.
 final Reducer<User> userReducers = combineReducers([
-  TypedReducer<User, LoginAction>(_loginReducer),
-  TypedReducer<User, UpdateEPaymentRecordsAction>(
-      _updateEPaymentPasswordReducer),
-  TypedReducer<User, UpdateAssignmentsAction>(_updateMoodleKeyReducer),
+  TypedReducer(_loginReducer),
+  TypedReducer(_updateUserProfileReducer),
+  TypedReducer(_updateEPaymentPasswordReducer),
+  TypedReducer(_updateMoodleKeyReducer),
 ]);
 
 User _loginReducer(User oldState, LoginAction action) => oldState.copyWith(
       campusID: action.campusId,
       campusIDPassword: action.password,
     );
+
+User _updateUserProfileReducer(User oldState, UpdateUserProfileAction action) =>
+    oldState.copyWith(profile: action.response.data);
 
 /// Update ePayment password when first login.
 User _updateEPaymentPasswordReducer(

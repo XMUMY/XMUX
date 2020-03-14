@@ -109,6 +109,9 @@ User _$UserFromJson(Map<String, dynamic> json) {
     json['password'] as String,
     json['ePaymentPassword'] as String,
     json['moodleKey'] as String,
+    json['profile'] == null
+        ? null
+        : Profile.fromJson(json['profile'] as Map<String, dynamic>),
   );
 }
 
@@ -117,4 +120,5 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'password': instance.password,
       'ePaymentPassword': instance.ePaymentPassword,
       'moodleKey': instance.moodleKey,
+      'profile': instance.profile,
     };
