@@ -26,11 +26,13 @@ Device _$DeviceFromJson(Map<String, dynamic> json) {
 Profile _$ProfileFromJson(Map<String, dynamic> json) {
   return Profile(
     json['displayName'] as String,
+    json['avatar'] as String,
     json['name'] as String,
   );
 }
 
 Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       'displayName': instance.displayName,
+      'avatar': instance.avatar,
       'name': instance.name,
     };

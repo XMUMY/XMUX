@@ -6,6 +6,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/api/models/v3_user.dart';
+import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 import 'item_edit_page.dart';

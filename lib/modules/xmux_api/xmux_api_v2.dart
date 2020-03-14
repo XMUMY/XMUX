@@ -168,34 +168,6 @@ class XMUXApi {
         response, (b) => b.map((b) => BillingRecord.fromJson(b)).toList());
   }
 
-  Future<XMUXApiResponse<Null>> createUser(XMUXApiAuth auth, User user) async {
-    var response = await _dio.post<Map<String, dynamic>>(
-        '/users/${auth.campusID}',
-        data: user.toJson()..addAll({'pass': auth.campusIDPassword}));
-    return _generateResponse<Map<String, dynamic>, Null>(response, (_) {});
-  }
-
-  Future<Null> device(String id, String fcmKey, String remark) async {
-    // Refresh JWT token if getter not null.
-    if (getIdToken != null) configure(jwt: await getIdToken());
-
-    await _dio.post('/notifications/devices', data: {
-      'deviceId': id,
-      'deviceType': 'fcm',
-      'key': fcmKey,
-      'remark': remark
-    });
-  }
-
-  Future<XMUXApiResponse<User>> getUser(String campusId) async {
-    // Refresh JWT token if getter not null.
-    if (getIdToken != null) configure(jwt: await getIdToken());
-
-    var response = await _dio.get<Map<String, dynamic>>('/users/$campusId');
-    return _generateResponse<Map<String, dynamic>, User>(
-        response, (data) => User.fromJson(data['user']));
-  }
-
   Future<XMUXApiResponse<List<Announcement>>> homepageAnnouncements(
       XMUXApiAuth auth) async {
     var response = await _dio.post<Map<String, dynamic>>(

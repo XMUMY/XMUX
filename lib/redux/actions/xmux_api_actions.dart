@@ -33,7 +33,7 @@ class UpdateTimetableAction extends XmuxApiAction<GetTimetableResp> {
 class UpdateUserProfileAction extends XmuxApiAction<Profile> {
   @override
   Future<Null> call({Map<String, dynamic> params}) async {
-    response = await XmuxApi.instance.profile;
+    response = await XmuxApi.instance.getProfile();
   }
 }
 

@@ -28,9 +28,10 @@ class Device {
 @JsonSerializable()
 class Profile {
   final String displayName;
+  final String avatar;
   final String name;
 
-  Profile(this.displayName, this.name);
+  Profile(this.displayName, this.avatar, this.name);
 
   static Profile fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);
 

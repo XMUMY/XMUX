@@ -62,6 +62,7 @@ void postInit() async {
       store.dispatch(UpdateInfoAction());
       store.dispatch(UpdateAcAction());
       store.dispatch(UpdateCoursesAction());
+      store.dispatch(UpdateUserProfileAction());
     }
     runApp(MainApp());
   }

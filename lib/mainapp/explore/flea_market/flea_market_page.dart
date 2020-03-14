@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/api/models/v3_user.dart';
+import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 import 'item_detail_page.dart';
@@ -59,13 +61,13 @@ class _ItemCardState extends State<ItemCard> {
   var _elevation = 0.0;
 
   /// User to get name and avatar.
-  User user;
+  Profile user;
 
   @override
   void initState() {
     // Get user by UID.
-    XMUXApi.instance
-        .getUser(widget.item.from)
+    XmuxApi.instance
+        .getProfile(uid: widget.item.from)
         .then((u) => setState(() => user = u.data))
         .catchError(
             (e) => Scaffold.of(context).showSnackBar(
@@ -83,7 +85,7 @@ class _ItemCardState extends State<ItemCard> {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
           builder: (_) => ItemDetailPage(
-              widget.item, user?.name ?? '...', user?.photoUrl ?? ''))),
+              widget.item, user?.name ?? '...', user?.avatar ?? ''))),
       onTapDown: (_) => setState(() => _elevation = 3),
       onTapUp: (_) => setState(() => _elevation = 0),
       onTapCancel: () => setState(() => _elevation = 0),
@@ -105,7 +107,7 @@ class _ItemCardState extends State<ItemCard> {
                         ? CircleAvatar(
                             backgroundImage: NetworkImage(
                                 XMUXApi.convertAvatarUrl(
-                                    user.photoUrl, store.state.user.moodleKey)),
+                                    user.avatar, store.state.user.moodleKey)),
                           )
                         : SpinKitPulse(color: Colors.white),
                   ),
@@ -117,7 +119,7 @@ class _ItemCardState extends State<ItemCard> {
                       children: <Widget>[
                         user != null
                             ? Text(
-                                user.name,
+                                user.displayName,
                                 style: Theme.of(context).textTheme.subhead,
                               )
                             : Text('...'),
