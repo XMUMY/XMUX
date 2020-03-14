@@ -93,7 +93,7 @@ XmuxApiResponse<List<T>> decodeList<T>(
     timestamp,
     data == null
         ? null
-        : ((data[entry] ?? []) as List<Map<String, dynamic>>)
+        : (List<Map<String, dynamic>>.from(data[entry] ?? []))
             .map(convertFunc)
             .toList(),
   );

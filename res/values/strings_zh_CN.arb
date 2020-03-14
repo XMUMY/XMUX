@@ -32,5 +32,10 @@
   "Calendar_AttendanceSignInFailed": "签到失败： $tip",
   "Calendar_AttendanceMarkAttended": "标记为出席",
   "Calendar_AttendanceMarkAbsent": "标记为缺席",
-  "Settings_Sessions": "会话"
+  "Settings": "设置",
+  "Settings_UpdateProfile": "更改个人资料",
+  "Settings_Sessions": "会话",
+  "Settings_DeveloperOptions": "开发者选项",
+  "Settings_SignOut": "登出",
+  "About": "关于"
 }

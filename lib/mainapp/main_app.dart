@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:xmux/components/image_editor.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
@@ -48,6 +49,7 @@ class MainApp extends StatelessWidget {
     '/Campus/Tools/Maintenance': (_) => MaintenancePage(),
     '/Campus/Tools/Travelviser': (_) => TravelviserPage(),
     '/Campus/Tools/Travelviser/DigitalPass': (_) => DigitalPassPage(),
+    '/Components/ImageEditor': (_) => ImageEditorPage(),
     '/Explore/LostAndFound': (_) => LostAndFoundPage(),
     '/Me/Epayment': (_) => EPaymentPage(),
     '/Me/RoomReservation': (_) => RoomWebViewPage(),

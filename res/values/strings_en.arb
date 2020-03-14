@@ -32,5 +32,10 @@
   "Calendar_AttendanceSignInFailed": "Failed: $tip",
   "Calendar_AttendanceMarkAttended": "Mark as Attended",
   "Calendar_AttendanceMarkAbsent": "Mark as Absent",
-  "Settings_Sessions": "Sessions"
+  "Settings": "Settings",
+  "Settings_UpdateProfile": "Update Profile",
+  "Settings_Sessions": "Sessions",
+  "Settings_DeveloperOptions": "Developer Options",
+  "Settings_SignOut": "Sign Out",
+  "About": "About"
 }

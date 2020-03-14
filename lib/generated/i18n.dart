@@ -21,6 +21,7 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  String get About => "About";
   String get Calendar_Attendance => "Attendance";
   String get Calendar_AttendanceMarkAbsent => "Mark as Absent";
   String get Calendar_AttendanceMarkAttended => "Mark as Attended";
@@ -36,7 +37,11 @@ class S implements WidgetsLocalizations {
   String get General_Weekday5 => "Friday";
   String get General_Weekday6 => "Saturday";
   String get General_Weekday7 => "Sunday";
+  String get Settings => "Settings";
+  String get Settings_DeveloperOptions => "Developer Options";
   String get Settings_Sessions => "Sessions";
+  String get Settings_SignOut => "Sign Out";
+  String get Settings_UpdateProfile => "Update Profile";
   String get SignIn_CampusID => "Campus ID";
   String get SignIn_Docs => "Help Docs";
   String get SignIn_ErrorDeprecated => "Please upgrade! The version of app is no longer supported!";
@@ -86,6 +91,8 @@ class $zh_CN extends S {
   @override
   String get SignIn_Password => "密码";
   @override
+  String get Settings_SignOut => "登出";
+  @override
   String get SignIn_ErrorDeprecated => "该版本应用已不再受到支持，请更新！";
   @override
   String get Calendar_AttendanceSignIn => "签到";
@@ -94,6 +101,8 @@ class $zh_CN extends S {
   @override
   String get SignIn_Docs => "帮助文档";
   @override
+  String get Settings => "设置";
+  @override
   String get SignIn_ErrorGMS => "GMS 未正常工作";
   @override
   String get SignIn_SignIn => "登录";
@@ -101,6 +110,8 @@ class $zh_CN extends S {
   String get SignIn_RegisterTitle => "欢迎来到 XMUM！";
   @override
   String get SignIn_ErrorInvalidPassword => "用户名或密码无效";
+  @override
+  String get Settings_UpdateProfile => "更改个人资料";
   @override
   String get Settings_Sessions => "会话";
   @override
@@ -112,6 +123,8 @@ class $zh_CN extends S {
   @override
   String get General_Weekday4 => "周四";
   @override
+  String get Settings_DeveloperOptions => "开发者选项";
+  @override
   String get General_Weekday3 => "周三";
   @override
   String get General_Continue => "继续";
@@ -121,6 +134,8 @@ class $zh_CN extends S {
   String get General_Weekday1 => "周一";
   @override
   String get Calendar_AttendanceSignInSucceeded => "签到成功";
+  @override
+  String get About => "关于";
   @override
   String get SignIn_RegisterEmail => "邮箱";
   @override
