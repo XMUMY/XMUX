@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_lottie/flutter_lottie.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_vpn/flutter_vpn.dart';
+import 'package:lottie/lottie.dart';
 import 'package:xmux/globals.dart';
 
 class VPNPage extends StatefulWidget {
@@ -11,10 +11,10 @@ class VPNPage extends StatefulWidget {
   _VPNPageState createState() => _VPNPageState();
 }
 
-class _VPNPageState extends State<VPNPage> {
+class _VPNPageState extends State<VPNPage> with TickerProviderStateMixin {
   var currentState = FlutterVpnState.disconnected;
   StreamSubscription _stateSubscription;
-  LottieController _lottieController;
+  AnimationController _lottieController;
 
   Color get color {
     switch (currentState) {
@@ -33,7 +33,16 @@ class _VPNPageState extends State<VPNPage> {
 
   @override
   void initState() {
-    FlutterVpn.currentState.then((s) => setState(() => currentState = s));
+    _lottieController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+      lowerBound: 0,
+      upperBound: 0.8,
+    );
+    FlutterVpn.currentState.then((s) {
+      if (mounted) setState(() => currentState = s);
+      if (s == FlutterVpnState.connected) _lottieController.forward();
+    });
     FlutterVpn.prepare();
     _stateSubscription = FlutterVpn.onStateChanged
         .listen((s) => setState(() => currentState = s));
@@ -62,14 +71,13 @@ class _VPNPageState extends State<VPNPage> {
             children: <Widget>[
               Container(
                 height: MediaQuery.of(context).size.width / 2.9,
-                child: LottieView.fromFile(
-                  filePath: "res/animations/vpn.json",
-                  autoPlay: false,
+                child: LottieBuilder.asset(
+                  'res/animations/vpn.json',
+                  controller: _lottieController,
                   reverse: false,
-                  onViewCreated: (c) {
-                    _lottieController = c;
+                  onLoaded: (c) {
                     if (currentState == FlutterVpnState.connected)
-                      c.playWithProgress(fromProgress: 0, toProgress: 0.8);
+                      _lottieController.forward();
                   },
                 ),
               ),
@@ -110,8 +118,7 @@ class _VPNPageState extends State<VPNPage> {
                     onPressed: currentState == FlutterVpnState.connected
                         ? null
                         : () {
-                            _lottieController.playWithProgress(
-                                fromProgress: 0, toProgress: 0.8);
+                            _lottieController.forward();
                             FlutterVpn.simpleConnect('ikev2.xmu.edu.my',
                                 firebase.user.uid, store.state.user.password);
                           },
@@ -126,8 +133,7 @@ class _VPNPageState extends State<VPNPage> {
                   child: RaisedButton(
                     onPressed: () {
                       FlutterVpn.disconnect();
-                      _lottieController.playWithProgress(
-                          fromProgress: 0.8, toProgress: 1.2);
+                      _lottieController.reverse();
                     },
                     child: Text(
                         i18n('Campus/AcademicTools/VPN/Disconnect', context)),

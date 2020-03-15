@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:xmux/components/page_routes.dart';
 
 /// Item picture that can construct from url or file.
@@ -20,10 +20,13 @@ class Picture extends StatelessWidget {
   Widget _buildPhotoView(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).pop(),
-      child: PhotoView(
-        imageProvider: file != null ? FileImage(file) : NetworkImage(url),
-        maxScale: 1.5,
-        minScale: 0.3,
+      child: ExtendedImage(
+        image: file != null ? FileImage(file) : NetworkImage(url),
+        mode: ExtendedImageMode.gesture,
+        initGestureConfigHandler: (state) => GestureConfig(
+          maxScale: 1.5,
+          minScale: 0.3,
+        ),
       ),
     );
   }

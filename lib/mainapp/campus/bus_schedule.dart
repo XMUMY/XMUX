@@ -1,6 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:xmux/globals.dart';
 
 class BusSchedulePage extends StatelessWidget {
@@ -13,11 +12,15 @@ class BusSchedulePage extends StatelessWidget {
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,
       ),
-      body: PhotoView(
-        imageProvider: CachedNetworkImageProvider(
-            firebase.remoteConfigs.staticResources.busScheduleImage),
-        maxScale: 2.0,
-        minScale: 0.3,
+      body: SizedBox.expand(
+        child: ExtendedImage.network(
+          firebase.remoteConfigs.staticResources.busScheduleImage,
+          mode: ExtendedImageMode.gesture,
+          initGestureConfigHandler: (state) => GestureConfig(
+            maxScale: 2.0,
+            minScale: 0.3,
+          ),
+        ),
       ),
     );
   }

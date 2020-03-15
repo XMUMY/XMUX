@@ -1,6 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:xmux/globals.dart';
 
 class AcademicCalendarPage extends StatelessWidget {
@@ -28,17 +27,23 @@ class AcademicCalendarPage extends StatelessWidget {
           children: <Widget>[
             if (!isFoundation)
               for (var k in undergraduate.keys)
-                PhotoView(
-                  imageProvider: CachedNetworkImageProvider(undergraduate[k]),
-                  maxScale: 1.5,
-                  minScale: 0.3,
+                ExtendedImage.network(
+                  undergraduate[k],
+                  mode: ExtendedImageMode.gesture,
+                  initGestureConfigHandler: (state) => GestureConfig(
+                    maxScale: 1.5,
+                    minScale: 0.3,
+                  ),
                 ),
             if (isFoundation)
               for (var k in foundation.keys)
-                PhotoView(
-                  imageProvider: CachedNetworkImageProvider(foundation[k]),
-                  maxScale: 1.5,
-                  minScale: 0.3,
+                ExtendedImage.network(
+                  foundation[k],
+                  mode: ExtendedImageMode.gesture,
+                  initGestureConfigHandler: (state) => GestureConfig(
+                    maxScale: 1.5,
+                    minScale: 0.3,
+                  ),
                 ),
           ],
         ),

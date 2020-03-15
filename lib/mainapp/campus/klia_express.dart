@@ -1,6 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:xmux/globals.dart';
 
 class KliaExpressPage extends StatelessWidget {
@@ -23,17 +22,21 @@ class KliaExpressPage extends StatelessWidget {
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
-            PhotoView(
-              imageProvider: CachedNetworkImageProvider(firebase
-                  .remoteConfigs.staticResources.kliaTransitScheduleImage),
-              maxScale: 2.0,
-              minScale: 0.3,
+            ExtendedImage.network(
+              firebase.remoteConfigs.staticResources.kliaTransitScheduleImage,
+              mode: ExtendedImageMode.gesture,
+              initGestureConfigHandler: (state) => GestureConfig(
+                maxScale: 2.5,
+                minScale: 0.3,
+              ),
             ),
-            PhotoView(
-              imageProvider: CachedNetworkImageProvider(firebase
-                  .remoteConfigs.staticResources.kliaExpressScheduleImage),
-              maxScale: 2.0,
-              minScale: 0.2,
+            ExtendedImage.network(
+              firebase.remoteConfigs.staticResources.kliaExpressScheduleImage,
+              mode: ExtendedImageMode.gesture,
+              initGestureConfigHandler: (state) => GestureConfig(
+                maxScale: 2.5,
+                minScale: 0.3,
+              ),
             ),
           ],
         ),
