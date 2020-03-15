@@ -66,13 +66,7 @@ void init() async {
       authorization: Authorization.basic(
           store.state.user.campusId, store.state.user.password));
 
-  // Make sure firebase logged in.
-  if (firebase.user == null &&
-      (firebase.user = await FirebaseAuth.instance.currentUser()) == null) {
-    logout();
-    return;
-  }
-
+  FirebaseAuth.instance.currentUser().then((u) => firebase.user = u);
   postInit();
 }
 
@@ -89,12 +83,12 @@ void postInit() async {
   } finally {
     store.dispatch(UpdateHomepageAnnouncementsAction());
     store.dispatch(UpdateTimetableAction());
+    store.dispatch(UpdateUserProfileAction());
     if (store.state.user.isStudent) {
       store.dispatch(UpdateAssignmentsAction());
       store.dispatch(UpdateInfoAction());
       store.dispatch(UpdateAcAction());
       store.dispatch(UpdateCoursesAction());
-      store.dispatch(UpdateUserProfileAction());
     }
     runApp(MainApp());
   }

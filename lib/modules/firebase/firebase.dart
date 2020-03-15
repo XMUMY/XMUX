@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 
@@ -48,6 +49,37 @@ class Firebase {
         remoteConfigs.updateStaticResources(staticResources);
       var versions = remoteConfig.getString('versions');
       if (versions.isNotEmpty) remoteConfigs.updateVersions(versions);
+    }
+  }
+
+  /// Try login firebase.
+  /// Shows confirmation dialog if cannot connect to GMS and [context] is not null.
+  Future<Null> login(String customToken, {BuildContext context}) async {
+    try {
+      await FirebaseAuth.instance.signInWithCustomToken(token: customToken);
+    } on PlatformException catch (e) {
+      if (e.code == 'ERROR_NETWORK_REQUEST_FAILED' && context != null) {
+        var ignore = await showDialog<bool>(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => AlertDialog(
+            title: Text(S.of(context).GMS_Unavailable),
+            content: Text(S.of(context).GMS_UnavailableLoginCaption),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text(S.of(context).General_Cancel),
+              ),
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: Text(S.of(context).General_Ignore),
+              )
+            ],
+          ),
+        );
+        if (ignore != null && ignore) return;
+      }
+      rethrow;
     }
   }
 

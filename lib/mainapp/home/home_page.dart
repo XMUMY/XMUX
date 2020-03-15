@@ -5,7 +5,6 @@ import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/mainapp/home/announcements.dart';
 import 'package:xmux/mainapp/home/home_slider.dart';
 import 'package:xmux/modules/api/models/v3_bridge.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,10 +13,12 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: CircleAvatar(
-            radius: 18,
-            backgroundImage: NetworkImage(XMUXApi.convertAvatarUrl(
-                firebase.user?.photoUrl, store.state.user.moodleKey)),
+          icon: StoreConnector<MainAppState, String>(
+            converter: (s) => s.state.user.profile?.avatar ?? '',
+            builder: (context, s) => CircleAvatar(
+              backgroundImage: NetworkImage(s),
+              radius: 18,
+            ),
           ),
           onPressed: () => store.dispatch(OpenDrawerAction(true)),
         ),

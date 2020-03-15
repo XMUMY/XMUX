@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/emgs/emgs.dart' as emgs show getCountryCode;
 import 'package:xmux/redux/redux.dart';
@@ -31,9 +32,12 @@ class DrawerPage extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: Hero(
               tag: 'UserAvatar',
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(firebase.user?.photoUrl),
-                radius: 30,
+              child: StoreConnector<MainAppState, String>(
+                converter: (s) => s.state.user.profile?.avatar ?? '',
+                builder: (context, s) => CircleAvatar(
+                  backgroundImage: NetworkImage(s),
+                  radius: 30,
+                ),
               ),
             ),
           ),
@@ -104,7 +108,7 @@ class DrawerPage extends StatelessWidget {
               leading: Icon(Icons.settings,
                   color: Theme.of(context).textTheme.button.color),
               onTap: () => Navigator.of(context).popAndPushNamed('/Settings'),
-              title: Text(i18n('Settings', context)),
+              title: Text(S.of(context).Settings),
               trailing: StoreConnector<MainAppState, bool>(
                 converter: (s) =>
                     s.state.uiState.darkMode ||

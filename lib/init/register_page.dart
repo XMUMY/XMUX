@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -158,7 +157,7 @@ class _RegisterButtonState extends State<_RegisterButton> {
 
     // Login firebase.
     try {
-      await FirebaseAuth.instance.signInWithCustomToken(token: customToken);
+      await firebase.login(customToken, context: context);
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
