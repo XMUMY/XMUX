@@ -2,26 +2,30 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/components/blur_box.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/explore/chat_room_page.dart';
 import 'package:xmux/mainapp/explore/flea_market/flea_market_page.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/redux/redux.dart';
 
 class ExplorePage extends StatelessWidget {
   Widget buildLayout(BuildContext context, BoxConstraints constraints) {
     return Stack(
       children: <Widget>[
-        FlareActor('res/animations/stars.flr',
-            alignment: Alignment.topCenter,
-            fit: constraints.maxHeight / constraints.maxWidth > 16 / 9
-                ? BoxFit.fitHeight
-                : BoxFit.fitWidth,
-            animation: 'idle'),
+        FlareActor(
+          'res/animations/stars.flr',
+          alignment: Alignment.topCenter,
+          fit: constraints.maxHeight / constraints.maxWidth > 16 / 9
+              ? BoxFit.fitHeight
+              : BoxFit.fitWidth,
+          animation: 'idle',
+        ),
         Positioned(
           left: 20,
           top: 50,
           child: Text(
-            i18n('Explore', context),
+            S.of(context).Explore,
             style: TextStyle(fontSize: 50, color: Colors.white70),
           ),
         ),
@@ -36,11 +40,11 @@ class ExplorePage extends StatelessWidget {
                 i18n('lostandfound', context),
                 style: Theme.of(context)
                     .textTheme
-                    .subhead
+                    .subtitle1
                     .copyWith(color: Colors.white),
               ),
-              onTap: () => Navigator.of(context, rootNavigator: true)
-                  .pushNamed("/Explore/LostAndFound"),
+              onTap: () => Firebase.pushNamed(context, '/Explore/LostAndFound',
+                  rootNavigator: true),
             ),
             ListTile(
               leading: Icon(Icons.chat, color: Colors.white70),
@@ -48,7 +52,7 @@ class ExplorePage extends StatelessWidget {
                 i18n('About/Feedback', context),
                 style: Theme.of(context)
                     .textTheme
-                    .subhead
+                    .subtitle1
                     .copyWith(color: Colors.white),
               ),
               onTap: () => Navigator.of(context, rootNavigator: true).push(
@@ -61,11 +65,11 @@ class ExplorePage extends StatelessWidget {
                 i18n('FleaMarket', context),
                 style: Theme.of(context)
                     .textTheme
-                    .subhead
+                    .subtitle1
                     .copyWith(color: Colors.white),
               ),
-              onTap: () => Navigator.of(context, rootNavigator: true).push(
-                  new MaterialPageRoute(builder: (_) => new FleaMarketPage())),
+              onTap: () => Navigator.of(context, rootNavigator: true)
+                  .push(MaterialPageRoute(builder: (_) => FleaMarketPage())),
             ),
           ],
         ),
@@ -79,7 +83,7 @@ class ExplorePage extends StatelessWidget {
       body: LayoutBuilder(builder: buildLayout),
       floatingActionButton: StoreConnector<MainAppState, bool>(
         converter: (s) => s.state.settingState.enableFunctionsUnderDev,
-        builder: (_, v) => (v == true)
+        builder: (_, enabled) => enabled
             ? FloatingActionButton(
                 child: Icon(Icons.android),
                 onPressed: () => showGeneralDialog(

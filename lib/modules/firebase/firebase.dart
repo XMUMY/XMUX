@@ -88,6 +88,7 @@ class Firebase {
     BuildContext context,
     String routeName, {
     Object arguments,
+    bool rootNavigator = false,
   }) async {
     if (firebase.user == null) {
       var result = await showDialog<bool>(
@@ -106,6 +107,7 @@ class Firebase {
       );
       if (result == null || !result) return null;
     }
-    return Navigator.of(context).pushNamed<T>(routeName, arguments: arguments);
+    return Navigator.of(context, rootNavigator: rootNavigator)
+        .pushNamed<T>(routeName, arguments: arguments);
   }
 }

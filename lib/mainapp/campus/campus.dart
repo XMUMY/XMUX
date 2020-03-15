@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -18,7 +19,7 @@ class CampusPage extends StatelessWidget {
           builder: (context, callback) =>
               IconButton(icon: Icon(Icons.view_list), onPressed: callback),
         ),
-        title: Text(i18n('Campus', context)),
+        title: Text(S.of(context).Campus),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,
@@ -28,7 +29,7 @@ class CampusPage extends StatelessWidget {
         children: <Widget>[
           Text(
             ' ' + i18n('Campus/AcademicTools', context),
-            style: Theme.of(context).textTheme.title,
+            style: Theme.of(context).textTheme.headline6,
           ),
           Divider(height: 3),
           Wrap(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/components/page_routes.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/drawer.dart';
 import 'package:xmux/redux/redux.dart';
@@ -96,23 +97,27 @@ class _MainPageState extends State<MainPage> {
         elevation: _bottomNavigationBarElevation,
         items: [
           BottomNavigationBarItem(
-              title: Text(i18n('Home', context)),
-              icon: Icon(Icons.home),
-              backgroundColor: Theme.of(context).primaryColor),
+            title: Text(i18n('Home', context)),
+            icon: Icon(Icons.home),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
           BottomNavigationBarItem(
-              title: Text(i18n('Calendar', context)),
-              icon: Icon(Icons.calendar_today),
-              backgroundColor: Theme.of(context).primaryColor),
+            title: Text(i18n('Calendar', context)),
+            icon: Icon(Icons.calendar_today),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
           BottomNavigationBarItem(
-              title: Text(i18n('Campus', context)),
-              icon: Icon(FontAwesomeIcons.university),
-              backgroundColor: Theme.of(context).brightness == Brightness.dark
-                  ? Theme.of(context).primaryColor
-                  : Colors.lightBlue),
+            title: Text(S.of(context).Campus),
+            icon: Icon(FontAwesomeIcons.university),
+            backgroundColor: Theme.of(context).brightness == Brightness.dark
+                ? Theme.of(context).primaryColor
+                : Colors.lightBlue,
+          ),
           BottomNavigationBarItem(
-              title: Text(i18n('Explore', context)),
-              icon: Icon(Icons.explore),
-              backgroundColor: Color(0xFF231E5E)),
+            title: Text(S.of(context).Explore),
+            icon: Icon(Icons.explore),
+            backgroundColor: Color(0xFF231E5E),
+          ),
         ],
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.shifting,

@@ -10,7 +10,6 @@
   "General_Cancel": "取消",
   "General_Ignore": "忽略",
   "General_ErrorTip": "错误：$tip",
-
   "SignIn_CampusID": "校园ID",
   "SignIn_Password": "密码",
   "SignIn_SignIn": "登录",
@@ -27,7 +26,6 @@
   "SignIn_ErrorInvalidPassword": "用户名或密码无效",
   "SignIn_ErrorGMS": "GMS 未正常工作",
   "SignIn_ErrorDeprecated": "该版本应用已不再受到支持，请更新！",
-
   "Calendar_Attendance": "考勤",
   "Calendar_AttendanceRate": "出勤率",
   "Calendar_AttendanceSignIn": "签到",
@@ -36,6 +34,8 @@
   "Calendar_AttendanceSignInFailed": "签到失败： $tip",
   "Calendar_AttendanceMarkAttended": "标记为出席",
   "Calendar_AttendanceMarkAbsent": "标记为缺席",
+  "Campus": "校园",
+  "Explore": "发现",
   "Settings": "设置",
   "Settings_EditProfile": "更改个人资料",
   "Settings_Sessions": "会话",
@@ -47,7 +47,6 @@
   "Settings_DeveloperOptionsNotificationTokenCaption": "点击以复制我的通知推送令牌",
   "Settings_SignOut": "登出",
   "About": "关于",
-
   "GMS_Unavailable": "谷歌服务不可用",
   "GMS_UnavailableLoginCaption": "谷歌服务在您的设备上没有正常工作，这将导致部分功能无法使用，继续登录？",
   "GMS_UnavailableCaption": "该功能需要的谷歌服务在您的设备上没有正常工作，请重新登录并保证您的谷歌服务工作正常。"

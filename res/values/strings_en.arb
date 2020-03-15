@@ -10,7 +10,6 @@
   "General_Cancel": "Cancel",
   "General_Ignore": "Ignore",
   "General_Error": "Error: $tip",
-
   "SignIn_CampusID": "Campus ID",
   "SignIn_Password": "Password",
   "SignIn_SignIn": "Sign in",
@@ -27,7 +26,6 @@
   "SignIn_ErrorInvalidPassword": "Invalid username or password.",
   "SignIn_ErrorGMS": "GMS not working properly.",
   "SignIn_ErrorDeprecated": "Please upgrade! The version of app is no longer supported!",
-
   "Calendar_Attendance": "Attendance",
   "Calendar_AttendanceRate": "Attendance",
   "Calendar_AttendanceSignIn": "Sign in",
@@ -36,6 +34,8 @@
   "Calendar_AttendanceSignInFailed": "Failed: $tip",
   "Calendar_AttendanceMarkAttended": "Mark as Attended",
   "Calendar_AttendanceMarkAbsent": "Mark as Absent",
+  "Campus": "Campus",
+  "Explore": "Explore",
   "Settings": "Settings",
   "Settings_EditProfile": "Edit Profile",
   "Settings_Sessions": "Sessions",
@@ -47,7 +47,6 @@
   "Settings_DeveloperOptionsNotificationTokenCaption": "Press to copy my notification token",
   "Settings_SignOut": "Sign Out",
   "About": "About",
-
   "GMS_Unavailable": "GMS Unavailable",
   "GMS_UnavailableLoginCaption": "GMS is not working properly on your device. Some functions may not work. Sure to continue?",
   "GMS_UnavailableCaption": "This function requires GMS, which is not working properly on your device. Please login again and make sure your GMS is working properly."
