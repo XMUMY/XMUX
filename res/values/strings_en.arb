@@ -7,7 +7,10 @@
   "General_Weekday6": "Saturday",
   "General_Weekday7": "Sunday",
   "General_Continue": "Continue",
+  "General_Cancel": "Cancel",
+  "General_Ignore": "Ignore",
   "General_Error": "Error: $tip",
+
   "SignIn_CampusID": "Campus ID",
   "SignIn_Password": "Password",
   "SignIn_SignIn": "Sign in",
@@ -24,6 +27,7 @@
   "SignIn_ErrorInvalidPassword": "Invalid username or password.",
   "SignIn_ErrorGMS": "GMS not working properly.",
   "SignIn_ErrorDeprecated": "Please upgrade! The version of app is no longer supported!",
+
   "Calendar_Attendance": "Attendance",
   "Calendar_AttendanceRate": "Attendance",
   "Calendar_AttendanceSignIn": "Sign in",
@@ -37,5 +41,6 @@
   "Settings_Sessions": "Sessions",
   "Settings_DeveloperOptions": "Developer Options",
   "Settings_SignOut": "Sign Out",
-  "About": "About"
+  "About": "About",
+  "GMS_": ""
 }

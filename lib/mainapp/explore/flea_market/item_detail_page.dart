@@ -142,7 +142,7 @@ class ItemDetailPage extends StatelessWidget {
             pinned: true,
             actions: <Widget>[
               // Edit button if isOwner.
-              item.from.toLowerCase() == firebaseUser.uid
+              item.from.toLowerCase() == firebase.user.uid
                   ? IconButton(
                       icon: const Icon(Icons.create),
                       tooltip: i18n('FleaMarket/Edit', context),

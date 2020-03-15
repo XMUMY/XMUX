@@ -81,7 +81,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
 
     // Upload pictures.
     var storageRef = FirebaseStorage.instance.ref().child(
-        '/flea_market/${firebaseUser.uid.toLowerCase()}-${timestamp.toIso8601String()}');
+        '/flea_market/${firebase.user.uid.toLowerCase()}-${timestamp.toIso8601String()}');
 
     // Process picture compression in parallel.
     Future<String> pictureTask(int index) async {
@@ -99,7 +99,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
 
     // Upload item details.
     var item = Item(
-      firebaseUser.uid.toLowerCase(),
+      firebase.user.uid.toLowerCase(),
       name,
       description,
       Price(priceValue, 'RM'),

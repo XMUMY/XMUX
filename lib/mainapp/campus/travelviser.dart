@@ -10,7 +10,7 @@ import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
 
 class TravelviserPage extends StatefulWidget {
-  final travelviser = Travelviser(firebaseUser.email);
+  final travelviser = Travelviser(firebase.user.email);
 
   @override
   _TravelviserPageState createState() => _TravelviserPageState();
@@ -397,19 +397,19 @@ class DigitalPassPage extends StatelessWidget {
           Center(
             child: QrImage(
               version: 2,
-              data: firebaseUser.email,
+              data: firebase.user.email,
               size: MediaQuery.of(context).size.width / 1.3,
             ),
           ),
           Center(
             child: Text(
-              firebaseUser.displayName,
+              firebase.user.displayName,
               style: Theme.of(context).textTheme.title.copyWith(fontSize: 20),
             ),
           ),
           Center(
             child: Text(
-              '${firebaseUser.uid} | ${firebaseUser.email}',
+              '${firebase.user.uid} | ${firebase.user.email}',
               style: Theme.of(context).textTheme.caption.copyWith(fontSize: 15),
             ),
           )

@@ -67,8 +67,8 @@ void init() async {
           store.state.user.campusId, store.state.user.password));
 
   // Make sure firebase logged in.
-  if (firebaseUser == null &&
-      (firebaseUser = await FirebaseAuth.instance.currentUser()) == null) {
+  if (firebase.user == null &&
+      (firebase.user = await FirebaseAuth.instance.currentUser()) == null) {
     logout();
     return;
   }
@@ -127,16 +127,16 @@ Future<bool> mobileInit() async {
 
   // Register FirebaseAuth state listener.
   FirebaseAuth.instance.onAuthStateChanged.listen((user) {
-    if (user == null && firebaseUser != null) logout();
+    if (user == null && firebase.user != null) logout();
     if (user != null) {
-      firebaseUser = user;
+      firebase.user = user;
       XmuxApi.instance.configure(
           authorization: Authorization()
             ..bearerRefresher = () async => (await user.getIdToken()).token);
 
       // APIv2 JWT configure. (Deprecated)
       v2.XMUXApi.instance.getIdToken =
-          () async => (await firebaseUser.getIdToken()).token;
+          () async => (await firebase.user.getIdToken()).token;
     }
   });
 

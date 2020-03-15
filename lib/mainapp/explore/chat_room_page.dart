@@ -176,8 +176,8 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
     reference.push().set({
       'text': text,
       'imageUrl': imageUrl,
-      'senderName': firebaseUser.displayName,
-      'senderPhotoUrl': firebaseUser.photoUrl,
+      'senderName': firebase.user.displayName,
+      'senderPhotoUrl': firebase.user.photoUrl,
     });
   }
 }

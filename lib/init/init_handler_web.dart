@@ -39,8 +39,8 @@ void init() async {
   }
 
   // Make sure firebase logged in.
-  if (firebaseUser == null &&
-      (firebaseUser = await FirebaseAuth.instance.currentUser()) == null) {
+  if (firebase.user == null &&
+      (firebase.user = await FirebaseAuth.instance.currentUser()) == null) {
     logout();
     return;
   }

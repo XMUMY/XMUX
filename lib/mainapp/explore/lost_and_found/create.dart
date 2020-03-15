@@ -31,9 +31,9 @@ class _LostAndFoundCreatePageState extends State<LostAndFoundCreatePage> {
     }
     Navigator.pop(context);
     FirebaseDatabase.instance.reference().child('lostandfound').push().set({
-      'uid': firebaseUser.uid,
-      'senderName': firebaseUser.displayName,
-      'senderPhotoUrl': firebaseUser.photoUrl,
+      'uid': firebase.user.uid,
+      'senderName': firebase.user.displayName,
+      'senderPhotoUrl': firebase.user.photoUrl,
       'time': new DateTime(_date.year, _date.month, _date.day, _timeOfDay.hour,
               _timeOfDay.minute)
           .toIso8601String(),

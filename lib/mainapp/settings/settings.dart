@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/redux/redux.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -38,8 +39,7 @@ class SettingsPage extends StatelessWidget {
           Divider(),
           ListTile(
             title: Text(S.of(context).Settings_UpdateProfile),
-            onTap: () =>
-                Navigator.of(context).pushNamed('/Settings/ChangeProfile'),
+            onTap: () => Firebase.pushNamed(context, '/Settings/ChangeProfile'),
           ),
           ListTile(
             title: Text(S.of(context).Settings_Sessions),

@@ -77,7 +77,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
                   height: 20,
                   color: Theme.of(context).canvasColor,
                 ),
-                dataSnapshot.value['uid'] == firebaseUser.uid
+                dataSnapshot.value['uid'] == firebase.user.uid
                     ? new Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[

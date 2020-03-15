@@ -7,7 +7,10 @@
   "General_Weekday6": "周六",
   "General_Weekday7": "周日",
   "General_Continue": "继续",
+  "General_Cancel": "取消",
+  "General_Ignore": "忽略",
   "General_ErrorTip": "错误：$tip",
+
   "SignIn_CampusID": "校园ID",
   "SignIn_Password": "密码",
   "SignIn_SignIn": "登录",
@@ -24,6 +27,7 @@
   "SignIn_ErrorInvalidPassword": "用户名或密码无效",
   "SignIn_ErrorGMS": "GMS 未正常工作",
   "SignIn_ErrorDeprecated": "该版本应用已不再受到支持，请更新！",
+
   "Calendar_Attendance": "考勤",
   "Calendar_AttendanceRate": "出勤率",
   "Calendar_AttendanceSignIn": "签到",

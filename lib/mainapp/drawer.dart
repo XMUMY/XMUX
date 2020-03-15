@@ -32,7 +32,7 @@ class DrawerPage extends StatelessWidget {
             child: Hero(
               tag: 'UserAvatar',
               child: CircleAvatar(
-                backgroundImage: NetworkImage(firebaseUser?.photoUrl),
+                backgroundImage: NetworkImage(firebase.user?.photoUrl),
                 radius: 30,
               ),
             ),

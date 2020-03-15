@@ -15,11 +15,6 @@ import 'translations/translation.dart';
 /// Firebase instance.
 Firebase firebase;
 
-/// Firebase user instance.
-///
-/// Default is `null`. Will be assigned by FirebaseUser when logged in.
-FirebaseUser firebaseUser;
-
 /// Package information from platform.
 ///
 /// Default is `null`. Will be assigned during init.
@@ -53,7 +48,7 @@ String i18n(String text, BuildContext context, {String app}) {
 
 /// Handle logout and run `LoginApp`.
 Future<Null> logout({String message}) async {
-  firebaseUser = null;
+  firebase.user = null;
   await FirebaseAuth.instance.signOut();
   XmuxApi.instance.configure(eraseAuthorization: true);
   store.dispatch(LogoutAction());

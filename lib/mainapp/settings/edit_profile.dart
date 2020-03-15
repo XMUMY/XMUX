@@ -13,16 +13,16 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final _displayNameController =
-      TextEditingController(text: firebaseUser?.displayName ?? 'User');
+      TextEditingController(text: firebase.user?.displayName ?? 'User');
 
   final _formKey = GlobalKey<FormState>();
 
   void _handleSubmit() async {
     if (!_formKey.currentState.validate()) return;
-    firebaseUser.updateProfile(
+    firebase.user.updateProfile(
         UserUpdateInfo()..displayName = _displayNameController.text);
-    firebaseUser.reload();
-    firebaseUser = await FirebaseAuth.instance.currentUser();
+    firebase.user.reload();
+    firebase.user = await FirebaseAuth.instance.currentUser();
     Navigator.of(context).pop();
   }
 
