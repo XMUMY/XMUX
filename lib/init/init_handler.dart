@@ -140,37 +140,35 @@ Future<bool> mobileInit() async {
 }
 
 Future<Null> androidInit() async {
-  var deviceInfo = await DeviceInfoPlugin().androidInfo;
+  // Use Mountain View on Android.
+  ThemeConfig.defaultTheme = ThemeConfig.defaultTheme.copyWith(
+      pageTransitionsTheme: PageTransitionsTheme(builders: {
+    TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
+  }));
+  ThemeConfig.defaultDarkTheme = ThemeConfig.defaultDarkTheme.copyWith(
+      pageTransitionsTheme: PageTransitionsTheme(builders: {
+    TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
+  }));
 
-  // Replace android transition theme if >= 9.0
-  if (int.parse(deviceInfo.version.release.split('.').first) >= 9) {
-    ThemeConfig.defaultTheme = ThemeConfig.defaultTheme.copyWith(
-        pageTransitionsTheme: PageTransitionsTheme(builders: {
-      TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
-    }));
-    ThemeConfig.defaultDarkTheme = ThemeConfig.defaultDarkTheme.copyWith(
-        pageTransitionsTheme: PageTransitionsTheme(builders: {
-      TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
-    }));
-  }
-
-  XmuxApi.instance.refreshDevice(
-    deviceInfo.androidId,
-    deviceInfo.model,
-    '${deviceInfo.manufacturer} ${deviceInfo.model}',
-    pushChannel: 'fcm',
-    pushKey: await firebase.messaging.getToken(),
-  );
+  DeviceInfoPlugin()
+      .androidInfo
+      .then((deviceInfo) async => XmuxApi.instance.refreshDevice(
+            deviceInfo.androidId,
+            deviceInfo.model,
+            '${deviceInfo.manufacturer} ${deviceInfo.model}',
+            pushChannel: 'fcm',
+            pushKey: await firebase.messaging.getToken(),
+          ));
 }
 
 Future<Null> iOSInit() async {
-  var deviceInfo = await DeviceInfoPlugin().iosInfo;
-
-  XmuxApi.instance.refreshDevice(
-    deviceInfo.identifierForVendor,
-    deviceInfo.model,
-    deviceInfo.name,
-    pushChannel: 'fcm',
-    pushKey: await firebase.messaging.getToken(),
-  );
+  DeviceInfoPlugin()
+      .iosInfo
+      .then((deviceInfo) async => XmuxApi.instance.refreshDevice(
+            deviceInfo.identifierForVendor,
+            deviceInfo.model,
+            deviceInfo.name,
+            pushChannel: 'fcm',
+            pushKey: await firebase.messaging.getToken(),
+          ));
 }

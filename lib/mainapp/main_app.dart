@@ -65,15 +65,15 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<MainAppState>(
       store: store,
-      child: StoreBuilder<MainAppState>(
-        builder: (_, s) {
+      child: StoreConnector<MainAppState, ThemeMode>(
+        converter: (s) => s.state.settingState.themeMode,
+        builder: (_, themeMode) {
           return MaterialApp(
             title: 'XMUX',
             home: MainPage(),
-            theme: s.state.uiState.darkMode
-                ? ThemeConfig.defaultDarkTheme
-                : ThemeConfig.defaultTheme,
+            theme: ThemeConfig.defaultTheme,
             darkTheme: ThemeConfig.defaultDarkTheme,
+            themeMode: themeMode,
             navigatorObservers: <NavigatorObserver>[
               // Only trace in release mode.
               if (!kIsWeb && bool.fromEnvironment('dart.vm.product'))

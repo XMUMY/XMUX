@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:xmux/mainapp/main_page.dart';
 import 'package:xmux/modules/api/models/v3_bridge.dart';
@@ -62,12 +63,13 @@ class OpenDrawerAction extends MainAppAction {
   final needSave = false;
 }
 
-class ToggleDarkModeAction extends MainAppAction {
-  @override
-  final needSave = false;
-}
-
 // ****** Setting Actions ******
+
+class ThemeModeAction extends MainAppAction {
+  final ThemeMode themeMode;
+
+  ThemeModeAction(this.themeMode);
+}
 
 /// Enable functions under development.
 class EnableFunctionsUnderDevAction extends MainAppAction {

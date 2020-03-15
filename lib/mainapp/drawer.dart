@@ -105,26 +105,28 @@ class DrawerPage extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.settings,
-                  color: Theme.of(context).textTheme.button.color),
+              leading: Icon(
+                Icons.settings,
+                color: Theme.of(context).textTheme.button.color,
+              ),
               onTap: () => Navigator.of(context).popAndPushNamed('/Settings'),
               title: Text(S.of(context).Settings),
-              trailing: StoreConnector<MainAppState, bool>(
-                converter: (s) =>
-                    s.state.uiState.darkMode ||
-                    MediaQuery.platformBrightnessOf(context) == Brightness.dark,
-                builder: (_, isDark) => IconButton(
+              trailing: StoreConnector<MainAppState, ThemeMode>(
+                converter: (s) => s.state.settingState.themeMode,
+                builder: (_, mode) => IconButton(
                   icon: Icon(
-                    FontAwesomeIcons.moon,
+                    mode == ThemeMode.system
+                        ? FontAwesomeIcons.mobileAlt
+                        : mode == ThemeMode.light
+                            ? FontAwesomeIcons.sun
+                            : FontAwesomeIcons.moon,
                     size: 20,
-                    color: isDark
-                        ? Colors.cyan
+                    color: mode == ThemeMode.dark
+                        ? Theme.of(context).accentColor
                         : Theme.of(context).iconTheme.color,
                   ),
-                  onPressed: () {
-                    if (MediaQuery.platformBrightnessOf(context) !=
-                        Brightness.dark) store.dispatch(ToggleDarkModeAction());
-                  },
+                  onPressed: () => store.dispatch(
+                      ThemeModeAction(ThemeMode.values[(mode.index + 1) % 3])),
                 ),
               ),
             )

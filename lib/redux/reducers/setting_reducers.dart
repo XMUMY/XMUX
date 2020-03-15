@@ -1,9 +1,12 @@
 part of 'reducer.dart';
 
-final Reducer<SettingState> settingReducers = combineReducers([
-  TypedReducer<SettingState, EnableFunctionsUnderDevAction>(
-      _enableFunctionsUnderDevReducer),
+final settingReducers = combineReducers<SettingState>([
+  TypedReducer(_themeModeReducer),
+  TypedReducer(_enableFunctionsUnderDevReducer),
 ]);
+
+SettingState _themeModeReducer(SettingState state, ThemeModeAction action) =>
+    state.copyWith(themeMode: action.themeMode);
 
 SettingState _enableFunctionsUnderDevReducer(
         SettingState state, EnableFunctionsUnderDevAction action) =>

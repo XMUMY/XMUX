@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:xmux/modules/api/models/v3_bridge.dart';
@@ -109,13 +110,17 @@ class AcState {
 /// Settings state include ePaymentPassword, etc.
 @JsonSerializable()
 class SettingState {
+  final ThemeMode themeMode;
+
   /// Enable functions under developing.
   @JsonKey(defaultValue: false)
   final bool enableFunctionsUnderDev;
 
-  SettingState(this.enableFunctionsUnderDev);
+  SettingState(this.themeMode, this.enableFunctionsUnderDev);
 
-  SettingState.def() : this.enableFunctionsUnderDev = false;
+  SettingState.def()
+      : themeMode = ThemeMode.system,
+        enableFunctionsUnderDev = false;
 
   factory SettingState.fromJson(Map<String, dynamic> json) =>
       _$SettingStateFromJson(json);
@@ -123,9 +128,11 @@ class SettingState {
   Map<String, dynamic> toJson() => _$SettingStateToJson(this);
 
   SettingState copyWith({
+    ThemeMode themeMode,
     bool enableFunctionsUnderDev,
   }) =>
-      SettingState(enableFunctionsUnderDev ?? this.enableFunctionsUnderDev);
+      SettingState(themeMode ?? this.themeMode,
+          enableFunctionsUnderDev ?? this.enableFunctionsUnderDev);
 }
 
 /// Global UI state include drawerIsOpen, etc.
@@ -133,32 +140,23 @@ class UIState {
   /// Drawer is open.
   final bool drawerIsOpen;
 
-  /// Dark mode.
-  final bool darkMode;
-
   /// Homepage sliders.
   final List<News> homepageNews;
 
   /// Homepage announcements.
   final List<Announcement> announcements;
 
-  UIState(
-      this.drawerIsOpen, this.darkMode, this.homepageNews, this.announcements);
+  UIState(this.drawerIsOpen, this.homepageNews, this.announcements);
 
   UIState.def()
-      : this.drawerIsOpen = false,
-        this.darkMode = false,
-        this.homepageNews = null,
-        this.announcements = null;
+      : drawerIsOpen = false,
+        homepageNews = null,
+        announcements = null;
 
   UIState copyWith(
-          {bool drawerIsOpen,
-          bool darkMode,
-          List<News> homepageNews,
-          List announcements}) =>
+          {bool drawerIsOpen, List<News> homepageNews, List announcements}) =>
       UIState(
           drawerIsOpen ?? this.drawerIsOpen,
-          darkMode ?? this.darkMode,
           homepageNews ?? this.homepageNews,
           announcements ?? this.announcements);
 }
