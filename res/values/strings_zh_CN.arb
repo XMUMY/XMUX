@@ -37,9 +37,18 @@
   "Calendar_AttendanceMarkAttended": "标记为出席",
   "Calendar_AttendanceMarkAbsent": "标记为缺席",
   "Settings": "设置",
-  "Settings_UpdateProfile": "更改个人资料",
+  "Settings_EditProfile": "更改个人资料",
   "Settings_Sessions": "会话",
   "Settings_DeveloperOptions": "开发者选项",
+  "Settings_DeveloperOptionsWarning": "警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常及数据的丢失或泄漏。",
+  "Settings_DeveloperOptionsEnableFnUnderDev": "启用正在开发中的功能",
+  "Settings_DeveloperOptionsEnableFnUnderDevCaption": "这些功能尚在开发中且十分不稳定",
+  "Settings_DeveloperOptionsNotificationToken": "通知推送令牌",
+  "Settings_DeveloperOptionsNotificationTokenCaption": "点击以复制我的通知推送令牌",
   "Settings_SignOut": "登出",
-  "About": "关于"
+  "About": "关于",
+
+  "GMS_Unavailable": "谷歌服务不可用",
+  "GMS_UnavailableLoginCaption": "谷歌服务在您的设备上没有正常工作，这将导致部分功能无法使用，继续登录？",
+  "GMS_UnavailableCaption": "该功能需要的谷歌服务在您的设备上没有正常工作，请重新登录并保证您的谷歌服务工作正常。"
 }

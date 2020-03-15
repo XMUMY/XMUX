@@ -18,7 +18,7 @@ class AboutPage extends StatelessWidget {
               'χ',
               textAlign: TextAlign.center,
               style:
-                  Theme.of(context).textTheme.headline.copyWith(fontSize: 60),
+                  Theme.of(context).textTheme.headline5.copyWith(fontSize: 60),
             ),
           ),
           Divider(height: 25, color: Colors.transparent),
@@ -30,7 +30,7 @@ class AboutPage extends StatelessWidget {
           Text(
             """
 XMUX is Developed by χ Team and maintenanced by XMUM Student Council. Feel free to contact us if you are interested in contributing to this project.
-XMUX client is an open source project licenced by GPLv3. The code can be found at github.com/X-dea/XMUX""",
+XMUX client is an open source project licenced by GPLv3. The code can be found at github.com/XMUMY/XMUX""",
             textAlign: TextAlign.center,
           ),
           Divider(color: Colors.transparent),
@@ -50,7 +50,7 @@ XMUX client is an open source project licenced by GPLv3. The code can be found a
           ),
           Divider(),
           Text(
-            '© 2017-2019 χ Team \n'
+            '© 2017-2020 XMUX Project.\n'
             'Ver: ${packageInfo.version} | ${packageInfo.buildNumber}',
             textAlign: TextAlign.center,
           ),
@@ -62,13 +62,12 @@ XMUX client is an open source project licenced by GPLv3. The code can be found a
                     'New version available: ${firebase.remoteConfigs.versions.latestVersionReleased}\n'
                     'Tap to upgrade.',
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () =>
-                      launch('${BackendApiConfig.websiteAddress}/downloads'),
+                  ..onTap = () => launch('${BackendApiConfig.websiteAddress}'),
               ),
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
-                  .subhead
+                  .subtitle1
                   .copyWith(color: Theme.of(context).errorColor),
             )
         ],

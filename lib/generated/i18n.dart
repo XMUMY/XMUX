@@ -29,7 +29,11 @@ class S implements WidgetsLocalizations {
   String get Calendar_AttendanceSignIn => "Sign in";
   String get Calendar_AttendanceSignInMarked => "Waiting...";
   String get Calendar_AttendanceSignInSucceeded => "Succeeded";
-  String get GMS_ => "";
+  String get GMS_Unavailable => "GMS Unavailable";
+  String get GMS_UnavailableCaption =>
+      "This function requires GMS, which is not working properly on your device. Please login again and make sure your GMS is working properly.";
+  String get GMS_UnavailableLoginCaption =>
+      "GMS is not working properly on your device. Some functions may not work. Sure to continue?";
   String get General_Cancel => "Cancel";
   String get General_Continue => "Continue";
   String get General_Ignore => "Ignore";
@@ -42,9 +46,19 @@ class S implements WidgetsLocalizations {
   String get General_Weekday7 => "Sunday";
   String get Settings => "Settings";
   String get Settings_DeveloperOptions => "Developer Options";
+  String get Settings_DeveloperOptionsEnableFnUnderDev =>
+      "Enable Functions under Development";
+  String get Settings_DeveloperOptionsEnableFnUnderDevCaption =>
+      "These functions are still under development and are highly unstable";
+  String get Settings_DeveloperOptionsNotificationToken =>
+      "My Notification Token";
+  String get Settings_DeveloperOptionsNotificationTokenCaption =>
+      "Press to copy my notification token";
+  String get Settings_DeveloperOptionsWarning =>
+      "Warning: These functions are for developers and testers only and may cause operational errors or data loss.";
+  String get Settings_EditProfile => "Edit Profile";
   String get Settings_Sessions => "Sessions";
   String get Settings_SignOut => "Sign Out";
-  String get Settings_UpdateProfile => "Update Profile";
   String get SignIn_CampusID => "Campus ID";
   String get SignIn_Docs => "Help Docs";
   String get SignIn_ErrorDeprecated =>
@@ -81,27 +95,17 @@ class $zh_CN extends S {
   @override
   String get Calendar_Attendance => "考勤";
   @override
-  String get General_Cancel => "取消";
-  @override
   String get SignIn_ErrorFormat => "格式不正确，请检查。";
   @override
-  String get SignIn_InstallGMS => "安装 GMS";
-  @override
-  String get SignIn_CampusID => "校园ID";
+  String get Settings_DeveloperOptionsWarning =>
+      "警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常及数据的丢失或泄漏。";
   @override
   String get SignIn_Register => "注册";
   @override
-  String get Calendar_AttendanceSignInMarked => "等待确认···";
-  @override
-  String get SignIn_Privacy => "隐私政策";
-  @override
-  String get Calendar_AttendanceMarkAttended => "标记为出席";
-  @override
-  String get SignIn_Password => "密码";
-  @override
   String get General_Ignore => "忽略";
   @override
-  String get Settings_SignOut => "登出";
+  String get GMS_UnavailableCaption =>
+      "该功能需要的谷歌服务在您的设备上没有正常工作，请重新登录并保证您的谷歌服务工作正常。";
   @override
   String get SignIn_ErrorDeprecated => "该版本应用已不再受到支持，请更新！";
   @override
@@ -109,23 +113,15 @@ class $zh_CN extends S {
   @override
   String get Calendar_AttendanceRate => "出勤率";
   @override
-  String get SignIn_Docs => "帮助文档";
-  @override
   String get Settings => "设置";
   @override
-  String get SignIn_ErrorGMS => "GMS 未正常工作";
-  @override
-  String get SignIn_SignIn => "登录";
-  @override
-  String get SignIn_RegisterTitle => "欢迎来到 XMUM！";
-  @override
   String get SignIn_ErrorInvalidPassword => "用户名或密码无效";
-  @override
-  String get Settings_UpdateProfile => "更改个人资料";
   @override
   String get Settings_Sessions => "会话";
   @override
   String get General_Weekday7 => "周日";
+  @override
+  String get GMS_Unavailable => "谷歌服务不可用";
   @override
   String get General_Weekday6 => "周六";
   @override
@@ -137,8 +133,6 @@ class $zh_CN extends S {
   @override
   String get General_Weekday3 => "周三";
   @override
-  String get General_Continue => "继续";
-  @override
   String get General_Weekday2 => "周二";
   @override
   String get General_Weekday1 => "周一";
@@ -147,13 +141,54 @@ class $zh_CN extends S {
   @override
   String get About => "关于";
   @override
-  String get SignIn_RegisterEmail => "邮箱";
+  String get Settings_DeveloperOptionsEnableFnUnderDevCaption =>
+      "这些功能尚在开发中且十分不稳定";
   @override
   String get Calendar_AttendanceMarkAbsent => "标记为缺席";
   @override
   String get SignIn_RegisterCaption => "我们仍需要以下信息以完成注册。";
   @override
+  String get Settings_EditProfile => "更改个人资料";
+  @override
   String get SignIn_Read => "登录即代表您同意我们的隐私政策和免责声明";
+  @override
+  String get General_Cancel => "取消";
+  @override
+  String get SignIn_InstallGMS => "安装 GMS";
+  @override
+  String get SignIn_CampusID => "校园ID";
+  @override
+  String get Calendar_AttendanceSignInMarked => "等待确认···";
+  @override
+  String get SignIn_Privacy => "隐私政策";
+  @override
+  String get Calendar_AttendanceMarkAttended => "标记为出席";
+  @override
+  String get SignIn_Password => "密码";
+  @override
+  String get Settings_DeveloperOptionsNotificationTokenCaption =>
+      "点击以复制我的通知推送令牌";
+  @override
+  String get Settings_DeveloperOptionsNotificationToken => "通知推送令牌";
+  @override
+  String get Settings_SignOut => "登出";
+  @override
+  String get SignIn_Docs => "帮助文档";
+  @override
+  String get SignIn_ErrorGMS => "GMS 未正常工作";
+  @override
+  String get SignIn_SignIn => "登录";
+  @override
+  String get SignIn_RegisterTitle => "欢迎来到 XMUM！";
+  @override
+  String get Settings_DeveloperOptionsEnableFnUnderDev => "启用正在开发中的功能";
+  @override
+  String get General_Continue => "继续";
+  @override
+  String get GMS_UnavailableLoginCaption =>
+      "谷歌服务在您的设备上没有正常工作，这将导致部分功能无法使用，继续登录？";
+  @override
+  String get SignIn_RegisterEmail => "邮箱";
   @override
   String Calendar_AttendanceSignInFailed(String tip) => "签到失败： $tip";
 }

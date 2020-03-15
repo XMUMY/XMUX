@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -9,7 +10,7 @@ class DeveloperOptionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(i18n('Settings/DeveloperOptions', context)),
+        title: Text(S.of(context).Settings_DeveloperOptions),
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -22,7 +23,7 @@ class DeveloperOptionsPage extends StatelessWidget {
             ),
           ),
           Text(
-            i18n('Settings/DeveloperOptions/Warning', context),
+            S.of(context).Settings_DeveloperOptionsWarning,
             textAlign: TextAlign.center,
           ),
           Divider(),
@@ -32,11 +33,11 @@ class DeveloperOptionsPage extends StatelessWidget {
             converter: (store) =>
                 store.state.settingState.enableFunctionsUnderDev,
             builder: (context, value) => SwitchListTile.adaptive(
-              title: Text(
-                  i18n('Settings/DeveloperOptions/EnFuncsUnderDev', context)),
-              subtitle: Text(i18n(
-                  'Settings/DeveloperOptions/EnFuncsUnderDev/Caption',
-                  context)),
+              title:
+                  Text(S.of(context).Settings_DeveloperOptionsEnableFnUnderDev),
+              subtitle: Text(
+                S.of(context).Settings_DeveloperOptionsEnableFnUnderDevCaption,
+              ),
               value: value,
               onChanged: (v) =>
                   store.dispatch(EnableFunctionsUnderDevAction(!value)),
@@ -45,9 +46,11 @@ class DeveloperOptionsPage extends StatelessWidget {
 
           // Copy FCM key.
           ListTile(
-            title: Text(i18n('Settings/DeveloperOptions/MyPushToken', context)),
+            title:
+                Text(S.of(context).Settings_DeveloperOptionsNotificationToken),
             subtitle: Text(
-                i18n('Settings/DeveloperOptions/MyPushToken/Caption', context)),
+              S.of(context).Settings_DeveloperOptionsNotificationTokenCaption,
+            ),
             onTap: () async => Clipboard.setData(
                 ClipboardData(text: await firebase.messaging.getToken())),
           ),

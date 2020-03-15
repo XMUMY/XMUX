@@ -149,7 +149,7 @@ class EndDrawer extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: Theme.of(context)
                       .textTheme
-                      .headline2
+                      .headline5
                       .copyWith(fontSize: 55),
                 ),
               ),

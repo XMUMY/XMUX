@@ -30,7 +30,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).Settings_UpdateProfile),
+        title: Text(S.of(context).Settings_EditProfile),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.done),

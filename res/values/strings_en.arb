@@ -37,10 +37,18 @@
   "Calendar_AttendanceMarkAttended": "Mark as Attended",
   "Calendar_AttendanceMarkAbsent": "Mark as Absent",
   "Settings": "Settings",
-  "Settings_UpdateProfile": "Update Profile",
+  "Settings_EditProfile": "Edit Profile",
   "Settings_Sessions": "Sessions",
   "Settings_DeveloperOptions": "Developer Options",
+  "Settings_DeveloperOptionsWarning": "Warning: These functions are for developers and testers only and may cause operational errors or data loss.",
+  "Settings_DeveloperOptionsEnableFnUnderDev": "Enable Functions under Development",
+  "Settings_DeveloperOptionsEnableFnUnderDevCaption": "These functions are still under development and are highly unstable",
+  "Settings_DeveloperOptionsNotificationToken": "My Notification Token",
+  "Settings_DeveloperOptionsNotificationTokenCaption": "Press to copy my notification token",
   "Settings_SignOut": "Sign Out",
   "About": "About",
-  "GMS_": ""
+
+  "GMS_Unavailable": "GMS Unavailable",
+  "GMS_UnavailableLoginCaption": "GMS is not working properly on your device. Some functions may not work. Sure to continue?",
+  "GMS_UnavailableCaption": "This function requires GMS, which is not working properly on your device. Please login again and make sure your GMS is working properly."
 }

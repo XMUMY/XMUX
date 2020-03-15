@@ -38,7 +38,7 @@ class SettingsPage extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text(S.of(context).Settings_UpdateProfile),
+            title: Text(S.of(context).Settings_EditProfile),
             onTap: () => Firebase.pushNamed(context, '/Settings/ChangeProfile'),
           ),
           ListTile(
