@@ -155,4 +155,10 @@ mixin _$StudentAttendance on _StudentAttendance, Store {
       _$selectedAtom.reportChanged();
     }, _$selectedAtom, name: '${_$selectedAtom.name}_set');
   }
+
+  @override
+  String toString() {
+    final string = 'selected: ${selected.toString()}';
+    return '{$string}';
+  }
 }

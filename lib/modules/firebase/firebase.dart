@@ -32,9 +32,15 @@ class Firebase {
 
   static Future<Firebase> init() async {
     if (instance != null) return instance;
+
     instance = Firebase._(await RemoteConfig.instance)
       ..messaging.requestNotificationPermissions();
-    await instance.updateRemoteConfig();
+
+    instance.remoteConfig.setDefaults({
+      'static_resources': await rootBundle.loadString('res/static.json'),
+    });
+    instance.updateRemoteConfig();
+
     return instance;
   }
 

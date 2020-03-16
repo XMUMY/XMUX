@@ -161,4 +161,11 @@ mixin _$RequestForm on _RequestForm, Store {
       _$phoneNumberAtom.reportChanged();
     }, _$phoneNumberAtom, name: '${_$phoneNumberAtom.name}_set');
   }
+
+  @override
+  String toString() {
+    final string =
+        'usage: ${usage.toString()},category: ${category.toString()},block: ${block.toString()},wing: ${wing.toString()},room: ${room.toString()},recurringProblem: ${recurringProblem.toString()},description: ${description.toString()},file: ${file.toString()},phoneNumber: ${phoneNumber.toString()}';
+    return '{$string}';
+  }
 }

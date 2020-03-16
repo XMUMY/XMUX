@@ -8,6 +8,7 @@ part of 'remote_config.dart';
 
 StaticResources _$StaticResourcesFromJson(Map<String, dynamic> json) {
   return StaticResources(
+    defaultAvatar: json['defaultAvatar'] as String,
     academicCalendarImages: json['academicCalendarImages'] == null
         ? null
         : AcademicCalendarImages.fromJson(
@@ -32,9 +33,9 @@ AcademicCalendarImages _$AcademicCalendarImagesFromJson(
 
 Versions _$VersionsFromJson(Map<String, dynamic> json) {
   return Versions(
-    latestBuildReleased: json['latestBuildReleased'] as int,
+    latestBuildReleased: json['latestBuildReleased'] as int ?? 0,
     latestVersionReleased: json['latestVersionReleased'] as String,
-    minBuildSupported: json['minBuildSupported'] as int,
+    minBuildSupported: json['minBuildSupported'] as int ?? 0,
     minVersionSupported: json['minVersionSupported'] as String,
   );
 }

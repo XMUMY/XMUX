@@ -1,0 +1,19 @@
+{
+  "defaultAvatar": "https://s.gravatar.com/avatar/59aad2c000000000000000000df056a3",
+  "academicCalendarImage": "http://www.xmu.edu.my/_upload/article/images/09/cb/1e57725f45ce8bbe1c0c9d5008f0/2bf463f0-015c-44d3-9687-2bf539c843d2.png",
+  "academicCalendarImages": {
+    "undergraduate": {
+      "2019": "http://www.xmu.edu.my/_upload/article/images/09/cb/1e57725f45ce8bbe1c0c9d5008f0/27e7fbcf-c3af-428a-bd5a-91462d8d8022.jpg",
+      "2020": "http://www.xmu.edu.my/_upload/article/images/09/cb/1e57725f45ce8bbe1c0c9d5008f0/2bf463f0-015c-44d3-9687-2bf539c843d2.png"
+    },
+    "foundation": {
+      "201904": "http://www.xmu.edu.my/_upload/article/images/09/cb/1e57725f45ce8bbe1c0c9d5008f0/ad98f4b1-9a50-4c31-8d7c-d3afc0144d0e.jpg",
+      "201908": "http://www.xmu.edu.my/_upload/article/images/09/cb/1e57725f45ce8bbe1c0c9d5008f0/8273530e-0778-49fc-95af-6fbc201383f3.jpg",
+      "201912": "http://www.xmu.edu.my/_upload/article/images/09/cb/1e57725f45ce8bbe1c0c9d5008f0/22005e45-bf7a-4a4c-9a66-55c744873e95.jpg",
+      "202003": "http://www.xmu.edu.my/_upload/article/images/09/cb/1e57725f45ce8bbe1c0c9d5008f0/8db0ee1d-50bf-40b5-a636-63d6ca382b0e.jpg"
+    }
+  },
+  "busScheduleImage": "http://www.xmu.edu.my/_upload/article/images/7a/24/ad85b64f496e9abc7833d44c0069/402228a6-a039-4771-9396-aa09e33db0cb.jpg",
+  "kliaTransitScheduleImage": "https://s2.ax1x.com/2019/05/09/E2PLSP.png",
+  "kliaExpressScheduleImage": "https://s2.ax1x.com/2019/05/09/E2iMf1.png"
+}

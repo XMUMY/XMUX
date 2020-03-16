@@ -17,16 +17,19 @@ class RemoteConfigs {
 
 @JsonSerializable(createToJson: false)
 class StaticResources {
+  final String defaultAvatar;
   final AcademicCalendarImages academicCalendarImages;
   final String busScheduleImage;
   final String kliaTransitScheduleImage;
   final String kliaExpressScheduleImage;
 
-  StaticResources(
-      {this.academicCalendarImages,
-      this.busScheduleImage,
-      this.kliaTransitScheduleImage,
-      this.kliaExpressScheduleImage});
+  StaticResources({
+    this.defaultAvatar,
+    this.academicCalendarImages,
+    this.busScheduleImage,
+    this.kliaTransitScheduleImage,
+    this.kliaExpressScheduleImage,
+  });
 
   factory StaticResources.fromJson(Map<String, dynamic> json) =>
       _$StaticResourcesFromJson(json);
@@ -45,16 +48,19 @@ class AcademicCalendarImages {
 
 @JsonSerializable(createToJson: false)
 class Versions {
+  @JsonKey(defaultValue: 0)
   final int latestBuildReleased;
   final String latestVersionReleased;
+  @JsonKey(defaultValue: 0)
   final int minBuildSupported;
   final String minVersionSupported;
 
-  Versions(
-      {this.latestBuildReleased,
-      this.latestVersionReleased,
-      this.minBuildSupported = 0,
-      this.minVersionSupported});
+  Versions({
+    this.latestBuildReleased = 0,
+    this.latestVersionReleased,
+    this.minBuildSupported = 0,
+    this.minVersionSupported,
+  });
 
   factory Versions.fromJson(Map<String, dynamic> json) =>
       _$VersionsFromJson(json);

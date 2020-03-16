@@ -33,7 +33,9 @@ class DrawerPage extends StatelessWidget {
             child: Hero(
               tag: 'UserAvatar',
               child: StoreConnector<MainAppState, String>(
-                converter: (s) => s.state.user.profile?.avatar ?? '',
+                converter: (s) =>
+                    s.state.user.profile?.avatar ??
+                    firebase.remoteConfigs.staticResources.defaultAvatar,
                 builder: (context, s) => CircleAvatar(
                   backgroundImage: NetworkImage(s),
                   radius: 30,

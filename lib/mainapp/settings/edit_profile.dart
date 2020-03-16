@@ -47,8 +47,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
+                    horizontal: 25,
+                    vertical: 15,
                   ),
                   child: Hero(
                     tag: 'UserAvatar',
@@ -67,10 +67,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     ),
                   ),
                 ),
-                StoreConnector<MainAppState, String>(
-                  converter: (s) => s.state.user.profile?.displayName ?? 'User',
-                  builder: (context, s) => Text(s),
-                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    StoreConnector<MainAppState, String>(
+                      converter: (s) => s.state.user.profile?.name ?? 'User',
+                      builder: (context, s) => Text(s),
+                    ),
+                    Text(firebase.user.email),
+                  ],
+                )
               ],
             ),
             Text(
