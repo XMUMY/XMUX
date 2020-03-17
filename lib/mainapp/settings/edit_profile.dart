@@ -53,7 +53,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   child: Hero(
                     tag: 'UserAvatar',
                     child: StoreConnector<MainAppState, String>(
-                      converter: (s) => s.state.user.profile?.avatar ?? '',
+                      converter: (s) => firebase.user.photoUrl,
                       builder: (context, s) => GestureDetector(
                         onTap: () => Navigator.of(context).pushNamed(
                           '/Components/ImageEditor',
@@ -71,7 +71,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     StoreConnector<MainAppState, String>(
-                      converter: (s) => s.state.user.profile?.name ?? 'User',
+                      converter: (s) => s.state.user.profile?.name ?? '...',
                       builder: (context, s) => Text(s),
                     ),
                     Text(firebase.user.email),

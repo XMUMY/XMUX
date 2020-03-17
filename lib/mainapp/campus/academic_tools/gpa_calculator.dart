@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/translations/translation.dart';
 
 class GPACalculatorPage extends StatefulWidget {
   static const Map<String, double> gradePoints = {
@@ -71,40 +70,39 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(MainLocalizations.of(context)
-              .get("Campus/AcademicTools/GPACalculator/Title")),
-          backgroundColor: Colors.lightBlue,
-        ),
-        body: courses.isEmpty
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Card(
-                    margin: EdgeInsets.fromLTRB(30, 20, 30, 10),
-                    child: Padding(
-                        padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
-                        child: Text(
-                          "GPA : " +
-                              GPACalculatorPage.calculateGPA(courses)
-                                  .toStringAsFixed(1),
-                          style: Theme.of(context).textTheme.display1.copyWith(
-                              color: GPACalculatorPage.getGPAColor(
-                                  GPACalculatorPage.calculateGPA(courses))),
-                        )),
-                    shape: BeveledRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                  ),
-                  Flexible(
-                    child: _buildList(),
-                  ),
-                ],
-              ),
-      );
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(i18n("Campus/AcademicTools/GPACalculator/Title", context)),
+        backgroundColor: Colors.lightBlue,
+      ),
+      body: courses.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Card(
+                  margin: EdgeInsets.fromLTRB(30, 20, 30, 10),
+                  child: Padding(
+                      padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
+                      child: Text(
+                        "GPA : " +
+                            GPACalculatorPage.calculateGPA(courses)
+                                .toStringAsFixed(2),
+                        style: Theme.of(context).textTheme.headline4.copyWith(
+                            color: GPACalculatorPage.getGPAColor(
+                                GPACalculatorPage.calculateGPA(courses))),
+                      )),
+                  shape: BeveledRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                ),
+                Flexible(
+                  child: _buildList(),
+                ),
+              ],
+            ),
+    );
+  }
 }
 
 class _CourseInfo {

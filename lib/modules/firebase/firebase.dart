@@ -36,9 +36,9 @@ class Firebase {
     instance = Firebase._(await RemoteConfig.instance)
       ..messaging.requestNotificationPermissions();
 
-    instance.remoteConfig.setDefaults({
-      'static_resources': await rootBundle.loadString('res/static.json'),
-    });
+    var defaultStatic = await rootBundle.loadString('res/static.json');
+    instance.remoteConfig.setDefaults({'static_resources': defaultStatic});
+    instance.remoteConfigs.updateStaticResources(defaultStatic);
     instance.updateRemoteConfig();
 
     return instance;
