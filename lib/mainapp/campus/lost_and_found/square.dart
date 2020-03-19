@@ -39,7 +39,10 @@ class _LostAndFoundListState extends State<LostAndFoundList> {
           (await XmuxApi.instance.lostAndFoundApi.getBriefs()).data,
       builder: (context, list) {
         return ListView.builder(
-          itemBuilder: (context, index) {},
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return Text(list[index].name);
+          },
         );
       },
     );

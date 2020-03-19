@@ -60,14 +60,14 @@ class NewLostAndFoundReq extends _NewLostAndFoundReq with _$NewLostAndFoundReq {
 
 abstract class _NewLostAndFoundReq with Store {
   @observable
-  LostAndFoundType type;
+  var type = LostAndFoundType.lost;
 
   @observable
   String name;
 
   @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
   @observable
-  DateTime timestamp = DateTime.now();
+  var timestamp = DateTime.now();
 
   @observable
   String location;
@@ -76,5 +76,5 @@ abstract class _NewLostAndFoundReq with Store {
   String description;
 
   @observable
-  Map<String, String> contacts;
+  var contacts = Map<String, String>();
 }

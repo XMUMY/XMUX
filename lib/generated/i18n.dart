@@ -14,7 +14,7 @@ class S implements WidgetsLocalizations {
   static S current;
 
   static const GeneratedLocalizationsDelegate delegate =
-      GeneratedLocalizationsDelegate();
+    GeneratedLocalizationsDelegate();
 
   static S of(BuildContext context) => Localizations.of<S>(context, S);
 
@@ -41,16 +41,15 @@ class S implements WidgetsLocalizations {
   String get Campus_ToolsLFLocation => "At";
   String get Campus_ToolsLFLocationHint => "A5#G01";
   String get Campus_ToolsLFLost => "Lost";
-  String get Campus_ToolsLFName => "I lost my";
+  String get Campus_ToolsLFNameFound => "I found";
   String get Campus_ToolsLFNameHint => "MacBook Pro";
+  String get Campus_ToolsLFNameLost => "I lost";
   String get Campus_ToolsLFNew => "New Lost & Found";
   String get Campus_ToolsLFTime => "At";
   String get Explore => "Explore";
   String get GMS_Unavailable => "GMS Unavailable";
-  String get GMS_UnavailableCaption =>
-      "This function requires GMS, which is not working properly on your device. Please login again and make sure your GMS is working properly.";
-  String get GMS_UnavailableLoginCaption =>
-      "GMS is not working properly on your device. Some functions may not work. Sure to continue?";
+  String get GMS_UnavailableCaption => "This function requires GMS, which is not working properly on your device. Please login again and make sure your GMS is working properly.";
+  String get GMS_UnavailableLoginCaption => "GMS is not working properly on your device. Some functions may not work. Sure to continue?";
   String get General_Cancel => "Cancel";
   String get General_Continue => "Continue";
   String get General_Ignore => "Ignore";
@@ -63,34 +62,26 @@ class S implements WidgetsLocalizations {
   String get General_Weekday7 => "Sunday";
   String get Settings => "Settings";
   String get Settings_DeveloperOptions => "Developer Options";
-  String get Settings_DeveloperOptionsEnableFnUnderDev =>
-      "Enable Functions under Development";
-  String get Settings_DeveloperOptionsEnableFnUnderDevCaption =>
-      "These functions are still under development and are highly unstable";
-  String get Settings_DeveloperOptionsNotificationToken =>
-      "My Notification Token";
-  String get Settings_DeveloperOptionsNotificationTokenCaption =>
-      "Press to copy my notification token";
-  String get Settings_DeveloperOptionsWarning =>
-      "Warning: These functions are for developers and testers only and may cause operational errors or data loss.";
+  String get Settings_DeveloperOptionsEnableFnUnderDev => "Enable Functions under Development";
+  String get Settings_DeveloperOptionsEnableFnUnderDevCaption => "These functions are still under development and are highly unstable";
+  String get Settings_DeveloperOptionsNotificationToken => "My Notification Token";
+  String get Settings_DeveloperOptionsNotificationTokenCaption => "Press to copy my notification token";
+  String get Settings_DeveloperOptionsWarning => "Warning: These functions are for developers and testers only and may cause operational errors or data loss.";
   String get Settings_EditProfile => "Edit Profile";
   String get Settings_Sessions => "Sessions";
   String get Settings_SignOut => "Sign Out";
   String get SignIn_CampusID => "Campus ID";
   String get SignIn_Docs => "Help Docs";
-  String get SignIn_ErrorDeprecated =>
-      "Please upgrade! The version of app is no longer supported!";
+  String get SignIn_ErrorDeprecated => "Please upgrade! The version of app is no longer supported!";
   String get SignIn_ErrorFormat => "Format error, please check.";
   String get SignIn_ErrorGMS => "GMS not working properly.";
   String get SignIn_ErrorInvalidPassword => "Invalid username or password.";
   String get SignIn_InstallGMS => "Install GMS";
   String get SignIn_Password => "Password";
   String get SignIn_Privacy => "Privacy Policy";
-  String get SignIn_Read =>
-      "By signing in, you agree to our privacy policy & disclaimer";
+  String get SignIn_Read => "By signing in, you agree to our privacy policy & disclaimer";
   String get SignIn_Register => "Register";
-  String get SignIn_RegisterCaption =>
-      "We still need some information to finish your registration.";
+  String get SignIn_RegisterCaption => "We still need some information to finish your registration.";
   String get SignIn_RegisterDisplayName => "Display Name";
   String get SignIn_RegisterEmail => "Email";
   String get SignIn_RegisterTitle => "Welcome to XMUM!";
@@ -114,8 +105,7 @@ class $zh_CN extends S {
   @override
   String get SignIn_ErrorFormat => "格式不正确，请检查。";
   @override
-  String get Settings_DeveloperOptionsWarning =>
-      "警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常及数据的丢失或泄漏。";
+  String get Settings_DeveloperOptionsWarning => "警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常及数据的丢失或泄漏。";
   @override
   String get SignIn_Register => "注册";
   @override
@@ -123,10 +113,7 @@ class $zh_CN extends S {
   @override
   String get General_Ignore => "忽略";
   @override
-  String get Campus_ToolsLFName => "我丢失了";
-  @override
-  String get GMS_UnavailableCaption =>
-      "该功能需要的谷歌服务在您的设备上没有正常工作，请重新登录并保证您的谷歌服务工作正常。";
+  String get GMS_UnavailableCaption => "该功能需要的谷歌服务在您的设备上没有正常工作，请重新登录并保证您的谷歌服务工作正常。";
   @override
   String get SignIn_ErrorDeprecated => "该版本应用已不再受到支持，请更新！";
   @override
@@ -135,6 +122,8 @@ class $zh_CN extends S {
   String get Calendar_AttendanceRate => "出勤率";
   @override
   String get Settings => "设置";
+  @override
+  String get Campus_ToolsLFNameLost => "我丢失了";
   @override
   String get Campus => "校园";
   @override
@@ -170,8 +159,7 @@ class $zh_CN extends S {
   @override
   String get Campus_ToolsLF => "失物招领";
   @override
-  String get Settings_DeveloperOptionsEnableFnUnderDevCaption =>
-      "这些功能尚在开发中且十分不稳定";
+  String get Settings_DeveloperOptionsEnableFnUnderDevCaption => "这些功能尚在开发中且十分不稳定";
   @override
   String get Calendar_AttendanceMarkAbsent => "标记为缺席";
   @override
@@ -201,8 +189,7 @@ class $zh_CN extends S {
   @override
   String get SignIn_Password => "密码";
   @override
-  String get Settings_DeveloperOptionsNotificationTokenCaption =>
-      "点击以复制我的通知推送令牌";
+  String get Settings_DeveloperOptionsNotificationTokenCaption => "点击以复制我的通知推送令牌";
   @override
   String get Campus_ToolsLFLocation => "在";
   @override
@@ -213,6 +200,8 @@ class $zh_CN extends S {
   String get Campus_ToolsLFTime => "在";
   @override
   String get Campus_Tools => "校园工具";
+  @override
+  String get Campus_ToolsLFNameFound => "我拾到了";
   @override
   String get SignIn_Docs => "帮助文档";
   @override
@@ -228,8 +217,7 @@ class $zh_CN extends S {
   @override
   String get General_Continue => "继续";
   @override
-  String get GMS_UnavailableLoginCaption =>
-      "谷歌服务在您的设备上没有正常工作，这将导致部分功能无法使用，继续登录？";
+  String get GMS_UnavailableLoginCaption => "谷歌服务在您的设备上没有正常工作，这将导致部分功能无法使用，继续登录？";
   @override
   String get SignIn_RegisterEmail => "邮箱";
   @override
@@ -254,8 +242,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     ];
   }
 
-  LocaleListResolutionCallback listResolution(
-      {Locale fallback, bool withCountry = true}) {
+  LocaleListResolutionCallback listResolution({Locale fallback, bool withCountry = true}) {
     return (List<Locale> locales, Iterable<Locale> supported) {
       if (locales == null || locales.isEmpty) {
         return fallback ?? supported.first;
@@ -265,8 +252,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     };
   }
 
-  LocaleResolutionCallback resolution(
-      {Locale fallback, bool withCountry = true}) {
+  LocaleResolutionCallback resolution({Locale fallback, bool withCountry = true}) {
     return (Locale locale, Iterable<Locale> supported) {
       return _resolve(locale, fallback, supported, withCountry);
     };
@@ -284,7 +270,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
           S.current = const $zh_CN();
           return SynchronousFuture<S>(S.current);
         default:
-        // NO-OP.
+          // NO-OP.
       }
     }
     S.current = const S();
@@ -300,8 +286,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
   ///
   /// Internal method to resolve a locale from a list of locales.
   ///
-  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported,
-      bool withCountry) {
+  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported, bool withCountry) {
     if (locale == null || !_isSupported(locale, withCountry)) {
       return fallback ?? supported.first;
     }
@@ -334,9 +319,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
         }
 
         // If no country requirement is requested, check if this locale has no country.
-        if (true != withCountry &&
-            (supportedLocale.countryCode == null ||
-                supportedLocale.countryCode.isEmpty)) {
+        if (true != withCountry && (supportedLocale.countryCode == null || supportedLocale.countryCode.isEmpty)) {
           return true;
         }
       }
@@ -346,7 +329,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
 }
 
 String getLang(Locale l) => l == null
-    ? null
-    : l.countryCode != null && l.countryCode.isEmpty
-        ? l.languageCode
-        : l.toString();
+  ? null
+  : l.countryCode != null && l.countryCode.isEmpty
+    ? l.languageCode
+    : l.toString();

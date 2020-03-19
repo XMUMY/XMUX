@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:xmux/components/date_time_picker.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/modules/api/models/v3_lost_and_found.dart';
+import 'package:xmux/modules/api/xmux_api.dart';
 
 class NewLostAndFoundPage extends StatefulWidget {
   @override
@@ -12,6 +13,12 @@ class NewLostAndFoundPage extends StatefulWidget {
 class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
   var form = NewLostAndFoundReq();
   var formKey = GlobalKey<FormState>();
+
+  void _handleSubmit() async {
+    if (!formKey.currentState.validate()) return;
+    await XmuxApi.instance.lostAndFoundApi.add(form);
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +45,14 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
       Observer(
         builder: (context) => TextFormField(
           decoration: InputDecoration(
-            labelText: S.of(context).Campus_ToolsLFName,
+            labelText: form.type == LostAndFoundType.lost
+                ? S.of(context).Campus_ToolsLFNameLost
+                : S.of(context).Campus_ToolsLFNameFound,
             hintText: S.of(context).Campus_ToolsLFNameHint,
           ),
           maxLength: 25,
-          onChanged: (v) => setState(() => form.name = v),
+          onChanged: (v) => form.name = v,
+          validator: (v) => v.isNotEmpty ? null : '',
         ),
       ),
       Observer(
@@ -52,17 +62,23 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
           firstDate: DateTime(2017, 12, 22),
           lastDate: DateTime.now(),
           onDateChanged: (date) => setState(() => form.timestamp = date),
+          onTimeChanged: (time) => form.timestamp = DateTime(
+            form.timestamp.year,
+            form.timestamp.month,
+            form.timestamp.day,
+            time.hour,
+            time.minute,
+          ),
         ),
       ),
-      Observer(
-        builder: (context) => TextFormField(
-          decoration: InputDecoration(
-            labelText: S.of(context).Campus_ToolsLFLocation,
-            hintText: S.of(context).Campus_ToolsLFLocationHint,
-          ),
-          maxLength: 30,
-          onChanged: (v) => setState(() => form.name = v),
+      TextFormField(
+        decoration: InputDecoration(
+          labelText: S.of(context).Campus_ToolsLFLocation,
+          hintText: S.of(context).Campus_ToolsLFLocationHint,
         ),
+        maxLength: 30,
+        onChanged: (v) => form.location = v,
+        validator: (v) => v.isNotEmpty ? null : '',
       ),
       Divider(color: Colors.transparent),
       TextFormField(
@@ -72,11 +88,29 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           labelText: S.of(context).Campus_ToolsLFDescription,
-          hintText: '',
+          hintText: 'with mouse and power adaptor',
         ),
         onChanged: (v) => form.description = v,
-        validator: (v) => v.isNotEmpty ? null : 'Err',
+        validator: (v) => v.isNotEmpty ? null : '',
       ),
+      ListTile(
+        title: Text('Please contact me by'),
+        trailing: DropdownButton(
+          items: ['QQ', 'WeChat', 'Facebook', 'WhatsApp']
+              .map((e) => DropdownMenuItem(
+                    child: Text(e),
+                    value: e,
+                  ))
+              .toList(),
+          onChanged: (c) => setState(() => form.contacts[c] = ''),
+        ),
+      ),
+      for (var contact in form.contacts.keys)
+        TextFormField(
+          decoration: InputDecoration(labelText: contact),
+          maxLength: 30,
+          onChanged: (v) => form.contacts[contact] = v,
+        ),
     ];
 
     return Scaffold(
@@ -88,7 +122,7 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.done),
-            onPressed: () {},
+            onPressed: _handleSubmit,
           )
         ],
       ),
