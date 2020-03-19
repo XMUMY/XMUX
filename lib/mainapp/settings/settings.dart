@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:xmux/components/user_avatar.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
@@ -18,16 +19,13 @@ class SettingsPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Hero(
-                tag: 'UserAvatar',
-                child: StoreConnector<MainAppState, String>(
-                  converter: (s) =>
-                      s.state.user.profile?.avatar ??
-                      firebase.remoteConfigs.staticResources.defaultAvatar,
-                  builder: (context, s) => CircleAvatar(
-                    backgroundImage: NetworkImage(s),
-                    radius: 30,
-                  ),
+              StoreConnector<MainAppState, String>(
+                converter: (s) =>
+                    s.state.user.profile?.avatar ??
+                    firebase.remoteConfigs.staticResources.defaultAvatar,
+                builder: (context, s) => UserAvatar(
+                  url: s,
+                  radius: 30,
                 ),
               ),
               Divider(height: 5, color: Colors.transparent),
