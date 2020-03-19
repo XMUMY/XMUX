@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mobx/mobx.dart';
 
 import '../common.dart';
 
@@ -50,4 +51,30 @@ class LostAndFoundDetail extends LostAndFoundBrief {
 
   static LostAndFoundDetail fromJson(Map<String, dynamic> json) =>
       _$LostAndFoundDetailFromJson(json);
+}
+
+@JsonSerializable()
+class NewLostAndFoundReq extends _NewLostAndFoundReq with _$NewLostAndFoundReq {
+  Map<String, dynamic> toJson() => _$NewLostAndFoundReqToJson(this);
+}
+
+abstract class _NewLostAndFoundReq with Store {
+  @observable
+  LostAndFoundType type;
+
+  @observable
+  String name;
+
+  @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
+  @observable
+  DateTime timestamp = DateTime.now();
+
+  @observable
+  String location;
+
+  @observable
+  String description;
+
+  @observable
+  Map<String, String> contacts;
 }

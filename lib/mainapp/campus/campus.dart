@@ -36,28 +36,33 @@ class CampusPage extends StatelessWidget {
             alignment: WrapAlignment.spaceEvenly,
             children: <Widget>[
               _ToolButton(
-                  svg: 'res/campus/wolfram.svg',
-                  title: 'Campus/AcademicTools/WolframEngine/Title',
-                  path: '/Campus/ACTools/WolframEngine'),
+                svg: 'res/campus/wolfram.svg',
+                title: 'Campus/AcademicTools/WolframEngine/Title',
+                path: '/Campus/ACTools/WolframEngine',
+              ),
               _ToolButton(
-                  svg: 'res/campus/geogebra.svg',
-                  title: 'Campus/AcademicTools/GeoGebra/Title',
-                  path: '/Campus/ACTools/GeoGebra'),
+                svg: 'res/campus/geogebra.svg',
+                title: 'Campus/AcademicTools/GeoGebra/Title',
+                path: '/Campus/ACTools/GeoGebra',
+              ),
               if (store.state.user.isStudent)
                 _ToolButton(
-                    svg: 'res/campus/gpa.svg',
-                    title: 'Campus/AcademicTools/ExamResult/Title',
-                    path: '/Campus/ACTools/ExamResult'),
+                  svg: 'res/campus/gpa.svg',
+                  title: 'Campus/AcademicTools/ExamResult/Title',
+                  path: '/Campus/ACTools/ExamResult',
+                ),
               if (store.state.user.isStudent)
                 _ToolButton(
-                    svg: 'res/campus/gpa_calculator.svg',
-                    title: 'Campus/AcademicTools/GPACalculator/Title',
-                    path: '/Campus/ACTools/GPACalculator'),
+                  svg: 'res/campus/gpa_calculator.svg',
+                  title: 'Campus/AcademicTools/GPACalculator/Title',
+                  path: '/Campus/ACTools/GPACalculator',
+                ),
               if (!kIsWeb && !Platform.isIOS)
                 _ToolButton(
-                    svg: 'res/campus/vpn.svg',
-                    title: 'Campus/AcademicTools/VPN/Title',
-                    path: '/Campus/ACTools/VPN'),
+                  svg: 'res/campus/vpn.svg',
+                  title: 'Campus/AcademicTools/VPN/Title',
+                  path: '/Campus/ACTools/VPN',
+                ),
               if (store.state.settingState.enableFunctionsUnderDev &&
                   store.state.user.isStudent)
                 _ToolButton(
@@ -69,32 +74,45 @@ class CampusPage extends StatelessWidget {
           ),
           Text(
             ' ' + i18n('Campus/Tools', context),
-            style: Theme.of(context).textTheme.title,
+            style: Theme.of(context).textTheme.headline6,
           ),
           Divider(),
           Wrap(
             alignment: WrapAlignment.spaceEvenly,
             children: <Widget>[
               _ToolButton(
-                  child: Icon(Icons.directions_bus, color: Color(0xFF5DC3F1)),
-                  title: 'Campus/Tools/BusSchedule',
-                  path: '/Campus/Tools/BusSchedule'),
+                child: Icon(Icons.directions_bus, color: Color(0xFF5DC3F1)),
+                title: 'Campus/Tools/BusSchedule',
+                path: '/Campus/Tools/BusSchedule',
+              ),
               _ToolButton(
-                  svg: 'res/campus/klia_express.svg',
-                  title: 'Campus/Tools/KliaExpress',
-                  path: '/Campus/Tools/KliaExpress'),
+                svg: 'res/campus/klia_express.svg',
+                title: 'Campus/Tools/KliaExpress',
+                path: '/Campus/Tools/KliaExpress',
+              ),
               _ToolButton(
-                  svg: 'res/campus/travelviser.svg',
-                  title: 'Campus/Tools/Travelviser',
-                  path: '/Campus/Tools/Travelviser'),
+                svg: 'res/campus/travelviser.svg',
+                title: 'Campus/Tools/Travelviser',
+                path: '/Campus/Tools/Travelviser',
+              ),
               _ToolButton(
-                  child: Icon(
-                    FontAwesomeIcons.hammer,
-                    color: Color(0xFF5DC3F1),
-                    size: 60,
-                  ),
-                  title: 'Campus/Tools/Maintenance',
-                  path: '/Campus/Tools/Maintenance'),
+                child: Icon(
+                  FontAwesomeIcons.hammer,
+                  color: Color(0xFF5DC3F1),
+                  size: 60,
+                ),
+                title: 'Campus/Tools/Maintenance',
+                path: '/Campus/Tools/Maintenance',
+              ),
+              _ToolButton(
+                child: Icon(
+                  Icons.find_in_page,
+                  color: Color(0xFF5DC3F1),
+                  size: 60,
+                ),
+                title: 'Campus/Tools/LostAndFound',
+                path: '/Campus/Tools/LostAndFound',
+              ),
             ],
           ),
         ],
@@ -118,13 +136,13 @@ class _ToolButton extends StatelessWidget {
   /// Path for `Navigator`.
   final String path;
 
-  _ToolButton(
-      {Key key,
-      this.child,
-      this.svg,
-      @required this.title,
-      @required this.path})
-      : assert(!(child == null && svg == null)),
+  _ToolButton({
+    Key key,
+    this.child,
+    this.svg,
+    @required this.title,
+    @required this.path,
+  })  : assert(!(child == null && svg == null)),
         super(key: key);
 
   @override
@@ -132,7 +150,10 @@ class _ToolButton extends StatelessWidget {
     return Column(
       children: <Widget>[
         IconButton(
-          icon: Hero(tag: child ?? svg, child: child ?? SvgPicture.asset(svg)),
+          icon: Hero(
+            tag: child ?? svg,
+            child: child ?? SvgPicture.asset(svg),
+          ),
           onPressed: () =>
               Navigator.of(context, rootNavigator: true).pushNamed(path),
           tooltip: i18n(title, context),

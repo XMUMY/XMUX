@@ -15,7 +15,7 @@ class Refreshable<T> extends StatefulWidget {
   /// If the data is empty, [EmptyErrorPage] will be displayed automatically.
   final bool Function(T) isEmpty;
 
-  Refreshable({
+  const Refreshable({
     Key key,
     @required this.builder,
     @required this.onRefresh,
@@ -33,9 +33,18 @@ class RefreshableState<T> extends State<Refreshable<T>> {
   /// Flag will be true if first load has been completed.
   var firstLoadCompleted = false;
 
+  /// Flag to show a loading indicator at the bottom.
+  var isLoadingMore = false;
+
   Future<void> refresh() async => await widget
       .onRefresh()
       .then((v) => mounted ? setState(() => data = v) : null);
+
+  Future<void> showLoadingIndicator(Future future) async {
+    if (mounted) setState(() => isLoadingMore = true);
+    await future;
+    if (mounted) setState(() => isLoadingMore = false);
+  }
 
   @override
   void initState() {
@@ -52,9 +61,27 @@ class RefreshableState<T> extends State<Refreshable<T>> {
 
     if (widget.isEmpty != null && widget.isEmpty(data)) return EmptyErrorPage();
 
-    return RefreshIndicator(
-      onRefresh: refresh,
-      child: widget.builder(context, data),
+    return Stack(
+      children: <Widget>[
+        RefreshIndicator(
+          onRefresh: refresh,
+          child: widget.builder(context, data),
+        ),
+        AnimatedCrossFade(
+          duration: const Duration(milliseconds: 100),
+          crossFadeState: isLoadingMore
+              ? CrossFadeState.showSecond
+              : CrossFadeState.showFirst,
+          firstChild: Container(),
+          secondChild: Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 15),
+              child: RefreshProgressIndicator(),
+            ),
+          ),
+        )
+      ],
     );
   }
 }

@@ -44,4 +44,13 @@ class LostAndFoundApi {
     );
     return decodeResponse(resp, LostAndFoundDetail.fromJson);
   }
+
+  Future<XmuxApiResponse<Null>> add(NewLostAndFoundReq req) async {
+    var resp = await _dio.post<Map<String, dynamic>>(
+      '/item',
+      data: req.toJson(),
+      options: await _authorization.options,
+    );
+    return decodeResponse(resp, (_) => null);
+  }
 }
