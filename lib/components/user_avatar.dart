@@ -4,7 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:xmux/modules/api/models/v3_user.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
-class UserAvatar extends StatelessWidget {
+class UserAvatar extends StatefulWidget {
   final String uid;
   final String url;
   final ImageProvider provider;
@@ -17,48 +17,54 @@ class UserAvatar extends StatelessWidget {
     this.uid,
     this.url,
     this.provider,
-    this.heroTag = 'UserAvatar',
+    this.heroTag,
     this.radius,
   })  : assert(uid != null || url != null || provider != null),
         super(key: key);
 
   @override
+  _UserAvatarState createState() => _UserAvatarState();
+}
+
+class _UserAvatarState extends State<UserAvatar> {
+  Profile profile;
+
+  @override
+  void initState() {
+    if (widget.uid != null && widget.provider == null && widget.url == null)
+      XmuxApi.instance
+          .getProfile(uid: widget.uid)
+          .then((v) => mounted ? setState(() => profile = v.data) : null);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget avatar;
-    if (provider != null)
+    if (widget.provider != null)
       avatar = CircleAvatar(
-        backgroundImage: provider,
-        radius: radius,
+        backgroundImage: widget.provider,
+        radius: widget.radius,
       );
-    else if (url != null)
+    else if (widget.url != null)
       avatar = CircleAvatar(
-        backgroundImage: ExtendedNetworkImageProvider(url),
-        radius: radius,
+        backgroundImage: ExtendedNetworkImageProvider(widget.url),
+        radius: widget.radius,
       );
     else
-      avatar = FutureBuilder<Profile>(
-        future: () async {
-          var resp = await XmuxApi.instance.getProfile(uid: uid);
-          return resp.data;
-        }(),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return CircleAvatar(
-                backgroundImage:
-                    ExtendedNetworkImageProvider(snapshot.data.avatar),
-              );
-            default:
-              return CircleAvatar(
-                child: SpinKitDoubleBounce(color: Colors.white70),
-              );
-          }
-        },
-      );
+      avatar = profile != null
+          ? CircleAvatar(
+              backgroundImage: ExtendedNetworkImageProvider(profile.avatar),
+              radius: widget.radius,
+            )
+          : CircleAvatar(
+              child: SpinKitDoubleBounce(color: Colors.white70),
+              radius: widget.radius,
+            );
 
-    if (heroTag != null)
+    if (widget.heroTag != null)
       return Hero(
-        tag: heroTag,
+        tag: widget.heroTag,
         child: avatar,
       );
     else

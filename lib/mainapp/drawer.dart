@@ -38,6 +38,7 @@ class DrawerPage extends StatelessWidget {
               builder: (context, s) => UserAvatar(
                 url: s,
                 radius: 30,
+                heroTag: 'UserAvatar',
               ),
             ),
           ),

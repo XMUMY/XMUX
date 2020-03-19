@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/refreshable.dart';
+import 'package:xmux/components/user_avatar.dart';
 import 'package:xmux/modules/api/models/v3_lost_and_found.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
@@ -38,13 +41,81 @@ class _LostAndFoundListState extends State<LostAndFoundList> {
       onRefresh: () async =>
           (await XmuxApi.instance.lostAndFoundApi.getBriefs()).data,
       builder: (context, list) {
-        return ListView.builder(
-          itemCount: list.length,
-          itemBuilder: (context, index) {
-            return Text(list[index].name);
-          },
+        return ListView(
+          children: list.map((e) => _ItemBriefCard(e)).toList(),
         );
       },
+    );
+  }
+}
+
+class _ItemBriefCard extends StatefulWidget {
+  final LostAndFoundBrief brief;
+
+  const _ItemBriefCard(this.brief);
+
+  @override
+  _ItemBriefCardState createState() => _ItemBriefCardState();
+}
+
+class _ItemBriefCardState extends State<_ItemBriefCard> {
+  @override
+  Widget build(BuildContext context) {
+    return FloatingCard(
+      margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+      shape: RoundedRectangleBorder(),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                // Build user avatar.
+                Padding(
+                  padding: const EdgeInsets.all(13),
+                  child: UserAvatar(uid: widget.brief.uid),
+                ),
+
+                // Build user name and timestamp.
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('...'),
+                      Text(
+                        '${DateFormat.Md(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)}',
+                        style: Theme.of(context).textTheme.caption,
+                      )
+                    ],
+                  ),
+                ),
+
+                // Build price.
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Text(
+                    widget.brief.location,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subhead
+                        .copyWith(color: Colors.red),
+                  ),
+                ),
+              ],
+            ),
+
+            // Build title.
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Text(
+                widget.brief.name,
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

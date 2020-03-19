@@ -26,6 +26,7 @@ class SettingsPage extends StatelessWidget {
                 builder: (context, s) => UserAvatar(
                   url: s,
                   radius: 30,
+                  heroTag: 'UserAvatar',
                 ),
               ),
               Divider(height: 5, color: Colors.transparent),
