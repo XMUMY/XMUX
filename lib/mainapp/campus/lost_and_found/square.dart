@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/refreshable.dart';
-import 'package:xmux/components/user_avatar.dart';
+import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/modules/api/models/v3_lost_and_found.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
@@ -70,23 +71,58 @@ class _ItemBriefCardState extends State<_ItemBriefCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                // Build user avatar.
-                Padding(
-                  padding: const EdgeInsets.all(13),
-                  child: UserAvatar(uid: widget.brief.uid),
-                ),
-
-                // Build user name and timestamp.
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                UserProfileBuilder(
+                  uid: widget.brief.uid,
+                  builder: (context, profile) => Row(
                     children: <Widget>[
-                      Text('...'),
-                      Text(
-                        '${DateFormat.Md(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)}',
-                        style: Theme.of(context).textTheme.caption,
-                      )
+                      // Build user avatar.
+                      Padding(
+                        padding: const EdgeInsets.all(13),
+                        child: UserAvatar(url: profile.avatar),
+                      ),
+
+                      // Build user name and timestamp.
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(profile.displayName),
+                          Text(
+                            '${DateFormat.Md(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)}',
+                            style: Theme.of(context).textTheme.caption,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  loadingBuilder: (context) => Row(
+                    children: <Widget>[
+                      // Build user avatar.
+                      Padding(
+                        padding: const EdgeInsets.all(13),
+                        child: Shimmer.fromColors(
+                          child: CircleAvatar(),
+                          baseColor: Colors.black12,
+                          highlightColor: Colors.white,
+                        ),
+                      ),
+
+                      // Build user name and timestamp.
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Shimmer.fromColors(
+                            child: Text('...'),
+                            baseColor: Colors.black12,
+                            highlightColor: Colors.white,
+                          ),
+                          Text(
+                            '${DateFormat.Md(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)}',
+                            style: Theme.of(context).textTheme.caption,
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -96,10 +132,6 @@ class _ItemBriefCardState extends State<_ItemBriefCard> {
                   padding: const EdgeInsets.all(15),
                   child: Text(
                     widget.brief.location,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subhead
-                        .copyWith(color: Colors.red),
                   ),
                 ),
               ],

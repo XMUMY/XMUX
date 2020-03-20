@@ -52,6 +52,7 @@ dependencies:
   redux: ^4.0.0
   sentry: ^3.0.1
   shared_preferences: ^0.5.6
+  shimmer: ^1.1.0
   travelviser_dart:
     git: git@cloud.xdea.xyz:XMUX/travelviser-dart.git
   tuple: ^1.0.3
