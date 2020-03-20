@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:xmux/components/floating_card.dart';
+import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/components/user_profile.dart';
+import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/mainapp/campus/lost_and_found/detail.dart';
 import 'package:xmux/modules/api/models/v3_lost_and_found.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
@@ -12,7 +15,7 @@ class LostAndFoundPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lost & Found'),
+        title: Text(S.of(context).Campus_ToolsLF),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,
@@ -22,6 +25,7 @@ class LostAndFoundPage extends StatelessWidget {
         onPressed: () =>
             Navigator.of(context).pushNamed('/Campus/Tools/LostAndFound/New'),
         child: Icon(Icons.add),
+        tooltip: S.of(context).Campus_ToolsLFNew,
       ),
     );
   }
@@ -63,6 +67,8 @@ class _ItemBriefCardState extends State<_ItemBriefCard> {
   @override
   Widget build(BuildContext context) {
     return FloatingCard(
+      onTap: () => Navigator.of(context).push(
+          FadePageRoute(child: LostAndFoundDetailPage(id: widget.brief.id))),
       margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
       shape: RoundedRectangleBorder(),
       child: Padding(
@@ -89,7 +95,7 @@ class _ItemBriefCardState extends State<_ItemBriefCard> {
                         children: <Widget>[
                           Text(profile.displayName),
                           Text(
-                            '${DateFormat.Md(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)}',
+                            '${DateFormat.yMMMEd(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)}',
                             style: Theme.of(context).textTheme.caption,
                           )
                         ],
@@ -131,7 +137,9 @@ class _ItemBriefCardState extends State<_ItemBriefCard> {
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Text(
-                    widget.brief.location,
+                    widget.brief.type == LostAndFoundType.lost
+                        ? S.of(context).Campus_ToolsLFLost
+                        : S.of(context).Campus_ToolsLFFound,
                   ),
                 ),
               ],
@@ -141,8 +149,8 @@ class _ItemBriefCardState extends State<_ItemBriefCard> {
             Padding(
               padding: const EdgeInsets.all(8),
               child: Text(
-                widget.brief.name,
-                style: Theme.of(context).textTheme.subtitle1,
+                '${widget.brief.name}\n'
+                '${S.of(context).Campus_ToolsLFLocation} ${widget.brief.location}',
               ),
             ),
           ],

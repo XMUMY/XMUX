@@ -16,8 +16,11 @@ enum LostAndFoundType {
 class LostAndFoundBrief {
   final String id;
   final String uid;
+
+  @JsonKey(defaultValue: LostAndFoundType.lost)
   final LostAndFoundType type;
   final String name;
+
   @JsonKey(fromJson: timestampFromJson)
   final DateTime timestamp;
   final String location;

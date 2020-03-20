@@ -82,12 +82,12 @@ class CampusPage extends StatelessWidget {
             children: <Widget>[
               _ToolButton(
                 child: Icon(Icons.directions_bus, color: Color(0xFF5DC3F1)),
-                title: 'Campus/Tools/BusSchedule',
+                title: S.of(context).Campus_ToolsBusSchedule,
                 path: '/Campus/Tools/BusSchedule',
               ),
               _ToolButton(
                 svg: 'res/campus/klia_express.svg',
-                title: 'Campus/Tools/KliaExpress',
+                title: S.of(context).Campus_ToolsKliaExpress,
                 path: '/Campus/Tools/KliaExpress',
               ),
               _ToolButton(
@@ -110,7 +110,7 @@ class CampusPage extends StatelessWidget {
                   color: Color(0xFF5DC3F1),
                   size: 60,
                 ),
-                title: 'Campus/Tools/LostAndFound',
+                title: S.of(context).Campus_ToolsLF,
                 path: '/Campus/Tools/LostAndFound',
               ),
             ],
