@@ -35,6 +35,7 @@ class S implements WidgetsLocalizations {
   String get Campus_ToolsBusSchedule => "Bus Schedule";
   String get Campus_ToolsKliaExpress => "KLIA Express";
   String get Campus_ToolsLF => "Lost & Found";
+  String get Campus_ToolsLFContacts => "Please contact me by";
   String get Campus_ToolsLFDescription => "Description";
   String get Campus_ToolsLFFound => "Found";
   String get Campus_ToolsLFLOrF => "Lost or Found ?";
@@ -125,6 +126,8 @@ class $zh_CN extends S {
   @override
   String get Campus_ToolsLFNameLost => "我丢失了";
   @override
+  String get Campus_ToolsLFContacts => "请通过以下方式与我联系";
+  @override
   String get Campus => "校园";
   @override
   String get SignIn_ErrorInvalidPassword => "用户名或密码无效";
@@ -197,7 +200,7 @@ class $zh_CN extends S {
   @override
   String get Settings_SignOut => "登出";
   @override
-  String get Campus_ToolsLFTime => "在";
+  String get Campus_ToolsLFTime => "于";
   @override
   String get Campus_Tools => "校园工具";
   @override
@@ -225,7 +228,7 @@ class $zh_CN extends S {
   @override
   String get Campus_ToolsLFFound => "拾到";
   @override
-  String get Campus_ToolsLFNew => "新的时物招领";
+  String get Campus_ToolsLFNew => "新的失物招领";
   @override
   String get Campus_ToolsLFLOrF => "遗失/拾到？";
   @override

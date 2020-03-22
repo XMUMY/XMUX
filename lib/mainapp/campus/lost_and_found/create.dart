@@ -94,9 +94,9 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
         validator: (v) => v.isNotEmpty ? null : '',
       ),
       ListTile(
-        title: Text('Please contact me by'),
+        title: Text(S.of(context).Campus_ToolsLFContacts),
         trailing: DropdownButton(
-          items: ['QQ', 'WeChat', 'Facebook', 'WhatsApp']
+          items: ['QQ', 'WeChat', 'Facebook', 'WhatsApp', 'Telegram']
               .map((e) => DropdownMenuItem(
                     child: Text(e),
                     value: e,

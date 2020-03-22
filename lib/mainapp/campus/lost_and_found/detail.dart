@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/components/user_profile.dart';
@@ -74,6 +75,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
                 ),
               ),
 
+            Divider(color: Colors.transparent),
             // Details card.
             Card(
               child: Padding(
@@ -82,13 +84,44 @@ class LostAndFoundDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      '',
-                      style: Theme.of(context).textTheme.subhead,
+                      detail.type == LostAndFoundType.lost
+                          ? S.of(context).Campus_ToolsLFLost
+                          : S.of(context).Campus_ToolsLFFound,
+                      style: Theme.of(context).textTheme.caption,
                     ),
-                    new Divider(),
-                    Text('Contact: ${detail.uid}@xmu.edu.my'),
-                    new Divider(),
-                    new Text(detail.description),
+                    Text(
+                      detail.name,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    Divider(height: 5, color: Colors.transparent),
+                    Text(
+                      S.of(context).Campus_ToolsLFTime,
+                      style: Theme.of(context).textTheme.caption,
+                    ),
+                    Text(
+                      '${DateFormat.yMMMEd(Localizations.localeOf(context).languageCode).format(detail.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(detail.timestamp)}',
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    Divider(height: 5, color: Colors.transparent),
+                    Text(
+                      S.of(context).Campus_ToolsLFLocation,
+                      style: Theme.of(context).textTheme.caption,
+                    ),
+                    Text(
+                      detail.location,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    Divider(),
+                    Text(detail.description),
+                    if (detail.contacts?.isNotEmpty ?? false) ...[
+                      Divider(),
+                      Text(
+                        S.of(context).Campus_ToolsLFContacts,
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                      for (var contact in detail.contacts.entries)
+                        Text('${contact.key}  ${contact.value}'),
+                    ]
                   ],
                 ),
               ),

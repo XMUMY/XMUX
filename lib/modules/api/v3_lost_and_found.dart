@@ -46,6 +46,7 @@ class LostAndFoundApi {
   }
 
   Future<XmuxApiResponse<Null>> add(NewLostAndFoundReq req) async {
+    req.contacts.removeWhere((k, v) => v.isEmpty);
     var resp = await _dio.post<Map<String, dynamic>>(
       '/item',
       data: req.toJson(),
