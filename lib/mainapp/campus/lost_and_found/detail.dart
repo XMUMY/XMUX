@@ -4,22 +4,23 @@ import 'package:shimmer/shimmer.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/modules/api/models/v3_lost_and_found.dart';
 import 'package:xmux/modules/api/models/v3_user.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
 class LostAndFoundDetailPage extends StatelessWidget {
-  final String id;
+  final LostAndFoundBrief brief;
   final Profile profile;
 
-  const LostAndFoundDetailPage({Key key, @required this.id, this.profile})
+  const LostAndFoundDetailPage({Key key, @required this.brief, this.profile})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Widget body = Refreshable<LostAndFoundDetail>(
       onRefresh: () async =>
-          (await XmuxApi.instance.lostAndFoundApi.getDetail(id)).data,
+          (await XmuxApi.instance.lostAndFoundApi.getDetail(brief.id)).data,
       builder: (context, detail) {
         return ListView(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -153,6 +154,16 @@ class LostAndFoundDetailPage extends StatelessWidget {
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,
+        actions: <Widget>[
+          if (brief.uid == store.state.user.campusId)
+            IconButton(
+              icon: Icon(Icons.delete_outline),
+              onPressed: () async {
+                await XmuxApi.instance.lostAndFoundApi.delete(brief.id);
+                Navigator.of(context).pop(true);
+              },
+            ),
+        ],
       ),
       body: body,
     );

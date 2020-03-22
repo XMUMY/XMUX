@@ -17,7 +17,7 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
   void _handleSubmit() async {
     if (!formKey.currentState.validate()) return;
     await XmuxApi.instance.lostAndFoundApi.add(form);
-    Navigator.of(context).pop();
+    Navigator.of(context).pop(true);
   }
 
   @override

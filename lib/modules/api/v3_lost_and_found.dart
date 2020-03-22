@@ -38,9 +38,7 @@ class LostAndFoundApi {
   Future<XmuxApiResponse<LostAndFoundDetail>> getDetail(String id) async {
     var resp = await _dio.get<Map<String, dynamic>>(
       '/item',
-      queryParameters: {
-        'id': id,
-      },
+      queryParameters: {'id': id},
     );
     return decodeResponse(resp, LostAndFoundDetail.fromJson);
   }
@@ -50,6 +48,15 @@ class LostAndFoundApi {
     var resp = await _dio.post<Map<String, dynamic>>(
       '/item',
       data: req.toJson(),
+      options: await _authorization.options,
+    );
+    return decodeResponse(resp, (_) => null);
+  }
+
+  Future<XmuxApiResponse<Null>> delete(String id) async {
+    var resp = await _dio.delete<Map<String, dynamic>>(
+      '/item',
+      queryParameters: {'id': id},
       options: await _authorization.options,
     );
     return decodeResponse(resp, (_) => null);

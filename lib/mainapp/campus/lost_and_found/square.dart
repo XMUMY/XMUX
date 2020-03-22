@@ -9,7 +9,26 @@ import 'package:xmux/mainapp/campus/lost_and_found/detail.dart';
 import 'package:xmux/modules/api/models/v3_lost_and_found.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
-class LostAndFoundPage extends StatelessWidget {
+class LostAndFoundPage extends StatefulWidget {
+  @override
+  _LostAndFoundPageState createState() => _LostAndFoundPageState();
+}
+
+class _LostAndFoundPageState extends State<LostAndFoundPage> {
+  var refreshableKey = GlobalKey<RefreshableState<List<LostAndFoundBrief>>>();
+  var listController = ScrollController();
+
+  @override
+  void initState() {
+    listController.addListener(() {
+      if (listController.position.extentAfter == 0)
+        refreshableKey.currentState
+            .showLoadingIndicator(Future.delayed(Duration(seconds: 5)));
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,44 +38,26 @@ class LostAndFoundPage extends StatelessWidget {
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,
       ),
-      body: LostAndFoundList(),
+      body: Refreshable<List<LostAndFoundBrief>>(
+        key: refreshableKey,
+        onRefresh: () async =>
+            (await XmuxApi.instance.lostAndFoundApi.getBriefs()).data,
+        builder: (context, list) {
+          return ListView(
+            controller: listController,
+            children: list.map((e) => _ItemBriefCard(e)).toList(),
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            Navigator.of(context).pushNamed('/Campus/Tools/LostAndFound/New'),
+        onPressed: () async {
+          var shouldRefresh = await Navigator.of(context)
+              .pushNamed('/Campus/Tools/LostAndFound/New');
+          if (shouldRefresh ?? false) refreshableKey.currentState.refresh();
+        },
         child: Icon(Icons.add),
         tooltip: S.of(context).Campus_ToolsLFNew,
       ),
-    );
-  }
-}
-
-class LostAndFoundList extends StatefulWidget {
-  @override
-  _LostAndFoundListState createState() => _LostAndFoundListState();
-}
-
-class _LostAndFoundListState extends State<LostAndFoundList> {
-  var refreshableKey = GlobalKey<RefreshableState<List<LostAndFoundBrief>>>();
-  var listController = ScrollController();
-
-  @override
-  void initState() {
-    listController.addListener(() {});
-
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Refreshable<List<LostAndFoundBrief>>(
-      key: refreshableKey,
-      onRefresh: () async =>
-          (await XmuxApi.instance.lostAndFoundApi.getBriefs()).data,
-      builder: (context, list) {
-        return ListView(
-          children: list.map((e) => _ItemBriefCard(e)).toList(),
-        );
-      },
     );
   }
 }
@@ -70,12 +71,21 @@ class _ItemBriefCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingCard(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (_) => LostAndFoundDetailPage(
-          id: brief.id,
-          profile: profileKey.currentState.profile,
-        ),
-      )),
+      onTap: () async {
+        var shouldRefresh =
+            await Navigator.of(context).push<bool>(MaterialPageRoute(
+          builder: (_) => LostAndFoundDetailPage(
+            brief: brief,
+            profile: profileKey.currentState.profile,
+          ),
+        ));
+        if (shouldRefresh ?? false)
+          context
+              .findAncestorStateOfType<_LostAndFoundPageState>()
+              .refreshableKey
+              .currentState
+              .refresh();
+      },
       margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
       shape: RoundedRectangleBorder(),
       child: Padding(

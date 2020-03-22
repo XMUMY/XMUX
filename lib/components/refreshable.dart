@@ -27,6 +27,7 @@ class Refreshable<T> extends StatefulWidget {
 }
 
 class RefreshableState<T> extends State<Refreshable<T>> {
+  /// Data for builder.
   T data;
 
   /// When initializing widget state, data will be automatically load.
