@@ -18,10 +18,10 @@ class UserProfileBuilder extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _UserProfileBuilderState createState() => _UserProfileBuilderState();
+  UserProfileBuilderState createState() => UserProfileBuilderState();
 }
 
-class _UserProfileBuilderState extends State<UserProfileBuilder> {
+class UserProfileBuilderState extends State<UserProfileBuilder> {
   Profile profile;
 
   @override

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:xmux/components/floating_card.dart';
-import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/i18n.dart';
@@ -37,7 +36,15 @@ class LostAndFoundList extends StatefulWidget {
 }
 
 class _LostAndFoundListState extends State<LostAndFoundList> {
-  var refreshableKey = GlobalKey<RefreshableState>();
+  var refreshableKey = GlobalKey<RefreshableState<List<LostAndFoundBrief>>>();
+  var listController = ScrollController();
+
+  @override
+  void initState() {
+    listController.addListener(() {});
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,21 +61,21 @@ class _LostAndFoundListState extends State<LostAndFoundList> {
   }
 }
 
-class _ItemBriefCard extends StatefulWidget {
+class _ItemBriefCard extends StatelessWidget {
   final LostAndFoundBrief brief;
+  final profileKey = GlobalKey<UserProfileBuilderState>();
 
-  const _ItemBriefCard(this.brief);
+  _ItemBriefCard(this.brief);
 
-  @override
-  _ItemBriefCardState createState() => _ItemBriefCardState();
-}
-
-class _ItemBriefCardState extends State<_ItemBriefCard> {
   @override
   Widget build(BuildContext context) {
     return FloatingCard(
-      onTap: () => Navigator.of(context).push(
-          FadePageRoute(child: LostAndFoundDetailPage(id: widget.brief.id))),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (_) => LostAndFoundDetailPage(
+          id: brief.id,
+          profile: profileKey.currentState.profile,
+        ),
+      )),
       margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
       shape: RoundedRectangleBorder(),
       child: Padding(
@@ -80,13 +87,17 @@ class _ItemBriefCardState extends State<_ItemBriefCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 UserProfileBuilder(
-                  uid: widget.brief.uid,
+                  key: profileKey,
+                  uid: brief.uid,
                   builder: (context, profile) => Row(
                     children: <Widget>[
                       // Build user avatar.
                       Padding(
                         padding: const EdgeInsets.all(13),
-                        child: UserAvatar(url: profile.avatar),
+                        child: UserAvatar(
+                          url: profile.avatar,
+                          heroTag: profile.hashCode.toString(),
+                        ),
                       ),
 
                       // Build user name and timestamp.
@@ -95,7 +106,7 @@ class _ItemBriefCardState extends State<_ItemBriefCard> {
                         children: <Widget>[
                           Text(profile.displayName),
                           Text(
-                            '${DateFormat.yMMMEd(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)}',
+                            '${DateFormat.yMMMEd(Localizations.localeOf(context).languageCode).format(brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(brief.timestamp)}',
                             style: Theme.of(context).textTheme.caption,
                           )
                         ],
@@ -124,7 +135,7 @@ class _ItemBriefCardState extends State<_ItemBriefCard> {
                             highlightColor: Colors.white,
                           ),
                           Text(
-                            '${DateFormat.Md(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(widget.brief.timestamp)}',
+                            '${DateFormat.Md(Localizations.localeOf(context).languageCode).format(brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(brief.timestamp)}',
                             style: Theme.of(context).textTheme.caption,
                           )
                         ],
@@ -137,7 +148,7 @@ class _ItemBriefCardState extends State<_ItemBriefCard> {
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Text(
-                    widget.brief.type == LostAndFoundType.lost
+                    brief.type == LostAndFoundType.lost
                         ? S.of(context).Campus_ToolsLFLost
                         : S.of(context).Campus_ToolsLFFound,
                   ),
@@ -149,8 +160,8 @@ class _ItemBriefCardState extends State<_ItemBriefCard> {
             Padding(
               padding: const EdgeInsets.all(8),
               child: Text(
-                '${widget.brief.name}\n'
-                '${S.of(context).Campus_ToolsLFLocation} ${widget.brief.location}',
+                '${brief.name}\n'
+                '${S.of(context).Campus_ToolsLFLocation} ${brief.location}',
               ),
             ),
           ],
