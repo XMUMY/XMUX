@@ -4,6 +4,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:xmux/modules/api/models/v3_user.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
+var _cached = <String, Profile>{};
+
 class UserProfileBuilder extends StatefulWidget {
   final String uid;
 
@@ -26,9 +28,14 @@ class UserProfileBuilderState extends State<UserProfileBuilder> {
 
   @override
   void initState() {
-    XmuxApi.instance
-        .getProfile(uid: widget.uid)
-        .then((v) => mounted ? setState(() => profile = v.data) : null);
+    if (_cached.containsKey(widget.uid))
+      profile = _cached[widget.uid];
+    else
+      XmuxApi.instance.getProfile(uid: widget.uid).then((v) {
+        // TODO: Clear periodically.
+        _cached[widget.uid] = v.data;
+        if (mounted) setState(() => profile = v.data);
+      });
     super.initState();
   }
 

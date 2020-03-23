@@ -2,6 +2,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/state/state.dart';
@@ -50,19 +51,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     horizontal: 25,
                     vertical: 15,
                   ),
-                  child: Hero(
-                    tag: 'UserAvatar',
-                    child: StoreConnector<MainAppState, String>(
-                      converter: (s) => firebase.user.photoUrl,
-                      builder: (context, s) => GestureDetector(
-                        onTap: () => Navigator.of(context).pushNamed(
-                          '/Components/ImageEditor',
-                          arguments: ExtendedNetworkImageProvider(s),
-                        ),
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(s),
-                          radius: 30,
-                        ),
+                  child: StoreConnector<MainAppState, String>(
+                    converter: (s) => firebase.user.photoUrl,
+                    builder: (context, s) => GestureDetector(
+                      onTap: () => Navigator.of(context).pushNamed(
+                        '/Components/ImageEditor',
+                        arguments: ExtendedNetworkImageProvider(s),
+                      ),
+                      child: UserAvatar(
+                        url: s,
+                        radius: 30,
                       ),
                     ),
                   ),

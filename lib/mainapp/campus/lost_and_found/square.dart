@@ -53,15 +53,19 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
         onRefresh: () async =>
             (await XmuxApi.instance.lostAndFoundApi.getBriefs()).data,
         builder: (context, briefs) {
-          return ListView.builder(
+          return Scrollbar(
             controller: listController,
-            itemCount: briefs.length,
-            itemBuilder: (context, i) => AnimationConfiguration.staggeredList(
-              position: i,
-              child: SlideAnimation(
-                verticalOffset: 50.0,
-                child: FadeInAnimation(
-                  child: _ItemBriefCard(briefs[i]),
+            child: ListView.builder(
+              controller: listController,
+              itemCount: briefs.length,
+              itemBuilder: (context, i) => AnimationConfiguration.staggeredList(
+                position: i,
+                delay: const Duration(milliseconds: 30),
+                child: SlideAnimation(
+                  verticalOffset: 50.0,
+                  child: FadeInAnimation(
+                    child: _ItemBriefCard(briefs[i]),
+                  ),
                 ),
               ),
             ),
@@ -125,7 +129,7 @@ class _ItemBriefCard extends StatelessWidget {
                         padding: const EdgeInsets.all(13),
                         child: UserAvatar(
                           url: profile.avatar,
-                          heroTag: profile.hashCode.toString(),
+                          heroTag: brief.hashCode.toString(),
                         ),
                       ),
 

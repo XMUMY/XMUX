@@ -36,7 +36,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
                       padding: const EdgeInsets.all(15),
                       child: UserAvatar(
                         url: profile.avatar,
-                        heroTag: profile.hashCode.toString(),
+                        heroTag: brief.hashCode.toString(),
                       ),
                     ),
 
@@ -140,7 +140,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
             child: UserAvatar(
               url: profile.avatar,
               radius: 30,
-              heroTag: profile.hashCode.toString(),
+              heroTag: brief.hashCode.toString(),
             ),
           ),
           Text(profile.displayName),
