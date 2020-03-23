@@ -19,7 +19,7 @@ class LostAndFoundApi {
             dio?.options?.merge(baseUrl: dio.options.baseUrl + '/lost-found') ??
                 BaseOptions(
                   baseUrl: '$address/v3/lost-found',
-                  connectTimeout: 5000,
+                  connectTimeout: 6000,
                   receiveTimeout: 10000,
                 ))
           ..interceptors.addAll(dio.interceptors);

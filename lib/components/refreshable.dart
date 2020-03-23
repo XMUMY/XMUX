@@ -27,6 +27,8 @@ class Refreshable<T> extends StatefulWidget {
 }
 
 class RefreshableState<T> extends State<Refreshable<T>> {
+  final _indicatorKey = GlobalKey<_BottomLoadingIndicatorState>();
+
   /// Data for builder.
   T data;
 
@@ -34,17 +36,14 @@ class RefreshableState<T> extends State<Refreshable<T>> {
   /// Flag will be true if first load has been completed.
   var firstLoadCompleted = false;
 
-  /// Flag to show a loading indicator at the bottom.
-  var isLoadingMore = false;
-
   Future<void> refresh() async => await widget
       .onRefresh()
       .then((v) => mounted ? setState(() => data = v) : null);
 
   Future<void> showLoadingIndicator(Future future) async {
-    if (mounted) setState(() => isLoadingMore = true);
+    _indicatorKey.currentState.controller.forward();
     await future;
-    if (mounted) setState(() => isLoadingMore = false);
+    _indicatorKey.currentState.controller.reverse();
   }
 
   @override
@@ -68,21 +67,59 @@ class RefreshableState<T> extends State<Refreshable<T>> {
           onRefresh: refresh,
           child: widget.builder(context, data),
         ),
-        AnimatedCrossFade(
-          duration: const Duration(milliseconds: 100),
-          crossFadeState: isLoadingMore
-              ? CrossFadeState.showSecond
-              : CrossFadeState.showFirst,
-          firstChild: Container(),
-          secondChild: Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 15),
-              child: RefreshProgressIndicator(),
-            ),
-          ),
-        )
+        _BottomLoadingIndicator(key: _indicatorKey),
       ],
+    );
+  }
+}
+
+class _BottomLoadingIndicator extends StatefulWidget {
+  const _BottomLoadingIndicator({Key key}) : super(key: key);
+
+  @override
+  _BottomLoadingIndicatorState createState() => _BottomLoadingIndicatorState();
+}
+
+class _BottomLoadingIndicatorState extends State<_BottomLoadingIndicator>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+
+  Animation<double> _fadeAnimation;
+  Animation<Offset> _positionAnimation;
+
+  @override
+  void initState() {
+    controller =
+        AnimationController(duration: Duration(milliseconds: 800), vsync: this);
+    _fadeAnimation =
+        CurvedAnimation(parent: controller, curve: Curves.easeOutExpo)
+          ..addListener(() => setState(() {}));
+    _positionAnimation = Tween<Offset>(begin: Offset(0, 50), end: Offset(0, 0))
+        .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut))
+          ..addListener(() => setState(() {}));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: _fadeAnimation.value,
+      child: Transform.translate(
+        offset: _positionAnimation.value,
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 15),
+            child: RefreshProgressIndicator(),
+          ),
+        ),
+      ),
     );
   }
 }

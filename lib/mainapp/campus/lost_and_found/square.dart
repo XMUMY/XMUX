@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:xmux/components/floating_card.dart';
@@ -20,10 +21,19 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
 
   @override
   void initState() {
-    listController.addListener(() {
-      if (listController.position.extentAfter == 0)
-        refreshableKey.currentState
-            .showLoadingIndicator(Future.delayed(Duration(seconds: 5)));
+    // TODO: Abstraction of AnimatedList.
+    listController.addListener(() async {
+      if (listController.position.extentAfter == 0) {
+        await refreshableKey.currentState
+            .showLoadingIndicator(Future.delayed(Duration(seconds: 2)));
+        refreshableKey.currentState.data
+            .addAll(refreshableKey.currentState.data.toList());
+        setState(() {
+          listController.animateTo(listController.offset + 50,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeOut);
+        });
+      }
     });
 
     super.initState();
@@ -42,10 +52,19 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
         key: refreshableKey,
         onRefresh: () async =>
             (await XmuxApi.instance.lostAndFoundApi.getBriefs()).data,
-        builder: (context, list) {
-          return ListView(
+        builder: (context, briefs) {
+          return ListView.builder(
             controller: listController,
-            children: list.map((e) => _ItemBriefCard(e)).toList(),
+            itemCount: briefs.length,
+            itemBuilder: (context, i) => AnimationConfiguration.staggeredList(
+              position: i,
+              child: SlideAnimation(
+                verticalOffset: 50.0,
+                child: FadeInAnimation(
+                  child: _ItemBriefCard(briefs[i]),
+                ),
+              ),
+            ),
           );
         },
       ),
