@@ -3,41 +3,15 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:xmux/components/floating_card.dart';
-import 'package:xmux/components/refreshable.dart';
+import 'package:xmux/components/lazy_loading_list.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/mainapp/campus/lost_and_found/detail.dart';
 import 'package:xmux/modules/api/models/v3_lost_and_found.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
-class LostAndFoundPage extends StatefulWidget {
-  @override
-  _LostAndFoundPageState createState() => _LostAndFoundPageState();
-}
-
-class _LostAndFoundPageState extends State<LostAndFoundPage> {
-  var refreshableKey = GlobalKey<RefreshableState<List<LostAndFoundBrief>>>();
-  var listController = ScrollController();
-
-  @override
-  void initState() {
-    // TODO: Abstraction of AnimatedList.
-    listController.addListener(() async {
-      if (listController.position.extentAfter == 0) {
-        await refreshableKey.currentState
-            .showLoadingIndicator(Future.delayed(Duration(seconds: 2)));
-        refreshableKey.currentState.data
-            .addAll(refreshableKey.currentState.data.toList());
-        setState(() {
-          listController.animateTo(listController.offset + 50,
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeOut);
-        });
-      }
-    });
-
-    super.initState();
-  }
+class LostAndFoundPage extends StatelessWidget {
+  final lazyLoadingListKey = GlobalKey<LazyLoadingListState>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,35 +22,31 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,
       ),
-      body: Refreshable<List<LostAndFoundBrief>>(
-        key: refreshableKey,
+      body: LazyLoadingList<LostAndFoundBrief>(
+        key: lazyLoadingListKey,
         onRefresh: () async =>
             (await XmuxApi.instance.lostAndFoundApi.getBriefs()).data,
-        builder: (context, briefs) {
-          return Scrollbar(
-            controller: listController,
-            child: ListView.builder(
-              controller: listController,
-              itemCount: briefs.length,
-              itemBuilder: (context, i) => AnimationConfiguration.staggeredList(
-                position: i,
-                delay: const Duration(milliseconds: 30),
-                child: SlideAnimation(
-                  verticalOffset: 50.0,
-                  child: FadeInAnimation(
-                    child: _ItemBriefCard(briefs[i]),
-                  ),
-                ),
-              ),
+        builder: (context, brief, i) => AnimationConfiguration.staggeredList(
+          position: i,
+          delay: const Duration(milliseconds: 30),
+          child: SlideAnimation(
+            verticalOffset: 50.0,
+            child: FadeInAnimation(
+              child: _ItemBriefCard(brief),
             ),
-          );
+          ),
+        ),
+        onLoadMore: (data) async {
+          var resp = await XmuxApi.instance.lostAndFoundApi.getBriefs(
+              timestamp: data.last.timestamp.subtract(Duration(seconds: 1)));
+          return resp.data;
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           var shouldRefresh = await Navigator.of(context)
               .pushNamed('/Campus/Tools/LostAndFound/New');
-          if (shouldRefresh ?? false) refreshableKey.currentState.refresh();
+          if (shouldRefresh ?? false) lazyLoadingListKey.currentState.refresh();
         },
         child: Icon(Icons.add),
         tooltip: S.of(context).Campus_ToolsLFNew,
@@ -104,8 +74,8 @@ class _ItemBriefCard extends StatelessWidget {
         ));
         if (shouldRefresh ?? false)
           context
-              .findAncestorStateOfType<_LostAndFoundPageState>()
-              .refreshableKey
+              .findAncestorWidgetOfExactType<LostAndFoundPage>()
+              .lazyLoadingListKey
               .currentState
               .refresh();
       },

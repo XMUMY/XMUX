@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:xmux/components/refreshable.dart';
@@ -75,8 +76,8 @@ class LostAndFoundDetailPage extends StatelessWidget {
                   ],
                 ),
               ),
-
-            Divider(color: Colors.transparent),
+            if (profile == null)
+              Divider(color: Colors.transparent),
             // Details card.
             Card(
               child: Padding(
@@ -130,6 +131,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
           ],
         );
       },
+      firstLoadingIndicator: SpinKitWave(color: Colors.black38, size: 20),
     );
 
     if (profile != null)
@@ -144,6 +146,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
             ),
           ),
           Text(profile.displayName),
+          Divider(color: Colors.transparent),
           body,
         ],
       );
