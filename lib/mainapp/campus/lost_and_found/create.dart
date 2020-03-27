@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:xmux/components/date_time_picker.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/modules/api/models/v3_lost_and_found.dart';
@@ -14,10 +15,18 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
   var form = NewLostAndFoundReq();
   var formKey = GlobalKey<FormState>();
 
+  var _isSubmitting = false;
+
   void _handleSubmit() async {
     if (!formKey.currentState.validate()) return;
-    await XmuxApi.instance.lostAndFoundApi.add(form);
-    Navigator.of(context).pop(true);
+    setState(() => _isSubmitting = true);
+    try {
+      await XmuxApi.instance.lostAndFoundApi.add(form);
+      Navigator.of(context).pop(true);
+    } catch (_) {
+      // TODO: Show error.
+      setState(() => _isSubmitting = false);
+    }
   }
 
   @override
@@ -120,10 +129,20 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.done),
-            onPressed: _handleSubmit,
-          )
+          AnimatedCrossFade(
+            crossFadeState: _isSubmitting
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
+            duration: const Duration(milliseconds: 300),
+            firstChild: IconButton(
+              icon: Icon(Icons.done),
+              onPressed: _handleSubmit,
+            ),
+            secondChild: SpinKitDoubleBounce(
+              color: Theme.of(context).accentColor,
+              size: 40,
+            ),
+          ),
         ],
       ),
       body: Form(

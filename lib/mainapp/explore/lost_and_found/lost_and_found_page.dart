@@ -3,7 +3,6 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/explore/lost_and_found/create.dart';
 import 'package:xmux/mainapp/explore/lost_and_found/detail.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/translations/translation.dart';
@@ -30,20 +29,6 @@ class LostAndFoundPageState extends State<LostAndFoundPage> {
           return new LostAndFoundCard(
               dataSnapshot: snapshot, animation: animation);
         },
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            new MaterialPageRoute(builder: (BuildContext context) {
-              return new LostAndFoundCreatePage();
-            }),
-          );
-        },
-        child: new Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        tooltip: "New",
       ),
     );
   }
