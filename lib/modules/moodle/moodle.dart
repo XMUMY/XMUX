@@ -16,6 +16,7 @@ class MoodleApi {
           baseUrl: baseUrl,
           connectTimeout: 6000,
           receiveTimeout: 10000,
+          contentType: 'application/x-www-form-urlencoded',
         ));
 
   /// Authenticate with given credential and get web service token.

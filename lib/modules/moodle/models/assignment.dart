@@ -6,7 +6,7 @@ part 'assignment.g.dart';
 
 @JsonSerializable()
 class Course {
-  final String id;
+  final int id;
   @JsonKey(name: 'fullname')
   final String fullName;
   @JsonKey(name: 'shortname')
@@ -22,7 +22,7 @@ class Course {
 
 @JsonSerializable()
 class Assignment {
-  final String id;
+  final int id;
   final String name;
   @JsonKey(
       name: 'duedate', fromJson: timestampFromJson, toJson: timestampToJson)

@@ -183,8 +183,6 @@ class _LoginButtonState extends State<_LoginButton> {
       return;
     }
     store.dispatch(LoginAction(username, password));
-    XmuxApi.instance
-        .configure(authorization: Authorization.basic(username, password));
 
     // Login firebase.
     try {

@@ -8,7 +8,7 @@ part of 'assignment.dart';
 
 Course _$CourseFromJson(Map<String, dynamic> json) {
   return Course(
-    json['id'] as String,
+    json['id'] as int,
     json['fullname'] as String,
     json['shortname'] as String,
     (json['assignments'] as List)
@@ -27,7 +27,7 @@ Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
 
 Assignment _$AssignmentFromJson(Map<String, dynamic> json) {
   return Assignment(
-    json['id'] as String,
+    json['id'] as int,
     json['name'] as String,
     timestampFromJson(json['duedate'] as int),
     timestampFromJson(json['allowsubmissionsfromdate'] as int),

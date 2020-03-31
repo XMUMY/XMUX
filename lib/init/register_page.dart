@@ -152,8 +152,6 @@ class _RegisterButtonState extends State<_RegisterButton> {
       return;
     }
     store.dispatch(LoginAction(widget._uid, widget._password));
-    XmuxApi.instance.configure(
-        authorization: Authorization.basic(widget._uid, widget._password));
 
     // Login firebase.
     try {

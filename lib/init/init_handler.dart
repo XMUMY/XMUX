@@ -58,13 +58,10 @@ void init() async {
     // Init store from initMap
     store.dispatch(InitAction(initMap));
   } catch (e) {
-    // campusId.toLowerCase() will called on null if user not login yet.
+    // RegExp cannot match user if not login yet.
     logout();
     return;
   }
-  XmuxApi.instance.configure(
-      authorization: Authorization.basic(
-          store.state.user.campusId, store.state.user.password));
 
   FirebaseAuth.instance.currentUser().then((u) => firebase.user = u);
   postInit();
@@ -73,6 +70,10 @@ void init() async {
 /// Post initialization after authentication.
 void postInit() async {
   try {
+    XmuxApi.instance.configure(
+        authorization: Authorization.basic(
+            store.state.user.campusId, store.state.user.password));
+    moodleApi.login(store.state.user.campusId, store.state.user.password);
     // Set user info for sentry report.
     sentry.userContext = sentry_lib.User(id: store.state.user.campusId);
 
