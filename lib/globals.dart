@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
@@ -48,7 +49,7 @@ String i18n(String text, BuildContext context, {String app}) {
 
 /// Handle logout and run `LoginApp`.
 Future<Null> logout({String message}) async {
-  firebase.user = null;
+  if (!kIsWeb) firebase.user = null;
   await FirebaseAuth.instance.signOut();
   XmuxApi.instance.configure(eraseAuthorization: true);
   store.dispatch(LogoutAction());

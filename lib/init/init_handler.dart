@@ -23,7 +23,7 @@ import 'package:xmux/redux/redux.dart';
 /// Main initialization progress.
 void init() async {
   // Register sentry to capture errors. (Release mode only)
-  if (bool.fromEnvironment('dart.vm.product'))
+  if (!kIsWeb && bool.fromEnvironment('dart.vm.product'))
     FlutterError.onError = (e) =>
         sentry.captureException(exception: e.exception, stackTrace: e.stack);
 
@@ -33,7 +33,7 @@ void init() async {
   v2.XMUXApi([BackendApiConfig.address]);
 
   // Mobile specific initialization.
-  if ((Platform.isAndroid || Platform.isIOS) && !await mobileInit()) return;
+  if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) await mobileInit();
 
   // Init XiA async.
   XiA.init(ApiKeyConfig.dialogflowToken)
@@ -76,8 +76,8 @@ void postInit() async {
     // Set user info for sentry report.
     sentry.userContext = sentry_lib.User(id: store.state.user.campusId);
 
-    if (Platform.isAndroid) await androidInit();
-    if (Platform.isIOS) await iOSInit();
+    if (Platform.isAndroid) await androidPostInit();
+    if (Platform.isIOS) await iOSPostInit();
   } catch (e) {
     sentry.captureException(exception: e);
   } finally {
@@ -139,7 +139,7 @@ Future<bool> mobileInit() async {
   return true;
 }
 
-Future<Null> androidInit() async {
+Future<Null> androidPostInit() async {
   // Use Mountain View on Android.
   ThemeConfig.defaultTheme = ThemeConfig.defaultTheme.copyWith(
       pageTransitionsTheme: PageTransitionsTheme(builders: {
@@ -161,7 +161,7 @@ Future<Null> androidInit() async {
           ));
 }
 
-Future<Null> iOSInit() async {
+Future<Null> iOSPostInit() async {
   DeviceInfoPlugin()
       .iosInfo
       .then((deviceInfo) async => XmuxApi.instance.refreshDevice(

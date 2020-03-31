@@ -199,7 +199,7 @@ class _LoginButtonState extends State<_LoginButton> {
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(S.of(context).General_Error(e))));
+          SnackBar(content: Text(S.of(context).General_Error(e.toString()))));
       return;
     }
 
