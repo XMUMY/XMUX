@@ -29,7 +29,7 @@ class XmuxApi {
     authorization ??= Authorization();
     var dio = Dio(BaseOptions(
       baseUrl: '$address/v3',
-      connectTimeout: 5000,
+      connectTimeout: 10000,
       receiveTimeout: 10000,
     ))
       // Add interceptors to add `Accept-Language`.

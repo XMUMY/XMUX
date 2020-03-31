@@ -8,7 +8,8 @@ class ApiKeyConfig {
 
 class BackendApiConfig {
   static const address = "XBackendAddressX";
-  static const websiteAddress = "XWebsiteAddressX";
+  static const moodleAddress = 'https://l.xmu.edu.my';
+  static const websiteAddress = "https://xmux.xdea.io";
   static const attendanceAddress = "XAttendanceAddressX";
 }
 

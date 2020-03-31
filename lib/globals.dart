@@ -5,6 +5,7 @@ import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:sentry/sentry.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
+import 'package:xmux/modules/moodle/moodle.dart';
 
 import 'config.dart';
 import 'init/login_app.dart';
@@ -15,6 +16,9 @@ import 'translations/translation.dart';
 
 /// Firebase instance.
 Firebase firebase;
+
+/// Moodle webservice API.
+final MoodleApi moodleApi = MoodleApi(BackendApiConfig.moodleAddress);
 
 /// Package information from platform.
 ///
