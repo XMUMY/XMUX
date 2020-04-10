@@ -19,7 +19,8 @@ dependencies:
   device_info: ^0.4.2
   dio: ^3.0.9
   dio_cookie_manager: ^1.0.0
-  extended_image: ^0.7.1
+  extended_image:
+    git: git://github.com/jonataslaw/extended_image.git
   firebase_analytics: ^5.0.6
   firebase_auth: ^0.15.5
   firebase_database: ^3.1.3
