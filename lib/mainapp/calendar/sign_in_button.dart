@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:xmux/components/sketch.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/api/models/v3_bridge.dart';
+import 'package:xmux/modules/api/xmux_api.dart' show TimetableClass;
 import 'package:xmux/modules/attendance/attendance.dart';
 
 class SignInButton extends StatefulWidget {

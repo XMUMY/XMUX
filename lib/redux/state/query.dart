@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:xmux/modules/api/models/v3_bridge.dart';
+import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/emgs/model.dart';
 import 'package:xmux/modules/moodle/models/assignment.dart';
 import 'package:xmux/modules/xmux_api/models/models_v2.dart' hide Course;

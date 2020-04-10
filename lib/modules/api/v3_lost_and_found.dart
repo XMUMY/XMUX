@@ -4,6 +4,8 @@ import 'authorization.dart';
 import 'common.dart';
 import 'models/v3_lost_and_found.dart';
 
+export 'models/v3_lost_and_found.dart';
+
 class LostAndFoundApi {
   /// Client for sending HTTP requests.
   final Dio _dio;

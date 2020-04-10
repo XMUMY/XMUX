@@ -7,7 +7,6 @@ import 'package:xmux/components/lazy_loading_list.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/mainapp/campus/lost_and_found/detail.dart';
-import 'package:xmux/modules/api/models/v3_lost_and_found.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
 class LostAndFoundPage extends StatelessWidget {

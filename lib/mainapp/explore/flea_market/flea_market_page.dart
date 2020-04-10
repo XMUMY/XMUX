@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/api/models/v3_user.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
 import 'item_detail_page.dart';

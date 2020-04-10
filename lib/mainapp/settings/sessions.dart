@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/generated/i18n.dart';
-import 'package:xmux/modules/api/models/v3_user.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
 class SessionsPage extends StatelessWidget {

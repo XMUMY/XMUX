@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:xmux/components/date_time_picker.dart';
 import 'package:xmux/generated/i18n.dart';
-import 'package:xmux/modules/api/models/v3_lost_and_found.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
 class NewLostAndFoundPage extends StatefulWidget {

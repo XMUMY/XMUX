@@ -42,6 +42,7 @@ class LazyLoadingListState<T> extends State<LazyLoadingList<T>> {
   final _refreshableKey = GlobalKey<RefreshableState<List<T>>>();
 
   List<T> get data => _refreshableKey.currentState.data;
+
   Future<void> refresh() async => await _refreshableKey.currentState.refresh();
 
   @override

@@ -5,7 +5,7 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/mainapp/home/announcements.dart';
 import 'package:xmux/mainapp/home/home_slider.dart';
-import 'package:xmux/modules/api/models/v3_bridge.dart';
+import 'package:xmux/modules/api/xmux_api.dart' show TimetableClass;
 import 'package:xmux/redux/redux.dart';
 
 class HomePage extends StatelessWidget {

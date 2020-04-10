@@ -14,7 +14,8 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/attendance.dart';
 import 'package:xmux/mainapp/calendar/sign_in_button.dart';
 import 'package:xmux/modules/algorithms/edit_distance.dart';
-import 'package:xmux/modules/api/models/v3_bridge.dart';
+import 'package:xmux/modules/api/xmux_api.dart'
+    show GetTimetableResp, TimetableClass;
 import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/common/translation_mapper.dart' show weekdays;
 import 'package:xmux/redux/redux.dart';

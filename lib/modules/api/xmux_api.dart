@@ -10,6 +10,9 @@ import 'v3_lost_and_found.dart';
 
 export 'authorization.dart';
 export 'common.dart' show XmuxApiResponse, XmuxApiException;
+export 'models/v3_bridge.dart';
+export 'models/v3_user.dart';
+export 'v3_lost_and_found.dart';
 
 class XmuxApi {
   /// Unique instance of XMUXApi.
