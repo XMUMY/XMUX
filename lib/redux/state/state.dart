@@ -6,7 +6,10 @@ import 'package:xmux/modules/api/models/v3_user.dart';
 import 'package:xmux/modules/emgs/emgs.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
-part 'query.dart';
+import 'query.dart';
+
+export 'query.dart';
+
 part 'state.g.dart';
 part 'user.dart';
 

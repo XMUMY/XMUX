@@ -13,14 +13,10 @@ class User {
   /// E-payment password.
   final String ePaymentPassword;
 
-  /// Moodle key.
-  final String moodleKey;
-
   /// User profile.
   final Profile profile;
 
-  User(this.campusId, this.password, this.ePaymentPassword, this.moodleKey,
-      this.profile)
+  User(this.campusId, this.password, this.ePaymentPassword, this.profile)
       : this.isStudent = _studentIdExp.hasMatch(campusId);
 
   User.def()
@@ -28,7 +24,6 @@ class User {
         password = null,
         isStudent = false,
         ePaymentPassword = null,
-        moodleKey = null,
         profile = null;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -42,11 +37,11 @@ class User {
           String moodleKey,
           Profile profile}) =>
       User(
-          campusID ?? this.campusId,
-          campusIDPassword ?? this.password,
-          ePaymentPassword ?? this.ePaymentPassword,
-          moodleKey ?? this.moodleKey,
-          profile ?? this.profile);
+        campusID ?? this.campusId,
+        campusIDPassword ?? this.password,
+        ePaymentPassword ?? this.ePaymentPassword,
+        profile ?? this.profile,
+      );
 
   /// Whether user is a foundation student.
   bool get isFoundation => isStudent && campusId.startsWith(RegExp(r'fis|fia'));

@@ -119,36 +119,11 @@ const _$ThemeModeEnumMap = {
   ThemeMode.dark: 'dark',
 };
 
-QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
-  return QueryState(
-    (json['ePaymentRecords'] as List)
-        ?.map((e) => e == null
-            ? null
-            : BillingRecord.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    json['emgsApplicationResult'] == null
-        ? null
-        : EmgsApplicationResult.fromJson(
-            json['emgsApplicationResult'] as Map<String, dynamic>),
-    json['timetable'] == null
-        ? null
-        : GetTimetableResp.fromJson(json['timetable'] as Map<String, dynamic>),
-  );
-}
-
-Map<String, dynamic> _$QueryStateToJson(QueryState instance) =>
-    <String, dynamic>{
-      'ePaymentRecords': instance.ePaymentRecords,
-      'emgsApplicationResult': instance.emgsApplicationResult,
-      'timetable': instance.timetable,
-    };
-
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
     json['campusId'] as String,
     json['password'] as String,
     json['ePaymentPassword'] as String,
-    json['moodleKey'] as String,
     json['profile'] == null
         ? null
         : Profile.fromJson(json['profile'] as Map<String, dynamic>),
@@ -159,6 +134,5 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'campusId': instance.campusId,
       'password': instance.password,
       'ePaymentPassword': instance.ePaymentPassword,
-      'moodleKey': instance.moodleKey,
       'profile': instance.profile,
     };

@@ -29,7 +29,6 @@ final Reducer<User> userReducers = combineReducers([
   TypedReducer(_loginReducer),
   TypedReducer(_updateUserProfileReducer),
   TypedReducer(_updateEPaymentPasswordReducer),
-  TypedReducer(_updateMoodleKeyReducer),
 ]);
 
 User _loginReducer(User oldState, LoginAction action) => oldState.copyWith(
@@ -46,7 +45,3 @@ User _updateEPaymentPasswordReducer(
     action.auth == null
         ? oldState
         : oldState.copyWith(ePaymentPassword: action.auth.ePaymentPassword);
-
-/// Update moodleKey when updating assignments.
-User _updateMoodleKeyReducer(User oldState, UpdateAssignmentsAction action) =>
-    oldState.copyWith(moodleKey: action.moodleKey);

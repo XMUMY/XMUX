@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:redux/redux.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/main_page.dart';
 import 'package:xmux/modules/api/models/v3_bridge.dart';
 import 'package:xmux/modules/api/models/v3_user.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/emgs/emgs.dart';
+import 'package:xmux/modules/moodle/models/assignment.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
+import 'package:xmux/redux/state/state.dart';
 
+part 'moodle_api_actions.dart';
 part 'xmux_api_actions.dart';
 
 /// General action for the whole app.
@@ -21,6 +26,24 @@ abstract class MainAppAction {
   final sync = false;
 
   toString() => "MainAppAction: ${this.runtimeType}";
+}
+
+abstract class ApiCallAction extends MainAppAction {
+  /// A [Future] of API request process.
+  /// It is [null] by default and will be assign by [apiRequestMiddleware].
+  Future<Null> future;
+
+  /// Parameters for API request.
+  final Map<String, String> params;
+
+  /// Called when [Exception] is caught.
+  final void Function(Exception) onError;
+
+  ApiCallAction({this.params, this.onError});
+
+  /// Make the action callable.
+  /// Should be implemented by different API requests.
+  Future<Null> call(Store<MainAppState> store);
 }
 
 // ****** General Actions ******

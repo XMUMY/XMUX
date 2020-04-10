@@ -1,38 +1,22 @@
 part of 'actions.dart';
 
 /// General actions for XMUX API.
-abstract class XmuxApiAction<T> extends MainAppAction {
-  /// A [Future] of API request process.
-  /// It is [null] by default and will be assign by [apiRequestMiddleware].
-  Future future;
-
-  /// Called when [Exception] is caught.
-  void Function(Exception) onError;
-
-  /// Parameters for API request.
-  final Map<String, String> params;
-
+abstract class XmuxApiAction<T> extends ApiCallAction {
   /// Original API response.
   XmuxApiResponse<T> response;
-
-  XmuxApiAction({this.params});
-
-  /// Make the action callable.
-  /// Should be implemented by different API requests.
-  Future<Null> call({Map<String, dynamic> params});
 }
 
 /// Update timetable of current semester.
 class UpdateTimetableAction extends XmuxApiAction<GetTimetableResp> {
   @override
-  Future<Null> call({Map<String, dynamic> params}) async {
+  Future<Null> call(Store<MainAppState> store) async {
     response = await XmuxApi.instance.timetable;
   }
 }
 
 class UpdateUserProfileAction extends XmuxApiAction<Profile> {
   @override
-  Future<Null> call({Map<String, dynamic> params}) async {
+  Future<Null> call(Store<MainAppState> store) async {
     response = await XmuxApi.instance.getProfile();
   }
 }
@@ -88,19 +72,6 @@ class UpdateAcAction extends XMUXApiActionV2 {
     var response = await v2.XMUXApi.instance.ac(auth);
     assign(response);
     acData = response.data;
-  }
-}
-
-class UpdateAssignmentsAction extends XMUXApiActionV2 {
-  v2.MoodleData moodleData;
-  String moodleKey;
-
-  @override
-  Future<Null> call(v2.XMUXApiAuth auth, {Map<String, dynamic> params}) async {
-    var response = await v2.XMUXApi.instance.moodle(auth);
-    assign(response);
-    moodleData = response.data;
-    moodleKey = response.moodleKey;
   }
 }
 

@@ -45,20 +45,20 @@ Future<Null> _saveState(Store<MainAppState> store, bool sync) async {
 /// before go to next middleware.
 void apiRequestMiddleware(
     Store<MainAppState> store, action, NextDispatcher next) {
-  if (action is XmuxApiAction || action is XMUXApiActionV2) {
+  if (action is ApiCallAction || action is XMUXApiActionV2) {
     print(
         '[Redux/apiRequestMiddleware] Invoked (Action: ${action.runtimeType})');
-    if (action is XmuxApiAction) action.future = apiCall(store, action, next);
+    if (action is ApiCallAction) action.future = apiCall(store, action, next);
     if (action is XMUXApiActionV2)
       action.listener = apiCallV2(store, action, next);
   } else
     next(action);
 }
 
-Future<Null> apiCall(Store<MainAppState> store, XmuxApiAction action,
+Future<Null> apiCall(Store<MainAppState> store, ApiCallAction action,
     NextDispatcher next) async {
   try {
-    await action();
+    await action(store);
     next(action);
   } catch (e) {
     if (action.onError != null)
@@ -76,8 +76,7 @@ Future<Null> apiCallV2(Store<MainAppState> store, XMUXApiActionV2 action,
       XMUXApiAuth(
           campusID: store.state.user.campusId,
           campusIDPassword: store.state.user.password,
-          ePaymentPassword: store.state.user.ePaymentPassword,
-          moodleKey: store.state.user.moodleKey),
+          ePaymentPassword: store.state.user.ePaymentPassword),
       params: action.params,
     );
     next(action);

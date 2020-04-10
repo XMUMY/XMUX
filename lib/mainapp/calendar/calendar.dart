@@ -49,7 +49,7 @@ class CalendarPage extends StatelessWidget {
               TimeTablePage(store.state.queryState.timetable),
               if (store.state.user.isStudent) ...{
                 ExamsPage(store.state.acState.exams),
-                AssignmentPage(),
+                AssignmentPage(store.state.queryState.assignments),
               },
               AttendancePage(),
             ],

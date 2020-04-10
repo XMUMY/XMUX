@@ -19,6 +19,8 @@ class MoodleApi {
           contentType: 'application/x-www-form-urlencoded',
         ));
 
+  String get token => _token;
+
   /// Authenticate with given credential and get web service token.
   Future<void> login(String username, String password) async {
     var resp = await _dio.post<Map<String, dynamic>>('/login/token.php', data: {
@@ -28,6 +30,19 @@ class MoodleApi {
     });
 
     _token = resp.data['token'];
+  }
+
+  /// Reset web service token.
+  void signOut() => _token = null;
+
+  /// Append moodle token to url if available.
+  String withToken(String url) {
+    if (token == null) return url;
+    var uri = Uri.parse(url);
+    return uri.replace(queryParameters: {
+      ...uri.queryParameters,
+      'token': _token,
+    }).toString();
   }
 
   /// Invoke Moodle web service API.

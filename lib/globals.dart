@@ -56,6 +56,7 @@ Future<Null> logout({String message}) async {
   if (!kIsWeb) firebase.user = null;
   await FirebaseAuth.instance.signOut();
   XmuxApi.instance.configure(eraseAuthorization: true);
+  moodleApi.signOut();
   store.dispatch(LogoutAction());
   runApp(LoginApp(message: message));
 }

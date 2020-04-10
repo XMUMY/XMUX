@@ -29,7 +29,7 @@ class TimeTablePage extends StatelessWidget {
             : sortTimetable(resp.timetable),
         this.recentUpdate = resp?.recentUpdate?.toLocal();
 
-  Future<Null> _handleUpdate(BuildContext context) async {
+  Future<Null> _handleUpdate() async {
     var action = UpdateTimetableAction();
     store.dispatch(action);
     await action.future;
@@ -55,8 +55,7 @@ class TimeTablePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (timetable == null)
-      return EmptyErrorButton(onRefresh: () => _handleUpdate(context));
+    if (timetable == null) return EmptyErrorButton(onRefresh: _handleUpdate);
     if (timetable.isEmpty) return EmptyErrorPage();
 
     var languageCode = Localizations.localeOf(context).languageCode;
@@ -73,7 +72,7 @@ class TimeTablePage extends StatelessWidget {
     );
 
     return RefreshIndicator(
-      onRefresh: () => _handleUpdate(context),
+      onRefresh: _handleUpdate,
       child: ListView.builder(
         itemCount: timetable.length + 1,
         itemBuilder: (_, int index) {
