@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/api/models/v3_user.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 import 'item_detail_page.dart';
 import 'item_edit_page.dart';
@@ -105,9 +104,8 @@ class _ItemCardState extends State<ItemCard> {
                     padding: const EdgeInsets.all(13),
                     child: user != null
                         ? CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                XMUXApi.convertAvatarUrl(
-                                    user.avatar, store.state.user.moodleKey)),
+                            backgroundImage:
+                                NetworkImage(moodleApi.withToken(user.avatar)),
                           )
                         : SpinKitPulse(color: Colors.white),
                   ),

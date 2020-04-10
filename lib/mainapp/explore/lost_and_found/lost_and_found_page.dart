@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/explore/lost_and_found/detail.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/translations/translation.dart';
 
 class LostAndFoundPage extends StatefulWidget {
@@ -59,9 +58,8 @@ class LostAndFoundCard extends StatelessWidget {
               new Container(
                 margin: const EdgeInsets.only(right: 16),
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage(XMUXApi.convertAvatarUrl(
-                      dataSnapshot.value['senderPhotoUrl'],
-                      store.state.user.moodleKey)),
+                  backgroundImage: new NetworkImage(moodleApi
+                      .withToken(dataSnapshot.value['senderPhotoUrl'])),
                   radius: 25,
                 ),
               ),

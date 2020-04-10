@@ -31,8 +31,8 @@ class ItemDetailPage extends StatelessWidget {
             padding: const EdgeInsets.all(15),
             child: photoUrl != null
                 ? CircleAvatar(
-                    backgroundImage: NetworkImage(XMUXApi.convertAvatarUrl(
-                        photoUrl, store.state.user.moodleKey)),
+                    backgroundImage:
+                        NetworkImage(moodleApi.withToken(photoUrl)),
                   )
                 : SpinKitPulse(color: Colors.white),
           ),
