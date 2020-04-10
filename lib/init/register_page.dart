@@ -148,7 +148,7 @@ class _RegisterButtonState extends State<_RegisterButton> {
     } on XmuxApiException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(S.of(context).General_Error(e.message))));
+          SnackBar(content: Text(S.of(context).General_ErrorTip(e.message))));
       return;
     }
     store.dispatch(LoginAction(widget._uid, widget._password));
@@ -161,12 +161,12 @@ class _RegisterButtonState extends State<_RegisterButton> {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(S
               .of(context)
-              .General_Error('${S.of(context).SignIn_ErrorGMS} $e'))));
+              .General_ErrorTip('${S.of(context).SignIn_ErrorGMS} $e'))));
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(S.of(context).General_Error(e))));
+          SnackBar(content: Text(S.of(context).General_ErrorTip(e))));
       return;
     }
 

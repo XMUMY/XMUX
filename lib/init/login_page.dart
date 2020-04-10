@@ -174,12 +174,12 @@ class _LoginButtonState extends State<_LoginButton> {
           ? S.of(context).SignIn_ErrorInvalidPassword
           : e.message;
       Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(S.of(context).General_Error(msg))));
+          SnackBar(content: Text(S.of(context).General_ErrorTip(msg))));
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(S.of(context).General_Error(e.toString()))));
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(S.of(context).General_ErrorTip(e.toString()))));
       return;
     }
     store.dispatch(LoginAction(username, password));
@@ -190,14 +190,15 @@ class _LoginButtonState extends State<_LoginButton> {
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text(
-            S.of(context).General_Error('${S.of(context).SignIn_ErrorGMS} $e')),
+        content: Text(S
+            .of(context)
+            .General_ErrorTip('${S.of(context).SignIn_ErrorGMS} $e')),
       ));
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(S.of(context).General_Error(e.toString()))));
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(S.of(context).General_ErrorTip(e.toString()))));
       return;
     }
 

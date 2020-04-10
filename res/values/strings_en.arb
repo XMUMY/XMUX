@@ -9,7 +9,7 @@
   "General_Continue": "Continue",
   "General_Cancel": "Cancel",
   "General_Ignore": "Ignore",
-  "General_Error": "Error: $tip",
+  "General_ErrorTip": "Error: $tip",
   "SignIn_CampusID": "Campus ID",
   "SignIn_Password": "Password",
   "SignIn_SignIn": "Sign in",

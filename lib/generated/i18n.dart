@@ -88,7 +88,7 @@ class S implements WidgetsLocalizations {
   String get SignIn_RegisterTitle => "Welcome to XMUM!";
   String get SignIn_SignIn => "Sign in";
   String Calendar_AttendanceSignInFailed(String tip) => "Failed: $tip";
-  String General_Error(String tip) => "Error: $tip";
+  String General_ErrorTip(String tip) => "Error: $tip";
 }
 
 class $en extends S {
@@ -231,6 +231,8 @@ class $zh_CN extends S {
   String get Campus_ToolsLFNew => "新的失物招领";
   @override
   String get Campus_ToolsLFLOrF => "遗失/拾到？";
+  @override
+  String General_ErrorTip(String tip) => "错误：$tip";
   @override
   String Calendar_AttendanceSignInFailed(String tip) => "签到失败： $tip";
 }
