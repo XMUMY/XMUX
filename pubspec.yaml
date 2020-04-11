@@ -1,6 +1,20 @@
 name: xmux
 description: XMUX Client
 
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 #version: 1.0.0+1
 
 environment:
@@ -19,8 +33,7 @@ dependencies:
   device_info: ^0.4.2
   dio: ^3.0.9
   dio_cookie_manager: ^1.0.0
-  extended_image:
-    git: git://github.com/jonataslaw/extended_image.git
+  extended_image: ^0.7.3-dev
   firebase_analytics: ^5.0.6
   firebase_auth: ^0.15.5
   firebase_database: ^3.1.3
