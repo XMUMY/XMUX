@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,6 +29,9 @@ void init() async {
   XmuxApi(BackendApiConfig.address);
   // Select XMUX API server. (Deprecated)
   v2.XMUXApi([BackendApiConfig.address]);
+
+  // Init firebase services.
+  firebase = kIsWeb ? await Firebase.initWeb() : await Firebase.init();
 
   // Mobile specific initialization.
   if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) await mobileInit();
@@ -108,9 +109,6 @@ Future<bool> mobileInit() async {
               stackTrace: e.stack,
               release: packageInfo.version),
         );
-
-  // Init firebase services.
-  firebase = await Firebase.init();
 
   // Version check.
   var currentBuild = int.tryParse(packageInfo?.buildNumber ?? '0') ?? 0;

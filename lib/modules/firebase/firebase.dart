@@ -5,7 +5,6 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xmux/generated/i18n.dart';
-import 'package:xmux/globals.dart';
 
 import 'remote_config.dart';
 
@@ -40,6 +39,17 @@ class Firebase {
     instance.remoteConfig.setDefaults({'static_resources': defaultStatic});
     instance.remoteConfigs.updateStaticResources(defaultStatic);
     instance.updateRemoteConfig();
+
+    return instance;
+  }
+
+  static Future<Firebase> initWeb() async {
+    if (instance != null) return instance;
+
+    instance = Firebase._(null);
+
+    var defaultStatic = await rootBundle.loadString('res/static.json');
+    instance.remoteConfigs.updateStaticResources(defaultStatic);
 
     return instance;
   }
@@ -96,7 +106,7 @@ class Firebase {
     Object arguments,
     bool rootNavigator = false,
   }) async {
-    if (firebase.user == null) {
+    if (Firebase.instance.user == null) {
       var result = await showDialog<bool>(
         context: context,
         barrierDismissible: false,
