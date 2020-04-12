@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:xmux/components/simple_slider.dart';
+import 'package:xmux/components/svg_web.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
@@ -43,7 +45,11 @@ class _HomeSliderState extends State<HomeSlider> {
                 ?.toList()
                 ?.reversed
                 ?.toList() ??
-            [SvgPicture.asset("res/home/news.svg")],
+            [
+              kIsWeb
+                  ? SvgElement.asset('res/home/news.svg')
+                  : SvgPicture.asset('res/home/news.svg')
+            ],
         builder: (_, pages) => SimpleSlider(
           pages: pages,
           autoPlayDuration: Duration(seconds: 4),
