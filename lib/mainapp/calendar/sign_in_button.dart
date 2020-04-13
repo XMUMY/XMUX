@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xmux/components/sketch.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/api/xmux_api.dart' show TimetableClass;
 import 'package:xmux/modules/attendance/attendance.dart';
@@ -103,7 +104,7 @@ class _SignInButtonState extends State<SignInButton> {
   Widget build(BuildContext context) => widget._canSign
       ? FlatButton(
           onPressed: _handleSignIn,
-          child: Text(i18n('Calendar/SignIn', context)),
+          child: Text(S.of(context).Calendar_AttendanceSignIn),
         )
       : Container();
 }
