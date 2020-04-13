@@ -82,7 +82,7 @@ class _ExamCard extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 8),
               child: Text(
                 examData.courseName,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.subtitle1,
               ),
             ),
             Text('${examData.date.toString().substring(0, 10)} '

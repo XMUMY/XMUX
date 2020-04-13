@@ -62,7 +62,7 @@ class HomePage extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       '   ${i18n('Home/NextClass', context)}',
-                      style: Theme.of(context).textTheme.title,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     LessonCard(TimeTablePage.sortTimetable(lessons)[0])
                   ],

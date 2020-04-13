@@ -99,8 +99,10 @@ class _VPNPageState extends State<VPNPage> with TickerProviderStateMixin {
               child: Text(
                 i18n('Campus/AcademicTools/VPN/State/${currentState.index}',
                     context),
-                style:
-                    Theme.of(context).textTheme.subtitle.copyWith(color: color),
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle2
+                    .copyWith(color: color),
               ),
             ),
           ),

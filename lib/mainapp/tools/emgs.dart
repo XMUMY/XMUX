@@ -67,7 +67,7 @@ class _EmgsPageState extends State<EmgsPage> {
                 'https://cdn.educationmalaysia.gov.my/wp-content/uploads/2019/11/08054212/emgs-logo1.png',
             placeholder: (ctx, _) => Text(
               i18n('Tools/Emgs', context),
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
         ),
@@ -171,12 +171,12 @@ class _EmgsDetailsState extends State<EmgsDetails>
               children: <Widget>[
                 Text(
                   widget._result.fullName,
-                  style: Theme.of(context).textTheme.title,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
                 Divider(height: 10, color: Colors.transparent),
                 Text(
                   widget._result.applicationStatus,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.subtitle1,
                   textAlign: TextAlign.center,
                 ),
                 Divider(height: 12, color: Colors.transparent),
@@ -187,7 +187,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
                         children: <Widget>[
                           Text(
                             i18n('Tools/Emgs/No', context),
-                            style: Theme.of(context).textTheme.subtitle,
+                            style: Theme.of(context).textTheme.subtitle2,
                           ),
                           Divider(height: 3, color: Colors.transparent),
                           Text(
@@ -201,7 +201,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
                         children: <Widget>[
                           Text(
                             i18n('Tools/Emgs/Type', context),
-                            style: Theme.of(context).textTheme.subtitle,
+                            style: Theme.of(context).textTheme.subtitle2,
                           ),
                           Divider(height: 3, color: Colors.transparent),
                           Text(
@@ -222,7 +222,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
           padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
           child: Text(
             i18n('Tools/Emgs/History', context),
-            style: Theme.of(context).textTheme.title,
+            style: Theme.of(context).textTheme.headline6,
           ),
         ),
         ListView.separated(
@@ -235,7 +235,7 @@ class _EmgsDetailsState extends State<EmgsDetails>
             children: <Widget>[
               Text(
                 widget._result.history[(index + 1) ~/ 2].status,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.subtitle1,
               ),
               Text(
                 DateFormat.yMd()

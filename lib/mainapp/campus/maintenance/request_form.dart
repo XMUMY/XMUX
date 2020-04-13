@@ -204,11 +204,11 @@ class _RequestFormPageState extends State<RequestFormPage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
-          color: Theme.of(context).textTheme.headline.color,
+          color: Theme.of(context).textTheme.headline5.color,
         ),
         title: Text(
           i18n('Campus/Tools/Maintenance/New/Title', context),
-          style: Theme.of(context).textTheme.title,
+          style: Theme.of(context).textTheme.headline6,
         ),
         centerTitle: true,
         backgroundColor: Theme.of(context).canvasColor,

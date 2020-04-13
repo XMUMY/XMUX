@@ -60,7 +60,7 @@ class _TravelviserPageState extends State<TravelviserPage> {
           children: <Widget>[
             Text(
               record.route,
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             Divider(),
             Text(
@@ -83,7 +83,7 @@ class _TravelviserPageState extends State<TravelviserPage> {
         children: <Widget>[
           Text(
             '${record.route} ${record.boardingDate == null ? '' : ' ${i18n('Campus/Tools/Travelviser/Boarded', context)}'}',
-            style: Theme.of(context).textTheme.subhead,
+            style: Theme.of(context).textTheme.subtitle1,
           ),
           Divider(height: 5, color: Colors.transparent),
           Text(
@@ -137,7 +137,7 @@ class _TravelviserPageState extends State<TravelviserPage> {
                     children: <Widget>[
                       Text(
                           ' ${i18n('Campus/Tools/Travelviser/Booked', context)}',
-                          style: Theme.of(context).textTheme.title),
+                          style: Theme.of(context).textTheme.headline6),
                       Divider(),
                       ListView.builder(
                         shrinkWrap: true,
@@ -153,7 +153,7 @@ class _TravelviserPageState extends State<TravelviserPage> {
                       Divider(color: Colors.transparent),
                       Text(
                           ' ${i18n('Campus/Tools/Travelviser/Expired', context)}',
-                          style: Theme.of(context).textTheme.title),
+                          style: Theme.of(context).textTheme.headline6),
                       Divider(),
                       ListView.separated(
                         shrinkWrap: true,
@@ -324,7 +324,7 @@ class _TravelviserBookingPageState extends State<TravelviserBookingPage> {
               padding: const EdgeInsets.all(10),
               child: Text(i18n('Campus/Tools/Travelviser/New', context),
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.title),
+                  style: Theme.of(context).textTheme.headline6),
             ),
             Divider(height: 20, color: Colors.transparent),
             if (routes == null) Center(child: CircularProgressIndicator()),
@@ -384,8 +384,10 @@ class DigitalPassPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 15, 0, 2),
             child: Text('Digital Pass',
-                style:
-                    Theme.of(context).textTheme.title.copyWith(fontSize: 20)),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    .copyWith(fontSize: 20)),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 2, 0, 10),
@@ -404,7 +406,8 @@ class DigitalPassPage extends StatelessWidget {
           Center(
             child: Text(
               firebase.user.displayName,
-              style: Theme.of(context).textTheme.title.copyWith(fontSize: 20),
+              style:
+                  Theme.of(context).textTheme.headline6.copyWith(fontSize: 20),
             ),
           ),
           Center(

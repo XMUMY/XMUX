@@ -15,14 +15,14 @@ class HomeAnnouncements extends StatelessWidget {
         backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
         title: Text(
           announcement.headline,
-          style: Theme.of(context).textTheme.subhead,
+          style: Theme.of(context).textTheme.subtitle1,
         ),
         children: <Widget>[
           Padding(
             padding: EdgeInsets.all(10),
             child: Text(
               announcement.detail,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           Row(
@@ -62,7 +62,7 @@ class HomeAnnouncements extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       i18n("Home/Announcements", context),
-                      style: Theme.of(context).textTheme.headline,
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                     Divider(),
                     Column(

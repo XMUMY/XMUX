@@ -69,7 +69,7 @@ class LostAndFoundCard extends StatelessWidget {
                   children: <Widget>[
                     new Text(
                       dataSnapshot.value['senderName'],
-                      style: Theme.of(context).textTheme.subhead,
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                     new Divider(
                       height: 5,
@@ -100,7 +100,7 @@ class LostAndFoundCard extends StatelessWidget {
                                 .get("lostandfound/lost")
                             : MainLocalizations.of(context)
                                 .get("lostandfound/found"),
-                        style: Theme.of(context).textTheme.subhead,
+                        style: Theme.of(context).textTheme.subtitle1,
                       ),
                       new Text(
                         new DateTime.now()
@@ -122,7 +122,7 @@ class LostAndFoundCard extends StatelessWidget {
                                     .toString() +
                                 MainLocalizations.of(context)
                                     .get("lostandfound/day"),
-                        style: Theme.of(context).textTheme.subhead,
+                        style: Theme.of(context).textTheme.subtitle1,
                       ),
                     ],
                   ),

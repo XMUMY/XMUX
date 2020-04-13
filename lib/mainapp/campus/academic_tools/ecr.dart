@@ -69,7 +69,7 @@ class _ElectiveCourseRegistrationPageState
               children: <Widget>[
                 Text(
                   course.classification,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Divider(height: 8),
                 Text('${course.round}  '
@@ -248,7 +248,7 @@ class _ElectiveCourseRegistrationFormPageState
           children: <Widget>[
             Text(
               i18n('Campus/AcademicTools/ECR/Form/Selected', context),
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.headline6,
             ),
             Divider(height: 10),
           ],
@@ -269,7 +269,7 @@ class _ElectiveCourseRegistrationFormPageState
                 children: <Widget>[
                   Text(
                     course.name,
-                    style: Theme.of(context).textTheme.subhead,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                   Divider(height: 8),
                   Text('${course.lecturer}\n'
@@ -299,7 +299,7 @@ class _ElectiveCourseRegistrationFormPageState
             children: <Widget>[
               Text(
                 i18n('Campus/AcademicTools/ECR/Form/Unselected', context),
-                style: Theme.of(context).textTheme.title,
+                style: Theme.of(context).textTheme.headline6,
               ),
               Divider(height: 10),
             ],
@@ -321,7 +321,7 @@ class _ElectiveCourseRegistrationFormPageState
                 children: <Widget>[
                   Text(
                     course.name,
-                    style: Theme.of(context).textTheme.subhead,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                   Divider(height: 8),
                   Text('${course.lecturer}\n'
@@ -372,14 +372,14 @@ class _SliverGeneralInfoTable extends SliverPersistentHeaderDelegate {
           children: <Widget>[
             Text(
               '${generalInfo.round}: ${generalInfo.stage}',
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             Text(
               '${i18n('Campus/AcademicTools/ECR/MaxCredit', context)}'
               '${generalInfo.maxCredit}  '
               '${i18n('Campus/AcademicTools/ECR/Form/CreditChosen', context)}'
               '${generalInfo.chosenCredit}',
-              style: Theme.of(context).textTheme.subtitle,
+              style: Theme.of(context).textTheme.subtitle2,
             ),
           ],
         ),

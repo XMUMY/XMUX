@@ -32,7 +32,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
                 ),
                 new Text(
                   dataSnapshot.value['senderName'],
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
                 new Divider(
                   height: 20,
@@ -49,7 +49,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
                             new Text(
                               MainLocalizations.of(context)
                                   .get("lostandfound/description"),
-                              style: Theme.of(context).textTheme.subhead,
+                              style: Theme.of(context).textTheme.subtitle1,
                             ),
                           ],
                         ),

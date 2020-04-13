@@ -40,7 +40,7 @@ class Message extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   new Text(snapshot.value['senderName'],
-                      style: Theme.of(context).textTheme.subhead),
+                      style: Theme.of(context).textTheme.subtitle1),
                   new Container(
                     margin: const EdgeInsets.only(top: 5),
                     child: snapshot.value['imageUrl'] != null

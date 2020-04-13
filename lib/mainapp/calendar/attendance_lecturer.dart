@@ -28,7 +28,7 @@ class _LecturerPage extends StatelessWidget {
                   tag: brief.timestamp,
                   child: Text(
                     brief.name,
-                    style: Theme.of(context).textTheme.subhead,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ),
               ),

@@ -18,7 +18,7 @@ Color getPointColor(String point, BuildContext ctx) {
     else
       return Colors.red;
   } catch (e) {
-    return Theme.of(ctx).textTheme.title.color;
+    return Theme.of(ctx).textTheme.headline6.color;
   }
 }
 
@@ -82,18 +82,24 @@ class _ExamResultPageState extends State<ExamResultPage> {
                         Expanded(
                           child: Text(
                             'GPA : ${currentSession.gpa}',
-                            style: Theme.of(context).textTheme.title.copyWith(
-                                color:
-                                    getPointColor(currentSession.gpa, context)),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                .copyWith(
+                                    color: getPointColor(
+                                        currentSession.gpa, context)),
                             textAlign: TextAlign.center,
                           ),
                         ),
                         Expanded(
                           child: Text(
                             'CGPA : ${currentSession.cGpa}',
-                            style: Theme.of(context).textTheme.title.copyWith(
-                                color: getPointColor(
-                                    currentSession.cGpa, context)),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                .copyWith(
+                                    color: getPointColor(
+                                        currentSession.cGpa, context)),
                             textAlign: TextAlign.center,
                           ),
                         )
@@ -133,7 +139,7 @@ class _ResultDetails extends StatelessWidget {
                       Text(
                         courseResult.courseName,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.subhead,
+                        style: Theme.of(context).textTheme.subtitle1,
                       ),
                       Divider(height: 8, color: Colors.transparent),
                       Text(
@@ -151,7 +157,7 @@ class _ResultDetails extends StatelessWidget {
                     '${courseResult.grade}\n'
                     '${courseResult.gradePoint.toStringAsFixed(2)}',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.title.copyWith(
+                    style: Theme.of(context).textTheme.headline6.copyWith(
                         color: getPointColor(
                             courseResult.gradePoint.toString(), context)),
                   ),

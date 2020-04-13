@@ -29,13 +29,13 @@ class _RegisterPageState extends State<RegisterPage> {
       var mainWidgets = <Widget>[
         Text(
           S.of(context).SignIn_RegisterTitle,
-          style: Theme.of(context).textTheme.headline,
+          style: Theme.of(context).textTheme.headline5,
         ),
         Divider(color: Colors.transparent),
         Text(
           S.of(context).SignIn_RegisterCaption,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.title,
+          style: Theme.of(context).textTheme.headline6,
         ),
         Divider(color: Colors.transparent),
         TextFormField(

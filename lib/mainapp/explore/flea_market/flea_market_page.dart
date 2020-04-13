@@ -117,7 +117,7 @@ class _ItemCardState extends State<ItemCard> {
                         user != null
                             ? Text(
                                 user.displayName,
-                                style: Theme.of(context).textTheme.subhead,
+                                style: Theme.of(context).textTheme.subtitle1,
                               )
                             : Text('...'),
                         Text(
@@ -135,7 +135,7 @@ class _ItemCardState extends State<ItemCard> {
                       '${widget.item.price.currencies} ${widget.item.price.value.toStringAsFixed(2)}',
                       style: Theme.of(context)
                           .textTheme
-                          .subhead
+                          .subtitle1
                           .copyWith(color: Colors.red),
                     ),
                   ),
@@ -168,7 +168,7 @@ class _ItemCardState extends State<ItemCard> {
                 padding: const EdgeInsets.all(8),
                 child: Text(
                   widget.item.name,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
               ),
             ],

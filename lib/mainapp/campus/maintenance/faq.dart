@@ -58,7 +58,7 @@ class _FaqPageState extends State<FaqPage> {
               children: <Widget>[
                 Text(
                   faq.title,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
                   DateFormat.yMMMd().format(faq.date),

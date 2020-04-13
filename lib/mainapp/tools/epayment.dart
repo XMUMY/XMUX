@@ -120,7 +120,7 @@ class _BillingRecordCard extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 8),
               child: Text(
                 paymentData.item,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.subtitle1,
               ),
             ),
             Row(

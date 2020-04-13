@@ -24,7 +24,7 @@ class MyComplaintsPage extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     '${req.title}',
-                    style: Theme.of(context).textTheme.subhead,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                   Text(
                     '${req.id} ${DateFormat.yMMMd().format(req.date)} '

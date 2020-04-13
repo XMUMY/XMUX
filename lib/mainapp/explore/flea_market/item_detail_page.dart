@@ -39,7 +39,7 @@ class ItemDetailPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 name != null
-                    ? Text(name, style: Theme.of(context).textTheme.subhead)
+                    ? Text(name, style: Theme.of(context).textTheme.subtitle1)
                     : Text('...'),
                 Text(
                   '${DateFormat.yMd(Localizations.localeOf(context).languageCode).format(item.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(item.timestamp)}',
@@ -54,7 +54,7 @@ class ItemDetailPage extends StatelessWidget {
               '${item.price.currencies} ${item.price.value.toStringAsFixed(2)}',
               style: Theme.of(context)
                   .textTheme
-                  .subhead
+                  .subtitle1
                   .copyWith(color: Colors.red),
             ),
           ),
@@ -68,14 +68,14 @@ class ItemDetailPage extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
         child: Text(
           item.name,
-          style: Theme.of(context).textTheme.title,
+          style: Theme.of(context).textTheme.headline6,
         ),
       ),
       Padding(
         padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
         child: Text(
           item.description,
-          style: Theme.of(context).textTheme.subhead,
+          style: Theme.of(context).textTheme.subtitle1,
         ),
       ),
     ];
@@ -98,7 +98,7 @@ class ItemDetailPage extends StatelessWidget {
                   Expanded(
                     child: Text(
                       i18n('FleaMarket/Details/Comments', context),
-                      style: Theme.of(context).textTheme.title,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                   ),
                   IconButton(

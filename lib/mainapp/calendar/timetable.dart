@@ -131,8 +131,6 @@ class LessonCard extends StatefulWidget {
 }
 
 class _LessonCardState extends State<LessonCard> {
-  var _elevation = 1.0;
-
   Widget _buildDialogWidgets(BuildContext context) {
     var history = FutureBuilder<List<AttendanceRecord>>(
       future: LessonCard.attendanceApi.getHistory(cid: widget.lesson.cid),
@@ -161,7 +159,7 @@ class _LessonCardState extends State<LessonCard> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       title: Text(
         widget.lesson.name,
-        style: Theme.of(context).textTheme.title,
+        style: Theme.of(context).textTheme.headline6,
         textAlign: TextAlign.center,
       ),
       titlePadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
@@ -225,7 +223,7 @@ class _LessonCardState extends State<LessonCard> {
                   padding: EdgeInsets.only(bottom: 8),
                   child: Text(
                     widget.lesson.name,
-                    style: Theme.of(context).textTheme.subhead,
+                    style: Theme.of(context).textTheme.subtitle1,
                     textAlign: TextAlign.start,
                   ),
                 ),

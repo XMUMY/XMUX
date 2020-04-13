@@ -86,7 +86,7 @@ class _CommentCard extends StatelessWidget {
                 builder: (_, snap) => snap.hasData
                     ? Text(
                         snap.data.data.displayName,
-                        style: Theme.of(context).textTheme.subhead,
+                        style: Theme.of(context).textTheme.subtitle1,
                       )
                     : Text('...'),
               ),

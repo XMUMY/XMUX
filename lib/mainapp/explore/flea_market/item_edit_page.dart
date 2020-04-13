@@ -210,7 +210,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
                         border: InputBorder.none,
                         hintText: i18n('FleaMarket/Edit/Name', context),
                       ),
-                      style: Theme.of(context).textTheme.subhead,
+                      style: Theme.of(context).textTheme.subtitle1,
                       validator: (s) => s.isEmpty
                           ? i18n('FleaMarket/Edit/MustFill', context)
                           : null,
@@ -223,7 +223,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
                         border: InputBorder.none,
                         hintText: i18n('FleaMarket/Edit/Description', context),
                       ),
-                      style: Theme.of(context).textTheme.subhead,
+                      style: Theme.of(context).textTheme.subtitle1,
                       maxLines: 5,
                       validator: (s) => s.isEmpty
                           ? i18n('FleaMarket/Edit/MustFill', context)
@@ -249,7 +249,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
                       Expanded(
                         child: Text(
                           i18n('FleaMarket/Edit/Pictures', context),
-                          style: Theme.of(context).textTheme.subhead,
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                       ),
                       IconButton(
@@ -287,7 +287,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
                     padding: const EdgeInsets.fromLTRB(15, 15, 0, 15),
                     child: Text(
                       i18n('FleaMarket/Edit/Price', context),
-                      style: Theme.of(context).textTheme.subhead,
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                   ),
                   TextFormField(

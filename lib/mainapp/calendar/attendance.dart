@@ -92,7 +92,7 @@ class AttendanceHistoryItem extends StatelessWidget {
             children: <Widget>[
               Text(
                 course?.name ?? 'Unknown',
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.subtitle1,
               ),
               Text(
                 '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(record.timestamp)} '
