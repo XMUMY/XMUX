@@ -2,12 +2,14 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/floating_card.dart';
+import 'package:xmux/components/spannable_grid.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
@@ -19,6 +21,8 @@ import 'package:xmux/modules/api/xmux_api.dart'
 import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/common/translation_mapper.dart' show weekdays;
 import 'package:xmux/redux/redux.dart';
+
+part 'timetable_grid.dart';
 
 class TimeTablePage extends StatelessWidget {
   final List<TimetableClass> timetable;
@@ -58,6 +62,7 @@ class TimeTablePage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (timetable == null) return EmptyErrorButton(onRefresh: _handleUpdate);
     if (timetable.isEmpty) return EmptyErrorPage();
+    if (kIsWeb) return TimeTableGrid(timetable);
 
     var languageCode = Localizations.localeOf(context).languageCode;
     var lastUpdate = Center(
@@ -99,7 +104,7 @@ class LessonCard extends StatefulWidget {
   /// Lesson information.
   final TimetableClass lesson;
 
-  static final attendanceApi = AttendanceApi(
+  final attendanceApi = AttendanceApi(
     address: BackendApiConfig.attendanceAddress,
     uid: store.state.user.campusId,
   );
@@ -133,7 +138,7 @@ class LessonCard extends StatefulWidget {
 class _LessonCardState extends State<LessonCard> {
   Widget _buildDialogWidgets(BuildContext context) {
     var history = FutureBuilder<List<AttendanceRecord>>(
-      future: LessonCard.attendanceApi.getHistory(cid: widget.lesson.cid),
+      future: widget.attendanceApi.getHistory(cid: widget.lesson.cid),
       builder: (ctx, snap) {
         switch (snap.connectionState) {
           case ConnectionState.done:
