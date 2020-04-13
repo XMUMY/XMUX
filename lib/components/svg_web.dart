@@ -7,19 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 /// Use browser to render svg picture on web.
-class SvgElement extends StatefulWidget {
+class SvgPicture extends StatefulWidget {
   final String asset;
   final double width;
   final double height;
 
-  const SvgElement.asset(this.asset, {Key key, this.width, this.height})
+  const SvgPicture.asset(this.asset, {Key key, this.width, this.height})
       : super(key: key);
 
   @override
-  _SvgElementState createState() => _SvgElementState();
+  _SvgPictureState createState() => _SvgPictureState();
 }
 
-class _SvgElementState extends State<SvgElement> {
+class _SvgPictureState extends State<SvgPicture> {
   String assetString;
 
   final hash =

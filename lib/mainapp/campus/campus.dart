@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart'
+    if (dart.library.html) 'package:xmux/components/svg_web.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:xmux/components/svg_web.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
@@ -157,8 +157,7 @@ class _ToolButton extends StatelessWidget {
         IconButton(
           icon: Hero(
             tag: child ?? svg,
-            child: child ??
-                (kIsWeb ? SvgElement.asset(svg) : SvgPicture.asset(svg)),
+            child: child ?? SvgPicture.asset(svg),
           ),
           onPressed: () =>
               Navigator.of(context, rootNavigator: true).pushNamed(path),
