@@ -6,17 +6,22 @@ on:
       - master
 
 jobs:
-  build:
-
+  BuildWeb:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '8.x'
+      - uses: actions/checkout@v2
+      # - uses: actions/setup-java@v1
+      #   with:
+      #     java-version: '8.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: 'beta'
-      - run: flutter pub get
-      - run: flutter build apk
+          channel: "beta"
+      - name: Configurate
+        run: cp lib/config.sample.dart lib/config.dart
+      - name: Build
+        run: flutter config --enable-web && flutter build web
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: app
+          path: build/web

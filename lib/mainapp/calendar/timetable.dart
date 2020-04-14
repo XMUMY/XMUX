@@ -203,26 +203,19 @@ class _LessonCardState extends State<LessonCard> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(7)),
       ),
       child: Center(
-        child: widget.isInGrid
-            ? Text(
-                '${widget.lesson.cid} ${widget.lesson.room}',
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    .copyWith(color: Colors.white),
-                textAlign: TextAlign.center,
-              )
-            : Text(
-                '${weekdays(context, widget.lesson.day)} '
-                '${widget.lesson.start.format(context)} - '
-                '${widget.lesson.end.format(context)} '
-                '${widget.lesson.room}',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    .copyWith(color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
+        child: Text(
+          widget.isInGrid
+              ? '${widget.lesson.cid} ${widget.lesson.room}'
+              : '${weekdays(context, widget.lesson.day)} '
+                  '${widget.lesson.start.format(context)} - '
+                  '${widget.lesson.end.format(context)} '
+                  '${widget.lesson.room}',
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .copyWith(color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
       ),
     );
 
