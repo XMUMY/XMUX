@@ -132,9 +132,9 @@ class MainPageState extends State<MainPage> {
         key: _scaffoldKey,
         body: body,
         // Bottom navigation.
-        bottomNavigationBar: constraints.maxWidth < 600 ? bottom : null,
+        bottomNavigationBar: constraints.maxWidth < 700 ? bottom : null,
         // Drawers.
-        drawer: DrawerPage(constraints.maxWidth < 600 ? null : _currentIndex),
+        drawer: DrawerPage(constraints.maxWidth < 700 ? null : _currentIndex),
         endDrawer: EndDrawer(),
       ),
     );

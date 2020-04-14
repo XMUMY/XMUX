@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
@@ -62,7 +61,9 @@ class TimeTablePage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (timetable == null) return EmptyErrorButton(onRefresh: _handleUpdate);
     if (timetable.isEmpty) return EmptyErrorPage();
-    if (kIsWeb) return TimeTableGrid(timetable);
+
+    if (MediaQuery.of(context).size.width >= 700)
+      return TimeTableGrid(timetable);
 
     var languageCode = Localizations.localeOf(context).languageCode;
     var lastUpdate = Center(
