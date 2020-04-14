@@ -12,6 +12,7 @@ class TimeTableGrid extends StatelessWidget {
               id: i,
               column: 1,
               row: i + 2,
+              columnFlex: 1,
               child: Column(
                 children: <Widget>[
                   Divider(height: 1),
@@ -19,6 +20,7 @@ class TimeTableGrid extends StatelessWidget {
                     child: Center(
                       child: Text(
                         '${i + 8} - ${i + 9}',
+                        style: Theme.of(context).textTheme.subtitle1,
                       ),
                     ),
                   ),
@@ -35,6 +37,7 @@ class TimeTableGrid extends StatelessWidget {
               child: Center(
                 child: Text(
                   weekdays(context, i + 1),
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
               ),
             ))
@@ -45,29 +48,28 @@ class TimeTableGrid extends StatelessWidget {
               column: c.day + 1,
               row: c.start.hour - 6,
               rowSpan: c.end.hour - c.start.hour,
-              rowFlex: 2,
-              child: DecoratedBox(
-                decoration:
-                    BoxDecoration(color: LessonCard.dayColor[c.day - 1]),
-                child: Center(
-                  child: Text(
-                    c.name,
-                  ),
-                ),
+              columnFlex: 2,
+              rowFlex: 3,
+              child: LessonCard(
+                c,
+                isInGrid: true,
               ),
             ))
         .toList();
 
     return SingleChildScrollView(
-      child: SpannableGrid(
-        rows: 14,
-        columns: 6,
-        spacing: 1,
-        cells: [
-          ...timetableCells,
-          ...weekdayCells,
-          ...periods,
-        ],
+      child: SizedBox(
+        height: 1111,
+        child: SpannableGrid(
+          rows: 14,
+          columns: 6,
+          spacing: 1,
+          cells: [
+            ...timetableCells,
+            ...weekdayCells,
+            ...periods,
+          ],
+        ),
       ),
     );
   }

@@ -104,12 +104,15 @@ class LessonCard extends StatefulWidget {
   /// Lesson information.
   final TimetableClass lesson;
 
+  /// Whether the card is inside a TimetableGrid.
+  final bool isInGrid;
+
   final attendanceApi = AttendanceApi(
     address: BackendApiConfig.attendanceAddress,
     uid: store.state.user.campusId,
   );
 
-  LessonCard(this.lesson);
+  LessonCard(this.lesson, {this.isInGrid = false});
 
   @override
   _LessonCardState createState() => _LessonCardState();
@@ -191,6 +194,65 @@ class _LessonCardState extends State<LessonCard> {
 
   @override
   Widget build(BuildContext context) {
+    var header = Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.white10
+            : LessonCard.dayColor[widget.lesson.day - 1],
+        borderRadius: BorderRadius.vertical(top: Radius.circular(7)),
+      ),
+      child: Center(
+        child: widget.isInGrid
+            ? Text(
+                '${widget.lesson.cid} ${widget.lesson.room}',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    .copyWith(color: Colors.white),
+                textAlign: TextAlign.center,
+              )
+            : Text(
+                '${weekdays(context, widget.lesson.day)} '
+                '${widget.lesson.start.format(context)} - '
+                '${widget.lesson.end.format(context)} '
+                '${widget.lesson.room}',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    .copyWith(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+      ),
+    );
+
+    var body = ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+      shrinkWrap: true,
+      physics: ClampingScrollPhysics(),
+      children: <Widget>[
+        Text(
+          widget.lesson.name,
+          style: Theme.of(context).textTheme.subtitle1,
+          textAlign: TextAlign.start,
+        ),
+        Divider(height: 8, color: Colors.transparent),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: widget.isInGrid
+                  ? Text(widget.lesson.lecturer)
+                  : Text(
+                      '${widget.lesson.cid} \n'
+                      '${widget.lesson.lecturer}',
+                    ),
+            ),
+            SignInButton(widget.lesson),
+          ],
+        ),
+      ],
+    );
+
     return FloatingCard(
       onTap: () => showDialog(
         context: context,
@@ -199,58 +261,11 @@ class _LessonCardState extends State<LessonCard> {
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.white10
-                    : LessonCard.dayColor[widget.lesson.day - 1],
-                borderRadius: BorderRadius.vertical(top: Radius.circular(7))),
-            child: Center(
-              child: Text(
-                '${weekdays(context, widget.lesson.day)} '
-                '${widget.lesson.start.format(context)} - '
-                '${widget.lesson.end.format(context)} '
-                '${widget.lesson.room}',
-                style: TextStyle(color: Colors.white, fontSize: 18),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    widget.lesson.name,
-                    style: Theme.of(context).textTheme.subtitle1,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            '${widget.lesson.cid} \n'
-                            '${widget.lesson.lecturer}',
-                          ),
-                        ],
-                      ),
-                    ),
-                    SignInButton(widget.lesson),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          header,
+          if (widget.isInGrid) Expanded(child: body) else body,
         ],
       ),
     );

@@ -59,22 +59,19 @@ class SpannableGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 1000,
-      child: CustomMultiChildLayout(
-        delegate: _SpannableGridDelegate(
-          cells: cells,
-          columns: columns,
-          rows: rows,
-          spacing: spacing,
-        ),
-        children: cells
-            .map((cell) => LayoutId(
-                  id: cell.id,
-                  child: cell.child,
-                ))
-            .toList(),
+    return CustomMultiChildLayout(
+      delegate: _SpannableGridDelegate(
+        cells: cells,
+        columns: columns,
+        rows: rows,
+        spacing: spacing,
       ),
+      children: cells
+          .map((cell) => LayoutId(
+                id: cell.id,
+                child: cell.child,
+              ))
+          .toList(),
     );
   }
 }
