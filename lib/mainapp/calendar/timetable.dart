@@ -101,22 +101,20 @@ class TimeTablePage extends StatelessWidget {
   }
 }
 
-class LessonCard extends StatefulWidget {
+class LessonCard extends StatelessWidget {
   /// Lesson information.
   final TimetableClass lesson;
 
   /// Whether the card is inside a TimetableGrid.
   final bool isInGrid;
 
-  final attendanceApi = AttendanceApi(
-    address: BackendApiConfig.attendanceAddress,
-    uid: store.state.user.campusId,
-  );
-
-  LessonCard(this.lesson, {this.isInGrid = false});
-
-  @override
-  _LessonCardState createState() => _LessonCardState();
+  LessonCard(this.lesson, {this.isInGrid = false}) {
+    // Ensure attendance API with current user.
+    AttendanceApi(
+      address: BackendApiConfig.attendanceAddress,
+      uid: store.state.user.campusId,
+    );
+  }
 
   // Colors from monday to friday.
   static const List<Color> dayColor = [
@@ -126,6 +124,84 @@ class LessonCard extends StatefulWidget {
     const Color(0xFF90CAF9),
     const Color(0xFFE1BEE7),
   ];
+
+  @override
+  Widget build(BuildContext context) {
+    var header = Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).brightness == Brightness.dark
+            ? Colors.white10
+            : LessonCard.dayColor[lesson.day - 1],
+        borderRadius: BorderRadius.vertical(top: Radius.circular(7)),
+      ),
+      child: Center(
+        child: Text(
+          isInGrid
+              ? '${lesson.cid} ${lesson.room}'
+              : '${weekdays(context, lesson.day)} '
+                  '${lesson.start.format(context)} - '
+                  '${lesson.end.format(context)} '
+                  '${lesson.room}',
+          style: Theme.of(context)
+              .textTheme
+              .subtitle1
+              .copyWith(color: Colors.white, fontSize: 18),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+
+    var body = ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+      shrinkWrap: true,
+      physics: ClampingScrollPhysics(),
+      children: <Widget>[
+        Text(
+          lesson.name,
+          style: Theme.of(context).textTheme.subtitle1,
+          textAlign: TextAlign.start,
+        ),
+        Divider(height: 8, color: Colors.transparent),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: isInGrid
+                  ? Text(lesson.lecturer)
+                  : Text(
+                      '${lesson.cid} \n'
+                      '${lesson.lecturer}',
+                    ),
+            ),
+            SignInButton(lesson),
+          ],
+        ),
+      ],
+    );
+
+    return FloatingCard(
+      onTap: () => showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) => LessonDialog(lesson),
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          header,
+          if (isInGrid) Expanded(child: body) else body,
+        ],
+      ),
+    );
+  }
+}
+
+class LessonDialog extends StatelessWidget {
+  final TimetableClass lesson;
+
+  const LessonDialog(this.lesson);
 
   int get lessonCredit {
     return store.state.acState.courses?.firstWhere(
@@ -137,12 +213,11 @@ class LessonCard extends StatefulWidget {
           .courses[editDistances.indexOf(editDistances.reduce(min))];
     })?.credit;
   }
-}
 
-class _LessonCardState extends State<LessonCard> {
-  Widget _buildDialogWidgets(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     var history = FutureBuilder<List<AttendanceRecord>>(
-      future: widget.attendanceApi.getHistory(cid: widget.lesson.cid),
+      future: AttendanceApi().getHistory(cid: lesson.cid),
       builder: (ctx, snap) {
         switch (snap.connectionState) {
           case ConnectionState.done:
@@ -167,21 +242,20 @@ class _LessonCardState extends State<LessonCard> {
     return SimpleDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       title: Text(
-        widget.lesson.name,
+        lesson.name,
         style: Theme.of(context).textTheme.headline6,
         textAlign: TextAlign.center,
       ),
       titlePadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
       children: <Widget>[
-        Text(
-            '${i18n('Calendar/ClassCard/Code', context)}: ${widget.lesson.cid}\n'
-            '${i18n('Calendar/ClassCard/Credit', context)}: ${widget.lessonCredit}\n'
-            '${i18n('Calendar/ClassCard/Time', context)}: ${weekdays(context, widget.lesson.day)} '
-            '${widget.lesson.start.format(context)} - '
-            '${widget.lesson.end.format(context)}\n'
-            '${i18n('Calendar/ClassCard/Room', context)}: ${widget.lesson.room}\n'
-            '${i18n('Calendar/ClassCard/Lecturer', context)}: ${widget.lesson.lecturer.split(',').join(', ')}'),
+        Text('${i18n('Calendar/ClassCard/Code', context)}: ${lesson.cid}\n'
+            '${i18n('Calendar/ClassCard/Credit', context)}: $lessonCredit\n'
+            '${i18n('Calendar/ClassCard/Time', context)}: ${weekdays(context, lesson.day)} '
+            '${lesson.start.format(context)} - '
+            '${lesson.end.format(context)}\n'
+            '${i18n('Calendar/ClassCard/Room', context)}: ${lesson.room}\n'
+            '${i18n('Calendar/ClassCard/Lecturer', context)}: ${lesson.lecturer.split(',').join(', ')}'),
         Divider(),
         Text(S.of(context).Calendar_Attendance),
         SizedBox(
@@ -190,78 +264,6 @@ class _LessonCardState extends State<LessonCard> {
           child: history,
         ),
       ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var header = Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.dark
-            ? Colors.white10
-            : LessonCard.dayColor[widget.lesson.day - 1],
-        borderRadius: BorderRadius.vertical(top: Radius.circular(7)),
-      ),
-      child: Center(
-        child: Text(
-          widget.isInGrid
-              ? '${widget.lesson.cid} ${widget.lesson.room}'
-              : '${weekdays(context, widget.lesson.day)} '
-                  '${widget.lesson.start.format(context)} - '
-                  '${widget.lesson.end.format(context)} '
-                  '${widget.lesson.room}',
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              .copyWith(color: Colors.white),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-
-    var body = ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      children: <Widget>[
-        Text(
-          widget.lesson.name,
-          style: Theme.of(context).textTheme.subtitle1,
-          textAlign: TextAlign.start,
-        ),
-        Divider(height: 8, color: Colors.transparent),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: widget.isInGrid
-                  ? Text(widget.lesson.lecturer)
-                  : Text(
-                      '${widget.lesson.cid} \n'
-                      '${widget.lesson.lecturer}',
-                    ),
-            ),
-            SignInButton(widget.lesson),
-          ],
-        ),
-      ],
-    );
-
-    return FloatingCard(
-      onTap: () => showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: _buildDialogWidgets,
-      ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          header,
-          if (widget.isInGrid) Expanded(child: body) else body,
-        ],
-      ),
     );
   }
 }

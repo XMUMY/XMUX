@@ -97,7 +97,7 @@ void postInit() async {
 }
 
 // Return `false` to stop main initialization progress.
-Future<bool> mobileInit() async {
+Future<Null> mobileInit() async {
   // Get package Info.
   packageInfo = await PackageInfo.fromPlatform();
 
@@ -115,7 +115,7 @@ Future<bool> mobileInit() async {
   var minBuild = firebase.remoteConfigs.versions?.minBuildSupported ?? 0;
   if (currentBuild < minBuild) {
     logout(message: 'deprecated');
-    return false;
+    return;
   }
 
   // Register FirebaseAuth state listener.
@@ -135,7 +135,7 @@ Future<bool> mobileInit() async {
 
   // Configure FCM.
   firebase.messaging.configure();
-  return true;
+  return;
 }
 
 Future<Null> androidPostInit() async {
