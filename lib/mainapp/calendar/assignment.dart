@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
-import 'package:xmux/components/floating_card.dart';
+import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/moodle/models/assignment.dart';
 import 'package:xmux/redux/actions/actions.dart';
 
-class AssignmentPage extends StatelessWidget {
+class AssignmentPage extends StatefulWidget {
   final List<Course> assignments;
 
   AssignmentPage(this.assignments);
+
+  @override
+  _AssignmentPageState createState() => _AssignmentPageState();
+}
+
+class _AssignmentPageState extends State<AssignmentPage> {
+  Assignment _selectedAssignment;
 
   Future<void> _handleUpdate() async {
     var action = UpdateAssignmentsAction();
@@ -20,50 +27,95 @@ class AssignmentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (assignments == null) return EmptyErrorButton(onRefresh: _handleUpdate);
-    if (assignments.isEmpty) return EmptyErrorPage();
+    if (widget.assignments == null)
+      return EmptyErrorButton(onRefresh: _handleUpdate);
+    if (widget.assignments.isEmpty) return EmptyErrorPage();
+
+    var width = MediaQuery.of(context).size.width;
+    var list = SingleChildScrollView(
+      padding: const EdgeInsets.all(10),
+      child: ExpansionPanelList.radio(
+        children: <ExpansionPanelRadio>[
+          for (var course in widget.assignments)
+            ExpansionPanelRadio(
+              headerBuilder: (context, isExpanded) => ListTile(
+                title: Text(
+                  course.fullName,
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+              ),
+              body: Column(
+                children: <Widget>[
+                  for (var assignment in course.assignments)
+                    ListTile(
+                      onTap: () => width < 700
+                          ? Navigator.of(context).push(FadePageRoute(
+                              child: AssignmentDetail(assignment)))
+                          : setState(() => _selectedAssignment = assignment),
+                      title: Text(assignment.name),
+                      dense: true,
+                    ),
+                ],
+              ),
+              value: course.id,
+            ),
+        ],
+      ),
+    );
+
+    Widget child;
+    if (width < 700)
+      child = list;
+    else
+      // Show details in right column.
+      child = Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: list,
+          ),
+          Expanded(
+            flex: width > 1000 ? 3 : 2,
+            child: _selectedAssignment == null
+                ? Container()
+                : AssignmentDetail(_selectedAssignment, withAppBar: false),
+          ),
+        ],
+      );
 
     return RefreshIndicator(
       onRefresh: _handleUpdate,
-      child: ListView.builder(
-        itemCount: assignments.length,
-        itemBuilder: (context, index) => AnimationConfiguration.staggeredList(
-          position: index,
-          child: SlideAnimation(
-            verticalOffset: 50,
-            child: FadeInAnimation(
-              child: AssignmentCard(assignments[index]),
-            ),
-          ),
-        ),
-      ),
+      child: child,
     );
   }
 }
 
-class AssignmentCard extends StatelessWidget {
-  final Course course;
+class AssignmentDetail extends StatelessWidget {
+  final Assignment assignment;
 
-  AssignmentCard(this.course);
+  /// Whether an appbar should be added to details.
+  final bool withAppBar;
+
+  AssignmentDetail(this.assignment, {this.withAppBar = true});
 
   @override
   Widget build(BuildContext context) {
-    return FloatingCard(
-      padding: const EdgeInsets.all(10),
-      child: Column(
-        children: <Widget>[
-          Text(
-            course.fullName,
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-          Text(
-            course.shortName,
-            style: Theme.of(context).textTheme.caption,
-          ),
-          Divider(),
-          for (var a in course.assignments) Text(a.name),
-        ],
-      ),
+    var detail = ListView(
+      children: <Widget>[
+        Html(
+          data: assignment.intro,
+        ),
+      ],
     );
+
+    if (withAppBar)
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(assignment.name),
+        ),
+        body: detail,
+      );
+
+    return detail;
   }
 }

@@ -33,7 +33,10 @@ class Assignment {
       toJson: timestampToJson)
   final DateTime allowSubmissionFromDate;
 
-  Assignment(this.id, this.name, this.dueDate, this.allowSubmissionFromDate);
+  final String intro;
+
+  Assignment(this.id, this.name, this.dueDate, this.allowSubmissionFromDate,
+      this.intro);
 
   static Assignment fromJson(Map<String, dynamic> json) =>
       _$AssignmentFromJson(json);

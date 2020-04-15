@@ -31,6 +31,7 @@ Assignment _$AssignmentFromJson(Map<String, dynamic> json) {
     json['name'] as String,
     timestampFromJson(json['duedate'] as int),
     timestampFromJson(json['allowsubmissionsfromdate'] as int),
+    json['intro'] as String,
   );
 }
 
@@ -41,4 +42,5 @@ Map<String, dynamic> _$AssignmentToJson(Assignment instance) =>
       'duedate': timestampToJson(instance.dueDate),
       'allowsubmissionsfromdate':
           timestampToJson(instance.allowSubmissionFromDate),
+      'intro': instance.intro,
     };
