@@ -34,12 +34,29 @@ class Assignment {
   final DateTime allowSubmissionFromDate;
 
   final String intro;
+  @JsonKey(name: 'introattachments')
+  final List<IntroAttachment> introAttachments;
 
   Assignment(this.id, this.name, this.dueDate, this.allowSubmissionFromDate,
-      this.intro);
+      this.intro, this.introAttachments);
 
   static Assignment fromJson(Map<String, dynamic> json) =>
       _$AssignmentFromJson(json);
 
   Map<String, dynamic> toJson() => _$AssignmentToJson(this);
+}
+
+@JsonSerializable()
+class IntroAttachment {
+  @JsonKey(name: 'filename')
+  final String name;
+  @JsonKey(name: 'fileurl')
+  final String url;
+
+  IntroAttachment(this.name, this.url);
+
+  static IntroAttachment fromJson(Map<String, dynamic> json) =>
+      _$IntroAttachmentFromJson(json);
+
+  Map<String, dynamic> toJson() => _$IntroAttachmentToJson(this);
 }

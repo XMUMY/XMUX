@@ -32,6 +32,11 @@ Assignment _$AssignmentFromJson(Map<String, dynamic> json) {
     timestampFromJson(json['duedate'] as int),
     timestampFromJson(json['allowsubmissionsfromdate'] as int),
     json['intro'] as String,
+    (json['introattachments'] as List)
+        ?.map((e) => e == null
+            ? null
+            : IntroAttachment.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
@@ -43,4 +48,18 @@ Map<String, dynamic> _$AssignmentToJson(Assignment instance) =>
       'allowsubmissionsfromdate':
           timestampToJson(instance.allowSubmissionFromDate),
       'intro': instance.intro,
+      'introattachments': instance.introAttachments,
+    };
+
+IntroAttachment _$IntroAttachmentFromJson(Map<String, dynamic> json) {
+  return IntroAttachment(
+    json['filename'] as String,
+    json['fileurl'] as String,
+  );
+}
+
+Map<String, dynamic> _$IntroAttachmentToJson(IntroAttachment instance) =>
+    <String, dynamic>{
+      'filename': instance.name,
+      'fileurl': instance.url,
     };

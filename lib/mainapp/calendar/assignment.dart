@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
+import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/moodle/models/assignment.dart';
@@ -38,6 +40,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
         children: <ExpansionPanelRadio>[
           for (var course in widget.assignments)
             ExpansionPanelRadio(
+              canTapOnHeader: true,
               headerBuilder: (context, isExpanded) => ListTile(
                 title: Text(
                   course.fullName,
@@ -101,10 +104,49 @@ class AssignmentDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var detail = ListView(
+      padding: const EdgeInsets.all(5),
       children: <Widget>[
-        Html(
-          data: assignment.intro,
-        ),
+        if (assignment.intro.isNotEmpty ||
+            assignment.introAttachments.isNotEmpty)
+          FloatingCard(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'Introduction',
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                Html(data: assignment.intro),
+
+                // Intro attachments.
+                Wrap(
+                  children: <Widget>[
+                    for (var attachment in assignment.introAttachments)
+                      Column(
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(Icons.insert_drive_file),
+                            iconSize: 50,
+                            onPressed: () =>
+                                launch(moodleApi.withToken(attachment.url)),
+                          ),
+                          Container(
+                            width: 85,
+                            margin: const EdgeInsets.only(bottom: 5),
+                            child: Text(
+                              attachment.name,
+                              style: Theme.of(context).textTheme.caption,
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        ],
+                      ),
+                  ],
+                )
+              ],
+            ),
+          )
       ],
     );
 

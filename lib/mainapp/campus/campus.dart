@@ -164,7 +164,6 @@ class _ToolButton extends StatelessWidget {
           tooltip: i18n(title, context),
           iconSize: 70,
         ),
-        IntrinsicHeight(),
         Container(
           width: 85,
           margin: const EdgeInsets.only(bottom: 5),
