@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:device_calendar/device_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
@@ -214,6 +215,61 @@ class LessonDialog extends StatelessWidget {
     })?.credit;
   }
 
+  void addToCalendar(BuildContext context) async {
+    var plugin = DeviceCalendarPlugin();
+    if (!(await plugin.requestPermissions()).isSuccess) return;
+    var calendars = await plugin.retrieveCalendars();
+
+    var id = await showDialog<String>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        title: Text('Add to Calendar'),
+        children: <Widget>[
+          for (var c in calendars.data)
+            ListTile(
+              title: Text(c.name),
+              onTap: () => Navigator.of(context).pop(c.id),
+            ),
+        ],
+      ),
+    );
+    if (id == null || id.isEmpty) return;
+
+    var date = DateTime.now();
+    // Find next weekday matched the lesson.
+    while (date.weekday != lesson.day) date = date.add(Duration(days: 1));
+
+    var start = DateTime(
+      date.year,
+      date.month,
+      date.day,
+      lesson.start.hour,
+      lesson.start.minute,
+    );
+    var end = DateTime(
+      date.year,
+      date.month,
+      date.day,
+      lesson.end.hour,
+      lesson.end.minute,
+    );
+    await plugin.createOrUpdateEvent(Event(
+      id,
+      title: lesson.name,
+      start: start,
+      end: end,
+      recurrenceRule: RecurrenceRule(
+        RecurrenceFrequency.Weekly,
+        endDate: lesson.endDay,
+      ),
+    ));
+
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     var title = Text(
@@ -268,6 +324,10 @@ class LessonDialog extends StatelessWidget {
             const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         children: <Widget>[
           info,
+          RaisedButton(
+            onPressed: () => addToCalendar(context),
+            child: Text('Add to Calendar'),
+          ),
           if (showHistory) ...{
             Divider(),
             Text(S.of(context).Calendar_Attendance),
