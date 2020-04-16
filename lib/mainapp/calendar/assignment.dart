@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
@@ -57,6 +58,10 @@ class _AssignmentPageState extends State<AssignmentPage> {
                             ))
                           : setState(() => _selectedAssignment = assignment),
                       title: Text(assignment.name),
+                      subtitle: Text(
+                        '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(assignment.dueDate)} '
+                        '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(assignment.dueDate)}',
+                      ),
                       dense: true,
                     ),
                 ],
@@ -115,7 +120,6 @@ class AssignmentDetail extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'Introduction',
-                  textAlign: TextAlign.start,
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 Html(data: assignment.intro),
@@ -147,7 +151,33 @@ class AssignmentDetail extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
+        FloatingCard(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: <Widget>[
+              Text(
+                'Due Date',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              Divider(height: 5, color: Colors.transparent),
+              Text(
+                '${DateFormat.yMMMEd(Localizations.localeOf(context).languageCode).format(assignment.dueDate)} '
+                '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(assignment.dueDate)}',
+              ),
+              Divider(height: 5, color: Colors.transparent),
+              Text(
+                'Allow Submission From',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              Divider(height: 5, color: Colors.transparent),
+              Text(
+                '${DateFormat.yMMMEd(Localizations.localeOf(context).languageCode).format(assignment.allowSubmissionFromDate)} '
+                '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(assignment.allowSubmissionFromDate)}',
+              ),
+            ],
+          ),
+        )
       ],
     );
 
