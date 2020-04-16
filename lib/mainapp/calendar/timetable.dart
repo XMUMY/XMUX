@@ -216,54 +216,65 @@ class LessonDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var history = FutureBuilder<List<AttendanceRecord>>(
-      future: AttendanceApi().getHistory(cid: lesson.cid),
-      builder: (ctx, snap) {
-        switch (snap.connectionState) {
-          case ConnectionState.done:
-            if (!snap.hasError)
-              return ListView(
-                children: snap.data
-                    .map((e) => Text(
-                        '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
-                        '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
-                        '${AttendanceHistoryItem.parseMessage(context, e)}'))
-                    .toList(),
-              );
-            else
-              return Center(child: CircularProgressIndicator());
-            break;
-          default:
-            return Center(child: CircularProgressIndicator());
-        }
-      },
+    var title = Text(
+      lesson.name,
+      style: Theme.of(context).textTheme.headline6,
+      textAlign: TextAlign.center,
     );
 
-    return SimpleDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-      title: Text(
-        lesson.name,
-        style: Theme.of(context).textTheme.headline6,
-        textAlign: TextAlign.center,
+    var info = Text(
+      '${i18n('Calendar/ClassCard/Code', context)}: ${lesson.cid}\n'
+      '${i18n('Calendar/ClassCard/Credit', context)}: $lessonCredit\n'
+      '${i18n('Calendar/ClassCard/Time', context)}: ${weekdays(context, lesson.day)} '
+      '${lesson.start.format(context)} - '
+      '${lesson.end.format(context)}\n'
+      '${i18n('Calendar/ClassCard/Room', context)}: ${lesson.room}\n'
+      '${i18n('Calendar/ClassCard/Lecturer', context)}: ${lesson.lecturer.split(',').join(', ')}',
+    );
+
+    Widget history;
+    var showHistory = AttendanceApi().available;
+    if (showHistory)
+      history = FutureBuilder<List<AttendanceRecord>>(
+        future: AttendanceApi().getHistory(cid: lesson.cid),
+        builder: (ctx, snap) {
+          switch (snap.connectionState) {
+            case ConnectionState.done:
+              if (!snap.hasError)
+                return ListView(
+                  children: snap.data
+                      .map((e) => Text(
+                          '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
+                          '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
+                          '${AttendanceHistoryItem.parseMessage(context, e)}'))
+                      .toList(),
+                );
+              else
+                return Center(child: CircularProgressIndicator());
+              break;
+            default:
+              return Center(child: CircularProgressIndicator());
+          }
+        },
+      );
+
+    return SizedBox(
+      width: min(MediaQuery.of(context).size.width / 1.3, 350),
+      child: SimpleDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+        title: title,
+        titlePadding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        children: <Widget>[
+          info,
+          if (showHistory) ...{
+            Divider(),
+            Text(S.of(context).Calendar_Attendance),
+            history,
+          }
+        ],
       ),
-      titlePadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-      contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-      children: <Widget>[
-        Text('${i18n('Calendar/ClassCard/Code', context)}: ${lesson.cid}\n'
-            '${i18n('Calendar/ClassCard/Credit', context)}: $lessonCredit\n'
-            '${i18n('Calendar/ClassCard/Time', context)}: ${weekdays(context, lesson.day)} '
-            '${lesson.start.format(context)} - '
-            '${lesson.end.format(context)}\n'
-            '${i18n('Calendar/ClassCard/Room', context)}: ${lesson.room}\n'
-            '${i18n('Calendar/ClassCard/Lecturer', context)}: ${lesson.lecturer.split(',').join(', ')}'),
-        Divider(),
-        Text(S.of(context).Calendar_Attendance),
-        SizedBox(
-          height: min(MediaQuery.of(context).size.height / 3.5, 200),
-          width: MediaQuery.of(context).size.width / 1.3,
-          child: history,
-        ),
-      ],
     );
   }
 }

@@ -7,13 +7,19 @@ import 'package:xmux/mainapp/calendar/assignment.dart';
 import 'package:xmux/mainapp/calendar/attendance.dart';
 import 'package:xmux/mainapp/calendar/exam.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
+import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/redux/redux.dart';
 
 class CalendarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var showAttendance = AttendanceApi().available;
+    var tabLength = 1;
+    if (store.state.user.isStudent) tabLength += 2;
+    if (showAttendance) tabLength++;
+
     return DefaultTabController(
-      length: store.state.user.isStudent ? 4 : 2,
+      length: tabLength,
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
@@ -39,7 +45,7 @@ class CalendarPage extends StatelessWidget {
                 Tab(text: i18n('Calendar/Exams', context)),
                 Tab(text: i18n('Calendar/Assignments', context)),
               },
-              Tab(text: S.of(context).Calendar_Attendance),
+              if (showAttendance) Tab(text: S.of(context).Calendar_Attendance),
             ],
           ),
         ),
@@ -51,7 +57,7 @@ class CalendarPage extends StatelessWidget {
                 ExamsPage(store.state.acState.exams),
                 AssignmentPage(store.state.queryState.assignments),
               },
-              AttendancePage(),
+              if (showAttendance) AttendancePage(),
             ],
           ),
         ),
