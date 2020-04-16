@@ -100,12 +100,12 @@ class MainPageState extends State<MainPage> {
     var bottom = BottomNavigationBar(
       items: [
         BottomNavigationBarItem(
-          title: Text(i18n('Home', context)),
+          title: Text(S.of(context).Home),
           icon: Icon(Icons.home),
           backgroundColor: Theme.of(context).primaryColor,
         ),
         BottomNavigationBarItem(
-          title: Text(i18n('Calendar', context)),
+          title: Text(S.of(context).Calendar),
           icon: Icon(Icons.calendar_today),
           backgroundColor: Theme.of(context).primaryColor,
         ),

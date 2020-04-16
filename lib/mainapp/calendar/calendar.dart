@@ -28,11 +28,11 @@ class CalendarPage extends StatelessWidget {
             builder: (context, callback) =>
                 IconButton(icon: Icon(Icons.view_list), onPressed: callback),
           ),
-          title: Text(i18n('Calendar', context)),
+          title: Text(S.of(context).Calendar),
           actions: <Widget>[
             IconButton(
               icon: Icon(FontAwesomeIcons.calendarAlt),
-              tooltip: i18n('Calendar/Academic', context),
+              tooltip: S.of(context).Calendar_Academic,
               onPressed: () => Navigator.of(context, rootNavigator: true)
                   .pushNamed('/Calendar/CalendarImage'),
             )
@@ -40,10 +40,10 @@ class CalendarPage extends StatelessWidget {
           bottom: TabBar(
             isScrollable: true,
             tabs: <Tab>[
-              Tab(text: i18n('Calendar/Classes', context)),
+              Tab(text: S.of(context).Calendar_Classes),
               if (store.state.user.isStudent) ...{
-                Tab(text: i18n('Calendar/Exams', context)),
-                Tab(text: i18n('Calendar/Assignments', context)),
+                Tab(text: S.of(context).Calendar_Exams),
+                Tab(text: S.of(context).Calendar_Assignments),
               },
               if (showAttendance) Tab(text: S.of(context).Calendar_Attendance),
             ],

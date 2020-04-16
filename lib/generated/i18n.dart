@@ -22,6 +22,10 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get About => "About";
+  String get Calendar => "Calendar";
+  String get Calendar_Academic => "Academic Calendar";
+  String get Calendar_AddToCalendar => "Add to Calendar";
+  String get Calendar_Assignments => "Assignments";
   String get Calendar_Attendance => "Attendance";
   String get Calendar_AttendanceMarkAbsent => "Mark as Absent";
   String get Calendar_AttendanceMarkAttended => "Mark as Attended";
@@ -29,6 +33,14 @@ class S implements WidgetsLocalizations {
   String get Calendar_AttendanceSignIn => "Sign in";
   String get Calendar_AttendanceSignInMarked => "Waiting...";
   String get Calendar_AttendanceSignInSucceeded => "Succeeded";
+  String get Calendar_ClassCardCode => "Course Code";
+  String get Calendar_ClassCardCredit => "Credit";
+  String get Calendar_ClassCardLecturer => "Lecturer";
+  String get Calendar_ClassCardRoom => "Classroom";
+  String get Calendar_ClassCardTime => "Time";
+  String get Calendar_Classes => "Classes";
+  String get Calendar_Exams => "Exams";
+  String get Calendar_LastUpdate => "Recent Update: ";
   String get Campus => "Campus";
   String get Campus_Academic => "Academic Utilities";
   String get Campus_Tools => "Campus Utilities";
@@ -61,6 +73,7 @@ class S implements WidgetsLocalizations {
   String get General_Weekday5 => "Friday";
   String get General_Weekday6 => "Saturday";
   String get General_Weekday7 => "Sunday";
+  String get Home => "Home";
   String get Settings => "Settings";
   String get Settings_DeveloperOptions => "Developer Options";
   String get Settings_DeveloperOptionsEnableFnUnderDev => "Enable Functions under Development";
@@ -114,21 +127,31 @@ class $zh_CN extends S {
   @override
   String get General_Ignore => "忽略";
   @override
+  String get Calendar_Classes => "课程";
+  @override
   String get GMS_UnavailableCaption => "该功能需要的谷歌服务在您的设备上没有正常工作，请重新登录并保证您的谷歌服务工作正常。";
   @override
   String get SignIn_ErrorDeprecated => "该版本应用已不再受到支持，请更新！";
   @override
+  String get Calendar_ClassCardTime => "时间";
+  @override
   String get Calendar_AttendanceSignIn => "签到";
+  @override
+  String get Calendar_LastUpdate => "最近更新：";
   @override
   String get Calendar_AttendanceRate => "出勤率";
   @override
   String get Settings => "设置";
+  @override
+  String get Calendar_Assignments => "作业";
   @override
   String get Campus_ToolsLFNameLost => "我丢失了";
   @override
   String get Campus_ToolsLFContacts => "请通过以下方式与我联系";
   @override
   String get Campus => "校园";
+  @override
+  String get Calendar_ClassCardRoom => "教室";
   @override
   String get SignIn_ErrorInvalidPassword => "用户名或密码无效";
   @override
@@ -156,6 +179,8 @@ class $zh_CN extends S {
   @override
   String get General_Weekday1 => "周一";
   @override
+  String get Calendar_ClassCardCredit => "学分";
+  @override
   String get Calendar_AttendanceSignInSucceeded => "签到成功";
   @override
   String get About => "关于";
@@ -173,6 +198,8 @@ class $zh_CN extends S {
   String get Campus_ToolsLFNameHint => "笔记本电脑";
   @override
   String get SignIn_Read => "登录即代表您同意我们的隐私政策和免责声明";
+  @override
+  String get Calendar_Academic => "校历";
   @override
   String get Explore => "发现";
   @override
@@ -192,7 +219,11 @@ class $zh_CN extends S {
   @override
   String get SignIn_Password => "密码";
   @override
+  String get Calendar_ClassCardCode => "课程编号";
+  @override
   String get Settings_DeveloperOptionsNotificationTokenCaption => "点击以复制我的通知推送令牌";
+  @override
+  String get Calendar_Exams => "考试";
   @override
   String get Campus_ToolsLFLocation => "在";
   @override
@@ -204,7 +235,11 @@ class $zh_CN extends S {
   @override
   String get Campus_Tools => "校园工具";
   @override
+  String get Calendar_AddToCalendar => "添加到系统日历";
+  @override
   String get Campus_ToolsLFNameFound => "我拾到了";
+  @override
+  String get Home => "首页";
   @override
   String get SignIn_Docs => "帮助文档";
   @override
@@ -212,9 +247,13 @@ class $zh_CN extends S {
   @override
   String get Campus_ToolsLFLocationHint => "A5#G01 的讲台上";
   @override
+  String get Calendar_ClassCardLecturer => "讲师";
+  @override
   String get SignIn_SignIn => "登录";
   @override
   String get SignIn_RegisterTitle => "欢迎来到 XMUM！";
+  @override
+  String get Calendar => "日程";
   @override
   String get Settings_DeveloperOptionsEnableFnUnderDev => "启用正在开发中的功能";
   @override

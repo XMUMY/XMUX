@@ -1,25 +1,8 @@
 const Map<String, String> zh_CN = {
-  // Home Tabs
-  'Home': '首页',
-  'Calendar': '日程',
-  'Campus': '校园',
-  'Explore': '发现',
-  'Me': '我',
   // Home
   'Home/Announcements': '通知与公告',
   'Home/Announcements/More': '更多',
   'Home/NextClass': '下一节课',
-  // Calendar
-  'Calendar/Classes': '课程',
-  'Calendar/Exams': '考试',
-  'Calendar/Assignments': '作业',
-  'Calendar/Academic': '校历',
-  'Calendar/ClassCard/Code': '课程编号',
-  'Calendar/ClassCard/Credit': '学分',
-  'Calendar/ClassCard/Time': '时间',
-  'Calendar/ClassCard/Room': '教室',
-  'Calendar/ClassCard/Lecturer': '讲师',
-  'Calendar/LastUpdate': '最近更新：',
   // Campus
   // Academic Tools
   'Campus/AcademicTools': '学术工具',

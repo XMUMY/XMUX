@@ -71,7 +71,7 @@ class TimeTablePage extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(5),
         child: Text(
-          "${i18n('Calendar/LastUpdate', context)} "
+          "${S.of(context).Calendar_LastUpdate} "
           '${DateFormat.yMMMd(languageCode).format(recentUpdate)} '
           '${DateFormat.Hms(languageCode).format(recentUpdate)}',
           style: Theme.of(context).textTheme.caption,
@@ -226,7 +226,7 @@ class LessonDialog extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
         contentPadding:
             const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        title: Text('Add to Calendar'),
+        title: Text(S.of(context).Calendar_AddToCalendar),
         children: <Widget>[
           for (var c in calendars.data)
             ListTile(
@@ -279,13 +279,13 @@ class LessonDialog extends StatelessWidget {
     );
 
     var info = Text(
-      '${i18n('Calendar/ClassCard/Code', context)}: ${lesson.cid}\n'
-      '${i18n('Calendar/ClassCard/Credit', context)}: $lessonCredit\n'
-      '${i18n('Calendar/ClassCard/Time', context)}: ${weekdays(context, lesson.day)} '
+      '${S.of(context).Calendar_ClassCardCode}: ${lesson.cid}\n'
+      '${S.of(context).Calendar_ClassCardCredit}: $lessonCredit\n'
+      '${S.of(context).Calendar_ClassCardTime}: ${weekdays(context, lesson.day)} '
       '${lesson.start.format(context)} - '
       '${lesson.end.format(context)}\n'
-      '${i18n('Calendar/ClassCard/Room', context)}: ${lesson.room}\n'
-      '${i18n('Calendar/ClassCard/Lecturer', context)}: ${lesson.lecturer.split(',').join(', ')}',
+      '${S.of(context).Calendar_ClassCardRoom}: ${lesson.room}\n'
+      '${S.of(context).Calendar_ClassCardLecturer}: ${lesson.lecturer.split(',').join(', ')}',
     );
 
     Widget history;
@@ -326,7 +326,7 @@ class LessonDialog extends StatelessWidget {
           info,
           RaisedButton(
             onPressed: () => addToCalendar(context),
-            child: Text('Add to Calendar'),
+            child: Text(S.of(context).Calendar_AddToCalendar),
           ),
           if (showHistory) ...{
             Divider(),

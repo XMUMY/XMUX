@@ -5,6 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/common/translation_mapper.dart' show weekdays;
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
@@ -27,7 +28,7 @@ class ExamsPage extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(5),
         child: Text(
-          "${i18n('Calendar/LastUpdate', context)} "
+          "${S.of(context).Calendar_LastUpdate} "
           '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)} '
           '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)}',
           style: Theme.of(context).textTheme.caption,

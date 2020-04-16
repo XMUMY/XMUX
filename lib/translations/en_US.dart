@@ -1,25 +1,8 @@
 const Map<String, String> en_US = {
-  // Home Tabs
-  'Home': 'Home',
-  'Calendar': 'Calendar',
-  'Campus': 'Campus',
-  'Explore': 'Explore',
-  'Me': 'Me',
   // Home
   'Home/Announcements': 'Announcements',
   'Home/Announcements/More': 'More',
   'Home/NextClass': 'Next Class',
-  // Calendar
-  'Calendar/Classes': 'Classes',
-  'Calendar/Exams': 'Exams',
-  'Calendar/Assignments': 'Assignments',
-  'Calendar/Academic': 'Academic Calendar',
-  'Calendar/ClassCard/Code': 'Course code',
-  'Calendar/ClassCard/Credit': 'Credit',
-  'Calendar/ClassCard/Time': 'Time',
-  'Calendar/ClassCard/Room': 'Classroom',
-  'Calendar/ClassCard/Lecturer': 'Lecturer',
-  'Calendar/LastUpdate': 'Recent Update: ',
   // Campus
   // Academic Tools
   'Campus/AcademicTools': 'Academic Utilities',

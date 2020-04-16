@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/components/user_profile.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/timetable.dart';
 import 'package:xmux/mainapp/home/announcements.dart';
@@ -26,7 +27,7 @@ class HomePage extends StatelessWidget {
           ),
           onPressed: () => store.dispatch(OpenDrawerAction(true)),
         ),
-        title: Text(i18n('Home', context)),
+        title: Text(S.of(context).Home),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
