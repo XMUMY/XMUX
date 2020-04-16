@@ -53,7 +53,8 @@ class _AssignmentPageState extends State<AssignmentPage> {
                     ListTile(
                       onTap: () => width < 700
                           ? Navigator.of(context).push(FadePageRoute(
-                              child: AssignmentDetail(assignment)))
+                              child: AssignmentDetail(assignment),
+                            ))
                           : setState(() => _selectedAssignment = assignment),
                       title: Text(assignment.name),
                       dense: true,

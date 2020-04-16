@@ -13,6 +13,7 @@ import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/main_app.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
+import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
@@ -29,17 +30,16 @@ void init() async {
   XmuxApi(BackendApiConfig.address);
   // Select XMUX API server. (Deprecated)
   v2.XMUXApi([BackendApiConfig.address]);
-
-  // Init firebase services.
-  firebase = kIsWeb ? await Firebase.initWeb() : await Firebase.init();
-
-  // Mobile specific initialization.
-  if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) await mobileInit();
-
   // Init XiA async.
   XiA.init(ApiKeyConfig.dialogflowToken)
       .then((x) => xiA = x)
       .catchError((e) => sentry.captureException(exception: e));
+
+  // Initialization for non web application.
+  if (kIsWeb)
+    await webInit();
+  else
+    await ioInit();
 
   // Register SystemChannel to handle lifecycle message. (Deprecated)
   SystemChannels.lifecycle.setMessageHandler((msg) async {
@@ -71,10 +71,24 @@ void init() async {
 /// Post initialization after authentication.
 void postInit() async {
   try {
+    // Attach ID and password to XmuxApi.
     XmuxApi.instance.configure(
-        authorization: Authorization.basic(
-            store.state.user.campusId, store.state.user.password));
-    moodleApi.login(store.state.user.campusId, store.state.user.password);
+      authorization: Authorization.basic(
+        store.state.user.campusId,
+        store.state.user.password,
+      ),
+    );
+    // Attach ID and password to MoodleApi.
+    moodleApi.login(
+      store.state.user.campusId,
+      store.state.user.password,
+    );
+    // Attach ID and password to AttendanceApi.
+    AttendanceApi(
+      address: BackendApiConfig.attendanceAddress,
+      uid: store.state.user.campusId,
+      password: store.state.user.password,
+    );
     // Set user info for sentry report.
     sentry.userContext = sentry_lib.User(id: store.state.user.campusId);
 
@@ -96,13 +110,16 @@ void postInit() async {
   }
 }
 
-// Return `false` to stop main initialization progress.
-Future<Null> mobileInit() async {
+/// Initialization for VM based application.
+Future<void> ioInit() async {
   // Get package Info.
-  packageInfo = await PackageInfo.fromPlatform();
+  if (Platform.isAndroid || Platform.isIOS)
+    packageInfo = await PackageInfo.fromPlatform();
+
+  firebase = await Firebase.init();
 
   // Register sentry again with release info. (Release mode only)
-  if (bool.fromEnvironment('dart.vm.product'))
+  if (packageInfo != null && bool.fromEnvironment('dart.vm.product'))
     FlutterError.onError = (e) => sentry.capture(
           event: sentry_lib.Event(
               exception: e.exception,
@@ -110,7 +127,7 @@ Future<Null> mobileInit() async {
               release: packageInfo.version),
         );
 
-  // Version check.
+  // Minimal version check.
   var currentBuild = int.tryParse(packageInfo?.buildNumber ?? '0') ?? 0;
   var minBuild = firebase.remoteConfigs.versions?.minBuildSupported ?? 0;
   if (currentBuild < minBuild) {
@@ -118,6 +135,7 @@ Future<Null> mobileInit() async {
     return;
   }
 
+  // TODO: Consider web.
   // Register FirebaseAuth state listener.
   FirebaseAuth.instance.onAuthStateChanged.listen((user) {
     if (user == null && firebase.user != null) logout();
@@ -138,7 +156,12 @@ Future<Null> mobileInit() async {
   return;
 }
 
-Future<Null> androidPostInit() async {
+/// Initialization for web based application.
+Future<void> webInit() async {
+  firebase = await Firebase.initWeb();
+}
+
+Future<void> androidPostInit() async {
   // Use Mountain View on Android.
   ThemeConfig.defaultTheme = ThemeConfig.defaultTheme.copyWith(
       pageTransitionsTheme: PageTransitionsTheme(builders: {
@@ -160,7 +183,7 @@ Future<Null> androidPostInit() async {
           ));
 }
 
-Future<Null> iOSPostInit() async {
+Future<void> iOSPostInit() async {
   DeviceInfoPlugin()
       .iosInfo
       .then((deviceInfo) async => XmuxApi.instance.refreshDevice(

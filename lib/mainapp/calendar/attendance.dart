@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/components/refreshable.dart';
-import 'package:xmux/config.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
@@ -19,10 +18,7 @@ Widget AttendancePage() =>
     store.state.user.isStudent ? _StudentPage() : _LecturerPage();
 
 class _StudentPage extends StatelessWidget {
-  final api = AttendanceApi(
-    address: BackendApiConfig.attendanceAddress,
-    uid: store.state.user.campusId,
-  );
+  final api = AttendanceApi();
 
   Future<List<AttendanceRecord>> _handleUpdate() async =>
       await api.getHistory();
