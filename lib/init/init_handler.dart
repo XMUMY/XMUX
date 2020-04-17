@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,7 +21,7 @@ import 'package:xmux/redux/redux.dart';
 /// Main initialization progress.
 void init() async {
   // Register sentry to capture errors. (Release mode only)
-  if (!kIsWeb && bool.fromEnvironment('dart.vm.product'))
+  if (P.isVM && bool.fromEnvironment('dart.vm.product'))
     FlutterError.onError = (e) =>
         sentry.captureException(exception: e.exception, stackTrace: e.stack);
 
@@ -36,7 +35,7 @@ void init() async {
       .catchError((e) => sentry.captureException(exception: e));
 
   // Initialization for non web application.
-  if (kIsWeb)
+  if (P.isWeb)
     await webInit();
   else
     await ioInit();
@@ -92,8 +91,8 @@ void postInit() async {
     // Set user info for sentry report.
     sentry.userContext = sentry_lib.User(id: store.state.user.campusId);
 
-    if (Platform.isAndroid) await androidPostInit();
-    if (Platform.isIOS) await iOSPostInit();
+    if (P.isAndroid) await androidPostInit();
+    if (P.isIOS) await iOSPostInit();
   } catch (e) {
     sentry.captureException(exception: e);
   } finally {
@@ -113,8 +112,7 @@ void postInit() async {
 /// Initialization for VM based application.
 Future<void> ioInit() async {
   // Get package Info.
-  if (Platform.isAndroid || Platform.isIOS)
-    packageInfo = await PackageInfo.fromPlatform();
+  if (P.isMobile) packageInfo = await PackageInfo.fromPlatform();
 
   firebase = await Firebase.init();
 

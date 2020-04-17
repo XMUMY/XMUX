@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -41,7 +39,7 @@ class CampusPage extends StatelessWidget {
                 title: 'Campus/AcademicTools/WolframEngine/Title',
                 path: '/Campus/ACTools/WolframEngine',
               ),
-              if (!kIsWeb)
+              if (P.isMobile)
                 _ToolButton(
                   svg: 'res/campus/geogebra.svg',
                   title: 'Campus/AcademicTools/GeoGebra/Title',
@@ -59,14 +57,13 @@ class CampusPage extends StatelessWidget {
                   title: 'Campus/AcademicTools/GPACalculator/Title',
                   path: '/Campus/ACTools/GPACalculator',
                 ),
-              if (!kIsWeb && !Platform.isIOS)
+              if (P.isAndroid)
                 _ToolButton(
                   svg: 'res/campus/vpn.svg',
                   title: 'Campus/AcademicTools/VPN/Title',
                   path: '/Campus/ACTools/VPN',
                 ),
-              if (!kIsWeb &&
-                  store.state.settingState.enableFunctionsUnderDev &&
+              if (P.isVM & store.state.settingState.enableFunctionsUnderDev &&
                   store.state.user.isStudent)
                 _ToolButton(
                   svg: 'res/campus/ecr.svg',
@@ -93,13 +90,13 @@ class CampusPage extends StatelessWidget {
                 title: S.of(context).Campus_ToolsKliaExpress,
                 path: '/Campus/Tools/KliaExpress',
               ),
-              if (!kIsWeb)
+              if (P.isVM)
                 _ToolButton(
                   svg: 'res/campus/travelviser.svg',
                   title: 'Campus/Tools/Travelviser',
                   path: '/Campus/Tools/Travelviser',
                 ),
-              if (!kIsWeb)
+              if (P.isVM)
                 _ToolButton(
                   child: Icon(
                     FontAwesomeIcons.hammer,

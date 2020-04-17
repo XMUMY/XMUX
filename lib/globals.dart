@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -59,4 +61,14 @@ Future<Null> logout({String message}) async {
   moodleApi.signOut();
   store.dispatch(LogoutAction());
   runApp(LoginApp(message: message));
+}
+
+/// Platform information.
+class P {
+  static final isWeb = kIsWeb;
+  static final isVM = !kIsWeb;
+
+  static final isMobile = isVM && (Platform.isAndroid || Platform.isIOS);
+  static final isAndroid = isVM && Platform.isAndroid;
+  static final isIOS = isVM && Platform.isIOS;
 }

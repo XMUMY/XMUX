@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -55,7 +54,7 @@ XMUX client is an open source project licenced by GPLv3. The code can be found a
             'Ver: ${packageInfo?.version ?? '1'} | ${packageInfo?.buildNumber ?? 'Alpha'}',
             textAlign: TextAlign.center,
           ),
-          if (!kIsWeb &&
+          if (P.isMobile &&
               int.parse(packageInfo.buildNumber) <
                   firebase.remoteConfigs.versions.latestBuildReleased)
             Text.rich(
