@@ -83,11 +83,12 @@ class DrawerPage extends StatelessWidget {
             onPressed: () => navigateTo(context, 2),
             color: index == 2 ? accentColor : disabledColor,
           ),
-          IconButton(
-            icon: Icon(Icons.explore),
-            onPressed: () => navigateTo(context, 3),
-            color: index == 3 ? accentColor : disabledColor,
-          ),
+          if (P.isMobile)
+            IconButton(
+              icon: Icon(Icons.explore),
+              onPressed: () => navigateTo(context, 3),
+              color: index == 3 ? accentColor : disabledColor,
+            ),
         ],
       );
     }
@@ -112,29 +113,31 @@ class DrawerPage extends StatelessWidget {
                   ),
 
                   // Room Reservation
-                  _buildButton(
-                    context,
-                    routeName: '/Me/RoomReservation',
-                    text: 'Tools/RoomReservation',
-                    icon: FontAwesomeIcons.table,
-                  ),
+                  if (P.isVM)
+                    _buildButton(
+                      context,
+                      routeName: '/Me/RoomReservation',
+                      text: 'Tools/RoomReservation',
+                      icon: FontAwesomeIcons.table,
+                    ),
 
                   // VISA status
-                  StoreConnector<MainAppState, bool>(
-                    // Check if nationality supported && enabled.
-                    converter: (s) =>
-                        emgs.getCountryCode(
-                            s.state.acState.info?.nationality ?? null) !=
-                        null,
-                    builder: (context, enabled) => enabled
-                        ? _buildButton(
-                            context,
-                            routeName: '/Me/Emgs',
-                            text: 'Tools/Emgs',
-                            icon: FontAwesomeIcons.passport,
-                          )
-                        : Container(),
-                  ),
+                  if (P.isVM)
+                    StoreConnector<MainAppState, bool>(
+                      // Check if nationality supported && enabled.
+                      converter: (s) =>
+                          emgs.getCountryCode(
+                              s.state.acState.info?.nationality ?? null) !=
+                          null,
+                      builder: (context, enabled) => enabled
+                          ? _buildButton(
+                              context,
+                              routeName: '/Me/Emgs',
+                              text: 'Tools/Emgs',
+                              icon: FontAwesomeIcons.passport,
+                            )
+                          : Container(),
+                    ),
 
                   // Emergency
                   _buildButton(

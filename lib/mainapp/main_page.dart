@@ -116,11 +116,12 @@ class MainPageState extends State<MainPage> {
               ? Theme.of(context).primaryColor
               : Colors.lightBlue,
         ),
-        BottomNavigationBarItem(
-          title: Text(S.of(context).Explore),
-          icon: Icon(Icons.explore),
-          backgroundColor: Color(0xFF231E5E),
-        ),
+        if (P.isMobile)
+          BottomNavigationBarItem(
+            title: Text(S.of(context).Explore),
+            icon: Icon(Icons.explore),
+            backgroundColor: Color(0xFF231E5E),
+          ),
       ],
       currentIndex: _currentIndex,
       type: BottomNavigationBarType.shifting,
