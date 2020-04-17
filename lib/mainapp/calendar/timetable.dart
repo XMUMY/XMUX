@@ -324,10 +324,11 @@ class LessonDialog extends StatelessWidget {
             const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         children: <Widget>[
           info,
-          RaisedButton(
-            onPressed: () => addToCalendar(context),
-            child: Text(S.of(context).Calendar_AddToCalendar),
-          ),
+          if (P.isMobile)
+            RaisedButton(
+              onPressed: () => addToCalendar(context),
+              child: Text(S.of(context).Calendar_AddToCalendar),
+            ),
           if (showHistory) ...{
             Divider(),
             Text(S.of(context).Calendar_Attendance),
