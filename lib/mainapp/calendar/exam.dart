@@ -38,30 +38,31 @@ class ExamsPage extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => exams == null
-      ? EmptyErrorButton(onRefresh: _handleUpdate)
-      : exams.isEmpty
-          ? EmptyErrorPage()
-          : RefreshIndicator(
-              onRefresh: _handleUpdate,
-              child: ListView.builder(
-                itemCount: exams.length + 1,
-                itemBuilder: (_, int index) {
-                  return AnimationConfiguration.staggeredList(
-                    position: index,
-                    duration: const Duration(milliseconds: 250),
-                    child: SlideAnimation(
-                      verticalOffset: 50.0,
-                      child: FadeInAnimation(
-                        child: index == exams.length
-                            ? _buildLastUpdateString(context)
-                            : _ExamCard(exams[index]),
-                      ),
-                    ),
-                  );
-                },
+  Widget build(BuildContext context) {
+    if (exams == null) return EmptyErrorButton(onRefresh: _handleUpdate);
+    if (exams.isEmpty) return EmptyErrorPage();
+
+    return RefreshIndicator(
+      onRefresh: _handleUpdate,
+      child: ListView.builder(
+        itemCount: exams.length + 1,
+        itemBuilder: (_, int index) {
+          return AnimationConfiguration.staggeredList(
+            position: index,
+            duration: const Duration(milliseconds: 250),
+            child: SlideAnimation(
+              verticalOffset: 50.0,
+              child: FadeInAnimation(
+                child: index == exams.length
+                    ? _buildLastUpdateString(context)
+                    : _ExamCard(exams[index]),
               ),
-            );
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
 
 class _ExamCard extends StatelessWidget {

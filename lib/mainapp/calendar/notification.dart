@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide Notification;
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/floating_card.dart';
@@ -20,32 +21,45 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var list = LazyLoadingList<Notification>(
-      padding: const EdgeInsets.all(10),
       onRefresh: () async => await moodleApi.getPopupNotifications(),
       onLoadMore: (list) async =>
           await moodleApi.getPopupNotifications(offset: list.length),
-      builder: (context, notification, i) => FloatingCard(
-        padding: const EdgeInsets.all(10),
-        onTap: () => width < 700
-            ? Navigator.of(context)
-                .push(FadePageRoute(child: NotificationDetail(notification)))
-            : setState(() => _selectedNotification = notification),
-        child: Column(
-          children: <Widget>[
-            Text(
-              notification.subject,
-              style: Theme.of(context).textTheme.subtitle1,
+      builder: (context, notification, i) {
+        var card = FloatingCard(
+          padding: const EdgeInsets.all(8),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+          onTap: () => width < 700
+              ? Navigator.of(context)
+                  .push(FadePageRoute(child: NotificationDetail(notification)))
+              : setState(() => _selectedNotification = notification),
+          child: Column(
+            children: <Widget>[
+              Text(
+                notification.subject,
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+              Text(
+                '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(notification.timeCreated)} '
+                '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(notification.timeCreated)}',
+                style: Theme.of(context).textTheme.caption,
+              ),
+              Divider(),
+              Text(notification.smallMessage),
+            ],
+          ),
+        );
+
+        return AnimationConfiguration.staggeredList(
+          position: i,
+          duration: const Duration(milliseconds: 250),
+          child: SlideAnimation(
+            verticalOffset: 50.0,
+            child: FadeInAnimation(
+              child: card,
             ),
-            Text(
-              '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(notification.timeCreated)} '
-              '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(notification.timeCreated)}',
-              style: Theme.of(context).textTheme.caption,
-            ),
-            Divider(),
-            Text(notification.smallMessage),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
 
     if (width < 700)

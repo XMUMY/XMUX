@@ -129,7 +129,7 @@ class LessonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var header = Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? Colors.white10
