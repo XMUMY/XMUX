@@ -38,8 +38,8 @@ class XmuxApi {
       // Add interceptors to add `Accept-Language`.
       ..interceptors.add(InterceptorsWrapper(onRequest: (options) {
         options.headers['Accept-Language'] =
-            '${window.locale.languageCode}-${window.locale.countryCode},'
-            '${window.locale.languageCode};q=0.9';
+            '${window.locale?.languageCode ?? 'en'}-${window.locale?.countryCode ?? 'US'},'
+            '${window.locale?.languageCode ?? 'en'};q=0.9';
       }));
 
     instance =
