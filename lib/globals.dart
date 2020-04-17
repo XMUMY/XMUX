@@ -71,4 +71,6 @@ class P {
   static final isMobile = isVM && (Platform.isAndroid || Platform.isIOS);
   static final isAndroid = isVM && Platform.isAndroid;
   static final isIOS = isVM && Platform.isIOS;
+
+  static final isMacOS = isVM && Platform.isMacOS;
 }

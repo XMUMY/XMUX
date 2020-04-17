@@ -35,7 +35,7 @@ void init() async {
       .catchError((e) => sentry.captureException(exception: e));
 
   // Initialization for non web application.
-  if (P.isWeb)
+  if (P.isWeb || P.isMacOS)
     await webInit();
   else
     await ioInit();
