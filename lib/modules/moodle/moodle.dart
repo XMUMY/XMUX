@@ -3,6 +3,10 @@ library moodle;
 import 'package:dio/dio.dart';
 
 import 'models/assignment.dart';
+import 'models/notification.dart';
+
+export 'models/assignment.dart';
+export 'models/notification.dart';
 
 class MoodleApi {
   /// HTTP client for API calls.
@@ -10,6 +14,9 @@ class MoodleApi {
 
   /// Moodle token.
   String _token;
+
+  /// User ID on Moodle.
+  int _userId;
 
   MoodleApi(String baseUrl)
       : _dio = Dio(BaseOptions(
@@ -33,7 +40,7 @@ class MoodleApi {
   }
 
   /// Reset web service token.
-  void signOut() => _token = null;
+  void signOut() => _token = _userId = null;
 
   /// Append moodle token to url if available.
   String withToken(String url) {
@@ -46,15 +53,25 @@ class MoodleApi {
   }
 
   /// Invoke Moodle web service API.
-  Future<Map<String, dynamic>> _invoke(String function) async {
+  Future<Map<String, dynamic>> _invoke(
+    String function, {
+    Map<String, dynamic> params,
+  }) async {
     var resp = await _dio
         .post<Map<String, dynamic>>('/webservice/rest/server.php', data: {
       'moodlewsrestformat': 'json',
       'wstoken': _token,
       'wsfunction': function,
+      if (params != null) ...params,
     });
 
     return resp.data;
+  }
+
+  /// Get site info for current user.
+  Future<void> get siteInfo async {
+    var resp = await _invoke('core_webservice_get_site_info');
+    _userId = resp['userid'];
   }
 
   /// Get assignments.
@@ -64,6 +81,21 @@ class MoodleApi {
     return List<Map<String, dynamic>>.from(resp['courses'])
         .map((c) => Course.fromJson(c))
         .where((c) => c.assignments.isNotEmpty)
+        .toList();
+  }
+
+  /// Get popup notifications.
+  Future<List<Notification>> getPopupNotifications({int offset = 0}) async {
+    if (_userId == null) await siteInfo;
+    var resp = await _invoke('message_popup_get_popup_notifications', params: {
+      'useridto': _userId,
+      'newestfirst': 1,
+      'offset': offset,
+      'limit': 10,
+    });
+
+    return List<Map<String, dynamic>>.from(resp['notifications'])
+        .map((c) => Notification.fromJson(c))
         .toList();
   }
 }

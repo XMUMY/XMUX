@@ -19,6 +19,9 @@ class LazyLoadingList<T> extends StatefulWidget {
   /// Indicator for first loading.
   final Widget firstLoadingIndicator;
 
+  /// Padding of [ListView].
+  final EdgeInsets padding;
+
   /// Controller of [ListView].
   final ScrollController controller;
 
@@ -29,6 +32,7 @@ class LazyLoadingList<T> extends StatefulWidget {
     this.onLoadMore,
     this.isEmpty,
     this.firstLoadingIndicator,
+    this.padding,
     ScrollController controller,
   })  : this.controller = controller ?? ScrollController(),
         super(key: key);
@@ -75,6 +79,7 @@ class LazyLoadingListState<T> extends State<LazyLoadingList<T>> {
         Refreshable<List<T>>(
           key: _refreshableKey,
           builder: (context, data) => ListView.builder(
+            padding: widget.padding,
             controller: widget.controller,
             itemCount: data.length,
             itemBuilder: (context, i) => widget.builder(context, data[i], i),

@@ -41,6 +41,7 @@ class S implements WidgetsLocalizations {
   String get Calendar_Classes => "Classes";
   String get Calendar_Exams => "Exams";
   String get Calendar_LastUpdate => "Recent Update: ";
+  String get Calendar_Notifications => "Notifications";
   String get Campus => "Campus";
   String get Campus_Academic => "Academic Utilities";
   String get Campus_Tools => "Campus Utilities";
@@ -140,6 +141,8 @@ class $zh_CN extends S {
   String get Calendar_LastUpdate => "最近更新：";
   @override
   String get Calendar_AttendanceRate => "出勤率";
+  @override
+  String get Calendar_Notifications => "通知";
   @override
   String get Settings => "设置";
   @override
