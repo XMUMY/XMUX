@@ -62,6 +62,8 @@ class TranscriptSession {
 
   static TranscriptSession fromJson(Map<String, dynamic> json) =>
       _$TranscriptSessionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TranscriptSessionToJson(this);
 }
 
 @JsonSerializable()
@@ -76,6 +78,8 @@ class TranscriptCourse {
 
   static TranscriptCourse fromJson(Map<String, dynamic> json) =>
       _$TranscriptCourseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TranscriptCourseToJson(this);
 }
 
 enum StudentAttendanceStatus { none, waiting, attended, failed }

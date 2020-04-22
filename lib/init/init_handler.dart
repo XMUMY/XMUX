@@ -104,6 +104,7 @@ void postInit() async {
       store.dispatch(UpdateInfoAction());
       store.dispatch(UpdateAcAction());
       store.dispatch(UpdateCoursesAction());
+      store.dispatch(UpdateTranscriptAction());
     }
     runApp(MainApp());
   }

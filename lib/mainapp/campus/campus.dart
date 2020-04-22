@@ -60,7 +60,7 @@ class CampusPage extends StatelessWidget {
               if (P.isAndroid)
                 _ToolButton(
                   svg: 'res/campus/vpn.svg',
-                  title: 'Campus/AcademicTools/VPN/Title',
+                  title: 'VPN',
                   path: '/Campus/ACTools/VPN',
                 ),
               if (P.isVM & store.state.settingState.enableFunctionsUnderDev &&

@@ -21,11 +21,6 @@ const Map<String, String> en_US = {
   'Campus/AcademicTools/WolframEngine/Result': 'Search Result',
   'Campus/AcademicTools/GeoGebra/Title': 'GeoGebra',
   'Campus/AcademicTools/GPACalculator/Title': 'GPA Calculator',
-  'Campus/AcademicTools/VPN/Title': 'VPN',
-  'Campus/AcademicTools/VPN/Warning':
-      'The VPN access is limited for academic and research purposes only.',
-  'Campus/AcademicTools/VPN/Connect': 'Connect',
-  'Campus/AcademicTools/VPN/Disconnect': 'Disconnect',
   'Campus/AcademicTools/VPN/State/0': 'Disconnected',
   'Campus/AcademicTools/VPN/State/1': 'Connecting',
   'Campus/AcademicTools/VPN/State/2': 'Connected',

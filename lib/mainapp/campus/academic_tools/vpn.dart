@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_vpn/flutter_vpn.dart';
 import 'package:lottie/lottie.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 
 class VPNPage extends StatefulWidget {
@@ -19,7 +20,7 @@ class _VPNPageState extends State<VPNPage> with TickerProviderStateMixin {
   Color get color {
     switch (currentState) {
       case FlutterVpnState.disconnected:
-        return Colors.black54;
+        return Theme.of(context).textTheme.bodyText1.color;
       case FlutterVpnState.connecting:
         return Colors.orangeAccent;
       case FlutterVpnState.connected:
@@ -108,7 +109,7 @@ class _VPNPageState extends State<VPNPage> with TickerProviderStateMixin {
           ),
           Divider(color: Colors.transparent),
           Text(
-            i18n('Campus/AcademicTools/VPN/Warning', context),
+            S.of(context).Campus_AcademicVPNWarning,
             textAlign: TextAlign.center,
           ),
           Row(
@@ -121,11 +122,13 @@ class _VPNPageState extends State<VPNPage> with TickerProviderStateMixin {
                         ? null
                         : () {
                             _lottieController.forward();
-                            FlutterVpn.simpleConnect('ikev2.xmu.edu.my',
-                                firebase.user.uid, store.state.user.password);
+                            FlutterVpn.simpleConnect(
+                              'ikev2.xmu.edu.my',
+                              store.state.user.campusId,
+                              store.state.user.password,
+                            );
                           },
-                    child:
-                        Text(i18n('Campus/AcademicTools/VPN/Connect', context)),
+                    child: Text(S.of(context).Campus_AcademicVPNConnect),
                   ),
                 ),
               ),
@@ -137,8 +140,7 @@ class _VPNPageState extends State<VPNPage> with TickerProviderStateMixin {
                       FlutterVpn.disconnect();
                       _lottieController.reverse();
                     },
-                    child: Text(
-                        i18n('Campus/AcademicTools/VPN/Disconnect', context)),
+                    child: Text(S.of(context).Campus_AcademicVPNDisconnect),
                   ),
                 ),
               ),

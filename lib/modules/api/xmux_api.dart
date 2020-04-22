@@ -159,11 +159,11 @@ class XmuxApi {
   }
 
   Future<XmuxApiResponse<List<TranscriptSession>>> get transcript async {
-    var resp = await _dio.get(
+    var resp = await _dio.get<Map<String, dynamic>>(
       '/ac/transcript',
       options: Options(headers: _authorization.basicHeader),
     );
-    return decodeList(resp, 'sessions', TranscriptSession.fromJson);
+    return decodeList(resp, 'transcript', TranscriptSession.fromJson);
   }
 
   Future<XmuxApiResponse<Null>> updateStudentAttendance(

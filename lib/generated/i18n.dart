@@ -44,6 +44,9 @@ class S implements WidgetsLocalizations {
   String get Calendar_Notifications => "Notifications";
   String get Campus => "Campus";
   String get Campus_Academic => "Academic Utilities";
+  String get Campus_AcademicVPNConnect => "Connect";
+  String get Campus_AcademicVPNDisconnect => "Disconnect";
+  String get Campus_AcademicVPNWarning => "The VPN access is limited for academic and research purposes only.";
   String get Campus_Tools => "Campus Utilities";
   String get Campus_ToolsBusSchedule => "Bus Schedule";
   String get Campus_ToolsKliaExpress => "KLIA Express";
@@ -124,6 +127,8 @@ class $zh_CN extends S {
   @override
   String get SignIn_Register => "注册";
   @override
+  String get Campus_AcademicVPNConnect => "连接";
+  @override
   String get Campus_ToolsLFLost => "遗失";
   @override
   String get General_Ignore => "忽略";
@@ -159,6 +164,8 @@ class $zh_CN extends S {
   String get SignIn_ErrorInvalidPassword => "用户名或密码无效";
   @override
   String get Settings_Sessions => "会话";
+  @override
+  String get Campus_AcademicVPNWarning => "VPN 仅供学术研究使用";
   @override
   String get General_Weekday7 => "周日";
   @override
@@ -197,6 +204,8 @@ class $zh_CN extends S {
   String get SignIn_RegisterCaption => "我们仍需要以下信息以完成注册。";
   @override
   String get Settings_EditProfile => "更改个人资料";
+  @override
+  String get Campus_AcademicVPNDisconnect => "断开连接";
   @override
   String get Campus_ToolsLFNameHint => "笔记本电脑";
   @override
