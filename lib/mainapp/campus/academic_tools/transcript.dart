@@ -10,19 +10,12 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/modules/api/models/v3_bridge.dart';
 import 'package:xmux/redux/redux.dart';
 
-/// Get color for GPA point. Return default for N/A.
-Color getPointColor(String point, BuildContext ctx) {
-  try {
-    var p = double.parse(point);
-    if (p >= 3.7)
-      return Colors.green;
-    else if (p >= 1.7)
-      return Colors.orangeAccent;
-    else
-      return Colors.red;
-  } catch (e) {
-    return Theme.of(ctx).textTheme.headline6.color;
-  }
+final _pointColors =
+    ColorTween(begin: Colors.redAccent, end: Colors.greenAccent);
+
+/// Get color for GPA point.
+extension GetGPAColor on double {
+  Color get pointColor => _pointColors.lerp(this / 4);
 }
 
 class TranscriptPage extends StatelessWidget {
@@ -53,14 +46,8 @@ class TranscriptPage extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(10),
               children: <Widget>[
-                Card(
-                  child: Row(
-                    children: <Widget>[
-                      Text(''),
-                    ],
-                  ),
-                ),
-                GpaChart(transcript),
+                _InfoCard(transcript),
+                _GpaChart(transcript),
               ],
             ),
           );
@@ -70,26 +57,73 @@ class TranscriptPage extends StatelessWidget {
   }
 }
 
-class GpaChart extends StatefulWidget {
+class _InfoCard extends StatelessWidget {
   final List<TranscriptSession> transcript;
+
+  final int finishedCount;
+  final int creditsCount;
+
+  _InfoCard(this.transcript)
+      : finishedCount =
+            transcript.fold(0, (count, e) => count + e.courses.length),
+        creditsCount = transcript.fold(
+          0,
+          (count, session) =>
+              count +
+              session.courses.fold(0, (count, course) => count + course.credit),
+        );
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                '$finishedCount\nCourses Taken',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                '$creditsCount\nCredits',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _GpaChart extends StatefulWidget {
+  final List<TranscriptSession> transcript;
+
   final Map<int, TranscriptSession> transcriptMap;
+  final List<Color> gpaGradientColors;
+  final List<Color> cGpaGradientColors;
 
-  GpaChart(this.transcript) : transcriptMap = transcript.asMap();
-
-  static const List<Color> gradientColors = [
-    Color(0xff23b6e6),
-    Color(0xff02d39a),
-  ];
+  _GpaChart(this.transcript)
+      : transcriptMap = transcript.asMap(),
+        gpaGradientColors = transcript.map((e) => e.gpa.pointColor).toList(),
+        cGpaGradientColors = transcript.map((e) => e.cGpa.pointColor).toList();
 
   @override
   _GpaChartState createState() => _GpaChartState();
 }
 
-class _GpaChartState extends State<GpaChart> {
+class _GpaChartState extends State<_GpaChart> {
   var isGpa = true;
 
   @override
   Widget build(BuildContext context) {
+    var colors = isGpa ? widget.gpaGradientColors : widget.cGpaGradientColors;
+
     var chart = LineChart(
       LineChartData(
         titlesData: FlTitlesData(
@@ -122,14 +156,12 @@ class _GpaChartState extends State<GpaChart> {
                 .values
                 .toList(),
             isCurved: true,
-            colors: GpaChart.gradientColors,
+            colors: colors,
             barWidth: 5,
             dotData: FlDotData(show: false),
             belowBarData: BarAreaData(
               show: true,
-              colors: GpaChart.gradientColors
-                  .map((color) => color.withOpacity(0.3))
-                  .toList(),
+              colors: colors.map((color) => color.withOpacity(0.3)).toList(),
             ),
           ),
         ],
