@@ -42,7 +42,7 @@ class CampusPage extends StatelessWidget {
               if (P.isMobile)
                 _ToolButton(
                   svg: 'res/campus/geogebra.svg',
-                  title: 'Campus/AcademicTools/GeoGebra/Title',
+                  title: 'GeoGebra',
                   path: '/Campus/ACTools/GeoGebra',
                 ),
               if (store.state.user.isStudent)

@@ -82,6 +82,7 @@ class TimeTablePage extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: _handleUpdate,
       child: ListView.builder(
+        padding: const EdgeInsets.all(8),
         itemCount: timetable.length + 1,
         itemBuilder: (_, int index) {
           return AnimationConfiguration.staggeredList(

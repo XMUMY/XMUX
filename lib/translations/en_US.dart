@@ -19,7 +19,6 @@ const Map<String, String> en_US = {
   'Campus/AcademicTools/WolframEngine/InputConstructor/Choose': 'Choose',
   'Campus/AcademicTools/WolframEngine/InputConstructor/ClearAll': 'Clear all',
   'Campus/AcademicTools/WolframEngine/Result': 'Search Result',
-  'Campus/AcademicTools/GeoGebra/Title': 'GeoGebra',
   'Campus/AcademicTools/GPACalculator/Title': 'GPA Calculator',
   'Campus/AcademicTools/VPN/State/0': 'Disconnected',
   'Campus/AcademicTools/VPN/State/1': 'Connecting',

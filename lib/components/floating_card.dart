@@ -19,7 +19,7 @@ class FloatingCard extends StatefulWidget {
     @required this.child,
     this.shape,
     this.onTap,
-    this.margin = const EdgeInsets.all(8),
+    this.margin = const EdgeInsets.all(4),
     this.padding = const EdgeInsets.all(0),
   }) : super(key: key);
 

@@ -110,7 +110,7 @@ class AssignmentDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var detail = ListView(
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(8),
       children: <Widget>[
         if (assignment.intro.isNotEmpty ||
             assignment.introAttachments.isNotEmpty)

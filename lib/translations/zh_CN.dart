@@ -16,7 +16,6 @@ const Map<String, String> zh_CN = {
   'Campus/AcademicTools/WolframEngine/InputConstructor/Choose': '请选择',
   'Campus/AcademicTools/WolframEngine/InputConstructor/ClearAll': '清零',
   'Campus/AcademicTools/WolframEngine/Result': '搜索结果',
-  'Campus/AcademicTools/GeoGebra/Title': 'GeoGebra 动态数学',
   'Campus/AcademicTools/GPACalculator/Title': 'GPA 计算器',
   'Campus/AcademicTools/VPN/State/0': '已断开',
   'Campus/AcademicTools/VPN/State/1': '正在连接',

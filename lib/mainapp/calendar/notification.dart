@@ -21,6 +21,7 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var list = LazyLoadingList<Notification>(
+      padding: const EdgeInsets.all(8),
       onRefresh: () async => await moodleApi.getPopupNotifications(),
       onLoadMore: (list) async =>
           await moodleApi.getPopupNotifications(offset: list.length),
