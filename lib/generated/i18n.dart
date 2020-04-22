@@ -44,6 +44,7 @@ class S implements WidgetsLocalizations {
   String get Calendar_Notifications => "Notifications";
   String get Campus => "Campus";
   String get Campus_Academic => "Academic Utilities";
+  String get Campus_AcademicTranscript => "Transcript";
   String get Campus_AcademicVPNConnect => "Connect";
   String get Campus_AcademicVPNDisconnect => "Disconnect";
   String get Campus_AcademicVPNWarning => "The VPN access is limited for academic and research purposes only.";
@@ -224,6 +225,8 @@ class $zh_CN extends S {
   String get SignIn_CampusID => "校园ID";
   @override
   String get Calendar_AttendanceSignInMarked => "等待确认···";
+  @override
+  String get Campus_AcademicTranscript => "成绩";
   @override
   String get SignIn_Privacy => "隐私政策";
   @override

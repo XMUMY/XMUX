@@ -185,25 +185,4 @@ class XMUXApi {
     return _generateResponse<Map<String, dynamic>, List<News>>(response,
         (n) => (n['news'] as List).map((n) => News.fromJson(n)).toList());
   }
-
-  Future<XMUXApiResponse<Null>> login(XMUXApiAuth auth) async {
-    var response = await _dio.post<Map<String, dynamic>>('/login',
-        data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
-    return _generateResponse(response, (_) {});
-  }
-
-  Future<XMUXApiResponse<MoodleData>> moodle(XMUXApiAuth auth) async {
-    var response = await _dio.post<Map<String, dynamic>>('/moodle', data: {
-      'id': auth.campusID,
-      'pass': auth.campusIDPassword,
-      'moodleKey': auth.moodleKey
-    });
-    return _generateResponse<Map<String, dynamic>, MoodleData>(
-        response, MoodleData.fromJson);
-  }
-
-  Future<Null> updateUser(User user) async {
-    if (getIdToken != null) configure(jwt: await getIdToken());
-    await _dio.patch('/users/${user.campusId}', data: user.toJson());
-  }
 }

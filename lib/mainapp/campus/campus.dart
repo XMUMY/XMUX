@@ -48,8 +48,8 @@ class CampusPage extends StatelessWidget {
               if (store.state.user.isStudent)
                 _ToolButton(
                   svg: 'res/campus/gpa.svg',
-                  title: 'Campus/AcademicTools/ExamResult/Title',
-                  path: '/Campus/ACTools/ExamResult',
+                  title: S.of(context).Campus_AcademicTranscript,
+                  path: '/Campus/ACTools/Transcript',
                 ),
               if (store.state.user.isStudent)
                 _ToolButton(

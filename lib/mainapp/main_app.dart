@@ -12,9 +12,9 @@ import 'package:xmux/translations/translation.dart';
 import 'about.dart';
 import 'calendar/academic_calendar.dart';
 import 'campus/academic_tools/ecr.dart';
-import 'campus/academic_tools/exam_result.dart';
 import 'campus/academic_tools/geogebra.dart';
 import 'campus/academic_tools/gpa_calculator.dart';
+import 'campus/academic_tools/transcript.dart';
 import 'campus/academic_tools/vpn.dart';
 import 'campus/academic_tools/wolfram_engine/input_constructor.dart';
 import 'campus/bus_schedule.dart';
@@ -39,7 +39,7 @@ class MainApp extends StatelessWidget {
   static final routes = <String, WidgetBuilder>{
     '/About': (_) => AboutPage(),
     '/Calendar/CalendarImage': (_) => AcademicCalendarPage(),
-    '/Campus/ACTools/ExamResult': (_) => ExamResultPage(),
+    '/Campus/ACTools/Transcript': (_) => TranscriptPage(),
     '/Campus/ACTools/WolframEngine': (_) => InputConstructor(),
     '/Campus/ACTools/GeoGebra': (_) => GeoGebraPage(),
     '/Campus/ACTools/GPACalculator': (_) => GPACalculatorPage(),
