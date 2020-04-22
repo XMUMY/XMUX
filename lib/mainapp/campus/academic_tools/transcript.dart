@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:waterfall_flow/waterfall_flow.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/floating_card.dart';
@@ -15,7 +18,7 @@ final _pointColors =
 
 /// Get color for GPA point.
 extension GetGPAColor on double {
-  Color get pointColor => _pointColors.lerp(this / 4);
+  Color get pointColor => _pointColors.lerp(this / 4.5);
 }
 
 class TranscriptPage extends StatelessWidget {
@@ -41,13 +44,24 @@ class TranscriptPage extends StatelessWidget {
             return EmptyErrorButton(onRefresh: _handleUpdate);
           if (transcript.isEmpty) return EmptyErrorPage();
 
+          var width = MediaQuery.of(context).size.width;
           return RefreshIndicator(
             onRefresh: _handleUpdate,
-            child: ListView(
-              padding: const EdgeInsets.all(10),
+            child: WaterfallFlow(
+              padding: const EdgeInsets.all(8),
+              gridDelegate: SliverWaterfallFlowDelegate(
+                crossAxisCount: max(width ~/ 400, 1),
+                crossAxisSpacing: 5.0,
+                mainAxisSpacing: 5.0,
+              ),
               children: <Widget>[
-                _InfoCard(transcript),
-                _GpaChart(transcript),
+                Column(
+                  children: <Widget>[
+                    _InfoCard(transcript),
+                    _GpaChart(transcript),
+                  ],
+                ),
+                for (var session in transcript) _TranscriptSessionCard(session),
               ],
             ),
           );
@@ -82,7 +96,7 @@ class _InfoCard extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Text(
-                '$finishedCount\nCourses Taken',
+                '$finishedCount\nCourses',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline6,
               ),
@@ -194,6 +208,75 @@ class _GpaChartState extends State<_GpaChart> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _TranscriptSessionCard extends StatelessWidget {
+  final TranscriptSession session;
+
+  const _TranscriptSessionCard(this.session);
+
+  @override
+  Widget build(BuildContext context) {
+    var list = ListView.separated(
+      shrinkWrap: true,
+      physics: ClampingScrollPhysics(),
+      itemCount: session.courses.length,
+      itemBuilder: (context, i) {
+        var course = session.courses[i];
+        return Row(
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    course.name,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                  Divider(height: 5, color: Colors.transparent),
+                  Text(
+                    '${course.code}  '
+                    '${course.credit} '
+                    '${i18n('Campus/AcademicTools/ExamResult/credits', context)}',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(5, 5, 12, 5),
+              child: Text(
+                '${course.grade}\n'
+                '${course.point.toStringAsFixed(2)}',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline6.copyWith(
+                      color: course.point.pointColor,
+                    ),
+              ),
+            )
+          ],
+        );
+      },
+      separatorBuilder: (context, i) => Divider(),
+    );
+
+    return FloatingCard(
+      padding: const EdgeInsets.fromLTRB(15, 5, 15, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(3),
+            child: Text(
+              session.session,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+          list,
+        ],
+      ),
     );
   }
 }
