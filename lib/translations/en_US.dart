@@ -6,10 +6,6 @@ const Map<String, String> en_US = {
   // Campus
   // Academic Tools
   'Campus/AcademicTools': 'Academic Utilities',
-  'Campus/AcademicTools/ExamResult/Title': 'Result Inquiry',
-  'Campus/AcademicTools/ExamResult/ChooseSession':
-      'Choose an academic session:',
-  'Campus/AcademicTools/ExamResult/credits': 'credits',
   'Campus/AcademicTools/WolframEngine/Title': 'Wolfram Engine',
   'Campus/AcademicTools/WolframEngine/InputConstructor': 'Input Constructor',
   'Campus/AcademicTools/WolframEngine/InputConstructor/SearchAnything':

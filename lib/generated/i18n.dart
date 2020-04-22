@@ -45,6 +45,8 @@ class S implements WidgetsLocalizations {
   String get Campus => "Campus";
   String get Campus_Academic => "Academic Utilities";
   String get Campus_AcademicTranscript => "Transcript";
+  String get Campus_AcademicTranscriptCourses => "Courses";
+  String get Campus_AcademicTranscriptCredits => "Credits";
   String get Campus_AcademicVPNConnect => "Connect";
   String get Campus_AcademicVPNDisconnect => "Disconnect";
   String get Campus_AcademicVPNWarning => "The VPN access is limited for academic and research purposes only.";
@@ -196,6 +198,8 @@ class $zh_CN extends S {
   @override
   String get About => "关于";
   @override
+  String get Campus_AcademicTranscriptCourses => "课程";
+  @override
   String get Campus_ToolsLF => "失物招领";
   @override
   String get Settings_DeveloperOptionsEnableFnUnderDevCaption => "这些功能尚在开发中且十分不稳定";
@@ -257,6 +261,8 @@ class $zh_CN extends S {
   String get Home => "首页";
   @override
   String get SignIn_Docs => "帮助文档";
+  @override
+  String get Campus_AcademicTranscriptCredits => "学分";
   @override
   String get SignIn_ErrorGMS => "GMS 未正常工作";
   @override

@@ -96,14 +96,16 @@ class _InfoCard extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Text(
-                '$finishedCount\nCourses',
+                '$finishedCount\n'
+                '${S.of(context).Campus_AcademicTranscriptCourses}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline6,
               ),
             ),
             Expanded(
               child: Text(
-                '$creditsCount\nCredits',
+                '$creditsCount\n'
+                '${S.of(context).Campus_AcademicTranscriptCredits}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline6,
               ),
@@ -198,7 +200,7 @@ class _GpaChartState extends State<_GpaChart> {
                 Text(
                   isGpa ? 'GPA' : 'CGPA',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
                 Expanded(
                   child: chart,
@@ -239,7 +241,7 @@ class _TranscriptSessionCard extends StatelessWidget {
                   Text(
                     '${course.code}  '
                     '${course.credit} '
-                    '${i18n('Campus/AcademicTools/ExamResult/credits', context)}',
+                    '${S.of(context).Campus_AcademicTranscriptCredits}',
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ],
