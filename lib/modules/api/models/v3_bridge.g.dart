@@ -54,6 +54,46 @@ Map<String, dynamic> _$TimetableClassToJson(TimetableClass instance) =>
       'endDay': instance.endDay?.toIso8601String(),
     };
 
+TranscriptSession _$TranscriptSessionFromJson(Map<String, dynamic> json) {
+  return TranscriptSession(
+    json['session'] as String,
+    (json['courses'] as List)
+        ?.map((e) => e == null
+            ? null
+            : TranscriptCourse.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    (json['gpa'] as num)?.toDouble(),
+    (json['cGpa'] as num)?.toDouble(),
+  );
+}
+
+Map<String, dynamic> _$TranscriptSessionToJson(TranscriptSession instance) =>
+    <String, dynamic>{
+      'session': instance.session,
+      'courses': instance.courses,
+      'gpa': instance.gpa,
+      'cGpa': instance.cGpa,
+    };
+
+TranscriptCourse _$TranscriptCourseFromJson(Map<String, dynamic> json) {
+  return TranscriptCourse(
+    json['code'] as String,
+    json['name'] as String,
+    json['credit'] as int,
+    json['grade'] as String,
+    (json['point'] as num)?.toDouble(),
+  );
+}
+
+Map<String, dynamic> _$TranscriptCourseToJson(TranscriptCourse instance) =>
+    <String, dynamic>{
+      'code': instance.code,
+      'name': instance.name,
+      'credit': instance.credit,
+      'grade': instance.grade,
+      'point': instance.point,
+    };
+
 StudentAttendanceBrief _$StudentAttendanceBriefFromJson(
     Map<String, dynamic> json) {
   return StudentAttendanceBrief(

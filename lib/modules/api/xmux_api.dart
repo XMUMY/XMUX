@@ -57,6 +57,8 @@ class XmuxApi {
     if (authorization != null) _authorization.mergeFrom(authorization);
   }
 
+  // ** user **
+
   /// Login with given credential.
   /// Returns firebase custom token in order to login firebase client.
   Future<XmuxApiResponse<LoginResp>> login(String uid, String password) async {
@@ -76,6 +78,24 @@ class XmuxApi {
       options: await Authorization.basic(uid, password).options,
     );
     return decodeResponse(res, LoginResp.fromJson);
+  }
+
+  /// Get devices associated with user.
+  Future<XmuxApiResponse<List<Device>>> get devices async {
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/user/devices',
+      options: await _authorization.options,
+    );
+    return decodeList(resp, 'devices', Device.fromJson);
+  }
+
+  Future<XmuxApiResponse<Profile>> getProfile({String uid}) async {
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/user/profile',
+      queryParameters: {if (uid != null) 'uid': uid},
+      options: await _authorization.options,
+    );
+    return decodeResponse(resp, Profile.fromJson);
   }
 
   /// Refresh device and push channel/key.
@@ -100,23 +120,7 @@ class XmuxApi {
     return decodeResponse(resp, (_) => null);
   }
 
-  /// Get devices associated with user.
-  Future<XmuxApiResponse<List<Device>>> get devices async {
-    var resp = await _dio.get<Map<String, dynamic>>(
-      '/user/devices',
-      options: await _authorization.options,
-    );
-    return decodeList(resp, 'devices', Device.fromJson);
-  }
-
-  Future<XmuxApiResponse<Profile>> getProfile({String uid}) async {
-    var resp = await _dio.get<Map<String, dynamic>>(
-      '/user/profile',
-      queryParameters: {if (uid != null) 'uid': uid},
-      options: await _authorization.options,
-    );
-    return decodeResponse(resp, Profile.fromJson);
-  }
+  // ** bridge **
 
   Future<XmuxApiResponse<List<StudentAttendanceBrief>>>
       getStudentAttendanceBriefs({String cid}) async {
@@ -152,6 +156,14 @@ class XmuxApi {
       options: Options(headers: _authorization.basicHeader),
     );
     return decodeResponse(resp, GetTimetableResp.fromJson);
+  }
+
+  Future<XmuxApiResponse<List<TranscriptSession>>> get transcript async {
+    var resp = await _dio.get(
+      '/ac/transcript',
+      options: Options(headers: _authorization.basicHeader),
+    );
+    return decodeList(resp, 'sessions', TranscriptSession.fromJson);
   }
 
   Future<XmuxApiResponse<Null>> updateStudentAttendance(

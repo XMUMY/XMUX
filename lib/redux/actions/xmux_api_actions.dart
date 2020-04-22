@@ -14,6 +14,13 @@ class UpdateTimetableAction extends XmuxApiAction<GetTimetableResp> {
   }
 }
 
+class UpdateTranscriptAction extends XmuxApiAction<List<TranscriptSession>> {
+  @override
+  Future<Null> call(Store<MainAppState> store) async {
+    response = await XmuxApi.instance.transcript;
+  }
+}
+
 class UpdateUserProfileAction extends XmuxApiAction<Profile> {
   @override
   Future<Null> call(Store<MainAppState> store) async {

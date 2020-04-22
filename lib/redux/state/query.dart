@@ -8,6 +8,9 @@ part 'query.g.dart';
 
 @JsonSerializable()
 class QueryState {
+  /// Assignments from moodle.
+  final List<Course> assignments;
+
   /// Billing records from E-Payment.
   final List<BillingRecord> ePaymentRecords;
 
@@ -17,21 +20,23 @@ class QueryState {
   /// Timetable for current semester.
   final GetTimetableResp timetable;
 
-  /// Assignments from moodle.
-  final List<Course> assignments;
+  /// Transcript of student.
+  final List<TranscriptSession> transcript;
 
   QueryState(
+    this.assignments,
     this.ePaymentRecords,
     this.emgsApplicationResult,
     this.timetable,
-    this.assignments,
+    this.transcript,
   );
 
   QueryState.def()
       : ePaymentRecords = null,
         emgsApplicationResult = null,
         timetable = null,
-        assignments = null;
+        assignments = null,
+        transcript = null;
 
   factory QueryState.fromJson(Map<String, dynamic> json) =>
       _$QueryStateFromJson(json);
@@ -39,15 +44,17 @@ class QueryState {
   Map<String, dynamic> toJson() => _$QueryStateToJson(this);
 
   QueryState copyWith({
+    List<Course> assignments,
     List<BillingRecord> ePaymentRecords,
     EmgsApplicationResult emgsApplicationResult,
     GetTimetableResp timetable,
-    List<Course> assignments,
+    List<TranscriptSession> transcript,
   }) =>
       QueryState(
+        assignments ?? this.assignments,
         ePaymentRecords ?? this.ePaymentRecords,
         emgsApplicationResult ?? this.emgsApplicationResult,
         timetable ?? this.timetable,
-        assignments ?? this.assignments,
+        transcript ?? this.transcript,
       );
 }

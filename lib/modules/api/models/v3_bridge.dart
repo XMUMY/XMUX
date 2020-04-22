@@ -51,6 +51,33 @@ class TimetableClass {
       '${timeOfDay.hour}:${timeOfDay.minute}';
 }
 
+@JsonSerializable()
+class TranscriptSession {
+  final String session;
+  final List<TranscriptCourse> courses;
+  final double gpa;
+  final double cGpa;
+
+  TranscriptSession(this.session, this.courses, this.gpa, this.cGpa);
+
+  static TranscriptSession fromJson(Map<String, dynamic> json) =>
+      _$TranscriptSessionFromJson(json);
+}
+
+@JsonSerializable()
+class TranscriptCourse {
+  final String code;
+  final String name;
+  final int credit;
+  final String grade;
+  final double point;
+
+  TranscriptCourse(this.code, this.name, this.credit, this.grade, this.point);
+
+  static TranscriptCourse fromJson(Map<String, dynamic> json) =>
+      _$TranscriptCourseFromJson(json);
+}
+
 enum StudentAttendanceStatus { none, waiting, attended, failed }
 
 @JsonSerializable(createToJson: false)
