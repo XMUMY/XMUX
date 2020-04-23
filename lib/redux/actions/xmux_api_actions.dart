@@ -105,17 +105,6 @@ class UpdateEPaymentRecordsAction extends XMUXApiActionV2 {
   }
 }
 
-class UpdateInfoAction extends XMUXApiActionV2 {
-  v2.Info info;
-
-  @override
-  Future<Null> call(v2.XMUXApiAuth auth, {Map<String, dynamic> params}) async {
-    var response = await v2.XMUXApi.instance.acInfo(auth);
-    assign(response);
-    info = response.data;
-  }
-}
-
 class UpdateHomepageAnnouncementsAction extends XMUXApiActionV2 {
   List<v2.Announcement> announcements;
 

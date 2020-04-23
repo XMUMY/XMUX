@@ -25,17 +25,9 @@ Map<String, dynamic> _$MainAppStateToJson(MainAppState instance) =>
 
 AcState _$AcStateFromJson(Map<String, dynamic> json) {
   return AcState(
-    json['status'] as String,
     json['timestamp'] == null
         ? null
         : DateTime.parse(json['timestamp'] as String),
-    json['info'] == null
-        ? null
-        : Info.fromJson(json['info'] as Map<String, dynamic>),
-    (json['timetable'] as List)
-        ?.map((e) =>
-            e == null ? null : Lesson.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
     (json['exams'] as List)
         ?.map(
             (e) => e == null ? null : Exam.fromJson(e as Map<String, dynamic>))
@@ -44,10 +36,7 @@ AcState _$AcStateFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$AcStateToJson(AcState instance) => <String, dynamic>{
-      'status': instance.status,
       'timestamp': instance.timestamp?.toIso8601String(),
-      'info': instance.info,
-      'timetable': instance.timetable,
       'exams': instance.exams,
     };
 

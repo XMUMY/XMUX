@@ -56,24 +56,15 @@ class MainAppState {
 /// AC state include timetable, exams and other academic data.
 @JsonSerializable()
 class AcState {
-  /// The status of state.
-  /// Including *init*, *success*
-  final String status;
-
   /// The timestamp from server.
   final DateTime timestamp;
 
-  final Info info;
-  final List<Lesson> timetable;
   final List<Exam> exams;
 
-  AcState(this.status, this.timestamp, this.info, this.timetable, this.exams);
+  AcState(this.timestamp, this.exams);
 
   AcState.def()
-      : this.status = 'init',
-        this.timestamp = null,
-        this.info = null,
-        this.timetable = null,
+      : this.timestamp = null,
         this.exams = null;
 
   factory AcState.fromJson(Map<String, dynamic> json) =>
@@ -81,14 +72,8 @@ class AcState {
 
   Map<String, dynamic> toJson() => _$AcStateToJson(this);
 
-  AcState copyWith(
-          {String status,
-          DateTime timestamp,
-          Info info,
-          List<Lesson> timetable,
-          List<Exam> exams}) =>
-      AcState(status ?? this.status, timestamp ?? this.timestamp,
-          info ?? this.info, timetable ?? this.timetable, exams ?? this.exams);
+  AcState copyWith({DateTime timestamp, List<Exam> exams}) =>
+      AcState(timestamp ?? this.timestamp, exams ?? this.exams);
 }
 
 /// Settings state include ePaymentPassword, etc.

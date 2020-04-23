@@ -20,10 +20,10 @@ class _EmgsPageState extends State<EmgsPage> {
 
   /// Get application status from website.
   Future<Null> _handleRefresh() async {
-    var countryCode = getCountryCode(store.state.acState.info.nationality);
+    var countryCode = getCountryCode(store.state.user.profile.nationality);
     try {
-      var res = await getApplicationStatus(
-          store.state.acState.info.idNumber, countryCode);
+      var res =
+          await getApplicationStatus(store.state.user.profile.id, countryCode);
       store.dispatch(UpdateEmgsApplicationResultAction(res));
     } catch (e) {
       setState(() => _hasError = true);
@@ -34,7 +34,7 @@ class _EmgsPageState extends State<EmgsPage> {
 
   @override
   void initState() {
-    if (store.state.acState.info != null) _handleRefresh();
+    if (store.state.user.profile != null) _handleRefresh();
 
     // Float appBar when scroll.
     _scrollController.addListener(
@@ -77,7 +77,7 @@ class _EmgsPageState extends State<EmgsPage> {
       ),
       body: StoreBuilder<MainAppState>(
         builder: (ctx, store) {
-          if (store.state.acState.info == null || _hasError)
+          if (store.state.user.profile == null || _hasError)
             return EmptyErrorPage();
           if (store.state.queryState.emgsApplicationResult == null)
             return Center(child: SpinKitFoldingCube(color: Colors.black38));

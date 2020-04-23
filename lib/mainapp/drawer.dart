@@ -127,7 +127,7 @@ class DrawerPage extends StatelessWidget {
                       // Check if nationality supported && enabled.
                       converter: (s) =>
                           emgs.getCountryCode(
-                              s.state.acState.info?.nationality ?? null) !=
+                              s.state.user.profile?.nationality ?? null) !=
                           null,
                       builder: (context, enabled) => enabled
                           ? _buildButton(

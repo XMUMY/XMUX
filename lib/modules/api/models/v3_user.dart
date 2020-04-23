@@ -30,8 +30,10 @@ class Profile {
   final String displayName;
   final String avatar;
   final String name;
+  final String nationality;
+  final String id;
 
-  Profile(this.displayName, this.avatar, this.name);
+  Profile(this.displayName, this.avatar, this.name, this.nationality, this.id);
 
   static Profile fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);
 

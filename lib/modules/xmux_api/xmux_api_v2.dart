@@ -107,14 +107,6 @@ class XMUXApi {
       _dio.options.headers.remove('Authorization');
   }
 
-  /// Convert photo url with moodleKey.
-  static String convertAvatarUrl(String originUrl, String moodleKey) =>
-      originUrl == null
-          ? ''
-          : originUrl.replaceFirst(
-                  '/pluginfile.php', '/webservice/pluginfile.php') +
-              '${originUrl.contains('?') ? '' : '?'}&token=$moodleKey';
-
   XMUXApiResponse<ResponseType> _generateResponse<JsonType, ResponseType>(
       Response<Map<String, dynamic>> response,
       ResponseType fromJson(JsonType json)) {
@@ -130,35 +122,11 @@ class XMUXApi {
         moodleKey: response.data['moodleKey']);
   }
 
-  Future<Map<String, bool>> get serverStatus async {
-    var res = await Future.wait(addresses.map((String address) async {
-      var res = await _dio.get(address + '/test').timeout(
-          Duration(milliseconds: 4800),
-          onTimeout: () => Response(statusCode: 504));
-      return res.statusCode == 200;
-    }).toList());
-    return Map.fromIterables(addresses, res);
-  }
-
   Future<XMUXApiResponse<AcData>> ac(XMUXApiAuth auth) async {
     var response = await _dio.post<Map<String, dynamic>>('/ac',
         data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
     return _generateResponse<Map<String, dynamic>, AcData>(
         response, AcData.fromJson);
-  }
-
-  Future<XMUXApiResponse<AcData>> acCourses(XMUXApiAuth auth) async {
-    var response = await _dio.post<Map<String, dynamic>>('/ac/courses',
-        data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
-    return _generateResponse<List, AcData>(
-        response, (courses) => AcData.fromJson({'courses': courses}));
-  }
-
-  Future<XMUXApiResponse<Info>> acInfo(XMUXApiAuth auth) async {
-    var response = await _dio.post<Map<String, dynamic>>('/ac/info',
-        data: {'id': auth.campusID, 'pass': auth.campusIDPassword});
-    return _generateResponse<Map<String, dynamic>, Info>(
-        response, (info) => Info.fromJson(info));
   }
 
   Future<XMUXApiResponse<List<BillingRecord>>> bill(XMUXApiAuth auth) async {
