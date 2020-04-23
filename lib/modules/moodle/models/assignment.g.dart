@@ -6,8 +6,8 @@ part of 'assignment.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Course _$CourseFromJson(Map<String, dynamic> json) {
-  return Course(
+AssignmentCourse _$AssignmentCourseFromJson(Map<String, dynamic> json) {
+  return AssignmentCourse(
     json['id'] as int,
     json['fullname'] as String,
     json['shortname'] as String,
@@ -18,7 +18,8 @@ Course _$CourseFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
+Map<String, dynamic> _$AssignmentCourseToJson(AssignmentCourse instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'fullname': instance.fullName,
       'shortname': instance.shortName,

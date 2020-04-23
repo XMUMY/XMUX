@@ -3,21 +3,36 @@ import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mobx/mobx.dart';
 
+import '../common.dart';
+
 part 'v3_bridge.g.dart';
 
 @JsonSerializable()
-class GetTimetableResp {
+class Course {
+  final String name;
+  final int credit;
+  final String lecturer;
+
+  Course(this.name, this.credit, this.lecturer);
+
+  static Course fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CourseToJson(this);
+}
+
+@JsonSerializable()
+class Timetable {
   final List<TimetableClass> timetable;
 
-  @JsonKey(name: 'recentUpdateS')
+  @JsonKey(fromJson: timestampFromJson, toJson: timestampToJson)
   final DateTime recentUpdate;
 
-  GetTimetableResp(this.timetable, this.recentUpdate);
+  Timetable(this.timetable, this.recentUpdate);
 
-  static GetTimetableResp fromJson(Map<String, dynamic> json) =>
-      _$GetTimetableRespFromJson(json);
+  static Timetable fromJson(Map<String, dynamic> json) =>
+      _$TimetableFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GetTimetableRespToJson(this);
+  Map<String, dynamic> toJson() => _$TimetableToJson(this);
 }
 
 @JsonSerializable()

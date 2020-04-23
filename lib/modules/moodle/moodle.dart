@@ -75,11 +75,11 @@ class MoodleApi {
   }
 
   /// Get assignments.
-  Future<List<Course>> get assignments async {
+  Future<List<AssignmentCourse>> get assignments async {
     var resp = await _invoke('mod_assign_get_assignments');
 
     return List<Map<String, dynamic>>.from(resp['courses'])
-        .map((c) => Course.fromJson(c))
+        .map((c) => AssignmentCourse.fromJson(c))
         .where((c) => c.assignments.isNotEmpty)
         .toList();
   }

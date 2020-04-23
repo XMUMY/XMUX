@@ -62,9 +62,8 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
 
   @override
   void initState() {
-    courses = store.state.acState.courses
-        .map((coursesData) =>
-            _CourseInfo(coursesData.courseName, coursesData.credit))
+    courses = store.state.queryState.courses
+        .map((coursesData) => _CourseInfo(coursesData.name, coursesData.credit))
         .toList();
     super.initState();
   }

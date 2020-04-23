@@ -9,6 +9,11 @@ part of 'query.dart';
 QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
   return QueryState(
     (json['assignments'] as List)
+        ?.map((e) => e == null
+            ? null
+            : AssignmentCourse.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    (json['courses'] as List)
         ?.map((e) =>
             e == null ? null : Course.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -23,7 +28,7 @@ QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
             json['emgsApplicationResult'] as Map<String, dynamic>),
     json['timetable'] == null
         ? null
-        : GetTimetableResp.fromJson(json['timetable'] as Map<String, dynamic>),
+        : Timetable.fromJson(json['timetable'] as Map<String, dynamic>),
     (json['transcript'] as List)
         ?.map((e) => e == null
             ? null
@@ -35,6 +40,7 @@ QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$QueryStateToJson(QueryState instance) =>
     <String, dynamic>{
       'assignments': instance.assignments,
+      'courses': instance.courses,
       'ePaymentRecords': instance.ePaymentRecords,
       'emgsApplicationResult': instance.emgsApplicationResult,
       'timetable': instance.timetable,

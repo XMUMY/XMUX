@@ -6,8 +6,15 @@ abstract class XmuxApiAction<T> extends ApiCallAction {
   XmuxApiResponse<T> response;
 }
 
+class UpdateCoursesAction extends XmuxApiAction<List<Course>> {
+  @override
+  Future<Null> call(Store<MainAppState> store) async {
+    response = await XmuxApi.instance.courses;
+  }
+}
+
 /// Update timetable of current semester.
-class UpdateTimetableAction extends XmuxApiAction<GetTimetableResp> {
+class UpdateTimetableAction extends XmuxApiAction<Timetable> {
   @override
   Future<Null> call(Store<MainAppState> store) async {
     response = await XmuxApi.instance.timetable;
@@ -95,17 +102,6 @@ class UpdateEPaymentRecordsAction extends XMUXApiActionV2 {
     var response = await v2.XMUXApi.instance.bill(this.auth ?? auth);
     assign(response);
     ePaymentRecords = response.data;
-  }
-}
-
-class UpdateCoursesAction extends XMUXApiActionV2 {
-  v2.AcData acData;
-
-  @override
-  Future<Null> call(v2.XMUXApiAuth auth, {Map<String, dynamic> params}) async {
-    var response = await v2.XMUXApi.instance.acCourses(auth);
-    assign(response);
-    acData = response.data;
   }
 }
 

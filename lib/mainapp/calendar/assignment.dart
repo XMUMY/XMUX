@@ -11,7 +11,7 @@ import 'package:xmux/modules/moodle/models/assignment.dart';
 import 'package:xmux/redux/actions/actions.dart';
 
 class AssignmentPage extends StatefulWidget {
-  final List<Course> assignments;
+  final List<AssignmentCourse> assignments;
 
   AssignmentPage(this.assignments);
 

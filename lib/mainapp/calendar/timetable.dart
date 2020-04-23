@@ -16,8 +16,7 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/calendar/attendance.dart';
 import 'package:xmux/mainapp/calendar/sign_in_button.dart';
 import 'package:xmux/modules/algorithms/edit_distance.dart';
-import 'package:xmux/modules/api/xmux_api.dart'
-    show GetTimetableResp, TimetableClass;
+import 'package:xmux/modules/api/xmux_api.dart' show Timetable, TimetableClass;
 import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/common/translation_mapper.dart' show weekdays;
 import 'package:xmux/redux/redux.dart';
@@ -28,7 +27,7 @@ class TimeTablePage extends StatelessWidget {
   final List<TimetableClass> timetable;
   final DateTime recentUpdate;
 
-  TimeTablePage(GetTimetableResp resp)
+  TimeTablePage(Timetable resp)
       : this.timetable = (resp == null || resp.timetable == null)
             ? null
             : sortTimetable(resp.timetable),
@@ -206,12 +205,12 @@ class LessonDialog extends StatelessWidget {
   const LessonDialog(this.lesson);
 
   int get lessonCredit {
-    return store.state.acState.courses?.firstWhere(
-        (c) => c.courseName.indexOf(lesson.name) != -1, orElse: () {
-      var editDistances = store.state.acState.courses
-          .map((c) => editDistance(c.courseName, lesson.name))
+    return store.state.queryState.courses
+        ?.firstWhere((c) => c.name.indexOf(lesson.name) != -1, orElse: () {
+      var editDistances = store.state.queryState.courses
+          .map((c) => editDistance(c.name, lesson.name))
           .toList();
-      return store.state.acState
+      return store.state.queryState
           .courses[editDistances.indexOf(editDistances.reduce(min))];
     })?.credit;
   }

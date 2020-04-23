@@ -6,23 +6,34 @@ part of 'v3_bridge.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetTimetableResp _$GetTimetableRespFromJson(Map<String, dynamic> json) {
-  return GetTimetableResp(
+Course _$CourseFromJson(Map<String, dynamic> json) {
+  return Course(
+    json['name'] as String,
+    json['credit'] as int,
+    json['lecturer'] as String,
+  );
+}
+
+Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
+      'name': instance.name,
+      'credit': instance.credit,
+      'lecturer': instance.lecturer,
+    };
+
+Timetable _$TimetableFromJson(Map<String, dynamic> json) {
+  return Timetable(
     (json['timetable'] as List)
         ?.map((e) => e == null
             ? null
             : TimetableClass.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    json['recentUpdateS'] == null
-        ? null
-        : DateTime.parse(json['recentUpdateS'] as String),
+    timestampFromJson(json['recentUpdate'] as int),
   );
 }
 
-Map<String, dynamic> _$GetTimetableRespToJson(GetTimetableResp instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$TimetableToJson(Timetable instance) => <String, dynamic>{
       'timetable': instance.timetable,
-      'recentUpdateS': instance.recentUpdate?.toIso8601String(),
+      'recentUpdate': timestampToJson(instance.recentUpdate),
     };
 
 TimetableClass _$TimetableClassFromJson(Map<String, dynamic> json) {

@@ -2,6 +2,7 @@ part of 'reducer.dart';
 
 final Reducer<QueryState> queryReducers = combineReducers([
   TypedReducer(_updateAssignmentsReducer),
+  TypedReducer(_updateCoursesReducer),
   TypedReducer(_updateBillReducer),
   TypedReducer(_updateEmgsReducer),
   TypedReducer(_updateTimetableReducer),
@@ -11,6 +12,10 @@ final Reducer<QueryState> queryReducers = combineReducers([
 QueryState _updateAssignmentsReducer(
         QueryState oldState, UpdateAssignmentsAction action) =>
     oldState.copyWith(assignments: action.response);
+
+QueryState _updateCoursesReducer(
+        QueryState oldState, UpdateCoursesAction action) =>
+    oldState.copyWith(courses: action.response.data);
 
 QueryState _updateBillReducer(
         QueryState oldState, UpdateEPaymentRecordsAction action) =>

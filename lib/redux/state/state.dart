@@ -66,22 +66,15 @@ class AcState {
   final Info info;
   final List<Lesson> timetable;
   final List<Exam> exams;
-  final List<SessionExamResult> examResult;
-  final List<Course> courses;
-  final List<LessonAssignments> assignments;
 
-  AcState(this.status, this.timestamp, this.info, this.timetable, this.exams,
-      this.examResult, this.courses, this.assignments);
+  AcState(this.status, this.timestamp, this.info, this.timetable, this.exams);
 
   AcState.def()
       : this.status = 'init',
         this.timestamp = null,
         this.info = null,
         this.timetable = null,
-        this.exams = null,
-        this.examResult = null,
-        this.courses = null,
-        this.assignments = null;
+        this.exams = null;
 
   factory AcState.fromJson(Map<String, dynamic> json) =>
       _$AcStateFromJson(json);
@@ -93,19 +86,9 @@ class AcState {
           DateTime timestamp,
           Info info,
           List<Lesson> timetable,
-          List<Exam> exams,
-          List<SessionExamResult> examResult,
-          List<Course> courses,
-          List<LessonAssignments> assignments}) =>
-      AcState(
-          status ?? this.status,
-          timestamp ?? this.timestamp,
-          info ?? this.info,
-          timetable ?? this.timetable,
-          exams ?? this.exams,
-          examResult ?? this.examResult,
-          courses ?? this.courses,
-          assignments ?? this.assignments);
+          List<Exam> exams}) =>
+      AcState(status ?? this.status, timestamp ?? this.timestamp,
+          info ?? this.info, timetable ?? this.timetable, exams ?? this.exams);
 }
 
 /// Settings state include ePaymentPassword, etc.

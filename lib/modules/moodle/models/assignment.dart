@@ -5,7 +5,7 @@ import '../common.dart';
 part 'assignment.g.dart';
 
 @JsonSerializable()
-class Course {
+class AssignmentCourse {
   final int id;
   @JsonKey(name: 'fullname')
   final String fullName;
@@ -13,11 +13,12 @@ class Course {
   final String shortName;
   final List<Assignment> assignments;
 
-  Course(this.id, this.fullName, this.shortName, this.assignments);
+  AssignmentCourse(this.id, this.fullName, this.shortName, this.assignments);
 
-  static Course fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
+  static AssignmentCourse fromJson(Map<String, dynamic> json) =>
+      _$AssignmentCourseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$CourseToJson(this);
+  Map<String, dynamic> toJson() => _$AssignmentCourseToJson(this);
 }
 
 @JsonSerializable()

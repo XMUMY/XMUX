@@ -122,6 +122,14 @@ class XmuxApi {
 
   // ** bridge **
 
+  Future<XmuxApiResponse<List<Course>>> get courses async {
+    var resp = await _dio.get<Map<String, dynamic>>(
+      '/ac/courses',
+      options: Options(headers: _authorization.basicHeader),
+    );
+    return decodeList(resp, 'courses', Course.fromJson);
+  }
+
   Future<XmuxApiResponse<List<StudentAttendanceBrief>>>
       getStudentAttendanceBriefs({String cid}) async {
     var resp = await _dio.get<Map<String, dynamic>>(
@@ -150,12 +158,12 @@ class XmuxApi {
   }
 
   /// Get timetable of current semester from academic system.
-  Future<XmuxApiResponse<GetTimetableResp>> get timetable async {
+  Future<XmuxApiResponse<Timetable>> get timetable async {
     var resp = await _dio.get<Map<String, dynamic>>(
       '/ac/timetable',
       options: Options(headers: _authorization.basicHeader),
     );
-    return decodeResponse(resp, GetTimetableResp.fromJson);
+    return decodeResponse(resp, Timetable.fromJson);
   }
 
   Future<XmuxApiResponse<List<TranscriptSession>>> get transcript async {

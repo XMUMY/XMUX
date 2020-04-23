@@ -14,7 +14,7 @@ abstract class MoodleApiAction<T> extends ApiCallAction {
   }
 }
 
-class UpdateAssignmentsAction extends MoodleApiAction<List<Course>> {
+class UpdateAssignmentsAction extends MoodleApiAction<List<AssignmentCourse>> {
   @override
   Future<Null> call(Store<MainAppState> store) async {
     await ensureLogin(store);
