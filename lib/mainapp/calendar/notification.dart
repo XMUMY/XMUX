@@ -5,7 +5,6 @@ import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/lazy_loading_list.dart';
-import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/moodle/models/notification.dart';
 
@@ -26,29 +25,39 @@ class _NotificationPageState extends State<NotificationPage> {
       onLoadMore: (list) async =>
           await moodleApi.getPopupNotifications(offset: list.length),
       builder: (context, notification, i) {
-        var card = FloatingCard(
-          padding: const EdgeInsets.all(8),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-          onTap: () => width < 700
-              ? Navigator.of(context)
-                  .push(FadePageRoute(child: NotificationDetail(notification)))
-              : setState(() => _selectedNotification = notification),
-          child: Column(
-            children: <Widget>[
-              Text(
-                notification.subject,
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-              Text(
-                '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(notification.timeCreated)} '
-                '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(notification.timeCreated)}',
-                style: Theme.of(context).textTheme.caption,
-              ),
-              Divider(),
-              Text(notification.smallMessage),
-            ],
-          ),
+        var content = Column(
+          children: <Widget>[
+            Text(
+              notification.subject,
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+            Text(
+              '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(notification.timeCreated)} '
+              '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(notification.timeCreated)}',
+              style: Theme.of(context).textTheme.caption,
+            ),
+            Divider(),
+            Text(notification.smallMessage),
+          ],
         );
+
+        Widget child;
+        if (width > 700)
+          child = FloatingCard(
+            padding: const EdgeInsets.all(8),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+            onTap: () => setState(() => _selectedNotification = notification),
+            child: content,
+          );
+        else
+          child = FloatingOpenContainer(
+            padding: const EdgeInsets.all(8),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+            child: content,
+            openBuilder: (context, _) => NotificationDetail(notification),
+          );
 
         return AnimationConfiguration.staggeredList(
           position: i,
@@ -56,7 +65,7 @@ class _NotificationPageState extends State<NotificationPage> {
           child: SlideAnimation(
             verticalOffset: 50.0,
             child: FadeInAnimation(
-              child: card,
+              child: child,
             ),
           ),
         );
