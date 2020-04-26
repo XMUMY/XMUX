@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/mainapp/drawer.dart';
@@ -15,6 +15,13 @@ import 'explore/explore_page.dart';
 import 'home/home_page.dart';
 
 class MainPage extends StatefulWidget {
+  static final pages = <Widget>[
+    HomePage(),
+    CalendarPage(),
+    CampusPage(),
+    ExplorePage(),
+  ];
+
   @override
   MainPageState createState() => MainPageState();
 }
@@ -22,11 +29,11 @@ class MainPage extends StatefulWidget {
 class MainPageState extends State<MainPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  /// Used to control the route for home pages.
-  final _homePageNavigatorKey = GlobalKey<NavigatorState>();
-
+  /// Listener for opening drawer from children.
   StreamSubscription _drawerListener;
+
   var _currentIndex = 0;
+  var _selectedPage = MainPage.pages[0];
 
   @override
   void initState() {
@@ -48,8 +55,7 @@ class MainPageState extends State<MainPage> {
   void navigateTo(int index) {
     if (!mounted || index == _currentIndex) return;
     setState(() {
-      _homePageNavigatorKey.currentState
-          .pushReplacementNamed('/HomePages/$index');
+      _selectedPage = MainPage.pages[index];
       _currentIndex = index;
     });
   }
@@ -63,38 +69,18 @@ class MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     // Main pages.
-    var body = Navigator(
-      key: _homePageNavigatorKey,
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case '/':
-          case '/HomePages/0':
-            return FadePageRoute(
-                transitionDuration: const Duration(milliseconds: 150),
-                pageBuilder: (_, __, ___) => HomePage());
-            break;
-          case '/HomePages/1':
-            return FadePageRoute(
-                transitionDuration: const Duration(milliseconds: 150),
-                pageBuilder: (_, __, ___) => CalendarPage());
-            break;
-          case '/HomePages/2':
-            return FadePageRoute(
-                transitionDuration: const Duration(milliseconds: 150),
-                pageBuilder: (_, __, ___) => CampusPage());
-            break;
-          case '/HomePages/3':
-            return FadePageRoute(
-                transitionDuration: const Duration(milliseconds: 150),
-                pageBuilder: (_, __, ___) => ExplorePage());
-            break;
-          default:
-            return null;
-        }
-      },
-      observers: <NavigatorObserver>[
-        HeroController(),
-      ],
+    var body = PageTransitionSwitcher(
+      duration: const Duration(milliseconds: 100),
+      transitionBuilder: (
+        Widget child,
+        Animation<double> primaryAnimation,
+        Animation<double> secondaryAnimation,
+      ) =>
+          FadeTransition(
+        child: child,
+        opacity: primaryAnimation,
+      ),
+      child: _selectedPage,
     );
 
     var bottom = BottomNavigationBar(

@@ -106,7 +106,7 @@ class Firebase {
     Object arguments,
     bool rootNavigator = false,
   }) async {
-    if (Firebase.instance.user == null) {
+    if (instance.user == null) {
       var result = await showDialog<bool>(
         context: context,
         barrierDismissible: false,
