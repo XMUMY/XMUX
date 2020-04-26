@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
@@ -227,7 +228,7 @@ class _TranscriptSessionCard extends StatelessWidget {
       itemCount: session.courses.length,
       itemBuilder: (context, i) {
         var course = session.courses[i];
-        return Row(
+        var row = Row(
           children: <Widget>[
             Expanded(
               child: Column(
@@ -259,6 +260,17 @@ class _TranscriptSessionCard extends StatelessWidget {
               ),
             )
           ],
+        );
+
+        return AnimationConfiguration.staggeredList(
+          position: i,
+          duration: const Duration(milliseconds: 300),
+          child: SlideAnimation(
+            verticalOffset: 50.0,
+            child: FadeInAnimation(
+              child: row,
+            ),
+          ),
         );
       },
       separatorBuilder: (context, i) => Divider(),

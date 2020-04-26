@@ -33,6 +33,16 @@ class _FloatingCardState extends State<FloatingCard> {
 
   @override
   Widget build(BuildContext context) {
+    var card = Card(
+      margin: widget.margin,
+      shape: widget.shape,
+      elevation: _elevation,
+      child: Padding(
+        padding: widget.padding,
+        child: widget.child,
+      ),
+    );
+
     Widget child;
     if (Theme.of(context).brightness == Brightness.light)
       child = GestureDetector(
@@ -40,28 +50,20 @@ class _FloatingCardState extends State<FloatingCard> {
         onTapDown: (_) => setState(() => _elevation = 4),
         onTapUp: (_) => setState(() => _elevation = 1),
         onTapCancel: () => setState(() => _elevation = 1),
-        child: widget.child,
+        child: card,
       );
     else
       child = InkWell(
         onTap: widget.onTap,
         onTapDown: (_) => setState(() => _elevation = 4),
         onTapCancel: () => setState(() => _elevation = 1),
-        child: widget.child,
+        child: card,
       );
 
     return MouseRegion(
       onEnter: (_) => setState(() => _elevation = 4),
       onExit: (_) => setState(() => _elevation = 1),
-      child: Card(
-        margin: widget.margin,
-        shape: widget.shape,
-        elevation: _elevation,
-        child: Padding(
-          padding: widget.padding,
-          child: child,
-        ),
-      ),
+      child: child,
     );
   }
 }

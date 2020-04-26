@@ -62,6 +62,93 @@ class _ItemBriefCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var content = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            UserProfileBuilder(
+              key: profileKey,
+              uid: brief.uid,
+              builder: (context, profile) => Row(
+                children: <Widget>[
+                  // Build user avatar.
+                  Padding(
+                    padding: const EdgeInsets.all(13),
+                    child: UserAvatar(
+                      url: profile.avatar,
+                      heroTag: brief.hashCode.toString(),
+                    ),
+                  ),
+
+                  // Build user name and timestamp.
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(profile.displayName),
+                      Text(
+                        '${DateFormat.yMMMEd(Localizations.localeOf(context).languageCode).format(brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(brief.timestamp)}',
+                        style: Theme.of(context).textTheme.caption,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              loadingBuilder: (context) => Row(
+                children: <Widget>[
+                  // Build user avatar.
+                  Padding(
+                    padding: const EdgeInsets.all(13),
+                    child: Shimmer.fromColors(
+                      child: CircleAvatar(),
+                      baseColor: Colors.black12,
+                      highlightColor: Colors.white,
+                    ),
+                  ),
+
+                  // Build user name and timestamp.
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Shimmer.fromColors(
+                        child: Text('...'),
+                        baseColor: Colors.black12,
+                        highlightColor: Colors.white,
+                      ),
+                      Text(
+                        '${DateFormat.Md(Localizations.localeOf(context).languageCode).format(brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(brief.timestamp)}',
+                        style: Theme.of(context).textTheme.caption,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            // Build price.
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Text(
+                brief.type == LostAndFoundType.lost
+                    ? S.of(context).Campus_ToolsLFLost
+                    : S.of(context).Campus_ToolsLFFound,
+              ),
+            ),
+          ],
+        ),
+
+        // Build title.
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: Text(
+            '${brief.name}\n'
+            '${S.of(context).Campus_ToolsLFLocation} ${brief.location}',
+          ),
+        ),
+      ],
+    );
+
     return FloatingCard(
       onTap: () async {
         var shouldRefresh =
@@ -79,96 +166,9 @@ class _ItemBriefCard extends StatelessWidget {
               .refresh();
       },
       margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+      padding: const EdgeInsets.all(10),
       shape: RoundedRectangleBorder(),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                UserProfileBuilder(
-                  key: profileKey,
-                  uid: brief.uid,
-                  builder: (context, profile) => Row(
-                    children: <Widget>[
-                      // Build user avatar.
-                      Padding(
-                        padding: const EdgeInsets.all(13),
-                        child: UserAvatar(
-                          url: profile.avatar,
-                          heroTag: brief.hashCode.toString(),
-                        ),
-                      ),
-
-                      // Build user name and timestamp.
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(profile.displayName),
-                          Text(
-                            '${DateFormat.yMMMEd(Localizations.localeOf(context).languageCode).format(brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(brief.timestamp)}',
-                            style: Theme.of(context).textTheme.caption,
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  loadingBuilder: (context) => Row(
-                    children: <Widget>[
-                      // Build user avatar.
-                      Padding(
-                        padding: const EdgeInsets.all(13),
-                        child: Shimmer.fromColors(
-                          child: CircleAvatar(),
-                          baseColor: Colors.black12,
-                          highlightColor: Colors.white,
-                        ),
-                      ),
-
-                      // Build user name and timestamp.
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Shimmer.fromColors(
-                            child: Text('...'),
-                            baseColor: Colors.black12,
-                            highlightColor: Colors.white,
-                          ),
-                          Text(
-                            '${DateFormat.Md(Localizations.localeOf(context).languageCode).format(brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(brief.timestamp)}',
-                            style: Theme.of(context).textTheme.caption,
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Build price.
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Text(
-                    brief.type == LostAndFoundType.lost
-                        ? S.of(context).Campus_ToolsLFLost
-                        : S.of(context).Campus_ToolsLFFound,
-                  ),
-                ),
-              ],
-            ),
-
-            // Build title.
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(
-                '${brief.name}\n'
-                '${S.of(context).Campus_ToolsLFLocation} ${brief.location}',
-              ),
-            ),
-          ],
-        ),
-      ),
+      child: content,
     );
   }
 }
