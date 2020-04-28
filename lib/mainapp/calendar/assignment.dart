@@ -52,6 +52,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
                 children: <Widget>[
                   for (var assignment in course.assignments)
                     OpenContainer(
+                      closedColor: Theme.of(context).cardColor,
                       closedBuilder: (context, open) => ListTile(
                         onTap: () => width < 700
                             ? open()
@@ -86,9 +87,16 @@ class _AssignmentPageState extends State<AssignmentPage> {
           ),
           Expanded(
             flex: width > 1000 ? 3 : 2,
-            child: _selectedAssignment == null
-                ? Container()
-                : AssignmentDetail(_selectedAssignment, withAppBar: false),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: _selectedAssignment == null
+                  ? Container()
+                  : AssignmentDetail(
+                      _selectedAssignment,
+                      key: ValueKey(_selectedAssignment),
+                      withAppBar: false,
+                    ),
+            ),
           ),
         ],
       );
@@ -106,7 +114,8 @@ class AssignmentDetail extends StatelessWidget {
   /// Whether an appbar should be added to details.
   final bool withAppBar;
 
-  AssignmentDetail(this.assignment, {this.withAppBar = true});
+  AssignmentDetail(this.assignment, {Key key, this.withAppBar = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
