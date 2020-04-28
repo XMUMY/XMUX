@@ -17,6 +17,7 @@ import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
 import 'package:xmux/redux/redux.dart';
+import 'package:xmux/theme.dart';
 
 /// Main initialization progress.
 void init() async {

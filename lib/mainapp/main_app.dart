@@ -5,10 +5,10 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:tuple/tuple.dart';
 import 'package:xmux/components/image_editor.dart';
 import 'package:xmux/components/page_routes.dart';
-import 'package:xmux/config.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
+import 'package:xmux/theme.dart';
 import 'package:xmux/translations/translation.dart';
 
 import 'calendar/academic_calendar.dart';

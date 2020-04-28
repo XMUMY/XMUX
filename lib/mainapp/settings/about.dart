@@ -51,7 +51,7 @@ XMUX client is an open source project licenced by GPLv3. The code can be found a
           Divider(),
           Text(
             '© 2017-2020 XMUX Project.\n'
-            'Ver: ${packageInfo?.version ?? '1'} | ${packageInfo?.buildNumber ?? 'Alpha'}',
+            'Ver: ${packageInfo?.version ?? '2'} | ${packageInfo?.buildNumber ?? 'Alpha'}',
             textAlign: TextAlign.center,
           ),
           if (P.isMobile &&
