@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/components/blur_box.dart';
+import 'package:xmux/globals.dart';
 
 /// Page route that provide a fade-in/out transition.
 ///
@@ -127,7 +128,7 @@ class WindowPageRoute<T> extends PageRoute<T> {
     Widget child;
     if (isWide)
       child = GaussianBlurBox(
-        sigma: 10,
+        sigma: store.state.settingState.enableBlur ? animation.value * 10 : 0,
         color: Colors.black45,
         centered: true,
         child: Container(

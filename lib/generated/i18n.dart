@@ -88,8 +88,11 @@ class S implements WidgetsLocalizations {
   String get Settings_DeveloperOptionsNotificationToken => "My Notification Token";
   String get Settings_DeveloperOptionsNotificationTokenCaption => "Press to copy my notification token";
   String get Settings_DeveloperOptionsWarning => "Warning: These functions are for developers and testers only and may cause operational errors or data loss.";
-  String get Settings_EditProfile => "Edit Profile";
-  String get Settings_Sessions => "Sessions";
+  String get Settings_EditProfile => "Profile";
+  String get Settings_Interface => "Interface";
+  String get Settings_InterfaceEnableBlur => "Frosted Glass Effect";
+  String get Settings_InterfaceEnableBlurCaption => "Show blur effect on background of popup window";
+  String get Settings_SecuritySessions => "Sessions";
   String get Settings_SignOut => "Sign Out";
   String get SignIn_CampusID => "Campus ID";
   String get SignIn_Docs => "Help Docs";
@@ -166,8 +169,6 @@ class $zh_CN extends S {
   @override
   String get SignIn_ErrorInvalidPassword => "用户名或密码无效";
   @override
-  String get Settings_Sessions => "会话";
-  @override
   String get Campus_AcademicVPNWarning => "VPN 仅供学术研究使用";
   @override
   String get General_Weekday7 => "周日";
@@ -202,13 +203,15 @@ class $zh_CN extends S {
   @override
   String get Campus_ToolsLF => "失物招领";
   @override
+  String get Settings_InterfaceEnableBlur => "毛玻璃效果";
+  @override
   String get Settings_DeveloperOptionsEnableFnUnderDevCaption => "这些功能尚在开发中且十分不稳定";
   @override
   String get Calendar_AttendanceMarkAbsent => "标记为缺席";
   @override
   String get SignIn_RegisterCaption => "我们仍需要以下信息以完成注册。";
   @override
-  String get Settings_EditProfile => "更改个人资料";
+  String get Settings_EditProfile => "个人资料";
   @override
   String get Campus_AcademicVPNDisconnect => "断开连接";
   @override
@@ -264,11 +267,15 @@ class $zh_CN extends S {
   @override
   String get Campus_AcademicTranscriptCredits => "学分";
   @override
+  String get Settings_InterfaceEnableBlurCaption => "在弹出窗口背景展示毛玻璃效果";
+  @override
   String get SignIn_ErrorGMS => "GMS 未正常工作";
   @override
   String get Campus_ToolsLFLocationHint => "A5#G01 的讲台上";
   @override
   String get Calendar_ClassCardLecturer => "讲师";
+  @override
+  String get Settings_Interface => "界面";
   @override
   String get SignIn_SignIn => "登录";
   @override
@@ -289,6 +296,8 @@ class $zh_CN extends S {
   String get Campus_ToolsLFFound => "拾到";
   @override
   String get Campus_ToolsLFNew => "新的失物招领";
+  @override
+  String get Settings_SecuritySessions => "会话";
   @override
   String get Campus_ToolsLFLOrF => "遗失/拾到？";
   @override

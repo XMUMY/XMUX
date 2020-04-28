@@ -9,16 +9,23 @@ import 'package:xmux/redux/redux.dart';
 import 'about.dart';
 import 'developer_options.dart';
 import 'edit_profile.dart';
+import 'interface.dart';
 import 'sessions.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   static final routes = <String, WidgetBuilder>{
     '/EditProfile': (_) => EditProfilePage(),
-    '/Sessions': (_) => SessionsPage(),
+    '/Security/Sessions': (_) => SessionsPage(),
+    '/Interface': (_) => InterfacePage(),
     '/DeveloperOptions': (_) => DeveloperOptionsPage(),
     '/About': (_) => AboutPage(),
   };
 
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
@@ -31,9 +38,10 @@ class SettingsPage extends StatelessWidget {
         if (settings.name == '/')
           return MaterialPageRoute(builder: (context) => SettingsList());
 
-        if (routes.containsKey(settings.name))
+        if (SettingsPage.routes.containsKey(settings.name))
           return MaterialPageRoute(
-              builder: (context) => routes[settings.name](context));
+              builder: (context) =>
+                  SettingsPage.routes[settings.name](context));
 
         return null;
       },
@@ -82,8 +90,12 @@ class SettingsList extends StatelessWidget {
           onTap: () => Firebase.pushNamed(context, '/EditProfile'),
         ),
         ListTile(
-          title: Text(S.of(context).Settings_Sessions),
-          onTap: () => Navigator.of(context).pushNamed('/Sessions'),
+          title: Text(S.of(context).Settings_SecuritySessions),
+          onTap: () => Navigator.of(context).pushNamed('/Security/Sessions'),
+        ),
+        ListTile(
+          title: Text(S.of(context).Settings_Interface),
+          onTap: () => Navigator.of(context).pushNamed('/Interface'),
         ),
         ListTile(
           title: Text(S.of(context).Settings_DeveloperOptions),

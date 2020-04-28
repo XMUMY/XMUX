@@ -42,7 +42,9 @@ Map<String, dynamic> _$AcStateToJson(AcState instance) => <String, dynamic>{
 
 SettingState _$SettingStateFromJson(Map<String, dynamic> json) {
   return SettingState(
-    _$enumDecodeNullable(_$ThemeModeEnumMap, json['themeMode']),
+    _$enumDecodeNullable(_$ThemeModeEnumMap, json['themeMode']) ??
+        ThemeMode.system,
+    json['enableBlur'] as bool ?? true,
     json['enableFunctionsUnderDev'] as bool ?? false,
   );
 }
@@ -50,6 +52,7 @@ SettingState _$SettingStateFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$SettingStateToJson(SettingState instance) =>
     <String, dynamic>{
       'themeMode': _$ThemeModeEnumMap[instance.themeMode],
+      'enableBlur': instance.enableBlur,
       'enableFunctionsUnderDev': instance.enableFunctionsUnderDev,
     };
 

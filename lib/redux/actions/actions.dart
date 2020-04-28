@@ -92,6 +92,13 @@ class ThemeModeAction extends MainAppAction {
   ThemeModeAction(this.themeMode);
 }
 
+/// Enable gaussian blur background for dialogs.
+class EnableBlurAction extends MainAppAction {
+  final bool enableBlur;
+
+  EnableBlurAction(this.enableBlur);
+}
+
 /// Enable functions under development.
 class EnableFunctionsUnderDevAction extends MainAppAction {
   final bool enableFunctionsUnderDev;

@@ -79,16 +79,22 @@ class AcState {
 /// Settings state include ePaymentPassword, etc.
 @JsonSerializable()
 class SettingState {
+  @JsonKey(defaultValue: ThemeMode.system)
   final ThemeMode themeMode;
 
-  /// Enable functions under developing.
+  /// Enable gaussian blur background for dialogs.
+  @JsonKey(defaultValue: true)
+  final bool enableBlur;
+
+  /// Enable functions under development.
   @JsonKey(defaultValue: false)
   final bool enableFunctionsUnderDev;
 
-  SettingState(this.themeMode, this.enableFunctionsUnderDev);
+  SettingState(this.themeMode, this.enableBlur, this.enableFunctionsUnderDev);
 
   SettingState.def()
       : themeMode = ThemeMode.system,
+        enableBlur = true,
         enableFunctionsUnderDev = false;
 
   factory SettingState.fromJson(Map<String, dynamic> json) =>
@@ -98,10 +104,14 @@ class SettingState {
 
   SettingState copyWith({
     ThemeMode themeMode,
+    bool enableBlur,
     bool enableFunctionsUnderDev,
   }) =>
-      SettingState(themeMode ?? this.themeMode,
-          enableFunctionsUnderDev ?? this.enableFunctionsUnderDev);
+      SettingState(
+        themeMode ?? this.themeMode,
+        enableBlur ?? this.enableBlur,
+        enableFunctionsUnderDev ?? this.enableFunctionsUnderDev,
+      );
 }
 
 /// Global UI state include drawerIsOpen, etc.

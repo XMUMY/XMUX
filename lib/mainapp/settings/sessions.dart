@@ -15,7 +15,7 @@ class SessionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(S.of(context).Settings_Sessions)),
+      appBar: AppBar(title: Text(S.of(context).Settings_SecuritySessions)),
       body: Refreshable<List<Device>>(
         onRefresh: handleRefresh,
         builder: (context, devices) => ListView.separated(
