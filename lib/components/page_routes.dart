@@ -128,8 +128,10 @@ class WindowPageRoute<T> extends PageRoute<T> {
     Widget child;
     if (isWide)
       child = GaussianBlurBox(
-        sigma: store.state.settingState.enableBlur ? animation.value * 10 : 0,
-        color: Colors.black45,
+        sigma: store.state.settingState.enableBlur ? animation.value * 8 : 0,
+        color: store.state.settingState.enableBlur
+            ? Colors.black38
+            : Colors.black45,
         centered: true,
         child: Container(
           height: MediaQuery.of(context).size.height * 0.85,
@@ -165,4 +167,65 @@ class WindowPageRoute<T> extends PageRoute<T> {
       child: child,
     );
   }
+}
+
+/// Show a dialog with blurred background.
+Future<T> showBlurDialog<T>({
+  @required BuildContext context,
+  bool barrierDismissible = true,
+  @required WidgetBuilder builder,
+  bool useRootNavigator = true,
+  RouteSettings routeSettings,
+}) {
+  assert(builder != null);
+  assert(useRootNavigator != null);
+  assert(debugCheckHasMaterialLocalizations(context));
+
+  final ThemeData theme = Theme.of(context, shadowThemeOnly: true);
+  return showGeneralDialog(
+    context: context,
+    pageBuilder: (_, __, ___) {
+      return SafeArea(
+        child: Builder(builder: (BuildContext context) {
+          return theme != null
+              ? Theme(data: theme, child: Builder(builder: builder))
+              : Builder(builder: builder);
+        }),
+      );
+    },
+    barrierDismissible: barrierDismissible,
+    barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+    transitionDuration: const Duration(milliseconds: 150),
+    transitionBuilder: (context, animation, secondary, content) {
+      Widget child = GaussianBlurBox(
+        sigma: store.state.settingState.enableBlur ? animation.value * 8 : 0,
+        color: store.state.settingState.enableBlur
+            ? Colors.black38
+            : Colors.black45,
+        centered: true,
+        child: FadeTransition(
+          opacity: animation,
+          child: ScaleTransition(
+            scale: Tween<double>(
+              begin: 0.9,
+              end: 1,
+            ).animate(CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeIn,
+                reverseCurve: Curves.fastOutSlowIn)),
+            child: content,
+          ),
+        ),
+      );
+
+      return barrierDismissible
+          ? GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: child,
+            )
+          : child;
+    },
+    useRootNavigator: useRootNavigator,
+    routeSettings: routeSettings,
+  );
 }

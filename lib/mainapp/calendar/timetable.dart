@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/floating_card.dart';
+import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/components/spannable_grid.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/i18n.dart';
@@ -181,7 +182,7 @@ class LessonCard extends StatelessWidget {
     );
 
     return FloatingCard(
-      onTap: () => showDialog(
+      onTap: () => showBlurDialog(
         context: context,
         barrierDismissible: true,
         builder: (context) => LessonDialog(lesson),
@@ -315,7 +316,7 @@ class LessonDialog extends StatelessWidget {
       );
 
     return SizedBox(
-      width: min(MediaQuery.of(context).size.width / 1.3, 350),
+      width: min(MediaQuery.of(context).size.width, 600),
       child: SimpleDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
         title: title,
