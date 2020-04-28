@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/components/image_editor.dart';
+import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/translations/translation.dart';
 
-import 'about.dart';
 import 'calendar/academic_calendar.dart';
 import 'campus/academic_tools/ecr.dart';
 import 'campus/academic_tools/geogebra.dart';
@@ -25,9 +25,6 @@ import 'campus/maintenance/maintenance.dart';
 import 'campus/travelviser.dart';
 import 'explore/lost_and_found/lost_and_found_page.dart' as old;
 import 'main_page.dart';
-import 'settings/developer_options.dart';
-import 'settings/edit_profile.dart';
-import 'settings/sessions.dart';
 import 'settings/settings.dart';
 import 'tools/emergency.dart';
 import 'tools/emgs.dart';
@@ -37,7 +34,6 @@ import 'tools/room_reservation.dart';
 class MainApp extends StatelessWidget {
   /// Routes for main app.
   static final routes = <String, WidgetBuilder>{
-    '/About': (_) => AboutPage(),
     '/Calendar/CalendarImage': (_) => AcademicCalendarPage(),
     '/Campus/ACTools/Transcript': (_) => TranscriptPage(),
     '/Campus/ACTools/WolframEngine': (_) => InputConstructor(),
@@ -58,10 +54,11 @@ class MainApp extends StatelessWidget {
     '/Me/RoomReservation': (_) => RoomWebViewPage(),
     '/Me/Emgs': (_) => EmgsPage(),
     '/Me/Emergency': (_) => EmergencyPage(),
+  };
+
+  /// The sub-routes are handled by nested navigators.
+  static final prefixes = <String, WidgetBuilder>{
     '/Settings': (_) => SettingsPage(),
-    '/Settings/ChangeProfile': (_) => EditProfilePage(),
-    '/Settings/Sessions': (_) => SessionsPage(),
-    '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
   };
 
   @override
@@ -90,6 +87,23 @@ class MainApp extends StatelessWidget {
             ],
             supportedLocales: S.delegate.supportedLocales,
             initialRoute: '/',
+            onGenerateRoute: (settings) {
+              var matchedPrefix = prefixes.keys.firstWhere(
+                (k) => settings.name.startsWith(k),
+                orElse: () => null,
+              );
+              if (matchedPrefix != null)
+                switch (matchedPrefix) {
+                  case '/Settings':
+                    return WindowPageRoute(
+                      settings: settings,
+                      fullscreenDialog: true,
+                      builder: (context) => prefixes[matchedPrefix](context),
+                    );
+                }
+
+              return null;
+            },
             routes: routes,
           );
         },

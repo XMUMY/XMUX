@@ -127,16 +127,16 @@ class WindowPageRoute<T> extends PageRoute<T> {
     Widget child;
     if (isWide)
       child = GaussianBlurBox(
-        sigma: 1,
-        color: Colors.transparent,
+        sigma: 10,
+        color: Colors.black45,
         centered: true,
         child: Container(
           height: MediaQuery.of(context).size.height * 0.85,
           width: 600,
           decoration: BoxDecoration(
-            // TODO: Not work yet.
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(7),
           ),
+          clipBehavior: Clip.hardEdge,
           child: FadeThroughTransition(
             animation: animation,
             secondaryAnimation: secondaryAnimation,

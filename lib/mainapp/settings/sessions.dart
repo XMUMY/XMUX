@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/refreshable.dart';
@@ -17,7 +19,10 @@ class SessionsPage extends StatelessWidget {
       body: Refreshable<List<Device>>(
         onRefresh: handleRefresh,
         builder: (context, devices) => ListView.separated(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          padding: EdgeInsets.symmetric(
+            vertical: 15,
+            horizontal: max((MediaQuery.of(context).size.width - 500) / 2, 20),
+          ),
           itemCount: devices.length,
           itemBuilder: (context, index) {
             return Column(
