@@ -87,6 +87,10 @@ class S implements WidgetsLocalizations {
   String get Settings_DeveloperOptionsEnableFnUnderDevCaption => "These functions are still under development and are highly unstable";
   String get Settings_DeveloperOptionsNotificationToken => "My Notification Token";
   String get Settings_DeveloperOptionsNotificationTokenCaption => "Press to copy my notification token";
+  String get Settings_DeveloperOptionsShowPerformanceOverlay => "Show Performance Overlay";
+  String get Settings_DeveloperOptionsShowPerformanceOverlayCaption => "Show a performance overlay on top of app";
+  String get Settings_DeveloperOptionsShowSemanticsDebugger => "Show Semantics";
+  String get Settings_DeveloperOptionsShowSemanticsDebuggerCaption => "Show semantics of each widget";
   String get Settings_DeveloperOptionsWarning => "Warning: These functions are for developers and testers only and may cause operational errors or data loss.";
   String get Settings_EditProfile => "Profile";
   String get Settings_Interface => "Interface";
@@ -132,6 +136,8 @@ class $zh_CN extends S {
   String get Settings_DeveloperOptionsWarning => "警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常及数据的丢失或泄漏。";
   @override
   String get SignIn_Register => "注册";
+  @override
+  String get Settings_DeveloperOptionsShowSemanticsDebugger => "显示语义";
   @override
   String get Campus_AcademicVPNConnect => "连接";
   @override
@@ -191,6 +197,8 @@ class $zh_CN extends S {
   @override
   String get General_Weekday2 => "周二";
   @override
+  String get Settings_DeveloperOptionsShowSemanticsDebuggerCaption => "显示各组件的语义";
+  @override
   String get General_Weekday1 => "周一";
   @override
   String get Calendar_ClassCardCredit => "学分";
@@ -243,6 +251,8 @@ class $zh_CN extends S {
   @override
   String get Calendar_ClassCardCode => "课程编号";
   @override
+  String get Settings_DeveloperOptionsShowPerformanceOverlayCaption => "在应用上方显示实时显示渲染性能";
+  @override
   String get Settings_DeveloperOptionsNotificationTokenCaption => "点击以复制我的通知推送令牌";
   @override
   String get Calendar_Exams => "考试";
@@ -290,6 +300,8 @@ class $zh_CN extends S {
   String get GMS_UnavailableLoginCaption => "谷歌服务在您的设备上没有正常工作，这将导致部分功能无法使用，继续登录？";
   @override
   String get SignIn_RegisterEmail => "邮箱";
+  @override
+  String get Settings_DeveloperOptionsShowPerformanceOverlay => "显示渲染性能";
   @override
   String get Campus_ToolsBusSchedule => "巴士时刻表";
   @override

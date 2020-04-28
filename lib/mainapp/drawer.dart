@@ -212,7 +212,8 @@ class EndDrawer extends StatelessWidget {
               child: Text(i18n('Home', context)),
             ),
             RaisedButton(
-              onPressed: () => Navigator.of(context).popAndPushNamed('/About'),
+              onPressed: () =>
+                  Navigator.of(context).popAndPushNamed('/Settings/About'),
               child: Text(i18n('About', context)),
             ),
             Divider(),

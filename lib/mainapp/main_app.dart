@@ -2,6 +2,7 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:tuple/tuple.dart';
 import 'package:xmux/components/image_editor.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/config.dart';
@@ -65,20 +66,19 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider<MainAppState>(
       store: store,
-      child: StoreConnector<MainAppState, ThemeMode>(
-        converter: (s) => s.state.settingState.themeMode,
-        builder: (_, themeMode) {
+      child: StoreConnector<MainAppState, Tuple3<ThemeMode, bool, bool>>(
+        converter: (s) => Tuple3(
+          s.state.settingState.themeMode,
+          s.state.uiState.showPerformanceOverlay,
+          s.state.uiState.showSemanticsDebugger,
+        ),
+        builder: (_, model) {
           return MaterialApp(
             title: 'XMUX',
             home: MainPage(),
             theme: ThemeConfig.defaultTheme,
             darkTheme: ThemeConfig.defaultDarkTheme,
-            themeMode: themeMode,
-            navigatorObservers: <NavigatorObserver>[
-              // Only trace in release mode.
-              if (P.isVM && bool.fromEnvironment('dart.vm.product'))
-                FirebaseAnalyticsObserver(analytics: firebase.analytics),
-            ],
+            themeMode: model.item1,
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
@@ -86,6 +86,11 @@ class MainApp extends StatelessWidget {
               S.delegate,
             ],
             supportedLocales: S.delegate.supportedLocales,
+            navigatorObservers: <NavigatorObserver>[
+              // Only trace in release mode.
+              if (P.isVM && bool.fromEnvironment('dart.vm.product'))
+                FirebaseAnalyticsObserver(analytics: firebase.analytics),
+            ],
             initialRoute: '/',
             onGenerateRoute: (settings) {
               var matchedPrefix = prefixes.keys.firstWhere(
@@ -105,6 +110,8 @@ class MainApp extends StatelessWidget {
               return null;
             },
             routes: routes,
+            showPerformanceOverlay: model.item2,
+            showSemanticsDebugger: model.item3,
           );
         },
       ),

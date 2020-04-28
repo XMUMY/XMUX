@@ -53,6 +53,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
                   for (var assignment in course.assignments)
                     OpenContainer(
                       closedColor: Theme.of(context).cardColor,
+                      closedShape: RoundedRectangleBorder(),
                       closedBuilder: (context, open) => ListTile(
                         onTap: () => width < 700
                             ? open()

@@ -44,6 +44,39 @@ class DeveloperOptionsPage extends StatelessWidget {
             ),
           ),
 
+          StoreConnector<MainAppState, bool>(
+            converter: (store) => store.state.uiState.showPerformanceOverlay,
+            builder: (context, value) => SwitchListTile.adaptive(
+              title: Text(S
+                  .of(context)
+                  .Settings_DeveloperOptionsShowPerformanceOverlay),
+              subtitle: Text(
+                S
+                    .of(context)
+                    .Settings_DeveloperOptionsShowPerformanceOverlayCaption,
+              ),
+              value: value,
+              onChanged: (v) =>
+                  store.dispatch(ShowPerformanceOverlayAction(!value)),
+            ),
+          ),
+
+          StoreConnector<MainAppState, bool>(
+            converter: (store) => store.state.uiState.showSemanticsDebugger,
+            builder: (context, value) => SwitchListTile.adaptive(
+              title: Text(
+                  S.of(context).Settings_DeveloperOptionsShowSemanticsDebugger),
+              subtitle: Text(
+                S
+                    .of(context)
+                    .Settings_DeveloperOptionsShowSemanticsDebuggerCaption,
+              ),
+              value: value,
+              onChanged: (v) =>
+                  store.dispatch(ShowSemanticsDebuggerAction(!value)),
+            ),
+          ),
+
           // Copy FCM key.
           ListTile(
             title:

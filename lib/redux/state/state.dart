@@ -90,7 +90,11 @@ class SettingState {
   @JsonKey(defaultValue: false)
   final bool enableFunctionsUnderDev;
 
-  SettingState(this.themeMode, this.enableBlur, this.enableFunctionsUnderDev);
+  SettingState(
+    this.themeMode,
+    this.enableBlur,
+    this.enableFunctionsUnderDev,
+  );
 
   SettingState.def()
       : themeMode = ThemeMode.system,
@@ -114,10 +118,17 @@ class SettingState {
       );
 }
 
-/// Global UI state include drawerIsOpen, etc.
+/// State for application UI.
+/// This state will not be persisted.
 class UIState {
   /// Drawer is open.
   final bool drawerIsOpen;
+
+  /// Override [WidgetsApp.showPerformanceOverlayOverride].
+  final bool showPerformanceOverlay;
+
+  /// Override [MaterialApp.showSemanticsDebugger]
+  final bool showSemanticsDebugger;
 
   /// Homepage sliders.
   final List<News> homepageNews;
@@ -125,17 +136,33 @@ class UIState {
   /// Homepage announcements.
   final List<Announcement> announcements;
 
-  UIState(this.drawerIsOpen, this.homepageNews, this.announcements);
+  UIState(
+    this.drawerIsOpen,
+    this.showPerformanceOverlay,
+    this.showSemanticsDebugger,
+    this.homepageNews,
+    this.announcements,
+  );
 
   UIState.def()
       : drawerIsOpen = false,
+        showPerformanceOverlay = false,
+        showSemanticsDebugger = false,
         homepageNews = null,
         announcements = null;
 
-  UIState copyWith(
-          {bool drawerIsOpen, List<News> homepageNews, List announcements}) =>
+  UIState copyWith({
+    bool drawerIsOpen,
+    bool showPerformanceOverlay,
+    bool showSemanticsDebugger,
+    List<News> homepageNews,
+    List announcements,
+  }) =>
       UIState(
-          drawerIsOpen ?? this.drawerIsOpen,
-          homepageNews ?? this.homepageNews,
-          announcements ?? this.announcements);
+        drawerIsOpen ?? this.drawerIsOpen,
+        showPerformanceOverlay ?? this.showPerformanceOverlay,
+        showSemanticsDebugger ?? this.showSemanticsDebugger,
+        homepageNews ?? this.homepageNews,
+        announcements ?? this.announcements,
+      );
 }

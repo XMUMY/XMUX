@@ -74,14 +74,28 @@ class LogoutAction extends MainAppAction {
 
 // ****** UI Actions ******
 
+abstract class UIActions extends MainAppAction {
+  @override
+  final needSave = false;
+}
+
 /// Open the drawer in [MainPage].
-class OpenDrawerAction extends MainAppAction {
+class OpenDrawerAction extends UIActions {
   final bool drawerIsOpen;
 
   OpenDrawerAction(this.drawerIsOpen);
+}
 
-  @override
-  final needSave = false;
+class ShowPerformanceOverlayAction extends UIActions {
+  final bool showPerformanceOverlay;
+
+  ShowPerformanceOverlayAction(this.showPerformanceOverlay);
+}
+
+class ShowSemanticsDebuggerAction extends UIActions {
+  final bool showSemanticsDebugger;
+
+  ShowSemanticsDebuggerAction(this.showSemanticsDebugger);
 }
 
 // ****** Setting Actions ******
