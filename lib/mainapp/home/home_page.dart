@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:waterfall_flow/waterfall_flow.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
@@ -39,13 +42,17 @@ class HomePage extends StatelessWidget {
           await newsAction.listener;
           await announcementsAction.listener;
         },
-        child: ListView(
+        child: WaterfallFlow(
+          gridDelegate: SliverWaterfallFlowDelegate(
+            crossAxisCount: max(MediaQuery.of(context).size.width ~/ 400, 1),
+            crossAxisSpacing: 5.0,
+            mainAxisSpacing: 5.0,
+          ),
           children: <Widget>[
             // Slider
-            Container(
+            AspectRatio(
+              aspectRatio: 18 / 9,
               child: HomeSlider(),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width / 18 * 9,
             ),
 
             // Announcements (if have)

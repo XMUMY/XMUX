@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
@@ -5,7 +6,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/floating_card.dart';
-import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/moodle/models/assignment.dart';
 import 'package:xmux/redux/actions/actions.dart';
@@ -51,18 +51,19 @@ class _AssignmentPageState extends State<AssignmentPage> {
               body: Column(
                 children: <Widget>[
                   for (var assignment in course.assignments)
-                    ListTile(
-                      onTap: () => width < 700
-                          ? Navigator.of(context).push(FadePageRoute(
-                              child: AssignmentDetail(assignment),
-                            ))
-                          : setState(() => _selectedAssignment = assignment),
-                      title: Text(assignment.name),
-                      subtitle: Text(
-                        '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(assignment.dueDate)} '
-                        '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(assignment.dueDate)}',
+                    OpenContainer(
+                      closedBuilder: (context, open) => ListTile(
+                        onTap: () => width < 700
+                            ? open()
+                            : setState(() => _selectedAssignment = assignment),
+                        title: Text(assignment.name),
+                        subtitle: Text(
+                          '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(assignment.dueDate)} '
+                          '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(assignment.dueDate)}',
+                        ),
+                        dense: true,
                       ),
-                      dense: true,
+                      openBuilder: (context, _) => AssignmentDetail(assignment),
                     ),
                 ],
               ),
