@@ -127,7 +127,6 @@ class _FloatingOpenContainerState extends State<FloatingOpenContainer> {
           closedColor: Theme.of(context).cardColor,
           openColor: Theme.of(context).cardColor,
           closedShape: widget.shape,
-          openShape: widget.shape,
           closedElevation: _elevation,
           closedBuilder: (context, open) => Padding(
             padding: widget.padding,

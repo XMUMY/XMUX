@@ -108,8 +108,6 @@ const Map<String, String> zh_CN = {
   // Settings
   'Settings/ChangeProfile/Caption': '您可以在此更改您的部分个人信息，用户头像请在 Gravatar 内修改。',
   'Settings/ChangeProfile/DisplayName': '昵称',
-  // Me
-  'Me/Header/Welcome': '您好，',
   // Tools
   'Tools/EPayment': '电子账单',
   'Tools/EPayment/NeedLogin': '需要绑定您的电子账单账户',

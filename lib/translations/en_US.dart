@@ -115,8 +115,6 @@ const Map<String, String> en_US = {
   'Settings/ChangeProfile/Caption':
       'You can edit part of your profile here. User avatar can be edit in Gravatar.',
   'Settings/ChangeProfile/DisplayName': 'Display Name',
-  // Me
-  'Me/Header/Welcome': 'Hello,',
   // Tools
   'Tools/EPayment': 'E-Payment',
   'Tools/EPayment/NeedLogin': 'Login your E-Payment account',
