@@ -35,44 +35,74 @@ class _AssignmentPageState extends State<AssignmentPage> {
     if (widget.assignments.isEmpty) return EmptyErrorPage();
 
     var width = MediaQuery.of(context).size.width;
-    var list = SingleChildScrollView(
-      padding: const EdgeInsets.all(10),
-      child: ExpansionPanelList.radio(
-        children: <ExpansionPanelRadio>[
-          for (var course in widget.assignments)
-            ExpansionPanelRadio(
-              canTapOnHeader: true,
-              headerBuilder: (context, isExpanded) => ListTile(
-                title: Text(
-                  course.fullName,
-                  style: Theme.of(context).textTheme.subtitle1,
+    var now = DateTime.now();
+
+    ExpansionPanelRadio buildExpansionPanel(AssignmentCourse course,
+        {bool showBefore = true, showAfter = true}) {
+      var assignments = course.assignments
+          .where((a) =>
+              (showBefore && a.dueDate.isBefore(now)) ||
+              (showAfter && a.dueDate.isAfter(now)))
+          .toList();
+
+      return ExpansionPanelRadio(
+        canTapOnHeader: true,
+        headerBuilder: (context, isExpanded) => ListTile(
+          title: Text(
+            course.fullName,
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+        ),
+        body: Column(
+          children: <Widget>[
+            for (var assignment in assignments)
+              OpenContainer(
+                closedColor: Theme.of(context).cardColor,
+                closedShape: RoundedRectangleBorder(),
+                closedBuilder: (context, open) => ListTile(
+                  onTap: () => width < 700
+                      ? open()
+                      : setState(() => _selectedAssignment = assignment),
+                  title: Text(assignment.name),
+                  subtitle: Text(
+                    '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(assignment.dueDate)} '
+                    '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(assignment.dueDate)}',
+                  ),
+                  dense: true,
                 ),
+                openBuilder: (context, _) => AssignmentDetail(assignment),
               ),
-              body: Column(
-                children: <Widget>[
-                  for (var assignment in course.assignments)
-                    OpenContainer(
-                      closedColor: Theme.of(context).cardColor,
-                      closedShape: RoundedRectangleBorder(),
-                      closedBuilder: (context, open) => ListTile(
-                        onTap: () => width < 700
-                            ? open()
-                            : setState(() => _selectedAssignment = assignment),
-                        title: Text(assignment.name),
-                        subtitle: Text(
-                          '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(assignment.dueDate)} '
-                          '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(assignment.dueDate)}',
-                        ),
-                        dense: true,
-                      ),
-                      openBuilder: (context, _) => AssignmentDetail(assignment),
-                    ),
-                ],
-              ),
-              value: course.id,
-            ),
-        ],
-      ),
+          ],
+        ),
+        value: course.id,
+      );
+    }
+
+    var list = ListView(
+      padding: const EdgeInsets.all(10),
+      children: <Widget>[
+        ExpansionPanelList.radio(
+          children: <ExpansionPanelRadio>[
+            for (var course in widget.assignments)
+              if (course.assignments.firstWhere(
+                      (element) => element.dueDate.isAfter(now),
+                      orElse: () => null) !=
+                  null)
+                buildExpansionPanel(course, showBefore: false),
+          ],
+        ),
+        Divider(),
+        ExpansionPanelList.radio(
+          children: <ExpansionPanelRadio>[
+            for (var course in widget.assignments)
+              if (course.assignments.firstWhere(
+                      (element) => element.dueDate.isBefore(now),
+                      orElse: () => null) !=
+                  null)
+                buildExpansionPanel(course, showAfter: false),
+          ],
+        ),
+      ],
     );
 
     Widget child;
