@@ -1,6 +1,7 @@
 library moodle;
 
 import 'package:dio/dio.dart';
+import 'package:xmux/modules/moodle/models/upcoming_event.dart';
 
 import 'models/assignment.dart';
 import 'models/notification.dart';
@@ -96,6 +97,15 @@ class MoodleApi {
 
     return List<Map<String, dynamic>>.from(resp['notifications'])
         .map((c) => Notification.fromJson(c))
+        .toList();
+  }
+
+  /// Get upcoming events.
+  Future<List<UpcomingEvent>> get upcomingEvents async {
+    var resp = await _invoke('core_calendar_get_calendar_upcoming_view');
+
+    return List<Map<String, dynamic>>.from(resp['events'])
+        .map((e) => UpcomingEvent.fromJson(e))
         .toList();
   }
 }
