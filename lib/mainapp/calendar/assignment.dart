@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/floating_card.dart';
+import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/moodle/models/assignment.dart';
 import 'package:xmux/redux/actions/actions.dart';
@@ -90,6 +91,11 @@ class _AssignmentPageState extends State<AssignmentPage> {
                   null)
                 buildExpansionPanel(course, showBefore: false),
           ],
+        ),
+        Divider(color: Colors.transparent),
+        Text(
+          S.of(context).Calendar_AssignmentsExpired,
+          style: Theme.of(context).textTheme.headline6,
         ),
         Divider(),
         ExpansionPanelList.radio(
@@ -198,7 +204,7 @@ class AssignmentDetail extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                'Due Date',
+                S.of(context).Calendar_AssignmentsDueDate,
                 style: Theme.of(context).textTheme.headline6,
               ),
               Divider(height: 5, color: Colors.transparent),

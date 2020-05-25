@@ -26,6 +26,8 @@ class S implements WidgetsLocalizations {
   String get Calendar_Academic => "Academic Calendar";
   String get Calendar_AddToCalendar => "Add to Calendar";
   String get Calendar_Assignments => "Assignments";
+  String get Calendar_AssignmentsDueDate => "Due Date";
+  String get Calendar_AssignmentsExpired => "Expired";
   String get Calendar_Attendance => "Attendance";
   String get Calendar_AttendanceMarkAbsent => "Mark as Absent";
   String get Calendar_AttendanceMarkAttended => "Mark as Attended";
@@ -133,59 +135,31 @@ class $zh_CN extends S {
   @override
   String get SignIn_ErrorFormat => "格式不正确，请检查。";
   @override
-  String get Settings_DeveloperOptionsWarning => "警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常及数据的丢失或泄漏。";
-  @override
-  String get SignIn_Register => "注册";
-  @override
-  String get Settings_DeveloperOptionsShowSemanticsDebugger => "显示语义";
-  @override
-  String get Campus_AcademicVPNConnect => "连接";
-  @override
-  String get Campus_ToolsLFLost => "遗失";
-  @override
   String get General_Ignore => "忽略";
   @override
   String get Calendar_Classes => "课程";
   @override
   String get GMS_UnavailableCaption => "该功能需要的谷歌服务在您的设备上没有正常工作，请重新登录并保证您的谷歌服务工作正常。";
   @override
-  String get SignIn_ErrorDeprecated => "该版本应用已不再受到支持，请更新！";
-  @override
-  String get Calendar_ClassCardTime => "时间";
-  @override
-  String get Calendar_AttendanceSignIn => "签到";
-  @override
-  String get Calendar_LastUpdate => "最近更新：";
-  @override
   String get Calendar_AttendanceRate => "出勤率";
-  @override
-  String get Calendar_Notifications => "通知";
   @override
   String get Settings => "设置";
   @override
   String get Calendar_Assignments => "作业";
   @override
-  String get Campus_ToolsLFNameLost => "我丢失了";
-  @override
   String get Campus_ToolsLFContacts => "请通过以下方式与我联系";
   @override
   String get Campus => "校园";
   @override
-  String get Calendar_ClassCardRoom => "教室";
-  @override
-  String get SignIn_ErrorInvalidPassword => "用户名或密码无效";
+  String get Calendar_AssignmentsExpired => "已过期";
   @override
   String get Campus_AcademicVPNWarning => "VPN 仅供学术研究使用";
   @override
   String get General_Weekday7 => "周日";
   @override
-  String get GMS_Unavailable => "谷歌服务不可用";
-  @override
   String get General_Weekday6 => "周六";
   @override
   String get Campus_Academic => "学术工具";
-  @override
-  String get Campus_ToolsKliaExpress => "机场快线";
   @override
   String get General_Weekday5 => "周五";
   @override
@@ -197,35 +171,19 @@ class $zh_CN extends S {
   @override
   String get General_Weekday2 => "周二";
   @override
-  String get Settings_DeveloperOptionsShowSemanticsDebuggerCaption => "显示各组件的语义";
-  @override
   String get General_Weekday1 => "周一";
-  @override
-  String get Calendar_ClassCardCredit => "学分";
   @override
   String get Calendar_AttendanceSignInSucceeded => "签到成功";
   @override
-  String get About => "关于";
-  @override
   String get Campus_AcademicTranscriptCourses => "课程";
-  @override
-  String get Campus_ToolsLF => "失物招领";
   @override
   String get Settings_InterfaceEnableBlur => "毛玻璃效果";
   @override
-  String get Settings_DeveloperOptionsEnableFnUnderDevCaption => "这些功能尚在开发中且十分不稳定";
-  @override
   String get Calendar_AttendanceMarkAbsent => "标记为缺席";
-  @override
-  String get SignIn_RegisterCaption => "我们仍需要以下信息以完成注册。";
   @override
   String get Settings_EditProfile => "个人资料";
   @override
-  String get Campus_AcademicVPNDisconnect => "断开连接";
-  @override
   String get Campus_ToolsLFNameHint => "笔记本电脑";
-  @override
-  String get SignIn_Read => "登录即代表您同意我们的隐私政策和免责声明";
   @override
   String get Calendar_Academic => "校历";
   @override
@@ -233,9 +191,77 @@ class $zh_CN extends S {
   @override
   String get General_Cancel => "取消";
   @override
-  String get SignIn_InstallGMS => "安装 GMS";
-  @override
   String get Campus_ToolsLFDescription => "详细信息";
+  @override
+  String get Calendar_AttendanceMarkAttended => "标记为出席";
+  @override
+  String get Settings_DeveloperOptionsShowPerformanceOverlayCaption => "在应用上方显示实时显示渲染性能";
+  @override
+  String get Settings_DeveloperOptionsNotificationTokenCaption => "点击以复制我的通知推送令牌";
+  @override
+  String get Settings_SignOut => "登出";
+  @override
+  String get Settings_InterfaceEnableBlurCaption => "在弹出窗口背景展示毛玻璃效果";
+  @override
+  String get SignIn_ErrorGMS => "GMS 未正常工作";
+  @override
+  String get Calendar => "日程";
+  @override
+  String get General_Continue => "继续";
+  @override
+  String get SignIn_RegisterEmail => "邮箱";
+  @override
+  String get Settings_DeveloperOptionsShowPerformanceOverlay => "显示渲染性能";
+  @override
+  String get Campus_ToolsBusSchedule => "巴士时刻表";
+  @override
+  String get Settings_DeveloperOptionsWarning => "警告：这些选项仅供开发者及测试人员使用，它们可能会导致您的应用运行异常及数据的丢失或泄漏。";
+  @override
+  String get SignIn_Register => "注册";
+  @override
+  String get Settings_DeveloperOptionsShowSemanticsDebugger => "显示语义";
+  @override
+  String get Campus_AcademicVPNConnect => "连接";
+  @override
+  String get Campus_ToolsLFLost => "遗失";
+  @override
+  String get SignIn_ErrorDeprecated => "该版本应用已不再受到支持，请更新！";
+  @override
+  String get Calendar_ClassCardTime => "时间";
+  @override
+  String get Calendar_AttendanceSignIn => "签到";
+  @override
+  String get Calendar_LastUpdate => "最近更新：";
+  @override
+  String get Calendar_Notifications => "通知";
+  @override
+  String get Campus_ToolsLFNameLost => "我丢失了";
+  @override
+  String get Calendar_ClassCardRoom => "教室";
+  @override
+  String get SignIn_ErrorInvalidPassword => "用户名或密码无效";
+  @override
+  String get GMS_Unavailable => "谷歌服务不可用";
+  @override
+  String get Campus_ToolsKliaExpress => "机场快线";
+  @override
+  String get Settings_DeveloperOptionsShowSemanticsDebuggerCaption => "显示各组件的语义";
+  @override
+  String get Calendar_ClassCardCredit => "学分";
+  @override
+  String get About => "关于";
+  @override
+  String get Campus_ToolsLF => "失物招领";
+  @override
+  String get Settings_DeveloperOptionsEnableFnUnderDevCaption => "这些功能尚在开发中且十分不稳定";
+  @override
+  String get SignIn_RegisterCaption => "我们仍需要以下信息以完成注册。";
+  @override
+  String get Campus_AcademicVPNDisconnect => "断开连接";
+  @override
+  String get SignIn_Read => "登录即代表您同意我们的隐私政策和免责声明";
+  @override
+  String get SignIn_InstallGMS => "安装 GMS";
   @override
   String get SignIn_CampusID => "校园ID";
   @override
@@ -245,23 +271,15 @@ class $zh_CN extends S {
   @override
   String get SignIn_Privacy => "隐私政策";
   @override
-  String get Calendar_AttendanceMarkAttended => "标记为出席";
-  @override
   String get SignIn_Password => "密码";
   @override
   String get Calendar_ClassCardCode => "课程编号";
-  @override
-  String get Settings_DeveloperOptionsShowPerformanceOverlayCaption => "在应用上方显示实时显示渲染性能";
-  @override
-  String get Settings_DeveloperOptionsNotificationTokenCaption => "点击以复制我的通知推送令牌";
   @override
   String get Calendar_Exams => "考试";
   @override
   String get Campus_ToolsLFLocation => "在";
   @override
   String get Settings_DeveloperOptionsNotificationToken => "通知推送令牌";
-  @override
-  String get Settings_SignOut => "登出";
   @override
   String get Campus_ToolsLFTime => "于";
   @override
@@ -277,10 +295,6 @@ class $zh_CN extends S {
   @override
   String get Campus_AcademicTranscriptCredits => "学分";
   @override
-  String get Settings_InterfaceEnableBlurCaption => "在弹出窗口背景展示毛玻璃效果";
-  @override
-  String get SignIn_ErrorGMS => "GMS 未正常工作";
-  @override
   String get Campus_ToolsLFLocationHint => "A5#G01 的讲台上";
   @override
   String get Calendar_ClassCardLecturer => "讲师";
@@ -291,19 +305,11 @@ class $zh_CN extends S {
   @override
   String get SignIn_RegisterTitle => "欢迎来到 XMUM！";
   @override
-  String get Calendar => "日程";
-  @override
   String get Settings_DeveloperOptionsEnableFnUnderDev => "启用正在开发中的功能";
   @override
-  String get General_Continue => "继续";
+  String get Calendar_AssignmentsDueDate => "截止日期";
   @override
   String get GMS_UnavailableLoginCaption => "谷歌服务在您的设备上没有正常工作，这将导致部分功能无法使用，继续登录？";
-  @override
-  String get SignIn_RegisterEmail => "邮箱";
-  @override
-  String get Settings_DeveloperOptionsShowPerformanceOverlay => "显示渲染性能";
-  @override
-  String get Campus_ToolsBusSchedule => "巴士时刻表";
   @override
   String get Campus_ToolsLFFound => "拾到";
   @override

@@ -31,6 +31,8 @@
   "Calendar_Classes": "课程",
   "Calendar_Exams": "考试",
   "Calendar_Assignments": "作业",
+  "Calendar_AssignmentsExpired": "已过期",
+  "Calendar_AssignmentsDueDate": "截止日期",
   "Calendar_Notifications": "通知",
   "Calendar_Academic": "校历",
   "Calendar_ClassCardCode": "课程编号",
