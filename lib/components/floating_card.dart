@@ -100,7 +100,7 @@ class _FloatingOpenContainerState extends State<FloatingOpenContainer> {
 
   @override
   Widget build(BuildContext context) {
-    OpenContainerBuilder childBuilder;
+    CloseContainerBuilder childBuilder;
     if (Theme.of(context).brightness == Brightness.light)
       childBuilder = (context, open) => GestureDetector(
             onTap: open,
