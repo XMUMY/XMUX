@@ -6,7 +6,7 @@ import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/main_page.dart';
+import 'package:xmux/main_app/main_page.dart';
 import 'package:xmux/modules/emgs/emgs.dart' as emgs show getCountryCode;
 import 'package:xmux/redux/redux.dart';
 

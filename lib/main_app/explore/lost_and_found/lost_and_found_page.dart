@@ -3,7 +3,7 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/explore/lost_and_found/detail.dart';
+import 'package:xmux/main_app/explore/lost_and_found/detail.dart';
 import 'package:xmux/translations/translation.dart';
 
 class LostAndFoundPage extends StatefulWidget {

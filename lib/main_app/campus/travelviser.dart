@@ -10,6 +10,7 @@ import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
 
 class TravelviserPage extends StatefulWidget {
+  // TODO: Use profile
   final travelviser = Travelviser(firebase.user.email);
 
   @override

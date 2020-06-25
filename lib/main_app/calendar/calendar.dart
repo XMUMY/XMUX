@@ -3,11 +3,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/calendar/assignment.dart';
-import 'package:xmux/mainapp/calendar/attendance.dart';
-import 'package:xmux/mainapp/calendar/exam.dart';
-import 'package:xmux/mainapp/calendar/notification.dart';
-import 'package:xmux/mainapp/calendar/timetable.dart';
+import 'package:xmux/main_app/calendar/assignment.dart';
+import 'package:xmux/main_app/calendar/attendance.dart';
+import 'package:xmux/main_app/calendar/exam.dart';
+import 'package:xmux/main_app/calendar/notification.dart';
+import 'package:xmux/main_app/calendar/timetable.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/redux/redux.dart';
 

@@ -6,9 +6,9 @@ import 'package:waterfall_flow/waterfall_flow.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/calendar/timetable.dart';
-import 'package:xmux/mainapp/home/announcements.dart';
-import 'package:xmux/mainapp/home/home_slider.dart';
+import 'package:xmux/main_app/calendar/timetable.dart';
+import 'package:xmux/main_app/home/announcements.dart';
+import 'package:xmux/main_app/home/home_slider.dart';
 import 'package:xmux/modules/api/xmux_api.dart' show TimetableClass;
 import 'package:xmux/redux/redux.dart';
 

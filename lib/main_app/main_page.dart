@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/drawer.dart';
+import 'package:xmux/main_app/drawer.dart';
 import 'package:xmux/redux/redux.dart';
 
 import 'calendar/calendar.dart';

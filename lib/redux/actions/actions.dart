@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:redux/redux.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/main_page.dart';
+import 'package:xmux/main_app/main_page.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/emgs/emgs.dart';
 import 'package:xmux/modules/moodle/models/assignment.dart';

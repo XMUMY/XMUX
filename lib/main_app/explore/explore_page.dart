@@ -4,8 +4,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/components/blur_box.dart';
 import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/explore/chat_room_page.dart';
-import 'package:xmux/mainapp/explore/flea_market/flea_market_page.dart';
+import 'package:xmux/main_app/explore/chat_room_page.dart';
+import 'package:xmux/main_app/explore/flea_market/flea_market_page.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/redux/redux.dart';
 

@@ -10,7 +10,7 @@ import 'package:sentry/sentry.dart' as sentry_lib;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/mainapp/main_app.dart';
+import 'package:xmux/main_app/main_app.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
