@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/components/user_profile.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/state/state.dart';
 
@@ -31,7 +32,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).Settings_EditProfile),
+        title: Text(LocaleKeys.Settings_EditProfile.tr()),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.done),

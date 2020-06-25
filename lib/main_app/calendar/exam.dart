@@ -1,13 +1,13 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/common/translation_mapper.dart' show weekdays;
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -28,7 +28,7 @@ class ExamsPage extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(5),
         child: Text(
-          "${S.of(context).Calendar_LastUpdate} "
+          "${LocaleKeys.Calendar_LastUpdate.tr()} "
           '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)} '
           '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(store.state.acState.timestamp)}',
           style: Theme.of(context).textTheme.caption,
@@ -88,7 +88,7 @@ class _ExamCard extends StatelessWidget {
               ),
             ),
             Text('${examData.date.toString().substring(0, 10)} '
-                '${weekdays(context, examData.date.weekday)} '
+                '${'General_Weekday${examData.date.weekday}'.tr()} '
                 '${examData.durationOfDay.start.format(context)} - '
                 '${examData.durationOfDay.end.format(context)}'),
             Text(examData.venue),

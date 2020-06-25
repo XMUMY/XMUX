@@ -1,10 +1,11 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:tuple/tuple.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/init_handler.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
@@ -28,12 +29,12 @@ class _RegisterPageState extends State<RegisterPage> {
     return LayoutBuilder(builder: (context, constraints) {
       var mainWidgets = <Widget>[
         Text(
-          S.of(context).SignIn_RegisterTitle,
+          LocaleKeys.SignIn_RegisterTitle.tr(),
           style: Theme.of(context).textTheme.headline5,
         ),
         Divider(color: Colors.transparent),
         Text(
-          S.of(context).SignIn_RegisterCaption,
+          LocaleKeys.SignIn_RegisterCaption.tr(),
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline6,
         ),
@@ -42,7 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
           key: _displayNameFormKey,
           maxLength: 50,
           decoration: InputDecoration(
-            hintText: S.of(context).SignIn_RegisterDisplayName,
+            hintText: LocaleKeys.SignIn_RegisterDisplayName.tr(),
             hintStyle: TextStyle(color: Colors.white70),
             icon: Icon(
               Icons.perm_identity,
@@ -50,13 +51,13 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
           validator: (s) =>
-              s.isNotEmpty ? null : S.of(context).SignIn_ErrorFormat,
+              s.isNotEmpty ? null : LocaleKeys.SignIn_ErrorFormat.tr(),
         ),
         TextFormField(
           key: _emailFormKey,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            hintText: S.of(context).SignIn_RegisterEmail,
+            hintText: LocaleKeys.SignIn_RegisterEmail.tr(),
             hintStyle: TextStyle(color: Colors.white70),
             icon: Icon(
               Icons.email,
@@ -64,7 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
           validator: (s) =>
-              s.contains('@') ? null : S.of(context).SignIn_ErrorFormat,
+              s.contains('@') ? null : LocaleKeys.SignIn_ErrorFormat.tr(),
         ),
         Divider(color: Colors.transparent),
         _RegisterButton(
@@ -147,8 +148,8 @@ class _RegisterButtonState extends State<_RegisterButton> {
       customToken = registerResp.data.customToken;
     } on XmuxApiException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(S.of(context).General_ErrorTip(e.message))));
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(LocaleKeys.General_ErrorTip.tr(args: [e.message]))));
       return;
     }
     store.dispatch(LoginAction(widget._uid, widget._password));
@@ -159,14 +160,13 @@ class _RegisterButtonState extends State<_RegisterButton> {
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(S
-              .of(context)
-              .General_ErrorTip('${S.of(context).SignIn_ErrorGMS} $e'))));
+          content: Text(LocaleKeys.General_ErrorTip.tr(
+              args: ['${LocaleKeys.SignIn_ErrorGMS.tr()} $e']))));
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(S.of(context).General_ErrorTip(e))));
+          SnackBar(content: Text(LocaleKeys.General_ErrorTip.tr(args: [e]))));
       return;
     }
 
@@ -186,7 +186,7 @@ class _RegisterButtonState extends State<_RegisterButton> {
           width: 120,
           height: 40,
           child: Center(
-            child: Text(S.of(context).SignIn_Register),
+            child: Text(LocaleKeys.SignIn_Register.tr()),
           ),
         ),
         onPressed: _handleSignIn,

@@ -1,10 +1,11 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 import 'package:xmux/components/user_profile.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/calendar/timetable.dart';
 import 'package:xmux/main_app/home/announcements.dart';
@@ -30,7 +31,7 @@ class HomePage extends StatelessWidget {
           ),
           onPressed: () => store.dispatch(OpenDrawerAction(true)),
         ),
-        title: Text(S.of(context).Home),
+        title: Text(LocaleKeys.Home.tr()),
       ),
       body: RefreshIndicator(
         onRefresh: () async {

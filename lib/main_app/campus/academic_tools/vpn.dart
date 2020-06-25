@@ -1,10 +1,11 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_vpn/flutter_vpn.dart';
 import 'package:lottie/lottie.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 
 class VPNPage extends StatefulWidget {
@@ -109,7 +110,7 @@ class _VPNPageState extends State<VPNPage> with TickerProviderStateMixin {
           ),
           Divider(color: Colors.transparent),
           Text(
-            S.of(context).Campus_AcademicVPNWarning,
+            LocaleKeys.Campus_AcademicVPNWarning.tr(),
             textAlign: TextAlign.center,
           ),
           Row(
@@ -128,7 +129,7 @@ class _VPNPageState extends State<VPNPage> with TickerProviderStateMixin {
                               store.state.user.password,
                             );
                           },
-                    child: Text(S.of(context).Campus_AcademicVPNConnect),
+                    child: Text(LocaleKeys.Campus_AcademicVPNConnect.tr()),
                   ),
                 ),
               ),
@@ -140,7 +141,7 @@ class _VPNPageState extends State<VPNPage> with TickerProviderStateMixin {
                       FlutterVpn.disconnect();
                       _lottieController.reverse();
                     },
-                    child: Text(S.of(context).Campus_AcademicVPNDisconnect),
+                    child: Text(LocaleKeys.Campus_AcademicVPNDisconnect.tr()),
                   ),
                 ),
               ),

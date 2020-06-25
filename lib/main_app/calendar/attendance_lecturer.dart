@@ -36,7 +36,7 @@ class _LecturerPage extends StatelessWidget {
                   '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(brief.timestamp.toLocal())} '
                   '${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(brief.timestamp.toLocal())}'),
               Text(
-                  '${S.of(context).Calendar_AttendanceRate}: ${brief.attended}/${brief.total}  '
+                  '${LocaleKeys.Calendar_AttendanceRate.tr()}: ${brief.attended}/${brief.total}  '
                   '(${(brief.attended / brief.total * 100).toStringAsFixed(2)}%)')
             ],
           ),
@@ -149,13 +149,13 @@ class _LecturerDetailPage extends StatelessWidget {
               child: Text('${detail.students.selectedCount}/${brief.total}'),
               children: <SpeedDialChild>[
                 SpeedDialChild(
-                  label: S.of(context).Calendar_AttendanceMarkAttended,
+                  label: LocaleKeys.Calendar_AttendanceMarkAttended.tr(),
                   child: Icon(Icons.add),
                   backgroundColor: Colors.green,
                   onTap: () => _updateStatus(StudentAttendanceStatus.attended),
                 ),
                 SpeedDialChild(
-                  label: S.of(context).Calendar_AttendanceMarkAbsent,
+                  label: LocaleKeys.Calendar_AttendanceMarkAbsent.tr(),
                   child: Icon(Icons.cancel),
                   backgroundColor: Colors.red,
                   onTap: () => _updateStatus(StudentAttendanceStatus.failed),

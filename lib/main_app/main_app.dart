@@ -1,11 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:tuple/tuple.dart';
 import 'package:xmux/components/image_editor.dart';
 import 'package:xmux/components/page_routes.dart';
-import 'package:xmux/generated/i18n.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/theme.dart';
@@ -64,7 +63,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreProvider<MainAppState>(
+    var app = StoreProvider<MainAppState>(
       store: store,
       child: StoreConnector<MainAppState, Tuple3<ThemeMode, bool, bool>>(
         converter: (s) => Tuple3(
@@ -72,20 +71,16 @@ class MainApp extends StatelessWidget {
           s.state.uiState.showPerformanceOverlay,
           s.state.uiState.showSemanticsDebugger,
         ),
-        builder: (_, model) {
+        builder: (context, model) {
           return MaterialApp(
             title: 'XMUX',
             home: MainPage(),
             theme: ThemeConfig.defaultTheme,
             darkTheme: ThemeConfig.defaultDarkTheme,
             themeMode: model.item1,
-            localizationsDelegates: [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              MainLocalizationsDelegate.delegate,
-              S.delegate,
-            ],
-            supportedLocales: S.delegate.supportedLocales,
+            localizationsDelegates: context.localizationDelegates
+              ..add(MainLocalizationsDelegate.delegate),
+            supportedLocales: context.supportedLocales,
             navigatorObservers: <NavigatorObserver>[
               // Only trace in release mode.
               if (P.isVM && bool.fromEnvironment('dart.vm.product'))
@@ -115,6 +110,13 @@ class MainApp extends StatelessWidget {
           );
         },
       ),
+    );
+
+    return EasyLocalization(
+      supportedLocales: [Locale('en'), Locale('zh', 'CN')],
+      path: 'res/translations',
+      fallbackLocale: Locale('en'),
+      child: app,
     );
   }
 }

@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/components/user_profile.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/redux/redux.dart';
@@ -86,28 +87,28 @@ class SettingsList extends StatelessWidget {
         ),
         Divider(),
         ListTile(
-          title: Text(S.of(context).Settings_EditProfile),
+          title: Text(LocaleKeys.Settings_EditProfile.tr()),
           onTap: () => Firebase.pushNamed(context, '/EditProfile'),
         ),
         ListTile(
-          title: Text(S.of(context).Settings_SecuritySessions),
+          title: Text(LocaleKeys.Settings_SecuritySessions.tr()),
           onTap: () => Navigator.of(context).pushNamed('/Security/Sessions'),
         ),
         ListTile(
-          title: Text(S.of(context).Settings_Interface),
+          title: Text(LocaleKeys.Settings_Interface.tr()),
           onTap: () => Navigator.of(context).pushNamed('/Interface'),
         ),
         ListTile(
-          title: Text(S.of(context).Settings_DeveloperOptions),
+          title: Text(LocaleKeys.Settings_DeveloperOptions.tr()),
           onTap: () => Navigator.of(context).pushNamed('/DeveloperOptions'),
         ),
         ListTile(
-          title: Text(S.of(context).About),
+          title: Text(LocaleKeys.About.tr()),
           onTap: () => Navigator.of(context).pushNamed('/About'),
         ),
         Divider(),
         RaisedButton.icon(
-          label: Text(S.of(context).Settings_SignOut),
+          label: Text(LocaleKeys.Settings_SignOut.tr()),
           icon: Icon(Icons.exit_to_app),
           onPressed: logout,
         ),
@@ -126,7 +127,7 @@ class SettingsList extends StatelessWidget {
                     Navigator.of(context, rootNavigator: true).pop(),
               ),
         automaticallyImplyLeading: true,
-        title: Text(S.of(context).Settings),
+        title: Text(LocaleKeys.Settings.tr()),
       ),
       body: settings,
     );

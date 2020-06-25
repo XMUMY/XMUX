@@ -3,6 +3,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:device_calendar/device_calendar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
@@ -12,14 +13,13 @@ import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/components/spannable_grid.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/calendar/attendance.dart';
 import 'package:xmux/main_app/calendar/sign_in_button.dart';
 import 'package:xmux/modules/algorithms/edit_distance.dart';
 import 'package:xmux/modules/api/xmux_api.dart' show Timetable, TimetableClass;
 import 'package:xmux/modules/attendance/attendance.dart';
-import 'package:xmux/modules/common/translation_mapper.dart' show weekdays;
 import 'package:xmux/redux/redux.dart';
 
 part 'timetable_grid.dart';
@@ -71,7 +71,7 @@ class TimeTablePage extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(5),
         child: Text(
-          "${S.of(context).Calendar_LastUpdate} "
+          "${LocaleKeys.Calendar_LastUpdate.tr()} "
           '${DateFormat.yMMMd(languageCode).format(recentUpdate)} '
           '${DateFormat.Hms(languageCode).format(recentUpdate)}',
           style: Theme.of(context).textTheme.caption,
@@ -141,7 +141,7 @@ class LessonCard extends StatelessWidget {
         child: Text(
           isInGrid
               ? '${lesson.cid} ${lesson.room}'
-              : '${weekdays(context, lesson.day)} '
+              : '${'General_Weekday${lesson.day}'.tr()} '
                   '${lesson.start.format(context)} - '
                   '${lesson.end.format(context)} '
                   '${lesson.room}',
@@ -227,7 +227,7 @@ class LessonDialog extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
         contentPadding:
             const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        title: Text(S.of(context).Calendar_AddToCalendar),
+        title: Text(LocaleKeys.Calendar_AddToCalendar.tr()),
         children: <Widget>[
           for (var c in calendars.data)
             ListTile(
@@ -280,13 +280,13 @@ class LessonDialog extends StatelessWidget {
     );
 
     var info = Text(
-      '${S.of(context).Calendar_ClassCardCode}: ${lesson.cid}\n'
-      '${S.of(context).Calendar_ClassCardCredit}: $lessonCredit\n'
-      '${S.of(context).Calendar_ClassCardTime}: ${weekdays(context, lesson.day)} '
+      '${LocaleKeys.Calendar_ClassCardCode.tr()}: ${lesson.cid}\n'
+      '${LocaleKeys.Calendar_ClassCardCredit.tr()}: $lessonCredit\n'
+      '${LocaleKeys.Calendar_ClassCardTime.tr()}: ${'General_Weekday${lesson.day}'.tr()} '
       '${lesson.start.format(context)} - '
       '${lesson.end.format(context)}\n'
-      '${S.of(context).Calendar_ClassCardRoom}: ${lesson.room}\n'
-      '${S.of(context).Calendar_ClassCardLecturer}: ${lesson.lecturer.split(',').join(', ')}',
+      '${LocaleKeys.Calendar_ClassCardRoom.tr()}: ${lesson.room}\n'
+      '${LocaleKeys.Calendar_ClassCardLecturer.tr()}: ${lesson.lecturer.split(',').join(', ')}',
     );
 
     Widget history;
@@ -328,11 +328,11 @@ class LessonDialog extends StatelessWidget {
           if (P.isMobile)
             RaisedButton(
               onPressed: () => addToCalendar(context),
-              child: Text(S.of(context).Calendar_AddToCalendar),
+              child: Text(LocaleKeys.Calendar_AddToCalendar.tr()),
             ),
           if (showHistory) ...{
             Divider(),
-            Text(S.of(context).Calendar_Attendance),
+            Text(LocaleKeys.Calendar_Attendance.tr()),
             history,
           }
         ],

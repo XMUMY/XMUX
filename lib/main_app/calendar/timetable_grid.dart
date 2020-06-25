@@ -31,12 +31,12 @@ class TimeTableGrid extends StatelessWidget {
         .toList();
     var weekdayCells = Iterable<int>.generate(5)
         .map((i) => SpannableGridCell(
-              id: weekdays(context, i + 1),
+              id: i + 1,
               column: i + 2,
               row: 1,
               child: Center(
                 child: Text(
-                  weekdays(context, i + 1),
+                  'General_Weekday${i + 1}'.tr(),
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ),

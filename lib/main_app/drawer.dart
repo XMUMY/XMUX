@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/main_page.dart';
 import 'package:xmux/modules/emgs/emgs.dart' as emgs show getCountryCode;
@@ -156,7 +157,7 @@ class DrawerPage extends StatelessWidget {
                 color: Theme.of(context).textTheme.button.color,
               ),
               onTap: () => Navigator.of(context).popAndPushNamed('/Settings'),
-              title: Text(S.of(context).Settings),
+              title: Text(LocaleKeys.Settings.tr()),
               trailing: StoreConnector<MainAppState, ThemeMode>(
                 converter: (s) => s.state.settingState.themeMode,
                 builder: (_, mode) => IconButton(

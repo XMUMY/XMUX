@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/calendar/assignment.dart';
 import 'package:xmux/main_app/calendar/attendance.dart';
@@ -29,11 +30,11 @@ class CalendarPage extends StatelessWidget {
             builder: (context, callback) =>
                 IconButton(icon: Icon(Icons.view_list), onPressed: callback),
           ),
-          title: Text(S.of(context).Calendar),
+          title: Text(LocaleKeys.Calendar.tr()),
           actions: <Widget>[
             IconButton(
               icon: Icon(FontAwesomeIcons.calendarAlt),
-              tooltip: S.of(context).Calendar_Academic,
+              tooltip: LocaleKeys.Calendar_Academic.tr(),
               onPressed: () => Navigator.of(context, rootNavigator: true)
                   .pushNamed('/Calendar/CalendarImage'),
             )
@@ -41,13 +42,14 @@ class CalendarPage extends StatelessWidget {
           bottom: TabBar(
             isScrollable: true,
             tabs: <Tab>[
-              Tab(text: S.of(context).Calendar_Classes),
+              Tab(text: LocaleKeys.Calendar_Classes.tr()),
               if (store.state.user.isStudent) ...{
-                Tab(text: S.of(context).Calendar_Exams),
-                Tab(text: S.of(context).Calendar_Assignments),
+                Tab(text: LocaleKeys.Calendar_Exams.tr()),
+                Tab(text: LocaleKeys.Calendar_Assignments.tr()),
               },
-              Tab(text: S.of(context).Calendar_Notifications),
-              if (showAttendance) Tab(text: S.of(context).Calendar_Attendance),
+              Tab(text: LocaleKeys.Calendar_Notifications.tr()),
+              if (showAttendance)
+                Tab(text: LocaleKeys.Calendar_Attendance.tr()),
             ],
           ),
         ),

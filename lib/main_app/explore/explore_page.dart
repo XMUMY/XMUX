@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/components/blur_box.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/explore/chat_room_page.dart';
 import 'package:xmux/main_app/explore/flea_market/flea_market_page.dart';
@@ -25,7 +26,7 @@ class ExplorePage extends StatelessWidget {
           left: 20,
           top: 50,
           child: Text(
-            S.of(context).Explore,
+            LocaleKeys.Explore.tr(),
             style: TextStyle(fontSize: 50, color: Colors.white70),
           ),
         ),

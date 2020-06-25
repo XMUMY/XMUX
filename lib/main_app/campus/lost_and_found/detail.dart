@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/components/user_profile.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
@@ -74,8 +75,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
                   ],
                 ),
               ),
-            if (profile == null)
-              Divider(color: Colors.transparent),
+            if (profile == null) Divider(color: Colors.transparent),
             // Details card.
             Card(
               child: Padding(
@@ -85,8 +85,8 @@ class LostAndFoundDetailPage extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       detail.type == LostAndFoundType.lost
-                          ? S.of(context).Campus_ToolsLFLost
-                          : S.of(context).Campus_ToolsLFFound,
+                          ? LocaleKeys.Campus_ToolsLFLost.tr()
+                          : LocaleKeys.Campus_ToolsLFFound.tr(),
                       style: Theme.of(context).textTheme.caption,
                     ),
                     Text(
@@ -95,7 +95,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
                     ),
                     Divider(height: 5, color: Colors.transparent),
                     Text(
-                      S.of(context).Campus_ToolsLFTime,
+                      LocaleKeys.Campus_ToolsLFTime.tr(),
                       style: Theme.of(context).textTheme.caption,
                     ),
                     Text(
@@ -104,7 +104,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
                     ),
                     Divider(height: 5, color: Colors.transparent),
                     Text(
-                      S.of(context).Campus_ToolsLFLocation,
+                      LocaleKeys.Campus_ToolsLFLocation.tr(),
                       style: Theme.of(context).textTheme.caption,
                     ),
                     Text(
@@ -116,7 +116,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
                     if (detail.contacts?.isNotEmpty ?? false) ...[
                       Divider(),
                       Text(
-                        S.of(context).Campus_ToolsLFContacts,
+                        LocaleKeys.Campus_ToolsLFContacts.tr(),
                         style: Theme.of(context).textTheme.caption,
                       ),
                       for (var contact in detail.contacts.entries)
@@ -151,7 +151,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).Campus_ToolsLF),
+        title: Text(LocaleKeys.Campus_ToolsLF.tr()),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,

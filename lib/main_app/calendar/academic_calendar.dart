@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 
 class AcademicCalendarPage extends StatelessWidget {
@@ -17,7 +18,7 @@ class AcademicCalendarPage extends StatelessWidget {
       length: isFoundation ? foundation.length : undergraduate.length,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(S.of(context).Calendar_Academic),
+          title: Text(LocaleKeys.Calendar_Academic.tr()),
           bottom: TabBar(isScrollable: false, tabs: <Tab>[
             if (isFoundation) ...foundation.keys.map((k) => Tab(text: k)),
             if (!isFoundation) ...undergraduate.keys.map((k) => Tab(text: k)),

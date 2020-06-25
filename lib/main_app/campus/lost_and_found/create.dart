@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:xmux/components/date_time_picker.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
 class NewLostAndFoundPage extends StatefulWidget {
@@ -32,17 +33,17 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
   Widget build(BuildContext context) {
     var formWidgets = <Widget>[
       ListTile(
-        title: Text(S.of(context).Campus_ToolsLFLOrF),
+        title: Text(LocaleKeys.Campus_ToolsLFLOrF.tr()),
         trailing: Observer(
           builder: (context) => DropdownButton(
             value: form.type,
             items: [
               DropdownMenuItem(
-                child: Text(S.of(context).Campus_ToolsLFLost),
+                child: Text(LocaleKeys.Campus_ToolsLFLost.tr()),
                 value: LostAndFoundType.lost,
               ),
               DropdownMenuItem(
-                child: Text(S.of(context).Campus_ToolsLFFound),
+                child: Text(LocaleKeys.Campus_ToolsLFFound.tr()),
                 value: LostAndFoundType.found,
               ),
             ],
@@ -54,9 +55,9 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
         builder: (context) => TextFormField(
           decoration: InputDecoration(
             labelText: form.type == LostAndFoundType.lost
-                ? S.of(context).Campus_ToolsLFNameLost
-                : S.of(context).Campus_ToolsLFNameFound,
-            hintText: S.of(context).Campus_ToolsLFNameHint,
+                ? LocaleKeys.Campus_ToolsLFNameLost.tr()
+                : LocaleKeys.Campus_ToolsLFNameFound.tr(),
+            hintText: LocaleKeys.Campus_ToolsLFNameHint.tr(),
           ),
           maxLength: 25,
           onChanged: (v) => form.name = v,
@@ -65,7 +66,7 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
       ),
       Observer(
         builder: (context) => DateTimePicker(
-          labelText: S.of(context).Campus_ToolsLFTime,
+          labelText: LocaleKeys.Campus_ToolsLFTime.tr(),
           initialDate: form.timestamp,
           firstDate: DateTime(2017, 12, 22),
           lastDate: DateTime.now(),
@@ -81,8 +82,8 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
       ),
       TextFormField(
         decoration: InputDecoration(
-          labelText: S.of(context).Campus_ToolsLFLocation,
-          hintText: S.of(context).Campus_ToolsLFLocationHint,
+          labelText: LocaleKeys.Campus_ToolsLFLocation.tr(),
+          hintText: LocaleKeys.Campus_ToolsLFLocationHint.tr(),
         ),
         maxLength: 30,
         onChanged: (v) => form.location = v,
@@ -95,14 +96,14 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
         maxLengthEnforced: true,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
-          labelText: S.of(context).Campus_ToolsLFDescription,
+          labelText: LocaleKeys.Campus_ToolsLFDescription.tr(),
           hintText: 'with mouse and power adaptor',
         ),
         onChanged: (v) => form.description = v,
         validator: (v) => v.isNotEmpty ? null : '',
       ),
       ListTile(
-        title: Text(S.of(context).Campus_ToolsLFContacts),
+        title: Text(LocaleKeys.Campus_ToolsLFContacts.tr()),
         trailing: DropdownButton(
           items: ['QQ', 'WeChat', 'Facebook', 'WhatsApp', 'Telegram']
               .map((e) => DropdownMenuItem(
@@ -123,7 +124,7 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).Campus_ToolsLFNew),
+        title: Text(LocaleKeys.Campus_ToolsLFNew.tr()),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,

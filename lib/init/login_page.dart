@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -9,7 +10,7 @@ import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/animated_logo.dart';
 import 'package:xmux/config.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/init_handler.dart';
 import 'package:xmux/init/login_app.dart';
@@ -34,7 +35,7 @@ class LoginPage extends StatelessWidget {
             TextFormField(
               key: _usernameFormKey,
               decoration: InputDecoration(
-                hintText: S.of(context).SignIn_CampusID,
+                hintText: LocaleKeys.SignIn_CampusID.tr(),
                 hintStyle: TextStyle(color: Colors.white70),
                 icon: Icon(
                   Icons.account_box,
@@ -44,13 +45,13 @@ class LoginPage extends StatelessWidget {
               validator: (s) =>
                   RegExp(r'^[A-Za-z]{3}[0-9]{7}$|^[0-9]{7}$').hasMatch(s)
                       ? null
-                      : S.of(context).SignIn_ErrorFormat,
+                      : LocaleKeys.SignIn_ErrorFormat.tr(),
             ),
             TextFormField(
               key: _passwordFormKey,
               obscureText: true,
               decoration: InputDecoration(
-                hintText: S.of(context).SignIn_Password,
+                hintText: LocaleKeys.SignIn_Password.tr(),
                 hintStyle: TextStyle(color: Colors.white70),
                 icon: Icon(
                   Icons.lock,
@@ -58,13 +59,13 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               validator: (s) =>
-                  s.isNotEmpty ? null : S.of(context).SignIn_ErrorFormat,
+                  s.isNotEmpty ? null : LocaleKeys.SignIn_ErrorFormat.tr(),
             ),
             Divider(color: Colors.transparent),
             _LoginButton(_usernameFormKey, _passwordFormKey),
             Divider(color: Colors.transparent),
             Text(
-              S.of(context).SignIn_Read,
+              LocaleKeys.SignIn_Read.tr(),
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.redAccent),
             )
@@ -96,19 +97,19 @@ class LoginPage extends StatelessWidget {
                   icon: Icon(FontAwesomeIcons.googlePlay),
                   onPressed: () => launch(
                       '${BackendApiConfig.websiteAddress}/2019/01/01/gms/'),
-                  tooltip: S.of(context).SignIn_InstallGMS,
+                  tooltip: LocaleKeys.SignIn_InstallGMS.tr(),
                 ),
               IconButton(
                 icon: Icon(FontAwesomeIcons.fileAlt),
                 onPressed: () => launch(
                     '${BackendApiConfig.websiteAddress}/privacy.html',
                     forceWebView: true),
-                tooltip: S.of(context).SignIn_Privacy,
+                tooltip: LocaleKeys.SignIn_Privacy.tr(),
               ),
               IconButton(
                 icon: Icon(FontAwesomeIcons.questionCircle),
                 onPressed: () => launch('https://docs.xmux.xdea.io'),
-                tooltip: S.of(context).SignIn_Docs,
+                tooltip: LocaleKeys.SignIn_Docs.tr(),
               ),
             ],
           ),
@@ -140,7 +141,7 @@ class _LoginButtonState extends State<_LoginButton> {
   Future<Null> _handleSignIn() async {
     if (_isDeprecated) {
       Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(S.of(context).SignIn_ErrorDeprecated)));
+          SnackBar(content: Text(LocaleKeys.SignIn_ErrorDeprecated.tr())));
       return;
     }
 
@@ -169,15 +170,15 @@ class _LoginButtonState extends State<_LoginButton> {
     } on XmuxApiException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       var msg = e.code == -403
-          ? S.of(context).SignIn_ErrorInvalidPassword
+          ? LocaleKeys.SignIn_ErrorInvalidPassword.tr()
           : e.message;
       Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(S.of(context).General_ErrorTip(msg))));
+          SnackBar(content: Text(LocaleKeys.General_ErrorTip.tr(args: [msg]))));
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(S.of(context).General_ErrorTip(e.toString()))));
+          content: Text(LocaleKeys.General_ErrorTip.tr(args: [e.toString()]))));
       return;
     }
     store.dispatch(LoginAction(username, password));
@@ -188,15 +189,14 @@ class _LoginButtonState extends State<_LoginButton> {
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text(S
-            .of(context)
-            .General_ErrorTip('${S.of(context).SignIn_ErrorGMS} $e')),
+        content: Text(LocaleKeys.General_ErrorTip.tr(
+            args: ['${LocaleKeys.SignIn_ErrorGMS.tr()} $e'])),
       ));
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(S.of(context).General_ErrorTip(e.toString()))));
+          content: Text(LocaleKeys.General_ErrorTip.tr(args: [e.toString()]))));
       return;
     }
 
@@ -223,7 +223,7 @@ class _LoginButtonState extends State<_LoginButton> {
           width: 120,
           height: 40,
           child: Center(
-            child: Text(S.of(context).SignIn_SignIn),
+            child: Text(LocaleKeys.SignIn_SignIn.tr()),
           ),
         ),
         onPressed: _handleSignIn,

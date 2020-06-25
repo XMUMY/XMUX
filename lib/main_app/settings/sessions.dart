@@ -1,9 +1,10 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/refreshable.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
 class SessionsPage extends StatelessWidget {
@@ -15,7 +16,7 @@ class SessionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(S.of(context).Settings_SecuritySessions)),
+      appBar: AppBar(title: Text(LocaleKeys.Settings_SecuritySessions.tr())),
       body: Refreshable<List<Device>>(
         onRefresh: handleRefresh,
         builder: (context, devices) => ListView.separated(

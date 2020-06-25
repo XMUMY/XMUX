@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
@@ -5,7 +6,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/lazy_loading_list.dart';
 import 'package:xmux/components/user_profile.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/main_app/campus/lost_and_found/detail.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 
@@ -16,7 +17,7 @@ class LostAndFoundPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).Campus_ToolsLF),
+        title: Text(LocaleKeys.Campus_ToolsLF.tr()),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,
@@ -48,7 +49,7 @@ class LostAndFoundPage extends StatelessWidget {
           if (shouldRefresh ?? false) lazyLoadingListKey.currentState.refresh();
         },
         child: Icon(Icons.add),
-        tooltip: S.of(context).Campus_ToolsLFNew,
+        tooltip: LocaleKeys.Campus_ToolsLFNew.tr(),
       ),
     );
   }
@@ -131,8 +132,8 @@ class _ItemBriefCard extends StatelessWidget {
               padding: const EdgeInsets.all(15),
               child: Text(
                 brief.type == LostAndFoundType.lost
-                    ? S.of(context).Campus_ToolsLFLost
-                    : S.of(context).Campus_ToolsLFFound,
+                    ? LocaleKeys.Campus_ToolsLFLost.tr()
+                    : LocaleKeys.Campus_ToolsLFFound.tr(),
               ),
             ),
           ],
@@ -143,7 +144,7 @@ class _ItemBriefCard extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: Text(
             '${brief.name}\n'
-            '${S.of(context).Campus_ToolsLFLocation} ${brief.location}',
+            '${LocaleKeys.Campus_ToolsLFLocation.tr()} ${brief.location}',
           ),
         ),
       ],

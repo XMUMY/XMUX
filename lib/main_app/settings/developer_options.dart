@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -10,7 +11,7 @@ class DeveloperOptionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).Settings_DeveloperOptions),
+        title: Text(LocaleKeys.Settings_DeveloperOptions.tr()),
       ),
       body: ListView(
         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -23,7 +24,7 @@ class DeveloperOptionsPage extends StatelessWidget {
             ),
           ),
           Text(
-            S.of(context).Settings_DeveloperOptionsWarning,
+            LocaleKeys.Settings_DeveloperOptionsWarning.tr(),
             textAlign: TextAlign.center,
           ),
           Divider(),
@@ -33,10 +34,11 @@ class DeveloperOptionsPage extends StatelessWidget {
             converter: (store) =>
                 store.state.settingState.enableFunctionsUnderDev,
             builder: (context, value) => SwitchListTile.adaptive(
-              title:
-                  Text(S.of(context).Settings_DeveloperOptionsEnableFnUnderDev),
+              title: Text(
+                  LocaleKeys.Settings_DeveloperOptionsEnableFnUnderDev.tr()),
               subtitle: Text(
-                S.of(context).Settings_DeveloperOptionsEnableFnUnderDevCaption,
+                LocaleKeys.Settings_DeveloperOptionsEnableFnUnderDevCaption.tr()
+                    .tr(),
               ),
               value: value,
               onChanged: (v) =>
@@ -47,13 +49,12 @@ class DeveloperOptionsPage extends StatelessWidget {
           StoreConnector<MainAppState, bool>(
             converter: (store) => store.state.uiState.showPerformanceOverlay,
             builder: (context, value) => SwitchListTile.adaptive(
-              title: Text(S
-                  .of(context)
-                  .Settings_DeveloperOptionsShowPerformanceOverlay),
+              title: Text(LocaleKeys
+                  .Settings_DeveloperOptionsShowPerformanceOverlay.tr()),
               subtitle: Text(
-                S
-                    .of(context)
-                    .Settings_DeveloperOptionsShowPerformanceOverlayCaption,
+                LocaleKeys
+                        .Settings_DeveloperOptionsShowPerformanceOverlayCaption
+                    .tr(),
               ),
               value: value,
               onChanged: (v) =>
@@ -64,12 +65,11 @@ class DeveloperOptionsPage extends StatelessWidget {
           StoreConnector<MainAppState, bool>(
             converter: (store) => store.state.uiState.showSemanticsDebugger,
             builder: (context, value) => SwitchListTile.adaptive(
-              title: Text(
-                  S.of(context).Settings_DeveloperOptionsShowSemanticsDebugger),
+              title: Text(LocaleKeys
+                  .Settings_DeveloperOptionsShowSemanticsDebugger.tr()),
               subtitle: Text(
-                S
-                    .of(context)
-                    .Settings_DeveloperOptionsShowSemanticsDebuggerCaption,
+                LocaleKeys.Settings_DeveloperOptionsShowSemanticsDebuggerCaption
+                    .tr(),
               ),
               value: value,
               onChanged: (v) =>
@@ -79,10 +79,10 @@ class DeveloperOptionsPage extends StatelessWidget {
 
           // Copy FCM key.
           ListTile(
-            title:
-                Text(S.of(context).Settings_DeveloperOptionsNotificationToken),
+            title: Text(
+                LocaleKeys.Settings_DeveloperOptionsNotificationToken.tr()),
             subtitle: Text(
-              S.of(context).Settings_DeveloperOptionsNotificationTokenCaption,
+              LocaleKeys.Settings_DeveloperOptionsNotificationTokenCaption.tr(),
             ),
             onTap: () async => Clipboard.setData(
                 ClipboardData(text: await firebase.messaging.getToken())),

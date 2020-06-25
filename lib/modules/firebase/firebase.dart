@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 
 import 'remote_config.dart';
 
@@ -79,16 +80,16 @@ class Firebase {
           context: context,
           barrierDismissible: false,
           builder: (context) => AlertDialog(
-            title: Text(S.of(context).GMS_Unavailable),
-            content: Text(S.of(context).GMS_UnavailableLoginCaption),
+            title: Text(LocaleKeys.GMS_Unavailable.tr()),
+            content: Text(LocaleKeys.GMS_UnavailableLoginCaption.tr()),
             actions: <Widget>[
               FlatButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: Text(S.of(context).General_Cancel),
+                child: Text(LocaleKeys.General_Cancel.tr()),
               ),
               FlatButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: Text(S.of(context).General_Ignore),
+                child: Text(LocaleKeys.General_Ignore.tr()),
               )
             ],
           ),
@@ -111,12 +112,12 @@ class Firebase {
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialog(
-          title: Text(S.of(context).GMS_Unavailable),
-          content: Text(S.of(context).GMS_UnavailableCaption),
+          title: Text(LocaleKeys.GMS_Unavailable.tr()),
+          content: Text(LocaleKeys.GMS_UnavailableCaption.tr()),
           actions: <Widget>[
             FlatButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text(S.of(context).General_Cancel),
+              child: Text(LocaleKeys.General_Cancel.tr()),
             )
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
@@ -6,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/floating_card.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/moodle/models/assignment.dart';
 import 'package:xmux/redux/actions/actions.dart';
@@ -94,7 +95,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
         ),
         Divider(color: Colors.transparent),
         Text(
-          S.of(context).Calendar_AssignmentsExpired,
+          LocaleKeys.Calendar_AssignmentsExpired.tr(),
           style: Theme.of(context).textTheme.headline6,
         ),
         Divider(),
@@ -204,7 +205,7 @@ class AssignmentDetail extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                S.of(context).Calendar_AssignmentsDueDate,
+                LocaleKeys.Calendar_AssignmentsDueDate.tr(),
                 style: Theme.of(context).textTheme.headline6,
               ),
               Divider(height: 5, color: Colors.transparent),

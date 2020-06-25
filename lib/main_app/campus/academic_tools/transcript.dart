@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,7 +10,7 @@ import 'package:waterfall_flow/waterfall_flow.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/floating_card.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/api/models/v3_bridge.dart';
 import 'package:xmux/redux/redux.dart';
@@ -33,7 +34,7 @@ class TranscriptPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).Campus_AcademicTranscript),
+        title: Text(LocaleKeys.Campus_AcademicTranscript.tr()),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,
@@ -98,7 +99,7 @@ class _InfoCard extends StatelessWidget {
             Expanded(
               child: Text(
                 '$finishedCount\n'
-                '${S.of(context).Campus_AcademicTranscriptCourses}',
+                '${LocaleKeys.Campus_AcademicTranscriptCourses.tr()}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline6,
               ),
@@ -106,7 +107,7 @@ class _InfoCard extends StatelessWidget {
             Expanded(
               child: Text(
                 '$creditsCount\n'
-                '${S.of(context).Campus_AcademicTranscriptCredits}',
+                '${LocaleKeys.Campus_AcademicTranscriptCredits.tr()}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline6,
               ),
@@ -242,7 +243,7 @@ class _TranscriptSessionCard extends StatelessWidget {
                   Text(
                     '${course.code}  '
                     '${course.credit} '
-                    '${S.of(context).Campus_AcademicTranscriptCredits}',
+                    '${LocaleKeys.Campus_AcademicTranscriptCredits.tr()}',
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ],

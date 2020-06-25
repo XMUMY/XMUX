@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -6,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/components/refreshable.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
@@ -63,13 +64,14 @@ class AttendanceHistoryItem extends StatelessWidget {
     var message = record.message;
     switch (record.status) {
       case AttendanceStatus.marked:
-        message = S.of(context).Calendar_AttendanceSignInMarked;
+        message = LocaleKeys.Calendar_AttendanceSignInMarked.tr();
         break;
       case AttendanceStatus.succeeded:
-        message = S.of(context).Calendar_AttendanceSignInSucceeded;
+        message = LocaleKeys.Calendar_AttendanceSignInSucceeded.tr();
         break;
       case AttendanceStatus.failed:
-        message = S.of(context).Calendar_AttendanceSignInFailed(message);
+        message =
+            LocaleKeys.Calendar_AttendanceSignInFailed.tr(args: [message]);
         break;
     }
     return message;

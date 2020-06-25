@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:animations/animations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/drawer.dart';
 import 'package:xmux/redux/redux.dart';
@@ -86,17 +87,17 @@ class MainPageState extends State<MainPage> {
     var bottom = BottomNavigationBar(
       items: [
         BottomNavigationBarItem(
-          title: Text(S.of(context).Home),
+          title: Text(LocaleKeys.Home.tr()),
           icon: Icon(Icons.home),
           backgroundColor: Theme.of(context).primaryColor,
         ),
         BottomNavigationBarItem(
-          title: Text(S.of(context).Calendar),
+          title: Text(LocaleKeys.Calendar.tr()),
           icon: Icon(Icons.calendar_today),
           backgroundColor: Theme.of(context).primaryColor,
         ),
         BottomNavigationBarItem(
-          title: Text(S.of(context).Campus),
+          title: Text(LocaleKeys.Campus.tr()),
           icon: Icon(FontAwesomeIcons.university),
           backgroundColor: Theme.of(context).brightness == Brightness.dark
               ? Theme.of(context).primaryColor
@@ -104,7 +105,7 @@ class MainPageState extends State<MainPage> {
         ),
         if (P.isMobile)
           BottomNavigationBarItem(
-            title: Text(S.of(context).Explore),
+            title: Text(LocaleKeys.Explore.tr()),
             icon: Icon(Icons.explore),
             backgroundColor: Color(0xFF231E5E),
           ),

@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart'
     if (dart.library.html) 'package:xmux/components/svg_web.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:xmux/generated/i18n.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -18,7 +19,7 @@ class CampusPage extends StatelessWidget {
           builder: (context, callback) =>
               IconButton(icon: Icon(Icons.view_list), onPressed: callback),
         ),
-        title: Text(S.of(context).Campus),
+        title: Text(LocaleKeys.Campus.tr()),
         backgroundColor: Theme.of(context).brightness == Brightness.dark
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,
@@ -48,7 +49,7 @@ class CampusPage extends StatelessWidget {
               if (store.state.user.isStudent)
                 _ToolButton(
                   svg: 'res/campus/gpa.svg',
-                  title: S.of(context).Campus_AcademicTranscript,
+                  title: LocaleKeys.Campus_AcademicTranscript.tr(),
                   path: '/Campus/ACTools/Transcript',
                 ),
               if (store.state.user.isStudent)
@@ -82,12 +83,12 @@ class CampusPage extends StatelessWidget {
             children: <Widget>[
               _ToolButton(
                 child: Icon(Icons.directions_bus, color: Color(0xFF5DC3F1)),
-                title: S.of(context).Campus_ToolsBusSchedule,
+                title: LocaleKeys.Campus_ToolsBusSchedule.tr(),
                 path: '/Campus/Tools/BusSchedule',
               ),
               _ToolButton(
                 svg: 'res/campus/klia_express.svg',
-                title: S.of(context).Campus_ToolsKliaExpress,
+                title: LocaleKeys.Campus_ToolsKliaExpress.tr(),
                 path: '/Campus/Tools/KliaExpress',
               ),
               if (P.isVM)
@@ -112,7 +113,7 @@ class CampusPage extends StatelessWidget {
                   color: Color(0xFF5DC3F1),
                   size: 60,
                 ),
-                title: S.of(context).Campus_ToolsLF,
+                title: LocaleKeys.Campus_ToolsLF.tr(),
                 path: '/Campus/Tools/LostAndFound',
               ),
             ],
