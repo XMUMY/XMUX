@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
           await announcementsAction.listener;
         },
         child: WaterfallFlow(
-          gridDelegate: SliverWaterfallFlowDelegate(
+          gridDelegate: SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
             crossAxisCount: max(MediaQuery.of(context).size.width ~/ 400, 1),
             crossAxisSpacing: 5.0,
             mainAxisSpacing: 5.0,

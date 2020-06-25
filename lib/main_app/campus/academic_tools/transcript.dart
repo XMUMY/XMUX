@@ -51,7 +51,7 @@ class TranscriptPage extends StatelessWidget {
             onRefresh: _handleUpdate,
             child: WaterfallFlow(
               padding: const EdgeInsets.all(8),
-              gridDelegate: SliverWaterfallFlowDelegate(
+              gridDelegate: SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
                 crossAxisCount: max(width ~/ 400, 1),
                 crossAxisSpacing: 5.0,
                 mainAxisSpacing: 5.0,

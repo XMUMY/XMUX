@@ -26,7 +26,7 @@ class Dialogflow {
     req.queryInput.text.languageCode = Platform.localeName.replaceAll('_', '-');
     req.queryInput.text.text = query;
 
-    var res = await _dialogflowApi.projects.agent_1.sessions
+    var res = await _dialogflowApi.projects.agent.sessions
         .detectIntent(req, 'projects/xmux-bot/agent/sessions/$_sessionId');
 
     return res.queryResult.fulfillmentText;

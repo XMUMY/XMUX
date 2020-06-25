@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -62,13 +62,15 @@ class _EmgsPageState extends State<EmgsPage> {
         ),
         title: SizedBox(
           height: kToolbarHeight,
-          child: CachedNetworkImage(
-            imageUrl:
-                'https://cdn.educationmalaysia.gov.my/wp-content/uploads/2019/11/08054212/emgs-logo1.png',
-            placeholder: (ctx, _) => Text(
-              i18n('Tools/Emgs', context),
-              style: Theme.of(context).textTheme.headline6,
-            ),
+          child: ExtendedImage.network(
+            'https://cdn.educationmalaysia.gov.my/wp-content/uploads/2019/11/08054212/emgs-logo1.png',
+            loadStateChanged: (state) =>
+                state.extendedImageLoadState != LoadState.completed
+                    ? Text(
+                        i18n('Tools/Emgs', context),
+                        style: Theme.of(context).textTheme.headline6,
+                      )
+                    : null,
           ),
         ),
         backgroundColor: Theme.of(context).canvasColor,

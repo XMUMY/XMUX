@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart'
@@ -19,7 +19,7 @@ class _HomeSliderState extends State<HomeSlider> {
   Widget _buildSlider(News n) => Stack(
         fit: StackFit.expand,
         children: [
-          CachedNetworkImage(imageUrl: n.imageURL, fit: BoxFit.fill),
+          ExtendedImage.network(n.imageURL, fit: BoxFit.fill),
           FlatButton(
               onPressed: n.uri.isEmpty
                   ? null
