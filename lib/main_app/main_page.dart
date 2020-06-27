@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:animations/animations.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:xmux/generated/l10n_keys.dart';
+import 'package:xmux/components/blur_box.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/drawer.dart';
 import 'package:xmux/redux/redux.dart';
@@ -15,26 +13,41 @@ import 'campus/campus.dart';
 import 'explore/explore_page.dart';
 import 'home/home_page.dart';
 
-class MainPage extends StatefulWidget {
-  static final pages = <Widget>[
-    HomePage(),
-    CalendarPage(),
-    CampusPage(),
-    ExplorePage(),
-  ];
+/// Interface for main pages.
+abstract class MainPageContentProvider extends Widget {
+  /// Whether to extend body behind bottom bar.
+  bool get extendBody;
 
+  /// Whether to extend body behind app bar.
+  bool get extendBodyBehindAppBar;
+
+  /// Build app bar for scaffold.
+  PreferredSizeWidget buildAppBar(BuildContext context);
+
+  /// Build item for [BottomNavigationBar]
+  BottomNavigationBarItem buildBottomNavigationBarItem(BuildContext context);
+}
+
+class MainPage extends StatefulWidget {
   @override
   MainPageState createState() => MainPageState();
 }
 
-class MainPageState extends State<MainPage> {
+class MainPageState extends State<MainPage> with TickerProviderStateMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /// Listener for opening drawer from children.
   StreamSubscription _drawerListener;
 
-  var _currentIndex = 0;
-  var _selectedPage = MainPage.pages[0];
+  int _currentIndex = 0;
+  List<MainPageContentProvider> pages;
+
+  MainPageContentProvider get currentPage => pages[_currentIndex];
+
+  void navigateTo(int index) {
+    if (!mounted || index == _currentIndex) return;
+    setState(() => _currentIndex = index);
+  }
 
   @override
   void initState() {
@@ -50,15 +63,15 @@ class MainPageState extends State<MainPage> {
       }
     });
 
-    super.initState();
-  }
+    // Initialize pages.
+    pages = [
+      HomePage(),
+      CalendarPage(this),
+      CampusPage(),
+      ExplorePage(),
+    ];
 
-  void navigateTo(int index) {
-    if (!mounted || index == _currentIndex) return;
-    setState(() {
-      _selectedPage = MainPage.pages[index];
-      _currentIndex = index;
-    });
+    super.initState();
   }
 
   @override
@@ -81,34 +94,15 @@ class MainPageState extends State<MainPage> {
         child: child,
         opacity: primaryAnimation,
       ),
-      child: _selectedPage,
+      child: currentPage,
     );
 
     var bottom = BottomNavigationBar(
       items: [
-        BottomNavigationBarItem(
-          title: Text(LocaleKeys.Home.tr()),
-          icon: Icon(Icons.home),
-          backgroundColor: Theme.of(context).primaryColor,
-        ),
-        BottomNavigationBarItem(
-          title: Text(LocaleKeys.Calendar.tr()),
-          icon: Icon(Icons.calendar_today),
-          backgroundColor: Theme.of(context).primaryColor,
-        ),
-        BottomNavigationBarItem(
-          title: Text(LocaleKeys.Campus.tr()),
-          icon: Icon(FontAwesomeIcons.university),
-          backgroundColor: Theme.of(context).brightness == Brightness.dark
-              ? Theme.of(context).primaryColor
-              : Colors.lightBlue,
-        ),
-        if (P.isMobile)
-          BottomNavigationBarItem(
-            title: Text(LocaleKeys.Explore.tr()),
-            icon: Icon(Icons.explore),
-            backgroundColor: Color(0xFF231E5E),
-          ),
+        pages[0].buildBottomNavigationBarItem(context),
+        pages[1].buildBottomNavigationBarItem(context),
+        pages[2].buildBottomNavigationBarItem(context),
+        if (P.isMobile) pages[3].buildBottomNavigationBarItem(context),
       ],
       currentIndex: _currentIndex,
       type: BottomNavigationBarType.shifting,
@@ -118,12 +112,19 @@ class MainPageState extends State<MainPage> {
     return LayoutBuilder(
       builder: (context, constraints) => Scaffold(
         key: _scaffoldKey,
+        extendBody: currentPage.extendBody,
+        extendBodyBehindAppBar: currentPage.extendBodyBehindAppBar,
+        appBar: currentPage.buildAppBar(context),
         body: body,
         // Bottom navigation.
-        bottomNavigationBar: constraints.maxWidth < 700 ? bottom : null,
+        bottomNavigationBar: constraints.maxWidth < 700
+            ? GaussianBlurBox(
+                sigma: 10.0,
+                child: bottom,
+              )
+            : null,
         // Drawers.
         drawer: DrawerPage(constraints.maxWidth < 700 ? null : _currentIndex),
-        endDrawer: EndDrawer(),
       ),
     );
   }

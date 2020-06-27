@@ -80,20 +80,25 @@ class TimeTablePage extends StatelessWidget {
     );
 
     return RefreshIndicator(
+      displacement: 40 + Scaffold.of(context).appBarMaxHeight,
       onRefresh: _handleUpdate,
       child: ListView.builder(
         padding: const EdgeInsets.all(8),
-        itemCount: timetable.length + 1,
+        itemCount: timetable.length + 3,
         itemBuilder: (_, int index) {
+          if (index == 0)
+            return SizedBox(height: Scaffold.of(context).appBarMaxHeight);
+          if (index == timetable.length + 2)
+            return SizedBox(height: kBottomNavigationBarHeight);
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 250),
             child: SlideAnimation(
               verticalOffset: 50.0,
               child: FadeInAnimation(
-                child: index == timetable.length
+                child: index == timetable.length + 1
                     ? lastUpdate
-                    : LessonCard(timetable[index]),
+                    : LessonCard(timetable[index - 1]),
               ),
             ),
           );

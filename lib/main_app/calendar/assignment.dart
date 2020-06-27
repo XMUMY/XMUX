@@ -39,8 +39,11 @@ class _AssignmentPageState extends State<AssignmentPage> {
     var width = MediaQuery.of(context).size.width;
     var now = DateTime.now();
 
-    ExpansionPanelRadio buildExpansionPanel(AssignmentCourse course,
-        {bool showBefore = true, showAfter = true}) {
+    ExpansionPanelRadio buildExpansionPanel(
+      AssignmentCourse course, {
+      bool showBefore = true,
+      showAfter = true,
+    }) {
       var assignments = course.assignments
           .where((a) =>
               (showBefore && a.dueDate.isBefore(now)) ||
@@ -83,6 +86,9 @@ class _AssignmentPageState extends State<AssignmentPage> {
     var list = ListView(
       padding: const EdgeInsets.all(10),
       children: <Widget>[
+        /// App bar padding.
+        SizedBox(height: Scaffold.of(context).appBarMaxHeight),
+
         ExpansionPanelList.radio(
           children: <ExpansionPanelRadio>[
             for (var course in widget.assignments)
@@ -109,6 +115,9 @@ class _AssignmentPageState extends State<AssignmentPage> {
                 buildExpansionPanel(course, showAfter: false),
           ],
         ),
+
+        /// Bottom navigation padding.
+        SizedBox(height: kBottomNavigationBarHeight),
       ],
     );
 
@@ -140,6 +149,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
       );
 
     return RefreshIndicator(
+      displacement: 40 + Scaffold.of(context).appBarMaxHeight,
       onRefresh: _handleUpdate,
       child: child,
     );

@@ -7,10 +7,28 @@ import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/explore/chat_room_page.dart';
 import 'package:xmux/main_app/explore/flea_market/flea_market_page.dart';
+import 'package:xmux/main_app/main_page.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/redux/redux.dart';
 
-class ExplorePage extends StatelessWidget {
+class ExplorePage extends StatelessWidget implements MainPageContentProvider {
+  @override
+  bool get extendBody => false;
+
+  @override
+  bool get extendBodyBehindAppBar => false;
+
+  @override
+  PreferredSizeWidget buildAppBar(BuildContext context) => null;
+
+  @override
+  BottomNavigationBarItem buildBottomNavigationBarItem(BuildContext context) =>
+      BottomNavigationBarItem(
+        title: Text(LocaleKeys.Explore.tr()),
+        icon: Icon(Icons.explore),
+        backgroundColor: Color(0xFF231E5E),
+      );
+
   Widget buildLayout(BuildContext context, BoxConstraints constraints) {
     return Stack(
       children: <Widget>[
@@ -94,7 +112,10 @@ class ExplorePage extends StatelessWidget {
                       .modalBarrierDismissLabel,
                   transitionDuration: Duration(milliseconds: 400),
                   barrierColor: Colors.black12.withOpacity(0.2),
-                  pageBuilder: (context, _, __) => xiA.page,
+                  pageBuilder: (context, _, __) => Scaffold(
+                    backgroundColor: Colors.transparent,
+                    body: xiA.page,
+                  ),
                   transitionBuilder: (context, animation, _, child) {
                     return GestureDetector(
                       onTap: () {

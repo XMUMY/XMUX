@@ -10,14 +10,19 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/calendar/timetable.dart';
 import 'package:xmux/main_app/home/announcements.dart';
 import 'package:xmux/main_app/home/home_slider.dart';
+import 'package:xmux/main_app/main_page.dart';
 import 'package:xmux/modules/api/xmux_api.dart' show TimetableClass;
 import 'package:xmux/redux/redux.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatelessWidget implements MainPageContentProvider {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+  bool get extendBody => false;
+
+  @override
+  bool get extendBodyBehindAppBar => false;
+
+  @override
+  AppBar buildAppBar(BuildContext context) => AppBar(
         leading: IconButton(
           icon: StoreConnector<MainAppState, String>(
             converter: (s) =>
@@ -32,54 +37,66 @@ class HomePage extends StatelessWidget {
           onPressed: () => store.dispatch(OpenDrawerAction(true)),
         ),
         title: Text(LocaleKeys.Home.tr()),
-      ),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          var newsAction = UpdateHomepageNewsAction(context: context);
-          var announcementsAction =
-              UpdateHomepageAnnouncementsAction(context: context);
-          store.dispatch(newsAction);
-          store.dispatch(announcementsAction);
-          await newsAction.listener;
-          await announcementsAction.listener;
-        },
-        child: WaterfallFlow(
-          gridDelegate: SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
-            crossAxisCount: max(MediaQuery.of(context).size.width ~/ 400, 1),
-            crossAxisSpacing: 5.0,
-            mainAxisSpacing: 5.0,
-          ),
-          children: <Widget>[
-            // Slider
-            AspectRatio(
-              aspectRatio: 18 / 9,
-              child: HomeSlider(),
-            ),
+      );
 
-            // Announcements (if have)
-            StoreConnector<MainAppState, List>(
-              converter: (store) => store.state.uiState.announcements,
-              builder: (_, announcements) => HomeAnnouncements(announcements),
-            ),
+  @override
+  BottomNavigationBarItem buildBottomNavigationBarItem(BuildContext context) =>
+      BottomNavigationBarItem(
+        title: Text(LocaleKeys.Home.tr()),
+        icon: Icon(Icons.home),
+        backgroundColor: store.state.settingState.enableBlur
+            ? Theme.of(context).primaryColor.withOpacity(0.7)
+            : Theme.of(context).primaryColor,
+      );
 
-            StoreConnector<MainAppState, List<TimetableClass>>(
-              converter: (s) => s.state.queryState.timetable?.timetable ?? null,
-              builder: (_, lessons) {
-                if (lessons == null || lessons.isEmpty) return Container();
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      '   ${i18n('Home/NextClass', context)}',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    LessonCard(TimeTablePage.sortTimetable(lessons)[0])
-                  ],
-                );
-              },
-            ),
-          ],
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        var newsAction = UpdateHomepageNewsAction(context: context);
+        var announcementsAction =
+            UpdateHomepageAnnouncementsAction(context: context);
+        store.dispatch(newsAction);
+        store.dispatch(announcementsAction);
+        await newsAction.listener;
+        await announcementsAction.listener;
+      },
+      child: WaterfallFlow(
+        gridDelegate: SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
+          crossAxisCount: max(MediaQuery.of(context).size.width ~/ 400, 1),
+          crossAxisSpacing: 5.0,
+          mainAxisSpacing: 5.0,
         ),
+        children: <Widget>[
+          // Slider
+          AspectRatio(
+            aspectRatio: 18 / 9,
+            child: HomeSlider(),
+          ),
+
+          // Announcements (if have)
+          StoreConnector<MainAppState, List>(
+            converter: (store) => store.state.uiState.announcements,
+            builder: (_, announcements) => HomeAnnouncements(announcements),
+          ),
+
+          StoreConnector<MainAppState, List<TimetableClass>>(
+            converter: (s) => s.state.queryState.timetable?.timetable ?? null,
+            builder: (_, lessons) {
+              if (lessons == null || lessons.isEmpty) return Container();
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    '   ${i18n('Home/NextClass', context)}',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  LessonCard(TimeTablePage.sortTimetable(lessons)[0])
+                ],
+              );
+            },
+          ),
+        ],
       ),
     );
   }

@@ -2,9 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/user_profile.dart';
-import 'package:xmux/config.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/main_page.dart';
@@ -177,51 +175,6 @@ class DrawerPage extends StatelessWidget {
                 ),
               ),
             )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class EndDrawer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 150,
-      child: Drawer(
-        child: ListView(
-          padding: const EdgeInsets.all(15),
-          children: <Widget>[
-            Hero(
-              tag: 'χLogo',
-              child: Padding(
-                padding: const EdgeInsets.all(25),
-                child: Text(
-                  'χ',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline5
-                      .copyWith(fontSize: 55),
-                ),
-              ),
-            ),
-            Divider(),
-            RaisedButton(
-              onPressed: () => launch(BackendApiConfig.websiteAddress),
-              child: Text(i18n('Home', context)),
-            ),
-            RaisedButton(
-              onPressed: () =>
-                  Navigator.of(context).popAndPushNamed('/Settings/About'),
-              child: Text(i18n('About', context)),
-            ),
-            Divider(),
-            Text(
-              packageInfo.version,
-              textAlign: TextAlign.center,
-            ),
           ],
         ),
       ),
