@@ -7,7 +7,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
-import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/page_routes.dart';
@@ -29,9 +28,7 @@ class TimeTablePage extends StatelessWidget {
   final DateTime recentUpdate;
 
   TimeTablePage(Timetable resp)
-      : this.timetable = (resp == null || resp.timetable == null)
-            ? null
-            : sortTimetable(resp.timetable),
+      : this.timetable = sortTimetable(resp?.timetable ?? List()),
         this.recentUpdate = resp?.recentUpdate?.toLocal();
 
   Future<Null> _handleUpdate() async {
@@ -60,9 +57,6 @@ class TimeTablePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (timetable == null) return EmptyErrorButton(onRefresh: _handleUpdate);
-    if (timetable.isEmpty) return EmptyErrorPage();
-
     if (MediaQuery.of(context).size.width >= 700)
       return TimeTableGrid(timetable);
 
@@ -79,31 +73,34 @@ class TimeTablePage extends StatelessWidget {
       ),
     );
 
+    Widget body = ListView.builder(
+      itemCount: timetable.isEmpty ? 0 : timetable.length + 1,
+      itemBuilder: (_, int index) {
+        return AnimationConfiguration.staggeredList(
+          position: index,
+          duration: const Duration(milliseconds: 250),
+          child: SlideAnimation(
+            verticalOffset: 50.0,
+            child: FadeInAnimation(
+              child: index == timetable.length
+                  ? lastUpdate
+                  : LessonCard(timetable[index]),
+            ),
+          ),
+        );
+      },
+    );
+
+    if (timetable.isEmpty)
+      body = Stack(children: [
+        body,
+        EmptyErrorPage(),
+      ]);
+
     return RefreshIndicator(
       displacement: 40 + Scaffold.of(context).appBarMaxHeight,
       onRefresh: _handleUpdate,
-      child: ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: timetable.length + 3,
-        itemBuilder: (_, int index) {
-          if (index == 0)
-            return SizedBox(height: Scaffold.of(context).appBarMaxHeight);
-          if (index == timetable.length + 2)
-            return SizedBox(height: kBottomNavigationBarHeight);
-          return AnimationConfiguration.staggeredList(
-            position: index,
-            duration: const Duration(milliseconds: 250),
-            child: SlideAnimation(
-              verticalOffset: 50.0,
-              child: FadeInAnimation(
-                child: index == timetable.length + 1
-                    ? lastUpdate
-                    : LessonCard(timetable[index - 1]),
-              ),
-            ),
-          );
-        },
-      ),
+      child: body,
     );
   }
 }
@@ -192,6 +189,7 @@ class LessonCard extends StatelessWidget {
         barrierDismissible: true,
         builder: (context) => LessonDialog(lesson),
       ),
+      margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
