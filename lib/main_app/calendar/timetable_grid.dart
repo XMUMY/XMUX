@@ -31,7 +31,7 @@ class TimeTableGrid extends StatelessWidget {
         .toList();
     var weekdayCells = Iterable<int>.generate(5)
         .map((i) => SpannableGridCell(
-              id: i + 1,
+              id: i.toString().hashCode,
               column: i + 2,
               row: 1,
               child: Center(
@@ -58,6 +58,7 @@ class TimeTableGrid extends StatelessWidget {
         .toList();
 
     return SingleChildScrollView(
+      padding: EdgeInsets.only(top: Scaffold.of(context).appBarMaxHeight),
       child: SizedBox(
         height: 1111,
         child: SpannableGrid(

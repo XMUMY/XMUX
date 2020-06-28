@@ -37,7 +37,7 @@ class DeveloperOptionsPage extends StatelessWidget {
               title: Text(
                   LocaleKeys.Settings_DeveloperOptionsEnableFnUnderDev.tr()),
               subtitle: Text(
-                LocaleKeys.Settings_DeveloperOptionsEnableFnUnderDevCaption.tr()
+                LocaleKeys.Settings_DeveloperOptionsEnableFnUnderDevCaption
                     .tr(),
               ),
               value: value,
