@@ -68,9 +68,12 @@ class P {
   static final isWeb = kIsWeb;
   static final isVM = !kIsWeb;
 
-  static final isMobile = isVM && (Platform.isAndroid || Platform.isIOS);
   static final isAndroid = isVM && Platform.isAndroid;
   static final isIOS = isVM && Platform.isIOS;
+  static final isMobile = isVM && (isAndroid || isIOS);
 
   static final isMacOS = isVM && Platform.isMacOS;
+  static final isWindows = isVM && Platform.isWindows;
+  static final isLinux = isVM && Platform.isLinux;
+  static final isDesktop = isVM && (isMacOS || isWindows || isLinux);
 }
