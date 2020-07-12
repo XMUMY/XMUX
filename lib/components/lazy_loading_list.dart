@@ -136,7 +136,9 @@ class _BottomLoadingIndicatorState extends State<_BottomLoadingIndicator>
         child: Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 15),
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).padding.bottom + 15,
+            ),
             child: RefreshProgressIndicator(),
           ),
         ),

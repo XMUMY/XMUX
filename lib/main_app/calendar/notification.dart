@@ -19,8 +19,7 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var list = LazyLoadingList<Notification>(
-      padding: const EdgeInsets.all(8),
+    Widget list = LazyLoadingList<Notification>(
       onRefresh: () async => await moodleApi.getPopupNotifications(),
       onLoadMore: (list) async =>
           await moodleApi.getPopupNotifications(offset: list.length),
@@ -44,6 +43,7 @@ class _NotificationPageState extends State<NotificationPage> {
         Widget child;
         if (width > 700)
           child = FloatingCard(
+            margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
             padding: const EdgeInsets.all(8),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
@@ -52,6 +52,7 @@ class _NotificationPageState extends State<NotificationPage> {
           );
         else
           child = FloatingOpenContainer(
+            margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
             padding: const EdgeInsets.all(8),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
