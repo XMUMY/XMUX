@@ -91,6 +91,8 @@ class TimeTablePage extends StatelessWidget {
       },
     );
 
+    body = Scrollbar(child: body);
+
     if (timetable.isEmpty)
       body = Stack(children: [
         body,

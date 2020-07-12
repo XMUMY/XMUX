@@ -73,6 +73,8 @@ class _NotificationPageState extends State<NotificationPage> {
       },
     );
 
+    list = Scrollbar(child: list);
+
     if (width < 700)
       return list;
     else

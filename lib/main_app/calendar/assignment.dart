@@ -83,7 +83,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
       );
     }
 
-    var list = ListView(
+    Widget list = ListView(
       padding: const EdgeInsets.all(10),
       children: <Widget>[
         /// App bar padding.
@@ -120,6 +120,8 @@ class _AssignmentPageState extends State<AssignmentPage> {
         SizedBox(height: kBottomNavigationBarHeight),
       ],
     );
+
+    list = Scrollbar(child: list);
 
     Widget child;
     if (width < 700)
