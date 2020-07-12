@@ -44,9 +44,7 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
       BottomNavigationBarItem(
         title: Text(LocaleKeys.Home.tr()),
         icon: Icon(Icons.home),
-        backgroundColor: store.state.settingState.enableBlur
-            ? Theme.of(context).primaryColor.withOpacity(0.7)
-            : Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
       );
 
   @override

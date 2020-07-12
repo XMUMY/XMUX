@@ -29,8 +29,6 @@ class CampusPage extends StatelessWidget implements MainPageContentProvider {
         ? Theme.of(context).primaryColor
         : Colors.lightBlue;
 
-    if (store.state.settingState.enableBlur) color = color.withOpacity(0.7);
-
     return BottomNavigationBarItem(
       title: Text(LocaleKeys.Campus.tr()),
       icon: Icon(FontAwesomeIcons.university),
