@@ -1,3 +1,7 @@
+class AppConfig {
+  static const fallbackVersionName = '2.0.0-SNAPSHOT';
+}
+
 class ApiKeyConfig {
   static const dialogflowToken = "XDialogflowTokenX";
   static const wolframAppID = "XWolframAppIDX";
