@@ -1,0 +1,68 @@
+name: Deploy Web
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: dev
+      - name: Build
+        run: |
+          mkdir ~/.ssh
+          ssh-keyscan cloud.xdea.xyz > ~/.ssh/known_hosts
+          eval $(ssh-agent -s)
+          ssh-add - <<< "${{ secrets.DEPLOY_TRAVELVISER }}"
+          echo $CONFIG_FILE > lib/config.dart
+          echo $WEB_INDEX > web/index.html
+          flutter config --enable-web && flutter build web
+        env:
+          CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
+          WEB_INDEX: ${{ secrets.WEB_INDEX }}
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: XMUX-Web
+          path: build/web
+  DeployGithubStatic:
+    runs-on: ubuntu-latest
+    needs: Build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download artifact
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: XMUX-Web
+      - name: Replace main.dart.js to JSDelivr CDN
+        run: sed -i "s#main.dart.js#https://cdn.jsdelivr.net/gh/XMUMY/static@app-web/main.dart.js#" XMUX-Web/index.html
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.DEPLOY_STATIC }}
+          external_repository: XMUMY/static
+          publish_branch: app-web
+          publish_dir: ./XMUX-Web
+  DeployFirebase:
+    runs-on: ubuntu-latest
+    needs: Build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download artifact
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: XMUX-Web
+      - name: Replace main.dart.js to JSDelivr CDN
+        run: sed -i "s#main.dart.js#https://cdn.jsdelivr.net/gh/XMUMY/static@app-web/main.dart.js#" XMUX-Web/index.html
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@v1.3.0
+        with:
+          args: deploy --only hosting:xmux-web
+        env:
+          PROJECT_ID: xmux-web
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
