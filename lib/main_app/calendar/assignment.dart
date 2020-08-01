@@ -84,11 +84,8 @@ class _AssignmentPageState extends State<AssignmentPage> {
     }
 
     Widget list = ListView(
-      padding: const EdgeInsets.all(10),
+      padding: MediaQuery.of(context).padding.copyWith(left: 10, right: 10),
       children: <Widget>[
-        /// App bar padding.
-        SizedBox(height: Scaffold.of(context).appBarMaxHeight),
-
         ExpansionPanelList.radio(
           children: <ExpansionPanelRadio>[
             for (var course in widget.assignments)
@@ -170,7 +167,7 @@ class AssignmentDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var detail = ListView(
-      padding: const EdgeInsets.all(8),
+      padding: MediaQuery.of(context).padding.copyWith(left: 8, right: 8),
       children: <Widget>[
         if (assignment.intro.isNotEmpty ||
             assignment.introAttachments.isNotEmpty)

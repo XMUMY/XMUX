@@ -119,7 +119,7 @@ class NotificationDetail extends StatelessWidget {
       }
 
     var detail = ListView(
-      padding: const EdgeInsets.all(5),
+      padding: MediaQuery.of(context).padding.copyWith(left: 8, right: 8),
       children: <Widget>[
         doc != null ? Html(data: content) : Text(content),
       ],
