@@ -50,7 +50,7 @@ dependencies:
   flutter_speed_dial: ^1.2.5
   flutter_spinkit: ^4.1.2
   flutter_staggered_animations: ^0.1.2
-  flutter_svg: ^0.17.4
+  flutter_svg: ^0.18.0
   flutter_vpn:
     git:
       url: https://github.com/X-dea/Flutter-VPN.git
@@ -63,7 +63,7 @@ dependencies:
   image_editor: ^0.7.0
   image_picker: ^0.6.7
   imgur: ^1.1.0
-  lottie: ^0.4.0
+  lottie: ^0.5.1
   mobx: ^1.2.1
   package_info: ">=0.4.1 <2.0.0"
   qr_flutter: ^3.2.0
@@ -77,6 +77,9 @@ dependencies:
   url_launcher: ^5.4.11
   waterfall_flow: ^2.0.2
   webview_flutter: ^0.3.22
+
+dependency_overrides:
+  flutter_svg: ^0.18.0
 
 dev_dependencies:
   flutter_test:

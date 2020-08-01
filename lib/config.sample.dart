@@ -1,5 +1,5 @@
 class AppConfig {
-  static const fallbackVersionName = '2.0.0-SNAPSHOT';
+  static const fallbackVersionName = '2.1.0-SNAPSHOT';
 }
 
 class ApiKeyConfig {
