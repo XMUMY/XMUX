@@ -20,7 +20,7 @@ jobs:
           eval $(ssh-agent -s)
           ssh-add - <<< "${{ secrets.DEPLOY_TRAVELVISER }}"
           echo $CONFIG_FILE > lib/config.dart
-          echo $WEB_INDEX > web/index.html
+          echo $WEB_INDEX | base64 -d > web/index.html
           flutter config --enable-web && flutter build web
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
@@ -64,5 +64,5 @@ jobs:
         with:
           args: deploy --only hosting:xmux-web
         env:
-          PROJECT_ID: xmux-web
+          PROJECT_ID: xmux-app
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

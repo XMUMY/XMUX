@@ -1,0 +1,11 @@
+{
+    "hosting": {
+        "site": "xmux-web",
+        "public": "XMUX-Web",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ]
+    }
+}
