@@ -15,11 +15,12 @@ import 'sessions.dart';
 
 class SettingsPage extends StatefulWidget {
   static final routes = <String, WidgetBuilder>{
-    '/EditProfile': (_) => EditProfilePage(),
-    '/Security/Sessions': (_) => SessionsPage(),
-    '/Interface': (_) => InterfacePage(),
-    '/DeveloperOptions': (_) => DeveloperOptionsPage(),
-    '/About': (_) => AboutPage(),
+    '/Settings': (_) => SettingsList(),
+    '/Settings/EditProfile': (_) => EditProfilePage(),
+    '/Settings/Security/Sessions': (_) => SessionsPage(),
+    '/Settings/Interface': (_) => InterfacePage(),
+    '/Settings/DeveloperOptions': (_) => DeveloperOptionsPage(),
+    '/Settings/About': (_) => AboutPage(),
   };
 
   @override
@@ -34,11 +35,8 @@ class _SettingsPageState extends State<SettingsPage> {
     var navigator = Navigator(
       key: _navigatorKey,
       // TODO: According to RouteSettings.
-      initialRoute: '/',
+      initialRoute: ModalRoute.of(context).settings.name ?? '/Settings',
       onGenerateRoute: (settings) {
-        if (settings.name == '/')
-          return MaterialPageRoute(builder: (context) => SettingsList());
-
         if (SettingsPage.routes.containsKey(settings.name))
           return MaterialPageRoute(
               builder: (context) =>
@@ -88,23 +86,25 @@ class SettingsList extends StatelessWidget {
         Divider(),
         ListTile(
           title: Text(LocaleKeys.Settings_EditProfile.tr()),
-          onTap: () => Firebase.pushNamed(context, '/EditProfile'),
+          onTap: () => Firebase.pushNamed(context, '/Settings/EditProfile'),
         ),
         ListTile(
           title: Text(LocaleKeys.Settings_SecuritySessions.tr()),
-          onTap: () => Navigator.of(context).pushNamed('/Security/Sessions'),
+          onTap: () =>
+              Navigator.of(context).pushNamed('/Settings/Security/Sessions'),
         ),
         ListTile(
           title: Text(LocaleKeys.Settings_Interface.tr()),
-          onTap: () => Navigator.of(context).pushNamed('/Interface'),
+          onTap: () => Navigator.of(context).pushNamed('/Settings/Interface'),
         ),
         ListTile(
           title: Text(LocaleKeys.Settings_DeveloperOptions.tr()),
-          onTap: () => Navigator.of(context).pushNamed('/DeveloperOptions'),
+          onTap: () =>
+              Navigator.of(context).pushNamed('/Settings/DeveloperOptions'),
         ),
         ListTile(
           title: Text(LocaleKeys.About.tr()),
-          onTap: () => Navigator.of(context).pushNamed('/About'),
+          onTap: () => Navigator.of(context).pushNamed('/Settings/About'),
         ),
         Divider(),
         RaisedButton.icon(
