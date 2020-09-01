@@ -13,7 +13,7 @@ class _CommentDialog extends StatelessWidget {
         .child('flea_market/$_itemKey/comments')
         .push()
         .set({
-      'from': firebase.user.uid,
+      'from': FirebaseAuth.instance.currentUser.uid,
       'comment': text,
       'timestamp': DateTime.now().toIso8601String()
     });

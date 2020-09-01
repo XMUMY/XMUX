@@ -6,166 +6,156 @@ part of 'models.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$RequestForm on _RequestForm, Store {
   final _$usageAtom = Atom(name: '_RequestForm.usage');
 
   @override
   String get usage {
-    _$usageAtom.context.enforceReadPolicy(_$usageAtom);
-    _$usageAtom.reportObserved();
+    _$usageAtom.reportRead();
     return super.usage;
   }
 
   @override
   set usage(String value) {
-    _$usageAtom.context.conditionallyRunInAction(() {
+    _$usageAtom.reportWrite(value, super.usage, () {
       super.usage = value;
-      _$usageAtom.reportChanged();
-    }, _$usageAtom, name: '${_$usageAtom.name}_set');
+    });
   }
 
   final _$categoryAtom = Atom(name: '_RequestForm.category');
 
   @override
   String get category {
-    _$categoryAtom.context.enforceReadPolicy(_$categoryAtom);
-    _$categoryAtom.reportObserved();
+    _$categoryAtom.reportRead();
     return super.category;
   }
 
   @override
   set category(String value) {
-    _$categoryAtom.context.conditionallyRunInAction(() {
+    _$categoryAtom.reportWrite(value, super.category, () {
       super.category = value;
-      _$categoryAtom.reportChanged();
-    }, _$categoryAtom, name: '${_$categoryAtom.name}_set');
+    });
   }
 
   final _$blockAtom = Atom(name: '_RequestForm.block');
 
   @override
   String get block {
-    _$blockAtom.context.enforceReadPolicy(_$blockAtom);
-    _$blockAtom.reportObserved();
+    _$blockAtom.reportRead();
     return super.block;
   }
 
   @override
   set block(String value) {
-    _$blockAtom.context.conditionallyRunInAction(() {
+    _$blockAtom.reportWrite(value, super.block, () {
       super.block = value;
-      _$blockAtom.reportChanged();
-    }, _$blockAtom, name: '${_$blockAtom.name}_set');
+    });
   }
 
   final _$wingAtom = Atom(name: '_RequestForm.wing');
 
   @override
   String get wing {
-    _$wingAtom.context.enforceReadPolicy(_$wingAtom);
-    _$wingAtom.reportObserved();
+    _$wingAtom.reportRead();
     return super.wing;
   }
 
   @override
   set wing(String value) {
-    _$wingAtom.context.conditionallyRunInAction(() {
+    _$wingAtom.reportWrite(value, super.wing, () {
       super.wing = value;
-      _$wingAtom.reportChanged();
-    }, _$wingAtom, name: '${_$wingAtom.name}_set');
+    });
   }
 
   final _$roomAtom = Atom(name: '_RequestForm.room');
 
   @override
   String get room {
-    _$roomAtom.context.enforceReadPolicy(_$roomAtom);
-    _$roomAtom.reportObserved();
+    _$roomAtom.reportRead();
     return super.room;
   }
 
   @override
   set room(String value) {
-    _$roomAtom.context.conditionallyRunInAction(() {
+    _$roomAtom.reportWrite(value, super.room, () {
       super.room = value;
-      _$roomAtom.reportChanged();
-    }, _$roomAtom, name: '${_$roomAtom.name}_set');
+    });
   }
 
   final _$recurringProblemAtom = Atom(name: '_RequestForm.recurringProblem');
 
   @override
   bool get recurringProblem {
-    _$recurringProblemAtom.context.enforceReadPolicy(_$recurringProblemAtom);
-    _$recurringProblemAtom.reportObserved();
+    _$recurringProblemAtom.reportRead();
     return super.recurringProblem;
   }
 
   @override
   set recurringProblem(bool value) {
-    _$recurringProblemAtom.context.conditionallyRunInAction(() {
+    _$recurringProblemAtom.reportWrite(value, super.recurringProblem, () {
       super.recurringProblem = value;
-      _$recurringProblemAtom.reportChanged();
-    }, _$recurringProblemAtom, name: '${_$recurringProblemAtom.name}_set');
+    });
   }
 
   final _$descriptionAtom = Atom(name: '_RequestForm.description');
 
   @override
   String get description {
-    _$descriptionAtom.context.enforceReadPolicy(_$descriptionAtom);
-    _$descriptionAtom.reportObserved();
+    _$descriptionAtom.reportRead();
     return super.description;
   }
 
   @override
   set description(String value) {
-    _$descriptionAtom.context.conditionallyRunInAction(() {
+    _$descriptionAtom.reportWrite(value, super.description, () {
       super.description = value;
-      _$descriptionAtom.reportChanged();
-    }, _$descriptionAtom, name: '${_$descriptionAtom.name}_set');
+    });
   }
 
   final _$fileAtom = Atom(name: '_RequestForm.file');
 
   @override
   File get file {
-    _$fileAtom.context.enforceReadPolicy(_$fileAtom);
-    _$fileAtom.reportObserved();
+    _$fileAtom.reportRead();
     return super.file;
   }
 
   @override
   set file(File value) {
-    _$fileAtom.context.conditionallyRunInAction(() {
+    _$fileAtom.reportWrite(value, super.file, () {
       super.file = value;
-      _$fileAtom.reportChanged();
-    }, _$fileAtom, name: '${_$fileAtom.name}_set');
+    });
   }
 
   final _$phoneNumberAtom = Atom(name: '_RequestForm.phoneNumber');
 
   @override
   String get phoneNumber {
-    _$phoneNumberAtom.context.enforceReadPolicy(_$phoneNumberAtom);
-    _$phoneNumberAtom.reportObserved();
+    _$phoneNumberAtom.reportRead();
     return super.phoneNumber;
   }
 
   @override
   set phoneNumber(String value) {
-    _$phoneNumberAtom.context.conditionallyRunInAction(() {
+    _$phoneNumberAtom.reportWrite(value, super.phoneNumber, () {
       super.phoneNumber = value;
-      _$phoneNumberAtom.reportChanged();
-    }, _$phoneNumberAtom, name: '${_$phoneNumberAtom.name}_set');
+    });
   }
 
   @override
   String toString() {
-    final string =
-        'usage: ${usage.toString()},category: ${category.toString()},block: ${block.toString()},wing: ${wing.toString()},room: ${room.toString()},recurringProblem: ${recurringProblem.toString()},description: ${description.toString()},file: ${file.toString()},phoneNumber: ${phoneNumber.toString()}';
-    return '{$string}';
+    return '''
+usage: ${usage},
+category: ${category},
+block: ${block},
+wing: ${wing},
+room: ${room},
+recurringProblem: ${recurringProblem},
+description: ${description},
+file: ${file},
+phoneNumber: ${phoneNumber}
+    ''';
   }
 }

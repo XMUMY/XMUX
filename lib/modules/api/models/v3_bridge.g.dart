@@ -187,29 +187,28 @@ const _$StudentAttendanceStatusEnumMap = {
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$StudentAttendance on _StudentAttendance, Store {
   final _$selectedAtom = Atom(name: '_StudentAttendance.selected');
 
   @override
   bool get selected {
-    _$selectedAtom.context.enforceReadPolicy(_$selectedAtom);
-    _$selectedAtom.reportObserved();
+    _$selectedAtom.reportRead();
     return super.selected;
   }
 
   @override
   set selected(bool value) {
-    _$selectedAtom.context.conditionallyRunInAction(() {
+    _$selectedAtom.reportWrite(value, super.selected, () {
       super.selected = value;
-      _$selectedAtom.reportChanged();
-    }, _$selectedAtom, name: '${_$selectedAtom.name}_set');
+    });
   }
 
   @override
   String toString() {
-    final string = 'selected: ${selected.toString()}';
-    return '{$string}';
+    return '''
+selected: ${selected}
+    ''';
   }
 }

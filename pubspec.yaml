@@ -35,14 +35,14 @@ dependencies:
   dio: ^3.0.9
   dio_cookie_manager: ^1.0.0
   easy_localization: ^2.3.2
-  extended_image: ^0.9.0
-  firebase_analytics: ^5.0.15
-  firebase_auth: ^0.16.1
-  firebase_database: ^3.1.6
-  firebase_messaging: ^6.0.16
-  firebase_remote_config: ^0.3.1
-  firebase_storage: ^3.1.6
-  fl_chart: ^0.10.0
+  extended_image: ^1.1.1
+  firebase_analytics: ^6.0.0
+  firebase_auth: ^0.18.0
+  firebase_database: ^4.0.0
+  firebase_messaging: ^7.0.0
+  firebase_remote_config: ^0.4.0
+  firebase_storage: ^4.0.0
+  fl_chart: ^0.11.1
   flare_flutter: ^2.0.3
   flutter_html: ^1.0.0
   flutter_mobx: ^1.1.0
@@ -63,7 +63,7 @@ dependencies:
   image_editor: ^0.7.0
   image_picker: ^0.6.7
   imgur: ^1.1.0
-  lottie: ^0.5.1
+  lottie: ^0.6.0
   mobx: ^1.2.1
   package_info: ">=0.4.1 <2.0.0"
   qr_flutter: ^3.2.0
@@ -86,7 +86,6 @@ dev_dependencies:
   json_annotation: ^3.0.1
   json_serializable: ^3.2.5
   mobx_codegen: ^1.0.2
-  mockito: ^4.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

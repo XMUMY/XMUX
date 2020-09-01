@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:xmux/globals.dart';
 import 'package:xmux/translations/translation.dart';
 
 var reference;
@@ -176,8 +176,8 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
     reference.push().set({
       'text': text,
       'imageUrl': imageUrl,
-      'senderName': firebase.user.displayName,
-      'senderPhotoUrl': firebase.user.photoUrl,
+      'senderName': FirebaseAuth.instance.currentUser.displayName,
+      'senderPhotoUrl': FirebaseAuth.instance.currentUser.photoUrl,
     });
   }
 }

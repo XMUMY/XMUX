@@ -11,7 +11,8 @@ import 'remote_config.dart';
 
 class Firebase {
   // Unique instance for firebase.
-  static Firebase instance;
+  static Firebase _instance;
+  Firebase get instance => _instance;
 
   /// Firebase analytics instance.
   final analytics = FirebaseAnalytics();
@@ -25,34 +26,31 @@ class Firebase {
   /// Store remote configs.
   final RemoteConfigs remoteConfigs = RemoteConfigs();
 
-  /// Store [FirebaseUser] while signed in.
-  FirebaseUser user;
-
   Firebase._(this.remoteConfig);
 
   static Future<Firebase> init() async {
-    if (instance != null) return instance;
+    if (_instance != null) return _instance;
 
-    instance = Firebase._(await RemoteConfig.instance)
+    _instance = Firebase._(await RemoteConfig.instance)
       ..messaging.requestNotificationPermissions();
 
     var defaultStatic = await rootBundle.loadString('res/static.json');
-    instance.remoteConfig.setDefaults({'static_resources': defaultStatic});
-    instance.remoteConfigs.updateStaticResources(defaultStatic);
-    instance.updateRemoteConfig();
+    _instance.remoteConfig.setDefaults({'static_resources': defaultStatic});
+    _instance.remoteConfigs.updateStaticResources(defaultStatic);
+    _instance.updateRemoteConfig();
 
-    return instance;
+    return _instance;
   }
 
   static Future<Firebase> initWeb() async {
-    if (instance != null) return instance;
+    if (_instance != null) return _instance;
 
-    instance = Firebase._(null);
+    _instance = Firebase._(null);
 
     var defaultStatic = await rootBundle.loadString('res/static.json');
-    instance.remoteConfigs.updateStaticResources(defaultStatic);
+    _instance.remoteConfigs.updateStaticResources(defaultStatic);
 
-    return instance;
+    return _instance;
   }
 
   /// Update and parse remote configs.
@@ -73,7 +71,7 @@ class Firebase {
   /// Shows confirmation dialog if cannot connect to GMS and [context] is not null.
   Future<Null> login(String customToken, {BuildContext context}) async {
     try {
-      await FirebaseAuth.instance.signInWithCustomToken(token: customToken);
+      await FirebaseAuth.instance.signInWithCustomToken(customToken);
     } on PlatformException catch (e) {
       if (e.code == 'ERROR_NETWORK_REQUEST_FAILED' && context != null) {
         var ignore = await showDialog<bool>(
@@ -107,7 +105,7 @@ class Firebase {
     Object arguments,
     bool rootNavigator = false,
   }) async {
-    if (instance.user == null) {
+    if (FirebaseAuth.instance.currentUser == null) {
       var result = await showDialog<bool>(
         context: context,
         barrierDismissible: false,

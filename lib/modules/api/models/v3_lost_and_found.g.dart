@@ -99,115 +99,108 @@ Map<String, dynamic> _$NewLostAndFoundReqToJson(NewLostAndFoundReq instance) =>
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$NewLostAndFoundReq on _NewLostAndFoundReq, Store {
   final _$typeAtom = Atom(name: '_NewLostAndFoundReq.type');
 
   @override
   LostAndFoundType get type {
-    _$typeAtom.context.enforceReadPolicy(_$typeAtom);
-    _$typeAtom.reportObserved();
+    _$typeAtom.reportRead();
     return super.type;
   }
 
   @override
   set type(LostAndFoundType value) {
-    _$typeAtom.context.conditionallyRunInAction(() {
+    _$typeAtom.reportWrite(value, super.type, () {
       super.type = value;
-      _$typeAtom.reportChanged();
-    }, _$typeAtom, name: '${_$typeAtom.name}_set');
+    });
   }
 
   final _$nameAtom = Atom(name: '_NewLostAndFoundReq.name');
 
   @override
   String get name {
-    _$nameAtom.context.enforceReadPolicy(_$nameAtom);
-    _$nameAtom.reportObserved();
+    _$nameAtom.reportRead();
     return super.name;
   }
 
   @override
   set name(String value) {
-    _$nameAtom.context.conditionallyRunInAction(() {
+    _$nameAtom.reportWrite(value, super.name, () {
       super.name = value;
-      _$nameAtom.reportChanged();
-    }, _$nameAtom, name: '${_$nameAtom.name}_set');
+    });
   }
 
   final _$timestampAtom = Atom(name: '_NewLostAndFoundReq.timestamp');
 
   @override
   DateTime get timestamp {
-    _$timestampAtom.context.enforceReadPolicy(_$timestampAtom);
-    _$timestampAtom.reportObserved();
+    _$timestampAtom.reportRead();
     return super.timestamp;
   }
 
   @override
   set timestamp(DateTime value) {
-    _$timestampAtom.context.conditionallyRunInAction(() {
+    _$timestampAtom.reportWrite(value, super.timestamp, () {
       super.timestamp = value;
-      _$timestampAtom.reportChanged();
-    }, _$timestampAtom, name: '${_$timestampAtom.name}_set');
+    });
   }
 
   final _$locationAtom = Atom(name: '_NewLostAndFoundReq.location');
 
   @override
   String get location {
-    _$locationAtom.context.enforceReadPolicy(_$locationAtom);
-    _$locationAtom.reportObserved();
+    _$locationAtom.reportRead();
     return super.location;
   }
 
   @override
   set location(String value) {
-    _$locationAtom.context.conditionallyRunInAction(() {
+    _$locationAtom.reportWrite(value, super.location, () {
       super.location = value;
-      _$locationAtom.reportChanged();
-    }, _$locationAtom, name: '${_$locationAtom.name}_set');
+    });
   }
 
   final _$descriptionAtom = Atom(name: '_NewLostAndFoundReq.description');
 
   @override
   String get description {
-    _$descriptionAtom.context.enforceReadPolicy(_$descriptionAtom);
-    _$descriptionAtom.reportObserved();
+    _$descriptionAtom.reportRead();
     return super.description;
   }
 
   @override
   set description(String value) {
-    _$descriptionAtom.context.conditionallyRunInAction(() {
+    _$descriptionAtom.reportWrite(value, super.description, () {
       super.description = value;
-      _$descriptionAtom.reportChanged();
-    }, _$descriptionAtom, name: '${_$descriptionAtom.name}_set');
+    });
   }
 
   final _$contactsAtom = Atom(name: '_NewLostAndFoundReq.contacts');
 
   @override
   Map<String, String> get contacts {
-    _$contactsAtom.context.enforceReadPolicy(_$contactsAtom);
-    _$contactsAtom.reportObserved();
+    _$contactsAtom.reportRead();
     return super.contacts;
   }
 
   @override
   set contacts(Map<String, String> value) {
-    _$contactsAtom.context.conditionallyRunInAction(() {
+    _$contactsAtom.reportWrite(value, super.contacts, () {
       super.contacts = value;
-      _$contactsAtom.reportChanged();
-    }, _$contactsAtom, name: '${_$contactsAtom.name}_set');
+    });
   }
 
   @override
   String toString() {
-    final string =
-        'type: ${type.toString()},name: ${name.toString()},timestamp: ${timestamp.toString()},location: ${location.toString()},description: ${description.toString()},contacts: ${contacts.toString()}';
-    return '{$string}';
+    return '''
+type: ${type},
+name: ${name},
+timestamp: ${timestamp},
+location: ${location},
+description: ${description},
+contacts: ${contacts}
+    ''';
   }
 }

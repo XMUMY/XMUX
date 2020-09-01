@@ -64,7 +64,6 @@ void init() async {
     return;
   }
 
-  FirebaseAuth.instance.currentUser().then((u) => firebase.user = u);
   postInit();
 }
 
@@ -136,18 +135,15 @@ Future<void> ioInit() async {
 
   // TODO: Consider web.
   // Register FirebaseAuth state listener.
-  FirebaseAuth.instance.onAuthStateChanged.listen((user) {
-    if (user == null && firebase.user != null) logout();
-    if (user != null) {
-      firebase.user = user;
-      XmuxApi.instance.configure(
-          authorization: Authorization()
-            ..bearerRefresher = () async => (await user.getIdToken()).token);
+  FirebaseAuth.instance.authStateChanges().listen((user) {
+    if (user == null) logout();
 
-      // APIv2 JWT configure. (Deprecated)
-      v2.XMUXApi.instance.getIdToken =
-          () async => (await firebase.user.getIdToken()).token;
-    }
+    XmuxApi.instance.configure(
+        authorization: Authorization()
+          ..bearerRefresher = () async => await user.getIdToken());
+
+    // APIv2 JWT configure. (Deprecated)
+    v2.XMUXApi.instance.getIdToken = () async => await user.getIdToken();
   });
 
   // Configure FCM.

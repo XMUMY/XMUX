@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
@@ -140,7 +141,7 @@ class ItemDetailPage extends StatelessWidget {
             pinned: true,
             actions: <Widget>[
               // Edit button if isOwner.
-              item.from.toLowerCase() == firebase.user.uid
+              item.from.toLowerCase() == FirebaseAuth.instance.currentUser.uid
                   ? IconButton(
                       icon: const Icon(Icons.create),
                       tooltip: i18n('FleaMarket/Edit', context),

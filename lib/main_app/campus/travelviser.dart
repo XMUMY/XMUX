@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide Route;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +12,7 @@ import 'package:xmux/modules/travelviser/travelviser.dart';
 
 class TravelviserPage extends StatefulWidget {
   // TODO: Use profile
-  final travelviser = Travelviser(firebase.user.email);
+  final travelviser = Travelviser(FirebaseAuth.instance.currentUser.email);
 
   @override
   _TravelviserPageState createState() => _TravelviserPageState();
@@ -400,20 +401,20 @@ class DigitalPassPage extends StatelessWidget {
           Center(
             child: QrImage(
               version: 2,
-              data: firebase.user.email,
+              data: FirebaseAuth.instance.currentUser.email,
               size: MediaQuery.of(context).size.width / 1.3,
             ),
           ),
           Center(
             child: Text(
-              firebase.user.displayName,
+              FirebaseAuth.instance.currentUser.displayName,
               style:
                   Theme.of(context).textTheme.headline6.copyWith(fontSize: 20),
             ),
           ),
           Center(
             child: Text(
-              '${firebase.user.uid} | ${firebase.user.email}',
+              '${FirebaseAuth.instance.currentUser.uid} | ${FirebaseAuth.instance.currentUser.email}',
               style: Theme.of(context).textTheme.caption.copyWith(fontSize: 15),
             ),
           )

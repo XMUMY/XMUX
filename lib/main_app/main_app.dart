@@ -63,60 +63,60 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var app = StoreProvider<MainAppState>(
-      store: store,
-      child: StoreConnector<MainAppState, Tuple3<ThemeMode, bool, bool>>(
-        converter: (s) => Tuple3(
-          s.state.settingState.themeMode,
-          s.state.uiState.showPerformanceOverlay,
-          s.state.uiState.showSemanticsDebugger,
-        ),
-        builder: (context, model) {
-          return MaterialApp(
-            title: 'XMUX',
-            home: MainPage(),
-            theme: ThemeConfig.defaultTheme,
-            darkTheme: ThemeConfig.defaultDarkTheme,
-            themeMode: model.item1,
-            localizationsDelegates: context.localizationDelegates
-              ..add(MainLocalizationsDelegate.delegate),
-            supportedLocales: context.supportedLocales,
-            navigatorObservers: <NavigatorObserver>[
-              // Only trace in release mode.
-              if (P.isVM && bool.fromEnvironment('dart.vm.product'))
-                FirebaseAnalyticsObserver(analytics: firebase.analytics),
-            ],
-            initialRoute: '/',
-            onGenerateRoute: (settings) {
-              var matchedPrefix = prefixes.keys.firstWhere(
-                (k) => settings.name.startsWith(k),
-                orElse: () => null,
-              );
-              if (matchedPrefix != null)
-                switch (matchedPrefix) {
-                  case '/Settings':
-                    return WindowPageRoute(
-                      settings: settings,
-                      fullscreenDialog: true,
-                      builder: (context) => prefixes[matchedPrefix](context),
-                    );
-                }
-
-              return null;
-            },
-            routes: routes,
-            showPerformanceOverlay: model.item2,
-            showSemanticsDebugger: model.item3,
-          );
-        },
+    var app = StoreConnector<MainAppState, Tuple3<ThemeMode, bool, bool>>(
+      converter: (s) => Tuple3(
+        s.state.settingState.themeMode,
+        s.state.uiState.showPerformanceOverlay,
+        s.state.uiState.showSemanticsDebugger,
       ),
+      builder: (context, model) {
+        return MaterialApp(
+          title: 'XMUX',
+          home: MainPage(),
+          theme: ThemeConfig.defaultTheme,
+          darkTheme: ThemeConfig.defaultDarkTheme,
+          themeMode: model.item1,
+          localizationsDelegates: context.localizationDelegates
+            ..add(MainLocalizationsDelegate.delegate),
+          supportedLocales: context.supportedLocales,
+          navigatorObservers: <NavigatorObserver>[
+            // Only trace in release mode.
+            if (P.isVM && bool.fromEnvironment('dart.vm.product'))
+              FirebaseAnalyticsObserver(analytics: firebase.analytics),
+          ],
+          initialRoute: '/',
+          onGenerateRoute: (settings) {
+            var matchedPrefix = prefixes.keys.firstWhere(
+              (k) => settings.name.startsWith(k),
+              orElse: () => null,
+            );
+            if (matchedPrefix != null)
+              switch (matchedPrefix) {
+                case '/Settings':
+                  return WindowPageRoute(
+                    settings: settings,
+                    fullscreenDialog: true,
+                    builder: (context) => prefixes[matchedPrefix](context),
+                  );
+              }
+
+            return null;
+          },
+          routes: routes,
+          showPerformanceOverlay: model.item2,
+          showSemanticsDebugger: model.item3,
+        );
+      },
     );
 
     return EasyLocalization(
       supportedLocales: [Locale('en'), Locale('zh', 'CN')],
       path: 'res/translations',
       fallbackLocale: Locale('en'),
-      child: app,
+      child: StoreProvider<MainAppState>(
+        store: store,
+        child: app,
+      ),
     );
   }
 }

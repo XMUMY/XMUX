@@ -14,17 +14,16 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  final _displayNameController =
-      TextEditingController(text: firebase.user?.displayName ?? 'User');
+  final _displayNameController = TextEditingController(
+      text: FirebaseAuth.instance.currentUser?.displayName ?? 'User');
 
   final _formKey = GlobalKey<FormState>();
 
   void _handleSubmit() async {
     if (!_formKey.currentState.validate()) return;
-    firebase.user.updateProfile(
-        UserUpdateInfo()..displayName = _displayNameController.text);
-    firebase.user.reload();
-    firebase.user = await FirebaseAuth.instance.currentUser();
+    FirebaseAuth.instance.currentUser
+        .updateProfile(displayName: _displayNameController.text);
+    await FirebaseAuth.instance.currentUser.reload();
     Navigator.of(context).pop();
   }
 
@@ -53,7 +52,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     vertical: 15,
                   ),
                   child: StoreConnector<MainAppState, String>(
-                    converter: (s) => firebase.user.photoUrl,
+                    converter: (s) =>
+                        FirebaseAuth.instance.currentUser.photoURL,
                     builder: (context, s) => GestureDetector(
                       onTap: () => Navigator.of(context).pushNamed(
                         '/Components/ImageEditor',
@@ -73,7 +73,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       converter: (s) => s.state.user.profile?.name ?? '...',
                       builder: (context, s) => Text(s),
                     ),
-                    Text(firebase.user.email),
+                    Text(FirebaseAuth.instance.currentUser.email),
                   ],
                 )
               ],

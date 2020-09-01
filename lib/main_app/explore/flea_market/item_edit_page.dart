@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -81,7 +82,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
 
     // Upload pictures.
     var storageRef = FirebaseStorage.instance.ref().child(
-        '/flea_market/${firebase.user.uid.toLowerCase()}-${timestamp.toIso8601String()}');
+        '/flea_market/${FirebaseAuth.instance.currentUser.uid.toLowerCase()}-${timestamp.toIso8601String()}');
 
     // Process picture compression in parallel.
     Future<String> pictureTask(int index) async {
@@ -99,7 +100,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
 
     // Upload item details.
     var item = Item(
-      firebase.user.uid.toLowerCase(),
+      FirebaseAuth.instance.currentUser.uid.toLowerCase(),
       name,
       description,
       Price(priceValue, 'RM'),
