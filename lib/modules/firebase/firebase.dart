@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart' as firebaseCore;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'remote_config.dart';
 class Firebase {
   // Unique instance for firebase.
   static Firebase _instance;
+
   Firebase get instance => _instance;
 
   /// Firebase analytics instance.
@@ -31,6 +33,7 @@ class Firebase {
   static Future<Firebase> init() async {
     if (_instance != null) return _instance;
 
+    await firebaseCore.Firebase.initializeApp();
     _instance = Firebase._(await RemoteConfig.instance)
       ..messaging.requestNotificationPermissions();
 
@@ -45,6 +48,7 @@ class Firebase {
   static Future<Firebase> initWeb() async {
     if (_instance != null) return _instance;
 
+    await firebaseCore.Firebase.initializeApp();
     _instance = Firebase._(null);
 
     var defaultStatic = await rootBundle.loadString('res/static.json');
