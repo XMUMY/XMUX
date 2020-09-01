@@ -2,12 +2,12 @@ import 'package:flutter/material.dart' hide Route;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:travelviser_dart/travelviser_dart.dart';
 import 'package:tuple/tuple.dart';
 import 'package:xmux/components/animated_insertion.dart';
 import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/travelviser/travelviser.dart';
 
 class TravelviserPage extends StatefulWidget {
   // TODO: Use profile
