@@ -58,6 +58,10 @@ dependencies:
   font_awesome_flutter: ^8.8.1
   googleapis: ^0.55.0
   googleapis_auth: ^0.2.12
+  grpc:
+    git:
+      url: https://github.com/XMUMY/grpc-dart.git
+      ref: rm-trailer
   html: ^0.14.0
   image: ^2.1.13
   image_editor: ^0.7.0
@@ -66,6 +70,7 @@ dependencies:
   lottie: ^0.6.0
   mobx: ^1.2.1
   package_info: ">=0.4.1 <2.0.0"
+  protobuf: ^1.0.1
   qr_flutter: ^3.2.0
   redux: ^4.0.0
   sentry: ^3.0.1

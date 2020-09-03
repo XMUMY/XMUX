@@ -110,7 +110,7 @@ class Firebase {
     bool rootNavigator = false,
   }) async {
     if (FirebaseAuth.instance.currentUser == null) {
-      var result = await showDialog<bool>(
+      await showDialog<bool>(
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialog(
@@ -124,7 +124,7 @@ class Firebase {
           ],
         ),
       );
-      if (result == null || !result) return null;
+      return null;
     }
     return Navigator.of(context, rootNavigator: rootNavigator)
         .pushNamed<T>(routeName, arguments: arguments);

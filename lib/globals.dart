@@ -9,6 +9,7 @@ import 'package:redux/redux.dart';
 import 'package:sentry/sentry.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/moodle/moodle.dart';
+import 'package:xmux/modules/rpc/rpc.dart';
 
 import 'config.dart';
 import 'init/login_app.dart';
@@ -16,6 +17,9 @@ import 'modules/firebase/firebase.dart';
 import 'modules/xia/xia.dart';
 import 'redux/redux.dart';
 import 'translations/translation.dart';
+
+/// XMUX RPC client.
+final XmuxRpc rpc = XmuxRpc(Uri.parse(BackendApiConfig.address).host);
 
 /// Firebase instance.
 Firebase firebase;
