@@ -46,7 +46,14 @@ const RefreshDeviceReq$json = const {
     const {'1': 'deviceId', '3': 1, '4': 1, '5': 9, '10': 'deviceId'},
     const {'1': 'deviceModel', '3': 2, '4': 1, '5': 9, '10': 'deviceModel'},
     const {'1': 'deviceName', '3': 3, '4': 1, '5': 9, '10': 'deviceName'},
-    const {'1': 'pushChannel', '3': 4, '4': 1, '5': 14, '6': '.xmux.core.user.v4.RefreshDeviceReq.PushChannelType', '10': 'pushChannel'},
+    const {
+      '1': 'pushChannel',
+      '3': 4,
+      '4': 1,
+      '5': 14,
+      '6': '.xmux.core.user.v4.RefreshDeviceReq.PushChannelType',
+      '10': 'pushChannel'
+    },
     const {'1': 'pushKey', '3': 5, '4': 1, '5': 9, '10': 'pushKey'},
   ],
   '4': const [RefreshDeviceReq_PushChannelType$json],
@@ -62,7 +69,14 @@ const RefreshDeviceReq_PushChannelType$json = const {
 const GetDevicesResp$json = const {
   '1': 'GetDevicesResp',
   '2': const [
-    const {'1': 'devices', '3': 1, '4': 3, '5': 11, '6': '.xmux.core.user.v4.GetDevicesResp.Device', '10': 'devices'},
+    const {
+      '1': 'devices',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.xmux.core.user.v4.GetDevicesResp.Device',
+      '10': 'devices'
+    },
   ],
   '3': const [GetDevicesResp_Device$json],
 };
@@ -73,7 +87,13 @@ const GetDevicesResp_Device$json = const {
     const {'1': 'deviceId', '3': 1, '4': 1, '5': 9, '10': 'deviceId'},
     const {'1': 'deviceModel', '3': 2, '4': 1, '5': 9, '10': 'deviceModel'},
     const {'1': 'deviceName', '3': 3, '4': 1, '5': 9, '10': 'deviceName'},
-    const {'1': 'lastSeen', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'lastSeen'},
+    const {
+      '1': 'lastSeen',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'lastSeen'
+    },
   ],
 };
-

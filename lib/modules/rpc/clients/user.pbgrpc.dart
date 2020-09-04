@@ -6,12 +6,13 @@
 // ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
 
 import 'dart:async' as $async;
-
 import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
+
 import 'google/protobuf/empty.pb.dart' as $0;
 import 'user.pb.dart' as $1;
+
 export 'user.pb.dart';
 
 class UserClient extends $grpc.Client {
@@ -170,14 +171,19 @@ abstract class UserServiceBase extends $grpc.Service {
   }
 
   $async.Future<$1.LoginResp> login($grpc.ServiceCall call, $0.Empty request);
+
   $async.Future<$1.LoginResp> register(
       $grpc.ServiceCall call, $1.RegisterReq request);
+
   $async.Future<$1.Profile> getProfile(
       $grpc.ServiceCall call, $1.GetProfileReq request);
+
   $async.Future<$0.Empty> refreshDevice(
       $grpc.ServiceCall call, $1.RefreshDeviceReq request);
+
   $async.Future<$1.GetDevicesResp> getDevices(
       $grpc.ServiceCall call, $0.Empty request);
+
   $async.Future<$0.Empty> revokeDevices(
       $grpc.ServiceCall call, $0.Empty request);
 }

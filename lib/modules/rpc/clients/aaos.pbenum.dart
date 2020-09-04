@@ -7,20 +7,22 @@
 
 // ignore_for_file: UNDEFINED_SHOWN_NAME,UNUSED_SHOWN_NAME
 import 'dart:core' as $core;
+
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class Info_Gender extends $pb.ProtobufEnum {
   static const Info_Gender male = Info_Gender._(0, 'male');
   static const Info_Gender female = Info_Gender._(1, 'female');
 
-  static const $core.List<Info_Gender> values = <Info_Gender> [
+  static const $core.List<Info_Gender> values = <Info_Gender>[
     male,
     female,
   ];
 
-  static final $core.Map<$core.int, Info_Gender> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static final $core.Map<$core.int, Info_Gender> _byValue =
+      $pb.ProtobufEnum.initByValue(values);
+
   static Info_Gender valueOf($core.int value) => _byValue[value];
 
   const Info_Gender._($core.int v, $core.String n) : super(v, n);
 }
-

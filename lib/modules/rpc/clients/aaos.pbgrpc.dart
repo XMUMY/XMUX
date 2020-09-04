@@ -6,12 +6,13 @@
 // ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
 
 import 'dart:async' as $async;
-
 import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
-import 'google/protobuf/empty.pb.dart' as $0;
+
 import 'aaos.pb.dart' as $1;
+import 'google/protobuf/empty.pb.dart' as $0;
+
 export 'aaos.pb.dart';
 
 class AAOSClient extends $grpc.Client {
@@ -145,11 +146,15 @@ abstract class AAOSServiceBase extends $grpc.Service {
   }
 
   $async.Future<$1.Info> getInfo($grpc.ServiceCall call, $0.Empty request);
+
   $async.Future<$1.Timetable> getTimetable(
       $grpc.ServiceCall call, $0.Empty request);
+
   $async.Future<$1.Courses> getCourses(
       $grpc.ServiceCall call, $0.Empty request);
+
   $async.Future<$1.Exams> getExams($grpc.ServiceCall call, $0.Empty request);
+
   $async.Future<$1.Transcript> getTranscript(
       $grpc.ServiceCall call, $0.Empty request);
 }
