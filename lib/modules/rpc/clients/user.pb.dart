@@ -30,9 +30,10 @@ class RegisterReq extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory RegisterReq.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory RegisterReq.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   RegisterReq clone() => RegisterReq()..mergeFromMessage(this);
 
@@ -97,9 +98,10 @@ class LoginResp extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory LoginResp.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory LoginResp.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   LoginResp clone() => LoginResp()..mergeFromMessage(this);
 
@@ -150,9 +152,10 @@ class GetProfileReq extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory GetProfileReq.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory GetProfileReq.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   GetProfileReq clone() => GetProfileReq()..mergeFromMessage(this);
 
@@ -210,9 +213,10 @@ class Profile extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory Profile.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory Profile.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   Profile clone() => Profile()..mergeFromMessage(this);
 
@@ -355,9 +359,10 @@ class RefreshDeviceReq extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory RefreshDeviceReq.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory RefreshDeviceReq.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   RefreshDeviceReq clone() => RefreshDeviceReq()..mergeFromMessage(this);
 
@@ -473,6 +478,8 @@ class GetDevicesResp_Device extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
 
+  $core.Map<$core.String, $core.dynamic> toJson() => writeToJsonMap();
+
   GetDevicesResp_Device clone() =>
       GetDevicesResp_Device()..mergeFromMessage(this);
 
@@ -571,9 +578,10 @@ class GetDevicesResp extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory GetDevicesResp.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory GetDevicesResp.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   GetDevicesResp clone() => GetDevicesResp()..mergeFromMessage(this);
 

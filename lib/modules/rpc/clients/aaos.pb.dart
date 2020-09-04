@@ -37,9 +37,10 @@ class Info extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory Info.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory Info.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   Info clone() => Info()..mergeFromMessage(this);
 
@@ -169,9 +170,10 @@ class Timetable_Class extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory Timetable_Class.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory Timetable_Class.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   Timetable_Class clone() => Timetable_Class()..mergeFromMessage(this);
 
@@ -314,9 +316,10 @@ class Timetable extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory Timetable.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory Timetable.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   Timetable clone() => Timetable()..mergeFromMessage(this);
 
@@ -358,9 +361,10 @@ class Courses_Course extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory Courses_Course.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory Courses_Course.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   Courses_Course clone() => Courses_Course()..mergeFromMessage(this);
 
@@ -441,9 +445,10 @@ class Courses extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory Courses.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory Courses.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   Courses clone() => Courses()..mergeFromMessage(this);
 
@@ -489,9 +494,10 @@ class Exams_Exam extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory Exams_Exam.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory Exams_Exam.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   Exams_Exam clone() => Exams_Exam()..mergeFromMessage(this);
 
@@ -633,9 +639,10 @@ class Exams extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory Exams.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory Exams.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   Exams clone() => Exams()..mergeFromMessage(this);
 
@@ -679,9 +686,11 @@ class Transcript_Session_Course extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory Transcript_Session_Course.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory Transcript_Session_Course.fromJson(
+          $core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   Transcript_Session_Course clone() =>
       Transcript_Session_Course()..mergeFromMessage(this);
@@ -796,9 +805,11 @@ class Transcript_Session extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory Transcript_Session.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory Transcript_Session.fromJson(
+          $core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   Transcript_Session clone() => Transcript_Session()..mergeFromMessage(this);
 
@@ -882,9 +893,10 @@ class Transcript extends $pb.GeneratedMessage {
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
-  factory Transcript.fromJson($core.String i,
-          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(i, r);
+  factory Transcript.fromJson($core.Map<$core.String, $core.dynamic> i) =>
+      create()..mergeFromProto3Json(i);
+
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json();
 
   Transcript clone() => Transcript()..mergeFromMessage(this);
 
