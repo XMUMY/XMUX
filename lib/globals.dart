@@ -19,7 +19,7 @@ import 'redux/redux.dart';
 import 'translations/translation.dart';
 
 /// XMUX RPC client.
-final XmuxRpc rpc = XmuxRpc(Uri.parse(BackendApiConfig.address).host);
+final XmuxRpc rpc = XmuxRpc(BackendApiConfig.address);
 
 /// Firebase instance.
 Firebase firebase;

@@ -191,7 +191,6 @@ class _LoginButtonState extends State<_LoginButton> {
       return;
     }
     store.dispatch(LoginAction(username, password));
-    rpc.authorization.mergeFrom(Authorization.basic(username, password));
 
     // Login firebase.
     try {

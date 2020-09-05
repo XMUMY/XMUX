@@ -1,6 +1,7 @@
-import 'package:grpc/grpc.dart';
+import 'package:grpc/service_api.dart';
 
 import 'authorization.dart';
+import 'client_channel.dart' if (dart.library.html) 'client_channel_web.dart';
 import 'clients/aaos.pbgrpc.dart';
 import 'clients/user.pbgrpc.dart';
 
@@ -10,8 +11,8 @@ class XmuxRpc {
 
   final Authorization authorization;
 
-  factory XmuxRpc(String host) {
-    var clientChannel = ClientChannel(host);
+  factory XmuxRpc(String address) {
+    var clientChannel = createClientChannel(address);
     var authorization = Authorization();
 
     return XmuxRpc._(

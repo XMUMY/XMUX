@@ -11,9 +11,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/main_app.dart';
-import 'package:xmux/modules/api/xmux_api.dart';
+import 'package:xmux/modules/api/xmux_api.dart' as v3;
 import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
+import 'package:xmux/modules/rpc/authorization.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
 import 'package:xmux/redux/redux.dart';
@@ -27,7 +28,7 @@ void init() async {
         sentry.captureException(exception: e.exception, stackTrace: e.stack);
 
   // Create APIv3 Client.
-  XmuxApi(BackendApiConfig.address);
+  v3.XmuxApi(BackendApiConfig.address);
   // Select XMUX API server. (Deprecated)
   v2.XMUXApi([BackendApiConfig.address]);
   // Init XiA async.
@@ -70,9 +71,15 @@ void init() async {
 /// Post initialization after authentication.
 void postInit() async {
   try {
+    // Attach campus ID and password to RPC client.
+    rpc.authorization.mergeFrom(Authorization.basic(
+      store.state.user.campusId,
+      store.state.user.password,
+    ));
+
     // Attach ID and password to XmuxApi.
-    XmuxApi.instance.configure(
-      authorization: Authorization.basic(
+    v3.XmuxApi.instance.configure(
+      authorization: v3.Authorization.basic(
         store.state.user.campusId,
         store.state.user.password,
       ),
@@ -138,8 +145,8 @@ Future<void> ioInit() async {
   FirebaseAuth.instance.authStateChanges().listen((user) {
     if (FirebaseAuth.instance.currentUser != null && user == null) logout();
 
-    XmuxApi.instance.configure(
-        authorization: Authorization()
+    v3.XmuxApi.instance.configure(
+        authorization: v3.Authorization()
           ..bearerRefresher = () async => await user.getIdToken());
 
     // APIv2 JWT configure. (Deprecated)
@@ -169,7 +176,7 @@ Future<void> androidPostInit() async {
 
   DeviceInfoPlugin()
       .androidInfo
-      .then((deviceInfo) async => XmuxApi.instance.refreshDevice(
+      .then((deviceInfo) async => v3.XmuxApi.instance.refreshDevice(
             deviceInfo.androidId,
             deviceInfo.model,
             '${deviceInfo.manufacturer} ${deviceInfo.model}',
@@ -181,7 +188,7 @@ Future<void> androidPostInit() async {
 Future<void> iOSPostInit() async {
   DeviceInfoPlugin()
       .iosInfo
-      .then((deviceInfo) async => XmuxApi.instance.refreshDevice(
+      .then((deviceInfo) async => v3.XmuxApi.instance.refreshDevice(
             deviceInfo.identifierForVendor,
             deviceInfo.model,
             deviceInfo.name,
