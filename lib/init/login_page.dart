@@ -13,12 +13,15 @@ import 'package:xmux/components/animated_logo.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/init/init_handler.dart';
-import 'package:xmux/init/login_app.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/modules/rpc/authorization.dart';
 import 'package:xmux/modules/rpc/clients/google/protobuf/empty.pb.dart';
 import 'package:xmux/modules/rpc/error.dart';
 import 'package:xmux/redux/actions/actions.dart';
+
+import 'background.dart';
+import 'init_handler.dart';
+import 'login_app.dart';
 
 class LoginPage extends StatelessWidget {
   // Form key for id & password.
@@ -27,101 +30,94 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      var mainWidgets = Container(
-        width: min(constraints.maxWidth, 450.0),
-        margin: EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+    var size = MediaQuery.of(context).size;
+    var msg = context.findAncestorWidgetOfExactType<LoginApp>().message;
+
+    var mainWidgets = Container(
+      width: min(size.width, 450.0),
+      margin: EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          AnimatedLogo(),
+          TextFormField(
+            key: _usernameFormKey,
+            decoration: InputDecoration(
+              hintText: LocaleKeys.SignIn_CampusID.tr(),
+              hintStyle: TextStyle(color: Colors.white70),
+              icon: Icon(
+                Icons.account_box,
+                color: Colors.white,
+              ),
+            ),
+            validator: (s) =>
+                RegExp(r'^[A-Za-z]{3}[0-9]{7}$|^[0-9]{7}$').hasMatch(s)
+                    ? null
+                    : LocaleKeys.SignIn_ErrorFormat.tr(),
+          ),
+          TextFormField(
+            key: _passwordFormKey,
+            obscureText: true,
+            decoration: InputDecoration(
+              hintText: LocaleKeys.SignIn_Password.tr(),
+              hintStyle: TextStyle(color: Colors.white70),
+              icon: Icon(
+                Icons.lock,
+                color: Colors.white,
+              ),
+            ),
+            validator: (s) =>
+                s.length >= 6 ? null : LocaleKeys.SignIn_ErrorFormat.tr(),
+          ),
+          Divider(color: Colors.transparent),
+          _LoginButton(_usernameFormKey, _passwordFormKey),
+          Divider(color: Colors.transparent),
+          Text(
+            LocaleKeys.SignIn_Read.tr() + '\n' + msg.tr(),
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.redAccent),
+          )
+        ],
+      ),
+    );
+
+    return Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        // Background image.
+        BackgroundImage(),
+
+        // Bottom buttons.
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            AnimatedLogo(),
-            TextFormField(
-              key: _usernameFormKey,
-              decoration: InputDecoration(
-                hintText: LocaleKeys.SignIn_CampusID.tr(),
-                hintStyle: TextStyle(color: Colors.white70),
-                icon: Icon(
-                  Icons.account_box,
-                  color: Colors.white,
-                ),
+            if (P.isAndroid)
+              IconButton(
+                icon: Icon(FontAwesomeIcons.googlePlay),
+                onPressed: () => launch(
+                    '${BackendApiConfig.websiteAddress}/2019/01/01/gms/'),
+                tooltip: LocaleKeys.SignIn_InstallGMS.tr(),
               ),
-              validator: (s) =>
-                  RegExp(r'^[A-Za-z]{3}[0-9]{7}$|^[0-9]{7}$').hasMatch(s)
-                      ? null
-                      : LocaleKeys.SignIn_ErrorFormat.tr(),
+            IconButton(
+              icon: Icon(FontAwesomeIcons.fileAlt),
+              onPressed: () => launch(
+                  '${BackendApiConfig.websiteAddress}/privacy.html',
+                  forceWebView: true),
+              tooltip: LocaleKeys.SignIn_Privacy.tr(),
             ),
-            TextFormField(
-              key: _passwordFormKey,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: LocaleKeys.SignIn_Password.tr(),
-                hintStyle: TextStyle(color: Colors.white70),
-                icon: Icon(
-                  Icons.lock,
-                  color: Colors.white,
-                ),
-              ),
-              validator: (s) =>
-                  s.length >= 6 ? null : LocaleKeys.SignIn_ErrorFormat.tr(),
+            IconButton(
+              icon: Icon(FontAwesomeIcons.questionCircle),
+              onPressed: () => launch('https://docs.xmux.xdea.io'),
+              tooltip: LocaleKeys.SignIn_Docs.tr(),
             ),
-            Divider(color: Colors.transparent),
-            _LoginButton(_usernameFormKey, _passwordFormKey),
-            Divider(color: Colors.transparent),
-            Text(
-              LocaleKeys.SignIn_Read.tr(),
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.redAccent),
-            )
           ],
         ),
-      );
 
-      return Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          // Background image.
-          Image(
-            image: AssetImage('res/initpage.jpg'),
-            fit: constraints.maxHeight / constraints.maxWidth > 16 / 9
-                ? BoxFit.fitHeight
-                : BoxFit.fitWidth,
-            alignment: Alignment.bottomCenter,
-            color: Colors.black45,
-            colorBlendMode: BlendMode.darken,
-          ),
-
-          // Bottom buttons.
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              if (P.isAndroid)
-                IconButton(
-                  icon: Icon(FontAwesomeIcons.googlePlay),
-                  onPressed: () => launch(
-                      '${BackendApiConfig.websiteAddress}/2019/01/01/gms/'),
-                  tooltip: LocaleKeys.SignIn_InstallGMS.tr(),
-                ),
-              IconButton(
-                icon: Icon(FontAwesomeIcons.fileAlt),
-                onPressed: () => launch(
-                    '${BackendApiConfig.websiteAddress}/privacy.html',
-                    forceWebView: true),
-                tooltip: LocaleKeys.SignIn_Privacy.tr(),
-              ),
-              IconButton(
-                icon: Icon(FontAwesomeIcons.questionCircle),
-                onPressed: () => launch('https://docs.xmux.xdea.io'),
-                tooltip: LocaleKeys.SignIn_Docs.tr(),
-              ),
-            ],
-          ),
-
-          // Main widgets.
-          Center(child: mainWidgets),
-        ],
-      );
-    });
+        // Main widgets.
+        Center(child: mainWidgets),
+      ],
+    );
   }
 }
 
@@ -138,16 +134,16 @@ class _LoginButton extends StatefulWidget {
 class _LoginButtonState extends State<_LoginButton> {
   var _isProcessing = false;
 
-  // If current version is deprecated.
-  var _isDeprecated = false;
+  // Show snack bar after an error occurred.
+  void _showError(BuildContext context, String msg) {
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text(LocaleKeys.General_ErrorTip.tr(args: [msg])),
+      ),
+    );
+  }
 
   Future<Null> _handleSignIn() async {
-    if (_isDeprecated) {
-      Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(LocaleKeys.SignIn_ErrorDeprecated.tr())));
-      return;
-    }
-
     // Validate format.
     if (!widget._usernameFormKey.currentState.validate() ||
         !widget._passwordFormKey.currentState.validate()) return;
@@ -181,20 +177,18 @@ class _LoginButtonState extends State<_LoginButton> {
       var msg = e.code == 403
           ? LocaleKeys.SignIn_ErrorInvalidPassword.tr()
           : e.detail;
-      Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(LocaleKeys.General_ErrorTip.tr(args: [msg]))));
+      _showError(context, msg);
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(LocaleKeys.General_ErrorTip.tr(args: [e.toString()]))));
+      _showError(context, e.toString());
       return;
     }
     store.dispatch(LoginAction(username, password));
 
     // Login firebase.
     try {
-      await firebase.login(customToken, context: context);
+      await Firebase.login(customToken, context: context);
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
@@ -210,13 +204,6 @@ class _LoginButtonState extends State<_LoginButton> {
     }
 
     postInit();
-  }
-
-  @override
-  void initState() {
-    LoginApp app = context.findAncestorWidgetOfExactType<LoginApp>();
-    _isDeprecated = app.message == 'deprecated';
-    super.initState();
   }
 
   @override

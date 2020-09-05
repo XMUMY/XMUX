@@ -13,7 +13,6 @@ import 'package:xmux/modules/rpc/rpc.dart';
 
 import 'config.dart';
 import 'init/login_app.dart';
-import 'modules/firebase/firebase.dart';
 import 'modules/xia/xia.dart';
 import 'redux/redux.dart';
 import 'translations/translation.dart';
@@ -21,16 +20,18 @@ import 'translations/translation.dart';
 /// XMUX RPC client.
 final XmuxRpc rpc = XmuxRpc(BackendApiConfig.address);
 
-/// Firebase instance.
-Firebase firebase;
-
 /// Moodle webservice API.
 final MoodleApi moodleApi = MoodleApi(BackendApiConfig.moodleAddress);
 
 /// Package information from platform.
 ///
-/// Default is `null`. Will be assigned during init.
-PackageInfo packageInfo;
+/// Default to fallback values. Will be replaced during init if plugin supported.
+PackageInfo packageInfo = PackageInfo(
+  appName: 'XMUX',
+  packageName: 'io.xdea.xmux',
+  version: AppConfig.fallbackVersion,
+  buildNumber: AppConfig.fallbackBuild.toString(),
+);
 
 /// Sentry client. Handle unhandled exception.
 final SentryClient sentry = SentryClient(dsn: ApiKeyConfig.sentryDsn);
@@ -65,7 +66,7 @@ String i18n(String text, BuildContext context, {String app}) {
 }
 
 /// Handle logout and run `LoginApp`.
-Future<Null> logout({String message}) async {
+Future<Null> logout({String message = ''}) async {
   await FirebaseAuth.instance.signOut();
   XmuxApi.instance.configure(eraseAuthorization: true);
   moodleApi.signOut();

@@ -157,23 +157,6 @@ class XmuxApi {
     return decodeResponse(resp, StudentAttendanceDetail.fromJson);
   }
 
-  /// Get timetable of current semester from academic system.
-  Future<XmuxApiResponse<Timetable>> get timetable async {
-    var resp = await _dio.get<Map<String, dynamic>>(
-      '/ac/timetable',
-      options: Options(headers: _authorization.basicHeader),
-    );
-    return decodeResponse(resp, Timetable.fromJson);
-  }
-
-  Future<XmuxApiResponse<List<TranscriptSession>>> get transcript async {
-    var resp = await _dio.get<Map<String, dynamic>>(
-      '/ac/transcript',
-      options: Options(headers: _authorization.basicHeader),
-    );
-    return decodeList(resp, 'transcript', TranscriptSession.fromJson);
-  }
-
   Future<XmuxApiResponse<Null>> updateStudentAttendance(
       String cid,
       DateTime timestamp,

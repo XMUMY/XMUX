@@ -12,6 +12,7 @@ abstract class LocaleKeys {
   static const General_Cancel = 'General_Cancel';
   static const General_Ignore = 'General_Ignore';
   static const General_ErrorTip = 'General_ErrorTip';
+  static const General_Deprecation = 'General_Deprecation';
   static const SignIn_CampusID = 'SignIn_CampusID';
   static const SignIn_Password = 'SignIn_Password';
   static const SignIn_SignIn = 'SignIn_SignIn';
