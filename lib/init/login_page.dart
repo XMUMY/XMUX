@@ -30,11 +30,10 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     var msg = context.findAncestorWidgetOfExactType<LoginApp>().message;
 
     var mainWidgets = Container(
-      width: min(size.width, 450.0),
+      width: min(MediaQuery.of(context).size.width, 450.0),
       margin: EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -168,6 +167,7 @@ class _LoginButtonState extends State<_LoginButton> {
     } on XmuxRpcError catch (e) {
       if (e.code == 1) {
         // Need register.
+        if (mounted) setState(() => _isProcessing = false);
         Navigator.of(context)
             .pushNamed('/Register', arguments: Tuple2(username, password));
         return;
@@ -191,15 +191,11 @@ class _LoginButtonState extends State<_LoginButton> {
       await Firebase.login(customToken, context: context);
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text(LocaleKeys.General_ErrorTip.tr(
-            args: ['${LocaleKeys.SignIn_ErrorGMS.tr()} $e'])),
-      ));
+      _showError(context, '${LocaleKeys.SignIn_ErrorGMS.tr()} $e');
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(LocaleKeys.General_ErrorTip.tr(args: [e.toString()]))));
+      _showError(context, e.toString());
       return;
     }
 

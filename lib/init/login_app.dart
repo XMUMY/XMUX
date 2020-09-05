@@ -1,15 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/components/transition_builders.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/init/login_page.dart';
 import 'package:xmux/init/register_page.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
 
 class LoginApp extends StatelessWidget {
   /// Message to show on login page. (can be l10n keys)
   /// e.g. Version deprecated. / Password changed.
   final String message;
 
-  const LoginApp({Key key, this.message = ''}) : super(key: key);
+  const LoginApp({this.message = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +31,14 @@ class LoginApp extends StatelessWidget {
         home: Scaffold(body: LoginPage()),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
-        routes: <String, WidgetBuilder>{
+        routes: {
           '/Register': (_) => Scaffold(body: RegisterPage()),
         },
+        navigatorObservers: <NavigatorObserver>[
+          // Only trace in release mode.
+          if (P.isVM && bool.fromEnvironment('dart.vm.product'))
+            FirebaseAnalyticsObserver(analytics: Firebase.analytics),
+        ],
       ),
     );
 

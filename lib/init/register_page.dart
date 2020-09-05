@@ -8,12 +8,14 @@ import 'package:grpc/grpc.dart';
 import 'package:tuple/tuple.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/init/init_handler.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/modules/rpc/authorization.dart';
 import 'package:xmux/modules/rpc/clients/user.pb.dart';
 import 'package:xmux/modules/rpc/error.dart';
 import 'package:xmux/redux/actions/actions.dart';
+
+import 'background.dart';
+import 'init_handler.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -27,100 +29,82 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Get uid and password from previous.
-    Tuple2<String, String> args = ModalRoute.of(context).settings.arguments;
+    var mainWidgets = <Widget>[
+      Text(
+        LocaleKeys.SignIn_RegisterTitle.tr(),
+        style: Theme.of(context).textTheme.headline5,
+      ),
+      Divider(color: Colors.transparent),
+      Text(
+        LocaleKeys.SignIn_RegisterCaption.tr(),
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.headline6,
+      ),
+      Divider(color: Colors.transparent),
+      TextFormField(
+        key: _displayNameFormKey,
+        maxLength: 50,
+        decoration: InputDecoration(
+          hintText: LocaleKeys.SignIn_RegisterDisplayName.tr(),
+          hintStyle: TextStyle(color: Colors.white70),
+          icon: Icon(
+            Icons.perm_identity,
+            color: Colors.white,
+          ),
+        ),
+        validator: (s) =>
+            s.isNotEmpty ? null : LocaleKeys.SignIn_ErrorFormat.tr(),
+      ),
+      TextFormField(
+        key: _emailFormKey,
+        maxLength: 50,
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          hintText: LocaleKeys.SignIn_RegisterEmail.tr(),
+          hintStyle: TextStyle(color: Colors.white70),
+          icon: Icon(
+            Icons.email,
+            color: Colors.white,
+          ),
+        ),
+        validator: (s) =>
+            s.contains('@') ? null : LocaleKeys.SignIn_ErrorFormat.tr(),
+      ),
+      Divider(color: Colors.transparent),
+      _RegisterButton(
+        _displayNameFormKey,
+        _emailFormKey,
+      ),
+      Divider(color: Colors.transparent),
+    ];
 
-    return LayoutBuilder(builder: (context, constraints) {
-      var mainWidgets = <Widget>[
-        Text(
-          LocaleKeys.SignIn_RegisterTitle.tr(),
-          style: Theme.of(context).textTheme.headline5,
-        ),
-        Divider(color: Colors.transparent),
-        Text(
-          LocaleKeys.SignIn_RegisterCaption.tr(),
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        Divider(color: Colors.transparent),
-        TextFormField(
-          key: _displayNameFormKey,
-          maxLength: 50,
-          decoration: InputDecoration(
-            hintText: LocaleKeys.SignIn_RegisterDisplayName.tr(),
-            hintStyle: TextStyle(color: Colors.white70),
-            icon: Icon(
-              Icons.perm_identity,
-              color: Colors.white,
+    return Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        // Background image.
+        BackgroundImage(),
+
+        // Main widgets.
+        Center(
+          child: Container(
+            width: min(MediaQuery.of(context).size.width, 450.0),
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: mainWidgets,
             ),
           ),
-          validator: (s) =>
-              s.isNotEmpty ? null : LocaleKeys.SignIn_ErrorFormat.tr(),
         ),
-        TextFormField(
-          key: _emailFormKey,
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            hintText: LocaleKeys.SignIn_RegisterEmail.tr(),
-            hintStyle: TextStyle(color: Colors.white70),
-            icon: Icon(
-              Icons.email,
-              color: Colors.white,
-            ),
-          ),
-          validator: (s) =>
-              s.contains('@') ? null : LocaleKeys.SignIn_ErrorFormat.tr(),
-        ),
-        Divider(color: Colors.transparent),
-        _RegisterButton(
-          args.item1,
-          args.item2,
-          _displayNameFormKey,
-          _emailFormKey,
-        ),
-        Divider(color: Colors.transparent),
-      ];
-
-      return Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          // Background image.
-          Image(
-            image: AssetImage('res/initpage.jpg'),
-            fit: constraints.maxHeight / constraints.maxWidth > 16 / 9
-                ? BoxFit.fitHeight
-                : BoxFit.fitWidth,
-            alignment: Alignment.bottomCenter,
-            color: Colors.black45,
-            colorBlendMode: BlendMode.darken,
-          ),
-
-          // Main widgets.
-          Center(
-            child: Container(
-              width: min(constraints.maxWidth, 450.0),
-              margin: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: mainWidgets,
-              ),
-            ),
-          ),
-        ],
-      );
-    });
+      ],
+    );
   }
 }
 
 class _RegisterButton extends StatefulWidget {
-  final String _uid, _password;
-
   final GlobalKey<FormFieldState<String>> _displayNameFormKey;
   final GlobalKey<FormFieldState<String>> _emailFormKey;
 
   _RegisterButton(
-    this._uid,
-    this._password,
     this._displayNameFormKey,
     this._emailFormKey,
   );
@@ -130,7 +114,17 @@ class _RegisterButton extends StatefulWidget {
 }
 
 class _RegisterButtonState extends State<_RegisterButton> {
+  String _username, _password;
   bool _isProcessing = false;
+
+  // Show snack bar after an error occurred.
+  void _showError(BuildContext context, String msg) {
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text(LocaleKeys.General_ErrorTip.tr(args: [msg])),
+      ),
+    );
+  }
 
   Future<Null> _handleSignIn() async {
     // Validate format.
@@ -153,41 +147,44 @@ class _RegisterButtonState extends State<_RegisterButton> {
                 ..displayName = name
                 ..email = email,
               options: CallOptions(providers: [
-                Authorization.basic(widget._uid, widget._password).provider
+                Authorization.basic(_username, _password).provider
               ]))
           .convertRpcError;
       customToken = registerResp.customToken;
     } on XmuxRpcError catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(LocaleKeys.General_ErrorTip.tr(args: [e.detail]))));
+      _showError(context, e.detail);
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(LocaleKeys.General_ErrorTip.tr(args: [e.toString()]))));
+      _showError(context, e.toString());
       return;
     }
 
-    store.dispatch(LoginAction(widget._uid, widget._password));
+    store.dispatch(LoginAction(_username, _password));
 
     // Login firebase.
     try {
       await Firebase.login(customToken, context: context);
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(LocaleKeys.General_ErrorTip.tr(
-              args: ['${LocaleKeys.SignIn_ErrorGMS.tr()} $e']))));
+      _showError(context, '${LocaleKeys.SignIn_ErrorGMS.tr()} $e');
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      Scaffold.of(context).showSnackBar(
-          SnackBar(content: Text(LocaleKeys.General_ErrorTip.tr(args: [e]))));
+      _showError(context, e.toString());
       return;
     }
 
     postInit();
+  }
+
+  @override
+  void didChangeDependencies() {
+    Tuple2<String, String> args = ModalRoute.of(context).settings.arguments;
+    _username = args.item1;
+    _password = args.item2;
+    super.didChangeDependencies();
   }
 
   @override
