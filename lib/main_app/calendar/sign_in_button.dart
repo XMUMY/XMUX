@@ -8,12 +8,12 @@ import 'package:xmux/components/sketch.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/api/xmux_api.dart' show TimetableClass;
 import 'package:xmux/modules/attendance/attendance.dart';
+import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 
 class SignInButton extends StatefulWidget {
   /// Current Lesson.
-  final TimetableClass lesson;
+  final Timetable_Class lesson;
 
   /// The lesson can sign in now if satisfy following condition.
   ///

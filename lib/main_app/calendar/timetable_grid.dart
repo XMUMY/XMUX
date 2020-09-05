@@ -1,9 +1,9 @@
 part of 'timetable.dart';
 
 class TimeTableGrid extends StatelessWidget {
-  final List<TimetableClass> timetable;
+  final List<Timetable_Class> classes;
 
-  const TimeTableGrid(this.timetable);
+  const TimeTableGrid(this.classes);
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +42,12 @@ class TimeTableGrid extends StatelessWidget {
               ),
             ))
         .toList();
-    var timetableCells = timetable
+    var timetableCells = classes
         .map((c) => SpannableGridCell(
               id: c.hashCode,
               column: c.day + 1,
-              row: c.start.hour - 6,
-              rowSpan: c.end.hour - c.start.hour,
+              row: c.begin.toDateTime().hour - 6,
+              rowSpan: c.end.toDateTime().hour - c.begin.toDateTime().hour,
               columnFlex: 2,
               rowFlex: 3,
               child: LessonCard(

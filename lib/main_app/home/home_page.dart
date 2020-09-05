@@ -11,7 +11,7 @@ import 'package:xmux/main_app/calendar/timetable.dart';
 import 'package:xmux/main_app/home/announcements.dart';
 import 'package:xmux/main_app/home/home_slider.dart';
 import 'package:xmux/main_app/main_page.dart';
-import 'package:xmux/modules/api/xmux_api.dart' show TimetableClass;
+import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 import 'package:xmux/redux/redux.dart';
 
 class HomePage extends StatelessWidget implements MainPageContentProvider {
@@ -78,8 +78,8 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
             builder: (_, announcements) => HomeAnnouncements(announcements),
           ),
 
-          StoreConnector<MainAppState, List<TimetableClass>>(
-            converter: (s) => s.state.queryState.timetable?.timetable ?? null,
+          StoreConnector<MainAppState, List<Timetable_Class>>(
+            converter: (s) => s.state.queryState.timetable?.classes ?? null,
             builder: (_, lessons) {
               if (lessons == null || lessons.isEmpty) return Container();
               return Column(

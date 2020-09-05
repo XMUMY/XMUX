@@ -13,10 +13,9 @@ QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
             ? null
             : AssignmentCourse.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    (json['courses'] as List)
-        ?.map((e) =>
-            e == null ? null : Course.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    json['courses'] == null
+        ? null
+        : Courses.fromJson(json['courses'] as Map<String, dynamic>),
     (json['ePaymentRecords'] as List)
         ?.map((e) => e == null
             ? null
@@ -29,11 +28,9 @@ QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
     json['timetable'] == null
         ? null
         : Timetable.fromJson(json['timetable'] as Map<String, dynamic>),
-    (json['transcript'] as List)
-        ?.map((e) => e == null
-            ? null
-            : TranscriptSession.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    json['transcript'] == null
+        ? null
+        : Transcript.fromJson(json['transcript'] as Map<String, dynamic>),
   );
 }
 

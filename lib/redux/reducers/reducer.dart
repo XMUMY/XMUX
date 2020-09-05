@@ -36,8 +36,8 @@ User _loginReducer(User oldState, LoginAction action) => oldState.copyWith(
       campusIDPassword: action.password,
     );
 
-User _updateUserProfileReducer(User oldState, UpdateUserProfileAction action) =>
-    oldState.copyWith(profile: action.response.data);
+User _updateUserProfileReducer(User oldState, SyncUserProfileAction action) =>
+    oldState.copyWith(profile: action.response);
 
 /// Update ePayment password when first login.
 User _updateEPaymentPasswordReducer(

@@ -138,7 +138,7 @@ class _LoginButton extends StatefulWidget {
 class _LoginButtonState extends State<_LoginButton> {
   var _isProcessing = false;
 
-  // If this version is deprecated.
+  // If current version is deprecated.
   var _isDeprecated = false;
 
   Future<Null> _handleSignIn() async {
@@ -191,6 +191,7 @@ class _LoginButtonState extends State<_LoginButton> {
       return;
     }
     store.dispatch(LoginAction(username, password));
+    rpc.authorization.mergeFrom(Authorization.basic(username, password));
 
     // Login firebase.
     try {

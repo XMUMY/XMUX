@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/emgs/model.dart';
 import 'package:xmux/modules/moodle/models/assignment.dart';
-import 'package:xmux/modules/xmux_api/models/models_v2.dart' hide Course;
+import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
+import 'package:xmux/modules/xmux_api/models/models_v2.dart';
 
 part 'query.g.dart';
 
@@ -12,7 +12,7 @@ class QueryState {
   final List<AssignmentCourse> assignments;
 
   /// Courses for current semester.
-  final List<Course> courses;
+  final Courses courses;
 
   /// Billing records from E-Payment.
   final List<BillingRecord> ePaymentRecords;
@@ -24,7 +24,7 @@ class QueryState {
   final Timetable timetable;
 
   /// Transcript of student.
-  final List<TranscriptSession> transcript;
+  final Transcript transcript;
 
   QueryState(
     this.assignments,
@@ -50,11 +50,11 @@ class QueryState {
 
   QueryState copyWith({
     List<AssignmentCourse> assignments,
-    List<Course> courses,
+    Courses courses,
     List<BillingRecord> ePaymentRecords,
     EmgsApplicationResult emgsApplicationResult,
     Timetable timetable,
-    List<TranscriptSession> transcript,
+    Transcript transcript,
   }) =>
       QueryState(
         assignments ?? this.assignments,

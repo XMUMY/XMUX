@@ -1,41 +1,6 @@
 part of 'actions.dart';
 
 /// General actions for XMUX API.
-abstract class XmuxApiAction<T> extends ApiCallAction {
-  /// Original API response.
-  XmuxApiResponse<T> response;
-}
-
-class UpdateCoursesAction extends XmuxApiAction<List<Course>> {
-  @override
-  Future<Null> call(Store<MainAppState> store) async {
-    response = await XmuxApi.instance.courses;
-  }
-}
-
-/// Update timetable of current semester.
-class UpdateTimetableAction extends XmuxApiAction<Timetable> {
-  @override
-  Future<Null> call(Store<MainAppState> store) async {
-    response = await XmuxApi.instance.timetable;
-  }
-}
-
-class UpdateTranscriptAction extends XmuxApiAction<List<TranscriptSession>> {
-  @override
-  Future<Null> call(Store<MainAppState> store) async {
-    response = await XmuxApi.instance.transcript;
-  }
-}
-
-class UpdateUserProfileAction extends XmuxApiAction<Profile> {
-  @override
-  Future<Null> call(Store<MainAppState> store) async {
-    response = await XmuxApi.instance.getProfile();
-  }
-}
-
-/// General actions for XMUX API.
 abstract class XMUXApiActionV2 extends MainAppAction {
   /// Context for displaying snack bar.
   /// Only available when [onError] is *null*;

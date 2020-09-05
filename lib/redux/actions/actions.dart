@@ -3,14 +3,17 @@ import 'package:flutter/widgets.dart';
 import 'package:redux/redux.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/main_page.dart';
-import 'package:xmux/modules/api/xmux_api.dart';
 import 'package:xmux/modules/emgs/emgs.dart';
 import 'package:xmux/modules/moodle/models/assignment.dart';
+import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
+import 'package:xmux/modules/rpc/clients/google/protobuf/empty.pb.dart';
+import 'package:xmux/modules/rpc/clients/user.pb.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
 import 'package:xmux/redux/state/state.dart';
 
 part 'moodle_api_actions.dart';
 part 'xmux_api_actions.dart';
+part 'xmux_rpc_actions.dart';
 
 /// General action for the whole app.
 abstract class MainAppAction {

@@ -17,19 +17,20 @@ import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/calendar/attendance.dart';
 import 'package:xmux/main_app/calendar/sign_in_button.dart';
 import 'package:xmux/modules/algorithms/edit_distance.dart';
-import 'package:xmux/modules/api/xmux_api.dart' show Timetable, TimetableClass;
 import 'package:xmux/modules/attendance/attendance.dart';
+import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 import 'package:xmux/redux/redux.dart';
 
 part 'timetable_grid.dart';
 
 class TimeTablePage extends StatelessWidget {
-  final List<TimetableClass> timetable;
+  final List<Timetable_Class> classes;
   final DateTime recentUpdate;
 
-  TimeTablePage(Timetable resp)
-      : this.timetable = sortTimetable(resp?.timetable ?? List()),
-        this.recentUpdate = resp?.recentUpdate?.toLocal();
+  TimeTablePage(Timetable timetable)
+      : classes = sortTimetable(timetable.classes),
+        // TODO: Fix recent update.
+        this.recentUpdate = DateTime.now();
 
   Future<Null> _handleUpdate() async {
     var action = UpdateTimetableAction();
@@ -38,15 +39,15 @@ class TimeTablePage extends StatelessWidget {
   }
 
   /// Sort timetable according to the end of class and now.
-  static List<TimetableClass> sortTimetable(List<TimetableClass> timetable) {
+  static List<Timetable_Class> sortTimetable(List<Timetable_Class> timetable) {
     var now = DateTime.now();
     var nowMin = now.weekday * 1440 + now.hour * 60 + now.minute;
 
-    int _getLessonMin(TimetableClass l) =>
-        l.day * 1440 + l.end.hour * 60 + l.end.minute;
+    int _getLessonMin(Timetable_Class l) =>
+        l.day * 1440 + l.end.toDateTime().hour * 60 + l.end.toDateTime().minute;
 
-    var before = <TimetableClass>[];
-    var after = <TimetableClass>[];
+    var before = <Timetable_Class>[];
+    var after = <Timetable_Class>[];
 
     timetable.sort((a, b) => _getLessonMin(a) - _getLessonMin(b));
     for (var i in timetable)
@@ -57,8 +58,7 @@ class TimeTablePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.of(context).size.width >= 700)
-      return TimeTableGrid(timetable);
+    if (MediaQuery.of(context).size.width >= 700) return TimeTableGrid(classes);
 
     var languageCode = Localizations.localeOf(context).languageCode;
     var lastUpdate = Center(
@@ -74,7 +74,7 @@ class TimeTablePage extends StatelessWidget {
     );
 
     Widget body = ListView.builder(
-      itemCount: timetable.isEmpty ? 0 : timetable.length + 1,
+      itemCount: classes.isEmpty ? 0 : classes.length + 1,
       itemBuilder: (_, int index) {
         return AnimationConfiguration.staggeredList(
           position: index,
@@ -82,9 +82,9 @@ class TimeTablePage extends StatelessWidget {
           child: SlideAnimation(
             verticalOffset: 50.0,
             child: FadeInAnimation(
-              child: index == timetable.length
+              child: index == classes.length
                   ? lastUpdate
-                  : LessonCard(timetable[index]),
+                  : LessonCard(classes[index]),
             ),
           ),
         );
@@ -93,7 +93,7 @@ class TimeTablePage extends StatelessWidget {
 
     body = Scrollbar(child: body);
 
-    if (timetable.isEmpty)
+    if (classes.isEmpty)
       body = Stack(children: [
         body,
         EmptyErrorPage(),
@@ -109,7 +109,7 @@ class TimeTablePage extends StatelessWidget {
 
 class LessonCard extends StatelessWidget {
   /// Lesson information.
-  final TimetableClass lesson;
+  final Timetable_Class lesson;
 
   /// Whether the card is inside a TimetableGrid.
   final bool isInGrid;
@@ -146,8 +146,8 @@ class LessonCard extends StatelessWidget {
           isInGrid
               ? '${lesson.cid} ${lesson.room}'
               : '${'General_Weekday${lesson.day}'.tr()} '
-                  '${lesson.start.format(context)} - '
-                  '${lesson.end.format(context)} '
+                  '${TimeOfDay.fromDateTime(lesson.begin.toDateTime()).format(context)} - '
+                  '${TimeOfDay.fromDateTime(lesson.end.toDateTime()).format(context)} '
                   '${lesson.room}',
           style: Theme.of(context)
               .textTheme
@@ -206,17 +206,17 @@ class LessonCard extends StatelessWidget {
 }
 
 class LessonDialog extends StatelessWidget {
-  final TimetableClass lesson;
+  final Timetable_Class lesson;
 
   const LessonDialog(this.lesson);
 
   int get lessonCredit {
-    return store.state.queryState.courses
+    return store.state.queryState.courses.courses
         ?.firstWhere((c) => c.name.indexOf(lesson.name) != -1, orElse: () {
-      var editDistances = store.state.queryState.courses
+      var editDistances = store.state.queryState.courses.courses
           .map((c) => editDistance(c.name, lesson.name))
           .toList();
-      return store.state.queryState
+      return store.state.queryState.courses
           .courses[editDistances.indexOf(editDistances.reduce(min))];
     })?.credit;
   }
@@ -252,15 +252,15 @@ class LessonDialog extends StatelessWidget {
       date.year,
       date.month,
       date.day,
-      lesson.start.hour,
-      lesson.start.minute,
+      lesson.begin.toDateTime().hour,
+      lesson.begin.toDateTime().minute,
     );
     var end = DateTime(
       date.year,
       date.month,
       date.day,
-      lesson.end.hour,
-      lesson.end.minute,
+      lesson.end.toDateTime().hour,
+      lesson.end.toDateTime().minute,
     );
     await plugin.createOrUpdateEvent(Event(
       id,
@@ -269,7 +269,7 @@ class LessonDialog extends StatelessWidget {
       end: end,
       recurrenceRule: RecurrenceRule(
         RecurrenceFrequency.Weekly,
-        endDate: lesson.endDay,
+        endDate: lesson.end.toDateTime(),
       ),
     ));
 
@@ -288,8 +288,8 @@ class LessonDialog extends StatelessWidget {
       '${LocaleKeys.Calendar_ClassCardCode.tr()}: ${lesson.cid}\n'
       '${LocaleKeys.Calendar_ClassCardCredit.tr()}: $lessonCredit\n'
       '${LocaleKeys.Calendar_ClassCardTime.tr()}: ${'General_Weekday${lesson.day}'.tr()} '
-      '${lesson.start.format(context)} - '
-      '${lesson.end.format(context)}\n'
+      '${TimeOfDay.fromDateTime(lesson.begin.toDateTime()).format(context)} - '
+      '${TimeOfDay.fromDateTime(lesson.end.toDateTime()).format(context)}\n'
       '${LocaleKeys.Calendar_ClassCardRoom.tr()}: ${lesson.room}\n'
       '${LocaleKeys.Calendar_ClassCardLecturer.tr()}: ${lesson.lecturer.split(',').join(', ')}',
     );

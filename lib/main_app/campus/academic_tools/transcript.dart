@@ -12,7 +12,7 @@ import 'package:xmux/components/empty_error_page.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/api/models/v3_bridge.dart';
+import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 import 'package:xmux/redux/redux.dart';
 
 final _pointColors =
@@ -39,8 +39,8 @@ class TranscriptPage extends StatelessWidget {
             ? Theme.of(context).primaryColor
             : Colors.lightBlue,
       ),
-      body: StoreConnector<MainAppState, List<TranscriptSession>>(
-        converter: (s) => s.state.queryState.transcript,
+      body: StoreConnector<MainAppState, List<Transcript_Session>>(
+        converter: (s) => s.state.queryState.transcript.sessions,
         builder: (context, transcript) {
           if (transcript == null)
             return EmptyErrorButton(onRefresh: _handleUpdate);
@@ -74,7 +74,7 @@ class TranscriptPage extends StatelessWidget {
 }
 
 class _InfoCard extends StatelessWidget {
-  final List<TranscriptSession> transcript;
+  final List<Transcript_Session> transcript;
 
   final int finishedCount;
   final int creditsCount;
@@ -120,9 +120,9 @@ class _InfoCard extends StatelessWidget {
 }
 
 class _GpaChart extends StatefulWidget {
-  final List<TranscriptSession> transcript;
+  final List<Transcript_Session> transcript;
 
-  final Map<int, TranscriptSession> transcriptMap;
+  final Map<int, Transcript_Session> transcriptMap;
   final List<Color> gpaGradientColors;
   final List<Color> cGpaGradientColors;
 
@@ -217,7 +217,7 @@ class _GpaChartState extends State<_GpaChart> {
 }
 
 class _TranscriptSessionCard extends StatelessWidget {
-  final TranscriptSession session;
+  final Transcript_Session session;
 
   const _TranscriptSessionCard(this.session);
 

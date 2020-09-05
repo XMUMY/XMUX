@@ -98,7 +98,7 @@ void postInit() async {
   } finally {
     store.dispatch(UpdateHomepageAnnouncementsAction());
     store.dispatch(UpdateTimetableAction());
-    store.dispatch(UpdateUserProfileAction());
+    store.dispatch(SyncUserProfileAction());
     if (store.state.user.isStudent) {
       store.dispatch(UpdateAssignmentsAction());
       store.dispatch(UpdateAcAction());
@@ -136,7 +136,7 @@ Future<void> ioInit() async {
   // TODO: Consider web.
   // Register FirebaseAuth state listener.
   FirebaseAuth.instance.authStateChanges().listen((user) {
-    if (user == null) logout();
+    if (FirebaseAuth.instance.currentUser != null && user == null) logout();
 
     XmuxApi.instance.configure(
         authorization: Authorization()

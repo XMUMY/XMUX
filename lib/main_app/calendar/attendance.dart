@@ -79,7 +79,7 @@ class AttendanceHistoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var course = store.state.queryState.timetable.timetable
+    var course = store.state.queryState.timetable.classes
         .firstWhere((c) => c.cid == record.cid, orElse: () => null);
 
     return Row(

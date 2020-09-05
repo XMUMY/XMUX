@@ -15,7 +15,7 @@ QueryState _updateAssignmentsReducer(
 
 QueryState _updateCoursesReducer(
         QueryState oldState, UpdateCoursesAction action) =>
-    oldState.copyWith(courses: action.response.data);
+    oldState.copyWith(courses: action.response);
 
 QueryState _updateBillReducer(
         QueryState oldState, UpdateEPaymentRecordsAction action) =>
@@ -27,8 +27,8 @@ QueryState _updateEmgsReducer(
 
 QueryState _updateTimetableReducer(
         QueryState oldState, UpdateTimetableAction action) =>
-    oldState.copyWith(timetable: action.response.data);
+    oldState.copyWith(timetable: action.response);
 
 QueryState _updateTranscriptReducer(
         QueryState oldState, UpdateTranscriptAction action) =>
-    oldState.copyWith(transcript: action.response.data);
+    oldState.copyWith(transcript: action.response);

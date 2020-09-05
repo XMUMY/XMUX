@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-import 'package:xmux/modules/api/xmux_api.dart';
+import 'package:xmux/modules/rpc/clients/user.pb.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 import 'query.dart';
