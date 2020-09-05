@@ -68,7 +68,7 @@ class SettingsList extends StatelessWidget {
             StoreConnector<MainAppState, String>(
               converter: (s) =>
                   s.state.user.profile?.avatar ??
-                  firebase.remoteConfigs.staticResources.defaultAvatar,
+                  Firebase.remoteConfigs.staticResources.defaultAvatar,
               builder: (context, s) => UserAvatar(
                 url: s,
                 radius: 30,

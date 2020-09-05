@@ -3,14 +3,15 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
 
 class AcademicCalendarPage extends StatelessWidget {
   final isFoundation = store.state.user.campusId.startsWith(RegExp('fia|fis'));
 
-  final undergraduate = firebase
+  final undergraduate = Firebase
       .remoteConfigs.staticResources.academicCalendarImages.undergraduate;
   final foundation =
-      firebase.remoteConfigs.staticResources.academicCalendarImages.foundation;
+      Firebase.remoteConfigs.staticResources.academicCalendarImages.foundation;
 
   @override
   Widget build(BuildContext context) {

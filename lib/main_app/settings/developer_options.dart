@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/redux/redux.dart';
 
 class DeveloperOptionsPage extends StatelessWidget {
@@ -85,7 +86,7 @@ class DeveloperOptionsPage extends StatelessWidget {
               LocaleKeys.Settings_DeveloperOptionsNotificationTokenCaption.tr(),
             ),
             onTap: () async => Clipboard.setData(
-                ClipboardData(text: await firebase.messaging.getToken())),
+                ClipboardData(text: await Firebase.messaging.getToken())),
           ),
         ],
       ),

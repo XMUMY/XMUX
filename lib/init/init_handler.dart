@@ -9,6 +9,7 @@ import 'package:package_info/package_info.dart';
 import 'package:sentry/sentry.dart' as sentry_lib;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xmux/config.dart';
+import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/main_app.dart';
 import 'package:xmux/modules/api/xmux_api.dart' as v3;
@@ -118,10 +119,16 @@ void postInit() async {
 
 /// Initialization for VM based application.
 Future<void> ioInit() async {
-  // Get package Info.
-  if (P.isMobile) packageInfo = await PackageInfo.fromPlatform();
-
-  firebase = await Firebase.init();
+  await Future.wait([
+    () async {
+      // Initialize package info if supported.
+      if (P.isMobile || P.isMacOS)
+        packageInfo = await PackageInfo.fromPlatform();
+    }(),
+    () async {
+      await Firebase.init();
+    }()
+  ]);
 
   // Register sentry again with release info. (Release mode only)
   if (packageInfo != null && bool.fromEnvironment('dart.vm.product'))
@@ -134,9 +141,9 @@ Future<void> ioInit() async {
 
   // Minimal version check.
   var currentBuild = int.tryParse(packageInfo?.buildNumber ?? '0') ?? 0;
-  var minBuild = firebase.remoteConfigs.versions?.minBuildSupported ?? 0;
+  var minBuild = Firebase.remoteConfigs.versions?.minBuildSupported ?? 0;
   if (currentBuild < minBuild) {
-    logout(message: 'deprecated');
+    logout(message: LocaleKeys.General_Deprecation);
     return;
   }
 
@@ -154,13 +161,13 @@ Future<void> ioInit() async {
   });
 
   // Configure FCM.
-  firebase.messaging.configure();
+  Firebase.messaging.configure();
   return;
 }
 
 /// Initialization for web based application.
 Future<void> webInit() async {
-  firebase = await Firebase.initWeb();
+  await Firebase.initWeb();
 }
 
 Future<void> androidPostInit() async {
@@ -181,7 +188,7 @@ Future<void> androidPostInit() async {
             deviceInfo.model,
             '${deviceInfo.manufacturer} ${deviceInfo.model}',
             pushChannel: 'fcm',
-            pushKey: await firebase.messaging.getToken(),
+            pushKey: await Firebase.messaging.getToken(),
           ));
 }
 
@@ -193,6 +200,6 @@ Future<void> iOSPostInit() async {
             deviceInfo.model,
             deviceInfo.name,
             pushChannel: 'fcm',
-            pushKey: await firebase.messaging.getToken(),
+            pushKey: await Firebase.messaging.getToken(),
           ));
 }

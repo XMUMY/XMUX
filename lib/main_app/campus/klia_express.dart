@@ -1,6 +1,7 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
 
 class KliaExpressPage extends StatelessWidget {
   @override
@@ -23,7 +24,7 @@ class KliaExpressPage extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
             ExtendedImage.network(
-              firebase.remoteConfigs.staticResources.kliaTransitScheduleImage,
+              Firebase.remoteConfigs.staticResources.kliaTransitScheduleImage,
               mode: ExtendedImageMode.gesture,
               initGestureConfigHandler: (state) => GestureConfig(
                 maxScale: 2.5,
@@ -31,7 +32,7 @@ class KliaExpressPage extends StatelessWidget {
               ),
             ),
             ExtendedImage.network(
-              firebase.remoteConfigs.staticResources.kliaExpressScheduleImage,
+              Firebase.remoteConfigs.staticResources.kliaExpressScheduleImage,
               mode: ExtendedImageMode.gesture,
               initGestureConfigHandler: (state) => GestureConfig(
                 maxScale: 2.5,

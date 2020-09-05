@@ -6,6 +6,7 @@ import 'package:tuple/tuple.dart';
 import 'package:xmux/components/image_editor.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/theme.dart';
 import 'package:xmux/translations/translation.dart';
@@ -82,7 +83,7 @@ class MainApp extends StatelessWidget {
           navigatorObservers: <NavigatorObserver>[
             // Only trace in release mode.
             if (P.isVM && bool.fromEnvironment('dart.vm.product'))
-              FirebaseAnalyticsObserver(analytics: firebase.analytics),
+              FirebaseAnalyticsObserver(analytics: Firebase.analytics),
           ],
           initialRoute: '/',
           onGenerateRoute: (settings) {

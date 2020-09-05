@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/globals.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
 
 class AboutPage extends StatelessWidget {
   @override
@@ -51,16 +52,16 @@ XMUX client is an open source project licenced by GPLv3. The code can be found a
           Divider(),
           Text(
             '© 2017-2020 XMUX Project.\n'
-            'Ver: ${packageInfo?.version ?? AppConfig.fallbackVersionName} | ${packageInfo?.buildNumber ?? '∞'}',
+            'Ver: ${packageInfo.version} | ${packageInfo.buildNumber}',
             textAlign: TextAlign.center,
           ),
           if (P.isMobile &&
               int.parse(packageInfo.buildNumber) <
-                  firebase.remoteConfigs.versions.latestBuildReleased)
+                  Firebase.remoteConfigs.versions.latestBuildReleased)
             Text.rich(
               TextSpan(
                 text:
-                    'New version available: ${firebase.remoteConfigs.versions.latestVersionReleased}\n'
+                    'New version available: ${Firebase.remoteConfigs.versions.latestVersionReleased}\n'
                     'Tap to upgrade.',
                 recognizer: TapGestureRecognizer()
                   ..onTap = () => launch('${BackendApiConfig.websiteAddress}'),

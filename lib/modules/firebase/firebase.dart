@@ -11,54 +11,36 @@ import 'package:xmux/generated/l10n_keys.dart';
 import 'remote_config.dart';
 
 class Firebase {
-  // Unique instance for firebase.
-  static Firebase _instance;
-
-  Firebase get instance => _instance;
-
   /// Firebase analytics instance.
-  final analytics = FirebaseAnalytics();
+  static final analytics = FirebaseAnalytics();
 
   /// Firebase messaging instance.
-  final messaging = FirebaseMessaging();
-
-  /// Firebase remote config instance.
-  final RemoteConfig remoteConfig;
+  static final messaging = FirebaseMessaging();
 
   /// Store remote configs.
-  final RemoteConfigs remoteConfigs = RemoteConfigs();
+  static final RemoteConfigs remoteConfigs = RemoteConfigs();
 
-  Firebase._(this.remoteConfig);
-
-  static Future<Firebase> init() async {
-    if (_instance != null) return _instance;
-
+  static Future<void> init() async {
     await firebaseCore.Firebase.initializeApp();
-    _instance = Firebase._(await RemoteConfig.instance)
-      ..messaging.requestNotificationPermissions();
+    messaging.requestNotificationPermissions();
 
+    var remoteConfig = await RemoteConfig.instance;
     var defaultStatic = await rootBundle.loadString('res/static.json');
-    _instance.remoteConfig.setDefaults({'static_resources': defaultStatic});
-    _instance.remoteConfigs.updateStaticResources(defaultStatic);
-    _instance.updateRemoteConfig();
-
-    return _instance;
+    remoteConfig.setDefaults({'static_resources': defaultStatic});
+    remoteConfigs.updateStaticResources(defaultStatic);
+    updateRemoteConfig();
   }
 
-  static Future<Firebase> initWeb() async {
-    if (_instance != null) return _instance;
-
+  static Future<void> initWeb() async {
     await firebaseCore.Firebase.initializeApp();
-    _instance = Firebase._(null);
 
     var defaultStatic = await rootBundle.loadString('res/static.json');
-    _instance.remoteConfigs.updateStaticResources(defaultStatic);
-
-    return _instance;
+    remoteConfigs.updateStaticResources(defaultStatic);
   }
 
   /// Update and parse remote configs.
-  Future<Null> updateRemoteConfig() async {
+  static Future<Null> updateRemoteConfig() async {
+    var remoteConfig = await RemoteConfig.instance;
     try {
       await remoteConfig.fetch();
       await remoteConfig.activateFetched();
@@ -73,7 +55,7 @@ class Firebase {
 
   /// Try login firebase.
   /// Shows confirmation dialog if cannot connect to GMS and [context] is not null.
-  Future<Null> login(String customToken, {BuildContext context}) async {
+  static Future<Null> login(String customToken, {BuildContext context}) async {
     try {
       await FirebaseAuth.instance.signInWithCustomToken(customToken);
     } on PlatformException catch (e) {

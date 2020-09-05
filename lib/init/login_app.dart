@@ -5,9 +5,11 @@ import 'package:xmux/init/login_page.dart';
 import 'package:xmux/init/register_page.dart';
 
 class LoginApp extends StatelessWidget {
+  /// Message to show on login page. (can be l10n keys)
+  /// e.g. Version deprecated. / Password changed.
   final String message;
 
-  const LoginApp({Key key, this.message}) : super(key: key);
+  const LoginApp({Key key, this.message = ''}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

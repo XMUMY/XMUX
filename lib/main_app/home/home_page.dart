@@ -11,6 +11,7 @@ import 'package:xmux/main_app/calendar/timetable.dart';
 import 'package:xmux/main_app/home/announcements.dart';
 import 'package:xmux/main_app/home/home_slider.dart';
 import 'package:xmux/main_app/main_page.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 import 'package:xmux/redux/redux.dart';
 
@@ -27,7 +28,7 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
           icon: StoreConnector<MainAppState, String>(
             converter: (s) =>
                 s.state.user.profile?.avatar ??
-                firebase.remoteConfigs.staticResources.defaultAvatar,
+                Firebase.remoteConfigs.staticResources.defaultAvatar,
             builder: (context, s) => UserAvatar(
               url: s,
               radius: 18,

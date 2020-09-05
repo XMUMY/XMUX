@@ -9,6 +9,7 @@ import 'package:tuple/tuple.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/init_handler.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/modules/rpc/authorization.dart';
 import 'package:xmux/modules/rpc/clients/user.pb.dart';
 import 'package:xmux/modules/rpc/error.dart';
@@ -172,7 +173,7 @@ class _RegisterButtonState extends State<_RegisterButton> {
 
     // Login firebase.
     try {
-      await firebase.login(customToken, context: context);
+      await Firebase.login(customToken, context: context);
     } on PlatformException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(

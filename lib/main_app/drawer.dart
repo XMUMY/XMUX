@@ -7,6 +7,7 @@ import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/main_page.dart';
 import 'package:xmux/modules/emgs/emgs.dart' as emgs show getCountryCode;
+import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/redux/redux.dart';
 
 class DrawerPage extends StatelessWidget {
@@ -42,7 +43,7 @@ class DrawerPage extends StatelessWidget {
             child: StoreConnector<MainAppState, String>(
               converter: (s) =>
                   s.state.user.profile?.avatar ??
-                  firebase.remoteConfigs.staticResources.defaultAvatar,
+                  Firebase.remoteConfigs.staticResources.defaultAvatar,
               builder: (context, s) => UserAvatar(
                 url: s,
                 radius: 30,
