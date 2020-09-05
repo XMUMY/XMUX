@@ -116,14 +116,14 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
               child: new IconButton(
                   icon: new Icon(Icons.photo_camera),
                   onPressed: () async {
-                    File imageFile = await ImagePicker.pickImage(
-                        source: ImageSource.gallery);
-                    int random = new Random().nextInt(100000);
-                    StorageReference ref = FirebaseStorage.instance
+                    var imageFile = await ImagePicker()
+                        .getImage(source: ImageSource.gallery);
+                    var random = new Random().nextInt(100000);
+                    var ref = FirebaseStorage.instance
                         .ref()
                         .child("image_$random.jpg");
-                    StorageUploadTask uploadTask = ref.putFile(imageFile);
-                    Uri downloadUrl =
+                    var uploadTask = ref.putFile(File(imageFile.path));
+                    var downloadUrl =
                         (await uploadTask.onComplete).uploadSessionUri;
                     _sendMessage(imageUrl: downloadUrl.toString());
                   }),
@@ -177,7 +177,7 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
       'text': text,
       'imageUrl': imageUrl,
       'senderName': FirebaseAuth.instance.currentUser.displayName,
-      'senderPhotoUrl': FirebaseAuth.instance.currentUser.photoUrl,
+      'senderPhotoUrl': FirebaseAuth.instance.currentUser.photoURL,
     });
   }
 }

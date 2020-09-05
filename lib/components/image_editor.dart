@@ -76,15 +76,15 @@ class _ImageEditorPageState extends State<ImageEditorPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.rotate_left),
-            title: Text("Rotate Left"),
+            label: 'Rotate Left',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.flip),
-            title: Text("Flip"),
+            label: 'Flip',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.rotate_right),
-            title: Text("Rotate Right"),
+            label: 'Rotate Right',
           ),
         ],
         onTap: (index) {

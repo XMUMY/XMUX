@@ -24,7 +24,7 @@ class ExplorePage extends StatelessWidget implements MainPageContentProvider {
   @override
   BottomNavigationBarItem buildBottomNavigationBarItem(BuildContext context) =>
       BottomNavigationBarItem(
-        title: Text(LocaleKeys.Explore.tr()),
+        label: LocaleKeys.Explore.tr(),
         icon: Icon(Icons.explore),
         backgroundColor: Color(0xFF231E5E),
       );

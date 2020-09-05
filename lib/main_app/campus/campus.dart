@@ -30,7 +30,7 @@ class CampusPage extends StatelessWidget implements MainPageContentProvider {
         : Colors.lightBlue;
 
     return BottomNavigationBarItem(
-      title: Text(LocaleKeys.Campus.tr()),
+      label: LocaleKeys.Campus.tr(),
       icon: Icon(FontAwesomeIcons.university),
       backgroundColor: color,
     );

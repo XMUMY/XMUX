@@ -54,10 +54,10 @@ class _ItemEditPageState extends State<ItemEditPage> {
             item?.photos?.map((p) => Picture.network(p))?.toList() ?? [];
 
   void _handlePictureAdd() async {
-    var imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var imageFile = await ImagePicker().getImage(source: ImageSource.gallery);
     if (imageFile == null) return;
     var picture = Picture.file(
-      imageFile,
+      File(imageFile.path),
       onDelete: (p) => setState(() => _pictures.remove(p)),
     );
     setState(() => _pictures.add(picture));

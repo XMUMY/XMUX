@@ -116,7 +116,7 @@ class Travelviser {
 
   Future<Null> register({String email, String name}) async {
     if (email == null) email = this.email;
-    var res = await http.post('$API_ADDRESS/user.php', headers: HEADERS, body: {
+    await http.post('$API_ADDRESS/user.php', headers: HEADERS, body: {
       'process': '17',
       'email': email,
       'name': name ?? email.split('@').first,

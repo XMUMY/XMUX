@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
   @override
   BottomNavigationBarItem buildBottomNavigationBarItem(BuildContext context) =>
       BottomNavigationBarItem(
-        title: Text(LocaleKeys.Home.tr()),
+        label: LocaleKeys.Home.tr(),
         icon: Icon(Icons.home),
         backgroundColor: Theme.of(context).primaryColor,
       );

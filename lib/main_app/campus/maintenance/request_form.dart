@@ -176,8 +176,8 @@ class _RequestFormPageState extends State<RequestFormPage> {
                     return;
                   }
                   var imageFile =
-                      await ImagePicker.pickImage(source: ImageSource.camera);
-                  form.file = imageFile;
+                      await ImagePicker().getImage(source: ImageSource.camera);
+                  form.file = File(imageFile.path);
                 },
               ),
             ),
