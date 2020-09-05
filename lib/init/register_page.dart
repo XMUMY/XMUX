@@ -4,11 +4,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:grpc/grpc.dart';
 import 'package:tuple/tuple.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/init/init_handler.dart';
-import 'package:xmux/modules/api/xmux_api.dart';
+import 'package:xmux/modules/rpc/authorization.dart';
+import 'package:xmux/modules/rpc/clients/user.pb.dart';
+import 'package:xmux/modules/rpc/error.dart';
 import 'package:xmux/redux/actions/actions.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -143,15 +146,28 @@ class _RegisterButtonState extends State<_RegisterButton> {
     // Register
     String customToken;
     try {
-      var registerResp = await XmuxApi.instance
-          .register(widget._uid, widget._password, name, email);
-      customToken = registerResp.data.customToken;
-    } on XmuxApiException catch (e) {
+      var registerResp = await rpc.userClient
+          .register(
+              RegisterReq()
+                ..displayName = name
+                ..email = email,
+              options: CallOptions(providers: [
+                Authorization.basic(widget._uid, widget._password).provider
+              ]))
+          .convertRpcError;
+      customToken = registerResp.customToken;
+    } on XmuxRpcError catch (e) {
       if (mounted) setState(() => _isProcessing = false);
       Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(LocaleKeys.General_ErrorTip.tr(args: [e.message]))));
+          content: Text(LocaleKeys.General_ErrorTip.tr(args: [e.detail]))));
+      return;
+    } catch (e) {
+      if (mounted) setState(() => _isProcessing = false);
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(LocaleKeys.General_ErrorTip.tr(args: [e.toString()]))));
       return;
     }
+
     store.dispatch(LoginAction(widget._uid, widget._password));
 
     // Login firebase.
