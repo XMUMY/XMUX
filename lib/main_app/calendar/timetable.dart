@@ -9,9 +9,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/empty_error.dart';
 import 'package:xmux/components/floating_card.dart';
-import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/components/spannable_grid.dart';
-import 'package:xmux/config.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/calendar/attendance.dart';
@@ -24,12 +22,12 @@ import 'package:xmux/redux/redux.dart';
 part 'timetable_grid.dart';
 
 class TimeTablePage extends StatelessWidget {
-  final List<Timetable_Class> classes;
-  final DateTime lastUpdate;
+  final List<Timetable_Class> _classes;
+  final DateTime _lastUpdate;
 
   TimeTablePage(Timetable timetable)
-      : classes = sortTimetable(timetable.classes),
-        lastUpdate =
+      : _classes = sortTimetable(timetable.classes),
+        _lastUpdate =
             timetable.lastUpdate?.toDateTime()?.toLocal() ?? DateTime.now();
 
   Future<Null> _handleUpdate() async {
@@ -60,7 +58,8 @@ class TimeTablePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.of(context).size.width >= 720) return TimeTableGrid(classes);
+    if (MediaQuery.of(context).size.width >= 720)
+      return TimeTableGrid(_classes);
 
     var languageCode = Localizations.localeOf(context).languageCode;
     var lastUpdateText = Center(
@@ -68,25 +67,25 @@ class TimeTablePage extends StatelessWidget {
         padding: EdgeInsets.all(5),
         child: Text(
           "${LocaleKeys.Calendar_LastUpdate.tr()} "
-          '${DateFormat.yMMMd(languageCode).format(lastUpdate)} '
-          '${DateFormat.Hms(languageCode).format(lastUpdate)}',
+          '${DateFormat.yMMMd(languageCode).format(_lastUpdate)} '
+          '${DateFormat.Hms(languageCode).format(_lastUpdate)}',
           style: Theme.of(context).textTheme.caption,
         ),
       ),
     );
 
     Widget body;
-    if (classes.isNotEmpty)
+    if (_classes.isNotEmpty)
       body = ListView.builder(
-        itemCount: classes.length + 1,
+        itemCount: _classes.length + 1,
         itemBuilder: (_, int index) => AnimationConfiguration.staggeredList(
           position: index,
           child: SlideAnimation(
             verticalOffset: 50.0,
             child: FadeInAnimation(
-              child: index == classes.length
+              child: index == _classes.length
                   ? lastUpdateText
-                  : ClassCard(classes[index]),
+                  : ClassCard(_classes[index]),
             ),
           ),
         ),
@@ -103,20 +102,6 @@ class TimeTablePage extends StatelessWidget {
 }
 
 class ClassCard extends StatelessWidget {
-  /// Lesson information.
-  final Timetable_Class lesson;
-
-  /// Whether the card is inside a TimetableGrid.
-  final bool isInGrid;
-
-  ClassCard(this.lesson, {this.isInGrid = false}) {
-    // Ensure attendance API with current user.
-    AttendanceApi(
-      address: BackendApiConfig.attendanceAddress,
-      uid: store.state.user.campusId,
-    );
-  }
-
   // Colors from monday to friday.
   static const List<Color> dayColor = [
     const Color(0xFFF48FB1),
@@ -126,6 +111,14 @@ class ClassCard extends StatelessWidget {
     const Color(0xFFE1BEE7),
   ];
 
+  /// Class information.
+  final Timetable_Class _cls;
+
+  /// Whether the card is inside a [TimetableGrid].
+  final bool isInGrid;
+
+  ClassCard(this._cls, {this.isInGrid = false});
+
   @override
   Widget build(BuildContext context) {
     var header = Container(
@@ -133,20 +126,20 @@ class ClassCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? Colors.white10
-            : ClassCard.dayColor[lesson.day - 1],
+            : ClassCard.dayColor[_cls.day - 1],
         borderRadius: BorderRadius.vertical(top: Radius.circular(7)),
       ),
       child: Center(
         child: Text(
           isInGrid
-              ? '${lesson.cid} ${lesson.room}'
-              : '${'General_Weekday${lesson.day}'.tr()} '
-                  '${TimeOfDay.fromDateTime(lesson.begin.toDateTime().toLocal()).format(context)} - '
-                  '${TimeOfDay.fromDateTime(lesson.end.toDateTime().toLocal()).format(context)} '
-                  '${lesson.room}',
+              ? '${_cls.cid} ${_cls.room}'
+              : '${'General_Weekday${_cls.day}'.tr()} '
+                  '${TimeOfDay.fromDateTime(_cls.begin.toDateTime().toLocal()).format(context)} - '
+                  '${TimeOfDay.fromDateTime(_cls.end.toDateTime().toLocal()).format(context)} '
+                  '${_cls.room}',
           style: Theme.of(context)
               .textTheme
-              .subtitle1
+              .headline6
               .copyWith(color: Colors.white, fontSize: 18),
           textAlign: TextAlign.center,
         ),
@@ -159,7 +152,7 @@ class ClassCard extends StatelessWidget {
       physics: ClampingScrollPhysics(),
       children: <Widget>[
         Text(
-          lesson.name,
+          _cls.name,
           style: Theme.of(context).textTheme.subtitle1,
           textAlign: TextAlign.start,
         ),
@@ -168,25 +161,25 @@ class ClassCard extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: isInGrid
-                  ? Text(lesson.lecturer)
+                  ? Text(_cls.lecturer)
                   : Text(
-                      '${lesson.cid} \n'
-                      '${lesson.lecturer}',
+                      '${_cls.cid} \n'
+                      '${_cls.lecturer}',
                     ),
             ),
-            SignInButton(lesson),
+            SignInButton(_cls),
           ],
         ),
       ],
     );
 
     return FloatingCard(
-      onTap: () => showBlurDialog(
+      onTap: () => showDialog(
         context: context,
         barrierDismissible: true,
-        builder: (context) => LessonDialog(lesson),
+        builder: (context) => _ClassDialog(_cls),
       ),
-      margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -200,23 +193,23 @@ class ClassCard extends StatelessWidget {
   }
 }
 
-class LessonDialog extends StatelessWidget {
-  final Timetable_Class lesson;
+class _ClassDialog extends StatelessWidget {
+  final Timetable_Class _cls;
 
-  const LessonDialog(this.lesson);
+  const _ClassDialog(this._cls);
 
   int get lessonCredit {
     return store.state.queryState.courses.courses
-        ?.firstWhere((c) => c.name.indexOf(lesson.name) != -1, orElse: () {
+        ?.firstWhere((c) => c.name.indexOf(_cls.name) != -1, orElse: () {
       var editDistances = store.state.queryState.courses.courses
-          .map((c) => editDistance(c.name, lesson.name))
+          .map((c) => editDistance(c.name, _cls.name))
           .toList();
       return store.state.queryState.courses
           .courses[editDistances.indexOf(editDistances.reduce(min))];
     })?.credit;
   }
 
-  void addToCalendar(BuildContext context) async {
+  void _addToCalendar(BuildContext context) async {
     var plugin = DeviceCalendarPlugin();
     if (!(await plugin.requestPermissions()).isSuccess) return;
     var calendars = await plugin.retrieveCalendars();
@@ -241,30 +234,31 @@ class LessonDialog extends StatelessWidget {
 
     var date = DateTime.now();
     // Find next weekday matched the lesson.
-    while (date.weekday != lesson.day) date = date.add(Duration(days: 1));
+    while (date.weekday != _cls.day) date = date.add(Duration(days: 1));
 
-    var start = DateTime(
+    var begin = DateTime(
       date.year,
       date.month,
       date.day,
-      lesson.begin.toDateTime().hour,
-      lesson.begin.toDateTime().minute,
+      _cls.begin.toDateTime().toLocal().hour,
+      _cls.begin.toDateTime().toLocal().minute,
     );
     var end = DateTime(
       date.year,
       date.month,
       date.day,
-      lesson.end.toDateTime().hour,
-      lesson.end.toDateTime().minute,
+      _cls.end.toDateTime().toLocal().hour,
+      _cls.end.toDateTime().toLocal().minute,
     );
     await plugin.createOrUpdateEvent(Event(
       id,
-      title: lesson.name,
-      start: start,
+      title: _cls.name,
+      description: _cls.room,
+      start: begin,
       end: end,
       recurrenceRule: RecurrenceRule(
         RecurrenceFrequency.Weekly,
-        endDate: lesson.end.toDateTime(),
+        endDate: _cls.end.toDateTime(),
       ),
     ));
 
@@ -274,26 +268,26 @@ class LessonDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var title = Text(
-      lesson.name,
+      _cls.name,
       style: Theme.of(context).textTheme.headline6,
       textAlign: TextAlign.center,
     );
 
     var info = Text(
-      '${LocaleKeys.Calendar_ClassCardCode.tr()}: ${lesson.cid}\n'
+      '${LocaleKeys.Calendar_ClassCardCode.tr()}: ${_cls.cid}\n'
       '${LocaleKeys.Calendar_ClassCardCredit.tr()}: $lessonCredit\n'
-      '${LocaleKeys.Calendar_ClassCardTime.tr()}: ${'General_Weekday${lesson.day}'.tr()} '
-      '${TimeOfDay.fromDateTime(lesson.begin.toDateTime()).format(context)} - '
-      '${TimeOfDay.fromDateTime(lesson.end.toDateTime()).format(context)}\n'
-      '${LocaleKeys.Calendar_ClassCardRoom.tr()}: ${lesson.room}\n'
-      '${LocaleKeys.Calendar_ClassCardLecturer.tr()}: ${lesson.lecturer.split(',').join(', ')}',
+      '${LocaleKeys.Calendar_ClassCardTime.tr()}: ${'General_Weekday${_cls.day}'.tr()} '
+      '${TimeOfDay.fromDateTime(_cls.begin.toDateTime().toLocal()).format(context)} - '
+      '${TimeOfDay.fromDateTime(_cls.end.toDateTime().toLocal()).format(context)}\n'
+      '${LocaleKeys.Calendar_ClassCardRoom.tr()}: ${_cls.room}\n'
+      '${LocaleKeys.Calendar_ClassCardLecturer.tr()}: ${_cls.lecturer.split(',').join(', ')}',
     );
 
     Widget history;
     var showHistory = AttendanceApi().available;
     if (showHistory)
       history = FutureBuilder<List<AttendanceRecord>>(
-        future: AttendanceApi().getHistory(cid: lesson.cid),
+        future: AttendanceApi().getHistory(cid: _cls.cid),
         builder: (ctx, snap) {
           switch (snap.connectionState) {
             case ConnectionState.done:
@@ -306,9 +300,7 @@ class LessonDialog extends StatelessWidget {
                           '${AttendanceHistoryItem.parseMessage(context, e)}'))
                       .toList(),
                 );
-              else
-                return Center(child: CircularProgressIndicator());
-              break;
+              return Center(child: CircularProgressIndicator());
             default:
               return Center(child: CircularProgressIndicator());
           }
@@ -327,7 +319,7 @@ class LessonDialog extends StatelessWidget {
           info,
           if (P.isMobile)
             RaisedButton(
-              onPressed: () => addToCalendar(context),
+              onPressed: () => _addToCalendar(context),
               child: Text(LocaleKeys.Calendar_AddToCalendar.tr()),
             ),
           if (showHistory) ...{
