@@ -51,6 +51,14 @@ const Timetable$json = const {
       '6': '.xmux.core.aaos.v4.Timetable.Class',
       '10': 'classes'
     },
+    const {
+      '1': 'lastUpdate',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'lastUpdate'
+    },
   ],
   '3': const [Timetable_Class$json],
 };
@@ -116,6 +124,14 @@ const Exams$json = const {
       '5': 11,
       '6': '.xmux.core.aaos.v4.Exams.Exam',
       '10': 'exams'
+    },
+    const {
+      '1': 'lastUpdate',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'lastUpdate'
     },
   ],
   '3': const [Exams_Exam$json],

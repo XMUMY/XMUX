@@ -306,6 +306,8 @@ class Timetable extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..pc<Timetable_Class>(1, 'classes', $pb.PbFieldType.PM,
         subBuilder: Timetable_Class.create)
+    ..aOM<$2.Timestamp>(2, 'lastUpdate',
+        protoName: 'lastUpdate', subBuilder: $2.Timestamp.create)
     ..hasRequiredFields = false;
 
   Timetable._() : super();
@@ -342,6 +344,23 @@ class Timetable extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<Timetable_Class> get classes => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $2.Timestamp get lastUpdate => $_getN(1);
+
+  @$pb.TagNumber(2)
+  set lastUpdate($2.Timestamp v) {
+    setField(2, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasLastUpdate() => $_has(1);
+
+  @$pb.TagNumber(2)
+  void clearLastUpdate() => clearField(2);
+
+  @$pb.TagNumber(2)
+  $2.Timestamp ensureLastUpdate() => $_ensure(1);
 }
 
 class Courses_Course extends $pb.GeneratedMessage {
@@ -629,6 +648,8 @@ class Exams extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..pc<Exams_Exam>(1, 'exams', $pb.PbFieldType.PM,
         subBuilder: Exams_Exam.create)
+    ..aOM<$2.Timestamp>(2, 'lastUpdate',
+        protoName: 'lastUpdate', subBuilder: $2.Timestamp.create)
     ..hasRequiredFields = false;
 
   Exams._() : super();
@@ -665,6 +686,23 @@ class Exams extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<Exams_Exam> get exams => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $2.Timestamp get lastUpdate => $_getN(1);
+
+  @$pb.TagNumber(2)
+  set lastUpdate($2.Timestamp v) {
+    setField(2, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasLastUpdate() => $_has(1);
+
+  @$pb.TagNumber(2)
+  void clearLastUpdate() => clearField(2);
+
+  @$pb.TagNumber(2)
+  $2.Timestamp ensureLastUpdate() => $_ensure(1);
 }
 
 class Transcript_Session_Course extends $pb.GeneratedMessage {
