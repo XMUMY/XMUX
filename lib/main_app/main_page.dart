@@ -1,9 +1,13 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmux/components/blur_box.dart';
+import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/drawer.dart';
+import 'package:xmux/modules/firebase/firebase.dart';
+import 'package:xmux/redux/state/state.dart';
 
 import 'calendar/calendar.dart';
 import 'campus/campus.dart';
@@ -64,7 +68,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
     // Main pages.
     Widget body = PageTransitionSwitcher(
       key: widget._pageTransitionSwitcherKey,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 300),
       transitionBuilder: (
         Widget child,
         Animation<double> primaryAnimation,
@@ -100,6 +104,15 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
             groupAlignment: 0,
             labelType: NavigationRailLabelType.selected,
             backgroundColor: currentPage.getColor(context),
+            leading: StoreConnector<MainAppState, String>(
+              converter: (s) =>
+                  s.state.user.profile?.avatar ??
+                  Firebase.remoteConfigs.staticResources.defaultAvatar,
+              builder: (context, url) => IconButton(
+                icon: UserAvatar(url: url, radius: 18),
+                onPressed: Scaffold.of(context).openDrawer,
+              ),
+            ),
             destinations: [
               widget.pages[0].buildNavigationRailDestination(context),
               widget.pages[1].buildNavigationRailDestination(context),

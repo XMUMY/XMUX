@@ -36,7 +36,16 @@ class CampusPage extends StatelessWidget implements MainPageContentProvider {
 
   @override
   Widget build(BuildContext context) {
+    Widget leading;
+    if (MediaQuery.of(context).size.shortestSide < 720)
+      leading = IconButton(
+        icon: const Icon(Icons.menu),
+        onPressed: Scaffold.of(context).openDrawer,
+        tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+      );
+
     var appBar = AppBar(
+      leading: leading,
       title: Text(LocaleKeys.Campus.tr()),
       backgroundColor: Theme.of(context).brightness == Brightness.dark
           ? Theme.of(context).primaryColor

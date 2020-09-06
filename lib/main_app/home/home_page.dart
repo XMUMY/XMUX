@@ -46,11 +46,7 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
           converter: (s) =>
               s.state.user.profile?.avatar ??
               Firebase.remoteConfigs.staticResources.defaultAvatar,
-          builder: (context, s) => UserAvatar(
-            url: s,
-            radius: 18,
-            heroTag: null,
-          ),
+          builder: (context, s) => UserAvatar(url: s, radius: 18),
         ),
         onPressed: Scaffold.of(context).openDrawer,
       ),
