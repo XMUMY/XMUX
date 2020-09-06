@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
+/// Create a sketch that allow user to draw on it.
 class Sketch extends StatefulWidget {
   Sketch({Key key}) : super(key: key);
 
@@ -17,15 +18,13 @@ class SketchState extends State<Sketch> {
   _SingleBrushPainter _painter;
 
   /// Clear the sketch.
-  void clear() => setState(() => _points.clear());
+  void clear() => mounted ? setState(() => _points.clear()) : null;
 
   /// Get [ui.Image] from current sketch.
   Future<ui.Image> get image => _painter.image;
 
   @override
   Widget build(BuildContext context) {
-    _painter = _SingleBrushPainter(_points);
-
     return GestureDetector(
       onPanUpdate: (details) {
         if (details.localPosition > Offset.zero)
@@ -34,22 +33,25 @@ class SketchState extends State<Sketch> {
       onPanStart: (details) =>
           setState(() => _points.add(details.localPosition)),
       onPanEnd: (details) => setState(() => _points.add(null)),
-      child: CustomPaint(painter: _painter),
+      child: CustomPaint(painter: _SingleBrushPainter(_points)),
     );
   }
 }
 
 class _SingleBrushPainter extends CustomPainter {
   /// The [Paint] used to paint on canvas.
-  final Paint brush;
+  final Paint _brush;
 
-  List<Offset> points;
+  /// Points need to paint.
+  List<Offset> _points;
 
   /// Size stored for recording.
   Size _size;
 
-  _SingleBrushPainter(this.points, {Paint brush})
-      : this.brush = brush ?? Paint()
+  _SingleBrushPainter(
+    this._points, {
+    Paint brush,
+  }) : this._brush = brush ?? Paint()
           ..color = Colors.black
           ..style = PaintingStyle.stroke
           ..strokeCap = StrokeCap.round
@@ -60,18 +62,18 @@ class _SingleBrushPainter extends CustomPainter {
     _size = size;
 
     var path = Path();
-    for (int i = 0; i < points.length; i++) {
-      if (i == 0 || points[i - 1] == null)
-        path.moveTo(points[i].dx, points[i].dy);
-      else if (points[i] != null &&
-          points[i].dx < size.width &&
-          points[i].dy < size.height) path.lineTo(points[i].dx, points[i].dy);
+    for (int i = 0; i < _points.length; i++) {
+      if (i == 0 || _points[i - 1] == null)
+        path.moveTo(_points[i].dx, _points[i].dy);
+      else if (_points[i] != null &&
+          _points[i].dx < size.width &&
+          _points[i].dy < size.height)
+        path.lineTo(_points[i].dx, _points[i].dy);
     }
 
-    canvas.drawPath(path, brush);
+    canvas.drawPath(path, _brush);
   }
 
-  // TODO: Implement object comparison.
   @override
   bool shouldRepaint(_SingleBrushPainter oldDelegate) => true;
 
@@ -80,12 +82,15 @@ class _SingleBrushPainter extends CustomPainter {
     if (_size == null) return null;
 
     var recorder = ui.PictureRecorder();
-    var origin = Offset.zero;
-    var paintBounds =
-        Rect.fromPoints(_size.topLeft(origin), _size.bottomRight(origin));
+    var paintBounds = Rect.fromPoints(
+      _size.topLeft(Offset.zero),
+      _size.bottomRight(Offset.zero),
+    );
+    // Paint to recorder.
     paint(Canvas(recorder, paintBounds), _size);
-    var picture = recorder.endRecording();
 
-    return picture.toImage(_size.width.round(), _size.height.round());
+    return recorder
+        .endRecording()
+        .toImage(_size.width.round(), _size.height.round());
   }
 }

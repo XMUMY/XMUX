@@ -16,9 +16,6 @@ jobs:
       - name: Build
         run: |
           mkdir ~/.ssh
-          ssh-keyscan cloud.xdea.xyz > ~/.ssh/known_hosts
-          eval $(ssh-agent -s)
-          ssh-add - <<< "${{ secrets.DEPLOY_TRAVELVISER }}"
           echo $CONFIG_FILE > lib/config.dart
           echo $WEB_INDEX | base64 -d > web/index.html
           flutter config --enable-web && flutter build web

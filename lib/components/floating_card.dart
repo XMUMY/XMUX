@@ -12,14 +12,14 @@ class FloatingCard extends StatefulWidget {
   /// The shape of the card's [Material].
   final ShapeBorder shape;
 
-  final VoidCallback onTap;
   final Widget child;
+  final VoidCallback onTap;
 
   const FloatingCard({
     Key key,
     @required this.child,
-    this.shape,
     this.onTap,
+    this.shape,
     this.margin = const EdgeInsets.all(4),
     this.padding = const EdgeInsets.all(0),
   }) : super(key: key);
@@ -33,32 +33,26 @@ class _FloatingCardState extends State<FloatingCard> {
 
   @override
   Widget build(BuildContext context) {
-    var card = Card(
-      margin: widget.margin,
-      shape: widget.shape,
-      elevation: _elevation,
-      child: Padding(
-        padding: widget.padding,
-        child: widget.child,
-      ),
-    );
+    Widget child = Padding(padding: widget.padding, child: widget.child);
 
-    Widget child;
-    if (Theme.of(context).brightness == Brightness.light)
+    if (Theme.of(context).brightness == Brightness.dark)
+      child = InkWell(onTap: widget.onTap, child: child);
+    else
       child = GestureDetector(
         onTap: widget.onTap,
         onTapDown: (_) => setState(() => _elevation = 4),
         onTapUp: (_) => setState(() => _elevation = 1),
         onTapCancel: () => setState(() => _elevation = 1),
-        child: card,
+        child: child,
       );
-    else
-      child = InkWell(
-        onTap: widget.onTap,
-        onTapDown: (_) => setState(() => _elevation = 4),
-        onTapCancel: () => setState(() => _elevation = 1),
-        child: card,
-      );
+
+    child = Card(
+      margin: widget.margin,
+      shape: widget.shape,
+      elevation: _elevation,
+      clipBehavior: Clip.hardEdge,
+      child: child,
+    );
 
     return MouseRegion(
       onEnter: (_) => setState(() => _elevation = 4),
@@ -100,22 +94,22 @@ class _FloatingOpenContainerState extends State<FloatingOpenContainer> {
 
   @override
   Widget build(BuildContext context) {
-    CloseContainerBuilder childBuilder;
-    if (Theme.of(context).brightness == Brightness.light)
-      childBuilder = (context, open) => GestureDetector(
-            onTap: open,
-            onTapDown: (_) => setState(() => _elevation = 4),
-            onTapUp: (_) => setState(() => _elevation = 1),
-            onTapCancel: () => setState(() => _elevation = 1),
-            child: widget.child,
-          );
-    else
-      childBuilder = (context, open) => InkWell(
-            onTap: open,
-            onTapDown: (_) => setState(() => _elevation = 4),
-            onTapCancel: () => setState(() => _elevation = 1),
-            child: widget.child,
-          );
+    CloseContainerBuilder childBuilder = (context, open) {
+      Widget child = Padding(padding: widget.padding, child: widget.child);
+
+      if (Theme.of(context).brightness == Brightness.dark)
+        child = InkWell(onTap: open, child: child);
+      else
+        child = GestureDetector(
+          onTap: open,
+          onTapDown: (_) => setState(() => _elevation = 4),
+          onTapUp: (_) => setState(() => _elevation = 1),
+          onTapCancel: () => setState(() => _elevation = 1),
+          child: child,
+        );
+
+      return child;
+    };
 
     return MouseRegion(
       onEnter: (_) => setState(() => _elevation = 4),
@@ -126,13 +120,10 @@ class _FloatingOpenContainerState extends State<FloatingOpenContainer> {
           tappable: false,
           closedColor: Theme.of(context).cardColor,
           openColor: Theme.of(context).cardColor,
+          closedBuilder: childBuilder,
+          openBuilder: widget.openBuilder,
           closedShape: widget.shape,
           closedElevation: _elevation,
-          closedBuilder: (context, open) => Padding(
-            padding: widget.padding,
-            child: childBuilder(context, open),
-          ),
-          openBuilder: widget.openBuilder,
         ),
       ),
     );
