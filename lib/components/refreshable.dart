@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:xmux/components/empty_error.dart';
 import 'package:xmux/components/empty_error_button.dart';
-import 'package:xmux/components/empty_error_page.dart';
 
 /// Handle [RefreshIndicator] and display error message automatically.
 class Refreshable<T> extends StatefulWidget {

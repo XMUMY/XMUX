@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
                     '   ${i18n('Home/NextClass', context)}',
                     style: Theme.of(context).textTheme.headline6,
                   ),
-                  LessonCard(TimeTablePage.sortTimetable(lessons)[0])
+                  ClassCard(TimeTablePage.sortTimetable(lessons)[0])
                 ],
               );
             },

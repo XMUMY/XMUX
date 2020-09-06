@@ -46,11 +46,12 @@ class TimeTableGrid extends StatelessWidget {
         .map((c) => SpannableGridCell(
               id: c.hashCode,
               column: c.day + 1,
-              row: c.begin.toDateTime().hour - 6,
-              rowSpan: c.end.toDateTime().hour - c.begin.toDateTime().hour,
+              row: c.begin.toDateTime().toLocal().hour - 6,
+              rowSpan: c.end.toDateTime().toLocal().hour -
+                  c.begin.toDateTime().toLocal().hour,
               columnFlex: 2,
               rowFlex: 3,
-              child: LessonCard(
+              child: ClassCard(
                 c,
                 isInGrid: true,
               ),

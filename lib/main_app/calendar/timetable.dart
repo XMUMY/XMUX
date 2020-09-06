@@ -7,7 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
-import 'package:xmux/components/empty_error_page.dart';
+import 'package:xmux/components/empty_error.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/page_routes.dart';
 import 'package:xmux/components/spannable_grid.dart';
@@ -25,12 +25,12 @@ part 'timetable_grid.dart';
 
 class TimeTablePage extends StatelessWidget {
   final List<Timetable_Class> classes;
-  final DateTime recentUpdate;
+  final DateTime lastUpdate;
 
   TimeTablePage(Timetable timetable)
       : classes = sortTimetable(timetable.classes),
-        // TODO: Fix recent update.
-        this.recentUpdate = DateTime.now();
+        lastUpdate =
+            timetable.lastUpdate?.toDateTime()?.toLocal() ?? DateTime.now();
 
   Future<Null> _handleUpdate() async {
     var action = UpdateTimetableAction();
@@ -43,78 +43,73 @@ class TimeTablePage extends StatelessWidget {
     var now = DateTime.now();
     var nowMin = now.weekday * 1440 + now.hour * 60 + now.minute;
 
-    int _getLessonMin(Timetable_Class l) =>
-        l.day * 1440 + l.end.toDateTime().hour * 60 + l.end.toDateTime().minute;
+    int _getClassMin(Timetable_Class l) =>
+        l.day * 1440 +
+        l.end.toDateTime().toLocal().hour * 60 +
+        l.end.toDateTime().toLocal().minute;
 
     var before = <Timetable_Class>[];
     var after = <Timetable_Class>[];
 
-    timetable.sort((a, b) => _getLessonMin(a) - _getLessonMin(b));
+    timetable.sort((a, b) => _getClassMin(a) - _getClassMin(b));
     for (var i in timetable)
-      _getLessonMin(i) < nowMin ? before.add(i) : after.add(i);
+      _getClassMin(i) < nowMin ? before.add(i) : after.add(i);
 
     return after..addAll(before);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.of(context).size.width >= 700) return TimeTableGrid(classes);
+    if (MediaQuery.of(context).size.width >= 720) return TimeTableGrid(classes);
 
     var languageCode = Localizations.localeOf(context).languageCode;
-    var lastUpdate = Center(
+    var lastUpdateText = Center(
       child: Padding(
         padding: EdgeInsets.all(5),
         child: Text(
           "${LocaleKeys.Calendar_LastUpdate.tr()} "
-          '${DateFormat.yMMMd(languageCode).format(recentUpdate)} '
-          '${DateFormat.Hms(languageCode).format(recentUpdate)}',
+          '${DateFormat.yMMMd(languageCode).format(lastUpdate)} '
+          '${DateFormat.Hms(languageCode).format(lastUpdate)}',
           style: Theme.of(context).textTheme.caption,
         ),
       ),
     );
 
-    Widget body = ListView.builder(
-      itemCount: classes.isEmpty ? 0 : classes.length + 1,
-      itemBuilder: (_, int index) {
-        return AnimationConfiguration.staggeredList(
+    Widget body;
+    if (classes.isNotEmpty)
+      body = ListView.builder(
+        itemCount: classes.length + 1,
+        itemBuilder: (_, int index) => AnimationConfiguration.staggeredList(
           position: index,
-          duration: const Duration(milliseconds: 250),
           child: SlideAnimation(
             verticalOffset: 50.0,
             child: FadeInAnimation(
               child: index == classes.length
-                  ? lastUpdate
-                  : LessonCard(classes[index]),
+                  ? lastUpdateText
+                  : ClassCard(classes[index]),
             ),
           ),
-        );
-      },
-    );
-
-    body = Scrollbar(child: body);
-
-    if (classes.isEmpty)
-      body = Stack(children: [
-        body,
-        EmptyErrorPage(),
-      ]);
+        ),
+      );
+    else
+      body = EmptyErrorList();
 
     return RefreshIndicator(
       displacement: 40 + Scaffold.of(context).appBarMaxHeight,
       onRefresh: _handleUpdate,
-      child: body,
+      child: Scrollbar(child: body),
     );
   }
 }
 
-class LessonCard extends StatelessWidget {
+class ClassCard extends StatelessWidget {
   /// Lesson information.
   final Timetable_Class lesson;
 
   /// Whether the card is inside a TimetableGrid.
   final bool isInGrid;
 
-  LessonCard(this.lesson, {this.isInGrid = false}) {
+  ClassCard(this.lesson, {this.isInGrid = false}) {
     // Ensure attendance API with current user.
     AttendanceApi(
       address: BackendApiConfig.attendanceAddress,
@@ -138,7 +133,7 @@ class LessonCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? Colors.white10
-            : LessonCard.dayColor[lesson.day - 1],
+            : ClassCard.dayColor[lesson.day - 1],
         borderRadius: BorderRadius.vertical(top: Radius.circular(7)),
       ),
       child: Center(
@@ -146,8 +141,8 @@ class LessonCard extends StatelessWidget {
           isInGrid
               ? '${lesson.cid} ${lesson.room}'
               : '${'General_Weekday${lesson.day}'.tr()} '
-                  '${TimeOfDay.fromDateTime(lesson.begin.toDateTime()).format(context)} - '
-                  '${TimeOfDay.fromDateTime(lesson.end.toDateTime()).format(context)} '
+                  '${TimeOfDay.fromDateTime(lesson.begin.toDateTime().toLocal()).format(context)} - '
+                  '${TimeOfDay.fromDateTime(lesson.end.toDateTime().toLocal()).format(context)} '
                   '${lesson.room}',
           style: Theme.of(context)
               .textTheme
