@@ -20,25 +20,7 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
   bool get extendBody => false;
 
   @override
-  bool get extendBodyBehindAppBar => false;
-
-  @override
-  AppBar buildAppBar(BuildContext context) => AppBar(
-        leading: IconButton(
-          icon: StoreConnector<MainAppState, String>(
-            converter: (s) =>
-                s.state.user.profile?.avatar ??
-                Firebase.remoteConfigs.staticResources.defaultAvatar,
-            builder: (context, s) => UserAvatar(
-              url: s,
-              radius: 18,
-              heroTag: null,
-            ),
-          ),
-          onPressed: () => store.dispatch(OpenDrawerAction(true)),
-        ),
-        title: Text(LocaleKeys.Home.tr()),
-      );
+  Color getColor(BuildContext context) => Theme.of(context).primaryColor;
 
   @override
   BottomNavigationBarItem buildBottomNavigationBarItem(BuildContext context) =>
@@ -49,8 +31,33 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
       );
 
   @override
+  NavigationRailDestination buildNavigationRailDestination(
+          BuildContext context) =>
+      NavigationRailDestination(
+        icon: Icon(Icons.home),
+        label: Text(LocaleKeys.Home.tr()),
+      );
+
+  @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
+    var appBar = AppBar(
+      leading: IconButton(
+        icon: StoreConnector<MainAppState, String>(
+          converter: (s) =>
+              s.state.user.profile?.avatar ??
+              Firebase.remoteConfigs.staticResources.defaultAvatar,
+          builder: (context, s) => UserAvatar(
+            url: s,
+            radius: 18,
+            heroTag: null,
+          ),
+        ),
+        onPressed: Scaffold.of(context).openDrawer,
+      ),
+      title: Text(LocaleKeys.Home.tr()),
+    );
+
+    var body = RefreshIndicator(
       onRefresh: () async {
         var newsAction = UpdateHomepageNewsAction(context: context);
         var announcementsAction =
@@ -97,6 +104,11 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
           ),
         ],
       ),
+    );
+
+    return Scaffold(
+      appBar: appBar,
+      body: body,
     );
   }
 }

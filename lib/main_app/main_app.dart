@@ -65,6 +65,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var app = StoreConnector<MainAppState, Tuple3<ThemeMode, bool, bool>>(
+      distinct: true,
       converter: (s) => Tuple3(
         s.state.settingState.themeMode,
         s.state.uiState.showPerformanceOverlay,

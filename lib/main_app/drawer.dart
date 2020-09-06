@@ -5,20 +5,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/main_app/main_page.dart';
 import 'package:xmux/modules/emgs/emgs.dart' as emgs show getCountryCode;
 import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/redux/redux.dart';
 
 class DrawerPage extends StatelessWidget {
-  final int index;
-
-  const DrawerPage(this.index);
-
-  /// Navigate main pages.
-  void navigateTo(BuildContext context, int index) =>
-      context.findAncestorStateOfType<MainPageState>().navigateTo(index);
-
   Widget _buildButton(BuildContext ctx,
       {String routeName, String text, IconData icon, Color color}) {
     return ListTile(
@@ -61,45 +52,12 @@ class DrawerPage extends StatelessWidget {
       ),
     );
 
-    Widget navigationBar;
-    if (index != null) {
-      var accentColor = Theme.of(context).accentColor;
-      var disabledColor = Theme.of(context).disabledColor;
-      navigationBar = Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.home),
-            onPressed: () => navigateTo(context, 0),
-            color: index == 0 ? accentColor : disabledColor,
-          ),
-          IconButton(
-            icon: Icon(Icons.calendar_today),
-            onPressed: () => navigateTo(context, 1),
-            color: index == 1 ? accentColor : disabledColor,
-          ),
-          IconButton(
-            icon: Icon(FontAwesomeIcons.university),
-            onPressed: () => navigateTo(context, 2),
-            color: index == 2 ? accentColor : disabledColor,
-          ),
-          if (P.isMobile)
-            IconButton(
-              icon: Icon(Icons.explore),
-              onPressed: () => navigateTo(context, 3),
-              color: index == 3 ? accentColor : disabledColor,
-            ),
-        ],
-      );
-    }
-
     return SizedBox(
       width: 250,
       child: Drawer(
         child: Column(
           children: <Widget>[
             DrawerHeader(child: header),
-            if (index != null) navigationBar,
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: 5),

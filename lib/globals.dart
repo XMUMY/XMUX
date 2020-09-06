@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:sentry/sentry.dart';
@@ -42,10 +41,6 @@ final store = Store<MainAppState>(
   initialState: MainAppState.def(),
   middleware: [apiRequestMiddleware, saveMiddleware],
 );
-
-extension MainStoreProvider on BuildContext {
-  Store<MainAppState> get store => StoreProvider.of<MainAppState>(this);
-}
 
 /// Instance of XiA.
 ///

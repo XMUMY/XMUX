@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xmux/components/blur_box.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/drawer.dart';
-import 'package:xmux/redux/redux.dart';
 
 import 'calendar/calendar.dart';
 import 'campus/campus.dart';
@@ -18,31 +15,35 @@ abstract class MainPageContentProvider extends Widget {
   /// Whether to extend body behind bottom bar.
   bool get extendBody;
 
-  /// Whether to extend body behind app bar.
-  bool get extendBodyBehindAppBar;
-
-  /// Build app bar for scaffold.
-  PreferredSizeWidget buildAppBar(BuildContext context);
+  /// Primary color for page.
+  Color getColor(BuildContext context);
 
   /// Build item for [BottomNavigationBar]
   BottomNavigationBarItem buildBottomNavigationBarItem(BuildContext context);
+
+  /// Build destination for [NavigationRail].
+  NavigationRailDestination buildNavigationRailDestination(
+      BuildContext context);
 }
 
 class MainPage extends StatefulWidget {
+  final _pageTransitionSwitcherKey = GlobalKey();
+
+  final pages = <MainPageContentProvider>[
+    HomePage(),
+    CalendarPage(),
+    CampusPage(),
+    ExplorePage(),
+  ];
+
   @override
   MainPageState createState() => MainPageState();
 }
 
 class MainPageState extends State<MainPage> with TickerProviderStateMixin {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  /// Listener for opening drawer from children.
-  StreamSubscription _drawerListener;
-
   int _currentIndex = 0;
-  List<MainPageContentProvider> pages;
 
-  MainPageContentProvider get currentPage => pages[_currentIndex];
+  MainPageContentProvider get currentPage => widget.pages[_currentIndex];
 
   void navigateTo(int index) {
     if (!mounted || index == _currentIndex) return;
@@ -55,36 +56,15 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    // Add listener for drawer.
-    _drawerListener = store.onChange.listen((s) {
-      if (s.uiState.drawerIsOpen) {
-        _scaffoldKey.currentState.openDrawer();
-        store.dispatch(OpenDrawerAction(false));
-      }
-    });
-
-    // Initialize pages.
-    pages = [
-      HomePage(),
-      CalendarPage(this),
-      CampusPage(),
-      ExplorePage(),
-    ];
-
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _drawerListener.cancel();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     // Main pages.
-    var body = PageTransitionSwitcher(
-      duration: const Duration(milliseconds: 100),
+    Widget body = PageTransitionSwitcher(
+      key: widget._pageTransitionSwitcherKey,
+      duration: const Duration(milliseconds: 1000),
       transitionBuilder: (
         Widget child,
         Animation<double> primaryAnimation,
@@ -97,35 +77,48 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
       child: currentPage,
     );
 
-    var bottom = BottomNavigationBar(
-      items: [
-        pages[0].buildBottomNavigationBarItem(context),
-        pages[1].buildBottomNavigationBarItem(context),
-        pages[2].buildBottomNavigationBarItem(context),
-        if (P.isMobile) pages[3].buildBottomNavigationBarItem(context),
-      ],
-      currentIndex: _currentIndex,
-      type: BottomNavigationBarType.shifting,
-      onTap: navigateTo,
+    var bottom = GaussianBlurBox(
+      sigma: 10.0,
+      child: BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,
+        items: [
+          widget.pages[0].buildBottomNavigationBarItem(context),
+          widget.pages[1].buildBottomNavigationBarItem(context),
+          widget.pages[2].buildBottomNavigationBarItem(context),
+          if (P.isMobile) widget.pages[3].buildBottomNavigationBarItem(context),
+        ],
+        currentIndex: _currentIndex,
+        onTap: navigateTo,
+      ),
     );
 
-    return LayoutBuilder(
-      builder: (context, constraints) => Scaffold(
-        key: _scaffoldKey,
-        extendBody: currentPage.extendBody,
-        extendBodyBehindAppBar: currentPage.extendBodyBehindAppBar,
-        appBar: currentPage.buildAppBar(context),
-        body: body,
-        // Bottom navigation.
-        bottomNavigationBar: constraints.maxWidth < 700
-            ? GaussianBlurBox(
-                sigma: 10.0,
-                child: bottom,
-              )
-            : null,
-        // Drawers.
-        drawer: DrawerPage(constraints.maxWidth < 700 ? null : _currentIndex),
-      ),
+    var isWide = MediaQuery.of(context).size.shortestSide >= 720;
+    if (isWide)
+      body = Row(
+        children: [
+          NavigationRail(
+            groupAlignment: 0,
+            labelType: NavigationRailLabelType.selected,
+            backgroundColor: currentPage.getColor(context),
+            destinations: [
+              widget.pages[0].buildNavigationRailDestination(context),
+              widget.pages[1].buildNavigationRailDestination(context),
+              widget.pages[2].buildNavigationRailDestination(context),
+              if (P.isMobile)
+                widget.pages[3].buildNavigationRailDestination(context),
+            ],
+            selectedIndex: _currentIndex,
+            onDestinationSelected: navigateTo,
+          ),
+          Expanded(child: body),
+        ],
+      );
+
+    return Scaffold(
+      extendBody: currentPage.extendBody,
+      body: body,
+      bottomNavigationBar: !isWide ? bottom : null,
+      drawer: DrawerPage(),
     );
   }
 }

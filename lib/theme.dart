@@ -12,6 +12,12 @@ class ThemeConfig {
       elevation: 0,
       selectedItemColor: Colors.white,
     ),
+    navigationRailTheme: NavigationRailThemeData(
+      selectedIconTheme: IconThemeData(color: Colors.white),
+      unselectedIconTheme: IconThemeData(color: Colors.white),
+      selectedLabelTextStyle: TextStyle(color: Colors.white),
+      unselectedLabelTextStyle: TextStyle(color: Colors.white),
+    ),
   );
 
   static ThemeData defaultDarkTheme = ThemeData(
@@ -20,6 +26,12 @@ class ThemeConfig {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 0,
       selectedItemColor: Colors.white,
+    ),
+    navigationRailTheme: NavigationRailThemeData(
+      selectedIconTheme: IconThemeData(color: Colors.white),
+      unselectedIconTheme: IconThemeData(color: Colors.white),
+      selectedLabelTextStyle: TextStyle(color: Colors.white),
+      unselectedLabelTextStyle: TextStyle(color: Colors.white),
     ),
   );
 }

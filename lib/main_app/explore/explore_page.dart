@@ -16,10 +16,7 @@ class ExplorePage extends StatelessWidget implements MainPageContentProvider {
   bool get extendBody => false;
 
   @override
-  bool get extendBodyBehindAppBar => false;
-
-  @override
-  PreferredSizeWidget buildAppBar(BuildContext context) => null;
+  Color getColor(BuildContext context) => Color(0xFF231E5E);
 
   @override
   BottomNavigationBarItem buildBottomNavigationBarItem(BuildContext context) =>
@@ -27,6 +24,14 @@ class ExplorePage extends StatelessWidget implements MainPageContentProvider {
         label: LocaleKeys.Explore.tr(),
         icon: Icon(Icons.explore),
         backgroundColor: Color(0xFF231E5E),
+      );
+
+  @override
+  NavigationRailDestination buildNavigationRailDestination(
+          BuildContext context) =>
+      NavigationRailDestination(
+        icon: Icon(Icons.explore),
+        label: Text(LocaleKeys.Explore.tr()),
       );
 
   Widget buildLayout(BuildContext context, BoxConstraints constraints) {

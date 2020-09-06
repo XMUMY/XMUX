@@ -4,7 +4,9 @@ import 'dart:convert';
 class Authorization {
   /// Basic.
   String _username, _password;
+
   String get username => _username;
+
   String get password => _password;
 
   /// Bearer.

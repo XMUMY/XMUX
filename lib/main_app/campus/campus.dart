@@ -13,32 +13,37 @@ class CampusPage extends StatelessWidget implements MainPageContentProvider {
   bool get extendBody => false;
 
   @override
-  bool get extendBodyBehindAppBar => false;
+  Color getColor(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark
+          ? Theme.of(context).primaryColor
+          : Colors.lightBlue;
 
   @override
-  AppBar buildAppBar(BuildContext context) => AppBar(
-        title: Text(LocaleKeys.Campus.tr()),
-        backgroundColor: Theme.of(context).brightness == Brightness.dark
-            ? Theme.of(context).primaryColor
-            : Colors.lightBlue,
+  BottomNavigationBarItem buildBottomNavigationBarItem(BuildContext context) =>
+      BottomNavigationBarItem(
+        label: LocaleKeys.Campus.tr(),
+        icon: Icon(FontAwesomeIcons.university),
+        backgroundColor: getColor(context),
       );
 
   @override
-  BottomNavigationBarItem buildBottomNavigationBarItem(BuildContext context) {
-    var color = Theme.of(context).brightness == Brightness.dark
-        ? Theme.of(context).primaryColor
-        : Colors.lightBlue;
-
-    return BottomNavigationBarItem(
-      label: LocaleKeys.Campus.tr(),
-      icon: Icon(FontAwesomeIcons.university),
-      backgroundColor: color,
-    );
-  }
+  NavigationRailDestination buildNavigationRailDestination(
+          BuildContext context) =>
+      NavigationRailDestination(
+        icon: Icon(FontAwesomeIcons.university),
+        label: Text(LocaleKeys.Campus.tr()),
+      );
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    var appBar = AppBar(
+      title: Text(LocaleKeys.Campus.tr()),
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Theme.of(context).primaryColor
+          : Colors.lightBlue,
+    );
+
+    var body = ListView(
       padding: EdgeInsets.fromLTRB(8, 10, 8, 0),
       children: <Widget>[
         Text(
@@ -133,6 +138,11 @@ class CampusPage extends StatelessWidget implements MainPageContentProvider {
           ],
         ),
       ],
+    );
+
+    return Scaffold(
+      appBar: appBar,
+      body: body,
     );
   }
 }
