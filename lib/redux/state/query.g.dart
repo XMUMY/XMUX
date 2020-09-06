@@ -8,27 +8,30 @@ part of 'query.dart';
 
 QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
   return QueryState(
-    (json['assignments'] as List)
+    assignments: (json['assignments'] as List)
         ?.map((e) => e == null
             ? null
             : AssignmentCourse.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    json['courses'] == null
-        ? null
-        : Courses.fromJson(json['courses'] as Map<String, dynamic>),
-    (json['ePaymentRecords'] as List)
+    ePaymentRecords: (json['ePaymentRecords'] as List)
         ?.map((e) => e == null
             ? null
             : BillingRecord.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    json['emgsApplicationResult'] == null
+    emgsApplicationResult: json['emgsApplicationResult'] == null
         ? null
         : EmgsApplicationResult.fromJson(
             json['emgsApplicationResult'] as Map<String, dynamic>),
-    json['timetable'] == null
+    timetable: json['timetable'] == null
         ? null
         : Timetable.fromJson(json['timetable'] as Map<String, dynamic>),
-    json['transcript'] == null
+    courses: json['courses'] == null
+        ? null
+        : Courses.fromJson(json['courses'] as Map<String, dynamic>),
+    exams: json['exams'] == null
+        ? null
+        : Exams.fromJson(json['exams'] as Map<String, dynamic>),
+    transcript: json['transcript'] == null
         ? null
         : Transcript.fromJson(json['transcript'] as Map<String, dynamic>),
   );
@@ -37,9 +40,10 @@ QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$QueryStateToJson(QueryState instance) =>
     <String, dynamic>{
       'assignments': instance.assignments,
-      'courses': instance.courses,
       'ePaymentRecords': instance.ePaymentRecords,
       'emgsApplicationResult': instance.emgsApplicationResult,
       'timetable': instance.timetable,
+      'courses': instance.courses,
+      'exams': instance.exams,
       'transcript': instance.transcript,
     };

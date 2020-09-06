@@ -94,13 +94,14 @@ class CalendarPage extends StatelessWidget implements MainPageContentProvider {
       child: Scaffold(
         appBar: appBar,
         extendBodyBehindAppBar: true,
-        body: StoreBuilder<MainAppState>(
-          builder: (BuildContext context, store) => TabBarView(
+        body: StoreConnector<MainAppState, QueryState>(
+          converter: (s) => s.state.queryState,
+          builder: (BuildContext context, state) => TabBarView(
             children: <Widget>[
-              TimeTablePage(store.state.queryState.timetable),
-              if (store.state.user.isStudent) ...{
-                ExamsPage(store.state.acState.exams),
-                AssignmentPage(store.state.queryState.assignments),
+              TimeTablePage(state.timetable),
+              if (context.store.state.user.isStudent) ...{
+                ExamsPage(state.exams),
+                AssignmentPage(state.assignments),
               },
               NotificationPage(),
               if (AttendanceApi().available) AttendancePage(),

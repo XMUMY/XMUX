@@ -27,8 +27,7 @@ class TimeTablePage extends StatelessWidget {
 
   TimeTablePage(Timetable timetable)
       : _classes = sortTimetable(timetable.classes),
-        _lastUpdate =
-            timetable.lastUpdate?.toDateTime()?.toLocal() ?? DateTime.now();
+        _lastUpdate = timetable.lastUpdate.toDateTime().toLocal();
 
   Future<Null> _handleUpdate() async {
     var action = UpdateTimetableAction();
@@ -64,7 +63,7 @@ class TimeTablePage extends StatelessWidget {
     var languageCode = Localizations.localeOf(context).languageCode;
     var lastUpdateText = Center(
       child: Padding(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         child: Text(
           "${LocaleKeys.Calendar_LastUpdate.tr()} "
           '${DateFormat.yMMMd(languageCode).format(_lastUpdate)} '

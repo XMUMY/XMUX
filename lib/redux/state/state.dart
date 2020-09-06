@@ -15,10 +15,6 @@ part 'user.dart';
 @immutable
 @JsonSerializable()
 class MainAppState {
-  /// AC state include timetable, exams, examResult and other academic data.
-  @JsonKey(nullable: false)
-  final AcState acState;
-
   /// User state for all information of current user.
   @JsonKey(nullable: false)
   final User user;
@@ -35,15 +31,13 @@ class MainAppState {
   @JsonKey(ignore: true)
   final UIState uiState;
 
-  MainAppState(this.acState, this.user, this.queryState, this.settingState,
-      {UIState uiState})
+  MainAppState(this.user, this.queryState, this.settingState, {UIState uiState})
       : this.uiState = uiState ?? UIState.def();
 
   /// Init MainAppState as default.
   MainAppState.def()
-      : this.acState = AcState.def(),
-        this.user = User.def(),
-        this.queryState = QueryState.def(),
+      : this.user = User.def(),
+        this.queryState = QueryState(),
         this.settingState = SettingState.def(),
         this.uiState = UIState.def();
 
@@ -51,29 +45,6 @@ class MainAppState {
       _$MainAppStateFromJson(json);
 
   Map<String, dynamic> toJson() => _$MainAppStateToJson(this);
-}
-
-/// AC state include timetable, exams and other academic data.
-@JsonSerializable()
-class AcState {
-  /// The timestamp from server.
-  final DateTime timestamp;
-
-  final List<Exam> exams;
-
-  AcState(this.timestamp, this.exams);
-
-  AcState.def()
-      : this.timestamp = null,
-        this.exams = null;
-
-  factory AcState.fromJson(Map<String, dynamic> json) =>
-      _$AcStateFromJson(json);
-
-  Map<String, dynamic> toJson() => _$AcStateToJson(this);
-
-  AcState copyWith({DateTime timestamp, List<Exam> exams}) =>
-      AcState(timestamp ?? this.timestamp, exams ?? this.exams);
 }
 
 /// Settings state include ePaymentPassword, etc.

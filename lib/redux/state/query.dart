@@ -11,9 +11,6 @@ class QueryState {
   /// Assignments from moodle.
   final List<AssignmentCourse> assignments;
 
-  /// Courses for current semester.
-  final Courses courses;
-
   /// Billing records from E-Payment.
   final List<BillingRecord> ePaymentRecords;
 
@@ -23,25 +20,27 @@ class QueryState {
   /// Timetable for current semester.
   final Timetable timetable;
 
+  /// Courses for current semester.
+  final Courses courses;
+
+  /// Exams for current semester.
+  final Exams exams;
+
   /// Transcript of student.
   final Transcript transcript;
 
-  QueryState(
+  QueryState({
     this.assignments,
-    this.courses,
     this.ePaymentRecords,
     this.emgsApplicationResult,
-    this.timetable,
-    this.transcript,
-  );
-
-  QueryState.def()
-      : assignments = null,
-        courses = null,
-        ePaymentRecords = null,
-        emgsApplicationResult = null,
-        timetable = null,
-        transcript = null;
+    Timetable timetable,
+    Courses courses,
+    Exams exams,
+    Transcript transcript,
+  })  : timetable = timetable ?? Timetable(),
+        courses = courses ?? Courses(),
+        exams = exams ?? Exams(),
+        transcript = transcript ?? Transcript();
 
   factory QueryState.fromJson(Map<String, dynamic> json) =>
       _$QueryStateFromJson(json);
@@ -50,18 +49,21 @@ class QueryState {
 
   QueryState copyWith({
     List<AssignmentCourse> assignments,
-    Courses courses,
     List<BillingRecord> ePaymentRecords,
     EmgsApplicationResult emgsApplicationResult,
     Timetable timetable,
+    Courses courses,
+    Exams exams,
     Transcript transcript,
   }) =>
       QueryState(
-        assignments ?? this.assignments,
-        courses ?? this.courses,
-        ePaymentRecords ?? this.ePaymentRecords,
-        emgsApplicationResult ?? this.emgsApplicationResult,
-        timetable ?? this.timetable,
-        transcript ?? this.transcript,
+        assignments: assignments ?? this.assignments,
+        ePaymentRecords: ePaymentRecords ?? this.ePaymentRecords,
+        emgsApplicationResult:
+            emgsApplicationResult ?? this.emgsApplicationResult,
+        timetable: timetable ?? this.timetable,
+        courses: courses ?? this.courses,
+        exams: exams ?? this.exams,
+        transcript: transcript ?? this.transcript,
       );
 }

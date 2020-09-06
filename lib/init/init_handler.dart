@@ -109,8 +109,8 @@ void postInit() async {
     store.dispatch(SyncUserProfileAction());
     if (store.state.user.isStudent) {
       store.dispatch(UpdateAssignmentsAction());
-      store.dispatch(UpdateAcAction());
       store.dispatch(UpdateCoursesAction());
+      store.dispatch(UpdateExamsAction());
       store.dispatch(UpdateTranscriptAction());
     }
     runApp(MainApp());

@@ -13,7 +13,7 @@ import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 
 class SignInButton extends StatefulWidget {
   /// Current Lesson.
-  final Timetable_Class lesson;
+  final Timetable_Class _cls;
 
   /// The lesson can sign in now if satisfy following condition.
   ///
@@ -27,8 +27,7 @@ class SignInButton extends StatefulWidget {
     password: store.state.user.password,
   );
 
-  SignInButton(this.lesson)
-      : this._canSign = lesson.day == DateTime.now().weekday;
+  SignInButton(this._cls) : this._canSign = _cls.day == DateTime.now().weekday;
 
   @override
   _SignInButtonState createState() => _SignInButtonState();
@@ -63,7 +62,7 @@ class _SignInButtonState extends State<SignInButton> {
     var bytes = (await image.toByteData(format: ui.ImageByteFormat.png))
         .buffer
         .asUint8List();
-    var res = await widget.attendanceApi.attend(widget.lesson.cid, ip, bytes);
+    var res = await widget.attendanceApi.attend(widget._cls.cid, ip, bytes);
 
     if (res.status == AttendStatus.failed)
       Scaffold.of(context).showSnackBar(SnackBar(content: Text(res.message)));

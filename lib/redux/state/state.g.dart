@@ -8,7 +8,6 @@ part of 'state.dart';
 
 MainAppState _$MainAppStateFromJson(Map<String, dynamic> json) {
   return MainAppState(
-    AcState.fromJson(json['acState'] as Map<String, dynamic>),
     User.fromJson(json['user'] as Map<String, dynamic>),
     QueryState.fromJson(json['queryState'] as Map<String, dynamic>),
     SettingState.fromJson(json['settingState'] as Map<String, dynamic>),
@@ -17,27 +16,9 @@ MainAppState _$MainAppStateFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$MainAppStateToJson(MainAppState instance) =>
     <String, dynamic>{
-      'acState': instance.acState,
       'user': instance.user,
       'queryState': instance.queryState,
       'settingState': instance.settingState,
-    };
-
-AcState _$AcStateFromJson(Map<String, dynamic> json) {
-  return AcState(
-    json['timestamp'] == null
-        ? null
-        : DateTime.parse(json['timestamp'] as String),
-    (json['exams'] as List)
-        ?.map(
-            (e) => e == null ? null : Exam.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  );
-}
-
-Map<String, dynamic> _$AcStateToJson(AcState instance) => <String, dynamic>{
-      'timestamp': instance.timestamp?.toIso8601String(),
-      'exams': instance.exams,
     };
 
 SettingState _$SettingStateFromJson(Map<String, dynamic> json) {
