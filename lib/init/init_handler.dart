@@ -86,16 +86,17 @@ void postInit() async {
       ),
     );
     // Attach ID and password to MoodleApi.
-    moodleApi.login(
-      store.state.user.campusId,
-      store.state.user.password,
-    );
+    moodleApi
+      ..withCredential(store.state.user.campusId, store.state.user.password)
+      ..login();
+
     // Attach ID and password to AttendanceApi.
     AttendanceApi(
       address: BackendApiConfig.attendanceAddress,
       uid: store.state.user.campusId,
       password: store.state.user.password,
     );
+
     // Set user info for sentry report.
     sentry.userContext = sentry_lib.User(id: store.state.user.campusId);
 

@@ -65,34 +65,3 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'name': instance.name,
       'headpic': instance.photoUrl,
     };
-
-AcData _$AcDataFromJson(Map<String, dynamic> json) {
-  return AcData(
-    exams: (json['exams'] as List)
-        ?.map(
-            (e) => e == null ? null : Exam.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  );
-}
-
-Exam _$ExamFromJson(Map<String, dynamic> json) {
-  return Exam(
-    json['Exam (Academic Session)'] as String,
-    Exam._dateFromJson(json['Exam Date'] as String),
-    DurationOfDay.parse(json['Exam Time'] as String),
-    json['Exam Venue'] as String,
-    json['Course Name'] as String,
-    json['Exam Type'] as String,
-    json['Status'] as String,
-  );
-}
-
-Map<String, dynamic> _$ExamToJson(Exam instance) => <String, dynamic>{
-      'Exam (Academic Session)': instance.session,
-      'Exam Date': Exam._dateToJson(instance.date),
-      'Exam Time': instance.durationOfDay,
-      'Exam Venue': instance.venue,
-      'Course Name': instance.courseName,
-      'Exam Type': instance.type,
-      'Status': instance.status,
-    };
