@@ -30,14 +30,15 @@ class QueryState {
   final Transcript transcript;
 
   QueryState({
-    this.assignments,
+    List<AssignmentCourse> assignments,
     this.ePaymentRecords,
     this.emgsApplicationResult,
     Timetable timetable,
     Courses courses,
     Exams exams,
     Transcript transcript,
-  })  : timetable = timetable ?? Timetable(),
+  })  : assignments = assignments ?? List.unmodifiable([]),
+        timetable = timetable ?? Timetable(),
         courses = courses ?? Courses(),
         exams = exams ?? Exams(),
         transcript = transcript ?? Transcript();

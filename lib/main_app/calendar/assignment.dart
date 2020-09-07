@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/empty_error.dart';
-import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
@@ -30,98 +31,89 @@ class _AssignmentPageState extends State<AssignmentPage> {
     await action.future;
   }
 
+  ExpansionPanelRadio _buildExpansionPanel(BuildContext context,
+      AssignmentCourse course, Iterable<Assignment> assignments) {
+    var languageCode = Localizations.localeOf(context).languageCode;
+
+    return ExpansionPanelRadio(
+      canTapOnHeader: true,
+      headerBuilder: (context, isExpanded) => ListTile(
+        title: Text(
+          course.fullName,
+          style: Theme.of(context).textTheme.subtitle1,
+        ),
+      ),
+      body: Column(
+        children: <Widget>[
+          for (var assignment in assignments)
+            OpenContainer(
+              closedColor: Theme.of(context).cardColor,
+              closedShape: RoundedRectangleBorder(),
+              closedBuilder: (context, open) => ListTile(
+                dense: true,
+                title: Text(assignment.name),
+                subtitle: Text(
+                  '${DateFormat.yMMMd(languageCode).format(assignment.dueDate)} '
+                  '${DateFormat.Hms(languageCode).format(assignment.dueDate)}',
+                ),
+                onTap: () => MediaQuery.of(context).size.width < 720
+                    ? open()
+                    : setState(() => _selectedAssignment = assignment),
+              ),
+              openBuilder: (context, _) => AssignmentDetail(assignment),
+            ),
+        ],
+      ),
+      value: course.id,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (widget.assignments == null)
-      return EmptyErrorButton(onRefresh: _handleUpdate);
-    if (widget.assignments.isEmpty) return EmptyErrorPage();
-
     var width = MediaQuery.of(context).size.width;
     var now = DateTime.now();
 
-    ExpansionPanelRadio buildExpansionPanel(
-      AssignmentCourse course, {
-      bool showBefore = true,
-      showAfter = true,
-    }) {
-      var assignments = course.assignments
-          .where((a) =>
-              (showBefore && a.dueDate.isBefore(now)) ||
-              (showAfter && a.dueDate.isAfter(now)))
-          .toList();
-
-      return ExpansionPanelRadio(
-        canTapOnHeader: true,
-        headerBuilder: (context, isExpanded) => ListTile(
-          title: Text(
-            course.fullName,
-            style: Theme.of(context).textTheme.subtitle1,
+    Widget list;
+    if (widget.assignments.isNotEmpty)
+      list = ListView(
+        padding: MediaQuery.of(context).padding.copyWith(left: 8, right: 8),
+        children: <Widget>[
+          Divider(height: 8, color: Colors.transparent),
+          ExpansionPanelList.radio(
+            children: <ExpansionPanelRadio>[
+              for (var course in widget.assignments)
+                if (course.assignments.firstWhere((a) => a.dueDate.isAfter(now),
+                        orElse: () => null) !=
+                    null)
+                  _buildExpansionPanel(context, course,
+                      course.assignments.where((a) => a.dueDate.isAfter(now))),
+            ],
           ),
-        ),
-        body: Column(
-          children: <Widget>[
-            for (var assignment in assignments)
-              OpenContainer(
-                closedColor: Theme.of(context).cardColor,
-                closedShape: RoundedRectangleBorder(),
-                closedBuilder: (context, open) => ListTile(
-                  onTap: () => width < 700
-                      ? open()
-                      : setState(() => _selectedAssignment = assignment),
-                  title: Text(assignment.name),
-                  subtitle: Text(
-                    '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(assignment.dueDate)} '
-                    '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(assignment.dueDate)}',
-                  ),
-                  dense: true,
-                ),
-                openBuilder: (context, _) => AssignmentDetail(assignment),
-              ),
-          ],
-        ),
-        value: course.id,
+          Divider(color: Colors.transparent),
+          Text(
+            LocaleKeys.Calendar_AssignmentsExpired.tr(),
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          Divider(),
+          ExpansionPanelList.radio(
+            children: <ExpansionPanelRadio>[
+              for (var course in widget.assignments)
+                if (course.assignments.firstWhere(
+                        (element) => element.dueDate.isBefore(now),
+                        orElse: () => null) !=
+                    null)
+                  _buildExpansionPanel(context, course,
+                      course.assignments.where((a) => a.dueDate.isBefore(now))),
+            ],
+          ),
+          Divider(height: 8, color: Colors.transparent),
+        ],
       );
-    }
-
-    Widget list = ListView(
-      padding: MediaQuery.of(context).padding.copyWith(left: 10, right: 10),
-      children: <Widget>[
-        ExpansionPanelList.radio(
-          children: <ExpansionPanelRadio>[
-            for (var course in widget.assignments)
-              if (course.assignments.firstWhere(
-                      (element) => element.dueDate.isAfter(now),
-                      orElse: () => null) !=
-                  null)
-                buildExpansionPanel(course, showBefore: false),
-          ],
-        ),
-        Divider(color: Colors.transparent),
-        Text(
-          LocaleKeys.Calendar_AssignmentsExpired.tr(),
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        Divider(),
-        ExpansionPanelList.radio(
-          children: <ExpansionPanelRadio>[
-            for (var course in widget.assignments)
-              if (course.assignments.firstWhere(
-                      (element) => element.dueDate.isBefore(now),
-                      orElse: () => null) !=
-                  null)
-                buildExpansionPanel(course, showAfter: false),
-          ],
-        ),
-
-        /// Bottom navigation padding.
-        SizedBox(height: kBottomNavigationBarHeight),
-      ],
-    );
-
-    list = Scrollbar(child: list);
+    else
+      list = EmptyErrorList();
 
     Widget child;
-    if (width < 700)
+    if (width < 720 || widget.assignments.isEmpty)
       child = list;
     else
       // Show details in right column.
@@ -132,7 +124,7 @@ class _AssignmentPageState extends State<AssignmentPage> {
             child: list,
           ),
           Expanded(
-            flex: width > 1000 ? 3 : 2,
+            flex: max(width ~/ 350 - 1, 1),
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: _selectedAssignment == null
@@ -166,8 +158,14 @@ class AssignmentDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var padding = withAppBar
+        ? const EdgeInsets.all(4)
+        : MediaQuery.of(context).padding.copyWith(left: 4, right: 4);
+
+    var languageCode = Localizations.localeOf(context).languageCode;
+
     var detail = ListView(
-      padding: MediaQuery.of(context).padding.copyWith(left: 8, right: 8),
+      padding: padding,
       children: <Widget>[
         if (assignment.intro.isNotEmpty ||
             assignment.introAttachments.isNotEmpty)
@@ -193,9 +191,8 @@ class AssignmentDetail extends StatelessWidget {
                             onPressed: () =>
                                 launch(moodleApi.withToken(attachment.url)),
                           ),
-                          Container(
+                          SizedBox(
                             width: 85,
-                            margin: const EdgeInsets.only(bottom: 5),
                             child: Text(
                               attachment.name,
                               style: Theme.of(context).textTheme.caption,
@@ -219,18 +216,18 @@ class AssignmentDetail extends StatelessWidget {
               ),
               Divider(height: 5, color: Colors.transparent),
               Text(
-                '${DateFormat.yMMMEd(Localizations.localeOf(context).languageCode).format(assignment.dueDate)} '
-                '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(assignment.dueDate)}',
+                '${DateFormat.yMMMEd(languageCode).format(assignment.dueDate)} '
+                '${DateFormat.Hms(languageCode).format(assignment.dueDate)}',
               ),
-              Divider(height: 5, color: Colors.transparent),
+              Divider(color: Colors.transparent),
               Text(
                 'Allow Submission From',
                 style: Theme.of(context).textTheme.headline6,
               ),
               Divider(height: 5, color: Colors.transparent),
               Text(
-                '${DateFormat.yMMMEd(Localizations.localeOf(context).languageCode).format(assignment.allowSubmissionFromDate)} '
-                '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(assignment.allowSubmissionFromDate)}',
+                '${DateFormat.yMMMEd(languageCode).format(assignment.allowSubmissionFromDate)} '
+                '${DateFormat.Hms(languageCode).format(assignment.allowSubmissionFromDate)}',
               ),
             ],
           ),

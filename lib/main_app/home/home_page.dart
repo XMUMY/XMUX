@@ -40,8 +40,9 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
 
   @override
   Widget build(BuildContext context) {
-    var appBar = AppBar(
-      leading: IconButton(
+    Widget leading;
+    if (MediaQuery.of(context).size.width < 720)
+      IconButton(
         icon: StoreConnector<MainAppState, String>(
           converter: (s) =>
               s.state.user.profile?.avatar ??
@@ -49,7 +50,10 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
           builder: (context, s) => UserAvatar(url: s, radius: 18),
         ),
         onPressed: Scaffold.of(context).openDrawer,
-      ),
+      );
+
+    var appBar = AppBar(
+      leading: leading,
       title: Text(LocaleKeys.Home.tr()),
     );
 

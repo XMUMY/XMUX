@@ -51,7 +51,7 @@ class ExamsPage extends StatelessWidget {
               ? lastUpdateText
               : Center(
                   child: SizedBox(
-                    width: min(MediaQuery.of(context).size.shortestSide, 600),
+                    width: min(MediaQuery.of(context).size.width, 600),
                     child: _ExamCard(_exams[index]),
                   ),
                 );

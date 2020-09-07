@@ -96,7 +96,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
       ),
     );
 
-    var isWide = MediaQuery.of(context).size.shortestSide >= 720;
+    var isWide = MediaQuery.of(context).size.width >= 720;
     if (isWide)
       body = Row(
         children: [

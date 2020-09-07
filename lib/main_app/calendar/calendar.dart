@@ -42,7 +42,7 @@ class CalendarPage extends StatelessWidget implements MainPageContentProvider {
   @override
   Widget build(BuildContext context) {
     Widget leading;
-    if (MediaQuery.of(context).size.shortestSide < 720)
+    if (MediaQuery.of(context).size.width < 720)
       leading = IconButton(
         icon: const Icon(Icons.menu),
         onPressed: Scaffold.of(context).openDrawer,
