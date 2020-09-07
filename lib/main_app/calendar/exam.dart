@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -40,20 +41,28 @@ class ExamsPage extends StatelessWidget {
         ),
       ),
     );
+
     Widget body;
     if (_exams.isNotEmpty)
       body = ListView.builder(
         itemCount: _exams.length + 1,
         itemBuilder: (_, int index) {
+          var child = index == _exams.length
+              ? lastUpdateText
+              : Center(
+                  child: SizedBox(
+                    width: min(MediaQuery.of(context).size.shortestSide, 600),
+                    child: _ExamCard(_exams[index]),
+                  ),
+                );
+
           return AnimationConfiguration.staggeredList(
             position: index,
             duration: const Duration(milliseconds: 250),
             child: SlideAnimation(
               verticalOffset: 50.0,
               child: FadeInAnimation(
-                child: index == _exams.length
-                    ? lastUpdateText
-                    : _ExamCard(_exams[index]),
+                child: child,
               ),
             ),
           );
