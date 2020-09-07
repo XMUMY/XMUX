@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-
-import '../common.dart';
+import 'package:xmux/modules/common/timestamp_json.dart';
 
 part 'assignment.g.dart';
 
@@ -25,13 +24,19 @@ class AssignmentCourse {
 class Assignment {
   final int id;
   final String name;
+
   @JsonKey(
-      name: 'duedate', fromJson: timestampFromJson, toJson: timestampToJson)
+    name: 'duedate',
+    fromJson: timestampToDateTime,
+    toJson: dateTimeToTimestamp,
+  )
   final DateTime dueDate;
+
   @JsonKey(
-      name: 'allowsubmissionsfromdate',
-      fromJson: timestampFromJson,
-      toJson: timestampToJson)
+    name: 'allowsubmissionsfromdate',
+    fromJson: timestampToDateTime,
+    toJson: dateTimeToTimestamp,
+  )
   final DateTime allowSubmissionFromDate;
 
   final String intro;

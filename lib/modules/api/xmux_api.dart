@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'authorization.dart';
 import 'common.dart';
 import 'models/v3_bridge.dart';
-import 'models/v3_user.dart';
 import 'v3_lost_and_found.dart';
 
 export 'authorization.dart';
@@ -57,78 +56,7 @@ class XmuxApi {
     if (authorization != null) _authorization.mergeFrom(authorization);
   }
 
-  // ** user **
-
-  /// Login with given credential.
-  /// Returns firebase custom token in order to login firebase client.
-  Future<XmuxApiResponse<LoginResp>> login(String uid, String password) async {
-    var resp = await _dio.get<Map<String, dynamic>>(
-      '/user/login',
-      options: await Authorization.basic(uid, password).options,
-    );
-    return decodeResponse(resp, LoginResp.fromJson);
-  }
-
-  /// Register user if server cannot get adequate information to register automatically.
-  Future<XmuxApiResponse<LoginResp>> register(
-      String uid, String password, String displayName, String email) async {
-    var res = await _dio.post<Map<String, dynamic>>(
-      '/user/login',
-      data: {'displayName': displayName, 'email': email},
-      options: await Authorization.basic(uid, password).options,
-    );
-    return decodeResponse(res, LoginResp.fromJson);
-  }
-
-  /// Get devices associated with user.
-  Future<XmuxApiResponse<List<Device>>> get devices async {
-    var resp = await _dio.get<Map<String, dynamic>>(
-      '/user/devices',
-      options: await _authorization.options,
-    );
-    return decodeList(resp, 'devices', Device.fromJson);
-  }
-
-  Future<XmuxApiResponse<Profile>> getProfile({String uid}) async {
-    var resp = await _dio.get<Map<String, dynamic>>(
-      '/user/profile',
-      queryParameters: {if (uid != null) 'uid': uid},
-      options: await _authorization.options,
-    );
-    return decodeResponse(resp, Profile.fromJson);
-  }
-
-  /// Refresh device and push channel/key.
-  Future<XmuxApiResponse<Null>> refreshDevice(
-    String deviceId,
-    String deviceModel,
-    String deviceName, {
-    String pushChannel,
-    String pushKey,
-  }) async {
-    var resp = await _dio.put<Map<String, dynamic>>(
-      '/user/device',
-      data: {
-        'deviceId': deviceId,
-        'deviceModel': deviceModel,
-        'deviceName': deviceName,
-        'pushChannel': pushChannel,
-        'pushKey': pushKey,
-      },
-      options: await _authorization.options,
-    );
-    return decodeResponse(resp, (_) => null);
-  }
-
   // ** bridge **
-
-  Future<XmuxApiResponse<List<Course>>> get courses async {
-    var resp = await _dio.get<Map<String, dynamic>>(
-      '/ac/courses',
-      options: Options(headers: _authorization.basicHeader),
-    );
-    return decodeList(resp, 'courses', Course.fromJson);
-  }
 
   Future<XmuxApiResponse<List<StudentAttendanceBrief>>>
       getStudentAttendanceBriefs({String cid}) async {

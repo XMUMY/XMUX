@@ -1,7 +1,8 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:xmux/modules/api/xmux_api.dart';
+import 'package:xmux/globals.dart';
+import 'package:xmux/modules/rpc/clients/user.pb.dart';
 
 var _cached = <String, Profile>{};
 
@@ -30,10 +31,10 @@ class UserProfileBuilderState extends State<UserProfileBuilder> {
     if (_cached.containsKey(widget.uid))
       profile = _cached[widget.uid];
     else
-      XmuxApi.instance.getProfile(uid: widget.uid).then((v) {
+      rpc.userClient.getProfile(GetProfileReq()..uid = widget.uid).then((v) {
         // TODO: Clear periodically.
-        _cached[widget.uid] = v.data;
-        if (mounted) setState(() => profile = v.data);
+        _cached[widget.uid] = v;
+        if (mounted) setState(() => profile = v);
       });
     super.initState();
   }
@@ -83,7 +84,8 @@ class UserAvatar extends StatelessWidget {
       avatar = UserProfileBuilder(
         uid: uid,
         builder: (context, profile) => CircleAvatar(
-          backgroundImage: ExtendedNetworkImageProvider(profile.avatar),
+          backgroundImage:
+              ExtendedNetworkImageProvider(profile.avatar, cache: true),
           radius: radius,
         ),
         loadingBuilder: (context) => CircleAvatar(

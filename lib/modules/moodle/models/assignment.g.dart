@@ -30,8 +30,8 @@ Assignment _$AssignmentFromJson(Map<String, dynamic> json) {
   return Assignment(
     json['id'] as int,
     json['name'] as String,
-    timestampFromJson(json['duedate'] as int),
-    timestampFromJson(json['allowsubmissionsfromdate'] as int),
+    timestampToDateTime(json['duedate'] as int),
+    timestampToDateTime(json['allowsubmissionsfromdate'] as int),
     json['intro'] as String,
     (json['introattachments'] as List)
         ?.map((e) => e == null
@@ -45,9 +45,9 @@ Map<String, dynamic> _$AssignmentToJson(Assignment instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'duedate': timestampToJson(instance.dueDate),
+      'duedate': dateTimeToTimestamp(instance.dueDate),
       'allowsubmissionsfromdate':
-          timestampToJson(instance.allowSubmissionFromDate),
+          dateTimeToTimestamp(instance.allowSubmissionFromDate),
       'intro': instance.intro,
       'introattachments': instance.introAttachments,
     };

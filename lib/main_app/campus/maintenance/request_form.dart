@@ -187,7 +187,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
               onPressed: () async {
                 if (!formKey.currentState.validate() || _isSubmitting) return;
                 _isSubmitting = true;
-                await widget.maintenance.sendForm(form);
+                await widget.maintenance.submitForm(form);
                 Navigator.of(context).pop();
               },
             )

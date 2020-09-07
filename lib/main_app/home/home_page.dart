@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
   Widget build(BuildContext context) {
     Widget leading;
     if (MediaQuery.of(context).size.width < 720)
-      IconButton(
+      leading = IconButton(
         icon: StoreConnector<MainAppState, String>(
           converter: (s) =>
               s.state.user.profile?.avatar ??

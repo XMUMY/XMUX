@@ -9,12 +9,12 @@ import 'models.dart';
 
 export 'models.dart';
 
-const MAINTENANCE_URL = 'https://app.xmu.edu.my/Maintenance';
+const _maintenanceUrl = 'https://app.xmu.edu.my/Maintenance';
 
 class Maintenance {
   final _dio = Dio()
     ..interceptors.add(NBCookieManager(CookieJar()))
-    ..options.baseUrl = MAINTENANCE_URL;
+    ..options.baseUrl = _maintenanceUrl;
 
   final String _uid, _password;
 
@@ -24,7 +24,7 @@ class Maintenance {
   Maintenance(this._uid, this._password);
 
   /// Ensure login successfully.
-  Future<void> ensureLogin() async {
+  Future<void> ensureSignedIn() async {
     if (loginFuture == null) loginFuture = login();
     await loginFuture;
   }
@@ -57,7 +57,7 @@ class Maintenance {
 
   /// Get FAQs in given page.
   static Future<List<FaqQuestion>> getFaq({int page = 1}) async {
-    var faqPageResp = await Dio().get('$MAINTENANCE_URL/?p=$page');
+    var faqPageResp = await Dio().get('$_maintenanceUrl/?p=$page');
 
     var faqPage =
         parse(faqPageResp.data).querySelector('.table').querySelectorAll('td');
@@ -84,7 +84,7 @@ class Maintenance {
 
   /// Get my requests.
   Future<List<MyRequest>> get myRequests async {
-    await ensureLogin();
+    await ensureSignedIn();
     var myRequestPageResp = await _dio.get('/Reader/Ask');
 
     var myRequestPage = parse(myRequestPageResp.data)
@@ -123,7 +123,7 @@ class Maintenance {
 
   /// Get my form.
   Future<RequestForm> get form async {
-    await ensureLogin();
+    await ensureSignedIn();
     var askPageResp = await _dio.get('/Reader/Ask/Create');
     var askPage = parse(askPageResp.data);
     var selections = ['#RoomUsage', '#Category', '#Block', '#Wing']
@@ -150,7 +150,9 @@ class Maintenance {
     );
   }
 
-  Future<Null> sendForm(RequestForm form) async {
+  /// Submit form.
+  Future<Null> submitForm(RequestForm form) async {
+    await ensureSignedIn();
     var formData = FormData.fromMap({
       'agree': 'true',
       '__RequestVerificationToken': form.token,

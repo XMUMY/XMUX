@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/api/xmux_api.dart';
+import 'package:xmux/modules/rpc/clients/user.pb.dart';
 
 import 'item_detail_page.dart';
 import 'item_edit_page.dart';
@@ -64,9 +64,9 @@ class _ItemCardState extends State<ItemCard> {
   @override
   void initState() {
     // Get user by UID.
-    XmuxApi.instance
-        .getProfile(uid: widget.item.from)
-        .then((u) => setState(() => user = u.data))
+    rpc.userClient
+        .getProfile(GetProfileReq()..uid = widget.item.from)
+        .then((u) => setState(() => user = u))
         .catchError(
             (e) => Scaffold.of(context).showSnackBar(
                 SnackBar(content: Text(e.response.data['error']))),

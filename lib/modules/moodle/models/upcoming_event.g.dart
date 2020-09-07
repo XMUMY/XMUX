@@ -11,7 +11,7 @@ UpcomingEvent _$UpcomingEventFromJson(Map<String, dynamic> json) {
     json['id'] as int,
     json['name'] as String,
     json['description'] as String,
-    timestampFromJson(json['timestart'] as int),
+    timestampToDateTime(json['timestart'] as int),
   );
 }
 
@@ -20,5 +20,5 @@ Map<String, dynamic> _$UpcomingEventToJson(UpcomingEvent instance) =>
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
-      'timestart': timestampToJson(instance.timeStart),
+      'timestart': dateTimeToTimestamp(instance.timeStart),
     };

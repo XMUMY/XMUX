@@ -69,10 +69,11 @@ class _CommentCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(15),
           child: CircleAvatar(
-            child: FutureBuilder<XmuxApiResponse<Profile>>(
-              future: XmuxApi.instance.getProfile(uid: _comment.from),
+            child: FutureBuilder<Profile>(
+              future: rpc.userClient
+                  .getProfile(GetProfileReq()..uid = _comment.from),
               builder: (_, snap) => snap.hasData
-                  ? Image.network(moodleApi.withToken(snap.data.data.avatar))
+                  ? Image.network(moodleApi.withToken(snap.data.avatar))
                   : SpinKitPulse(color: Colors.white),
             ),
           ),
@@ -81,11 +82,12 @@ class _CommentCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              FutureBuilder<XmuxApiResponse<Profile>>(
-                future: XmuxApi.instance.getProfile(uid: _comment.from),
+              FutureBuilder<Profile>(
+                future: rpc.userClient
+                    .getProfile(GetProfileReq()..uid = _comment.from),
                 builder: (_, snap) => snap.hasData
                     ? Text(
-                        snap.data.data.displayName,
+                        snap.data.displayName,
                         style: Theme.of(context).textTheme.subtitle1,
                       )
                     : Text('...'),

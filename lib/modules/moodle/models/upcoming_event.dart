@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:xmux/modules/moodle/common.dart';
+import 'package:xmux/modules/common/timestamp_json.dart';
 
 part 'upcoming_event.g.dart';
 
@@ -11,8 +11,8 @@ class UpcomingEvent {
 
   @JsonKey(
     name: 'timestart',
-    fromJson: timestampFromJson,
-    toJson: timestampToJson,
+    fromJson: timestampToDateTime,
+    toJson: dateTimeToTimestamp,
   )
   final DateTime timeStart;
 

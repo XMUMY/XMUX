@@ -16,6 +16,7 @@ import 'package:xmux/modules/api/xmux_api.dart' as v3;
 import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/modules/rpc/authorization.dart';
+import 'package:xmux/modules/rpc/clients/user.pb.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
 import 'package:xmux/redux/redux.dart';
@@ -184,23 +185,25 @@ Future<void> androidPostInit() async {
 
   DeviceInfoPlugin()
       .androidInfo
-      .then((deviceInfo) async => v3.XmuxApi.instance.refreshDevice(
-            deviceInfo.androidId,
-            deviceInfo.model,
-            '${deviceInfo.manufacturer} ${deviceInfo.model}',
-            pushChannel: 'fcm',
-            pushKey: await Firebase.messaging.getToken(),
+      .then((deviceInfo) async => rpc.userClient.refreshDevice(
+            RefreshDeviceReq()
+              ..deviceId = deviceInfo.androidId
+              ..deviceModel = deviceInfo.model
+              ..deviceName = '${deviceInfo.manufacturer} ${deviceInfo.model}'
+              ..pushChannel = RefreshDeviceReq_PushChannelType.fcm
+              ..pushKey = await Firebase.messaging.getToken(),
           ));
 }
 
 Future<void> iOSPostInit() async {
   DeviceInfoPlugin()
       .iosInfo
-      .then((deviceInfo) async => v3.XmuxApi.instance.refreshDevice(
-            deviceInfo.identifierForVendor,
-            deviceInfo.model,
-            deviceInfo.name,
-            pushChannel: 'fcm',
-            pushKey: await Firebase.messaging.getToken(),
+      .then((deviceInfo) async => rpc.userClient.refreshDevice(
+            RefreshDeviceReq()
+              ..deviceId = deviceInfo.identifierForVendor
+              ..deviceModel = deviceInfo.model
+              ..deviceName = deviceInfo.name
+              ..pushChannel = RefreshDeviceReq_PushChannelType.fcm
+              ..pushKey = await Firebase.messaging.getToken(),
           ));
 }

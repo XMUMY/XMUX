@@ -5,19 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/generated/l10n_keys.dart';
-import 'package:xmux/modules/api/xmux_api.dart';
+import 'package:xmux/globals.dart';
+import 'package:xmux/modules/rpc/clients/google/protobuf/empty.pb.dart';
+import 'package:xmux/modules/rpc/clients/user.pb.dart';
 
 class SessionsPage extends StatelessWidget {
-  Future<List<Device>> handleRefresh() async {
-    var resp = await XmuxApi.instance.devices;
-    return resp.data;
+  Future<List<GetDevicesResp_Device>> handleRefresh() async {
+    var resp = await rpc.userClient.getDevices(Empty());
+    return resp.devices;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(LocaleKeys.Settings_SecuritySessions.tr())),
-      body: Refreshable<List<Device>>(
+      body: Refreshable<List<GetDevicesResp_Device>>(
         onRefresh: handleRefresh,
         builder: (context, devices) => ListView.separated(
           padding: EdgeInsets.symmetric(
@@ -32,8 +34,8 @@ class SessionsPage extends StatelessWidget {
                 Text('Name: ${devices[index].deviceName}'),
                 Text('Model: ${devices[index].deviceModel}'),
                 Text(
-                    'Last Seen: ${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(devices[index].lastSeen)} '
-                    '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(devices[index].lastSeen)}')
+                    'Last Seen: ${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(devices[index].lastSeen.toDateTime().toLocal())} '
+                    '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(devices[index].lastSeen.toDateTime().toLocal())}')
               ],
             );
           },
