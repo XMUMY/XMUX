@@ -41,7 +41,7 @@ Future<Null> _saveState(Store<MainAppState> store, bool sync) async {
 
 /// Redux middleware for XMUX API request.
 ///
-/// If an action is *XMUXApiAction*, the middleware will call for API request
+/// If an action is [ApiCallAction], the middleware will call for API request
 /// before go to next middleware.
 void apiRequestMiddleware(
     Store<MainAppState> store, action, NextDispatcher next) {

@@ -1,17 +1,15 @@
-library moodle;
-
 import 'package:dio/dio.dart';
-import 'package:xmux/modules/moodle/models/upcoming_event.dart';
 
 import 'models/assignment.dart';
 import 'models/notification.dart';
-
-export 'models/assignment.dart';
-export 'models/notification.dart';
+import 'models/upcoming_event.dart';
 
 class MoodleApi {
   /// HTTP client for API calls.
   final Dio _dio;
+
+  /// Login credential.
+  String _username, _password;
 
   /// Moodle token.
   String _token;
@@ -27,25 +25,32 @@ class MoodleApi {
           contentType: 'application/x-www-form-urlencoded',
         ));
 
-  String get token => _token;
-
-  /// Authenticate with given credential and get web service token.
-  Future<void> login(String username, String password) async {
-    var resp = await _dio.post<Map<String, dynamic>>('/login/token.php', data: {
-      'username': username,
-      'password': password,
-      'service': 'moodle_mobile_app',
-    });
-
-    _token = resp.data['token'];
+  /// Store login credential.
+  void withCredential(String username, String password) {
+    _username = username;
+    _password = password;
   }
 
-  /// Reset web service token.
-  void signOut() => _token = _userId = null;
+  /// Authenticate with credential and get web service token && user ID.
+  Future<void> login() async {
+    var loginResp =
+        await _dio.post<Map<String, dynamic>>('/login/token.php', data: {
+      'username': _username,
+      'password': _password,
+      'service': 'moodle_mobile_app',
+    });
+    _token = loginResp.data['token'];
+
+    var siteInfoResp = await _invoke('core_webservice_get_site_info');
+    _userId = siteInfoResp['userid'];
+  }
+
+  /// Reset web service token and credential.
+  void signOut() => _userId = _token = _username = _password = null;
 
   /// Append moodle token to url if available.
   String withToken(String url) {
-    if (token == null) return url;
+    if (_token == null) return url;
     var uri = Uri.parse(url);
     return uri.replace(queryParameters: {
       ...uri.queryParameters,
@@ -53,11 +58,20 @@ class MoodleApi {
     }).toString();
   }
 
+  void _ensureSignedIn() async {
+    if (_token == null) await login();
+  }
+
+  void _ensureUserId() async {
+    if (_userId == null) await login();
+  }
+
   /// Invoke Moodle web service API.
   Future<Map<String, dynamic>> _invoke(
     String function, {
     Map<String, dynamic> params,
   }) async {
+    await _ensureSignedIn();
     var resp = await _dio
         .post<Map<String, dynamic>>('/webservice/rest/server.php', data: {
       'moodlewsrestformat': 'json',
@@ -67,12 +81,6 @@ class MoodleApi {
     });
 
     return resp.data;
-  }
-
-  /// Get site info for current user.
-  Future<void> get siteInfo async {
-    var resp = await _invoke('core_webservice_get_site_info');
-    _userId = resp['userid'];
   }
 
   /// Get assignments.
@@ -87,7 +95,7 @@ class MoodleApi {
 
   /// Get popup notifications.
   Future<List<Notification>> getPopupNotifications({int offset = 0}) async {
-    if (_userId == null) await siteInfo;
+    await _ensureUserId();
     var resp = await _invoke('message_popup_get_popup_notifications', params: {
       'useridto': _userId,
       'newestfirst': 1,

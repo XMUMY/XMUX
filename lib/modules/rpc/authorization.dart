@@ -9,11 +9,11 @@ class Authorization {
 
   String get password => _password;
 
-  /// Bearer.
-  Future<String> get bearerToken => _bearerRefresher();
-
   /// Function to generate bearer token.
   Future<String> Function() _bearerRefresher;
+
+  /// Bearer.
+  Future<String> get bearerToken => _bearerRefresher();
 
   Authorization();
 
