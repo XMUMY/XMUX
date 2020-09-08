@@ -8,12 +8,12 @@ import 'package:xmux/components/lazy_loading_list.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/moodle/models/notification.dart';
 
-class NotificationPage extends StatefulWidget {
+class NotificationsPage extends StatefulWidget {
   @override
-  _NotificationPageState createState() => _NotificationPageState();
+  _NotificationsPageState createState() => _NotificationsPageState();
 }
 
-class _NotificationPageState extends State<NotificationPage> {
+class _NotificationsPageState extends State<NotificationsPage> {
   Notification _selectedNotification;
 
   @override
@@ -75,11 +75,12 @@ class _NotificationPageState extends State<NotificationPage> {
 
     list = Scrollbar(child: list);
 
+    Widget body;
     if (width < 700)
-      return list;
+      body = list;
     else
       // Show details in right column.
-      return Row(
+      body = Row(
         children: <Widget>[
           Expanded(
             flex: 1,
@@ -93,6 +94,13 @@ class _NotificationPageState extends State<NotificationPage> {
           ),
         ],
       );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Notifications'),
+      ),
+      body: body,
+    );
   }
 }
 

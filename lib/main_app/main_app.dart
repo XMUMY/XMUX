@@ -25,6 +25,7 @@ import 'campus/lost_and_found/square.dart';
 import 'campus/maintenance/maintenance.dart';
 import 'campus/travelviser.dart';
 import 'explore/lost_and_found/lost_and_found_page.dart' as old;
+import 'home/notifications/notification.dart';
 import 'main_page.dart';
 import 'settings/settings.dart';
 import 'tools/emergency.dart';
@@ -35,6 +36,7 @@ import 'tools/room_reservation.dart';
 class MainApp extends StatelessWidget {
   /// Routes for main app.
   static final routes = <String, WidgetBuilder>{
+    '/Home/Notifications': (_) => NotificationsPage(),
     '/Calendar/CalendarImage': (_) => AcademicCalendarPage(),
     '/Campus/ACTools/Transcript': (_) => TranscriptPage(),
     '/Campus/ACTools/WolframEngine': (_) => InputConstructor(),

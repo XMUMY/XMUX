@@ -12,7 +12,7 @@ import 'assignment.dart';
 import 'attendance.dart';
 import 'exam.dart';
 import 'timetable.dart';
-import 'upcoming_events.dart';
+import 'upcoming_event.dart';
 
 class CalendarPage extends StatelessWidget implements MainPageContentProvider {
   @override

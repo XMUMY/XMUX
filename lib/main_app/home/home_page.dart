@@ -55,6 +55,13 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
     var appBar = AppBar(
       leading: leading,
       title: Text(LocaleKeys.Home.tr()),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.notifications),
+          onPressed: () =>
+              Navigator.of(context).pushNamed('/Home/Notifications'),
+        ),
+      ],
     );
 
     var body = RefreshIndicator(
