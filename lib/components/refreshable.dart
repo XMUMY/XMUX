@@ -66,7 +66,7 @@ class RefreshableState<T> extends State<Refreshable<T>> {
       body = widget.builder(context, data);
 
     return RefreshIndicator(
-      displacement: 40 + Scaffold.of(context).appBarMaxHeight,
+      displacement: 40 + MediaQuery.of(context).padding.top,
       onRefresh: refresh,
       child: body,
     );
