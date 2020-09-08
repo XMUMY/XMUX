@@ -11,8 +11,8 @@ import 'package:xmux/redux/redux.dart';
 import 'assignment.dart';
 import 'attendance.dart';
 import 'exam.dart';
-import 'notification.dart';
 import 'timetable.dart';
+import 'upcoming_events.dart';
 
 class CalendarPage extends StatelessWidget implements MainPageContentProvider {
   @override
@@ -69,7 +69,7 @@ class CalendarPage extends StatelessWidget implements MainPageContentProvider {
             Tab(text: LocaleKeys.Calendar_Exams.tr()),
             Tab(text: LocaleKeys.Calendar_Assignments.tr()),
           },
-          Tab(text: LocaleKeys.Calendar_Notifications.tr()),
+          Tab(text: LocaleKeys.Calendar_UpcomingEvents.tr()),
           if (AttendanceApi().available)
             Tab(text: LocaleKeys.Calendar_Attendance.tr()),
         ],
@@ -103,7 +103,7 @@ class CalendarPage extends StatelessWidget implements MainPageContentProvider {
                 ExamsPage(state.exams),
                 AssignmentPage(state.assignments),
               },
-              NotificationPage(),
+              UpcomingEventsPage(),
               if (AttendanceApi().available) AttendancePage(),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xmux/components/refreshable.dart';
 
+@deprecated
 class LazyLoadingList<T> extends StatefulWidget {
   /// Builder to build each element.
   /// Must contain a [Scrollable].
@@ -41,9 +42,11 @@ class LazyLoadingList<T> extends StatefulWidget {
   LazyLoadingListState createState() => LazyLoadingListState<T>();
 }
 
+@deprecated
 class LazyLoadingListState<T> extends State<LazyLoadingList<T>> {
   final _indicatorKey = GlobalKey<_BottomLoadingIndicatorState>();
   final _refreshableKey = GlobalKey<RefreshableState<List<T>>>();
+  bool _isLoadingMore = false;
 
   List<T> get data => _refreshableKey.currentState.data;
 
@@ -86,7 +89,7 @@ class LazyLoadingListState<T> extends State<LazyLoadingList<T>> {
           ),
           onRefresh: widget.onRefresh,
           isEmpty: widget.isEmpty,
-          firstLoadingIndicator: widget.firstLoadingIndicator,
+          placeholder: widget.firstLoadingIndicator,
         ),
         _BottomLoadingIndicator(key: _indicatorKey),
       ],
@@ -94,6 +97,7 @@ class LazyLoadingListState<T> extends State<LazyLoadingList<T>> {
   }
 }
 
+@deprecated
 class _BottomLoadingIndicator extends StatefulWidget {
   const _BottomLoadingIndicator({Key key}) : super(key: key);
 
@@ -101,6 +105,7 @@ class _BottomLoadingIndicator extends StatefulWidget {
   _BottomLoadingIndicatorState createState() => _BottomLoadingIndicatorState();
 }
 
+@deprecated
 class _BottomLoadingIndicatorState extends State<_BottomLoadingIndicator>
     with SingleTickerProviderStateMixin {
   AnimationController controller;

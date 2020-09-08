@@ -44,7 +44,7 @@ class MainPage extends StatefulWidget {
   MainPageState createState() => MainPageState();
 }
 
-class MainPageState extends State<MainPage> with TickerProviderStateMixin {
+class MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
   MainPageContentProvider get currentPage => widget.pages[_currentIndex];

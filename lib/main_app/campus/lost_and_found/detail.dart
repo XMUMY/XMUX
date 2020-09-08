@@ -130,7 +130,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
           ],
         );
       },
-      firstLoadingIndicator: SpinKitWave(color: Colors.black38, size: 20),
+      placeholder: SpinKitWave(color: Colors.black38, size: 20),
     );
 
     if (profile != null)

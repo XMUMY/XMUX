@@ -36,7 +36,7 @@ abstract class LocaleKeys {
   static const Calendar_Assignments = 'Calendar_Assignments';
   static const Calendar_AssignmentsExpired = 'Calendar_AssignmentsExpired';
   static const Calendar_AssignmentsDueDate = 'Calendar_AssignmentsDueDate';
-  static const Calendar_Notifications = 'Calendar_Notifications';
+  static const Calendar_UpcomingEvents = 'Calendar_UpcomingEvents';
   static const Calendar_Academic = 'Calendar_Academic';
   static const Calendar_ClassCardCode = 'Calendar_ClassCardCode';
   static const Calendar_ClassCardCredit = 'Calendar_ClassCardCredit';
