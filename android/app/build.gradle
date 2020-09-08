@@ -13,17 +13,15 @@ if (flutterRoot == null) {
 
 def getGitVersionCmd = 'git describe --tags'
 def getGitCommitCountCmd = 'git rev-list HEAD --count'
-def gitVersionName = getGitVersionCmd.execute().text.trim().substring(1)
-def gitVersionCode = getGitCommitCountCmd.execute().text.trim()
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = gitVersionCode
+    flutterVersionCode = getGitCommitCountCmd.execute().text.trim()
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = gitVersionName
+    flutterVersionName = getGitVersionCmd.execute().text.trim().substring(1)
 }
 
 apply plugin: 'com.android.application'
