@@ -7,7 +7,8 @@ import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/api/xmux_api.dart';
+import 'package:xmux/modules/api/xmux_api.dart' hide Profile;
+import 'package:xmux/modules/rpc/clients/user.pb.dart';
 
 class LostAndFoundDetailPage extends StatelessWidget {
   final LostAndFoundBrief brief;
