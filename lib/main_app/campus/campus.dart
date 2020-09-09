@@ -144,6 +144,15 @@ class CampusPage extends StatelessWidget implements MainPageContentProvider {
               title: LocaleKeys.Campus_ToolsLF.tr(),
               path: '/Campus/Tools/LostAndFound',
             ),
+            _ToolButton(
+              child: Icon(
+                Icons.account_balance_wallet_outlined,
+                color: Color(0xFF5DC3F1),
+                size: 60,
+              ),
+              title: LocaleKeys.Campus_ToolsEPayment.tr(),
+              path: '/Campus/Tools/EPayment',
+            ),
           ],
         ),
       ],

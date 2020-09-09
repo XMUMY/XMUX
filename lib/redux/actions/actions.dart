@@ -59,6 +59,14 @@ class InitAction extends MainAppAction {
   final needSave = false;
 }
 
+/// Logout and restore the whole state to default.
+class LogoutAction extends MainAppAction {
+  @override
+  final sync = true;
+}
+
+// ****** User Actions ******
+
 /// Store uid and password after login.
 class LoginAction extends MainAppAction {
   final String campusId, password;
@@ -69,10 +77,10 @@ class LoginAction extends MainAppAction {
   final sync = true;
 }
 
-/// Logout and restore the whole state to default.
-class LogoutAction extends MainAppAction {
-  @override
-  final sync = true;
+class UpdateEPaymentPasswordAction extends MainAppAction {
+  final String ePaymentPassword;
+
+  UpdateEPaymentPasswordAction(this.ePaymentPassword);
 }
 
 // ****** UI Actions ******
@@ -121,12 +129,6 @@ class EnableFunctionsUnderDevAction extends MainAppAction {
   final bool enableFunctionsUnderDev;
 
   EnableFunctionsUnderDevAction(this.enableFunctionsUnderDev);
-}
-
-class UpdateEPaymentPasswordAction extends MainAppAction {
-  final String ePaymentPassword;
-
-  UpdateEPaymentPasswordAction(this.ePaymentPassword);
 }
 
 class UpdateNewsAction extends MainAppAction {

@@ -30,9 +30,9 @@ class _EPaymentCookieManager extends CookieManager {
 }
 
 /// A spider for Barracuda Campus e-payment system.
-class EPayment {
+class EPaymentApi {
   final Dio _dio = Dio(BaseOptions(
-    connectTimeout: 6000,
+    connectTimeout: 10000,
     receiveTimeout: 10000,
     contentType: 'application/x-www-form-urlencoded',
   ))
@@ -87,8 +87,9 @@ class EPayment {
         date: DateTime.now(),
         item: record.children[1].text,
         amount: double.parse(record.children[2].text.replaceAll(',', '')),
-        paid: double.parse(
-            record.children[3].text.replaceAll(RegExp(r'[(),]'), '')),
+        paid: double.tryParse(
+                record.children[3].text.replaceAll(RegExp(r'[(),]'), '')) ??
+            0,
       ));
     return records;
   }

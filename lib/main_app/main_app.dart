@@ -19,6 +19,7 @@ import 'campus/academic_tools/transcript.dart';
 import 'campus/academic_tools/vpn.dart';
 import 'campus/academic_tools/wolfram_engine/input_constructor.dart';
 import 'campus/bus_schedule.dart';
+import 'campus/epayment.dart';
 import 'campus/klia_express.dart';
 import 'campus/lost_and_found/create.dart';
 import 'campus/lost_and_found/square.dart';
@@ -30,7 +31,6 @@ import 'main_page.dart';
 import 'settings/settings.dart';
 import 'tools/emergency.dart';
 import 'tools/emgs.dart';
-import 'tools/epayment.dart';
 import 'tools/room_reservation.dart';
 
 class MainApp extends StatelessWidget {
@@ -51,9 +51,9 @@ class MainApp extends StatelessWidget {
     '/Campus/Tools/Travelviser/DigitalPass': (_) => DigitalPassPage(),
     '/Campus/Tools/LostAndFound': (_) => LostAndFoundPage(),
     '/Campus/Tools/LostAndFound/New': (_) => NewLostAndFoundPage(),
+    '/Campus/Tools/EPayment': (_) => EPaymentPage(),
     '/Components/ImageEditor': (_) => ImageEditorPage(),
     '/Explore/LostAndFound': (_) => old.LostAndFoundPage(),
-    '/Me/Epayment': (_) => EPaymentPage(),
     '/Me/RoomReservation': (_) => RoomWebViewPage(),
     '/Me/Emgs': (_) => EmgsPage(),
     '/Me/Emergency': (_) => EmergencyPage(),

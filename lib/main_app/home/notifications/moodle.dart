@@ -58,7 +58,7 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage> {
         padding: const EdgeInsets.all(8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
         child: content,
-        openBuilder: (context, _) => MoodleNotificationDetail(notification),
+        openBuilder: (context, _) => _MoodleNotificationDetail(notification),
       );
 
     return AnimationConfiguration.staggeredList(
@@ -119,7 +119,7 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage> {
               duration: const Duration(milliseconds: 300),
               child: _selectedNotification == null
                   ? Container()
-                  : MoodleNotificationDetail(
+                  : _MoodleNotificationDetail(
                       _selectedNotification,
                       key: ValueKey(_selectedNotification),
                       withAppBar: false,
@@ -131,14 +131,17 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage> {
   }
 }
 
-class MoodleNotificationDetail extends StatelessWidget {
+class _MoodleNotificationDetail extends StatelessWidget {
   final Notification notification;
 
   /// Whether an appbar should be added to details.
   final bool withAppBar;
 
-  MoodleNotificationDetail(this.notification, {Key key, this.withAppBar = true})
-      : super(key: key);
+  _MoodleNotificationDetail(
+    this.notification, {
+    Key key,
+    this.withAppBar = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -41,22 +41,6 @@ abstract class XMUXApiActionV2 extends MainAppAction {
   toString() => "MainAppAction/XMUXApiActionV2: ${this.runtimeType}";
 }
 
-class UpdateEPaymentRecordsAction extends XMUXApiActionV2 {
-  List<v2.BillingRecord> ePaymentRecords;
-  final v2.XMUXApiAuth auth;
-
-  UpdateEPaymentRecordsAction(
-      {this.auth, BuildContext context, Function onError})
-      : super(context: context, onError: onError);
-
-  @override
-  Future<Null> call(v2.XMUXApiAuth auth, {Map<String, dynamic> params}) async {
-    var response = await v2.XMUXApi.instance.bill(this.auth ?? auth);
-    assign(response);
-    ePaymentRecords = response.data;
-  }
-}
-
 class UpdateHomepageAnnouncementsAction extends XMUXApiActionV2 {
   List<v2.Announcement> announcements;
 

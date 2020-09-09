@@ -13,11 +13,6 @@ QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
             ? null
             : AssignmentCourse.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    ePaymentRecords: (json['ePaymentRecords'] as List)
-        ?.map((e) => e == null
-            ? null
-            : BillingRecord.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
     emgsApplicationResult: json['emgsApplicationResult'] == null
         ? null
         : EmgsApplicationResult.fromJson(
@@ -40,7 +35,6 @@ QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$QueryStateToJson(QueryState instance) =>
     <String, dynamic>{
       'assignments': instance.assignments,
-      'ePaymentRecords': instance.ePaymentRecords,
       'emgsApplicationResult': instance.emgsApplicationResult,
       'timetable': instance.timetable,
       'courses': instance.courses,

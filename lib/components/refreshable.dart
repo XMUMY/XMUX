@@ -19,6 +19,9 @@ class Refreshable<T> extends StatefulWidget {
   /// An empty error will be shown while data is empty.
   final bool Function(T) isEmpty;
 
+  /// Will be used as initial data if it is non-null.
+  final T data;
+
   /// Indicator for initialization.
   final Widget placeholder;
 
@@ -27,6 +30,7 @@ class Refreshable<T> extends StatefulWidget {
     @required this.builder,
     @required this.onRefresh,
     this.isEmpty,
+    this.data,
     Widget placeholder,
   })  : placeholder = placeholder ?? Center(child: CircularProgressIndicator()),
         super(key: key);
@@ -49,7 +53,11 @@ class RefreshableState<T> extends State<Refreshable<T>> {
 
   @override
   void initState() {
-    refresh().then((_) => _initialized = true);
+    if (widget.data != null) {
+      data = widget.data;
+      _initialized = true;
+    } else
+      refresh().then((_) => _initialized = true);
     super.initState();
   }
 

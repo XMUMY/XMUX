@@ -37,9 +37,6 @@ User _loginReducer(User oldState, LoginAction action) => oldState.copyWith(
 User _updateUserProfileReducer(User oldState, SyncUserProfileAction action) =>
     oldState.copyWith(profile: action.response);
 
-/// Update ePayment password when first login.
 User _updateEPaymentPasswordReducer(
-        User oldState, UpdateEPaymentRecordsAction action) =>
-    action.auth == null
-        ? oldState
-        : oldState.copyWith(ePaymentPassword: action.auth.ePaymentPassword);
+        User oldState, UpdateEPaymentPasswordAction action) =>
+    oldState.copyWith(ePaymentPassword: action.ePaymentPassword);

@@ -11,9 +11,6 @@ class QueryState {
   /// Assignments from moodle.
   final List<AssignmentCourse> assignments;
 
-  /// Billing records from E-Payment.
-  final List<BillingRecord> ePaymentRecords;
-
   /// Application status for VISA.
   final EmgsApplicationResult emgsApplicationResult;
 
@@ -31,7 +28,6 @@ class QueryState {
 
   QueryState({
     List<AssignmentCourse> assignments,
-    this.ePaymentRecords,
     this.emgsApplicationResult,
     Timetable timetable,
     Courses courses,
@@ -59,7 +55,6 @@ class QueryState {
   }) =>
       QueryState(
         assignments: assignments ?? this.assignments,
-        ePaymentRecords: ePaymentRecords ?? this.ePaymentRecords,
         emgsApplicationResult:
             emgsApplicationResult ?? this.emgsApplicationResult,
         timetable: timetable ?? this.timetable,

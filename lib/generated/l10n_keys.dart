@@ -83,6 +83,14 @@ abstract class LocaleKeys {
   static const Campus_ToolsLFLocationHint = 'Campus_ToolsLFLocationHint';
   static const Campus_ToolsLFDescription = 'Campus_ToolsLFDescription';
   static const Campus_ToolsLFContacts = 'Campus_ToolsLFContacts';
+  static const Campus_ToolsEPayment = 'Campus_ToolsEPayment';
+  static const Campus_ToolsEPaymentLoginFailed =
+      'Campus_ToolsEPaymentLoginFailed';
+  static const Campus_ToolsEPaymentLoginFailedHint =
+      'Campus_ToolsEPaymentLoginFailedHint';
+  static const Campus_ToolsEPaymentPasswordLabel =
+      'Campus_ToolsEPaymentPasswordLabel';
+  static const Campus_ToolsEPaymentTOS = 'Campus_ToolsEPaymentTOS';
   static const Explore = 'Explore';
   static const Settings = 'Settings';
   static const Settings_EditProfile = 'Settings_EditProfile';
