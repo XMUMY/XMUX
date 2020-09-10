@@ -13,15 +13,16 @@ class BackgroundImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return Image.asset(
-      'res/initpage.jpg',
-      fit: size.height / size.width > 16 / 9
-          ? BoxFit.fitHeight
-          : BoxFit.fitWidth,
-      alignment: Alignment.bottomCenter,
-      color: color,
-      colorBlendMode: colorBlendMode,
+    return LayoutBuilder(
+      builder: (context, constraints) => Image.asset(
+        'res/initpage.jpg',
+        fit: constraints.maxHeight / constraints.maxWidth > 16 / 9
+            ? BoxFit.fitHeight
+            : BoxFit.fitWidth,
+        alignment: Alignment.bottomCenter,
+        color: color,
+        colorBlendMode: colorBlendMode,
+      ),
     );
   }
 }
