@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/empty_error.dart';
-import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
@@ -136,12 +135,18 @@ class _EPaymentPageState extends State<EPaymentPage> {
           data: _records,
           onRefresh: () => _api.payment,
           builder: (context, records) {
-            return ListView.builder(
+            return ListView.separated(
               itemCount: _records.length,
               itemBuilder: (context, index) => Center(
                 child: SizedBox(
                   width: min(MediaQuery.of(context).size.width, 600),
                   child: _PaymentRecordCard(records[index]),
+                ),
+              ),
+              separatorBuilder: (context, index) => Center(
+                child: SizedBox(
+                  width: min(MediaQuery.of(context).size.width - 10, 590),
+                  child: Divider(height: 10),
                 ),
               ),
             );
@@ -165,25 +170,31 @@ class _PaymentRecordCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingCard(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      padding: const EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      child: Row(
         children: [
-          Text(
-            _record.item,
-            style: Theme.of(context).textTheme.subtitle1,
-          ),
-          Text(
-            DateFormat.yMMMMd(Localizations.localeOf(context).languageCode)
-                .format(_record.date),
-            style: Theme.of(context).textTheme.caption,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _record.item,
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Text(
+                  DateFormat.yMMMMd(
+                          Localizations.localeOf(context).languageCode)
+                      .format(_record.date),
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              ],
+            ),
           ),
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-                '${_record.paid.toStringAsFixed(2)} / ${_record.amount.toStringAsFixed(2)}'),
+                '${_record.paid.toStringAsFixed(2)}\n / ${_record.amount.toStringAsFixed(2)}'),
           )
         ],
       ),

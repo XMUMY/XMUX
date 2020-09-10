@@ -62,14 +62,6 @@ class DrawerPage extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 children: <Widget>[
-                  // E-Payment
-                  _buildButton(
-                    context,
-                    routeName: '/Me/Epayment',
-                    text: 'Tools/EPayment',
-                    icon: FontAwesomeIcons.creditCard,
-                  ),
-
                   // Room Reservation
                   if (P.isVM)
                     _buildButton(
