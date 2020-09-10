@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grpc/grpc.dart';
@@ -189,9 +189,9 @@ class _LoginButtonState extends State<_LoginButton> {
     // Login firebase.
     try {
       await Firebase.login(customToken, context: context);
-    } on PlatformException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      _showError(context, '${LocaleKeys.SignIn_ErrorGMS.tr()} $e');
+      _showError(context, '${LocaleKeys.SignIn_ErrorGMS.tr()} ${e.message}');
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);

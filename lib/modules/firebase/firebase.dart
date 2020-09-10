@@ -58,8 +58,8 @@ class Firebase {
   static Future<Null> login(String customToken, {BuildContext context}) async {
     try {
       await FirebaseAuth.instance.signInWithCustomToken(customToken);
-    } on PlatformException catch (e) {
-      if (e.code == 'ERROR_NETWORK_REQUEST_FAILED' && context != null) {
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'network-request-failed' && context != null) {
         var ignore = await showDialog<bool>(
           context: context,
           barrierDismissible: false,

@@ -191,7 +191,7 @@ Future<void> androidPostInit() async {
               ..deviceModel = deviceInfo.model
               ..deviceName = '${deviceInfo.manufacturer} ${deviceInfo.model}'
               ..pushChannel = RefreshDeviceReq_PushChannelType.fcm
-              ..pushKey = await Firebase.messaging.getToken(),
+              ..pushKey = await Firebase.messaging.getToken() ?? '',
           ));
 }
 
@@ -204,6 +204,6 @@ Future<void> iOSPostInit() async {
               ..deviceModel = deviceInfo.model
               ..deviceName = deviceInfo.name
               ..pushChannel = RefreshDeviceReq_PushChannelType.fcm
-              ..pushKey = await Firebase.messaging.getToken(),
+              ..pushKey = await Firebase.messaging.getToken() ?? '',
           ));
 }
