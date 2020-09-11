@@ -2,9 +2,37 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mobx/mobx.dart';
 import 'package:xmux/components/date_time_picker.dart';
 import 'package:xmux/generated/l10n_keys.dart';
-import 'package:xmux/modules/api/xmux_api.dart';
+import 'package:xmux/globals.dart';
+import 'package:xmux/modules/rpc/clients/google/protobuf/timestamp.pb.dart';
+import 'package:xmux/modules/rpc/clients/lost_found.pb.dart';
+
+part 'create.g.dart';
+
+/// Form for adding lost & found item.
+class LostAndFoundForm = _LostAndFoundForm with _$LostAndFoundForm;
+
+abstract class _LostAndFoundForm with Store {
+  @observable
+  var type = LostAndFoundType.Lost;
+
+  @observable
+  var name = '';
+
+  @observable
+  var time = DateTime.now();
+
+  @observable
+  var location = '';
+
+  @observable
+  var description = '';
+
+  @observable
+  var contacts = ObservableMap<String, String>();
+}
 
 class NewLostAndFoundPage extends StatefulWidget {
   @override
@@ -12,7 +40,7 @@ class NewLostAndFoundPage extends StatefulWidget {
 }
 
 class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
-  var form = NewLostAndFoundReq();
+  var form = LostAndFoundForm();
   var formKey = GlobalKey<FormState>();
 
   var _isSubmitting = false;
@@ -21,9 +49,16 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
     if (!formKey.currentState.validate()) return;
     setState(() => _isSubmitting = true);
     try {
-      await XmuxApi.instance.lostAndFoundApi.add(form);
+      await rpc.lostAndFoundClient.addItem(AddItemReq()
+        ..type = form.type
+        ..name = form.name
+        ..time = Timestamp.fromDateTime(form.time)
+        ..location = form.location
+        ..description = form.description
+        ..contacts.clear()
+        ..contacts.addAll(form.contacts));
       Navigator.of(context).pop(true);
-    } catch (_) {
+    } catch (e) {
       // TODO: Show error.
       setState(() => _isSubmitting = false);
     }
@@ -40,21 +75,21 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
             items: [
               DropdownMenuItem(
                 child: Text(LocaleKeys.Campus_ToolsLFLost.tr()),
-                value: LostAndFoundType.lost,
+                value: LostAndFoundType.Lost,
               ),
               DropdownMenuItem(
                 child: Text(LocaleKeys.Campus_ToolsLFFound.tr()),
-                value: LostAndFoundType.found,
+                value: LostAndFoundType.Found,
               ),
             ],
-            onChanged: (v) => setState(() => form.type = v),
+            onChanged: (v) => form.type = v,
           ),
         ),
       ),
       Observer(
         builder: (context) => TextFormField(
           decoration: InputDecoration(
-            labelText: form.type == LostAndFoundType.lost
+            labelText: form.type == LostAndFoundType.Lost
                 ? LocaleKeys.Campus_ToolsLFNameLost.tr()
                 : LocaleKeys.Campus_ToolsLFNameFound.tr(),
             hintText: LocaleKeys.Campus_ToolsLFNameHint.tr(),
@@ -67,14 +102,14 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
       Observer(
         builder: (context) => DateTimePicker(
           labelText: LocaleKeys.Campus_ToolsLFTime.tr(),
-          initialDate: form.timestamp,
+          initialDate: form.time,
           firstDate: DateTime(2017, 12, 22),
           lastDate: DateTime.now(),
-          onDateChanged: (date) => setState(() => form.timestamp = date),
-          onTimeChanged: (time) => form.timestamp = DateTime(
-            form.timestamp.year,
-            form.timestamp.month,
-            form.timestamp.day,
+          onDateChanged: (date) => form.time = date,
+          onTimeChanged: (time) => form.time = DateTime(
+            form.time.year,
+            form.time.month,
+            form.time.day,
             time.hour,
             time.minute,
           ),
@@ -106,10 +141,7 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
         title: Text(LocaleKeys.Campus_ToolsLFContacts.tr()),
         trailing: DropdownButton(
           items: ['QQ', 'WeChat', 'Facebook', 'WhatsApp', 'Telegram']
-              .map((e) => DropdownMenuItem(
-                    child: Text(e),
-                    value: e,
-                  ))
+              .map((e) => DropdownMenuItem(child: Text(e), value: e))
               .toList(),
           onChanged: (c) => setState(() => form.contacts[c] = ''),
         ),

@@ -5,13 +5,10 @@ import 'package:dio/dio.dart';
 import 'authorization.dart';
 import 'common.dart';
 import 'models/v3_bridge.dart';
-import 'v3_lost_and_found.dart';
 
 export 'authorization.dart';
 export 'common.dart' show XmuxApiResponse, XmuxApiException;
 export 'models/v3_bridge.dart';
-export 'models/v3_user.dart';
-export 'v3_lost_and_found.dart';
 
 class XmuxApi {
   /// Unique instance of XMUXApi.
@@ -22,8 +19,6 @@ class XmuxApi {
 
   /// Contains user credentials.
   final Authorization _authorization;
-
-  final LostAndFoundApi lostAndFoundApi;
 
   factory XmuxApi([String address, Authorization authorization]) {
     if (instance != null) return instance;
@@ -41,13 +36,12 @@ class XmuxApi {
             '${window.locale?.languageCode ?? 'en'};q=0.9';
       }));
 
-    instance =
-        XmuxApi._(dio, authorization, LostAndFoundApi(authorization, dio: dio));
+    instance = XmuxApi._(dio, authorization);
 
     return instance;
   }
 
-  XmuxApi._(this._dio, this._authorization, this.lostAndFoundApi);
+  XmuxApi._(this._dio, this._authorization);
 
   /// Configure authorization.
   void configure(

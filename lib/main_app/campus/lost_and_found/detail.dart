@@ -7,7 +7,7 @@ import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/api/xmux_api.dart' hide Profile;
+import 'package:xmux/modules/rpc/clients/lost_found.pb.dart';
 import 'package:xmux/modules/rpc/clients/user.pb.dart';
 
 class LostAndFoundDetailPage extends StatelessWidget {
@@ -19,9 +19,12 @@ class LostAndFoundDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var languageCode = Localizations.localeOf(context).languageCode;
+
     Widget body = Refreshable<LostAndFoundDetail>(
-      onRefresh: () async =>
-          (await XmuxApi.instance.lostAndFoundApi.getDetail(brief.id)).data,
+      onRefresh: () => rpc.lostAndFoundClient.getDetail(
+        GetDetailReq()..id = brief.id,
+      ),
       builder: (context, detail) {
         return ListView(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -85,7 +88,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      detail.type == LostAndFoundType.lost
+                      detail.type == LostAndFoundType.Lost
                           ? LocaleKeys.Campus_ToolsLFLost.tr()
                           : LocaleKeys.Campus_ToolsLFFound.tr(),
                       style: Theme.of(context).textTheme.caption,
@@ -100,7 +103,8 @@ class LostAndFoundDetailPage extends StatelessWidget {
                       style: Theme.of(context).textTheme.caption,
                     ),
                     Text(
-                      '${DateFormat.yMMMEd(Localizations.localeOf(context).languageCode).format(detail.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(detail.timestamp)}',
+                      '${DateFormat.yMMMEd(languageCode).format(detail.time.toDateTime().toLocal())} '
+                      '${DateFormat.Hm(languageCode).format(detail.time.toDateTime().toLocal())}',
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     Divider(height: 5, color: Colors.transparent),
@@ -161,7 +165,9 @@ class LostAndFoundDetailPage extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.delete_outline),
               onPressed: () async {
-                await XmuxApi.instance.lostAndFoundApi.delete(brief.id);
+                await rpc.lostAndFoundClient.deleteItem(
+                  DeleteItemReq()..id = brief.id,
+                );
                 Navigator.of(context).pop(true);
               },
             ),

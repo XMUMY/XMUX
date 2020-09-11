@@ -1,52 +1,54 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:xmux/components/floating_card.dart';
-import 'package:xmux/components/lazy_loading_list.dart';
+import 'package:xmux/components/lazy_loader.dart';
+import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/l10n_keys.dart';
+import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/campus/lost_and_found/detail.dart';
-import 'package:xmux/modules/api/xmux_api.dart';
+import 'package:xmux/modules/rpc/clients/lost_found.pb.dart';
 
 class LostAndFoundPage extends StatelessWidget {
-  final lazyLoadingListKey = GlobalKey<LazyLoadingListState>();
+  final _refreshableKey = GlobalKey<RefreshableState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.Campus_ToolsLF.tr()),
-        backgroundColor: Theme.of(context).brightness == Brightness.dark
-            ? Theme.of(context).primaryColor
-            : Colors.lightBlue,
-      ),
-      body: LazyLoadingList<LostAndFoundBrief>(
-        key: lazyLoadingListKey,
-        onRefresh: () async =>
-            (await XmuxApi.instance.lostAndFoundApi.getBriefs()).data,
-        builder: (context, brief, i) => AnimationConfiguration.staggeredList(
-          position: i,
-          delay: const Duration(milliseconds: 30),
-          child: SlideAnimation(
-            verticalOffset: 50.0,
-            child: FadeInAnimation(
-              child: _ItemBriefCard(brief),
-            ),
-          ),
-        ),
-        onLoadMore: (data) async {
-          var resp = await XmuxApi.instance.lostAndFoundApi.getBriefs(
-              timestamp: data.last.timestamp.subtract(Duration(seconds: 1)));
-          return resp.data;
+    var appBar = AppBar(
+      title: Text(LocaleKeys.Campus_ToolsLF.tr()),
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Theme.of(context).primaryColor
+          : Colors.lightBlue,
+    );
+
+    var body = Refreshable<List<LostAndFoundBrief>>(
+      key: _refreshableKey,
+      onRefresh: () async =>
+          (await rpc.lostAndFoundClient.getBriefs(GetBriefsReq())).briefs,
+      builder: (context, _) => LazyLoader<List<LostAndFoundBrief>>(
+        onLoadMore: (list) async {
+          return true;
+        },
+        builder: (context, list) {
+          return ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (context, index) => _ItemBriefCard(list[index]),
+          );
         },
       ),
+    );
+
+    return Scaffold(
+      appBar: appBar,
+      body: body,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           var shouldRefresh = await Navigator.of(context)
               .pushNamed('/Campus/Tools/LostAndFound/New');
-          if (shouldRefresh ?? false) lazyLoadingListKey.currentState.refresh();
+          if (shouldRefresh ?? false) _refreshableKey.currentState.refresh();
         },
         child: Icon(Icons.add),
         tooltip: LocaleKeys.Campus_ToolsLFNew.tr(),
@@ -63,6 +65,8 @@ class _ItemBriefCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var languageCode = Localizations.localeOf(context).languageCode;
+
     var content = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -89,7 +93,8 @@ class _ItemBriefCard extends StatelessWidget {
                     children: <Widget>[
                       Text(profile.displayName),
                       Text(
-                        '${DateFormat.yMMMEd(Localizations.localeOf(context).languageCode).format(brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(brief.timestamp)}',
+                        '${DateFormat.yMMMEd(languageCode).format(brief.time.toDateTime().toLocal())} '
+                        '${DateFormat.Hm(languageCode).format(brief.time.toDateTime().toLocal())}',
                         style: Theme.of(context).textTheme.caption,
                       )
                     ],
@@ -118,7 +123,8 @@ class _ItemBriefCard extends StatelessWidget {
                         highlightColor: Colors.white,
                       ),
                       Text(
-                        '${DateFormat.Md(Localizations.localeOf(context).languageCode).format(brief.timestamp)} ${DateFormat.Hm(Localizations.localeOf(context).languageCode).format(brief.timestamp)}',
+                        '${DateFormat.yMMMEd(languageCode).format(brief.time.toDateTime().toLocal())} '
+                        '${DateFormat.Hm(languageCode).format(brief.time.toDateTime().toLocal())}',
                         style: Theme.of(context).textTheme.caption,
                       )
                     ],
@@ -131,7 +137,7 @@ class _ItemBriefCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(15),
               child: Text(
-                brief.type == LostAndFoundType.lost
+                brief.type == LostAndFoundType.Lost
                     ? LocaleKeys.Campus_ToolsLFLost.tr()
                     : LocaleKeys.Campus_ToolsLFFound.tr(),
               ),
@@ -162,7 +168,7 @@ class _ItemBriefCard extends StatelessWidget {
         if (shouldRefresh ?? false)
           context
               .findAncestorWidgetOfExactType<LostAndFoundPage>()
-              .lazyLoadingListKey
+              ._refreshableKey
               .currentState
               .refresh();
       },
