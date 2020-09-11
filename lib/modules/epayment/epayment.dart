@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:html/parser.dart';
 
 import 'models.dart';
@@ -84,7 +85,7 @@ class EPaymentApi {
     var records = <PaymentRecord>[];
     for (var record in details)
       records.add(PaymentRecord(
-        date: DateTime.now(),
+        date: DateFormat('d-M-y').parse(record.children.first.text),
         item: record.children[1].text,
         amount: double.parse(record.children[2].text.replaceAll(',', '')),
         paid: double.tryParse(

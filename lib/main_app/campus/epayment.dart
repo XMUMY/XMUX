@@ -182,6 +182,7 @@ class _PaymentRecordCard extends StatelessWidget {
                   _record.item,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
+                Divider(height: 5, color: Colors.transparent),
                 Text(
                   DateFormat.yMMMMd(
                           Localizations.localeOf(context).languageCode)
