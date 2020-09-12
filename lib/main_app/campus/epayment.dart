@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/empty_error.dart';
 import 'package:xmux/components/refreshable.dart';
+import 'package:xmux/components/width_limited.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/epayment/epayment.dart';
@@ -137,17 +138,12 @@ class _EPaymentPageState extends State<EPaymentPage> {
           builder: (context, records) {
             return ListView.separated(
               itemCount: _records.length,
-              itemBuilder: (context, index) => Center(
-                child: SizedBox(
-                  width: min(MediaQuery.of(context).size.width, 600),
-                  child: _PaymentRecordCard(records[index]),
-                ),
+              itemBuilder: (context, index) => WidthLimited(
+                child: _PaymentRecordCard(records[index]),
               ),
-              separatorBuilder: (context, index) => Center(
-                child: SizedBox(
-                  width: min(MediaQuery.of(context).size.width - 10, 590),
-                  child: Divider(height: 10),
-                ),
+              separatorBuilder: (context, index) => WidthLimited(
+                width: min(MediaQuery.of(context).size.width - 10, 590),
+                child: Divider(height: 10),
               ),
             );
           },
