@@ -23,21 +23,6 @@ Map<String, dynamic> _$AnnouncementToJson(Announcement instance) =>
       'uri': instance.uri,
     };
 
-BillingRecord _$BillingRecordFromJson(Map<String, dynamic> json) {
-  return BillingRecord(
-    json['item'] as String,
-    BillingRecord._amountFromJson(json['amount'] as String),
-    json['balance'] as String,
-  );
-}
-
-Map<String, dynamic> _$BillingRecordToJson(BillingRecord instance) =>
-    <String, dynamic>{
-      'item': instance.item,
-      'amount': BillingRecord._amountToJson(instance.amount),
-      'balance': instance.balance,
-    };
-
 News _$NewsFromJson(Map<String, dynamic> json) {
   return News(
     json['name'] as String,
