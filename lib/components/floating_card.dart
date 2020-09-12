@@ -106,6 +106,7 @@ class _FloatingOpenContainerState extends State<FloatingOpenContainer> {
           onTapUp: (_) => setState(() => _elevation = 1),
           onTapCancel: () => setState(() => _elevation = 1),
           child: child,
+          behavior: HitTestBehavior.opaque,
         );
 
       return child;
