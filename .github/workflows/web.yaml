@@ -1,4 +1,4 @@
-name: Deploy Web
+name: Build & Deploy XMUX-Web
 
 on:
   push:
@@ -15,7 +15,6 @@ jobs:
           channel: dev
       - name: Build
         run: |
-          mkdir ~/.ssh
           echo $CONFIG_FILE > lib/config.dart
           echo $WEB_INDEX | base64 -d > web/index.html
           flutter config --enable-web && flutter build web
@@ -23,7 +22,7 @@ jobs:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
           WEB_INDEX: ${{ secrets.WEB_INDEX }}
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v1
         with:
           name: XMUX-Web
           path: build/web
@@ -33,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Download artifact
-        uses: actions/download-artifact@v1.0.0
+        uses: actions/download-artifact@v1
         with:
           name: XMUX-Web
       - name: Replace main.dart.js to JSDelivr CDN
@@ -51,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Download artifact
-        uses: actions/download-artifact@v1.0.0
+        uses: actions/download-artifact@v1
         with:
           name: XMUX-Web
       - name: Replace main.dart.js to JSDelivr CDN

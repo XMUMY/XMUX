@@ -44,6 +44,7 @@ class _FloatingCardState extends State<FloatingCard> {
         onTapUp: (_) => setState(() => _elevation = 1),
         onTapCancel: () => setState(() => _elevation = 1),
         child: child,
+        behavior: HitTestBehavior.opaque,
       );
 
     child = Card(
