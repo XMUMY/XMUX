@@ -54,17 +54,3 @@ class UpdateHomepageAnnouncementsAction extends XMUXApiActionV2 {
     announcements = response.data;
   }
 }
-
-class UpdateHomepageNewsAction extends XMUXApiActionV2 {
-  List<v2.News> news;
-
-  UpdateHomepageNewsAction({BuildContext context, Function onError})
-      : super(context: context, onError: onError);
-
-  @override
-  Future<Null> call(v2.XMUXApiAuth auth, {Map<String, dynamic> params}) async {
-    var response = await v2.XMUXApi.instance.homepageNews();
-    assign(response);
-    news = response.data;
-  }
-}

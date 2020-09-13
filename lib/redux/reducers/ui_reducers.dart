@@ -4,8 +4,8 @@ final uiReducers = combineReducers<UIState>([
   TypedReducer(_openDrawerReducer),
   TypedReducer(_showPerformanceOverlayReducer),
   TypedReducer(_showSemanticsDebuggerReducer),
-  TypedReducer(_updateHomepageNewsReducer),
   TypedReducer(_updateAnnouncementsReducer),
+  TypedReducer(_updateHomeSlidersReducer),
 ]);
 
 UIState _openDrawerReducer(UIState state, OpenDrawerAction action) =>
@@ -19,10 +19,10 @@ UIState _showSemanticsDebuggerReducer(
         UIState state, ShowSemanticsDebuggerAction action) =>
     state.copyWith(showSemanticsDebugger: action.showSemanticsDebugger);
 
-UIState _updateHomepageNewsReducer(
-        UIState state, UpdateHomepageNewsAction action) =>
-    state.copyWith(homepageNews: action.news);
-
 UIState _updateAnnouncementsReducer(
         UIState state, UpdateHomepageAnnouncementsAction action) =>
     state.copyWith(announcements: action.announcements);
+
+UIState _updateHomeSlidersReducer(
+        UIState state, UpdateHomeSlidersAction action) =>
+    state.copyWith(homeSliders: action.response);

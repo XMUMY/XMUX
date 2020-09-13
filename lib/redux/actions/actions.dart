@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show ThemeMode;
 import 'package:flutter/widgets.dart';
 import 'package:redux/redux.dart';
 import 'package:xmux/globals.dart';
@@ -7,6 +7,7 @@ import 'package:xmux/modules/emgs/emgs.dart';
 import 'package:xmux/modules/moodle/models/assignment.dart';
 import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 import 'package:xmux/modules/rpc/clients/google/protobuf/empty.pb.dart';
+import 'package:xmux/modules/rpc/clients/news.pb.dart';
 import 'package:xmux/modules/rpc/clients/user.pb.dart';
 import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
 import 'package:xmux/redux/state/state.dart';

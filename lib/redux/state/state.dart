@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show ThemeMode;
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:xmux/modules/rpc/clients/news.pb.dart';
 import 'package:xmux/modules/rpc/clients/user.pb.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
+import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
 
 import 'query.dart';
 
@@ -32,14 +33,14 @@ class MainAppState {
   final UIState uiState;
 
   MainAppState(this.user, this.queryState, this.settingState, {UIState uiState})
-      : this.uiState = uiState ?? UIState.def();
+      : this.uiState = uiState ?? UIState();
 
   /// Init MainAppState as default.
   MainAppState.def()
       : this.user = User.def(),
         this.queryState = QueryState(),
         this.settingState = SettingState.def(),
-        this.uiState = UIState.def();
+        this.uiState = UIState();
 
   factory MainAppState.fromJson(Map<String, dynamic> json) =>
       _$MainAppStateFromJson(json);
@@ -101,39 +102,38 @@ class UIState {
   /// Override [MaterialApp.showSemanticsDebugger]
   final bool showSemanticsDebugger;
 
-  /// Homepage sliders.
-  final List<News> homepageNews;
-
   /// Homepage announcements.
-  final List<Announcement> announcements;
+  final List<v2.Announcement> announcements;
 
-  UIState(
-    this.drawerIsOpen,
-    this.showPerformanceOverlay,
-    this.showSemanticsDebugger,
-    this.homepageNews,
-    this.announcements,
-  );
+  /// Homepage sliders.
+  final List<Slider> homeSliders;
 
-  UIState.def()
-      : drawerIsOpen = false,
-        showPerformanceOverlay = false,
-        showSemanticsDebugger = false,
-        homepageNews = null,
-        announcements = null;
+  UIState({
+    bool drawerIsOpen,
+    bool showPerformanceOverlay,
+    bool showSemanticsDebugger,
+    List<v2.Announcement> announcements,
+    List<Slider> homeSliders,
+  })  : drawerIsOpen = drawerIsOpen ?? false,
+        showPerformanceOverlay = showPerformanceOverlay ?? false,
+        showSemanticsDebugger = showSemanticsDebugger ?? false,
+        announcements = announcements ?? List.unmodifiable([]),
+        homeSliders = homeSliders ?? List.unmodifiable([]);
 
   UIState copyWith({
     bool drawerIsOpen,
     bool showPerformanceOverlay,
     bool showSemanticsDebugger,
-    List<News> homepageNews,
-    List announcements,
+    List<v2.Announcement> announcements,
+    List<Slider> homeSliders,
   }) =>
       UIState(
-        drawerIsOpen ?? this.drawerIsOpen,
-        showPerformanceOverlay ?? this.showPerformanceOverlay,
-        showSemanticsDebugger ?? this.showSemanticsDebugger,
-        homepageNews ?? this.homepageNews,
-        announcements ?? this.announcements,
+        drawerIsOpen: drawerIsOpen ?? this.drawerIsOpen,
+        showPerformanceOverlay:
+            showPerformanceOverlay ?? this.showPerformanceOverlay,
+        showSemanticsDebugger:
+            showSemanticsDebugger ?? this.showSemanticsDebugger,
+        announcements: announcements ?? this.announcements,
+        homeSliders: homeSliders ?? this.homeSliders,
       );
 }

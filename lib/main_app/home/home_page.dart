@@ -66,12 +66,12 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
 
     var body = RefreshIndicator(
       onRefresh: () async {
-        var newsAction = UpdateHomepageNewsAction(context: context);
+        var newsAction = UpdateHomeSlidersAction();
         var announcementsAction =
             UpdateHomepageAnnouncementsAction(context: context);
         store.dispatch(newsAction);
         store.dispatch(announcementsAction);
-        await newsAction.listener;
+        await newsAction.future;
         await announcementsAction.listener;
       },
       child: WaterfallFlow(

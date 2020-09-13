@@ -40,3 +40,19 @@ class SyncUserProfileAction extends XmuxRpcAction<Profile> {
     response = await rpc.userClient.getProfile(GetProfileReq());
   }
 }
+
+class UpdateHomeSlidersAction extends XmuxRpcAction<List<Slider>> {
+  @override
+  Future<Null> call(Store<MainAppState> store) async {
+    var resp = await rpc.newsClient.getHomeSliders(Empty());
+    response = resp.sliders;
+  }
+}
+
+class UpdateAnnouncementsAction extends XmuxRpcAction<List<Announcement>> {
+  @override
+  Future<Null> call(Store<MainAppState> store) async {
+    var resp = await rpc.newsClient.getAnnouncements(Empty());
+    response = resp.announcements;
+  }
+}
