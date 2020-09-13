@@ -4,11 +4,14 @@ import 'authorization.dart';
 import 'client_channel.dart' if (dart.library.html) 'client_channel_web.dart';
 import 'clients/aaos.pbgrpc.dart';
 import 'clients/lost_found.pbgrpc.dart';
+import 'clients/news.pbgrpc.dart';
 import 'clients/user.pbgrpc.dart';
 
 class XmuxRpc {
   final UserClient userClient;
   final AAOSClient aaosClient;
+  final NewsClient newsClient;
+
   final LostAndFoundClient lostAndFoundClient;
 
   final Authorization authorization;
@@ -33,6 +36,12 @@ class XmuxRpc {
           providers: [authorization.provider],
         ),
       ),
+      NewsClient(
+        clientChannel,
+        options: CallOptions(
+          timeout: const Duration(seconds: 30),
+        ),
+      ),
       LostAndFoundClient(
         clientChannel,
         options: CallOptions(
@@ -47,6 +56,7 @@ class XmuxRpc {
     this.authorization,
     this.userClient,
     this.aaosClient,
+    this.newsClient,
     this.lostAndFoundClient,
   );
 }

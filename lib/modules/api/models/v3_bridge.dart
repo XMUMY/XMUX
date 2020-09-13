@@ -1,8 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mobx/mobx.dart';
 
-import '../common.dart';
-
 part 'v3_bridge.g.dart';
 
 enum StudentAttendanceStatus { none, waiting, attended, failed }
