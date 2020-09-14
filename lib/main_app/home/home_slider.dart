@@ -16,20 +16,29 @@ class HomeSlider extends StatefulWidget {
 }
 
 class _HomeSliderState extends State<HomeSlider> {
-  Widget _buildSlider(Slider n) => Stack(
-        fit: StackFit.expand,
-        children: [
-          ExtendedImage.network(n.imageUrl, fit: BoxFit.fill),
-          FlatButton(
-              onLongPress: () {},
-              onPressed: n.webviewUrl.isEmpty
-                  ? null
-                  : () => Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(
-                          builder: (_) => WebViewPage(n.webviewUrl))),
-              child: null),
-        ],
-      );
+  Widget _buildSlider(Slider n) {
+    var languageCode = Localizations.localeOf(context).languageCode;
+    Slider_Translation translation;
+    if (n.translations.containsKey(languageCode))
+      translation = n.translations[languageCode];
+    else
+      translation = n.translations.values.first;
+
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        ExtendedImage.network(translation.imageUrl, fit: BoxFit.fill),
+        FlatButton(
+            onLongPress: () {},
+            onPressed: translation.webviewUrl.isEmpty
+                ? null
+                : () => Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute(
+                        builder: (_) => WebViewPage(translation.webviewUrl))),
+            child: null),
+      ],
+    );
+  }
 
   @override
   void initState() {

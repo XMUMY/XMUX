@@ -16,28 +16,28 @@ import 'news.pb.dart' as $0;
 export 'news.pb.dart';
 
 class NewsClient extends $grpc.Client {
-  static final _$createHomeSlider = $grpc.ClientMethod<$0.Slider, $1.Empty>(
-      '/xmux.core.news.v4.News/CreateHomeSlider',
-      ($0.Slider value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$deleteHomeSlider =
       $grpc.ClientMethod<$0.DeleteSliderReq, $1.Empty>(
           '/xmux.core.news.v4.News/DeleteHomeSlider',
           ($0.DeleteSliderReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$updateHomeSlider = $grpc.ClientMethod<$0.Slider, $1.Empty>(
+      '/xmux.core.news.v4.News/UpdateHomeSlider',
+      ($0.Slider value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$getHomeSliders = $grpc.ClientMethod<$1.Empty, $0.SlidersResp>(
       '/xmux.core.news.v4.News/GetHomeSliders',
       ($1.Empty value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.SlidersResp.fromBuffer(value));
-  static final _$createAnnouncement =
-      $grpc.ClientMethod<$0.Announcement, $1.Empty>(
-          '/xmux.core.news.v4.News/CreateAnnouncement',
-          ($0.Announcement value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$deleteAnnouncement =
       $grpc.ClientMethod<$0.DeleteAnnouncementReq, $1.Empty>(
           '/xmux.core.news.v4.News/DeleteAnnouncement',
           ($0.DeleteAnnouncementReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$updateAnnouncement =
+      $grpc.ClientMethod<$0.Announcement, $1.Empty>(
+          '/xmux.core.news.v4.News/UpdateAnnouncement',
+          ($0.Announcement value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$getAnnouncements =
       $grpc.ClientMethod<$1.Empty, $0.AnnouncementsResp>(
@@ -49,18 +49,18 @@ class NewsClient extends $grpc.Client {
   NewsClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
       : super(channel, options: options);
 
-  $grpc.ResponseFuture<$1.Empty> createHomeSlider($0.Slider request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$createHomeSlider, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
   $grpc.ResponseFuture<$1.Empty> deleteHomeSlider($0.DeleteSliderReq request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$deleteHomeSlider, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> updateHomeSlider($0.Slider request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$updateHomeSlider, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -73,19 +73,19 @@ class NewsClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<$1.Empty> createAnnouncement($0.Announcement request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$createAnnouncement, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
   $grpc.ResponseFuture<$1.Empty> deleteAnnouncement(
       $0.DeleteAnnouncementReq request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$deleteAnnouncement, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> updateAnnouncement($0.Announcement request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$updateAnnouncement, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -103,19 +103,19 @@ abstract class NewsServiceBase extends $grpc.Service {
   $core.String get $name => 'xmux.core.news.v4.News';
 
   NewsServiceBase() {
-    $addMethod($grpc.ServiceMethod<$0.Slider, $1.Empty>(
-        'CreateHomeSlider',
-        createHomeSlider_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.Slider.fromBuffer(value),
-        ($1.Empty value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.DeleteSliderReq, $1.Empty>(
         'DeleteHomeSlider',
         deleteHomeSlider_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.DeleteSliderReq.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Slider, $1.Empty>(
+        'UpdateHomeSlider',
+        updateHomeSlider_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.Slider.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$1.Empty, $0.SlidersResp>(
         'GetHomeSliders',
@@ -124,13 +124,6 @@ abstract class NewsServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $1.Empty.fromBuffer(value),
         ($0.SlidersResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.Announcement, $1.Empty>(
-        'CreateAnnouncement',
-        createAnnouncement_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.Announcement.fromBuffer(value),
-        ($1.Empty value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.DeleteAnnouncementReq, $1.Empty>(
         'DeleteAnnouncement',
         deleteAnnouncement_Pre,
@@ -138,6 +131,13 @@ abstract class NewsServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) =>
             $0.DeleteAnnouncementReq.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Announcement, $1.Empty>(
+        'UpdateAnnouncement',
+        updateAnnouncement_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.Announcement.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$1.Empty, $0.AnnouncementsResp>(
         'GetAnnouncements',
@@ -148,14 +148,14 @@ abstract class NewsServiceBase extends $grpc.Service {
         ($0.AnnouncementsResp value) => value.writeToBuffer()));
   }
 
-  $async.Future<$1.Empty> createHomeSlider_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.Slider> request) async {
-    return createHomeSlider(call, await request);
-  }
-
   $async.Future<$1.Empty> deleteHomeSlider_Pre(
       $grpc.ServiceCall call, $async.Future<$0.DeleteSliderReq> request) async {
     return deleteHomeSlider(call, await request);
+  }
+
+  $async.Future<$1.Empty> updateHomeSlider_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Slider> request) async {
+    return updateHomeSlider(call, await request);
   }
 
   $async.Future<$0.SlidersResp> getHomeSliders_Pre(
@@ -163,14 +163,14 @@ abstract class NewsServiceBase extends $grpc.Service {
     return getHomeSliders(call, await request);
   }
 
-  $async.Future<$1.Empty> createAnnouncement_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.Announcement> request) async {
-    return createAnnouncement(call, await request);
-  }
-
   $async.Future<$1.Empty> deleteAnnouncement_Pre($grpc.ServiceCall call,
       $async.Future<$0.DeleteAnnouncementReq> request) async {
     return deleteAnnouncement(call, await request);
+  }
+
+  $async.Future<$1.Empty> updateAnnouncement_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Announcement> request) async {
+    return updateAnnouncement(call, await request);
   }
 
   $async.Future<$0.AnnouncementsResp> getAnnouncements_Pre(
@@ -178,20 +178,20 @@ abstract class NewsServiceBase extends $grpc.Service {
     return getAnnouncements(call, await request);
   }
 
-  $async.Future<$1.Empty> createHomeSlider(
-      $grpc.ServiceCall call, $0.Slider request);
-
   $async.Future<$1.Empty> deleteHomeSlider(
       $grpc.ServiceCall call, $0.DeleteSliderReq request);
+
+  $async.Future<$1.Empty> updateHomeSlider(
+      $grpc.ServiceCall call, $0.Slider request);
 
   $async.Future<$0.SlidersResp> getHomeSliders(
       $grpc.ServiceCall call, $1.Empty request);
 
-  $async.Future<$1.Empty> createAnnouncement(
-      $grpc.ServiceCall call, $0.Announcement request);
-
   $async.Future<$1.Empty> deleteAnnouncement(
       $grpc.ServiceCall call, $0.DeleteAnnouncementReq request);
+
+  $async.Future<$1.Empty> updateAnnouncement(
+      $grpc.ServiceCall call, $0.Announcement request);
 
   $async.Future<$0.AnnouncementsResp> getAnnouncements(
       $grpc.ServiceCall call, $1.Empty request);

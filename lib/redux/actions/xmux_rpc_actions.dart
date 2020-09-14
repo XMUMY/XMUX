@@ -43,6 +43,9 @@ class SyncUserProfileAction extends XmuxRpcAction<Profile> {
 
 class UpdateHomeSlidersAction extends XmuxRpcAction<List<Slider>> {
   @override
+  final needSave = false;
+
+  @override
   Future<Null> call(Store<MainAppState> store) async {
     var resp = await rpc.newsClient.getHomeSliders(Empty());
     response = resp.sliders;
