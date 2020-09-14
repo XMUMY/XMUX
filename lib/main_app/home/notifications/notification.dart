@@ -4,11 +4,28 @@ import 'package:xmux/main_app/home/notifications/moodle.dart';
 class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Notifications'),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Notifications'),
+          bottom: TabBar(
+            isScrollable: true,
+            tabs: [
+              Tab(
+                text: 'Announcements',
+              ),
+              Tab(
+                text: 'Moodle',
+              )
+            ],
+          ),
+        ),
+        body: TabBarView(children: [
+          MoodleNotificationPage(),
+          MoodleNotificationPage(),
+        ]),
       ),
-      body: MoodleNotificationPage(),
     );
   }
 }

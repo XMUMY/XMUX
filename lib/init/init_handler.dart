@@ -4,7 +4,6 @@ import 'package:device_info/device_info.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
 import 'package:sentry/sentry.dart' as sentry_lib;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +17,6 @@ import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/modules/rpc/authorization.dart';
 import 'package:xmux/modules/rpc/clients/user.pb.dart';
 import 'package:xmux/modules/xia/xia.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/theme.dart';
 
@@ -31,8 +29,7 @@ void init() async {
 
   // Create APIv3 Client.
   v3.XmuxApi(BackendApiConfig.address);
-  // Select XMUX API server. (Deprecated)
-  v2.XMUXApi([BackendApiConfig.address]);
+
   // Init XiA async.
   XiA.init(ApiKeyConfig.dialogflowToken)
       .then((x) => xiA = x)
@@ -43,15 +40,6 @@ void init() async {
     await webInit();
   else
     await ioInit();
-
-  // Register SystemChannel to handle lifecycle message. (Deprecated)
-  SystemChannels.lifecycle.setMessageHandler((msg) async {
-    print('SystemChannels/LifecycleMessage: $msg');
-    // Update language for XMUX API.
-    if (msg == AppLifecycleState.resumed.toString())
-      v2.XMUXApi.instance.configure();
-    return msg;
-  });
 
   // Check if local state is available.
   try {
@@ -106,7 +94,7 @@ void postInit() async {
   } catch (e) {
     sentry.captureException(exception: e);
   } finally {
-    store.dispatch(UpdateHomepageAnnouncementsAction());
+    store.dispatch(UpdateAnnouncementsAction());
     store.dispatch(UpdateTimetableAction());
     store.dispatch(SyncUserProfileAction());
     if (store.state.user.isStudent) {
@@ -157,9 +145,6 @@ Future<void> ioInit() async {
     v3.XmuxApi.instance.configure(
         authorization: v3.Authorization()
           ..bearerRefresher = () async => await user.getIdToken());
-
-    // APIv2 JWT configure. (Deprecated)
-    v2.XMUXApi.instance.getIdToken = () async => await user.getIdToken();
   });
 
   // Configure FCM.

@@ -3,7 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:xmux/modules/rpc/clients/news.pb.dart';
 import 'package:xmux/modules/rpc/clients/user.pb.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart' as v2;
 
 import 'query.dart';
 
@@ -102,30 +101,30 @@ class UIState {
   /// Override [MaterialApp.showSemanticsDebugger]
   final bool showSemanticsDebugger;
 
-  /// Homepage announcements.
-  final List<v2.Announcement> announcements;
-
   /// Homepage sliders.
   final List<Slider> homeSliders;
+
+  /// Announcements.
+  final List<Announcement> announcements;
 
   UIState({
     bool drawerIsOpen,
     bool showPerformanceOverlay,
     bool showSemanticsDebugger,
-    List<v2.Announcement> announcements,
     List<Slider> homeSliders,
+    List<Announcement> announcements,
   })  : drawerIsOpen = drawerIsOpen ?? false,
         showPerformanceOverlay = showPerformanceOverlay ?? false,
         showSemanticsDebugger = showSemanticsDebugger ?? false,
-        announcements = announcements ?? List.unmodifiable([]),
-        homeSliders = homeSliders ?? List.unmodifiable([]);
+        homeSliders = homeSliders ?? List.unmodifiable([]),
+        announcements = announcements ?? List.unmodifiable([]);
 
   UIState copyWith({
     bool drawerIsOpen,
     bool showPerformanceOverlay,
     bool showSemanticsDebugger,
-    List<v2.Announcement> announcements,
     List<Slider> homeSliders,
+    List<Announcement> announcements,
   }) =>
       UIState(
         drawerIsOpen: drawerIsOpen ?? this.drawerIsOpen,
@@ -133,7 +132,7 @@ class UIState {
             showPerformanceOverlay ?? this.showPerformanceOverlay,
         showSemanticsDebugger:
             showSemanticsDebugger ?? this.showSemanticsDebugger,
-        announcements: announcements ?? this.announcements,
         homeSliders: homeSliders ?? this.homeSliders,
+        announcements: announcements ?? this.announcements,
       );
 }

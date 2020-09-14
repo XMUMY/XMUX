@@ -1,55 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
-import 'package:xmux/translations/translation.dart';
+import 'package:xmux/modules/rpc/clients/news.pb.dart';
 
 class HomeAnnouncements extends StatelessWidget {
   final List<Announcement> announcements;
 
   HomeAnnouncements(this.announcements);
 
-  Widget _buildAnnouncement(BuildContext context, Announcement announcement) =>
-      ExpansionTile(
-        backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
-        title: Text(
-          announcement.headline,
-          style: Theme.of(context).textTheme.subtitle1,
+  Widget _buildAnnouncement(BuildContext context, Announcement announcement) {
+    var languageCode = Localizations.localeOf(context).languageCode;
+    Announcement_Translation translation;
+    if (announcement.translations.containsKey(languageCode))
+      translation = announcement.translations[languageCode];
+    else
+      translation = announcement.translations.values.first;
+
+    return ExpansionTile(
+      backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
+      title: Text(
+        translation.title,
+        style: Theme.of(context).textTheme.subtitle1,
+      ),
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Text(
+            translation.text,
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
         ),
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Text(
-              announcement.detail,
-              style: Theme.of(context).textTheme.bodyText2,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Text(
+              DateFormat.yMMMd(Localizations.localeOf(context).languageCode)
+                      .format(announcement.releaseDate.toDateTime().toLocal()) +
+                  " " +
+                  DateFormat.Hms(Localizations.localeOf(context).languageCode)
+                      .format(announcement.releaseDate.toDateTime().toLocal()),
+              style: Theme.of(context).textTheme.caption,
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Text(
-                DateFormat.yMMMd(Localizations.localeOf(context).languageCode)
-                        .format(announcement.timestamp) +
-                    " " +
-                    DateFormat.Hms(Localizations.localeOf(context).languageCode)
-                        .format(announcement.timestamp),
-                style: Theme.of(context).textTheme.caption,
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-              ),
-              announcement.uri.isEmpty
-                  ? Container()
-                  : OutlineButton(
-                      onPressed: () => launch(announcement.uri),
-                      child: Text(MainLocalizations.of(context)
-                          .get("Home/Announcements/More")),
-                    )
-            ],
-          ),
-        ],
-      );
+            Padding(
+              padding: EdgeInsets.all(10),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) =>

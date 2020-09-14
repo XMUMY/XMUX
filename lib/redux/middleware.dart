@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:xmux/globals.dart';
-import 'package:xmux/modules/xmux_api/xmux_api_v2.dart';
 
 import 'actions/actions.dart';
 import 'state/state.dart';
@@ -45,12 +42,10 @@ Future<Null> _saveState(Store<MainAppState> store, bool sync) async {
 /// before go to next middleware.
 void apiRequestMiddleware(
     Store<MainAppState> store, action, NextDispatcher next) {
-  if (action is ApiCallAction || action is XMUXApiActionV2) {
+  if (action is ApiCallAction) {
     print(
         '[Redux/apiRequestMiddleware] Invoked (Action: ${action.runtimeType})');
     if (action is ApiCallAction) action.future = apiCall(store, action, next);
-    if (action is XMUXApiActionV2)
-      action.listener = apiCallV2(store, action, next);
   } else
     next(action);
 }
@@ -65,33 +60,5 @@ Future<Null> apiCall(Store<MainAppState> store, ApiCallAction action,
       action.onError(e);
     else
       rethrow;
-  }
-}
-
-@deprecated
-Future<Null> apiCallV2(Store<MainAppState> store, XMUXApiActionV2 action,
-    NextDispatcher next) async {
-  try {
-    await action(
-      XMUXApiAuth(
-          campusID: store.state.user.campusId,
-          campusIDPassword: store.state.user.password,
-          ePaymentPassword: store.state.user.ePaymentPassword),
-      params: action.params,
-    );
-    next(action);
-  } catch (e) {
-    // Sign out if wrong password.
-    if (e is XMUXApiException &&
-        e.type == 'WrongPasswordError' &&
-        store.state.user.isStudent)
-      logout();
-    else {
-      if (action.context != null)
-        Scaffold.of(action.context)
-            .showSnackBar(SnackBar(content: Text(e.toString())));
-      if (action.onError != null) action.onError();
-      if (action.context == null && action.onError == null) rethrow;
-    }
   }
 }
