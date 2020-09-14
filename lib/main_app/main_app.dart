@@ -117,6 +117,7 @@ class MainApp extends StatelessWidget {
       supportedLocales: [Locale('en'), Locale('zh', 'CN')],
       path: 'res/translations',
       fallbackLocale: Locale('en'),
+      saveLocale: false,
       child: StoreProvider<MainAppState>(
         store: store,
         child: app,

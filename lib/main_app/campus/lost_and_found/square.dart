@@ -24,7 +24,7 @@ class LostAndFoundPage extends StatelessWidget {
           : Colors.lightBlue,
     );
 
-    var body = Refreshable<List<LostAndFoundBrief>>(
+    var list = Refreshable<List<LostAndFoundBrief>>(
       key: _refreshableKey,
       onRefresh: () async =>
           (await rpc.lostAndFoundClient.getBriefs(GetBriefsReq())).briefs,
@@ -43,7 +43,7 @@ class LostAndFoundPage extends StatelessWidget {
 
     return Scaffold(
       appBar: appBar,
-      body: body,
+      body: list,
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           var shouldRefresh = await Navigator.of(context)
@@ -77,6 +77,7 @@ class _ItemBriefCard extends StatelessWidget {
               key: profileKey,
               uid: brief.uid,
               builder: (context, profile) => Row(
+                key: ValueKey(profile),
                 children: <Widget>[
                   // Build user avatar.
                   Padding(
@@ -101,7 +102,7 @@ class _ItemBriefCard extends StatelessWidget {
                   ),
                 ],
               ),
-              loadingBuilder: (context) => Row(
+              placeholder: (context) => Row(
                 children: <Widget>[
                   // Build user avatar.
                   Padding(

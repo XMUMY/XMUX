@@ -6,17 +6,22 @@ import 'package:xmux/modules/rpc/clients/user.pb.dart';
 
 var _cached = <String, Profile>{};
 
+/// A builder for widgets that depend on user profile.
+///
+/// An animation will be applied between builder and placeholder. If they have
+/// same type, a different key should be assigned to triger animation.
+/// See [AnimatedSwitcher].
 class UserProfileBuilder extends StatefulWidget {
   final String uid;
 
   final Widget Function(BuildContext, Profile) builder;
-  final WidgetBuilder loadingBuilder;
+  final WidgetBuilder placeholder;
 
   const UserProfileBuilder({
     Key key,
     @required this.uid,
     @required this.builder,
-    this.loadingBuilder,
+    this.placeholder,
   }) : super(key: key);
 
   @override
@@ -24,28 +29,37 @@ class UserProfileBuilder extends StatefulWidget {
 }
 
 class UserProfileBuilderState extends State<UserProfileBuilder> {
-  Profile profile;
+  Profile get profile => _profile;
+  Profile _profile;
 
   @override
   void initState() {
     if (_cached.containsKey(widget.uid))
-      profile = _cached[widget.uid];
+      _profile = _cached[widget.uid];
     else
       rpc.userClient.getProfile(GetProfileReq()..uid = widget.uid).then((v) {
         // TODO: Clear periodically.
         _cached[widget.uid] = v;
-        if (mounted) setState(() => profile = v);
+        if (mounted) setState(() => _profile = v);
       });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (profile == null) if (widget.loadingBuilder != null)
-      return widget.loadingBuilder(context);
-    else
-      return CircularProgressIndicator();
-    return widget.builder(context, profile);
+    Widget child;
+    if (profile == null) {
+      if (widget.placeholder != null)
+        child = widget.placeholder(context);
+      else
+        child = CircularProgressIndicator();
+    } else
+      child = widget.builder(context, profile);
+
+    return AnimatedSwitcher(
+      child: child,
+      duration: const Duration(milliseconds: 300),
+    );
   }
 }
 
@@ -88,7 +102,7 @@ class UserAvatar extends StatelessWidget {
               ExtendedNetworkImageProvider(profile.avatar, cache: true),
           radius: radius,
         ),
-        loadingBuilder: (context) => CircleAvatar(
+        placeholder: (context) => CircleAvatar(
           child: SpinKitDoubleBounce(color: Colors.white70),
           radius: radius,
         ),

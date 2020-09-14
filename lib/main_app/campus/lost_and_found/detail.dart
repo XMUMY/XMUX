@@ -53,7 +53,7 @@ class LostAndFoundDetailPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                loadingBuilder: (context) => Column(
+                placeholder: (context) => Column(
                   children: <Widget>[
                     // Build user avatar.
                     Padding(

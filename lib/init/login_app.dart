@@ -46,6 +46,7 @@ class LoginApp extends StatelessWidget {
       supportedLocales: [Locale('en'), Locale('zh', 'CN')],
       path: 'res/translations',
       fallbackLocale: Locale('en'),
+      saveLocale: false,
       child: app,
     );
   }
