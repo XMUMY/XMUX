@@ -148,6 +148,9 @@ class _EPaymentPageState extends State<EPaymentPage> {
             );
           },
         );
+
+        // Add a scroll bar.
+        body = Scrollbar(child: body);
     }
 
     return Scaffold(
@@ -191,7 +194,9 @@ class _PaymentRecordCard extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-                '${_record.paid.toStringAsFixed(2)}\n / ${_record.amount.toStringAsFixed(2)}'),
+              '${_record.paid.toStringAsFixed(2)}\n / ${_record.amount.toStringAsFixed(2)}',
+              textAlign: TextAlign.end,
+            ),
           )
         ],
       ),

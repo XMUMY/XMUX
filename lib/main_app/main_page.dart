@@ -31,23 +31,23 @@ abstract class MainPageContentProvider extends Widget {
 }
 
 class MainPage extends StatefulWidget {
+  @override
+  MainPageState createState() => MainPageState();
+}
+
+class MainPageState extends State<MainPage> {
   final _pageTransitionSwitcherKey = GlobalKey();
 
-  final pages = <MainPageContentProvider>[
+  final _pages = <MainPageContentProvider>[
     HomePage(),
     CalendarPage(),
     CampusPage(),
     ExplorePage(),
   ];
 
-  @override
-  MainPageState createState() => MainPageState();
-}
-
-class MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
-  MainPageContentProvider get currentPage => widget.pages[_currentIndex];
+  MainPageContentProvider get currentPage => _pages[_currentIndex];
 
   void navigateTo(int index) {
     if (!mounted || index == _currentIndex) return;
@@ -67,16 +67,16 @@ class MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     // Main pages.
     Widget body = PageTransitionSwitcher(
-      key: widget._pageTransitionSwitcherKey,
-      duration: const Duration(milliseconds: 300),
+      key: _pageTransitionSwitcherKey,
+      duration: const Duration(milliseconds: 225),
       transitionBuilder: (
         Widget child,
         Animation<double> primaryAnimation,
         Animation<double> secondaryAnimation,
       ) =>
           FadeTransition(
-        child: child,
         opacity: primaryAnimation,
+        child: child,
       ),
       child: currentPage,
     );
@@ -86,10 +86,10 @@ class MainPageState extends State<MainPage> {
       child: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
         items: [
-          widget.pages[0].buildBottomNavigationBarItem(context),
-          widget.pages[1].buildBottomNavigationBarItem(context),
-          widget.pages[2].buildBottomNavigationBarItem(context),
-          if (P.isMobile) widget.pages[3].buildBottomNavigationBarItem(context),
+          _pages[0].buildBottomNavigationBarItem(context),
+          _pages[1].buildBottomNavigationBarItem(context),
+          _pages[2].buildBottomNavigationBarItem(context),
+          if (P.isMobile) _pages[3].buildBottomNavigationBarItem(context),
         ],
         currentIndex: _currentIndex,
         onTap: navigateTo,
@@ -114,11 +114,10 @@ class MainPageState extends State<MainPage> {
               ),
             ),
             destinations: [
-              widget.pages[0].buildNavigationRailDestination(context),
-              widget.pages[1].buildNavigationRailDestination(context),
-              widget.pages[2].buildNavigationRailDestination(context),
-              if (P.isMobile)
-                widget.pages[3].buildNavigationRailDestination(context),
+              _pages[0].buildNavigationRailDestination(context),
+              _pages[1].buildNavigationRailDestination(context),
+              _pages[2].buildNavigationRailDestination(context),
+              if (P.isMobile) _pages[3].buildNavigationRailDestination(context),
             ],
             selectedIndex: _currentIndex,
             onDestinationSelected: navigateTo,
