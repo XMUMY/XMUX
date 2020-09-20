@@ -1,0 +1,31 @@
+name: Build & Deploy XMUX-iOS
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  Build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: dev
+      - name: Build
+        run: |
+          echo $CONFIG_FILE > ./lib/config.dart
+          echo "${GOOGLE_SERVICES_IOS}" > ./ios/Runner/GoogleService-Info.plist
+          VERSION=`cat ./lib/config.sample.dart | grep fallbackVersion | sed -e "s/[A-z=;' ]//g" | sed "s/-//g"`
+          BUILD=`git rev-list HEAD --count`
+          flutter build ios --release --build-name=$VERSION --build-number=$BUILD --no-codesign
+        env:
+          CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
+          GOOGLE_SERVICES_IOS: ${{ secrets.GOOGLE_SERVICES_IOS }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: XMUX-iOS
+          path: build/ios/Release-iphoneos/XMUX.app
