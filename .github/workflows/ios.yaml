@@ -1,4 +1,4 @@
-name: Build & Deploy XMUX-iOS
+name: XMUX-iOS
 
 on:
   push:

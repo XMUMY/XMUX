@@ -1,7 +1,14 @@
 # XMUX
-[![Codemagic build status](https://api.codemagic.io/apps/5ca5e6c9e9afd1001de253f6/5ca5e6c9e9afd1001de253f5/status_badge.svg)](https://codemagic.io/apps/5ca5e6c9e9afd1001de253f6/5ca5e6c9e9afd1001de253f5/latest_build)
 
 A powerful application for everyone in Xiamen University Malaysia.
+
+## Status
+
+![XMUX-Web](https://github.com/XMUMY/XMUX/workflows/XMUX-Web/badge.svg)
+
+![XMUX-iOS](https://github.com/XMUMY/XMUX/workflows/XMUX-iOS/badge.svg)
+
+![XMUX-Android Internal](https://github.com/XMUMY/XMUX/workflows/XMUX-Android%20Internal/badge.svg)
 
 ## Main Functions
 
