@@ -23,14 +23,14 @@ jobs:
         run: |
           echo $CONFIG_FILE > ./lib/config.dart
           echo "${GOOGLE_SERVICES_ANDROID}" > ./android/app/google-services.json
-          echo "${RELEASE_SIGN_KEY}" | base64 -d > ./android/app/x.jks
-          echo "${RELEASE_SIGN_KEY_PROPERTYS}" | base64 -d > ./android/key.properties
+          echo "${ANDROID_RELEASE_SIGN_KEY}" | base64 -d > ./android/app/x.jks
+          echo "${ANDROID_RELEASE_SIGN_KEY_PROPERTYS}" | base64 -d > ./android/key.properties
           flutter build apk --release --target-platform=android-arm64
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
           GOOGLE_SERVICES_ANDROID: ${{ secrets.GOOGLE_SERVICES_ANDROID }}
-          RELEASE_SIGN_KEY: ${{ secrets.RELEASE_SIGN_KEY }}
-          RELEASE_SIGN_KEY_PROPERTYS: ${{ secrets.RELEASE_SIGN_KEY_PROPERTYS }}
+          ANDROID_RELEASE_SIGN_KEY: ${{ secrets.ANDROID_RELEASE_SIGN_KEY }}
+          ANDROID_RELEASE_SIGN_KEY_PROPERTYS: ${{ secrets.ANDROID_RELEASE_SIGN_KEY_PROPERTYS }}
       - uses: actions/upload-artifact@v2
         with:
           name: XMUX-Android
