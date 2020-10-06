@@ -11,17 +11,14 @@ if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
-def getGitVersionCmd = 'git describe --tags'
-def getGitCommitCountCmd = 'git rev-list HEAD --count'
-
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = getGitCommitCountCmd.execute().text.trim()
+    flutterVersionCode = 'git rev-list HEAD --count'.execute().text.trim()
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = getGitVersionCmd.execute().text.trim().substring(1)
+    flutterVersionName = 'git describe --tags'.execute().text.trim().substring(1)
 }
 
 apply plugin: 'com.android.application'
@@ -35,6 +32,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 29
+    ndkVersion '21.3.6528147'
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -42,14 +40,18 @@ android {
 
     lintOptions {
         disable 'InvalidPackage'
+
+        // https://github.com/flutter/flutter/issues/58247
+        checkReleaseBuilds false
     }
 
     defaultConfig {
         applicationId "org.ctbeta.xmux.xmux"
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -63,12 +65,13 @@ android {
 
     buildTypes {
         release {
-            useProguard false
             minifyEnabled false
             shrinkResources false
             signingConfig signingConfigs.release
             ndk {
-                if (!project.hasProperty('target-platform')) {
+                if (project.hasProperty('split-per-abi')) {
+                    return
+                } else if (!project.hasProperty('target-platform')) {
                     abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64'
                 } else {
                     def platforms = project.property('target-platform').split(',')

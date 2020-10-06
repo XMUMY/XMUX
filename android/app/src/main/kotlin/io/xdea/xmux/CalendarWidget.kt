@@ -1,4 +1,4 @@
-package org.ctbeta.xmux.xmux
+package io.xdea.xmux
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
@@ -6,7 +6,7 @@ import android.content.Context
 import android.widget.RemoteViews
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import java.io.File
+import org.ctbeta.xmux.xmux.R
 
 
 class CalendarWidget : AppWidgetProvider() {
@@ -41,9 +41,10 @@ class CalendarWidget : AppWidgetProvider() {
     }
 
     private fun getNextClass(context: Context) {
-      val stateStr = File("${context.filesDir.parent}/app_flutter/state.dat").readText()
+      val sharedPreferences = context.getSharedPreferences("FlutterSharedPreferences", Context.MODE_PRIVATE)
+      val stateStr = sharedPreferences.getString("state", "{}")
       val state = gson.fromJson<Map<String, Any>>(stateStr, Map::class.java)
-      val encodedLessons = gson.toJson((state["acState"] as Map<*, *>)["timetable"])
+      val encodedLessons = gson.toJson((state["queryState"] as Map<*, *>)["timetable"])
       val lessons = gson.fromJson<Array<Lesson>>(encodedLessons, Array<Lesson>::class.java)
     }
   }

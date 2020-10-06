@@ -1,4 +1,4 @@
-package org.ctbeta.xmux.xmux
+package io.xdea.xmux
 
 import io.flutter.embedding.android.FlutterActivity
 
