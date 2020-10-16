@@ -5,7 +5,7 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 1,
       child: Scaffold(
         appBar: AppBar(
           title: Text('Notifications'),
@@ -13,16 +13,12 @@ class NotificationsPage extends StatelessWidget {
             isScrollable: true,
             tabs: [
               Tab(
-                text: 'Announcements',
-              ),
-              Tab(
                 text: 'Moodle',
               )
             ],
           ),
         ),
         body: TabBarView(children: [
-          MoodleNotificationPage(),
           MoodleNotificationPage(),
         ]),
       ),

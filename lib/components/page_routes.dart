@@ -123,14 +123,14 @@ class WindowPageRoute<T> extends PageRoute<T> {
   Widget buildTransitions(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation, Widget content) {
     final width = MediaQuery.of(context).size.width;
-    final isWide = width > 600;
+    final isWide = width >= 720;
 
     Widget child;
     if (isWide)
       child = GaussianBlurBox(
         sigma: store.state.settingState.enableBlur ? animation.value * 8 : 0,
         color: store.state.settingState.enableBlur
-            ? Colors.black38
+            ? Colors.black26
             : Colors.black45,
         centered: true,
         child: Container(
@@ -200,7 +200,7 @@ Future<T> showBlurDialog<T>({
       Widget child = GaussianBlurBox(
         sigma: store.state.settingState.enableBlur ? animation.value * 8 : 0,
         color: store.state.settingState.enableBlur
-            ? Colors.black38
+            ? Colors.black26
             : Colors.black45,
         centered: true,
         child: FadeTransition(
