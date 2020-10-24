@@ -35,6 +35,7 @@ dependencies:
   dio: ^3.0.9
   dio_cookie_manager: ^1.0.0
   easy_localization: ^2.3.2
+  effective_dart: ^1.0.0
   extended_image: ^1.1.2
   firebase_analytics: ^6.0.0
   firebase_auth: ^0.18.0
