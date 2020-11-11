@@ -48,5 +48,5 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_KEY }}
           packageName: org.ctbeta.xmux.xmux
-          releaseFile: app-release.apk
+          releaseFiles: app-release.apk
           track: internal
