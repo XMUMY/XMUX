@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart' hide Notification;
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:xmux/components/floating_card.dart';
@@ -160,7 +160,7 @@ class _MoodleNotificationDetail extends StatelessWidget {
     var detail = ListView(
       padding: MediaQuery.of(context).padding.copyWith(left: 8, right: 8),
       children: <Widget>[
-        doc != null ? Html(data: content) : Text(content),
+        doc != null ? HtmlWidget(content) : Text(content),
       ],
     );
 

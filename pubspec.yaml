@@ -29,14 +29,14 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   animations: ^1.1.1
-  connectivity: ^0.4.9
+  connectivity: ^1.0.0
   device_calendar: ^3.1.0
-  device_info: ^0.4.2
+  device_info: ^1.0.0
   dio: ^3.0.9
   dio_cookie_manager: ^1.0.0
   easy_localization: ^2.3.2
   effective_dart: ^1.0.0
-  extended_image: ^1.1.2
+  extended_image: ^1.3.1-dev
   firebase_analytics: ^6.0.0
   firebase_auth: ^0.18.0
   firebase_database: ^4.0.0
@@ -45,9 +45,8 @@ dependencies:
   firebase_storage: ^4.0.0
   fl_chart: ^0.11.1
   flare_flutter: ^2.0.3
-  flutter_html: ^1.0.0
   flutter_mobx: ^1.1.0
-  flutter_redux: ^0.6.0
+  flutter_redux: ^0.7.0
   # https://github.com/darioielardi/flutter_speed_dial/issues/84
   flutter_speed_dial:
     git:
@@ -60,6 +59,7 @@ dependencies:
     git:
       url: https://github.com/X-dea/Flutter-VPN.git
       ref: rm-ios
+  flutter_widget_from_html_core: ^0.5.1+4
   font_awesome_flutter: ^8.8.1
   googleapis: ^0.55.0
   googleapis_auth: ^0.2.12
@@ -72,7 +72,7 @@ dependencies:
   image_editor: ^0.7.0
   image_picker: ^0.6.7
   imgur: ^1.1.0
-  lottie: ^0.6.0
+  lottie: ^0.7.0
   mobx: ^1.2.1
   package_info: ">=0.4.1 <2.0.0"
   protobuf: ^1.0.1
@@ -84,7 +84,7 @@ dependencies:
   tuple: ^1.0.3
   url_launcher: ^5.4.11
   waterfall_flow: ^2.0.2
-  webview_flutter: ^0.3.22
+  webview_flutter: ^1.0.7
 
 dependency_overrides:
   flutter_svg: ^0.18.0

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/empty_error.dart';
@@ -177,7 +177,7 @@ class AssignmentDetail extends StatelessWidget {
                   'Introduction',
                   style: Theme.of(context).textTheme.headline6,
                 ),
-                Html(data: assignment.intro),
+                HtmlWidget(assignment.intro),
 
                 // Intro attachments.
                 Wrap(

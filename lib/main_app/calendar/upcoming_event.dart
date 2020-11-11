@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/globals.dart';
@@ -42,7 +42,7 @@ class UpcomingEventsPage extends StatelessWidget {
                     style: Theme.of(context).textTheme.caption,
                   ),
                   Divider(height: 5),
-                  Html(data: event.description),
+                  HtmlWidget(event.description),
                 ],
               ),
             );
