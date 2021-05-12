@@ -124,7 +124,7 @@ class _GlobalChatroomPageState extends State<GlobalChatroomPage> {
                         .child("image_$random.jpg");
                     var uploadTask = ref.putFile(File(imageFile.path));
                     var downloadUrl =
-                        (await uploadTask.onComplete).uploadSessionUri;
+                        await uploadTask.snapshot.ref.getDownloadURL();
                     _sendMessage(imageUrl: downloadUrl.toString());
                   }),
             ),

@@ -20,7 +20,7 @@ String getCountryCode(String nationality) {
 /// Get application status from EMGS API.
 Future<EmgsApplicationResult> getApplicationStatus(
     String passport, String nationality) async {
-  var res = await http.post(
-      'http://mobileapp.emgs.com.my/api_v2/web/app.php/applicationstatus/$nationality/$passport');
+  var res = await http.post(Uri.parse(
+      'http://mobileapp.emgs.com.my/api_v2/web/app.php/applicationstatus/$nationality/$passport'));
   return EmgsApplicationResult.fromJson(jsonDecode(res.body));
 }

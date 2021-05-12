@@ -150,7 +150,7 @@ class _GpaChartState extends State<_GpaChart> {
             showTitles: true,
             reservedSize: 20,
             margin: 8,
-            textStyle: Theme.of(context).textTheme.subtitle1,
+            getTextStyles: (_) => Theme.of(context).textTheme.subtitle1,
             getTitles: (value) =>
                 widget.transcript[value.toInt()].session.substring(2),
           ),
@@ -159,7 +159,7 @@ class _GpaChartState extends State<_GpaChart> {
             reservedSize: 20,
             margin: 8,
             interval: 0.5,
-            textStyle: Theme.of(context).textTheme.subtitle1,
+            getTextStyles: (_) => Theme.of(context).textTheme.subtitle1,
             getTitles: (value) => value.toStringAsPrecision(2),
           ),
         ),

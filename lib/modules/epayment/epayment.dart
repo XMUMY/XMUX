@@ -19,8 +19,9 @@ class _EPaymentCookieManager extends CookieManager {
   _EPaymentCookieManager(CookieJar cookieJar) : super(cookieJar);
 
   @override
-  Future onRequest(RequestOptions options) async {
-    var cookies = cookieJar.loadForRequest(options.uri)
+  Future onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
+    var cookies = await (cookieJar.loadForRequest(options.uri))
       ..removeWhere((cookie) => cookie.expires != null
           ? cookie.expires.isBefore(DateTime.now())
           : false)

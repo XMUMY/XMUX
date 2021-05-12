@@ -41,7 +41,7 @@ class _EPaymentPageState extends State<EPaymentPage> {
     await showDialog(
       context: context,
       barrierDismissible: false,
-      child: AlertDialog(
+      builder: (context) => AlertDialog(
         title: Text(LocaleKeys.Campus_ToolsEPaymentLoginFailed.tr()),
         content: Column(
           mainAxisSize: MainAxisSize.min,

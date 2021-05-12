@@ -11,8 +11,9 @@ class NBCookieManager extends Interceptor {
   NBCookieManager(this.cookieJar);
 
   @override
-  Future onRequest(RequestOptions options) async {
-    var cookies = cookieJar.loadForRequest(options.uri);
+  Future onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
+    var cookies = await cookieJar.loadForRequest(options.uri);
     cookies.removeWhere((cookie) {
       if (cookie.expires != null) {
         return cookie.expires.isBefore(DateTime.now());
@@ -24,17 +25,20 @@ class NBCookieManager extends Interceptor {
   }
 
   @override
-  Future onResponse(Response response) async => _saveCookies(response);
+  Future onResponse(
+          Response response, ResponseInterceptorHandler handler) async =>
+      _saveCookies(response);
 
   @override
-  Future onError(DioError err) async => _saveCookies(err.response);
+  Future onError(DioError err, ErrorInterceptorHandler handler) async =>
+      _saveCookies(err.response);
 
   _saveCookies(Response response) {
     if (response != null && response.headers != null) {
       List<String> cookies = response.headers[HttpHeaders.setCookieHeader];
       if (cookies != null) {
         cookieJar.saveFromResponse(
-          response.request.uri,
+          response.requestOptions.uri,
           cookies.map((str) {
             var origin = str.split(';').first.split('=').last;
             str = str.replaceFirst(origin, Uri.encodeComponent(origin));

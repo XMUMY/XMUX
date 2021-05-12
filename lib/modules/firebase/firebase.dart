@@ -15,14 +15,14 @@ class Firebase {
   static final analytics = FirebaseAnalytics();
 
   /// Firebase messaging instance.
-  static final messaging = FirebaseMessaging();
+  static final messaging = FirebaseMessaging.instance;
 
   /// Store remote configs.
   static final RemoteConfigs remoteConfigs = RemoteConfigs();
 
   static Future<void> init() async {
     await firebaseCore.Firebase.initializeApp();
-    messaging.requestNotificationPermissions();
+    messaging.requestPermission();
 
     var remoteConfig = await RemoteConfig.instance;
     var defaultStatic = await rootBundle.loadString('res/static.json');
@@ -43,7 +43,7 @@ class Firebase {
     var remoteConfig = await RemoteConfig.instance;
     try {
       await remoteConfig.fetch();
-      await remoteConfig.activateFetched();
+      await remoteConfig.activate();
     } catch (_) {} finally {
       var staticResources = remoteConfig.getString('static_resources');
       if (staticResources.isNotEmpty)

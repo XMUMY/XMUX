@@ -1,9 +1,9 @@
 import 'dart:ui' as ui;
 
-import 'package:connectivity/connectivity.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wifi_info_flutter/wifi_info_flutter.dart';
 import 'package:xmux/components/sketch.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/l10n_keys.dart';
@@ -51,7 +51,7 @@ class _SignInButtonState extends State<SignInButton> {
       return;
     }
 
-    var ip = await Connectivity().getWifiIP();
+    var ip = await WifiInfo().getWifiIP();
     if (ip == null) {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(

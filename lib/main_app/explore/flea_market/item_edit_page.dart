@@ -90,7 +90,7 @@ class _ItemEditPageState extends State<ItemEditPage> {
       var bytes = await compute<File, List<int>>(
           ItemEditPage._compressImage, _pictures[index].file);
       // Upload & get link.
-      var snap = await storageRef.child('$index').putData(bytes).onComplete;
+      var snap = storageRef.child('$index').putData(bytes).snapshot;
       return await snap.ref.getDownloadURL();
     }
 

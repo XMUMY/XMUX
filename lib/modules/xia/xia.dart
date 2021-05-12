@@ -31,7 +31,7 @@ class XiA {
   static Future<XiA> init(String encodedCredentials) async {
     final credentials = ServiceAccountCredentials.fromJson(
         String.fromCharCodes(base64Decode(encodedCredentials)));
-    const scopes = const [DialogflowApi.CloudPlatformScope];
+    const scopes = [DialogflowApi.cloudPlatformScope];
     return XiA(await clientViaServiceAccount(credentials, scopes));
   }
 

@@ -126,7 +126,7 @@ class WindowPageRoute<T> extends PageRoute<T> {
     final isWide = width >= 720;
 
     Widget child;
-    if (isWide)
+    if (isWide) {
       child = GaussianBlurBox(
         sigma: store.state.settingState.enableBlur ? animation.value * 8 : 0,
         color: store.state.settingState.enableBlur
@@ -152,80 +152,19 @@ class WindowPageRoute<T> extends PageRoute<T> {
                       iconTheme: Theme.of(context).iconTheme,
                     ),
               ),
-              isMaterialAppTheme: true,
               child: content,
             ),
           ),
         ),
       );
-    else
+    } else {
       child = Theme.of(context).pageTransitionsTheme.buildTransitions<T>(
           this, context, animation, secondaryAnimation, content);
+    }
 
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
       child: child,
     );
   }
-}
-
-/// Show a dialog with blurred background.
-Future<T> showBlurDialog<T>({
-  @required BuildContext context,
-  bool barrierDismissible = true,
-  @required WidgetBuilder builder,
-  bool useRootNavigator = true,
-  RouteSettings routeSettings,
-}) {
-  assert(builder != null);
-  assert(useRootNavigator != null);
-  assert(debugCheckHasMaterialLocalizations(context));
-
-  var theme = Theme.of(context, shadowThemeOnly: true);
-  return showGeneralDialog(
-    context: context,
-    pageBuilder: (_, __, ___) {
-      return SafeArea(
-        child: Builder(builder: (BuildContext context) {
-          return theme != null
-              ? Theme(data: theme, child: Builder(builder: builder))
-              : Builder(builder: builder);
-        }),
-      );
-    },
-    barrierDismissible: barrierDismissible,
-    barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-    transitionDuration: const Duration(milliseconds: 150),
-    transitionBuilder: (context, animation, secondary, content) {
-      Widget child = GaussianBlurBox(
-        sigma: store.state.settingState.enableBlur ? animation.value * 8 : 0,
-        color: store.state.settingState.enableBlur
-            ? Colors.black26
-            : Colors.black45,
-        centered: true,
-        child: FadeTransition(
-          opacity: animation,
-          child: ScaleTransition(
-            scale: Tween<double>(
-              begin: 0.9,
-              end: 1,
-            ).animate(CurvedAnimation(
-                parent: animation,
-                curve: Curves.easeIn,
-                reverseCurve: Curves.fastOutSlowIn)),
-            child: content,
-          ),
-        ),
-      );
-
-      return barrierDismissible
-          ? GestureDetector(
-              onTap: () => Navigator.of(context).pop(),
-              child: child,
-            )
-          : child;
-    },
-    useRootNavigator: useRootNavigator,
-    routeSettings: routeSettings,
-  );
 }

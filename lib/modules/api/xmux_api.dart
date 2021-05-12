@@ -30,7 +30,7 @@ class XmuxApi {
       receiveTimeout: 10000,
     ))
       // Add interceptors to add `Accept-Language`.
-      ..interceptors.add(InterceptorsWrapper(onRequest: (options) {
+      ..interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
         options.headers['Accept-Language'] =
             '${window.locale?.languageCode ?? 'en'}-${window.locale?.countryCode ?? 'US'},'
             '${window.locale?.languageCode ?? 'en'};q=0.9';

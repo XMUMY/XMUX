@@ -45,7 +45,7 @@ class AttendanceApi {
           break;
         default:
           try {
-            await http.get(_address).timeout(Duration(seconds: 5));
+            await http.get(Uri.parse(_address)).timeout(Duration(seconds: 5));
             available = true;
           } catch (e) {
             available = false;

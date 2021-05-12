@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:device_info/device_info.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,11 @@ import 'package:xmux/theme.dart';
 
 /// Main initialization progress.
 void init() async {
+  await EasyLocalization.ensureInitialized();
   // Register sentry to capture errors. (Release mode only)
   if (P.isVM && bool.fromEnvironment('dart.vm.product'))
-    FlutterError.onError = (e) =>
-        sentry.captureException(exception: e.exception, stackTrace: e.stack);
+    FlutterError.onError =
+        (e) => sentry.captureException(e.exception, stackTrace: e.stack);
 
   // Create APIv3 Client.
   v3.XmuxApi(BackendApiConfig.address);
@@ -33,7 +35,7 @@ void init() async {
   // Init XiA async.
   XiA.init(ApiKeyConfig.dialogflowToken)
       .then((x) => xiA = x)
-      .catchError((e) => sentry.captureException(exception: e));
+      .catchError((e) => sentry.captureException(e));
 
   // Initialization for non web application.
   if (P.isWeb || P.isDesktop)
@@ -87,12 +89,12 @@ void postInit() async {
     );
 
     // Set user info for sentry report.
-    sentry.userContext = sentry_lib.User(id: store.state.user.campusId);
+    // TODO sentry.userContext = sentry_lib.User(id: store.state.user.campusId);
 
     if (P.isAndroid) await androidPostInit();
     if (P.isIOS) await iOSPostInit();
   } catch (e) {
-    sentry.captureException(exception: e);
+    sentry.captureException(e);
   } finally {
     store.dispatch(UpdateAnnouncementsAction());
     store.dispatch(UpdateTimetableAction());
@@ -121,13 +123,15 @@ Future<void> ioInit() async {
   ]);
 
   // Register sentry again with release info. (Release mode only)
-  if (packageInfo != null && bool.fromEnvironment('dart.vm.product'))
-    FlutterError.onError = (e) => sentry.capture(
-          event: sentry_lib.Event(
-              exception: e.exception,
-              stackTrace: e.stack,
-              release: packageInfo.version),
+  if (packageInfo != null && bool.fromEnvironment('dart.vm.product')) {
+    FlutterError.onError = (e) => sentry.captureEvent(
+          sentry_lib.SentryEvent(
+            exception: e.exception,
+            release: packageInfo.version,
+          ),
+          stackTrace: e.stack,
         );
+  }
 
   // Minimal version check.
   var currentBuild = int.tryParse(packageInfo?.buildNumber ?? '0') ?? 0;
@@ -148,7 +152,7 @@ Future<void> ioInit() async {
   });
 
   // Configure FCM.
-  Firebase.messaging.configure();
+  // TODO Firebase.messaging.configure();
   return;
 }
 

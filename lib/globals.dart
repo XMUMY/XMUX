@@ -33,7 +33,8 @@ PackageInfo packageInfo = PackageInfo(
 );
 
 /// Sentry client. Handle unhandled exception.
-final SentryClient sentry = SentryClient(dsn: ApiKeyConfig.sentryDsn);
+final SentryClient sentry =
+    SentryClient(SentryOptions(dsn: ApiKeyConfig.sentryDsn));
 
 /// Main store for redux.
 final store = Store<MainAppState>(

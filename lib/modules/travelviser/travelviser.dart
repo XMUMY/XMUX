@@ -36,8 +36,8 @@ class Travelviser {
       date = today.add(Duration(days: route.dayOfWeek - today.weekday));
     }
 
-    var res =
-        await http.post('$API_ADDRESS/booking.php', headers: HEADERS, body: {
+    var res = await http
+        .post(Uri.parse('$API_ADDRESS/booking.php'), headers: HEADERS, body: {
       'process': '1',
       'id_organization': user.organizationId.toString(),
       'id_passenger': user.id.toString(),
@@ -56,8 +56,8 @@ class Travelviser {
 
   Future<List<BookingRecord>> getBookingRecords({int id}) async {
     var user = await this.user;
-    var res =
-        await http.post('$API_ADDRESS/booking.php', headers: HEADERS, body: {
+    var res = await http
+        .post(Uri.parse('$API_ADDRESS/booking.php'), headers: HEADERS, body: {
       'process': '2',
       'id_organization': user.organizationId.toString(),
       'id_passenger': id?.toString() ?? user.id.toString()
@@ -71,8 +71,8 @@ class Travelviser {
 
   Future<List<Route>> getRoutes({int companyId}) async {
     var user = await this.user;
-    var res =
-        await http.post('$API_ADDRESS/route.php', headers: HEADERS, body: {
+    var res = await http
+        .post(Uri.parse('$API_ADDRESS/route.php'), headers: HEADERS, body: {
       'process': '5',
       'id_company': companyId?.toString() ?? user.organizationId.toString(),
     });
@@ -83,7 +83,7 @@ class Travelviser {
   }
 
   Future<List<Trip>> getTrips(Route route) async {
-    var res = await http.post('$API_ADDRESS/trip_setup.php',
+    var res = await http.post(Uri.parse('$API_ADDRESS/trip_setup.php'),
         headers: HEADERS,
         body: {
           'process': '7',
@@ -95,7 +95,7 @@ class Travelviser {
   }
 
   Future<TravelviserUser> getUser({String email}) async {
-    var res = await http.post('$API_ADDRESS/user.php',
+    var res = await http.post(Uri.parse('$API_ADDRESS/user.php'),
         headers: HEADERS,
         body: {'process': '16', 'email': email ?? this.email});
     if (res.body == '""') throw UserNotFoundException();
@@ -104,7 +104,7 @@ class Travelviser {
   }
 
   Future<List<WayPoint>> getWayPoints(Route route) async {
-    var res = await http.post('$API_ADDRESS/route.php',
+    var res = await http.post(Uri.parse('$API_ADDRESS/route.php'),
         headers: HEADERS,
         body: {'process': '6', 'id_route': route.id.toString()});
     if (res.body == '[{"id":0,"name":"Waypoint","latitude":0,"longitude":0}]')
@@ -116,7 +116,8 @@ class Travelviser {
 
   Future<Null> register({String email, String name}) async {
     if (email == null) email = this.email;
-    await http.post('$API_ADDRESS/user.php', headers: HEADERS, body: {
+    await http
+        .post(Uri.parse('$API_ADDRESS/user.php'), headers: HEADERS, body: {
       'process': '17',
       'email': email,
       'name': name ?? email.split('@').first,
