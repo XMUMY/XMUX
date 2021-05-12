@@ -74,10 +74,10 @@ class TimeTablePage extends StatelessWidget {
     );
 
     Widget body;
-    if (_classes.isNotEmpty)
+    if (_classes.isNotEmpty) {
       body = ListView.builder(
         itemCount: _classes.length + 1,
-        itemBuilder: (_, int index) => AnimationConfiguration.staggeredList(
+        itemBuilder: (_, index) => AnimationConfiguration.staggeredList(
           position: index,
           child: SlideAnimation(
             verticalOffset: 50.0,
@@ -89,8 +89,9 @@ class TimeTablePage extends StatelessWidget {
           ),
         ),
       );
-    else
+    } else {
       body = EmptyErrorList();
+    }
 
     return RefreshIndicator(
       displacement: 40 + Scaffold.of(context).appBarMaxHeight,
@@ -108,6 +109,7 @@ class ClassCard extends StatelessWidget {
     const Color(0xFFA5D6A7),
     const Color(0xFF90CAF9),
     const Color(0xFFE1BEE7),
+    const Color(0xFFE1BFFF),
   ];
 
   /// Class information.
