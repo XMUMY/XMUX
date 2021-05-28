@@ -17,7 +17,7 @@ class Empty extends $pb.GeneratedMessage {
   Empty._() : super();
   factory Empty() => create();
   factory Empty.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Empty.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory Empty.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '

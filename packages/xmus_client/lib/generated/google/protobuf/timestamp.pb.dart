@@ -34,7 +34,7 @@ class Timestamp extends $pb.GeneratedMessage with $mixin.TimestampMixin {
     return _result;
   }
   factory Timestamp.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Timestamp.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory Timestamp.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
