@@ -38,6 +38,7 @@ class RegisterReq extends $pb.GeneratedMessage {
   }
   factory RegisterReq.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory RegisterReq.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -94,6 +95,7 @@ class LoginResp extends $pb.GeneratedMessage {
   }
   factory LoginResp.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory LoginResp.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -141,6 +143,7 @@ class GetProfileReq extends $pb.GeneratedMessage {
   }
   factory GetProfileReq.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetProfileReq.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -218,6 +221,7 @@ class Profile extends $pb.GeneratedMessage {
   }
   factory Profile.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Profile.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -339,6 +343,7 @@ class RefreshDeviceReq extends $pb.GeneratedMessage {
   }
   factory RefreshDeviceReq.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory RefreshDeviceReq.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -437,6 +442,7 @@ class GetDevicesResp_Device extends $pb.GeneratedMessage {
   }
   factory GetDevicesResp_Device.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetDevicesResp_Device.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -513,6 +519,7 @@ class GetDevicesResp extends $pb.GeneratedMessage {
   }
   factory GetDevicesResp.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetDevicesResp.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
