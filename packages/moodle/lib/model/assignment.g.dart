@@ -11,10 +11,9 @@ AssignmentCourse _$AssignmentCourseFromJson(Map<String, dynamic> json) {
     json['id'] as int,
     json['fullname'] as String,
     json['shortname'] as String,
-    (json['assignments'] as List)
-        ?.map((e) =>
-            e == null ? null : Assignment.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    (json['assignments'] as List<dynamic>)
+        .map((e) => Assignment.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -33,11 +32,9 @@ Assignment _$AssignmentFromJson(Map<String, dynamic> json) {
     timestampToDateTime(json['duedate'] as int),
     timestampToDateTime(json['allowsubmissionsfromdate'] as int),
     json['intro'] as String,
-    (json['introattachments'] as List)
-        ?.map((e) => e == null
-            ? null
-            : IntroAttachment.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    (json['introattachments'] as List<dynamic>)
+        .map((e) => IntroAttachment.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 

@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:xmux/modules/common/timestamp_json.dart';
+
+import 'common.dart';
 
 part 'upcoming_event.g.dart';
 

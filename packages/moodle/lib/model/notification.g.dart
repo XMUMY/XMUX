@@ -15,6 +15,6 @@ Notification _$NotificationFromJson(Map<String, dynamic> json) {
     json['smallmessage'] as String,
     json['fullmessage'] as String,
     json['fullmessagehtml'] as String,
-    timestampFromJson(json['timecreated'] as int),
+    timestampToDateTime(json['timecreated'] as int),
   );
 }

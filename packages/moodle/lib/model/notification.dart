@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:xmux/modules/api/common.dart';
+
+import 'common.dart';
 
 part 'notification.g.dart';
 
@@ -23,7 +24,7 @@ class Notification {
   @JsonKey(name: 'fullmessagehtml')
   final String fullMessageHtml;
 
-  @JsonKey(name: 'timecreated', fromJson: timestampFromJson)
+  @JsonKey(name: 'timecreated', fromJson: timestampToDateTime)
   final DateTime timeCreated;
 
   Notification(this.id, this.from, this.to, this.subject, this.smallMessage,
