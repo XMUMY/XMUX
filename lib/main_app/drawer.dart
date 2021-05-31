@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:emgs/emgs.dart' as emgs show getCountryCode;
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/emgs/emgs.dart' as emgs show getCountryCode;
 import 'package:xmux/modules/firebase/firebase.dart';
 import 'package:xmux/redux/redux.dart';
 

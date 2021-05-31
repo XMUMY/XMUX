@@ -18,13 +18,14 @@ class EmgsApplicationResult {
   @JsonKey(name: 'status_historys')
   final List<EmgsHistoryRecord> history;
 
-  EmgsApplicationResult(
-      this.fullName,
-      this.travelDocumentNumber,
-      this.applicationId,
-      this.applicationType,
-      this.applicationStatus,
-      this.history);
+  const EmgsApplicationResult({
+    required this.fullName,
+    required this.travelDocumentNumber,
+    required this.applicationId,
+    required this.applicationType,
+    required this.applicationStatus,
+    required this.history,
+  });
 
   factory EmgsApplicationResult.fromJson(Map<String, dynamic> json) =>
       _$EmgsApplicationResultFromJson(json);
@@ -38,7 +39,10 @@ class EmgsApplicationResult {
 @JsonSerializable()
 class EmgsHistoryRecord {
   @JsonKey(
-      name: 'created_at', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+    name: 'created_at',
+    fromJson: _dateTimeFromJson,
+    toJson: _dateTimeToJson,
+  )
   final DateTime date;
   @JsonKey(name: 'status_title')
   final String status;
@@ -46,7 +50,12 @@ class EmgsHistoryRecord {
   @JsonKey(name: 'complete', fromJson: double.parse, toJson: _percentageToJson)
   final double percentage;
 
-  EmgsHistoryRecord(this.date, this.status, this.remark, this.percentage);
+  const EmgsHistoryRecord({
+    required this.date,
+    required this.status,
+    required this.remark,
+    required this.percentage,
+  });
 
   factory EmgsHistoryRecord.fromJson(Map<String, dynamic> json) =>
       _$EmgsHistoryRecordFromJson(json);

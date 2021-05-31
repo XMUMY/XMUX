@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  emgs:
+    path: packages/emgs
   moodle:
     path: packages/moodle
   xmus_client:

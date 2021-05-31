@@ -9,16 +9,14 @@ part of 'model.dart';
 EmgsApplicationResult _$EmgsApplicationResultFromJson(
     Map<String, dynamic> json) {
   return EmgsApplicationResult(
-    json['applicant_fullname'] as String,
-    json['applicant_traveldocno'] as String,
-    json['applicant_id'] as String,
-    json['type'] as String,
-    json['state'] as String,
-    (json['status_historys'] as List)
-        ?.map((e) => e == null
-            ? null
-            : EmgsHistoryRecord.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    fullName: json['applicant_fullname'] as String,
+    travelDocumentNumber: json['applicant_traveldocno'] as String,
+    applicationId: json['applicant_id'] as String,
+    applicationType: json['type'] as String,
+    applicationStatus: json['state'] as String,
+    history: (json['status_historys'] as List<dynamic>)
+        .map((e) => EmgsHistoryRecord.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -35,10 +33,10 @@ Map<String, dynamic> _$EmgsApplicationResultToJson(
 
 EmgsHistoryRecord _$EmgsHistoryRecordFromJson(Map<String, dynamic> json) {
   return EmgsHistoryRecord(
-    EmgsHistoryRecord._dateTimeFromJson(json['created_at'] as String),
-    json['status_title'] as String,
-    json['remark'] as String,
-    double.parse(json['complete'] as String),
+    date: EmgsHistoryRecord._dateTimeFromJson(json['created_at'] as String),
+    status: json['status_title'] as String,
+    remark: json['remark'] as String,
+    percentage: double.parse(json['complete'] as String),
   );
 }
 

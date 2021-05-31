@@ -1,3 +1,4 @@
+import 'package:emgs/model.dart';
 import 'package:flutter/material.dart' show ThemeMode;
 import 'package:moodle/model/assignment.dart';
 import 'package:redux/redux.dart';
@@ -6,7 +7,6 @@ import 'package:xmus_client/generated/google/protobuf/empty.pb.dart';
 import 'package:xmus_client/generated/user.pb.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/main_page.dart';
-import 'package:xmux/modules/emgs/emgs.dart';
 import 'package:xmux/redux/state/state.dart';
 
 part 'moodle_api_actions.dart';
