@@ -5,11 +5,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
+import 'package:xmus_client/generated/aaos.pb.dart';
 import 'package:xmux/components/empty_error.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 import 'package:xmux/redux/redux.dart';
 
 class ExamsPage extends StatelessWidget {

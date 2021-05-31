@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:xmus_client/generated/lost_found.pb.dart';
+import 'package:xmus_client/generated/user.pb.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/rpc/clients/lost_found.pb.dart';
-import 'package:xmux/modules/rpc/clients/user.pb.dart';
 
 class LostAndFoundDetailPage extends StatelessWidget {
   final LostAndFoundBrief brief;

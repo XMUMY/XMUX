@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobx/mobx.dart';
+import 'package:xmus_client/generated/google/protobuf/timestamp.pb.dart';
+import 'package:xmus_client/generated/lost_found.pb.dart';
 import 'package:xmux/components/date_time_picker.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/rpc/clients/google/protobuf/timestamp.pb.dart';
-import 'package:xmux/modules/rpc/clients/lost_found.pb.dart';
 
 part 'create.g.dart';
 

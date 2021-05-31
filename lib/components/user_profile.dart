@@ -1,8 +1,8 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:xmus_client/generated/user.pb.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/rpc/clients/user.pb.dart';
 
 var _cached = <String, Profile>{};
 

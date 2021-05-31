@@ -7,12 +7,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
+import 'package:xmus_client/generated/aaos.pb.dart';
 import 'package:xmux/components/empty_error.dart';
 import 'package:xmux/components/empty_error_button.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 import 'package:xmux/redux/redux.dart';
 
 final _pointColors =

@@ -9,14 +9,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grpc/grpc.dart';
 import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmus_client/authorization.dart';
+import 'package:xmus_client/error.dart';
+import 'package:xmus_client/generated/google/protobuf/empty.pb.dart';
 import 'package:xmux/components/animated_logo.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
-import 'package:xmux/modules/rpc/authorization.dart';
-import 'package:xmux/modules/rpc/clients/google/protobuf/empty.pb.dart';
-import 'package:xmux/modules/rpc/error.dart';
 import 'package:xmux/redux/actions/actions.dart';
 
 import 'background.dart';
@@ -165,7 +165,7 @@ class _LoginButtonState extends State<_LoginButton> {
           .convertRpcError;
       customToken = loginResp.customToken;
     } on XmuxRpcError catch (e) {
-      if (e.code == 1) {
+      if (e.reason == 'NEED_REGISTER') {
         // Need register.
         if (mounted) setState(() => _isProcessing = false);
         Navigator.of(context)
@@ -174,9 +174,9 @@ class _LoginButtonState extends State<_LoginButton> {
       }
 
       if (mounted) setState(() => _isProcessing = false);
-      var msg = e.code == 403
+      var msg = e.grpcError.code == StatusCode.permissionDenied
           ? LocaleKeys.SignIn_ErrorInvalidPassword.tr()
-          : e.detail;
+          : e.message;
       _showError(context, msg);
       return;
     } catch (e) {

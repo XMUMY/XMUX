@@ -41,6 +41,7 @@ class SyncUserProfileAction extends XmuxRpcAction<Profile> {
   }
 }
 
+/*
 class UpdateHomeSlidersAction extends XmuxRpcAction<List<Slider>> {
   @override
   final needSave = false;
@@ -59,3 +60,4 @@ class UpdateAnnouncementsAction extends XmuxRpcAction<List<Announcement>> {
     response = resp.announcements;
   }
 }
+*/

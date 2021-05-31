@@ -4,10 +4,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:moodle/model/upcoming_event.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/moodle/models/upcoming_event.dart';
 
 class UpcomingEventsPage extends StatelessWidget {
   @override

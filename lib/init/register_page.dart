@@ -6,12 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:grpc/grpc.dart';
 import 'package:tuple/tuple.dart';
+import 'package:xmus_client/authorization.dart';
+import 'package:xmus_client/error.dart';
+import 'package:xmus_client/generated/user.pb.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
-import 'package:xmux/modules/rpc/authorization.dart';
-import 'package:xmux/modules/rpc/clients/user.pb.dart';
-import 'package:xmux/modules/rpc/error.dart';
 import 'package:xmux/redux/actions/actions.dart';
 
 import 'background.dart';
@@ -153,7 +153,7 @@ class _RegisterButtonState extends State<_RegisterButton> {
       customToken = registerResp.customToken;
     } on XmuxRpcError catch (e) {
       if (mounted) setState(() => _isProcessing = false);
-      _showError(context, e.detail);
+      _showError(context, e.message);
       return;
     } catch (e) {
       if (mounted) setState(() => _isProcessing = false);

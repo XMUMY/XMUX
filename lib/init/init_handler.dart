@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:sentry/sentry.dart' as sentry_lib;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xmus_client/authorization.dart';
+import 'package:xmus_client/generated/user.pb.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
@@ -15,8 +17,6 @@ import 'package:xmux/main_app/main_app.dart';
 import 'package:xmux/modules/api/xmux_api.dart' as v3;
 import 'package:xmux/modules/attendance/attendance.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
-import 'package:xmux/modules/rpc/authorization.dart';
-import 'package:xmux/modules/rpc/clients/user.pb.dart';
 import 'package:xmux/modules/xia/xia.dart';
 import 'package:xmux/redux/redux.dart';
 import 'package:xmux/theme.dart';
@@ -78,7 +78,7 @@ void postInit() async {
     );
     // Attach ID and password to MoodleApi.
     moodleApi
-      ..withCredential(store.state.user.campusId, store.state.user.password)
+      ..setCredential(store.state.user.campusId, store.state.user.password)
       ..login();
 
     // Attach ID and password to AttendanceApi.
@@ -96,7 +96,7 @@ void postInit() async {
   } catch (e) {
     sentry.captureException(e);
   } finally {
-    store.dispatch(UpdateAnnouncementsAction());
+    // store.dispatch(UpdateAnnouncementsAction());
     store.dispatch(UpdateTimetableAction());
     store.dispatch(SyncUserProfileAction());
     if (store.state.user.isStudent) {

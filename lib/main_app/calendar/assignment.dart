@@ -5,12 +5,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:intl/intl.dart';
+import 'package:moodle/model/assignment.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmux/components/empty_error.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/moodle/models/assignment.dart';
 import 'package:xmux/redux/actions/actions.dart';
 
 class AssignmentPage extends StatefulWidget {

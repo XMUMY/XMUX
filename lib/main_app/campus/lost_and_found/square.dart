@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:xmus_client/generated/lost_found.pb.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/lazy_loader.dart';
 import 'package:xmux/components/refreshable.dart';
@@ -10,7 +11,6 @@ import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/campus/lost_and_found/detail.dart';
-import 'package:xmux/modules/rpc/clients/lost_found.pb.dart';
 
 class LostAndFoundPage extends StatelessWidget {
   final _refreshableKey = GlobalKey<RefreshableState>();

@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:moodle/model/assignment.dart';
+import 'package:xmus_client/generated/aaos.pb.dart';
 import 'package:xmux/modules/emgs/model.dart';
-import 'package:xmux/modules/moodle/models/assignment.dart';
-import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 
 part 'query.g.dart';
 

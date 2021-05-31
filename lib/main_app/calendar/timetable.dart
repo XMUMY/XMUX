@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
+import 'package:xmus_client/generated/aaos.pb.dart';
 import 'package:xmux/components/empty_error.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/spannable_grid.dart';
@@ -16,7 +17,6 @@ import 'package:xmux/main_app/calendar/attendance.dart';
 import 'package:xmux/main_app/calendar/sign_in_button.dart';
 import 'package:xmux/modules/algorithms/edit_distance.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
-import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 import 'package:xmux/redux/redux.dart';
 
 part 'timetable_grid.dart';

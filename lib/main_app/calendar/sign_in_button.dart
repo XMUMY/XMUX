@@ -4,12 +4,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wifi_info_flutter/wifi_info_flutter.dart';
+import 'package:xmus_client/generated/aaos.pb.dart';
 import 'package:xmux/components/sketch.dart';
 import 'package:xmux/config.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/modules/attendance/attendance.dart';
-import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 
 class SignInButton extends StatefulWidget {
   /// Current Lesson.

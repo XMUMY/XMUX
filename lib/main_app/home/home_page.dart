@@ -4,15 +4,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
+import 'package:xmus_client/generated/aaos.pb.dart';
 import 'package:xmux/components/user_profile.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
 import 'package:xmux/main_app/calendar/timetable.dart';
-import 'package:xmux/main_app/home/announcements.dart';
-import 'package:xmux/main_app/home/home_slider.dart';
 import 'package:xmux/main_app/main_page.dart';
 import 'package:xmux/modules/firebase/firebase.dart';
-import 'package:xmux/modules/rpc/clients/aaos.pb.dart';
 import 'package:xmux/redux/redux.dart';
 
 class HomePage extends StatelessWidget implements MainPageContentProvider {
@@ -66,12 +64,12 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
 
     var body = RefreshIndicator(
       onRefresh: () async {
-        var newsAction = UpdateHomeSlidersAction();
-        var announcementsAction = UpdateAnnouncementsAction();
-        store.dispatch(newsAction);
-        store.dispatch(announcementsAction);
-        await newsAction.future;
-        await announcementsAction.future;
+        // var newsAction = UpdateHomeSlidersAction();
+        // var announcementsAction = UpdateAnnouncementsAction();
+        // store.dispatch(newsAction);
+        // store.dispatch(announcementsAction);
+        // await newsAction.future;
+        // await announcementsAction.future;
       },
       child: WaterfallFlow(
         gridDelegate: SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
@@ -81,16 +79,16 @@ class HomePage extends StatelessWidget implements MainPageContentProvider {
         ),
         children: <Widget>[
           // Slider
-          AspectRatio(
-            aspectRatio: 18 / 9,
-            child: HomeSlider(),
-          ),
+          // AspectRatio(
+          //   aspectRatio: 18 / 9,
+          //   child: HomeSlider(),
+          // ),
 
           // Announcements (if have)
-          StoreConnector<MainAppState, List>(
-            converter: (store) => store.state.uiState.announcements,
-            builder: (_, announcements) => HomeAnnouncements(announcements),
-          ),
+          // StoreConnector<MainAppState, List>(
+          //   converter: (store) => store.state.uiState.announcements,
+          //   builder: (_, announcements) => HomeAnnouncements(announcements),
+          // ),
 
           StoreConnector<MainAppState, List<Timetable_Class>>(
             converter: (s) => s.state.queryState.timetable?.classes ?? null,

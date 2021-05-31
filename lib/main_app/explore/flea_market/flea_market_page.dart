@@ -4,8 +4,8 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:xmus_client/generated/user.pb.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/rpc/clients/user.pb.dart';
 
 import 'item_detail_page.dart';
 import 'item_edit_page.dart';

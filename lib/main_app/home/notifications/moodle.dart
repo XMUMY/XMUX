@@ -5,11 +5,11 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
+import 'package:moodle/model/notification.dart';
 import 'package:xmux/components/floating_card.dart';
 import 'package:xmux/components/lazy_loader.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/moodle/models/notification.dart';
 
 class MoodleNotificationPage extends StatefulWidget {
   @override

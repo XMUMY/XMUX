@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:xmus_client/generated/google/protobuf/empty.pb.dart';
+import 'package:xmus_client/generated/user.pb.dart';
 import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/components/width_limited.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/rpc/clients/google/protobuf/empty.pb.dart';
-import 'package:xmux/modules/rpc/clients/user.pb.dart';
 
 class SessionsPage extends StatelessWidget {
   Future<List<GetDevicesResp_Device>> _handleRefresh() async {

@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:moodle/moodle.dart';
 import 'package:package_info/package_info.dart';
 import 'package:redux/redux.dart';
 import 'package:sentry/sentry.dart';
+import 'package:xmus_client/xmus_client.dart';
 import 'package:xmux/modules/api/xmux_api.dart';
-import 'package:xmux/modules/moodle/moodle.dart';
-import 'package:xmux/modules/rpc/rpc.dart';
 
 import 'config.dart';
 import 'init/login_app.dart';
