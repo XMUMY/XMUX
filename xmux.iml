@@ -15,6 +15,9 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/emgs/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/packages/emgs/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/emgs/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/maintenance/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/maintenance/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/maintenance/build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/moodle/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/packages/moodle/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/moodle/build" />

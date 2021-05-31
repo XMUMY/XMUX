@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:mobx/mobx.dart';
 
-part 'models.g.dart';
+part 'model.g.dart';
 
 class FaqQuestion {
   final int id;
@@ -10,7 +10,12 @@ class FaqQuestion {
   final String title;
   final String answer;
 
-  FaqQuestion({this.id, this.date, this.title, this.answer});
+  FaqQuestion({
+    required this.id,
+    required this.date,
+    required this.title,
+    required this.answer,
+  });
 }
 
 class MyRequest {
@@ -21,8 +26,14 @@ class MyRequest {
   final String usage;
   final String answer;
 
-  MyRequest(
-      {this.id, this.date, this.title, this.category, this.usage, this.answer});
+  MyRequest({
+    required this.id,
+    required this.date,
+    required this.title,
+    required this.category,
+    required this.usage,
+    required this.answer,
+  });
 }
 
 class RequestForm = _RequestForm with _$RequestForm;
@@ -41,40 +52,41 @@ abstract class _RequestForm with Store {
   final String token;
 
   @observable
-  String usage;
+  String? usage;
 
   @observable
-  String category;
+  String? category;
 
   @observable
-  String block;
+  String? block;
 
   @observable
-  String wing;
+  String? wing;
 
   @observable
-  String room;
+  String? room;
 
   @observable
   bool recurringProblem = false;
 
   @observable
-  String description;
+  String? description;
 
   @observable
-  File file;
+  File? file;
 
   @observable
-  String phoneNumber;
+  String? phoneNumber;
 
-  _RequestForm(
-      {this.usages,
-      this.categories,
-      this.blocks,
-      this.wings,
-      this.gender,
-      this.name,
-      this.email,
-      this.token,
-      this.phoneNumber});
+  _RequestForm({
+    required this.usages,
+    required this.categories,
+    required this.blocks,
+    required this.wings,
+    required this.gender,
+    required this.name,
+    required this.email,
+    required this.token,
+    this.phoneNumber,
+  });
 }

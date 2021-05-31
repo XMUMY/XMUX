@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'models.dart';
+part of 'model.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -12,13 +12,13 @@ mixin _$RequestForm on _RequestForm, Store {
   final _$usageAtom = Atom(name: '_RequestForm.usage');
 
   @override
-  String get usage {
+  String? get usage {
     _$usageAtom.reportRead();
     return super.usage;
   }
 
   @override
-  set usage(String value) {
+  set usage(String? value) {
     _$usageAtom.reportWrite(value, super.usage, () {
       super.usage = value;
     });
@@ -27,13 +27,13 @@ mixin _$RequestForm on _RequestForm, Store {
   final _$categoryAtom = Atom(name: '_RequestForm.category');
 
   @override
-  String get category {
+  String? get category {
     _$categoryAtom.reportRead();
     return super.category;
   }
 
   @override
-  set category(String value) {
+  set category(String? value) {
     _$categoryAtom.reportWrite(value, super.category, () {
       super.category = value;
     });
@@ -42,13 +42,13 @@ mixin _$RequestForm on _RequestForm, Store {
   final _$blockAtom = Atom(name: '_RequestForm.block');
 
   @override
-  String get block {
+  String? get block {
     _$blockAtom.reportRead();
     return super.block;
   }
 
   @override
-  set block(String value) {
+  set block(String? value) {
     _$blockAtom.reportWrite(value, super.block, () {
       super.block = value;
     });
@@ -57,13 +57,13 @@ mixin _$RequestForm on _RequestForm, Store {
   final _$wingAtom = Atom(name: '_RequestForm.wing');
 
   @override
-  String get wing {
+  String? get wing {
     _$wingAtom.reportRead();
     return super.wing;
   }
 
   @override
-  set wing(String value) {
+  set wing(String? value) {
     _$wingAtom.reportWrite(value, super.wing, () {
       super.wing = value;
     });
@@ -72,13 +72,13 @@ mixin _$RequestForm on _RequestForm, Store {
   final _$roomAtom = Atom(name: '_RequestForm.room');
 
   @override
-  String get room {
+  String? get room {
     _$roomAtom.reportRead();
     return super.room;
   }
 
   @override
-  set room(String value) {
+  set room(String? value) {
     _$roomAtom.reportWrite(value, super.room, () {
       super.room = value;
     });
@@ -102,13 +102,13 @@ mixin _$RequestForm on _RequestForm, Store {
   final _$descriptionAtom = Atom(name: '_RequestForm.description');
 
   @override
-  String get description {
+  String? get description {
     _$descriptionAtom.reportRead();
     return super.description;
   }
 
   @override
-  set description(String value) {
+  set description(String? value) {
     _$descriptionAtom.reportWrite(value, super.description, () {
       super.description = value;
     });
@@ -117,13 +117,13 @@ mixin _$RequestForm on _RequestForm, Store {
   final _$fileAtom = Atom(name: '_RequestForm.file');
 
   @override
-  File get file {
+  File? get file {
     _$fileAtom.reportRead();
     return super.file;
   }
 
   @override
-  set file(File value) {
+  set file(File? value) {
     _$fileAtom.reportWrite(value, super.file, () {
       super.file = value;
     });
@@ -132,13 +132,13 @@ mixin _$RequestForm on _RequestForm, Store {
   final _$phoneNumberAtom = Atom(name: '_RequestForm.phoneNumber');
 
   @override
-  String get phoneNumber {
+  String? get phoneNumber {
     _$phoneNumberAtom.reportRead();
     return super.phoneNumber;
   }
 
   @override
-  set phoneNumber(String value) {
+  set phoneNumber(String? value) {
     _$phoneNumberAtom.reportWrite(value, super.phoneNumber, () {
       super.phoneNumber = value;
     });

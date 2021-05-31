@@ -1,48 +1,49 @@
+import 'dart:io';
+
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:html/parser.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:intl/intl.dart';
 
-import 'cookie_manager.dart';
-import 'models.dart';
+import 'model.dart';
 
-export 'models.dart';
+part 'cookie_manager.dart';
 
 const _maintenanceUrl = 'https://app.xmu.edu.my/Maintenance';
 
+// A spider for AskA Maintenance.
 class Maintenance {
-  final _dio = Dio()
-    ..interceptors.add(NBCookieManager(CookieJar()))
-    ..options.baseUrl = _maintenanceUrl;
+  final _dio = Dio(BaseOptions(baseUrl: _maintenanceUrl))
+    ..interceptors.add(_CookieManager(CookieJar()));
 
   final String _uid, _password;
 
   /// Future for login procedure.
-  Future<void> loginFuture;
+  Future<void>? _loginFuture;
 
   Maintenance(this._uid, this._password);
 
   /// Ensure login successfully.
   Future<void> ensureSignedIn() async {
-    if (loginFuture == null) loginFuture = login();
-    await loginFuture;
+    _loginFuture ??= login();
+    await _loginFuture;
   }
 
   /// Login with given credential.
   Future<void> login() async {
     try {
-      var loginPage = await _dio.get('/Account/Login');
-      var token = parse(loginPage.data)
+      final loginPage = await _dio.get('/Account/Login');
+      final token = parse(loginPage.data)
           .querySelector('[name="__RequestVerificationToken"]')
-          .attributes['value'];
+          ?.attributes['value'];
 
       await _dio.post(
         '/Account/Login',
         data: {
           '__RequestVerificationToken': token,
-          'CampusID': this._uid,
-          'Password': this._password
+          'CampusID': _uid,
+          'Password': _password
         },
         options: Options(
           contentType: 'application/x-www-form-urlencoded',
@@ -50,27 +51,32 @@ class Maintenance {
         ),
       );
     } on DioError catch (e) {
-      if (e.response == null || e.response.statusCode != 302) rethrow;
-      if (e.response.statusCode == 302) return;
+      final resp = e.response;
+      if (resp == null || resp.statusCode != 302) rethrow;
+      if (resp.statusCode == 302) return;
     }
   }
 
   /// Get FAQs in given page.
   static Future<List<FaqQuestion>> getFaq({int page = 1}) async {
-    var faqPageResp = await Dio().get('$_maintenanceUrl/?p=$page');
+    final faqPageResp = await Dio().get('$_maintenanceUrl/?p=$page');
 
-    var faqPage =
-        parse(faqPageResp.data).querySelector('.table').querySelectorAll('td');
-    List<FaqQuestion> questionList = [];
-    for (var i = 0; i < faqPage.length; i += 2)
+    final faqPage = parse(faqPageResp.data)
+            .querySelector('.table')
+            ?.querySelectorAll('td') ??
+        [];
+
+    final questionList = <FaqQuestion>[];
+    for (var i = 0; i < faqPage.length; i += 2) {
       questionList.add(FaqQuestion(
-        id: int.parse(faqPage[i]
-            .nodes[0]
-            .text
-            .replaceAll(RegExp(r'^\s+|\s+$|\n|\.'), '')),
+        id: int.parse(
+          faqPage[i].nodes[0].text!.replaceAll(RegExp(r'^\s+|\s+$|\n|\.'), ''),
+        ),
         date: DateFormat('yyyy-MM-dd').parse(
-            faqPage[i].nodes[2].text.replaceAll(RegExp(r'^\s+|\s+$|\n'), '')),
-        title: faqPage[i].nodes[1].text.replaceAll(RegExp(r'^\s+|\s+$|\n'), ''),
+          faqPage[i].nodes[2].text!.replaceAll(RegExp(r'^\s+|\s+$|\n'), ''),
+        ),
+        title:
+            faqPage[i].nodes[1].text!.replaceAll(RegExp(r'^\s+|\s+$|\n'), ''),
         answer: faqPage[i + 1]
             .children[0]
             .children
@@ -78,6 +84,7 @@ class Maintenance {
             .join('\n')
             .replaceAll(RegExp(r'^\s+|\s+$'), ''),
       ));
+    }
 
     return questionList;
   }
@@ -85,28 +92,32 @@ class Maintenance {
   /// Get my requests.
   Future<List<MyRequest>> get myRequests async {
     await ensureSignedIn();
-    var myRequestPageResp = await _dio.get('/Reader/Ask');
+    final myRequestPageResp = await _dio.get('/Reader/Ask');
 
-    var myRequestPage = parse(myRequestPageResp.data)
-        .querySelector('.table')
-        .querySelectorAll('td');
-    List<MyRequest> myRequests = [];
+    final myRequestPage = parse(myRequestPageResp.data)
+            .querySelector('.table')
+            ?.querySelectorAll('td') ??
+        [];
 
+    final myRequests = <MyRequest>[];
     for (var i = 0; i < myRequestPage.length; i += 2) {
-      var titles = myRequestPage[i]
+      final titles = myRequestPage[i]
           .nodes[1]
-          .text
+          .text!
           .replaceAll(RegExp(r'^\s+|\s+$|\n'), '')
           .split(' - ');
+
       myRequests.add(MyRequest(
         id: myRequestPage[i]
             .nodes[0]
-            .text
+            .text!
             .replaceAll(RegExp(r'^\s+|\s+$|\n|\.'), ''),
-        date: DateFormat('yyyy/MM/dd HH:mm:ss').parse(myRequestPage[i]
-            .nodes[2]
-            .text
-            .replaceAll(RegExp(r'^\s+|\s+$|\n'), '')),
+        date: DateFormat('yyyy/MM/dd HH:mm:ss').parse(
+          myRequestPage[i]
+              .nodes[2]
+              .text!
+              .replaceAll(RegExp(r'^\s+|\s+$|\n'), ''),
+        ),
         title: titles[2],
         category: titles[1],
         usage: titles[0],
@@ -124,11 +135,11 @@ class Maintenance {
   /// Get my form.
   Future<RequestForm> get form async {
     await ensureSignedIn();
-    var askPageResp = await _dio.get('/Reader/Ask/Create');
-    var askPage = parse(askPageResp.data);
-    var selections = ['#RoomUsage', '#Category', '#Block', '#Wing']
+    final askPageResp = await _dio.get('/Reader/Ask/Create');
+    final askPage = parse(askPageResp.data);
+    final selections = ['#RoomUsage', '#Category', '#Block', '#Wing']
         .map((d) => askPage
-            .querySelector(d)
+            .querySelector(d)!
             .querySelectorAll('option')
             .map((e) => e.text)
             .toList()
@@ -140,20 +151,22 @@ class Maintenance {
       categories: selections[1],
       blocks: selections[2],
       wings: selections[3],
-      gender: askPage.querySelector('#Gender').attributes['value'],
-      name: askPage.querySelector('#Name').attributes['value'],
-      email: askPage.querySelector('#Email').attributes['value'],
+      gender: askPage.querySelector('#Gender')!.attributes['value']!,
+      name: askPage.querySelector('#Name')!.attributes['value']!,
+      email: askPage.querySelector('#Email')!.attributes['value']!,
       token: askPage
-          .querySelector('[name="__RequestVerificationToken"]')
-          .attributes['value'],
-      phoneNumber: askPage.querySelector('#Telephone').attributes['value'],
+          .querySelector('[name="__RequestVerificationToken"]')!
+          .attributes['value']!,
+      phoneNumber: askPage.querySelector('#Telephone')?.attributes['value'],
     );
   }
 
   /// Submit form.
   Future<Null> submitForm(RequestForm form) async {
     await ensureSignedIn();
-    var formData = FormData.fromMap({
+
+    final file = form.file;
+    final formData = FormData.fromMap({
       'agree': 'true',
       '__RequestVerificationToken': form.token,
       'Gender': form.gender,
@@ -168,15 +181,18 @@ class Maintenance {
       'Description': form.description,
       'Telephone': form.phoneNumber,
       'RecurringProblem': form.recurringProblem ? 'yes' : 'no',
-      if (form.file != null)
+      if (file != null)
         'FileName': await MultipartFile.fromFile(
-          form.file.path,
+          file.path,
           filename: 'pic.jpg',
           contentType: MediaType.parse('image/jpeg'),
         )
     });
 
-    await _dio.post('/Reader/Ask/Create',
-        data: formData, options: Options(validateStatus: (s) => s == 302));
+    await _dio.post(
+      '/Reader/Ask/Create',
+      data: formData,
+      options: Options(validateStatus: (s) => s == 302),
+    );
   }
 }

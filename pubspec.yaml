@@ -30,6 +30,8 @@ dependencies:
     path: packages/barracuda_campus
   emgs:
     path: packages/emgs
+  maintenance:
+    path: packages/maintenance
   moodle:
     path: packages/moodle
   xmus_client:
