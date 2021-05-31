@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:barracuda_campus/barracuda_campus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -9,7 +10,6 @@ import 'package:xmux/components/refreshable.dart';
 import 'package:xmux/components/width_limited.dart';
 import 'package:xmux/generated/l10n_keys.dart';
 import 'package:xmux/globals.dart';
-import 'package:xmux/modules/epayment/epayment.dart';
 import 'package:xmux/redux/actions/actions.dart';
 
 enum _EPaymentPageStage {
@@ -25,8 +25,8 @@ class EPaymentPage extends StatefulWidget {
 }
 
 class _EPaymentPageState extends State<EPaymentPage> {
-  final _api = EPaymentApi()
-    ..withCredential(
+  final _api = BCStudent()
+    ..setCredential(
       store.state.user.campusId,
       store.state.user.ePaymentPassword ?? store.state.user.profile?.id ?? '',
     );
@@ -60,7 +60,7 @@ class _EPaymentPageState extends State<EPaymentPage> {
           FlatButton(
             child: Text(MaterialLocalizations.of(context).okButtonLabel),
             onPressed: () async {
-              _api.withCredential(store.state.user.campusId, controller.text);
+              _api.setCredential(store.state.user.campusId, controller.text);
               // Go back to initialization stage.
               _init();
               Navigator.of(context).pop();
@@ -78,7 +78,7 @@ class _EPaymentPageState extends State<EPaymentPage> {
   Future<void> _init() async {
     try {
       await _api.login();
-      _records = await _api.payment;
+      _records = await _api.payments;
       if (mounted) setState(() => _status = _EPaymentPageStage.normal);
     } catch (e) {
       if (mounted) setState(() => _status = _EPaymentPageStage.initialized);
@@ -134,7 +134,7 @@ class _EPaymentPageState extends State<EPaymentPage> {
       case _EPaymentPageStage.normal:
         body = Refreshable<List<PaymentRecord>>(
           data: _records,
-          onRefresh: () => _api.payment,
+          onRefresh: () => _api.payments,
           builder: (context, records) {
             return ListView.separated(
               itemCount: _records.length,
