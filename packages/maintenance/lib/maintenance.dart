@@ -162,7 +162,7 @@ class Maintenance {
   }
 
   /// Submit form.
-  Future<Null> submitForm(RequestForm form) async {
+  Future<void> submitForm(RequestForm form) async {
     await ensureSignedIn();
 
     final file = form.file;
