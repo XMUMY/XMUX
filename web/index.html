@@ -11,110 +11,76 @@
     <meta name="apple-mobile-web-app-title" content="XMUX">
     <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="favicon.png"/>
-
     <title>XMUX</title>
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
-<style>
-    .sk-cube-grid {
-        width: 60px;
-        height: 60px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .sk-cube-grid .sk-cube {
-        width: 33%;
-        height: 33%;
-        background-color: #00ACC1;
-        float: left;
-        -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-                animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-    }
-    .sk-cube-grid .sk-cube1 {
-        -webkit-animation-delay: 0.2s;
-                animation-delay: 0.2s; }
-    .sk-cube-grid .sk-cube2 {
-        -webkit-animation-delay: 0.3s;
-                animation-delay: 0.3s; }
-    .sk-cube-grid .sk-cube3 {
-        -webkit-animation-delay: 0.4s;
-                animation-delay: 0.4s; }
-    .sk-cube-grid .sk-cube4 {
-        -webkit-animation-delay: 0.1s;
-                animation-delay: 0.1s; }
-    .sk-cube-grid .sk-cube5 {
-        -webkit-animation-delay: 0.2s;
-                animation-delay: 0.2s; }
-    .sk-cube-grid .sk-cube6 {
-        -webkit-animation-delay: 0.3s;
-                animation-delay: 0.3s; }
-    .sk-cube-grid .sk-cube7 {
-        -webkit-animation-delay: 0s;
-                animation-delay: 0s; }
-    .sk-cube-grid .sk-cube8 {
-        -webkit-animation-delay: 0.1s;
-                animation-delay: 0.1s; }
-    .sk-cube-grid .sk-cube9 {
-        -webkit-animation-delay: 0.2s;
-                animation-delay: 0.2s; }
-
-    @-webkit-keyframes sk-cubeGridScaleDelay {
-        0%, 70%, 100% {
-        -webkit-transform: scale3D(1, 1, 1);
-                transform: scale3D(1, 1, 1);
-        } 35% {
-        -webkit-transform: scale3D(0, 0, 1);
-                transform: scale3D(0, 0, 1);
-        }
-    }
-
-    @keyframes sk-cubeGridScaleDelay {
-        0%, 70%, 100% {
-        -webkit-transform: scale3D(1, 1, 1);
-                transform: scale3D(1, 1, 1);
-        } 35% {
-        -webkit-transform: scale3D(0, 0, 1);
-                transform: scale3D(0, 0, 1);
-        }
-    }
-    </style>
-    <div class="sk-cube-grid">
-    <div class="sk-cube sk-cube1"></div>
-    <div class="sk-cube sk-cube2"></div>
-    <div class="sk-cube sk-cube3"></div>
-    <div class="sk-cube sk-cube4"></div>
-    <div class="sk-cube sk-cube5"></div>
-    <div class="sk-cube sk-cube6"></div>
-    <div class="sk-cube sk-cube7"></div>
-    <div class="sk-cube sk-cube8"></div>
-    <div class="sk-cube sk-cube9"></div>
-    </div>
-<script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+<!-- This script installs service_worker.js to provide PWA functionality to
+     application. For more information, see:
+     https://developers.google.com/web/fundamentals/primers/service-workers -->
 <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('flutter_service_worker.js');
-      });
+    var serviceWorkerVersion = null;
+    var scriptLoaded = false;
+    function loadMainDartJs() {
+      if (scriptLoaded) {
+        return;
+      }
+      scriptLoaded = true;
+      var scriptTag = document.createElement('script');
+      scriptTag.src = 'main.dart.js';
+      scriptTag.type = 'application/javascript';
+      document.body.append(scriptTag);
     }
-    // Firebase configuration
-    var firebaseConfig = {
-      authDomain: "xmux-app.firebaseapp.com",
-      databaseURL: "https://xmux-app.firebaseio.com",
-      projectId: "xmux-app",
-      storageBucket: "xmux-app.appspot.com",
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+
+    if ('serviceWorker' in navigator) {
+      // Service workers are supported. Use them.
+      window.addEventListener('load', function () {
+        // Wait for registration to finish before dropping the <script> tag.
+        // Otherwise, the browser will load the script multiple times,
+        // potentially different versions.
+        var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
+        navigator.serviceWorker.register(serviceWorkerUrl)
+          .then((reg) => {
+            function waitForActivation(serviceWorker) {
+              serviceWorker.addEventListener('statechange', () => {
+                if (serviceWorker.state == 'activated') {
+                  console.log('Installed new service worker.');
+                  loadMainDartJs();
+                }
+              });
+            }
+            if (!reg.active && (reg.installing || reg.waiting)) {
+              // No active web worker and we have installed or are installing
+              // one for the first time. Simply wait for it to activate.
+              waitForActivation(reg.installing ?? reg.waiting);
+            } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
+              // When the app updates the serviceWorkerVersion changes, so we
+              // need to ask the service worker to update.
+              console.log('New service worker available.');
+              reg.update();
+              waitForActivation(reg.installing);
+            } else {
+              // Existing service worker is still good.
+              console.log('Loading app from service worker.');
+              loadMainDartJs();
+            }
+          });
+
+        // If service worker doesn't succeed in a reasonable amount of time,
+        // fallback to plaint <script> tag.
+        setTimeout(() => {
+          if (!scriptLoaded) {
+            console.warn(
+              'Failed to load app from service worker. Falling back to plain <script> tag.',
+            );
+            loadMainDartJs();
+          }
+        }, 4000);
+      });
+    } else {
+      // Service workers not supported. Just drop the <script> tag.
+      loadMainDartJs();
+    }
 </script>
-<script defer src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
