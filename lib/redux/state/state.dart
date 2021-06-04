@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:xmus_client/generated/aaos.pb.dart';
 
+part 'query.dart';
 part 'state.g.dart';
 part 'user.dart';
 
@@ -12,10 +14,13 @@ class AppState {
 
   final UserState user;
 
-  const AppState({
+  final QueryState queries;
+
+  AppState({
     this.isInitialized = false,
     this.user = const UserState(),
-  });
+    QueryState? queries,
+  }) : queries = queries ?? QueryState();
 
   factory AppState.fromJson(Map<String, dynamic> json) =>
       _$AppStateFromJson(json);
@@ -25,10 +30,12 @@ class AppState {
   AppState copyWith({
     bool? isInitialized,
     UserState? user,
+    QueryState? queries,
   }) =>
       AppState(
         isInitialized: isInitialized ?? this.isInitialized,
         user: user ?? this.user,
+        queries: queries ?? this.queries,
       );
 
   @override
@@ -36,8 +43,9 @@ class AppState {
       identical(this, other) ||
       other is AppState &&
           isInitialized == other.isInitialized &&
-          user == other.user;
+          user == other.user &&
+          queries == other.queries;
 
   @override
-  int get hashCode => isInitialized.hashCode ^ user.hashCode;
+  int get hashCode => isInitialized.hashCode ^ user.hashCode ^ queries.hashCode;
 }

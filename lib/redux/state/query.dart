@@ -1,18 +1,7 @@
-import 'package:emgs/model.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'package:moodle/model/assignment.dart';
-import 'package:xmus_client/generated/aaos.pb.dart';
-
-part 'query.g.dart';
+part of 'state.dart';
 
 @JsonSerializable()
 class QueryState {
-  /// Assignments from moodle.
-  final List<AssignmentCourse> assignments;
-
-  /// Application status for VISA.
-  final EmgsApplicationResult emgsApplicationResult;
-
   /// Timetable for current semester.
   final Timetable timetable;
 
@@ -26,14 +15,11 @@ class QueryState {
   final Transcript transcript;
 
   QueryState({
-    List<AssignmentCourse> assignments,
-    this.emgsApplicationResult,
-    Timetable timetable,
-    Courses courses,
-    Exams exams,
-    Transcript transcript,
-  })  : assignments = assignments ?? List.unmodifiable([]),
-        timetable = timetable ?? Timetable(),
+    Timetable? timetable,
+    Courses? courses,
+    Exams? exams,
+    Transcript? transcript,
+  })  : timetable = timetable ?? Timetable(),
         courses = courses ?? Courses(),
         exams = exams ?? Exams(),
         transcript = transcript ?? Transcript();
@@ -44,20 +30,31 @@ class QueryState {
   Map<String, dynamic> toJson() => _$QueryStateToJson(this);
 
   QueryState copyWith({
-    List<AssignmentCourse> assignments,
-    EmgsApplicationResult emgsApplicationResult,
-    Timetable timetable,
-    Courses courses,
-    Exams exams,
-    Transcript transcript,
+    Timetable? timetable,
+    Courses? courses,
+    Exams? exams,
+    Transcript? transcript,
   }) =>
       QueryState(
-        assignments: assignments ?? this.assignments,
-        emgsApplicationResult:
-            emgsApplicationResult ?? this.emgsApplicationResult,
         timetable: timetable ?? this.timetable,
         courses: courses ?? this.courses,
         exams: exams ?? this.exams,
         transcript: transcript ?? this.transcript,
       );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is QueryState &&
+          timetable == other.timetable &&
+          courses == other.courses &&
+          exams == other.exams &&
+          transcript == other.transcript;
+
+  @override
+  int get hashCode =>
+      timetable.hashCode ^
+      courses.hashCode ^
+      exams.hashCode ^
+      transcript.hashCode;
 }

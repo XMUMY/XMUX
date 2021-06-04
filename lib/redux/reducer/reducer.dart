@@ -11,6 +11,7 @@ final Reducer<AppState> appReducer = combineReducers([
 
 AppState _appReducer(AppState state, dynamic action) => state.copyWith(
       user: userReducer(state.user, action),
+      queries: queriesReducer(state.queries, action),
     );
 
 AppState _initializedReducer(AppState state, InitializedAction action) =>
@@ -26,3 +27,25 @@ UserState _loginReducer(UserState state, LoginAction action) => state.copyWith(
       campusId: action.campusId,
       password: action.password,
     );
+
+final Reducer<QueryState> queriesReducer = combineReducers([
+  TypedReducer(_updateTimetableReducer),
+  TypedReducer(_updateCoursesReducer),
+  TypedReducer(_updateExamsReducer),
+  TypedReducer(_updateTranscriptReducer),
+]);
+
+QueryState _updateTimetableReducer(
+        QueryState state, UpdateTimetableAction action) =>
+    state.copyWith(timetable: action.response);
+
+QueryState _updateCoursesReducer(
+        QueryState state, UpdateCoursesAction action) =>
+    state.copyWith(courses: action.response);
+
+QueryState _updateExamsReducer(QueryState state, UpdateExamsAction action) =>
+    state.copyWith(exams: action.response);
+
+QueryState _updateTranscriptReducer(
+        QueryState state, UpdateTranscriptAction action) =>
+    state.copyWith(transcript: action.response);

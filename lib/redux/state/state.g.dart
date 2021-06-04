@@ -9,11 +9,40 @@ part of 'state.dart';
 AppState _$AppStateFromJson(Map<String, dynamic> json) {
   return AppState(
     user: UserState.fromJson(json['user'] as Map<String, dynamic>),
+    queries: json['queries'] == null
+        ? null
+        : QueryState.fromJson(json['queries'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$AppStateToJson(AppState instance) => <String, dynamic>{
       'user': instance.user,
+      'queries': instance.queries,
+    };
+
+QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
+  return QueryState(
+    timetable: json['timetable'] == null
+        ? null
+        : Timetable.fromJson(json['timetable'] as Map<String, dynamic>),
+    courses: json['courses'] == null
+        ? null
+        : Courses.fromJson(json['courses'] as Map<String, dynamic>),
+    exams: json['exams'] == null
+        ? null
+        : Exams.fromJson(json['exams'] as Map<String, dynamic>),
+    transcript: json['transcript'] == null
+        ? null
+        : Transcript.fromJson(json['transcript'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$QueryStateToJson(QueryState instance) =>
+    <String, dynamic>{
+      'timetable': instance.timetable,
+      'courses': instance.courses,
+      'exams': instance.exams,
+      'transcript': instance.transcript,
     };
 
 UserState _$UserStateFromJson(Map<String, dynamic> json) {
