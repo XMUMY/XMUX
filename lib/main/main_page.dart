@@ -74,27 +74,29 @@ class _MainPageState extends State<MainPage> {
     }
 
     return Scaffold(
-      body: Row(
-        children: [
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: navigationRail,
-          ),
-          const VerticalDivider(thickness: 1, width: 1),
-          Expanded(
-            child: PageTransitionSwitcher(
-              transitionBuilder: (child, animation, secondaryAnimation) {
-                return SharedAxisTransition(
-                  animation: animation,
-                  secondaryAnimation: secondaryAnimation,
-                  transitionType: SharedAxisTransitionType.scaled,
-                  child: child,
-                );
-              },
-              child: pages[_index],
+      body: SafeArea(
+        child: Row(
+          children: [
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: navigationRail,
             ),
-          )
-        ],
+            const VerticalDivider(thickness: 1, width: 1),
+            Expanded(
+              child: PageTransitionSwitcher(
+                transitionBuilder: (child, animation, secondaryAnimation) {
+                  return SharedAxisTransition(
+                    animation: animation,
+                    secondaryAnimation: secondaryAnimation,
+                    transitionType: SharedAxisTransitionType.scaled,
+                    child: child,
+                  );
+                },
+                child: pages[_index],
+              ),
+            )
+          ],
+        ),
       ),
       bottomNavigationBar: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),

@@ -79,6 +79,7 @@ class ListTimetable extends StatelessWidget {
     Widget body;
     if (_classes.isNotEmpty) {
       body = ListView.builder(
+        padding: const EdgeInsets.only(top: 4),
         itemCount: _classes.length + 1,
         itemBuilder: (_, index) => index == _classes.length
             ? lastUpdateText

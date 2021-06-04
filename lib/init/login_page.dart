@@ -12,7 +12,6 @@ import 'package:xmus_client/error.dart';
 import 'package:xmus_client/generated/google/protobuf/empty.pb.dart';
 import 'package:xmus_client/generated/user.pb.dart';
 
-import '../config.sample.dart';
 import '../global.dart';
 import '../redux/action/action.dart';
 import 'background.dart';
@@ -31,6 +30,11 @@ class LoginPage extends StatelessWidget {
           // Background image.
           const BackgroundImage(),
 
+          // Login area.
+          const Center(
+            child: _LoginArea(),
+          ),
+
           // Bottom buttons.
           Material(
             type: MaterialType.transparency,
@@ -40,7 +44,8 @@ class LoginPage extends StatelessWidget {
               children: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.privacy_tip),
-                  onPressed: () => launch('$websiteAddress/app/privacy/'),
+                  onPressed: () =>
+                      launch('https://docs.xmux.xdea.io/app/privacy/'),
                   tooltip: 'Privacy',
                 ),
                 IconButton(
@@ -50,10 +55,6 @@ class LoginPage extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-
-          const Center(
-            child: _LoginArea(),
           ),
         ],
       ),
