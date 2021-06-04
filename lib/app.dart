@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:tuple/tuple.dart';
 
@@ -14,9 +15,12 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'XMUX',
-      theme: ThemeData(),
+      theme: ThemeData(primarySwatch: Colors.cyan),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+      ],
       home: Scaffold(
         body: StoreConnector<AppState, Tuple2<bool, bool>>(
           converter: (s) => Tuple2(

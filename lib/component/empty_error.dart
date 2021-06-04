@@ -5,20 +5,23 @@ import 'package:flutter/material.dart';
 /// Display an empty error at the center of viewport.
 /// Use [EmptyErrorList] if you want to use it with a [RefreshIndicator].
 class EmptyErrorPage extends StatefulWidget {
+  const EmptyErrorPage({Key? key}) : super(key: key);
+
   @override
   _EmptyErrorPageState createState() => _EmptyErrorPageState();
 }
 
 class _EmptyErrorPageState extends State<EmptyErrorPage>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Timer _timer;
+  late final AnimationController _controller;
+  late Timer _timer;
 
   void _resetTimer(bool forward) {
-    if (forward)
+    if (forward) {
       _controller.forward();
-    else
+    } else {
       _controller.reverse();
+    }
     _timer = Timer(const Duration(seconds: 3), () => _resetTimer(!forward));
   }
 
@@ -44,28 +47,31 @@ class _EmptyErrorPageState extends State<EmptyErrorPage>
   Widget build(BuildContext context) {
     return Padding(
       padding: MediaQuery.of(context).padding,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          AnimatedBuilder(
-            animation: _controller,
-            child: Icon(Icons.hourglass_empty, size: 50),
-            builder: (context, child) => RotationTransition(
-              turns: _controller,
-              child: child,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedBuilder(
+              animation: _controller,
+              child: const Icon(Icons.hourglass_empty, size: 50),
+              builder: (context, child) => RotationTransition(
+                turns: _controller,
+                child: child,
+              ),
             ),
-          ),
-          Divider(color: Colors.transparent),
-          Text(
-            'Oh! Nothing is here!\nPlease refresh or come later.',
-            textAlign: TextAlign.center,
-          ),
-          Divider(color: Colors.transparent),
-          Text(
-            '噢！这里什么也没有！\n请刷新或稍后再来。',
-            textAlign: TextAlign.center,
-          )
-        ],
+            const Divider(color: Colors.transparent),
+            const Text(
+              'Oh! Nothing is here!\nPlease refresh or come later.',
+              textAlign: TextAlign.center,
+            ),
+            const Divider(color: Colors.transparent),
+            const Text(
+              '噢！这里什么也没有！\n请刷新或稍后再来。',
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -73,11 +79,13 @@ class _EmptyErrorPageState extends State<EmptyErrorPage>
 
 /// Display an empty error at the center with an empty [ListView].
 class EmptyErrorList extends StatelessWidget {
+  const EmptyErrorList({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        EmptyErrorPage(),
+        const EmptyErrorPage(),
         ListView(),
       ],
     );

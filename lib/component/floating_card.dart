@@ -10,18 +10,19 @@ class FloatingCard extends StatefulWidget {
   final EdgeInsets padding;
 
   /// The shape of the card's [Material].
-  final ShapeBorder shape;
+  final ShapeBorder? shape;
+
+  final VoidCallback? onTap;
 
   final Widget child;
-  final VoidCallback onTap;
 
   const FloatingCard({
-    Key key,
-    @required this.child,
-    this.onTap,
-    this.shape,
+    Key? key,
     this.margin = const EdgeInsets.all(4),
     this.padding = const EdgeInsets.all(0),
+    this.shape,
+    this.onTap,
+    required this.child,
   }) : super(key: key);
 
   @override
@@ -35,9 +36,12 @@ class _FloatingCardState extends State<FloatingCard> {
   Widget build(BuildContext context) {
     Widget child = Padding(padding: widget.padding, child: widget.child);
 
-    if (Theme.of(context).brightness == Brightness.dark)
-      child = InkWell(onTap: widget.onTap, child: child);
-    else
+    if (Theme.of(context).brightness == Brightness.dark) {
+      child = InkWell(
+        onTap: widget.onTap,
+        child: child,
+      );
+    } else {
       child = GestureDetector(
         onTap: widget.onTap,
         onTapDown: (_) => setState(() => _elevation = 4),
@@ -46,6 +50,7 @@ class _FloatingCardState extends State<FloatingCard> {
         child: child,
         behavior: HitTestBehavior.opaque,
       );
+    }
 
     child = Card(
       margin: widget.margin,
@@ -74,16 +79,19 @@ class FloatingOpenContainer extends StatefulWidget {
   /// The shape of the card's [Material].
   final ShapeBorder shape;
 
-  final Widget child;
   final OpenContainerBuilder openBuilder;
 
+  final Widget child;
+
   const FloatingOpenContainer({
-    Key key,
-    @required this.child,
-    @required this.openBuilder,
-    this.shape,
-    this.margin = const EdgeInsets.all(4),
+    Key? key,
     this.padding = const EdgeInsets.all(0),
+    this.margin = const EdgeInsets.all(4),
+    this.shape = const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+    ),
+    required this.child,
+    required this.openBuilder,
   }) : super(key: key);
 
   @override
@@ -95,24 +103,6 @@ class _FloatingOpenContainerState extends State<FloatingOpenContainer> {
 
   @override
   Widget build(BuildContext context) {
-    CloseContainerBuilder childBuilder = (context, open) {
-      Widget child = Padding(padding: widget.padding, child: widget.child);
-
-      if (Theme.of(context).brightness == Brightness.dark)
-        child = InkWell(onTap: open, child: child);
-      else
-        child = GestureDetector(
-          onTap: open,
-          onTapDown: (_) => setState(() => _elevation = 4),
-          onTapUp: (_) => setState(() => _elevation = 1),
-          onTapCancel: () => setState(() => _elevation = 1),
-          child: child,
-          behavior: HitTestBehavior.opaque,
-        );
-
-      return child;
-    };
-
     return MouseRegion(
       onEnter: (_) => setState(() => _elevation = 4),
       onExit: (_) => setState(() => _elevation = 1),
@@ -122,7 +112,25 @@ class _FloatingOpenContainerState extends State<FloatingOpenContainer> {
           tappable: false,
           closedColor: Theme.of(context).cardColor,
           openColor: Theme.of(context).cardColor,
-          closedBuilder: childBuilder,
+          closedBuilder: (context, open) {
+            Widget child =
+                Padding(padding: widget.padding, child: widget.child);
+
+            if (Theme.of(context).brightness == Brightness.dark) {
+              child = InkWell(onTap: open, child: child);
+            } else {
+              child = GestureDetector(
+                onTap: open,
+                onTapDown: (_) => setState(() => _elevation = 4),
+                onTapUp: (_) => setState(() => _elevation = 1),
+                onTapCancel: () => setState(() => _elevation = 1),
+                child: child,
+                behavior: HitTestBehavior.opaque,
+              );
+            }
+
+            return child;
+          },
           openBuilder: widget.openBuilder,
           closedShape: widget.shape,
           closedElevation: _elevation,

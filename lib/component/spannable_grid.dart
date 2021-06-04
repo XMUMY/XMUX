@@ -3,18 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class SpannableGridCell {
-  SpannableGridCell({
-    @required this.id,
-    this.child,
-    @required this.column,
-    @required this.row,
-    this.columnSpan = 1,
-    this.rowSpan = 1,
-    this.columnFlex = 1,
-    this.rowFlex = 1,
-  }) : assert(!(columnFlex?.isNegative ?? false) &&
-            !(rowFlex?.isNegative ?? false));
-
   final Object id;
 
   /// The widget to place in grid.
@@ -28,24 +16,24 @@ class SpannableGridCell {
 
   final int columnSpan;
   final int rowSpan;
-
-  /// Flex factor for column.
   final int columnFlex;
-
-  /// Flex factor for row.
   final int rowFlex;
+
+  SpannableGridCell({
+    required this.id,
+    required this.child,
+    required this.column,
+    required this.row,
+    this.columnSpan = 1,
+    this.rowSpan = 1,
+    this.columnFlex = 1,
+    this.rowFlex = 1,
+  }) : assert(!(columnFlex.isNegative) && !(rowFlex.isNegative));
 }
 
 /// Grid that layout with column spans and row spans.
 class SpannableGrid extends StatelessWidget {
-  const SpannableGrid({
-    Key key,
-    @required this.cells,
-    @required this.columns,
-    @required this.rows,
-    this.spacing = 0.0,
-  }) : super(key: key);
-
+  /// Cell configuration.
   final List<SpannableGridCell> cells;
 
   /// Number of columns.
@@ -56,6 +44,14 @@ class SpannableGrid extends StatelessWidget {
 
   /// Space between cells.
   final double spacing;
+
+  const SpannableGrid({
+    Key? key,
+    required this.cells,
+    required this.columns,
+    required this.rows,
+    this.spacing = 0.0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,27 +73,6 @@ class SpannableGrid extends StatelessWidget {
 }
 
 class _SpannableGridDelegate extends MultiChildLayoutDelegate {
-  _SpannableGridDelegate({
-    @required this.cells,
-    @required this.columns,
-    @required this.rows,
-    @required this.spacing,
-  })  : columnFactors = List.filled(columns, 1),
-        rowFactors = List.filled(rows, 1) {
-    for (var cell in cells) {
-      columnFactors[cell.column - 1] =
-          max(columnFactors[cell.column - 1], cell.columnFlex.toDouble());
-      rowFactors[cell.row - 1] =
-          max(rowFactors[cell.row - 1], cell.rowFlex.toDouble());
-    }
-
-    var sumColumnFlexes = columnFactors.reduce((p, c) => p + c);
-    var sumRowFlexes = rowFactors.reduce((p, r) => p + r);
-
-    for (var i = 0; i < columns; ++i) columnFactors[i] /= sumColumnFlexes;
-    for (var i = 0; i < rows; ++i) rowFactors[i] /= sumRowFlexes;
-  }
-
   final List<SpannableGridCell> cells;
   final int columns;
   final int rows;
@@ -109,16 +84,43 @@ class _SpannableGridDelegate extends MultiChildLayoutDelegate {
   /// The percentage occupied for each row.
   final List<double> rowFactors;
 
+  _SpannableGridDelegate({
+    required this.cells,
+    required this.columns,
+    required this.rows,
+    required this.spacing,
+  })  : columnFactors = List.filled(columns, 1),
+        rowFactors = List.filled(rows, 1) {
+    for (var cell in cells) {
+      columnFactors[cell.column - 1] =
+          max(columnFactors[cell.column - 1], cell.columnFlex.toDouble());
+      rowFactors[cell.row - 1] =
+          max(rowFactors[cell.row - 1], cell.rowFlex.toDouble());
+    }
+
+    final sumColumnFlexes = columnFactors.reduce((p, c) => p + c);
+    final sumRowFlexes = rowFactors.reduce((p, r) => p + r);
+
+    for (var i = 0; i < columns; ++i) {
+      columnFactors[i] /= sumColumnFlexes;
+    }
+    for (var i = 0; i < rows; ++i) {
+      rowFactors[i] /= sumRowFlexes;
+    }
+  }
+
   @override
   void performLayout(Size size) {
     for (var cell in cells) {
       var childWidth = -spacing * 2;
       var childHeight = -spacing * 2;
 
-      for (var i = cell.column; i < cell.column + cell.columnSpan; ++i)
+      for (var i = cell.column; i < cell.column + cell.columnSpan; ++i) {
         childWidth += size.width * columnFactors[i - 1];
-      for (var i = cell.row; i < cell.row + cell.rowSpan; ++i)
+      }
+      for (var i = cell.row; i < cell.row + cell.rowSpan; ++i) {
         childHeight += size.height * rowFactors[i - 1];
+      }
 
       layoutChild(
         cell.id,
@@ -131,10 +133,12 @@ class _SpannableGridDelegate extends MultiChildLayoutDelegate {
       var childOffsetX = spacing;
       var childOffsetY = spacing;
 
-      for (var i = 1; i < cell.column; ++i)
+      for (var i = 1; i < cell.column; ++i) {
         childOffsetX += size.width * columnFactors[i - 1];
-      for (var i = 1; i < cell.row; ++i)
+      }
+      for (var i = 1; i < cell.row; ++i) {
         childOffsetY += size.height * rowFactors[i - 1];
+      }
 
       positionChild(
         cell.id,
