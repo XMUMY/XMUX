@@ -6,7 +6,7 @@ class BackgroundImage extends StatelessWidget {
   final BlendMode colorBlendMode;
 
   const BackgroundImage({
-    Key key,
+    Key? key,
     this.color = Colors.black45,
     this.colorBlendMode = BlendMode.darken,
   }) : super(key: key);
@@ -15,7 +15,7 @@ class BackgroundImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => Image.asset(
-        'res/initpage.jpg',
+        'res/init_background.jpg',
         fit: constraints.maxHeight / constraints.maxWidth > 16 / 9
             ? BoxFit.fitHeight
             : BoxFit.fitWidth,

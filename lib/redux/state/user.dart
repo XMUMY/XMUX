@@ -1,47 +1,41 @@
 part of 'state.dart';
 
 @JsonSerializable()
-class User {
+class UserState {
   static final _studentIdExp = RegExp(r'^[A-Za-z]{3}[0-9]{7}$');
 
   /// User authentication (Campus ID).
   final String campusId, password;
 
-  /// Whether the user is student.
-  final bool isStudent;
-
   /// E-payment password.
   final String ePaymentPassword;
 
-  /// User profile.
-  final Profile profile;
+  const UserState({
+    this.campusId = '',
+    this.password = '',
+    this.ePaymentPassword = '',
+  });
 
-  User(this.campusId, this.password, this.ePaymentPassword, this.profile)
-      : this.isStudent = _studentIdExp.hasMatch(campusId);
+  factory UserState.fromJson(Map<String, dynamic> json) =>
+      _$UserStateFromJson(json);
 
-  User.def()
-      : campusId = null,
-        password = null,
-        isStudent = false,
-        ePaymentPassword = null,
-        profile = null;
+  Map<String, dynamic> toJson() => _$UserStateToJson(this);
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-
-  Map<String, dynamic> toJson() => _$UserToJson(this);
-
-  User copyWith(
-          {String campusID,
-          String campusIDPassword,
-          String ePaymentPassword,
-          String moodleKey,
-          Profile profile}) =>
-      User(
-        campusID ?? this.campusId,
-        campusIDPassword ?? this.password,
-        ePaymentPassword ?? this.ePaymentPassword,
-        profile ?? this.profile,
+  UserState copyWith({
+    String? campusId,
+    String? password,
+    String? ePaymentPassword,
+  }) =>
+      UserState(
+        campusId: campusId ?? this.campusId,
+        password: password ?? this.password,
+        ePaymentPassword: ePaymentPassword ?? this.ePaymentPassword,
       );
+
+  bool get isSignedIn => campusId.isNotEmpty && password.isNotEmpty;
+
+  /// Whether the user is student.
+  bool get isStudent => _studentIdExp.hasMatch(campusId);
 
   /// Whether user is a foundation student.
   bool get isFoundation => isStudent && campusId.startsWith(RegExp(r'fis|fia'));

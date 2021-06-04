@@ -2,7 +2,7 @@
     "name": "XMUX - App for XMUMers",
     "short_name": "XMUX",
     "start_url": ".",
-    "display": "minimal-ui",
+    "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
     "description": "XMUX Client",

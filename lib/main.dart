@@ -1,11 +1,19 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
-import 'init/init_app.dart';
-import 'init/init_handler.dart';
+import 'app.dart';
+import 'global.dart';
+import 'init/init.dart';
 
-void main() async {
-  // Attach init screen.
-  runApp(InitApp());
-  // Initialize app.
+void main() {
+  // Attach Flutter app.
+  runApp(
+    StoreProvider(
+      store: store,
+      child: const App(),
+    ),
+  );
+
+  // Start initialization.
   init();
 }

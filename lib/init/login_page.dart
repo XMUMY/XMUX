@@ -1,226 +1,336 @@
-import 'dart:async';
 import 'dart:math';
 
-import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grpc/grpc.dart';
-import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmus_client/authorization.dart';
 import 'package:xmus_client/error.dart';
 import 'package:xmus_client/generated/google/protobuf/empty.pb.dart';
-import 'package:xmux/components/animated_logo.dart';
-import 'package:xmux/config.dart';
-import 'package:xmux/generated/l10n_keys.dart';
-import 'package:xmux/globals.dart';
-import 'package:xmux/modules/firebase/firebase.dart';
-import 'package:xmux/redux/actions/actions.dart';
+import 'package:xmus_client/generated/user.pb.dart';
 
+import '../config.sample.dart';
+import '../global.dart';
+import '../redux/action/action.dart';
 import 'background.dart';
-import 'init_handler.dart';
-import 'login_app.dart';
 
 class LoginPage extends StatelessWidget {
-  // Form key for id & password.
-  final _usernameFormKey = GlobalKey<FormFieldState<String>>();
-  final _passwordFormKey = GlobalKey<FormFieldState<String>>();
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var msg = context.findAncestorWidgetOfExactType<LoginApp>().message;
-
-    var mainWidgets = Container(
-      width: min(MediaQuery.of(context).size.width, 450.0),
-      margin: EdgeInsets.symmetric(horizontal: 20.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Theme(
+      data: ThemeData.dark(),
+      child: Stack(
+        fit: StackFit.expand,
         children: <Widget>[
-          AnimatedLogo(),
-          TextFormField(
-            key: _usernameFormKey,
-            decoration: InputDecoration(
-              hintText: LocaleKeys.SignIn_CampusID.tr(),
-              hintStyle: TextStyle(color: Colors.white70),
-              icon: Icon(
-                Icons.account_box,
-                color: Colors.white,
-              ),
+          // Background image.
+          const BackgroundImage(),
+
+          // Bottom buttons.
+          Material(
+            type: MaterialType.transparency,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.privacy_tip),
+                  onPressed: () => launch('$websiteAddress/app/privacy/'),
+                  tooltip: 'Privacy',
+                ),
+                IconButton(
+                  icon: const Icon(FontAwesomeIcons.question),
+                  onPressed: () => launch('https://docs.xmux.xdea.io'),
+                  tooltip: 'Help Center',
+                ),
+              ],
             ),
-            validator: (s) =>
-                RegExp(r'^[A-Za-z]{3}[0-9]{7}$|^[0-9]{7}$').hasMatch(s)
-                    ? null
-                    : LocaleKeys.SignIn_ErrorFormat.tr(),
           ),
-          TextFormField(
-            key: _passwordFormKey,
-            obscureText: true,
-            decoration: InputDecoration(
-              hintText: LocaleKeys.SignIn_Password.tr(),
-              hintStyle: TextStyle(color: Colors.white70),
-              icon: Icon(
-                Icons.lock,
-                color: Colors.white,
-              ),
-            ),
-            validator: (s) =>
-                s.length >= 6 ? null : LocaleKeys.SignIn_ErrorFormat.tr(),
+
+          const Center(
+            child: _LoginArea(),
           ),
-          Divider(color: Colors.transparent),
-          _LoginButton(_usernameFormKey, _passwordFormKey),
-          Divider(color: Colors.transparent),
-          Text(
-            LocaleKeys.SignIn_Read.tr() + '\n' + msg.tr(),
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.redAccent),
-          )
         ],
       ),
     );
-
-    return Stack(
-      fit: StackFit.expand,
-      children: <Widget>[
-        // Background image.
-        BackgroundImage(),
-
-        // Bottom buttons.
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            if (P.isAndroid)
-              IconButton(
-                icon: Icon(FontAwesomeIcons.googlePlay),
-                onPressed: () => launch(
-                    '${BackendApiConfig.websiteAddress}/2019/01/01/gms/'),
-                tooltip: LocaleKeys.SignIn_InstallGMS.tr(),
-              ),
-            IconButton(
-              icon: Icon(FontAwesomeIcons.fileAlt),
-              onPressed: () => launch(
-                  '${BackendApiConfig.websiteAddress}/privacy.html',
-                  forceWebView: true),
-              tooltip: LocaleKeys.SignIn_Privacy.tr(),
-            ),
-            IconButton(
-              icon: Icon(FontAwesomeIcons.questionCircle),
-              onPressed: () => launch('https://docs.xmux.xdea.io'),
-              tooltip: LocaleKeys.SignIn_Docs.tr(),
-            ),
-          ],
-        ),
-
-        // Main widgets.
-        Center(child: mainWidgets),
-      ],
-    );
   }
 }
 
-class _LoginButton extends StatefulWidget {
-  final GlobalKey<FormFieldState<String>> _usernameFormKey;
-  final GlobalKey<FormFieldState<String>> _passwordFormKey;
-
-  _LoginButton(this._usernameFormKey, this._passwordFormKey);
+class _LoginArea extends StatefulWidget {
+  const _LoginArea({Key? key}) : super(key: key);
 
   @override
-  _LoginButtonState createState() => _LoginButtonState();
+  _LoginAreaState createState() => _LoginAreaState();
 }
 
-class _LoginButtonState extends State<_LoginButton> {
+class _LoginAreaState extends State<_LoginArea> {
   var _isProcessing = false;
+  var _needRegister = false;
 
-  // Show snack bar after an error occurred.
-  void _showError(BuildContext context, String msg) {
-    Scaffold.of(context).showSnackBar(
-      SnackBar(
-        content: Text(LocaleKeys.General_ErrorTip.tr(args: [msg])),
-      ),
-    );
-  }
+  final _usernameFormKey = GlobalKey<FormFieldState<String>>();
+  final _passwordFormKey = GlobalKey<FormFieldState<String>>();
+  final _displayNameFormKey = GlobalKey<FormFieldState<String>>();
+  final _emailFormKey = GlobalKey<FormFieldState<String>>();
 
-  Future<Null> _handleSignIn() async {
+  late String _username;
+  late String _password;
+  late String _displayName;
+  late String _email;
+  late String _customToken;
+
+  Future<void> handleLogin() async {
     // Validate format.
-    if (!widget._usernameFormKey.currentState.validate() ||
-        !widget._passwordFormKey.currentState.validate()) return;
+    if (!_usernameFormKey.currentState!.validate() ||
+        !_passwordFormKey.currentState!.validate()) return;
 
     // Keep username and password to prevent modifying.
-    final username = widget._usernameFormKey.currentState.value.toLowerCase();
-    final password = widget._passwordFormKey.currentState.value;
+    _username = _usernameFormKey.currentState!.value!.toLowerCase();
+    _password = _passwordFormKey.currentState!.value!;
 
     // Switch to processing state.
     setState(() => _isProcessing = true);
 
     // Login and get custom token.
-    String customToken;
     try {
-      var loginResp = await rpc.userClient
-          .login(Empty(),
-              options: CallOptions(providers: [
-                Authorization.basic(username, password).provider
-              ]))
+      final loginResp = await rpc.userClient
+          .login(
+            Empty(),
+            options: CallOptions(providers: [
+              Authorization.basic(_username, _password).provider,
+            ]),
+          )
           .convertRpcError;
-      customToken = loginResp.customToken;
+      _customToken = loginResp.customToken;
     } on XmuxRpcError catch (e) {
+      if (mounted) setState(() => _isProcessing = false);
+
       if (e.reason == 'NEED_REGISTER') {
-        // Need register.
-        if (mounted) setState(() => _isProcessing = false);
-        Navigator.of(context)
-            .pushNamed('/Register', arguments: Tuple2(username, password));
+        if (mounted) setState(() => _needRegister = true);
         return;
       }
 
-      if (mounted) setState(() => _isProcessing = false);
-      var msg = e.grpcError.code == StatusCode.permissionDenied
-          ? LocaleKeys.SignIn_ErrorInvalidPassword.tr()
-          : e.message;
-      _showError(context, msg);
-      return;
-    } catch (e) {
-      if (mounted) setState(() => _isProcessing = false);
-      _showError(context, e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.message),
+      ));
       return;
     }
-    store.dispatch(LoginAction(username, password));
 
-    // Login firebase.
+    store.dispatch(LoginAction(_username, _password));
+  }
+
+  Future<void> handleRegister() async {
+    // Validate format.
+    if (!_displayNameFormKey.currentState!.validate() ||
+        !_emailFormKey.currentState!.validate()) return;
+
+    _displayName = _displayNameFormKey.currentState!.value!.toLowerCase();
+    _email = _emailFormKey.currentState!.value!;
+
+    // Switch to processing state.
+    setState(() => _isProcessing = true);
+
+    // Login and get custom token.
     try {
-      await Firebase.login(customToken, context: context);
-    } on FirebaseAuthException catch (e) {
-      if (mounted) setState(() => _isProcessing = false);
-      _showError(context, '${LocaleKeys.SignIn_ErrorGMS.tr()} ${e.message}');
-      return;
-    } catch (e) {
-      if (mounted) setState(() => _isProcessing = false);
-      _showError(context, e.toString());
+      final loginResp = await rpc.userClient
+          .register(
+            RegisterReq(displayName: _displayName, email: _email),
+            options: CallOptions(providers: [
+              Authorization.basic(_username, _password).provider,
+            ]),
+          )
+          .convertRpcError;
+      _customToken = loginResp.customToken;
+    } on XmuxRpcError catch (e) {
+      if (mounted) setState(() => _isProcessing = _needRegister = false);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.message),
+      ));
       return;
     }
 
-    postInit();
+    store.dispatch(LoginAction(_username, _password));
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedCrossFade(
-      crossFadeState:
-          _isProcessing ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-      duration: const Duration(milliseconds: 100),
-      firstChild: OutlineButton(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        child: Container(
-          width: 120,
-          height: 40,
-          child: Center(
-            child: Text(LocaleKeys.SignIn_SignIn.tr()),
+    late Widget child;
+    if (_needRegister) {
+      child = Container(
+        key: const ValueKey('Login'),
+        width: min(MediaQuery.of(context).size.width, 500.0),
+        margin: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Welcome to XMUM!',
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            const Divider(color: Colors.transparent),
+            Text(
+              'We still need some information to complete your registration.',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            const Divider(color: Colors.transparent),
+            TextFormField(
+              key: _displayNameFormKey,
+              maxLength: 50,
+              decoration: const InputDecoration(
+                hintText: 'Display Name',
+                hintStyle: TextStyle(color: Colors.white70),
+                icon: Icon(
+                  Icons.perm_identity,
+                  color: Colors.white,
+                ),
+              ),
+              validator: (s) =>
+                  s != null && s.isNotEmpty ? null : 'Invalid display name.',
+            ),
+            TextFormField(
+              key: _emailFormKey,
+              maxLength: 50,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                hintText: 'Email',
+                hintStyle: TextStyle(color: Colors.white70),
+                icon: Icon(
+                  Icons.email,
+                  color: Colors.white,
+                ),
+              ),
+              validator: (s) =>
+                  s != null && s.contains('@') ? null : 'Invalid email.',
+            ),
+            const Divider(color: Colors.transparent),
+            _Button(
+              isProcessing: _isProcessing,
+              label: 'Register',
+              onPressed: handleRegister,
+            ),
+          ],
+        ),
+      );
+    } else {
+      child = Container(
+        key: const ValueKey('Register'),
+        width: min(MediaQuery.of(context).size.width, 500.0),
+        margin: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'res/logo_outlined.png',
+              height: 100,
+              width: 100,
+            ),
+            const Divider(color: Colors.transparent),
+            TextFormField(
+              key: _usernameFormKey,
+              decoration: const InputDecoration(
+                hintText: 'Campus ID',
+                hintStyle: TextStyle(color: Colors.white70),
+                icon: Icon(
+                  Icons.account_box,
+                  color: Colors.white,
+                ),
+              ),
+              validator: (s) => s != null &&
+                      RegExp(r'^[A-Za-z]{3}[0-9]{7}$|^[0-9]{7}$').hasMatch(s)
+                  ? null
+                  : 'Wrong campus ID format.',
+            ),
+            TextFormField(
+              key: _passwordFormKey,
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: 'Password',
+                hintStyle: TextStyle(color: Colors.white70),
+                icon: Icon(
+                  Icons.password,
+                  color: Colors.white,
+                ),
+              ),
+              validator: (s) =>
+                  s != null && s.length >= 6 ? null : 'Wrong password format.',
+            ),
+            const Divider(color: Colors.transparent),
+            _Button(
+              isProcessing: _isProcessing,
+              label: 'Login',
+              onPressed: handleLogin,
+            ),
+            const Divider(color: Colors.transparent),
+            const Text(
+              'By signing in, you agree to our privacy policy & disclaimer.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.redAccent),
+            )
+          ],
+        ),
+      );
+    }
+
+    return PageTransitionSwitcher(
+      transitionBuilder: (
+        Widget child,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+      ) {
+        return SharedAxisTransition(
+          child: child,
+          animation: animation,
+          secondaryAnimation: secondaryAnimation,
+          transitionType: SharedAxisTransitionType.horizontal,
+          fillColor: Colors.transparent,
+        );
+      },
+      child: child,
+    );
+  }
+}
+
+class _Button extends StatelessWidget {
+  final bool isProcessing;
+  final String label;
+  final VoidCallback onPressed;
+
+  const _Button({
+    Key? key,
+    this.isProcessing = false,
+    required this.label,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        width: isProcessing ? 40 : 120,
+        height: 40,
+        child: Center(
+          child: AnimatedCrossFade(
+            crossFadeState: isProcessing
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
+            duration: const Duration(milliseconds: 300),
+            firstChild: Text(
+              isProcessing ? '' : label,
+              style: const TextStyle(color: Colors.white),
+            ),
+            secondChild: const SpinKitDoubleBounce(
+              color: Colors.white,
+              size: 30,
+            ),
           ),
         ),
-        onPressed: _handleSignIn,
       ),
-      secondChild: SpinKitDoubleBounce(color: Colors.white, size: 40),
+      onPressed: isProcessing ? null : onPressed,
     );
   }
 }
