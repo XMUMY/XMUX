@@ -1,6 +1,11 @@
 import 'package:redux/redux.dart';
+import 'package:xmus_client/generated/aaos.pb.dart';
+import 'package:xmus_client/generated/google/protobuf/empty.pb.dart';
 
+import '../../global.dart';
 import '../state/state.dart';
+
+part 'rpc.dart';
 
 abstract class AppAction {
   const AppAction();
@@ -15,7 +20,7 @@ abstract class AppAction {
   bool get syncSave => false;
 
   @override
-  String toString() => "AppAction: $runtimeType";
+  String toString() => 'AppAction: $runtimeType';
 }
 
 abstract class ApiRequestAction extends AppAction {
@@ -30,7 +35,7 @@ abstract class ApiRequestAction extends AppAction {
   final void Function(Exception)? onError;
 
   ApiRequestAction({
-    required this.params,
+    this.params = const {},
     this.onError,
   });
 
@@ -38,6 +43,13 @@ abstract class ApiRequestAction extends AppAction {
 }
 
 class InitializedAction extends AppAction {
+  @override
+  bool get needSave => false;
+}
+
+class RestoreAction extends AppAction {
+  final AppState state;
+  const RestoreAction(this.state);
   @override
   bool get needSave => false;
 }

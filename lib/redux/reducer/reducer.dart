@@ -6,6 +6,7 @@ import '../state/state.dart';
 final Reducer<AppState> appReducer = combineReducers([
   _appReducer,
   TypedReducer(_initializedReducer),
+  TypedReducer(_restoreReducer),
 ]);
 
 AppState _appReducer(AppState state, dynamic action) => state.copyWith(
@@ -14,6 +15,8 @@ AppState _appReducer(AppState state, dynamic action) => state.copyWith(
 
 AppState _initializedReducer(AppState state, InitializedAction action) =>
     state.copyWith(isInitialized: true);
+
+AppState _restoreReducer(AppState state, RestoreAction action) => action.state;
 
 final Reducer<UserState> userReducer = combineReducers([
   TypedReducer(_loginReducer),

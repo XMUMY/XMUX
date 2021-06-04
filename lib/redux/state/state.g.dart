@@ -8,13 +8,11 @@ part of 'state.dart';
 
 AppState _$AppStateFromJson(Map<String, dynamic> json) {
   return AppState(
-    isInitialized: json['isInitialized'] as bool,
     user: UserState.fromJson(json['user'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$AppStateToJson(AppState instance) => <String, dynamic>{
-      'isInitialized': instance.isInitialized,
       'user': instance.user,
     };
 

@@ -7,6 +7,7 @@ part 'user.dart';
 @immutable
 @JsonSerializable()
 class AppState {
+  @JsonKey(ignore: true)
   final bool isInitialized;
 
   final UserState user;
@@ -33,8 +34,10 @@ class AppState {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AppState && isInitialized == other.isInitialized;
+      other is AppState &&
+          isInitialized == other.isInitialized &&
+          user == other.user;
 
   @override
-  int get hashCode => isInitialized.hashCode;
+  int get hashCode => isInitialized.hashCode ^ user.hashCode;
 }

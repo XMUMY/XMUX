@@ -1,6 +1,8 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:xmux/util/screen.dart';
+
+import '../util/screen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -73,9 +75,13 @@ class _MainPageState extends State<MainPage> {
             child: navigationRail,
           ),
           const VerticalDivider(thickness: 1, width: 1),
-          // This is the main content.
           Expanded(
-            child: Container(),
+            child: PageTransitionSwitcher(
+              transitionBuilder: (child, primaryAnimation, secondaryAnimation) {
+                return child;
+              },
+              child: Container(),
+            ),
           )
         ],
       ),
