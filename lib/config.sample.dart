@@ -1,17 +1,17 @@
-class AppConfig {
-  static const fallbackVersion = '2.1.0-SNAPSHOT';
-  static const fallbackBuild = 500;
-}
+// Fallback version.
 
-class ApiKeyConfig {
-  static const dialogflowToken = "XDialogflowTokenX";
-  static const wolframAppID = "XWolframAppIDX";
-  static const sentryDsn = "XSentryDsnX";
-}
+const fallbackVersionName = '3.0.0-SNAPSHOT';
+const fallbackVersionCode = 600;
 
-class BackendApiConfig {
-  static const address = "XBackendAddressX";
-  static const moodleAddress = 'https://l.xmu.edu.my';
-  static const websiteAddress = "https://xmux.xdea.io";
-  static const attendanceAddress = "XAttendanceAddressX";
-}
+// 3rd-party app key.
+
+const dialogflowToken = '#DialogflowToken#';
+const wolframAppId = '#WolframAppId#';
+const sentryDsn = '#SentryDsn#';
+
+// Backend connection.
+
+const apiAddress = '#ApiAddress#';
+const moodleAddress = 'https://l.xmu.edu.my';
+const websiteAddress = 'https://xmux.xdea.io';
+const attendanceAddress = '#AttendanceAddress#';
