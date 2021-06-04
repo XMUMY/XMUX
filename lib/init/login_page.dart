@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grpc/grpc.dart';
+import 'package:taskflow/taskflow.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmus_client/authorization.dart';
 import 'package:xmus_client/error.dart';
@@ -15,6 +16,7 @@ import '../config.sample.dart';
 import '../global.dart';
 import '../redux/action/action.dart';
 import 'background.dart';
+import 'tasks.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -119,6 +121,8 @@ class _LoginAreaState extends State<_LoginArea> {
     }
 
     store.dispatch(LoginAction(_username, _password));
+    // TODO: Firebase
+    postInitTask(TaskFlowContext());
   }
 
   Future<void> handleRegister() async {
@@ -153,6 +157,8 @@ class _LoginAreaState extends State<_LoginArea> {
     }
 
     store.dispatch(LoginAction(_username, _password));
+    // TODO: Firebase
+    postInitTask(TaskFlowContext());
   }
 
   @override
@@ -276,11 +282,7 @@ class _LoginAreaState extends State<_LoginArea> {
     }
 
     return PageTransitionSwitcher(
-      transitionBuilder: (
-        Widget child,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-      ) {
+      transitionBuilder: (child, animation, secondaryAnimation) {
         return SharedAxisTransition(
           child: child,
           animation: animation,
