@@ -2,9 +2,11 @@ import 'package:taskflow/taskflow.dart';
 import 'package:xmus_client/authorization.dart';
 
 import '../global.dart';
+import '../redux/action/action.dart';
 
 final postInitTask = SequentialTask([
   syncCredentialTask,
+  refreshQueriesTask,
 ]);
 
 final syncCredentialTask = ParallelTask.fromFunc([
@@ -22,3 +24,7 @@ final syncCredentialTask = ParallelTask.fromFunc([
       ..login();
   }
 ]);
+
+final refreshQueriesTask = Task((ctx) async {
+  store.dispatch(UpdateTimetableAction());
+});

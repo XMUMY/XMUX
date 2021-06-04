@@ -1,8 +1,15 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../util/screen.dart';
+import 'calendar/calendar_page.dart';
+import 'campus/campus_page.dart';
+
+abstract class TopLevelPage implements Widget {
+  String get label;
+  Widget get icon;
+  Widget get activeIcon;
+}
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -12,6 +19,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  static const pages = <TopLevelPage>[
+    CalendarPage(),
+    CampusPage(),
+  ];
+
   int _index = 0;
 
   void navigateTo(int index) {
@@ -28,16 +40,13 @@ class _MainPageState extends State<MainPage> {
         enableFeedback: true,
         currentIndex: _index,
         onTap: navigateTo,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today_outlined),
-            activeIcon: Icon(Icons.calendar_today),
-            label: 'Calendar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.university),
-            label: 'Campus',
-          ),
+        items: [
+          for (var page in pages)
+            BottomNavigationBarItem(
+              icon: page.icon,
+              activeIcon: page.activeIcon,
+              label: page.label,
+            ),
         ],
       );
     } else {
@@ -53,16 +62,13 @@ class _MainPageState extends State<MainPage> {
         leading: const CircleAvatar(
           child: Icon(Icons.access_alarm),
         ),
-        destinations: const [
-          NavigationRailDestination(
-            icon: Icon(Icons.calendar_today_outlined),
-            selectedIcon: Icon(Icons.calendar_today),
-            label: Text('Calendar'),
-          ),
-          NavigationRailDestination(
-            icon: Icon(FontAwesomeIcons.university),
-            label: Text('Campus'),
-          ),
+        destinations: [
+          for (var page in pages)
+            NavigationRailDestination(
+              icon: page.icon,
+              selectedIcon: page.activeIcon,
+              label: Text(page.label),
+            ),
         ],
       );
     }
@@ -77,10 +83,15 @@ class _MainPageState extends State<MainPage> {
           const VerticalDivider(thickness: 1, width: 1),
           Expanded(
             child: PageTransitionSwitcher(
-              transitionBuilder: (child, primaryAnimation, secondaryAnimation) {
-                return child;
+              transitionBuilder: (child, animation, secondaryAnimation) {
+                return SharedAxisTransition(
+                  animation: animation,
+                  secondaryAnimation: secondaryAnimation,
+                  transitionType: SharedAxisTransitionType.scaled,
+                  child: child,
+                );
               },
-              child: Container(),
+              child: pages[_index],
             ),
           )
         ],

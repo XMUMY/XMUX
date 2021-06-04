@@ -18,7 +18,7 @@ class App extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.cyan),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
       ],
       home: Scaffold(

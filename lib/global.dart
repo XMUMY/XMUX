@@ -11,7 +11,7 @@ import 'redux/state/state.dart';
 /// Redux store.
 final store = Store(
   appReducer,
-  initialState: const AppState(),
+  initialState: AppState(),
   middleware: [
     apiRequestMiddleware,
     saveMiddleware,
