@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 extension BreakpointExtension on BuildContext {
-  bool isLocatedIn(Breakpoint breakpoint) {
+  bool isBetween(Breakpoint breakpoint) {
     final size = MediaQuery.of(this).size;
     return breakpoint.minWidth <= size.width &&
         size.width <= breakpoint.maxWidth;
