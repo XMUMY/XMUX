@@ -29,7 +29,8 @@
     "Assignments": "作业",
     "AssignmentsDoing": "进行中",
     "AssignmentsExpired": "已过期",
-    "AssignmentsDueDate": "截止日期"
+    "AssignmentsDueDate": "截止日期",
+    "UpcomingEvents": "事件"
   },
   "Campus": {
     "Campus": "校园",

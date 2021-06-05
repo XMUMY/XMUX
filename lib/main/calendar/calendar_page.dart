@@ -6,6 +6,7 @@ import '../main_page.dart';
 import 'assignment.dart';
 import 'exam.dart';
 import 'timetable.dart';
+import 'upcoming_event.dart';
 
 class CalendarPage extends StatelessWidget implements TopLevelPage {
   const CalendarPage({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       initialIndex: 0,
       child: Scaffold(
         backgroundColor: Theme.of(context).canvasColor,
@@ -49,6 +50,7 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
                   Tab(text: LocaleKeys.Calendar_Classes.tr()),
                   Tab(text: LocaleKeys.Calendar_Exams.tr()),
                   Tab(text: LocaleKeys.Calendar_Assignments.tr()),
+                  Tab(text: LocaleKeys.Calendar_UpcomingEvents.tr()),
                 ],
               ),
             ),
@@ -60,6 +62,7 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
             TimetablePage(),
             ExamPage(),
             AssignmentPage(),
+            UpcomingEventsPage(),
           ],
         ),
       ),

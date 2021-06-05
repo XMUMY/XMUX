@@ -45,8 +45,8 @@ class AssignmentList extends StatefulWidget {
 class _AssignmentListState extends State<AssignmentList>
     with AutomaticKeepAliveClientMixin {
   Assignment? _selectedAssignment;
-  final List<ExpansionPanelRadio> _doing = [];
-  final List<ExpansionPanelRadio> _expired = [];
+  final _doing = <ExpansionPanelRadio>[];
+  final _expired = <ExpansionPanelRadio>[];
 
   Future<void> _handleUpdate() async {
     var action = UpdateAssignmentsAction();

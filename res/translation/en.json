@@ -29,7 +29,8 @@
     "Assignments": "Assignments",
     "AssignmentsDoing": "Doing",
     "AssignmentsExpired": "Expired",
-    "AssignmentsDueDate": "Due Date"
+    "AssignmentsDueDate": "Due Date",
+    "UpcomingEvents": "Events"
   },
   "Campus": {
     "Campus": "Campus",

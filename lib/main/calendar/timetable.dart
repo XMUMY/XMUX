@@ -106,6 +106,7 @@ class ListTimetable extends StatelessWidget {
 
 class GridTimetable extends StatelessWidget {
   final Timetable timetable;
+
   const GridTimetable({
     Key? key,
     required this.timetable,
