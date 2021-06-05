@@ -46,12 +46,12 @@ class LoginPage extends StatelessWidget {
                   icon: const Icon(Icons.privacy_tip),
                   onPressed: () =>
                       launch('https://docs.xmux.xdea.io/app/privacy/'),
-                  tooltip: 'Privacy',
+                  tooltip: LocaleKeys.SignIn_Privacy.tr(),
                 ),
                 IconButton(
                   icon: const Icon(FontAwesomeIcons.question),
                   onPressed: () => launch('https://docs.xmux.xdea.io'),
-                  tooltip: 'Help Center',
+                  tooltip: LocaleKeys.SignIn_Docs.tr(),
                 ),
               ],
             ),
@@ -167,19 +167,19 @@ class _LoginAreaState extends State<_LoginArea> {
     late Widget child;
     if (_needRegister) {
       child = Container(
-        key: const ValueKey('Login'),
+        key: const ValueKey('Register'),
         width: min(MediaQuery.of(context).size.width, 500.0),
         margin: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Welcome to XMUM!',
+              LocaleKeys.SignIn_RegisterTitle.tr(),
               style: Theme.of(context).textTheme.headline5,
             ),
             const Divider(color: Colors.transparent),
             Text(
-              'We still need some information to complete your registration.',
+              LocaleKeys.SignIn_RegisterCaption.tr(),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline6,
             ),
@@ -187,36 +187,38 @@ class _LoginAreaState extends State<_LoginArea> {
             TextFormField(
               key: _displayNameFormKey,
               maxLength: 50,
-              decoration: const InputDecoration(
-                hintText: 'Display Name',
-                hintStyle: TextStyle(color: Colors.white70),
-                icon: Icon(
+              decoration: InputDecoration(
+                hintText: LocaleKeys.SignIn_RegisterDisplayName.tr(),
+                hintStyle: const TextStyle(color: Colors.white70),
+                icon: const Icon(
                   Icons.perm_identity,
                   color: Colors.white,
                 ),
               ),
-              validator: (s) =>
-                  s != null && s.isNotEmpty ? null : 'Invalid display name.',
+              validator: (s) => s != null && s.isNotEmpty
+                  ? null
+                  : LocaleKeys.SignIn_ErrorFormat.tr(),
             ),
             TextFormField(
               key: _emailFormKey,
               maxLength: 50,
               keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                hintText: 'Email',
-                hintStyle: TextStyle(color: Colors.white70),
-                icon: Icon(
+              decoration: InputDecoration(
+                hintText: LocaleKeys.SignIn_RegisterEmail.tr(),
+                hintStyle: const TextStyle(color: Colors.white70),
+                icon: const Icon(
                   Icons.email,
                   color: Colors.white,
                 ),
               ),
-              validator: (s) =>
-                  s != null && s.contains('@') ? null : 'Invalid email.',
+              validator: (s) => s != null && s.contains('@')
+                  ? null
+                  : LocaleKeys.SignIn_ErrorFormat.tr(),
             ),
             const Divider(color: Colors.transparent),
             _Button(
               isProcessing: _isProcessing,
-              label: 'Register',
+              label: LocaleKeys.SignIn_Register.tr(),
               onPressed: handleRegister,
             ),
           ],
@@ -224,7 +226,7 @@ class _LoginAreaState extends State<_LoginArea> {
       );
     } else {
       child = Container(
-        key: const ValueKey('Register'),
+        key: const ValueKey('Login'),
         width: min(MediaQuery.of(context).size.width, 500.0),
         margin: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -238,10 +240,10 @@ class _LoginAreaState extends State<_LoginArea> {
             const Divider(color: Colors.transparent),
             TextFormField(
               key: _usernameFormKey,
-              decoration: const InputDecoration(
-                hintText: 'Campus ID',
-                hintStyle: TextStyle(color: Colors.white70),
-                icon: Icon(
+              decoration: InputDecoration(
+                hintText: LocaleKeys.SignIn_CampusID.tr(),
+                hintStyle: const TextStyle(color: Colors.white70),
+                icon: const Icon(
                   Icons.account_box,
                   color: Colors.white,
                 ),
@@ -249,33 +251,34 @@ class _LoginAreaState extends State<_LoginArea> {
               validator: (s) => s != null &&
                       RegExp(r'^[A-Za-z]{3}[0-9]{7}$|^[0-9]{7}$').hasMatch(s)
                   ? null
-                  : 'Wrong campus ID format.',
+                  : LocaleKeys.SignIn_ErrorFormat.tr(),
             ),
             TextFormField(
               key: _passwordFormKey,
               obscureText: true,
-              decoration: const InputDecoration(
-                hintText: 'Password',
-                hintStyle: TextStyle(color: Colors.white70),
-                icon: Icon(
+              decoration: InputDecoration(
+                hintText: LocaleKeys.SignIn_Password.tr(),
+                hintStyle: const TextStyle(color: Colors.white70),
+                icon: const Icon(
                   Icons.password,
                   color: Colors.white,
                 ),
               ),
-              validator: (s) =>
-                  s != null && s.length >= 6 ? null : 'Wrong password format.',
+              validator: (s) => s != null && s.length >= 6
+                  ? null
+                  : LocaleKeys.SignIn_ErrorFormat.tr(),
             ),
             const Divider(color: Colors.transparent),
             _Button(
               isProcessing: _isProcessing,
-              label: 'Login',
+              label: LocaleKeys.SignIn_SignIn.tr(),
               onPressed: handleLogin,
             ),
             const Divider(color: Colors.transparent),
-            const Text(
-              'By signing in, you agree to our privacy policy & disclaimer.',
+            Text(
+              LocaleKeys.SignIn_Read.tr(),
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.redAccent),
+              style: const TextStyle(color: Colors.redAccent),
             )
           ],
         ),

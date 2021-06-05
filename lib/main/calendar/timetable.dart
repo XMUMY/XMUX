@@ -214,9 +214,7 @@ class _Card extends StatelessWidget {
           '${TimeOfDay.fromDateTime(lesson.begin.toDateTime().toLocal()).format(context)} - '
           '${TimeOfDay.fromDateTime(lesson.end.toDateTime().toLocal()).format(context)} '
           '${lesson.room}',
-          style: context.isBetween(Breakpoint.small)
-              ? Theme.of(context).textTheme.subtitle1
-              : Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.subtitle1,
           textAlign: TextAlign.center,
         ),
       ),

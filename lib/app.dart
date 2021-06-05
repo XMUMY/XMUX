@@ -1,5 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:tuple/tuple.dart';
 
@@ -18,9 +18,8 @@ class App extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.cyan),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-      ],
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
       home: Scaffold(
         body: StoreConnector<AppState, Tuple2<bool, bool>>(
           converter: (s) => Tuple2(
