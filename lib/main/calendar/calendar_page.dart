@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../global.dart';
+import '../../util/platform.dart';
 import '../main_page.dart';
 import 'exam.dart';
 import 'timetable.dart';
@@ -33,10 +34,12 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
                 color: Theme.of(context).colorScheme.surface,
                 boxShadow: [
                   // Overlap elevation.
-                  BoxShadow(
-                    color: Theme.of(context).colorScheme.surface,
-                    offset: const Offset(-1, 0),
-                  ),
+                  // TODO: Breaks hit test on web.
+                  if (!isWeb)
+                    BoxShadow(
+                      color: Theme.of(context).colorScheme.surface,
+                      offset: const Offset(-1, 0),
+                    ),
                 ],
               ),
               child: TabBar(
@@ -49,7 +52,7 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
               ),
             ),
           ),
-          preferredSize: Size(MediaQuery.of(context).size.width, 100),
+          preferredSize: const Size.fromHeight(kToolbarHeight),
         ),
         body: const TabBarView(
           children: [
