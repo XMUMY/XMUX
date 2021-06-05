@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../global.dart';
 import '../../util/platform.dart';
 import '../main_page.dart';
+import 'assignment.dart';
 import 'exam.dart';
 import 'timetable.dart';
 
@@ -58,9 +59,7 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
           children: [
             TimetablePage(),
             ExamPage(),
-            Center(
-              child: Text('3'),
-            ),
+            AssignmentPage(),
           ],
         ),
       ),

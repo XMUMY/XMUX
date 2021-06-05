@@ -27,4 +27,6 @@ final syncCredentialTask = ParallelTask.fromFunc([
 
 final refreshQueriesTask = Task((ctx) async {
   store.dispatch(UpdateTimetableAction());
+  store.dispatch(UpdateExamsAction());
+  store.dispatch(UpdateAssignmentsAction());
 });

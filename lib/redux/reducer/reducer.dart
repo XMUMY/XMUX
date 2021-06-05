@@ -33,6 +33,7 @@ final Reducer<QueryState> queriesReducer = combineReducers([
   TypedReducer(_updateCoursesReducer),
   TypedReducer(_updateExamsReducer),
   TypedReducer(_updateTranscriptReducer),
+  TypedReducer(_updateAssignmentsReducer),
 ]);
 
 QueryState _updateTimetableReducer(
@@ -49,3 +50,7 @@ QueryState _updateExamsReducer(QueryState state, UpdateExamsAction action) =>
 QueryState _updateTranscriptReducer(
         QueryState state, UpdateTranscriptAction action) =>
     state.copyWith(transcript: action.response);
+
+QueryState _updateAssignmentsReducer(
+        QueryState state, UpdateAssignmentsAction action) =>
+    state.copyWith(assignments: action.response);

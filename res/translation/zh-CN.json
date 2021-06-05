@@ -1,0 +1,43 @@
+{
+  "Weekdays": {
+    "1": "周一",
+    "2": "周二",
+    "3": "周三",
+    "4": "周四",
+    "5": "周五",
+    "6": "周六",
+    "7": "周日"
+  },
+  "SignIn": {
+    "Privacy": "隐私政策",
+    "Docs": "帮助文档",
+    "SignIn": "登录",
+    "CampusID": "校园ID",
+    "Password": "密码",
+    "Read": "登录即代表您同意我们的隐私政策和免责声明。",
+    "Register": "注册",
+    "RegisterTitle": "欢迎来到 XMUM！",
+    "RegisterCaption": "我们仍需要以下信息以完成注册。",
+    "RegisterDisplayName": "昵称",
+    "RegisterEmail": "邮箱",
+    "ErrorFormat": "格式不正确。"
+  },
+  "Calendar": {
+    "Calendar": "日程",
+    "Classes": "课程",
+    "Exams": "考试",
+    "Assignments": "作业",
+    "AssignmentsDoing": "进行中",
+    "AssignmentsExpired": "已过期",
+    "AssignmentsDueDate": "截止日期"
+  },
+  "Campus": {
+    "Campus": "校园",
+    "Geogebra": "Geogebra",
+    "Academic": "学术工具",
+    "AcademicTranscript": "成绩",
+    "AcademicTranscriptCourses": "课程",
+    "AcademicTranscriptCredits": "学分",
+    "Tools": "校园工具"
+  }
+}

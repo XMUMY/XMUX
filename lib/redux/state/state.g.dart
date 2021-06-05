@@ -34,6 +34,9 @@ QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
     transcript: json['transcript'] == null
         ? null
         : Transcript.fromJson(json['transcript'] as Map<String, dynamic>),
+    assignments: (json['assignments'] as List<dynamic>)
+        .map((e) => AssignmentCourse.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -43,6 +46,7 @@ Map<String, dynamic> _$QueryStateToJson(QueryState instance) =>
       'courses': instance.courses,
       'exams': instance.exams,
       'transcript': instance.transcript,
+      'assignments': instance.assignments,
     };
 
 UserState _$UserStateFromJson(Map<String, dynamic> json) {

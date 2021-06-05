@@ -31,3 +31,10 @@ class UpdateTranscriptAction extends XmuxRpcAction<Transcript> {
     response = await rpc.aaosClient.getTranscript(Empty());
   }
 }
+
+class UpdateAssignmentsAction extends XmuxRpcAction<List<AssignmentCourse>> {
+  @override
+  Future<void> call(Store<AppState> store) async {
+    response = await moodle.assignments;
+  }
+}

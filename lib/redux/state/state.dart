@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:moodle/model/assignment.dart';
 import 'package:xmus_client/generated/aaos.pb.dart';
 
 part 'query.dart';

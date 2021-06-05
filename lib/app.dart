@@ -15,8 +15,22 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'XMUX',
-      theme: ThemeData(primarySwatch: Colors.cyan),
-      darkTheme: ThemeData.dark(),
+      theme: ThemeData(
+        primarySwatch: Colors.cyan,
+        pageTransitionsTheme: const PageTransitionsTheme(builders: {
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.android: ZoomPageTransitionsBuilder(),
+        }),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        pageTransitionsTheme: const PageTransitionsTheme(builders: {
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.android: ZoomPageTransitionsBuilder(),
+        }),
+      ),
       themeMode: ThemeMode.system,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

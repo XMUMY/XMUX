@@ -1,0 +1,43 @@
+{
+  "Weekdays": {
+    "1": "Monday",
+    "2": "Tuesday",
+    "3": "Wednesday",
+    "4": "Thursday",
+    "5": "Friday",
+    "6": "Saturday",
+    "7": "Sunday"
+  },
+  "SignIn": {
+    "Privacy": "Privacy Policy",
+    "Docs": "Help Docs",
+    "SignIn": "Sign in",
+    "CampusID": "Campus ID",
+    "Password": "Password",
+    "Read": "By signing in, you agree to our privacy policy & disclaimer.",
+    "Register": "Register",
+    "RegisterTitle": "Welcome to XMUM!",
+    "RegisterCaption": "We still need some information to complete your registration.",
+    "RegisterDisplayName": "Display Name",
+    "RegisterEmail": "Email",
+    "ErrorFormat": "Invalid format."
+  },
+  "Calendar": {
+    "Calendar": "Calendar",
+    "Classes": "Classes",
+    "Exams": "Exams",
+    "Assignments": "Assignments",
+    "AssignmentsDoing": "Doing",
+    "AssignmentsExpired": "Expired",
+    "AssignmentsDueDate": "Due Date"
+  },
+  "Campus": {
+    "Campus": "Campus",
+    "Geogebra": "Geogebra",
+    "Academic": "Academic Utilities",
+    "AcademicTranscript": "Transcript",
+    "AcademicTranscriptCourses": "Courses",
+    "AcademicTranscriptCredits": "Credits",
+    "Tools": "Campus Utilities"
+  }
+}
