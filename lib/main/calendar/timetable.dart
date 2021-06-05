@@ -67,7 +67,7 @@ class ListTimetable extends StatelessWidget {
     final languageCode = Localizations.localeOf(context).languageCode;
     final lastUpdateText = Center(
       child: Padding(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(4),
         child: Text(
           '${DateFormat.yMMMd(languageCode).format(_lastUpdate)} '
           '${DateFormat.Hms(languageCode).format(_lastUpdate)}',
@@ -79,7 +79,7 @@ class ListTimetable extends StatelessWidget {
     Widget body;
     if (_classes.isNotEmpty) {
       body = ListView.builder(
-        padding: const EdgeInsets.only(top: 4),
+        padding: EdgeInsets.symmetric(horizontal: context.padBody, vertical: 4),
         itemCount: _classes.length + 1,
         itemBuilder: (_, index) => index == _classes.length
             ? lastUpdateText
@@ -242,7 +242,7 @@ class _Card extends StatelessWidget {
 
     return FloatingCard(
       onTap: () {},
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+      margin: const EdgeInsets.symmetric(vertical: 4),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
