@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:taskflow/taskflow.dart';
 
 import '../global.dart';
 import '../redux/action/action.dart';
 import '../redux/state/state.dart';
+import 'tasks.dart';
 
 Future<void> init() async {
   try {
@@ -19,4 +21,5 @@ Future<void> init() async {
   }
 
   store.dispatch(InitializedAction());
+  postInitTask(TaskFlowContext());
 }

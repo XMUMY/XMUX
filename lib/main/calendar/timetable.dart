@@ -6,6 +6,8 @@ import 'package:xmus_client/generated/aaos.pb.dart';
 import '../../component/empty_error.dart';
 import '../../component/floating_card.dart';
 import '../../component/spannable_grid.dart';
+import '../../global.dart';
+import '../../redux/action/action.dart';
 import '../../redux/state/state.dart';
 import '../../util/screen.dart';
 
@@ -62,6 +64,12 @@ class ListTimetable extends StatelessWidget {
     return after..addAll(before);
   }
 
+  Future<void> _handleUpdate() async {
+    var action = UpdateTimetableAction();
+    store.dispatch(action);
+    await action.future;
+  }
+
   @override
   Widget build(BuildContext context) {
     final languageCode = Localizations.localeOf(context).languageCode;
@@ -90,8 +98,8 @@ class ListTimetable extends StatelessWidget {
     }
 
     return RefreshIndicator(
-      onRefresh: () async {},
-      child: Scrollbar(child: body),
+      onRefresh: _handleUpdate,
+      child: body,
     );
   }
 }
@@ -139,7 +147,7 @@ class GridTimetable extends StatelessWidget {
                 Expanded(
                   child: Center(
                     child: Text(
-                      'Weekday ${i + 1}',
+                      'Weekdays.${i + 1}'.tr(),
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                   ),
@@ -209,8 +217,7 @@ class _Card extends StatelessWidget {
           : colors[lesson.day - 1],
       child: Center(
         child: Text(
-          // TODO
-          '${!isInGrid ? 'WEEKDAY ${lesson.day}' : ''} '
+          '${!isInGrid ? 'Weekdays.${lesson.day}'.tr() : ''} '
           '${TimeOfDay.fromDateTime(lesson.begin.toDateTime().toLocal()).format(context)} - '
           '${TimeOfDay.fromDateTime(lesson.end.toDateTime().toLocal()).format(context)} '
           '${lesson.room}',

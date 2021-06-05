@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../global.dart';
 import '../main_page.dart';
+import 'exam.dart';
 import 'timetable.dart';
 
 class CalendarPage extends StatelessWidget implements TopLevelPage {
   const CalendarPage({Key? key}) : super(key: key);
 
   @override
-  String get label => 'Calendar';
+  String get label => LocaleKeys.Calendar_Calendar.tr();
 
   @override
   Widget get icon => const Icon(Icons.calendar_today_outlined);
@@ -37,12 +39,12 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
                   ),
                 ],
               ),
-              child: const TabBar(
+              child: TabBar(
                 isScrollable: true,
                 tabs: [
-                  Tab(text: 'Timetable'),
-                  Tab(text: 'Exam'),
-                  Tab(text: 'Assignment'),
+                  Tab(text: LocaleKeys.Calendar_Classes.tr()),
+                  Tab(text: LocaleKeys.Calendar_Exams.tr()),
+                  Tab(text: LocaleKeys.Calendar_Assignments.tr()),
                 ],
               ),
             ),
@@ -52,9 +54,7 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
         body: const TabBarView(
           children: [
             TimetablePage(),
-            Center(
-              child: Text('2'),
-            ),
+            ExamPage(),
             Center(
               child: Text('3'),
             ),
