@@ -5,6 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../global.dart';
 import '../../util/screen.dart';
 import '../main_page.dart';
+import 'geogebra.dart';
+import 'transcript.dart';
 
 class CampusPage extends StatelessWidget implements TopLevelPage {
   const CampusPage({Key? key}) : super(key: key);
@@ -17,6 +19,12 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
 
   @override
   Widget get activeIcon => const Icon(FontAwesomeIcons.university);
+
+  VoidCallback _push(BuildContext context, Widget page) {
+    return () => Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => page),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +43,16 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
           Wrap(
             alignment: WrapAlignment.spaceEvenly,
             children: [
-              // TODO:
-              for (int i = 1; i < 9; i++)
-                _Button(
-                  title: LocaleKeys.Campus_Geogebra.tr(),
-                  routeName: '',
-                  svg: 'res/campus/geogebra.svg',
-                  onPressed: () {},
-                ),
+              _Button(
+                title: 'GeoGebra',
+                svg: 'res/campus/geogebra.svg',
+                onPressed: _push(context, const GeoGebraPage()),
+              ),
+              _Button(
+                title: LocaleKeys.Campus_AcademicTranscript.tr(),
+                svg: 'res/campus/transcript.svg',
+                onPressed: _push(context, const TranscriptPage()),
+              ),
             ],
           ),
           Padding(
@@ -69,9 +79,6 @@ class _Button extends StatelessWidget {
   /// Title for tooltip.
   final String title;
 
-  /// Route name for [Navigator].
-  final String routeName;
-
   final VoidCallback onPressed;
 
   const _Button({
@@ -79,7 +86,6 @@ class _Button extends StatelessWidget {
     this.child,
     this.svg,
     required this.title,
-    required this.routeName,
     required this.onPressed,
   })  : assert(!(child == null && svg == null)),
         super(key: key);
