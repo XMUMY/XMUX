@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:xmux/main/calendar/academic_calendar.dart';
 
 import '../../global.dart';
 import '../../util/platform.dart';
@@ -28,12 +30,11 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
       child: Scaffold(
         backgroundColor: Theme.of(context).canvasColor,
         appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
           child: Material(
             elevation: 1,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
+            child: DecoratedBox(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
                 boxShadow: [
                   // Overlap elevation.
                   // TODO: Breaks hit test on web.
@@ -44,18 +45,35 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
                     ),
                 ],
               ),
-              child: TabBar(
-                isScrollable: true,
-                tabs: [
-                  Tab(text: LocaleKeys.Calendar_Classes.tr()),
-                  Tab(text: LocaleKeys.Calendar_Exams.tr()),
-                  Tab(text: LocaleKeys.Calendar_Assignments.tr()),
-                  Tab(text: LocaleKeys.Calendar_UpcomingEvents.tr()),
-                ],
+              child: Material(
+                color: Theme.of(context).colorScheme.surface,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TabBar(
+                        isScrollable: true,
+                        tabs: [
+                          Tab(text: LocaleKeys.Calendar_Classes.tr()),
+                          Tab(text: LocaleKeys.Calendar_Exams.tr()),
+                          Tab(text: LocaleKeys.Calendar_Assignments.tr()),
+                          Tab(text: LocaleKeys.Calendar_UpcomingEvents.tr()),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(FontAwesomeIcons.calendarAlt),
+                      tooltip: LocaleKeys.Calendar_Academic.tr(),
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AcademicCalendarPage(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          preferredSize: const Size.fromHeight(kToolbarHeight),
         ),
         body: const TabBarView(
           children: [

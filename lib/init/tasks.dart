@@ -1,12 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:taskflow/taskflow.dart';
 import 'package:xmus_client/authorization.dart';
 
 import '../global.dart';
 import '../redux/action/action.dart';
+import '../util/remote_config.dart';
 
-final postInitTask = SequentialTask([
-  syncCredentialTask,
-  refreshQueriesTask,
+final postInitTask = ParallelTask([
+  SequentialTask([
+    syncCredentialTask,
+    refreshQueriesTask,
+  ]),
+  SequentialTask([
+    Task((ctx) async => await Firebase.initializeApp()),
+    initRemoteConfigsTask,
+    fetchRemoteConfigsTask,
+  ])
 ]);
 
 final syncCredentialTask = ParallelTask.fromFunc([

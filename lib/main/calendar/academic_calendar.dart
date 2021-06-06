@@ -1,17 +1,16 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:xmux/generated/l10n_keys.dart';
-import 'package:xmux/globals.dart';
-import 'package:xmux/modules/firebase/firebase.dart';
+
+import '../../global.dart';
 
 class AcademicCalendarPage extends StatelessWidget {
-  final isFoundation = store.state.user.campusId.startsWith(RegExp('fia|fis'));
-
-  final undergraduate = Firebase
-      .remoteConfigs.staticResources.academicCalendarImages.undergraduate;
+  final isFoundation = store.state.user.isFoundation;
+  final undergraduate =
+      remoteConfigs.staticResources.academicCalendarImages.undergraduate;
   final foundation =
-      Firebase.remoteConfigs.staticResources.academicCalendarImages.foundation;
+      remoteConfigs.staticResources.academicCalendarImages.foundation;
+
+  AcademicCalendarPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,26 +25,26 @@ class AcademicCalendarPage extends StatelessWidget {
           ]),
         ),
         body: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
             if (!isFoundation)
-              for (var k in undergraduate.keys)
+              for (var v in undergraduate.values)
                 ExtendedImage.network(
-                  undergraduate[k],
+                  v,
                   mode: ExtendedImageMode.gesture,
                   initGestureConfigHandler: (state) => GestureConfig(
-                    maxScale: 1.5,
-                    minScale: 0.3,
+                    maxScale: 1.8,
+                    minScale: 0.5,
                   ),
                 ),
             if (isFoundation)
-              for (var k in foundation.keys)
+              for (var v in foundation.values)
                 ExtendedImage.network(
-                  foundation[k],
+                  v,
                   mode: ExtendedImageMode.gesture,
                   initGestureConfigHandler: (state) => GestureConfig(
-                    maxScale: 1.5,
-                    minScale: 0.3,
+                    maxScale: 1.8,
+                    minScale: 0.5,
                   ),
                 ),
           ],

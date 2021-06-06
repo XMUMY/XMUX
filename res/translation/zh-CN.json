@@ -30,7 +30,8 @@
     "AssignmentsDoing": "进行中",
     "AssignmentsExpired": "已过期",
     "AssignmentsDueDate": "截止日期",
-    "UpcomingEvents": "事件"
+    "UpcomingEvents": "事件",
+    "Academic": "校历"
   },
   "Campus": {
     "Campus": "校园",

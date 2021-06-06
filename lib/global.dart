@@ -7,6 +7,7 @@ import 'redux/middleware/api_request.dart';
 import 'redux/middleware/save.dart';
 import 'redux/reducer/reducer.dart';
 import 'redux/state/state.dart';
+import 'util/remote_config.dart';
 
 export 'package:easy_localization/easy_localization.dart'
     show StringTranslateExtension;
@@ -29,3 +30,6 @@ final rpc = XmuxRpc(apiAddress);
 
 /// Moodle client.
 final moodle = MoodleApi(moodleAddress);
+
+/// Remote configs.
+final remoteConfigs = RemoteConfigs();
