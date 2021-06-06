@@ -7,6 +7,7 @@ import '../../util/screen.dart';
 import '../main_page.dart';
 import 'geogebra.dart';
 import 'transcript.dart';
+import 'wolfram.dart';
 
 class CampusPage extends StatelessWidget implements TopLevelPage {
   const CampusPage({Key? key}) : super(key: key);
@@ -43,6 +44,11 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
           Wrap(
             alignment: WrapAlignment.spaceEvenly,
             children: [
+              _Button(
+                title: 'Wolfram Engine',
+                svg: 'res/campus/wolfram.svg',
+                onPressed: _push(context, const WolframPage()),
+              ),
               _Button(
                 title: 'GeoGebra',
                 svg: 'res/campus/geogebra.svg',

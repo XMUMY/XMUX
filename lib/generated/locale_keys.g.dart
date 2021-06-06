@@ -32,7 +32,6 @@ abstract class  LocaleKeys {
   static const Calendar_UpcomingEvents = 'Calendar.UpcomingEvents';
   static const Calendar = 'Calendar';
   static const Campus_Campus = 'Campus.Campus';
-  static const Campus_Geogebra = 'Campus.Geogebra';
   static const Campus_Academic = 'Campus.Academic';
   static const Campus_AcademicTranscript = 'Campus.AcademicTranscript';
   static const Campus_AcademicTranscriptCourses = 'Campus.AcademicTranscriptCourses';
