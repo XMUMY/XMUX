@@ -7,7 +7,9 @@ import 'campus/campus_page.dart';
 
 abstract class TopLevelPage implements Widget {
   String get label;
+
   Widget get icon;
+
   Widget get activeIcon;
 }
 

@@ -39,6 +39,8 @@
     "AcademicTranscript": "Transcript",
     "AcademicTranscriptCourses": "Courses",
     "AcademicTranscriptCredits": "Credits",
-    "Tools": "Campus Utilities"
+    "Tools": "Campus Utilities",
+    "BusSchedule": "Bus Schedule",
+    "KliaExpress": "KLIA Express"
   }
 }

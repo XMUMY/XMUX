@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:xmux/main/calendar/academic_calendar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../global.dart';
 import '../../util/platform.dart';
 import '../main_page.dart';
+import 'academic_calendar.dart';
 import 'assignment.dart';
 import 'exam.dart';
 import 'timetable.dart';
@@ -28,11 +29,11 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
       length: 4,
       initialIndex: 0,
       child: Scaffold(
-        backgroundColor: Theme.of(context).canvasColor,
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: Material(
+          child: PhysicalModel(
             elevation: 1,
+            color: Theme.of(context).shadowColor,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 boxShadow: [
@@ -63,11 +64,17 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
                     IconButton(
                       icon: const Icon(FontAwesomeIcons.calendarAlt),
                       tooltip: LocaleKeys.Calendar_Academic.tr(),
-                      onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => AcademicCalendarPage(),
-                        ),
-                      ),
+                      onPressed: () {
+                        if (isWeb) {
+                          launch('http://www.xmu.edu.my/14702/list.htm');
+                        } else {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => AcademicCalendarPage(),
+                            ),
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),

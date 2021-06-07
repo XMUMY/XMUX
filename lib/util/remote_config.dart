@@ -16,7 +16,7 @@ final initRemoteConfigsTask = Task((ctx) async {
 });
 
 final fetchRemoteConfigsTask = Task.when(
-  () async => isAndroid || isIOS || isMacOS,
+  () async => isMobile || isMacOS,
   (ctx) async {
     try {
       if (await RemoteConfig.instance.fetchAndActivate()) {

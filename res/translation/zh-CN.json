@@ -39,6 +39,8 @@
     "AcademicTranscript": "成绩",
     "AcademicTranscriptCourses": "课程",
     "AcademicTranscriptCredits": "学分",
-    "Tools": "校园工具"
+    "Tools": "校园工具",
+    "BusSchedule": "巴士时刻表",
+    "KliaExpress": "机场快线"
   }
 }

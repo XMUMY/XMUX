@@ -4,6 +4,7 @@ import 'package:xmus_client/authorization.dart';
 
 import '../global.dart';
 import '../redux/action/action.dart';
+import '../util/platform.dart';
 import '../util/remote_config.dart';
 
 final postInitTask = ParallelTask([
@@ -12,7 +13,10 @@ final postInitTask = ParallelTask([
     refreshQueriesTask,
   ]),
   SequentialTask([
-    Task((ctx) async => await Firebase.initializeApp()),
+    Task.when(
+      () async => isMobile,
+      (ctx) async => await Firebase.initializeApp(),
+    ),
     initRemoteConfigsTask,
     fetchRemoteConfigsTask,
   ])

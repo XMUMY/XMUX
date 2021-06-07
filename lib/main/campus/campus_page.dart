@@ -3,9 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../global.dart';
+import '../../util/platform.dart';
 import '../../util/screen.dart';
 import '../main_page.dart';
+import 'bus_schedule.dart';
 import 'geogebra.dart';
+import 'klia_express.dart';
 import 'transcript.dart';
 import 'wolfram.dart';
 
@@ -44,16 +47,18 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
           Wrap(
             alignment: WrapAlignment.spaceEvenly,
             children: [
-              _Button(
-                title: 'Wolfram Engine',
-                svg: 'res/campus/wolfram.svg',
-                onPressed: _push(context, const WolframPage()),
-              ),
-              _Button(
-                title: 'GeoGebra',
-                svg: 'res/campus/geogebra.svg',
-                onPressed: _push(context, const GeoGebraPage()),
-              ),
+              if (!isWeb) // CORS
+                _Button(
+                  title: 'Wolfram Engine',
+                  svg: 'res/campus/wolfram.svg',
+                  onPressed: _push(context, const WolframPage()),
+                ),
+              if (isMobile) // WebView limit.
+                _Button(
+                  title: 'GeoGebra',
+                  svg: 'res/campus/geogebra.svg',
+                  onPressed: _push(context, const GeoGebraPage()),
+                ),
               _Button(
                 title: LocaleKeys.Campus_AcademicTranscript.tr(),
                 svg: 'res/campus/transcript.svg',
@@ -69,6 +74,25 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
             ),
           ),
           const Divider(height: 3),
+          Wrap(
+            alignment: WrapAlignment.spaceEvenly,
+            children: [
+              if (!isWeb) // CORS
+                _Button(
+                  title: LocaleKeys.Campus_BusSchedule.tr(),
+                  child: const Icon(
+                    Icons.directions_bus,
+                    color: Color(0xFF5DC3F1),
+                  ),
+                  onPressed: _push(context, const BusSchedulePage()),
+                ),
+              _Button(
+                title: LocaleKeys.Campus_KliaExpress.tr(),
+                svg: 'res/campus/klia_express.svg',
+                onPressed: _push(context, const KliaExpressPage()),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -106,7 +130,7 @@ class _Button extends StatelessWidget {
             icon: child ?? SvgPicture.asset(svg!),
             onPressed: onPressed,
             tooltip: title,
-            iconSize: 70,
+            iconSize: 65,
           ),
           Text(
             title,

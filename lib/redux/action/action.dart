@@ -50,14 +50,18 @@ class InitializedAction extends AppAction {
 
 class RestoreAction extends AppAction {
   final AppState state;
+
   const RestoreAction(this.state);
+
   @override
   bool get needSave => false;
 }
 
 class LoginAction extends AppAction {
   final String campusId, password;
+
   const LoginAction(this.campusId, this.password);
+
   @override
   bool get syncSave => true;
 }
