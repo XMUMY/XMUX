@@ -9,8 +9,6 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="XMUX">
-        android:usesCleartextTraffic="true">
-        <!-- Allow HTTP for rooms -->
 
         <receiver android:name="io.xdea.xmux.CalendarWidget">
             <intent-filter>
