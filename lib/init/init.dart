@@ -9,6 +9,8 @@ import '../redux/state/state.dart';
 import 'tasks.dart';
 
 Future<void> init() async {
+  await preInitTask(TaskFlowContext());
+
   try {
     final prefs = await SharedPreferences.getInstance();
     final stateStr = prefs.getString('app_state');

@@ -86,11 +86,12 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                   ),
                   onPressed: _push(context, const BusSchedulePage()),
                 ),
-              _Button(
-                title: LocaleKeys.Campus_KliaExpress.tr(),
-                svg: 'res/campus/klia_express.svg',
-                onPressed: _push(context, const KliaExpressPage()),
-              ),
+              if (!isWeb) // CORS
+                _Button(
+                  title: LocaleKeys.Campus_KliaExpress.tr(),
+                  svg: 'res/campus/klia_express.svg',
+                  onPressed: _push(context, const KliaExpressPage()),
+                ),
             ],
           ),
         ],

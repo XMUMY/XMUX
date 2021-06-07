@@ -1,7 +1,9 @@
+import 'package:emgs/model.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:moodle/model/assignment.dart';
 import 'package:xmus_client/generated/aaos.pb.dart';
+import 'package:xmus_client/generated/user.pb.dart';
 
 part 'query.dart';
 part 'state.g.dart';
@@ -19,9 +21,10 @@ class AppState {
 
   AppState({
     this.isInitialized = false,
-    this.user = const UserState(),
+    UserState? user,
     QueryState? queries,
-  }) : queries = queries ?? QueryState();
+  })  : user = user ?? UserState(),
+        queries = queries ?? QueryState();
 
   factory AppState.fromJson(Map<String, dynamic> json) =>
       _$AppStateFromJson(json);

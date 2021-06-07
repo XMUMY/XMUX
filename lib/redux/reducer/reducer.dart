@@ -21,12 +21,17 @@ AppState _restoreReducer(AppState state, RestoreAction action) => action.state;
 
 final Reducer<UserState> userReducer = combineReducers([
   TypedReducer(_loginReducer),
+  TypedReducer(_updateUserProfileReducer),
 ]);
 
 UserState _loginReducer(UserState state, LoginAction action) => state.copyWith(
       campusId: action.campusId,
       password: action.password,
     );
+
+UserState _updateUserProfileReducer(
+        UserState state, UpdateUserProfileAction action) =>
+    state.copyWith(profile: action.response);
 
 final Reducer<QueryState> queriesReducer = combineReducers([
   TypedReducer(_updateTimetableReducer),

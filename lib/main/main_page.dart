@@ -1,6 +1,10 @@
 import 'package:animations/animations.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
+import '../global.dart';
+import '../redux/state/state.dart';
 import '../util/screen.dart';
 import 'calendar/calendar_page.dart';
 import 'campus/campus_page.dart';
@@ -60,9 +64,14 @@ class _MainPageState extends State<MainPage> {
         labelType: context.isBetween(Breakpoint.small)
             ? NavigationRailLabelType.selected
             : NavigationRailLabelType.none,
-        // TODO: avatar
-        leading: const CircleAvatar(
-          child: Icon(Icons.access_alarm),
+        leading: StoreConnector<AppState, String>(
+          converter: (s) => store.state.user.profile.avatar.isNotEmpty
+              ? store.state.user.profile.avatar
+              : remoteConfigs.staticResources.defaultAvatar,
+          builder: (context, s) => CircleAvatar(
+            child: ExtendedImage.network(s, shape: BoxShape.circle),
+            radius: 25,
+          ),
         ),
         destinations: [
           for (var page in pages)

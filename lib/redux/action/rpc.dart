@@ -4,6 +4,13 @@ abstract class XmuxRpcAction<T> extends ApiRequestAction {
   late T response;
 }
 
+class UpdateUserProfileAction extends XmuxRpcAction<Profile> {
+  @override
+  Future<void> call(Store<AppState> store) async {
+    response = await rpc.userClient.getProfile(GetProfileReq());
+  }
+}
+
 class UpdateTimetableAction extends XmuxRpcAction<Timetable> {
   @override
   Future<void> call(Store<AppState> store) async {

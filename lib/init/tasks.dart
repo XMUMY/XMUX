@@ -7,6 +7,8 @@ import '../redux/action/action.dart';
 import '../util/platform.dart';
 import '../util/remote_config.dart';
 
+final preInitTask = initRemoteConfigsTask;
+
 final postInitTask = ParallelTask([
   SequentialTask([
     syncCredentialTask,
@@ -17,7 +19,6 @@ final postInitTask = ParallelTask([
       () async => isMobile,
       (ctx) async => await Firebase.initializeApp(),
     ),
-    initRemoteConfigsTask,
     fetchRemoteConfigsTask,
   ])
 ]);
@@ -39,7 +40,9 @@ final syncCredentialTask = ParallelTask.fromFunc([
 ]);
 
 final refreshQueriesTask = Task((ctx) async {
+  store.dispatch(UpdateUserProfileAction());
   store.dispatch(UpdateTimetableAction());
   store.dispatch(UpdateExamsAction());
+  store.dispatch(UpdateTranscriptAction());
   store.dispatch(UpdateAssignmentsAction());
 });
