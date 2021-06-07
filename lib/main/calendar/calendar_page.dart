@@ -8,6 +8,7 @@ import '../main_page.dart';
 import 'academic_calendar.dart';
 import 'assignment.dart';
 import 'exam.dart';
+import 'moodle_notification.dart';
 import 'timetable.dart';
 import 'upcoming_event.dart';
 
@@ -26,7 +27,7 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 5,
       initialIndex: 0,
       child: Scaffold(
         appBar: PreferredSize(
@@ -58,6 +59,7 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
                           Tab(text: LocaleKeys.Calendar_Exams.tr()),
                           Tab(text: LocaleKeys.Calendar_Assignments.tr()),
                           Tab(text: LocaleKeys.Calendar_UpcomingEvents.tr()),
+                          Tab(text: LocaleKeys.Calendar_Notifications.tr()),
                         ],
                       ),
                     ),
@@ -88,6 +90,7 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
             ExamPage(),
             AssignmentPage(),
             UpcomingEventsPage(),
+            MoodleNotificationPage()
           ],
         ),
       ),
