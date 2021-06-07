@@ -39,6 +39,7 @@ final Reducer<QueryState> queriesReducer = combineReducers([
   TypedReducer(_updateExamsReducer),
   TypedReducer(_updateTranscriptReducer),
   TypedReducer(_updateAssignmentsReducer),
+  TypedReducer(_updateEmgsApplicationResultReducer),
 ]);
 
 QueryState _updateTimetableReducer(
@@ -59,3 +60,7 @@ QueryState _updateTranscriptReducer(
 QueryState _updateAssignmentsReducer(
         QueryState state, UpdateAssignmentsAction action) =>
     state.copyWith(assignments: action.response);
+
+QueryState _updateEmgsApplicationResultReducer(
+        QueryState state, UpdateEmgsApplicationResultAction action) =>
+    state.copyWith(emgsApplicationResult: action.result);

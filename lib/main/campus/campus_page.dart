@@ -7,6 +7,7 @@ import '../../util/platform.dart';
 import '../../util/screen.dart';
 import '../main_page.dart';
 import 'bus_schedule.dart';
+import 'emgs.dart';
 import 'geogebra.dart';
 import 'klia_express.dart';
 import 'transcript.dart';
@@ -92,6 +93,15 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                   svg: 'res/campus/klia_express.svg',
                   onPressed: _push(context, const KliaExpressPage()),
                 ),
+              _Button(
+                title: LocaleKeys.Campus_Emgs.tr(),
+                child: const Icon(
+                  FontAwesomeIcons.passport,
+                  color: Color(0xFF5DC3F1),
+                  size: 50,
+                ),
+                onPressed: _push(context, const EmgsPage()),
+              ),
             ],
           ),
         ],

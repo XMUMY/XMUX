@@ -1,3 +1,4 @@
+import 'package:emgs/model.dart';
 import 'package:moodle/model/assignment.dart';
 import 'package:redux/redux.dart';
 import 'package:xmus_client/generated/aaos.pb.dart';
@@ -70,4 +71,10 @@ class LoginAction extends AppAction {
 class SignOutAction extends AppAction {
   @override
   bool get syncSave => true;
+}
+
+class UpdateEmgsApplicationResultAction extends AppAction {
+  final EmgsApplicationResult result;
+
+  UpdateEmgsApplicationResultAction(this.result);
 }

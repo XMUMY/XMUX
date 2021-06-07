@@ -40,6 +40,10 @@ abstract class  LocaleKeys {
   static const Campus_Tools = 'Campus.Tools';
   static const Campus_BusSchedule = 'Campus.BusSchedule';
   static const Campus_KliaExpress = 'Campus.KliaExpress';
+  static const Campus_Emgs = 'Campus.Emgs';
+  static const Campus_EmgsNo = 'Campus.EmgsNo';
+  static const Campus_EmgsType = 'Campus.EmgsType';
+  static const Campus_EmgsHistory = 'Campus.EmgsHistory';
   static const Campus = 'Campus';
 
 }

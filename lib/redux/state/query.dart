@@ -16,12 +16,15 @@ class QueryState {
 
   final List<AssignmentCourse> assignments;
 
+  final EmgsApplicationResult? emgsApplicationResult;
+
   QueryState({
     Timetable? timetable,
     Courses? courses,
     Exams? exams,
     Transcript? transcript,
     this.assignments = const [],
+    this.emgsApplicationResult,
   })  : timetable = timetable ?? Timetable(),
         courses = courses ?? Courses(),
         exams = exams ?? Exams(),
@@ -38,6 +41,7 @@ class QueryState {
     Exams? exams,
     Transcript? transcript,
     List<AssignmentCourse>? assignments,
+    EmgsApplicationResult? emgsApplicationResult,
   }) =>
       QueryState(
         timetable: timetable ?? this.timetable,
@@ -45,6 +49,8 @@ class QueryState {
         exams: exams ?? this.exams,
         transcript: transcript ?? this.transcript,
         assignments: assignments ?? this.assignments,
+        emgsApplicationResult:
+            emgsApplicationResult ?? this.emgsApplicationResult,
       );
 
   @override
@@ -55,7 +61,8 @@ class QueryState {
           courses == other.courses &&
           exams == other.exams &&
           transcript == other.transcript &&
-          assignments == other.assignments;
+          assignments == other.assignments &&
+          emgsApplicationResult == other.emgsApplicationResult;
 
   @override
   int get hashCode =>
@@ -63,5 +70,6 @@ class QueryState {
       courses.hashCode ^
       exams.hashCode ^
       transcript.hashCode ^
-      assignments.hashCode;
+      assignments.hashCode ^
+      emgsApplicationResult.hashCode;
 }

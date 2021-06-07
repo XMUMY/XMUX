@@ -41,6 +41,10 @@
     "AcademicTranscriptCredits": "Credits",
     "Tools": "Campus Utilities",
     "BusSchedule": "Bus Schedule",
-    "KliaExpress": "KLIA Express"
+    "KliaExpress": "KLIA Express",
+    "Emgs": "VISA Status",
+    "EmgsNo": "NO.",
+    "EmgsType": "Type",
+    "EmgsHistory": "Progress History"
   }
 }

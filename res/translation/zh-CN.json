@@ -41,6 +41,10 @@
     "AcademicTranscriptCredits": "学分",
     "Tools": "校园工具",
     "BusSchedule": "巴士时刻表",
-    "KliaExpress": "机场快线"
+    "KliaExpress": "机场快线",
+    "Emgs": "签证状态",
+    "EmgsNo": "编号",
+    "EmgsType": "类型",
+    "EmgsHistory": "申请记录"
   }
 }
