@@ -16,7 +16,6 @@ jobs:
       - name: Build
         run: |
           echo $CONFIG_FILE | base64 -d > lib/config.dart
-          #echo $WEB_INDEX | base64 -d > web/index.html
           flutter config --enable-web && flutter build web --release
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
@@ -26,6 +25,7 @@ jobs:
         with:
           name: XMUX-Web
           path: build/web
+
   DeployGithubStatic:
     runs-on: ubuntu-latest
     needs: Build
@@ -37,13 +37,14 @@ jobs:
           name: XMUX-Web
       - name: Replace main.dart.js to JSDelivr CDN
         run: sed -i "s#main.dart.js#https://cdn.jsdelivr.net/gh/XMUMY/static@app-web/main.dart.js#" XMUX-Web/index.html
-      - name: Deploy
+      - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.DEPLOY_STATIC }}
           external_repository: XMUMY/static
           publish_branch: app-web
           publish_dir: ./XMUX-Web
+
   DeployFirebase:
     runs-on: ubuntu-latest
     needs: Build
@@ -60,5 +61,5 @@ jobs:
         with:
           args: deploy --only hosting:xmux-web
         env:
-          PROJECT_ID: xmux-app
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: xmux-app

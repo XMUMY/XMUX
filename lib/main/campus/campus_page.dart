@@ -6,13 +6,6 @@ import '../../global.dart';
 import '../../util/platform.dart';
 import '../../util/screen.dart';
 import '../main_page.dart';
-import 'bus_schedule.dart';
-import 'emgs.dart';
-import 'geogebra.dart';
-import 'klia_express.dart';
-import 'maintenance/maintenance.dart';
-import 'transcript.dart';
-import 'wolfram.dart';
 
 class CampusPage extends StatelessWidget implements TopLevelPage {
   const CampusPage({Key? key}) : super(key: key);
@@ -26,10 +19,8 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
   @override
   Widget get activeIcon => const Icon(FontAwesomeIcons.university);
 
-  VoidCallback _push(BuildContext context, Widget page) {
-    return () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => page),
-        );
+  VoidCallback _push(BuildContext context, String page) {
+    return () => Navigator.of(context).pushNamed(page);
   }
 
   @override
@@ -49,22 +40,22 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
           Wrap(
             alignment: WrapAlignment.spaceEvenly,
             children: [
-              if (!isWeb) // CORS
+              if (isVM) // CORS
                 _Button(
                   title: 'Wolfram Engine',
                   svg: 'res/campus/wolfram.svg',
-                  onPressed: _push(context, const WolframPage()),
+                  onPressed: _push(context, '/Campus/WolframEngine'),
                 ),
               if (isMobile) // WebView limit.
                 _Button(
                   title: 'GeoGebra',
                   svg: 'res/campus/geogebra.svg',
-                  onPressed: _push(context, const GeoGebraPage()),
+                  onPressed: _push(context, '/Campus/GeoGebra'),
                 ),
               _Button(
                 title: LocaleKeys.Campus_AcademicTranscript.tr(),
                 svg: 'res/campus/transcript.svg',
-                onPressed: _push(context, const TranscriptPage()),
+                onPressed: _push(context, '/Campus/Transcript'),
               ),
             ],
           ),
@@ -79,31 +70,32 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
           Wrap(
             alignment: WrapAlignment.spaceEvenly,
             children: [
-              if (!isWeb) // CORS
+              if (isVM) // CORS
                 _Button(
                   title: LocaleKeys.Campus_BusSchedule.tr(),
                   child: const Icon(
                     Icons.directions_bus,
                     color: Color(0xFF5DC3F1),
                   ),
-                  onPressed: _push(context, const BusSchedulePage()),
+                  onPressed: _push(context, '/Campus/BusSchedule'),
                 ),
-              if (!isWeb) // CORS
+              if (isVM) // CORS
                 _Button(
                   title: LocaleKeys.Campus_KliaExpress.tr(),
                   svg: 'res/campus/klia_express.svg',
-                  onPressed: _push(context, const KliaExpressPage()),
+                  onPressed: _push(context, '/Campus/KliaExpress'),
                 ),
-              _Button(
-                title: LocaleKeys.Campus_Emgs.tr(),
-                child: const Icon(
-                  FontAwesomeIcons.passport,
-                  color: Color(0xFF5DC3F1),
-                  size: 50,
+              if (isVM) // CORS
+                _Button(
+                  title: LocaleKeys.Campus_Emgs.tr(),
+                  child: const Icon(
+                    FontAwesomeIcons.passport,
+                    color: Color(0xFF5DC3F1),
+                    size: 50,
+                  ),
+                  onPressed: _push(context, '/Campus/Emgs'),
                 ),
-                onPressed: _push(context, const EmgsPage()),
-              ),
-              if (!isWeb) // CORS
+              if (isVM) // CORS
                 _Button(
                   title: LocaleKeys.Campus_Maintenance.tr(),
                   child: const Icon(
@@ -111,7 +103,7 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                     color: Color(0xFF5DC3F1),
                     size: 50,
                   ),
-                  onPressed: _push(context, MaintenancePage()),
+                  onPressed: _push(context, '/Campus/Maintenance'),
                 ),
             ],
           ),

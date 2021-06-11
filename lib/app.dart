@@ -7,6 +7,7 @@ import 'init/init_page.dart';
 import 'init/login_page.dart';
 import 'main/main_page.dart';
 import 'redux/state/state.dart';
+import 'route.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -34,6 +35,8 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
+      routes: namedRoutes,
+      navigatorObservers: [],
       home: Scaffold(
         body: StoreConnector<AppState, Tuple2<bool, bool>>(
           converter: (s) => Tuple2(

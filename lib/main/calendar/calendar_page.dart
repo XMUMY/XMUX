@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../global.dart';
 import '../../util/platform.dart';
 import '../main_page.dart';
-import 'academic_calendar.dart';
 import 'assignment.dart';
 import 'exam.dart';
 import 'moodle_notification.dart';
@@ -70,11 +69,8 @@ class CalendarPage extends StatelessWidget implements TopLevelPage {
                         if (isWeb) {
                           launch('http://www.xmu.edu.my/14702/list.htm');
                         } else {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => AcademicCalendarPage(),
-                            ),
-                          );
+                          Navigator.of(context)
+                              .pushNamed('/Calendar/AcademicCalendar');
                         }
                       },
                     ),
