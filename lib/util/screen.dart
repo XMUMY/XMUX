@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
 
 extension BreakpointExtension on BuildContext {
@@ -11,10 +13,10 @@ extension BreakpointExtension on BuildContext {
     if (isBetween(Breakpoint.extraSmall)) return Breakpoint.extraSmall.margin!;
     if (isBetween(Breakpoint.small1)) return Breakpoint.small1.margin!;
     if (isBetween(Breakpoint.small2)) {
-      return (width - Breakpoint.small2.body!) / 2;
+      return max((width - Breakpoint.small2.body!) / 2, 0);
     }
     if (isBetween(Breakpoint.medium)) return Breakpoint.medium.margin!;
-    return (width - Breakpoint.large.body!) / 2;
+    return max((width - Breakpoint.large.body!) / 2, 0);
   }
 }
 
