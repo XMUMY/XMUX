@@ -64,6 +64,19 @@ abstract class  LocaleKeys {
   static const Campus_EPaymentLoginFailedHint = 'Campus.EPaymentLoginFailedHint';
   static const Campus_EPaymentPasswordLabel = 'Campus.EPaymentPasswordLabel';
   static const Campus_EPaymentTOS = 'Campus.EPaymentTOS';
+  static const Campus_LaF = 'Campus.LaF';
+  static const Campus_LaFNew = 'Campus.LaFNew';
+  static const Campus_LaFLOrF = 'Campus.LaFLOrF';
+  static const Campus_LaFLost = 'Campus.LaFLost';
+  static const Campus_LaFFound = 'Campus.LaFFound';
+  static const Campus_LaFNameLost = 'Campus.LaFNameLost';
+  static const Campus_LaFNameFound = 'Campus.LaFNameFound';
+  static const Campus_LaFNameHint = 'Campus.LaFNameHint';
+  static const Campus_LaFTime = 'Campus.LaFTime';
+  static const Campus_LaFLocation = 'Campus.LaFLocation';
+  static const Campus_LaFLocationHint = 'Campus.LaFLocationHint';
+  static const Campus_LaFDescription = 'Campus.LaFDescription';
+  static const Campus_LaFContacts = 'Campus.LaFContacts';
   static const Campus = 'Campus';
 
 }

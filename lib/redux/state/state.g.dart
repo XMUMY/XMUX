@@ -8,7 +8,9 @@ part of 'state.dart';
 
 AppState _$AppStateFromJson(Map<String, dynamic> json) {
   return AppState(
-    user: UserState.fromJson(json['user'] as Map<String, dynamic>),
+    user: json['user'] == null
+        ? null
+        : UserState.fromJson(json['user'] as Map<String, dynamic>),
     queries: json['queries'] == null
         ? null
         : QueryState.fromJson(json['queries'] as Map<String, dynamic>),
@@ -37,6 +39,10 @@ QueryState _$QueryStateFromJson(Map<String, dynamic> json) {
     assignments: (json['assignments'] as List<dynamic>)
         .map((e) => AssignmentCourse.fromJson(e as Map<String, dynamic>))
         .toList(),
+    emgsApplicationResult: json['emgsApplicationResult'] == null
+        ? null
+        : EmgsApplicationResult.fromJson(
+            json['emgsApplicationResult'] as Map<String, dynamic>),
   );
 }
 
@@ -47,6 +53,7 @@ Map<String, dynamic> _$QueryStateToJson(QueryState instance) =>
       'exams': instance.exams,
       'transcript': instance.transcript,
       'assignments': instance.assignments,
+      'emgsApplicationResult': instance.emgsApplicationResult,
     };
 
 UserState _$UserStateFromJson(Map<String, dynamic> json) {
@@ -54,6 +61,9 @@ UserState _$UserStateFromJson(Map<String, dynamic> json) {
     campusId: json['campusId'] as String,
     password: json['password'] as String,
     ePaymentPassword: json['ePaymentPassword'] as String,
+    profile: json['profile'] == null
+        ? null
+        : Profile.fromJson(json['profile'] as Map<String, dynamic>),
   );
 }
 
@@ -61,4 +71,5 @@ Map<String, dynamic> _$UserStateToJson(UserState instance) => <String, dynamic>{
       'campusId': instance.campusId,
       'password': instance.password,
       'ePaymentPassword': instance.ePaymentPassword,
+      'profile': instance.profile,
     };

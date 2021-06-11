@@ -36,7 +36,7 @@ class App extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       routes: namedRoutes,
-      navigatorObservers: [],
+      // navigatorObservers: [],
       home: Scaffold(
         body: StoreConnector<AppState, Tuple2<bool, bool>>(
           converter: (s) => Tuple2(

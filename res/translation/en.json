@@ -65,6 +65,19 @@
     "EPaymentLoginFailed": "Failed to login E-Payment",
     "EPaymentLoginFailedHint": "Please enter E-Payment password and try again.",
     "EPaymentPasswordLabel": "E-Payment Password",
-    "EPaymentTOS": "Term of Services not accepted yet.\nPlease accept it first on website."
+    "EPaymentTOS": "Term of Services not accepted yet.\nPlease accept it first on website.",
+    "LaF": "Lost & Found",
+    "LaFNew": "New Lost & Found",
+    "LaFLOrF": "Lost or Found ?",
+    "LaFLost": "Lost",
+    "LaFFound": "Found",
+    "LaFNameLost": "I lost",
+    "LaFNameFound": "I found",
+    "LaFNameHint": "MacBook Pro",
+    "LaFTime": "At",
+    "LaFLocation": "At",
+    "LaFLocationHint": "A5#G01",
+    "LaFDescription": "Description",
+    "LaFContacts": "Please contact me by"
   }
 }

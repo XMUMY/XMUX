@@ -114,6 +114,14 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                   ),
                   onPressed: _push(context, '/Campus/EPayment'),
                 ),
+              _Button(
+                title: LocaleKeys.Campus_LaF.tr(),
+                child: const Icon(
+                  Icons.find_in_page,
+                  color: Color(0xFF5DC3F1),
+                ),
+                onPressed: _push(context, '/Campus/LostAndFound'),
+              ),
             ],
           ),
         ],

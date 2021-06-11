@@ -1,13 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobx/mobx.dart';
 import 'package:xmus_client/generated/google/protobuf/timestamp.pb.dart';
 import 'package:xmus_client/generated/lost_found.pb.dart';
-import 'package:xmux/components/date_time_picker.dart';
-import 'package:xmux/generated/l10n_keys.dart';
-import 'package:xmux/globals.dart';
+
+import '../../../component/date_time_picker.dart';
+import '../../../global.dart';
+import '../../../util/screen.dart';
 
 part 'create.g.dart';
 
@@ -35,6 +36,8 @@ abstract class _LostAndFoundForm with Store {
 }
 
 class NewLostAndFoundPage extends StatefulWidget {
+  const NewLostAndFoundPage({Key? key}) : super(key: key);
+
   @override
   _NewLostAndFoundPageState createState() => _NewLostAndFoundPageState();
 }
@@ -42,11 +45,10 @@ class NewLostAndFoundPage extends StatefulWidget {
 class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
   var form = LostAndFoundForm();
   var formKey = GlobalKey<FormState>();
-
   var _isSubmitting = false;
 
-  void _handleSubmit() async {
-    if (!formKey.currentState.validate()) return;
+  Future<void> _handleSubmit() async {
+    if (_isSubmitting || !formKey.currentState!.validate()) return;
     setState(() => _isSubmitting = true);
     try {
       await rpc.lostAndFoundClient.addItem(AddItemReq()
@@ -57,7 +59,7 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
         ..description = form.description
         ..contacts.clear()
         ..contacts.addAll(form.contacts));
-      Navigator.of(context).pop(true);
+      Navigator.of(context).maybePop(true);
     } catch (e) {
       // TODO: Show error.
       setState(() => _isSubmitting = false);
@@ -66,23 +68,23 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
 
   @override
   Widget build(BuildContext context) {
-    var formWidgets = <Widget>[
+    final formWidgets = <Widget>[
       ListTile(
-        title: Text(LocaleKeys.Campus_ToolsLFLOrF.tr()),
+        title: Text(LocaleKeys.Campus_LaFLOrF.tr()),
         trailing: Observer(
-          builder: (context) => DropdownButton(
+          builder: (context) => DropdownButton<LostAndFoundType>(
             value: form.type,
             items: [
               DropdownMenuItem(
-                child: Text(LocaleKeys.Campus_ToolsLFLost.tr()),
+                child: Text(LocaleKeys.Campus_LaFLost.tr()),
                 value: LostAndFoundType.Lost,
               ),
               DropdownMenuItem(
-                child: Text(LocaleKeys.Campus_ToolsLFFound.tr()),
+                child: Text(LocaleKeys.Campus_LaFFound.tr()),
                 value: LostAndFoundType.Found,
               ),
             ],
-            onChanged: (v) => form.type = v,
+            onChanged: (v) => form.type = v!,
           ),
         ),
       ),
@@ -90,18 +92,18 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
         builder: (context) => TextFormField(
           decoration: InputDecoration(
             labelText: form.type == LostAndFoundType.Lost
-                ? LocaleKeys.Campus_ToolsLFNameLost.tr()
-                : LocaleKeys.Campus_ToolsLFNameFound.tr(),
-            hintText: LocaleKeys.Campus_ToolsLFNameHint.tr(),
+                ? LocaleKeys.Campus_LaFNameLost.tr()
+                : LocaleKeys.Campus_LaFNameFound.tr(),
+            hintText: LocaleKeys.Campus_LaFNameHint.tr(),
           ),
           maxLength: 25,
           onChanged: (v) => form.name = v,
-          validator: (v) => v.isNotEmpty ? null : '',
+          validator: (v) => v != null && v.isNotEmpty ? null : '',
         ),
       ),
       Observer(
         builder: (context) => DateTimePicker(
-          labelText: LocaleKeys.Campus_ToolsLFTime.tr(),
+          labelText: LocaleKeys.Campus_LaFTime.tr(),
           initialDate: form.time,
           firstDate: DateTime(2017, 12, 22),
           lastDate: DateTime.now(),
@@ -117,33 +119,32 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
       ),
       TextFormField(
         decoration: InputDecoration(
-          labelText: LocaleKeys.Campus_ToolsLFLocation.tr(),
-          hintText: LocaleKeys.Campus_ToolsLFLocationHint.tr(),
+          labelText: LocaleKeys.Campus_LaFLocation.tr(),
+          hintText: LocaleKeys.Campus_LaFLocationHint.tr(),
         ),
         maxLength: 30,
         onChanged: (v) => form.location = v,
-        validator: (v) => v.isNotEmpty ? null : '',
+        validator: (v) => v != null && v.isNotEmpty ? null : '',
       ),
-      Divider(color: Colors.transparent),
+      const Divider(color: Colors.transparent),
       TextFormField(
         maxLines: 4,
         maxLength: 200,
-        maxLengthEnforced: true,
+        maxLengthEnforcement: MaxLengthEnforcement.enforced,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: LocaleKeys.Campus_ToolsLFDescription.tr(),
-          hintText: 'with mouse and power adaptor',
+          border: const OutlineInputBorder(),
+          labelText: LocaleKeys.Campus_LaFDescription.tr(),
         ),
         onChanged: (v) => form.description = v,
-        validator: (v) => v.isNotEmpty ? null : '',
+        validator: (v) => v != null && v.isNotEmpty ? null : '',
       ),
       ListTile(
-        title: Text(LocaleKeys.Campus_ToolsLFContacts.tr()),
-        trailing: DropdownButton(
+        title: Text(LocaleKeys.Campus_LaFContacts.tr()),
+        trailing: DropdownButton<String>(
           items: ['QQ', 'WeChat', 'Facebook', 'WhatsApp', 'Telegram']
               .map((e) => DropdownMenuItem(child: Text(e), value: e))
               .toList(),
-          onChanged: (c) => setState(() => form.contacts[c] = ''),
+          onChanged: (c) => setState(() => form.contacts[c!] = ''),
         ),
       ),
       for (var contact in form.contacts.keys)
@@ -156,31 +157,21 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.Campus_ToolsLFNew.tr()),
-        backgroundColor: Theme.of(context).brightness == Brightness.dark
-            ? Theme.of(context).primaryColor
-            : Colors.lightBlue,
+        title: Text(LocaleKeys.Campus_LaFNew.tr()),
         actions: <Widget>[
-          AnimatedCrossFade(
-            crossFadeState: _isSubmitting
-                ? CrossFadeState.showSecond
-                : CrossFadeState.showFirst,
-            duration: const Duration(milliseconds: 300),
-            firstChild: IconButton(
-              icon: Icon(Icons.done),
-              onPressed: _handleSubmit,
-            ),
-            secondChild: SpinKitDoubleBounce(
-              color: Theme.of(context).accentColor,
-              size: 40,
-            ),
+          IconButton(
+            icon: const Icon(Icons.done),
+            onPressed: _handleSubmit,
           ),
         ],
       ),
       body: Form(
         key: formKey,
         child: ListView(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.symmetric(
+            vertical: 8,
+            horizontal: context.padBody,
+          ),
           children: formWidgets,
         ),
       ),

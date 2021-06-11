@@ -2,19 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateTimePicker extends StatelessWidget {
-  DateTimePicker({
-    Key key,
-    this.labelText,
-    @required this.initialDate,
-    @required this.firstDate,
-    @required this.lastDate,
-    this.onDateChanged,
-    this.onTimeChanged,
-  })  : initialTime = TimeOfDay.fromDateTime(initialDate),
-        super(key: key);
-
   /// Text used for label of picker.
-  final String labelText;
+  final String? labelText;
 
   final DateTime initialDate;
   final TimeOfDay initialTime;
@@ -22,27 +11,38 @@ class DateTimePicker extends StatelessWidget {
   final DateTime lastDate;
 
   /// Callback on date selected.
-  final ValueChanged<DateTime> onDateChanged;
+  final ValueChanged<DateTime>? onDateChanged;
 
   /// Callback on time selected.
-  final ValueChanged<TimeOfDay> onTimeChanged;
+  final ValueChanged<TimeOfDay>? onTimeChanged;
+
+  DateTimePicker({
+    Key? key,
+    this.labelText,
+    required this.initialDate,
+    required this.firstDate,
+    required this.lastDate,
+    this.onDateChanged,
+    this.onTimeChanged,
+  })  : initialTime = TimeOfDay.fromDateTime(initialDate),
+        super(key: key);
 
   Future<void> _pickDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final picked = await showDatePicker(
       context: context,
       initialDate: initialDate,
       firstDate: firstDate,
       lastDate: lastDate,
     );
-    if (picked != null && picked != initialDate) onDateChanged(picked);
+    if (picked != null && picked != initialDate) onDateChanged?.call(picked);
   }
 
   Future<void> _pickTime(BuildContext context) async {
-    final TimeOfDay picked = await showTimePicker(
+    final picked = await showTimePicker(
       context: context,
       initialTime: initialTime,
     );
-    if (picked != null && picked != initialTime) onTimeChanged(picked);
+    if (picked != null && picked != initialTime) onTimeChanged?.call(picked);
   }
 
   @override
@@ -63,9 +63,7 @@ class DateTimePicker extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
-                    DateFormat.yMMMd(
-                            Localizations.localeOf(context).languageCode)
-                        .format(initialDate),
+                    DateFormat.yMMMd().format(initialDate),
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                   Icon(
@@ -85,7 +83,7 @@ class DateTimePicker extends StatelessWidget {
           child: InkWell(
             onTap: () => _pickTime(context),
             child: InputDecorator(
-              decoration: InputDecoration(),
+              decoration: const InputDecoration(),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.min,

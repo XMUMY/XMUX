@@ -65,6 +65,19 @@
     "EPaymentLoginFailed": "登录失败",
     "EPaymentLoginFailedHint": "请输入您的电子账单账户密码并重试。",
     "EPaymentPasswordLabel": "电子账单账户密码",
-    "EPaymentTOS": "Term of Services 尚未签署\n请先在网页接受 TOS。"
+    "EPaymentTOS": "Term of Services 尚未签署\n请先在网页接受 TOS。",
+    "LaF": "失物招领",
+    "LaFNew": "新的失物招领",
+    "LaFLOrF": "遗失/拾到？",
+    "LaFLost": "遗失",
+    "LaFFound": "拾到",
+    "LaFNameLost": "我丢失了",
+    "LaFNameFound": "我拾到了",
+    "LaFNameHint": "笔记本电脑",
+    "LaFTime": "于",
+    "LaFLocation": "在",
+    "LaFLocationHint": "A5#G01 的讲台上",
+    "LaFDescription": "详细信息",
+    "LaFContacts": "请通过以下方式与我联系"
   }
 }
