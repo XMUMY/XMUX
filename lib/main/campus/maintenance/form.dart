@@ -9,6 +9,7 @@ import 'package:maintenance/maintenance.dart';
 import 'package:maintenance/model.dart';
 
 import '../../../global.dart';
+import '../../../util/platform.dart';
 import '../../../util/screen.dart';
 
 class RequestFormPage extends StatefulWidget {
@@ -157,43 +158,33 @@ class _RequestFormPageState extends State<RequestFormPage> {
           ),
         ),
         const Divider(height: 10, color: Colors.transparent),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Observer(
-              builder: (context) => FloatingActionButton(
-                heroTag: 'camera',
-                backgroundColor: Theme.of(context).canvasColor,
-                tooltip:
-                    'Campus.MaintenanceNew${form.file == null ? 'Add' : 'Delete'}Photo'
-                        .tr(),
-                child: Icon(
-                  form.file == null ? Icons.camera : Icons.delete_outline,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                onPressed: () async {
-                  if (form.file != null) {
-                    form.file = null;
-                    return;
-                  }
-                  final imageFile =
-                      await ImagePicker().getImage(source: ImageSource.camera);
-                  if (imageFile != null) form.file = File(imageFile.path);
-                },
+        if (isMobile)
+          Observer(
+            builder: (context) => ListTile(
+              title: Text(
+                'Campus.MaintenanceNew${form.file == null ? 'Add' : 'Delete'}Photo'
+                    .tr(),
               ),
-            ),
-            FloatingActionButton(
-              disabledElevation: 0,
-              child: const Icon(Icons.check),
-              onPressed: () async {
-                if (!formKey.currentState!.validate() || _isSubmitting) return;
-                _isSubmitting = true;
-                await widget.maintenanceApi.submitForm(form);
-                Navigator.of(context).pop();
+              onTap: () async {
+                if (form.file != null) {
+                  form.file = null;
+                  return;
+                }
+                final imageFile =
+                    await ImagePicker().getImage(source: ImageSource.camera);
+                if (imageFile != null) form.file = File(imageFile.path);
               },
-            )
-          ],
-        ),
+              onLongPress: () async {
+                if (form.file != null) {
+                  form.file = null;
+                  return;
+                }
+                final imageFile =
+                    await ImagePicker().getImage(source: ImageSource.gallery);
+                if (imageFile != null) form.file = File(imageFile.path);
+              },
+            ),
+          ),
       ];
 
       child = Form(
@@ -214,13 +205,32 @@ class _RequestFormPageState extends State<RequestFormPage> {
         centerTitle: true,
         backgroundColor: Theme.of(context).canvasColor,
         elevation: 0,
+        actions: [
+          FloatingActionButton(
+            mini: true,
+            child: const Icon(Icons.check),
+            elevation: 0,
+            backgroundColor: Theme.of(context).canvasColor,
+            onPressed: form == null
+                ? null
+                : () async {
+                    if (!formKey.currentState!.validate() || _isSubmitting) {
+                      return;
+                    }
+                    _isSubmitting = true;
+                    await widget.maintenanceApi.submitForm(form);
+                    Navigator.of(context).maybePop();
+                  },
+          )
+        ],
       ),
       body: Stack(
         children: [
           // Hide when keyboard appears.
           // TODO: Platform
           // TODO: Overlap
-          if (MediaQuery.of(context).viewInsets.bottom == 0)
+          if (MediaQuery.of(context).viewInsets.bottom == 0 &&
+              MediaQuery.of(context).size.height > 450)
             Positioned(
               right: 5,
               bottom: 10,
