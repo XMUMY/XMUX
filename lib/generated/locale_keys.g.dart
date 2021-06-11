@@ -45,6 +45,20 @@ abstract class  LocaleKeys {
   static const Campus_EmgsNo = 'Campus.EmgsNo';
   static const Campus_EmgsType = 'Campus.EmgsType';
   static const Campus_EmgsHistory = 'Campus.EmgsHistory';
+  static const Campus_Maintenance = 'Campus.Maintenance';
+  static const Campus_MaintenanceMyRequests = 'Campus.MaintenanceMyRequests';
+  static const Campus_MaintenanceNew = 'Campus.MaintenanceNew';
+  static const Campus_MaintenanceNewDescription = 'Campus.MaintenanceNewDescription';
+  static const Campus_MaintenanceNewBlock = 'Campus.MaintenanceNewBlock';
+  static const Campus_MaintenanceNewWing = 'Campus.MaintenanceNewWing';
+  static const Campus_MaintenanceNewRoom = 'Campus.MaintenanceNewRoom';
+  static const Campus_MaintenanceNewUsage = 'Campus.MaintenanceNewUsage';
+  static const Campus_MaintenanceNewCategory = 'Campus.MaintenanceNewCategory';
+  static const Campus_MaintenanceNewContact = 'Campus.MaintenanceNewContact';
+  static const Campus_MaintenanceNewRecurring = 'Campus.MaintenanceNewRecurring';
+  static const Campus_MaintenanceNewAddPhoto = 'Campus.MaintenanceNewAddPhoto';
+  static const Campus_MaintenanceNewDeletePhoto = 'Campus.MaintenanceNewDeletePhoto';
+  static const Campus_MaintenanceErrorFormat = 'Campus.MaintenanceErrorFormat';
   static const Campus = 'Campus';
 
 }

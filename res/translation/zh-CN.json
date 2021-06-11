@@ -46,6 +46,20 @@
     "Emgs": "签证状态",
     "EmgsNo": "编号",
     "EmgsType": "类型",
-    "EmgsHistory": "申请记录"
+    "EmgsHistory": "申请记录",
+    "Maintenance": "维修服务",
+    "MaintenanceMyRequests": "报修记录",
+    "MaintenanceNew": "报修",
+    "MaintenanceNewDescription": "描述",
+    "MaintenanceNewBlock": "区域",
+    "MaintenanceNewWing": "片区号",
+    "MaintenanceNewRoom": "房间号",
+    "MaintenanceNewUsage": "用途",
+    "MaintenanceNewCategory": "报修类别",
+    "MaintenanceNewContact": "联系电话",
+    "MaintenanceNewRecurring": "重复出现的问题",
+    "MaintenanceNewAddPhoto": "添加照片",
+    "MaintenanceNewDeletePhoto": "删除照片",
+    "MaintenanceErrorFormat": "格式错误，请检查。"
   }
 }

@@ -46,6 +46,20 @@
     "Emgs": "VISA Status",
     "EmgsNo": "NO.",
     "EmgsType": "Type",
-    "EmgsHistory": "Progress History"
+    "EmgsHistory": "Progress History",
+    "Maintenance": "Maintenance",
+    "MaintenanceMyRequests": "My Complaints",
+    "MaintenanceNew": "Request Maintenance",
+    "MaintenanceNewDescription": "Description",
+    "MaintenanceNewBlock": "Block",
+    "MaintenanceNewWing": "Wing",
+    "MaintenanceNewRoom": "Room",
+    "MaintenanceNewUsage": "Usage",
+    "MaintenanceNewCategory": "Category",
+    "MaintenanceNewContact": "Contact Number",
+    "MaintenanceNewRecurring": "Recurring Problem",
+    "MaintenanceNewAddPhoto": "Add Photo",
+    "MaintenanceNewDeletePhoto": "Delete Photo",
+    "MaintenanceErrorFormat": "Invalid input."
   }
 }

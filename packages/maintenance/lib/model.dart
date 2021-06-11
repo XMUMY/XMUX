@@ -4,13 +4,13 @@ import 'package:mobx/mobx.dart';
 
 part 'model.g.dart';
 
-class FaqQuestion {
+class FaqEntry {
   final int id;
   final DateTime date;
   final String title;
   final String answer;
 
-  FaqQuestion({
+  FaqEntry({
     required this.id,
     required this.date,
     required this.title,

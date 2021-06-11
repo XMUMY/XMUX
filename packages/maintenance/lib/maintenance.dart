@@ -58,7 +58,7 @@ class Maintenance {
   }
 
   /// Get FAQs in given page.
-  static Future<List<FaqQuestion>> getFaq({int page = 1}) async {
+  static Future<List<FaqEntry>> getFaq({int page = 1}) async {
     final faqPageResp = await Dio().get('$_maintenanceUrl/?p=$page');
 
     final faqPage = parse(faqPageResp.data)
@@ -66,9 +66,9 @@ class Maintenance {
             ?.querySelectorAll('td') ??
         [];
 
-    final questionList = <FaqQuestion>[];
+    final questionList = <FaqEntry>[];
     for (var i = 0; i < faqPage.length; i += 2) {
-      questionList.add(FaqQuestion(
+      questionList.add(FaqEntry(
         id: int.parse(
           faqPage[i].nodes[0].text!.replaceAll(RegExp(r'^\s+|\s+$|\n|\.'), ''),
         ),

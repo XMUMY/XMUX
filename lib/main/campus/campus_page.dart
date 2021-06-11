@@ -10,6 +10,7 @@ import 'bus_schedule.dart';
 import 'emgs.dart';
 import 'geogebra.dart';
 import 'klia_express.dart';
+import 'maintenance/maintenance.dart';
 import 'transcript.dart';
 import 'wolfram.dart';
 
@@ -102,6 +103,16 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                 ),
                 onPressed: _push(context, const EmgsPage()),
               ),
+              if (!isWeb) // CORS
+                _Button(
+                  title: LocaleKeys.Campus_Maintenance.tr(),
+                  child: const Icon(
+                    FontAwesomeIcons.hammer,
+                    color: Color(0xFF5DC3F1),
+                    size: 50,
+                  ),
+                  onPressed: _push(context, MaintenancePage()),
+                ),
             ],
           ),
         ],
