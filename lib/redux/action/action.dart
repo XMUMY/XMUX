@@ -73,6 +73,12 @@ class SignOutAction extends AppAction {
   bool get syncSave => true;
 }
 
+class UpdateEPaymentPasswordAction extends AppAction {
+  final String ePaymentPassword;
+
+  UpdateEPaymentPasswordAction(this.ePaymentPassword);
+}
+
 class UpdateEmgsApplicationResultAction extends AppAction {
   final EmgsApplicationResult result;
 

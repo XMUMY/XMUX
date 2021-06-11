@@ -60,6 +60,11 @@
     "MaintenanceNewRecurring": "Recurring Problem",
     "MaintenanceNewAddPhoto": "Add Photo",
     "MaintenanceNewDeletePhoto": "Delete Photo",
-    "MaintenanceErrorFormat": "Invalid input."
+    "MaintenanceErrorFormat": "Invalid input.",
+    "EPayment": "E-Payment",
+    "EPaymentLoginFailed": "Failed to login E-Payment",
+    "EPaymentLoginFailedHint": "Please enter E-Payment password and try again.",
+    "EPaymentPasswordLabel": "E-Payment Password",
+    "EPaymentTOS": "Term of Services not accepted yet.\nPlease accept it first on website."
   }
 }

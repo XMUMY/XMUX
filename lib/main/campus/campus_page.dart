@@ -105,6 +105,15 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                   ),
                   onPressed: _push(context, '/Campus/Maintenance'),
                 ),
+              if (isVM) // CORS
+                _Button(
+                  title: LocaleKeys.Campus_EPayment.tr(),
+                  child: const Icon(
+                    Icons.account_balance_wallet_outlined,
+                    color: Color(0xFF5DC3F1),
+                  ),
+                  onPressed: _push(context, '/Campus/EPayment'),
+                ),
             ],
           ),
         ],

@@ -21,6 +21,7 @@ AppState _restoreReducer(AppState state, RestoreAction action) => action.state;
 
 final Reducer<UserState> userReducer = combineReducers([
   TypedReducer(_loginReducer),
+  TypedReducer(_updateEPaymentPasswordReducer),
   TypedReducer(_updateUserProfileReducer),
 ]);
 
@@ -28,6 +29,10 @@ UserState _loginReducer(UserState state, LoginAction action) => state.copyWith(
       campusId: action.campusId,
       password: action.password,
     );
+
+UserState _updateEPaymentPasswordReducer(
+        UserState state, UpdateEPaymentPasswordAction action) =>
+    state.copyWith(ePaymentPassword: action.ePaymentPassword);
 
 UserState _updateUserProfileReducer(
         UserState state, UpdateUserProfileAction action) =>

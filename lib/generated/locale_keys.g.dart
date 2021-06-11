@@ -59,6 +59,11 @@ abstract class  LocaleKeys {
   static const Campus_MaintenanceNewAddPhoto = 'Campus.MaintenanceNewAddPhoto';
   static const Campus_MaintenanceNewDeletePhoto = 'Campus.MaintenanceNewDeletePhoto';
   static const Campus_MaintenanceErrorFormat = 'Campus.MaintenanceErrorFormat';
+  static const Campus_EPayment = 'Campus.EPayment';
+  static const Campus_EPaymentLoginFailed = 'Campus.EPaymentLoginFailed';
+  static const Campus_EPaymentLoginFailedHint = 'Campus.EPaymentLoginFailedHint';
+  static const Campus_EPaymentPasswordLabel = 'Campus.EPaymentPasswordLabel';
+  static const Campus_EPaymentTOS = 'Campus.EPaymentTOS';
   static const Campus = 'Campus';
 
 }
