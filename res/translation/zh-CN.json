@@ -60,7 +60,6 @@
     "MaintenanceNewRecurring": "重复出现的问题",
     "MaintenanceNewAddPhoto": "添加照片",
     "MaintenanceNewDeletePhoto": "删除照片",
-    "MaintenanceErrorFormat": "格式错误，请检查。",
     "EPayment": "电子账单",
     "EPaymentLoginFailed": "登录失败",
     "EPaymentLoginFailedHint": "请输入您的电子账单账户密码并重试。",

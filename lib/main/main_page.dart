@@ -57,6 +57,7 @@ class _MainPageState extends State<MainPage> {
       );
     } else {
       navigationRail = NavigationRail(
+        groupAlignment: -0.95,
         extended: context.isBetween(Breakpoint.medium) ||
             context.isBetween(Breakpoint.large),
         selectedIndex: _index,

@@ -58,9 +58,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
             labelText: LocaleKeys.Campus_MaintenanceNewDescription.tr(),
           ),
           onChanged: (v) => form.description = v,
-          validator: (v) => v!.isNotEmpty
-              ? null
-              : LocaleKeys.Campus_MaintenanceErrorFormat.tr(),
+          validator: (v) => v!.isNotEmpty ? null : '',
         ),
         Row(
           children: <Widget>[
@@ -73,9 +71,8 @@ class _RequestFormPageState extends State<RequestFormPage> {
                       .toList(),
                   value: form.block,
                   onChanged: (v) => form.block = v,
-                  validator: (v) => v != null && form.blocks.contains(v)
-                      ? null
-                      : LocaleKeys.Campus_MaintenanceErrorFormat.tr(),
+                  validator: (v) =>
+                      v != null && form.blocks.contains(v) ? null : '',
                 ),
               ),
             ),
@@ -89,9 +86,8 @@ class _RequestFormPageState extends State<RequestFormPage> {
                       .toList(),
                   value: form.wing,
                   onChanged: (v) => form.wing = v,
-                  validator: (v) => v != null && form.wings.contains(v)
-                      ? null
-                      : LocaleKeys.Campus_MaintenanceErrorFormat.tr(),
+                  validator: (v) =>
+                      v != null && form.wings.contains(v) ? null : '',
                 ),
               ),
             ),
@@ -102,9 +98,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
                   hintText: LocaleKeys.Campus_MaintenanceNewRoom.tr(),
                 ),
                 onChanged: (v) => form.room = v,
-                validator: (v) => v != null && v.isNotEmpty
-                    ? null
-                    : LocaleKeys.Campus_MaintenanceErrorFormat.tr(),
+                validator: (v) => v != null && v.isNotEmpty ? null : '',
               ),
             )
           ],
@@ -119,9 +113,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
                 .toList(),
             value: form.usage,
             onChanged: (v) => form.usage = v,
-            validator: (v) => v != null && form.usages.contains(v)
-                ? null
-                : LocaleKeys.Campus_MaintenanceErrorFormat.tr(),
+            validator: (v) => v != null && form.usages.contains(v) ? null : '',
           ),
         ),
         Observer(
@@ -134,9 +126,8 @@ class _RequestFormPageState extends State<RequestFormPage> {
                 .toList(),
             value: form.category,
             onChanged: (v) => form.category = v,
-            validator: (v) => v != null && form.categories.contains(v)
-                ? null
-                : LocaleKeys.Campus_MaintenanceErrorFormat.tr(),
+            validator: (v) =>
+                v != null && form.categories.contains(v) ? null : '',
           ),
         ),
         TextFormField(
@@ -146,9 +137,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
           ),
           keyboardType: TextInputType.phone,
           onChanged: (v) => form.phoneNumber = v,
-          validator: (v) => v != null && v.isNotEmpty
-              ? null
-              : LocaleKeys.Campus_MaintenanceErrorFormat.tr(),
+          validator: (v) => v != null && v.isNotEmpty ? null : '',
         ),
         Observer(
           builder: (context) => CheckboxListTile(
