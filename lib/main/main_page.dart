@@ -8,6 +8,7 @@ import '../redux/state/state.dart';
 import '../util/screen.dart';
 import 'calendar/calendar_page.dart';
 import 'campus/campus_page.dart';
+import 'drawer.dart';
 
 abstract class TopLevelPage implements Widget {
   String get label;
@@ -66,12 +67,13 @@ class _MainPageState extends State<MainPage> {
             ? NavigationRailLabelType.selected
             : NavigationRailLabelType.none,
         leading: StoreConnector<AppState, String>(
+          distinct: true,
           converter: (s) => store.state.user.profile.avatar.isNotEmpty
               ? store.state.user.profile.avatar
               : remoteConfigs.staticResources.defaultAvatar,
-          builder: (context, s) => CircleAvatar(
-            child: ExtendedImage.network(s, shape: BoxShape.circle),
-            radius: 25,
+          builder: (context, s) => IconButton(
+            onPressed: () => Scaffold.of(context).openDrawer(),
+            icon: ExtendedImage.network(s, shape: BoxShape.circle),
           ),
         ),
         destinations: [
@@ -114,6 +116,7 @@ class _MainPageState extends State<MainPage> {
         duration: const Duration(milliseconds: 300),
         child: bottomNavigationBar,
       ),
+      drawer: const MainDrawer(),
     );
   }
 }

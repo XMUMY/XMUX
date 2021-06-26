@@ -39,6 +39,7 @@ class App extends StatelessWidget {
       // navigatorObservers: [],
       home: Scaffold(
         body: StoreConnector<AppState, Tuple2<bool, bool>>(
+          distinct: true,
           converter: (s) => Tuple2(
             s.state.isInitialized,
             s.state.user.isSignedIn,
