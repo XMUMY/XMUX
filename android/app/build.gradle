@@ -26,9 +26,11 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 // For release signing.
-def keystorePropertiesFile = rootProject.file("key.properties")
 def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+def keystorePropertiesFile = rootProject.file('app/key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 
 android {
     compileSdkVersion 30
@@ -52,41 +54,20 @@ android {
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        multiDexEnabled true
     }
 
     signingConfigs {
         release {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
             storePassword keystoreProperties['storePassword']
         }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources false
             signingConfig signingConfigs.release
-            ndk {
-                if (project.hasProperty('split-per-abi')) {
-                    return
-                } else if (!project.hasProperty('target-platform')) {
-                    abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64'
-                } else {
-                    def platforms = project.property('target-platform').split(',')
-                    def platformMap = [
-                            'android-arm'  : 'armeabi-v7a',
-                            'android-arm64': 'arm64-v8a',
-                            'android-x86'  : 'x86',
-                            'android-x64'  : 'x86_64',
-                    ]
-                    abiFilters = platforms.stream().map({ e ->
-                        platformMap.containsKey(e) ? platformMap[e] : e
-                    }).toArray()
-                }
-            }
         }
     }
 }
@@ -97,7 +78,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.code.gson:gson:2.8.6'
 }
 
 apply plugin: 'com.google.gms.google-services'

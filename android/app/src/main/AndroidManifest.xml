@@ -9,18 +9,6 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="XMUX">
-
-        <receiver android:name="io.xdea.xmux.CalendarWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/calendar_widget_info" />
-        </receiver>
-
-
         <activity
             android:name="io.xdea.xmux.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
