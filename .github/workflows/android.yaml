@@ -21,10 +21,10 @@ jobs:
           channel: dev
       - name: Build
         run: |
-          echo $CONFIG_FILE > ./lib/config.dart
+          echo $CONFIG_FILE | base64 -d > lib/config.dart
           echo "${GOOGLE_SERVICES_ANDROID}" > ./android/app/google-services.json
           echo "${ANDROID_RELEASE_SIGN_KEY}" | base64 -d > ./android/app/x.jks
-          echo "${ANDROID_RELEASE_SIGN_KEY_PROPERTYS}" | base64 -d > ./android/key.properties
+          echo "${ANDROID_RELEASE_SIGN_KEY_PROPERTYS}" | base64 -d > ./android/app/key.properties
           flutter build apk --release --target-platform=android-arm64
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
