@@ -74,6 +74,7 @@ class _MainPageState extends State<MainPage> {
           builder: (context, s) => IconButton(
             onPressed: () => Scaffold.of(context).openDrawer(),
             icon: ExtendedImage.network(s, shape: BoxShape.circle),
+            iconSize: 40,
           ),
         ),
         destinations: [
