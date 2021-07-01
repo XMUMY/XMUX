@@ -3,6 +3,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../config.dart';
+import '../global.dart';
+import '../redux/action/action.dart';
 import '../redux/state/state.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -25,17 +27,22 @@ class MainDrawer extends StatelessWidget {
               children: [
                 ListTile(
                   title: const Text('Sign Out'),
-                  onTap: () {},
+                  onTap: () => store.dispatch(
+                    RestoreAction(AppState(isInitialized: true)),
+                  ),
                 ),
               ],
             ),
           ),
-          FutureBuilder<PackageInfo>(
-            future: PackageInfo.fromPlatform(),
-            builder: (context, snapshot) =>
-                snapshot.connectionState == ConnectionState.done
-                    ? Text(snapshot.data!.version)
-                    : const Text(fallbackVersionName),
+          Padding(
+            padding: const EdgeInsets.all(3),
+            child: FutureBuilder<PackageInfo>(
+              future: PackageInfo.fromPlatform(),
+              builder: (context, snapshot) =>
+                  snapshot.connectionState == ConnectionState.done
+                      ? Text(snapshot.data!.version)
+                      : const Text(fallbackVersionName),
+            ),
           ),
         ],
       ),

@@ -68,11 +68,6 @@ class LoginAction extends AppAction {
   bool get syncSave => true;
 }
 
-class SignOutAction extends AppAction {
-  @override
-  bool get syncSave => true;
-}
-
 class UpdateEPaymentPasswordAction extends AppAction {
   final String ePaymentPassword;
 

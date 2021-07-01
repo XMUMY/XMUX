@@ -22,6 +22,7 @@ class App extends StatelessWidget {
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
           TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
           TargetPlatform.android: ZoomPageTransitionsBuilder(),
+          TargetPlatform.windows: ZoomPageTransitionsBuilder(),
         }),
       ),
       darkTheme: ThemeData(
@@ -30,6 +31,7 @@ class App extends StatelessWidget {
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
           TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
           TargetPlatform.android: ZoomPageTransitionsBuilder(),
+          TargetPlatform.windows: ZoomPageTransitionsBuilder(),
         }),
       ),
       themeMode: ThemeMode.system,
