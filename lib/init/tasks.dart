@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sentry/sentry.dart';
 import 'package:taskflow/taskflow.dart';
 import 'package:xmus_client/authorization.dart';
 
@@ -36,6 +37,13 @@ final syncCredentialTask = ParallelTask.fromFunc([
     moodle
       ..setCredential(store.state.user.campusId, store.state.user.password)
       ..login();
+  },
+  (ctx) async {
+    Sentry.configureScope((scope) {
+      scope.user = SentryUser(
+        id: store.state.user.campusId,
+      );
+    });
   }
 ]);
 

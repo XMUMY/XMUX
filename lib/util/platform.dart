@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
-const isReleaseMode = bool.fromEnvironment('dart.vm.product');
-
 const isWeb = kIsWeb;
 const isVM = !kIsWeb;
 

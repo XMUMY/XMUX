@@ -1,12 +1,27 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:sentry/sentry.dart';
 
 import 'app.dart';
+import 'config.dart';
 import 'global.dart';
 import 'init/init.dart';
 
-void main() async {
+void main() {
+  // Wrap by sentry client.
+  if (kReleaseMode) {
+    Sentry.init(
+      (options) => options..dsn = sentryDsn,
+      appRunner: run,
+    );
+  } else {
+    run();
+  }
+}
+
+Future<void> run() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 

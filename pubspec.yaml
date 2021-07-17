@@ -49,6 +49,7 @@ dependencies:
   easy_localization: ^3.0.0
   extended_image: ^4.0.0
   firebase_core: ^1.2.0
+  firebase_crashlytics: ^2.0.0
   firebase_remote_config: ^0.10.0
   fl_chart: ^0.36.0
   flutter_mobx: ^2.0.0
@@ -64,6 +65,7 @@ dependencies:
   json_annotation: ^4.0.0
   package_info_plus: ^1.0.0
   redux: ^5.0.0
+  sentry: ^5.0.0
   shared_preferences: ^2.0.0
   taskflow: ^0.1.2
   tuple: ^2.0.0
