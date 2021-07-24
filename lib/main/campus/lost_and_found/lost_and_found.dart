@@ -57,11 +57,11 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
         child: const Icon(Icons.add),
         tooltip: LocaleKeys.Campus_LaFNew.tr(),
         onPressed: () async {
-          final shouldRefresh = await Navigator.of(context).push(
+          final shouldRefresh = await Navigator.of(context).push<bool>(
             MaterialPageRoute(
                 builder: (context) => const NewLostAndFoundPage()),
           );
-          if (shouldRefresh) {
+          if (shouldRefresh ?? false) {
             _pagingController.refresh();
           }
         },
@@ -145,11 +145,11 @@ class _ItemBriefCard extends StatelessWidget {
 
     return FloatingCard(
       onTap: () async {
-        final shouldRefresh = await Navigator.of(context).push(
+        final shouldRefresh = await Navigator.of(context).push<bool>(
           MaterialPageRoute(
               builder: (context) => LostAndFoundDetailPage(brief: brief)),
         );
-        if (shouldRefresh) {
+        if (shouldRefresh ?? false) {
           context
               .findAncestorStateOfType<_LostAndFoundPageState>()
               ?._pagingController
