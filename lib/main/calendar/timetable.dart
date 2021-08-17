@@ -1,6 +1,9 @@
+import 'package:device_calendar/device_calendar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:intl/intl.dart';
+import 'package:timezone/timezone.dart';
 import 'package:xmus_client/generated/aaos.pb.dart';
 
 import '../../component/empty_error.dart';
@@ -9,6 +12,7 @@ import '../../component/spannable_grid.dart';
 import '../../global.dart';
 import '../../redux/action/action.dart';
 import '../../redux/state/state.dart';
+import '../../util/platform.dart';
 import '../../util/screen.dart';
 
 class TimetablePage extends StatelessWidget {
@@ -247,7 +251,10 @@ class _Card extends StatelessWidget {
     );
 
     return FloatingCard(
-      onTap: () {},
+      onTap: () => showDialog(
+        context: context,
+        builder: (context) => _Dialog(lesson),
+      ),
       margin: const EdgeInsets.symmetric(vertical: 4),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       child: Column(
@@ -258,6 +265,152 @@ class _Card extends StatelessWidget {
           if (isInGrid) Expanded(child: body) else body,
         ],
       ),
+    );
+  }
+}
+
+class _Dialog extends StatelessWidget {
+  final Timetable_Class lesson;
+
+  const _Dialog(this.lesson);
+
+  // int get lessonCredit {
+  //   return store.state.queryState.courses.courses
+  //       ?.firstWhere((c) => c.name.indexOf(lesson.name) != -1, orElse: () {
+  //     var editDistances = store.state.queryState.courses.courses
+  //         .map((c) => editDistance(c.name, lesson.name))
+  //         .toList();
+  //     return store.state.queryState.courses
+  //         .courses[editDistances.indexOf(editDistances.reduce(min))];
+  //   })?.credit;
+  // }
+
+  void _addToCalendar(BuildContext context) async {
+    final plugin = DeviceCalendarPlugin();
+    if (!(await plugin.requestPermissions()).isSuccess) return;
+
+    final calendars = await plugin.retrieveCalendars();
+    if (calendars.data == null) return;
+
+    final id = await showDialog<String>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+        title: Text(LocaleKeys.Calendar_CalendarCardAddToSystem.tr()),
+        contentPadding: const EdgeInsets.all(8),
+        children: <Widget>[
+          for (var c in calendars.data!)
+            ListTile(
+              title: Text(c.name!),
+              onTap: () => Navigator.of(context).pop(c.id),
+            ),
+        ],
+      ),
+    );
+    if (id == null || id.isEmpty) return;
+
+    var date = DateTime.now();
+    // Find next weekday matched the lesson.
+    while (date.weekday != lesson.day) {
+      date = date.add(const Duration(days: 1));
+    }
+
+    var begin = TZDateTime(
+      getLocation('Asia/Kuala_Lumpur'),
+      date.year,
+      date.month,
+      date.day,
+      lesson.begin.toDateTime().toLocal().hour,
+      lesson.begin.toDateTime().toLocal().minute,
+    );
+    var end = TZDateTime(
+      getLocation('Asia/Kuala_Lumpur'),
+      date.year,
+      date.month,
+      date.day,
+      lesson.end.toDateTime().toLocal().hour,
+      lesson.end.toDateTime().toLocal().minute,
+    );
+
+    // TODO: Avoid add when class is ended.
+    await plugin.createOrUpdateEvent(Event(
+      id,
+      title: lesson.name,
+      description: lesson.room,
+      start: begin,
+      end: end,
+      recurrenceRule: RecurrenceRule(
+        RecurrenceFrequency.Weekly,
+        endDate: lesson.end.toDateTime(),
+      ),
+      availability: Availability.Free,
+    ));
+
+    Navigator.of(context).pop();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var title = Text(
+      lesson.name,
+      style: Theme.of(context).textTheme.headline6,
+      textAlign: TextAlign.center,
+    );
+
+    var info = Text(
+      '${LocaleKeys.Calendar_CalendarCardCode.tr()}: ${lesson.cid}\n'
+      // '${LocaleKeys.Calendar_ClassCardCredit.tr()}: $lessonCredit\n'
+      '${LocaleKeys.Calendar_CalendarCardTime.tr()}: ${'Weekdays.${lesson.day}'.tr()} '
+      '${TimeOfDay.fromDateTime(lesson.begin.toDateTime().toLocal()).format(context)} - '
+      '${TimeOfDay.fromDateTime(lesson.end.toDateTime().toLocal()).format(context)}\n'
+      '${LocaleKeys.Calendar_CalendarCardRoom.tr()}: ${lesson.room}\n'
+      '${LocaleKeys.Calendar_CalendarCardLecturer.tr()}: ${lesson.lecturer.split(',').join(', ')}',
+    );
+
+    // Widget history;
+    // var showHistory = AttendanceApi().available;
+    // if (showHistory) {
+    //   history = FutureBuilder<List<AttendanceRecord>>(
+    //     future: AttendanceApi().getHistory(cid: lesson.cid),
+    //     builder: (ctx, snap) {
+    //       switch (snap.connectionState) {
+    //         case ConnectionState.done:
+    //           if (!snap.hasError) {
+    //             return ListView(
+    //               children: snap.data
+    //                   .map((e) => Text(
+    //                       '${DateFormat.yMMMd(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
+    //                       '${DateFormat.Hms(Localizations.localeOf(context).languageCode).format(e.timestamp)} '
+    //                       '${AttendanceHistoryItem.parseMessage(context, e)}'))
+    //                   .toList(),
+    //             );
+    //           }
+    //           return Center(child: CircularProgressIndicator());
+    //         default:
+    //           return Center(child: CircularProgressIndicator());
+    //       }
+    //     },
+    //   );
+    // }
+
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+      title: title,
+      titlePadding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+      contentPadding: const EdgeInsets.all(8),
+      children: <Widget>[
+        info,
+        if (isMobile)
+          ElevatedButton(
+            onPressed: () => _addToCalendar(context),
+            child: Text(LocaleKeys.Calendar_CalendarCardAddToSystem.tr()),
+          ),
+        // if (showHistory) ...{
+        //   Divider(),
+        //   Text(LocaleKeys.Calendar_Attendance.tr()),
+        //   history,
+        // }
+      ],
     );
   }
 }
