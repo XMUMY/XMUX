@@ -23,6 +23,11 @@ abstract class  LocaleKeys {
   static const SignIn_ErrorFormat = 'SignIn.ErrorFormat';
   static const SignIn = 'SignIn';
   static const Calendar_Calendar = 'Calendar.Calendar';
+  static const Calendar_CalendarCardCode = 'Calendar.CalendarCardCode';
+  static const Calendar_CalendarCardTime = 'Calendar.CalendarCardTime';
+  static const Calendar_CalendarCardRoom = 'Calendar.CalendarCardRoom';
+  static const Calendar_CalendarCardLecturer = 'Calendar.CalendarCardLecturer';
+  static const Calendar_CalendarCardAddToSystem = 'Calendar.CalendarCardAddToSystem';
   static const Calendar_Classes = 'Calendar.Classes';
   static const Calendar_Exams = 'Calendar.Exams';
   static const Calendar_Assignments = 'Calendar.Assignments';

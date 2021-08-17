@@ -32,6 +32,7 @@ Future<void> run() async {
       supportedLocales: const [
         Locale('en'),
         Locale('zh', 'CN'),
+        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
       ],
       fallbackLocale: const Locale('en'),
       saveLocale: false,
