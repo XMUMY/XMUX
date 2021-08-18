@@ -22,6 +22,7 @@
     "RegisterEmail": "邮箱",
     "ErrorFormat": "格式不正确。"
   },
+  "SignOut": "登出",
   "Calendar": {
     "Calendar": "日程",
     "CalendarCardCode": "代号",

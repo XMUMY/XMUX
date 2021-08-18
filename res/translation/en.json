@@ -22,6 +22,7 @@
     "RegisterEmail": "Email",
     "ErrorFormat": "Invalid format."
   },
+  "SignOut": "Sign Out",
   "Calendar": {
     "Calendar": "Calendar",
     "CalendarCardCode": "Code",

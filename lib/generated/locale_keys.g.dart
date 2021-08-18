@@ -22,6 +22,7 @@ abstract class  LocaleKeys {
   static const SignIn_RegisterEmail = 'SignIn.RegisterEmail';
   static const SignIn_ErrorFormat = 'SignIn.ErrorFormat';
   static const SignIn = 'SignIn';
+  static const SignOut = 'SignOut';
   static const Calendar_Calendar = 'Calendar.Calendar';
   static const Calendar_CalendarCardCode = 'Calendar.CalendarCardCode';
   static const Calendar_CalendarCardTime = 'Calendar.CalendarCardTime';
