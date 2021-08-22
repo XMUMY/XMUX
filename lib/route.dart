@@ -5,6 +5,7 @@ import 'main/campus/bus_schedule.dart';
 import 'main/campus/emgs.dart';
 import 'main/campus/epayment.dart';
 import 'main/campus/geogebra.dart';
+import 'main/campus/gpa_calculator.dart';
 import 'main/campus/klia_express.dart';
 import 'main/campus/lost_and_found/lost_and_found.dart';
 import 'main/campus/maintenance/maintenance.dart';
@@ -16,6 +17,7 @@ final namedRoutes = <String, WidgetBuilder>{
   '/Campus/WolframEngine': (_) => const WolframPage(),
   '/Campus/GeoGebra': (_) => const GeoGebraPage(),
   '/Campus/Transcript': (_) => const TranscriptPage(),
+  '/Campus/GPACalculator': (_) => const GPACalculatorPage(),
   '/Campus/BusSchedule': (_) => const BusSchedulePage(),
   '/Campus/KliaExpress': (_) => const KliaExpressPage(),
   '/Campus/Emgs': (_) => const EmgsPage(),

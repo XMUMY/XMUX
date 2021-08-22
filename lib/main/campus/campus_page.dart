@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../global.dart';
 import '../../util/platform.dart';
@@ -56,6 +57,11 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                 title: LocaleKeys.Campus_AcademicTranscript.tr(),
                 svg: 'res/campus/transcript.svg',
                 onPressed: _push(context, '/Campus/Transcript'),
+              ),
+              _Button(
+                title: LocaleKeys.Campus_AcademicTranscript.tr(),
+                svg: 'res/campus/gpa_calculator.svg',
+                onPressed: _push(context, '/Campus/GPACalculator'),
               ),
               _Button(
                 title: 'VPN',

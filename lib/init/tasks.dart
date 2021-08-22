@@ -38,6 +38,7 @@ final syncCredentialTask = ParallelTask.fromFunc([
       ..setCredential(store.state.user.campusId, store.state.user.password)
       ..login();
   },
+  // Sentry
   (ctx) async {
     Sentry.configureScope((scope) {
       scope.user = SentryUser(
@@ -52,5 +53,6 @@ final refreshQueriesTask = Task((ctx) async {
   store.dispatch(UpdateTimetableAction());
   store.dispatch(UpdateExamsAction());
   store.dispatch(UpdateTranscriptAction());
+  store.dispatch(UpdateCoursesAction());
   store.dispatch(UpdateAssignmentsAction());
 });

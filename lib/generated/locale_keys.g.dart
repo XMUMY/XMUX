@@ -44,6 +44,7 @@ abstract class  LocaleKeys {
   static const Campus_AcademicTranscript = 'Campus.AcademicTranscript';
   static const Campus_AcademicTranscriptCourses = 'Campus.AcademicTranscriptCourses';
   static const Campus_AcademicTranscriptCredits = 'Campus.AcademicTranscriptCredits';
+  static const Campus_GPACalculator = 'Campus.GPACalculator';
   static const Campus_Tools = 'Campus.Tools';
   static const Campus_BusSchedule = 'Campus.BusSchedule';
   static const Campus_KliaExpress = 'Campus.KliaExpress';
