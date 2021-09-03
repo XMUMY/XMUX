@@ -16,6 +16,7 @@ jobs:
       - name: Build
         run: |
           echo $CONFIG_FILE | base64 -d > lib/config.dart
+          echo $WEB_INDEX | base64 -d > web/index.html
           flutter config --enable-web && flutter build web --release
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
