@@ -1,4 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:tuple/tuple.dart';
@@ -8,6 +11,7 @@ import 'init/login_page.dart';
 import 'main/main_page.dart';
 import 'redux/state/state.dart';
 import 'route.dart';
+import 'util/platform.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -38,7 +42,10 @@ class App extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       routes: namedRoutes,
-      // navigatorObservers: [],
+      navigatorObservers: [
+        if (kReleaseMode && (isMobile || isWeb))
+          FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
+      ],
       home: Scaffold(
         body: StoreConnector<AppState, Tuple2<bool, bool>>(
           distinct: true,

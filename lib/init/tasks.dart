@@ -16,13 +16,16 @@ final postInitTask = ParallelTask([
     refreshQueriesTask,
   ]),
   SequentialTask([
-    Task.when(
-      () async => isMobile,
-      (ctx) async => await Firebase.initializeApp(),
-    ),
+    initFirebaseTask,
     fetchRemoteConfigsTask,
   ])
 ]);
+
+/// Initialize Firebase if available.
+final initFirebaseTask = Task.when(
+  () async => isMobile || isWeb || isMacOS,
+  (ctx) async => await Firebase.initializeApp(),
+);
 
 final syncCredentialTask = ParallelTask.fromFunc([
   // RPC client.

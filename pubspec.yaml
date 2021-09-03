@@ -49,6 +49,7 @@ dependencies:
   device_calendar: 4.0.1-dev.13167
   easy_localization: ^3.0.0
   extended_image: ^4.0.0
+  firebase_analytics: ^8.3.0
   firebase_core: ^1.2.0
 #  firebase_crashlytics: ^2.0.0
   firebase_remote_config: ^0.10.0
