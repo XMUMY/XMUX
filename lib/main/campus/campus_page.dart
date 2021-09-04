@@ -59,7 +59,7 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                 onPressed: _push(context, '/Campus/Transcript'),
               ),
               _Button(
-                title: LocaleKeys.Campus_AcademicTranscript.tr(),
+                title: LocaleKeys.Campus_GPACalculator.tr(),
                 svg: 'res/campus/gpa_calculator.svg',
                 onPressed: _push(context, '/Campus/GPACalculator'),
               ),

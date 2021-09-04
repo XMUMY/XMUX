@@ -51,14 +51,13 @@ dependencies:
   extended_image: ^4.0.0
   firebase_analytics: ^8.3.0
   firebase_core: ^1.2.0
-#  firebase_crashlytics: ^2.0.0
   firebase_remote_config: ^0.10.0
-  fl_chart: ^0.36.0
+  fl_chart: ^0.40.0
   flutter_mobx: ^2.0.0
   flutter_redux: ^0.8.2
   flutter_spinkit: ^5.0.0
   flutter_svg: ^0.22.0
-  flutter_widget_from_html_core: ^0.6.0
+  flutter_widget_from_html_core: ^0.7.0
   font_awesome_flutter: ^9.0.0
   grpc: ^3.0.0
   image_picker: ^0.8.0
@@ -67,7 +66,7 @@ dependencies:
   json_annotation: ^4.0.0
   package_info_plus: ^1.0.0
   redux: ^5.0.0
-  sentry: ^5.0.0
+  sentry: ^6.0.0
   shared_preferences: ^2.0.0
   taskflow: ^0.1.2
   tuple: ^2.0.0

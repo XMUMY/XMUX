@@ -157,7 +157,7 @@ class _GpaChartState extends State<_GpaChart> {
     cGpaGradientColors = widget.transcript
         .map((e) => e.cGpa.pointColor)
         .toList()
-          ..removeWhere((c) => c == Colors.green); // Remove N/A
+      ..removeWhere((c) => c == Colors.green); // Remove N/A
   }
 
   @override
@@ -193,7 +193,7 @@ class _GpaChartState extends State<_GpaChart> {
           reservedSize: 30,
           margin: 5,
           rotateAngle: 85,
-          getTextStyles: (_) => Theme.of(context).textTheme.bodyText2!,
+          getTextStyles: (context, v) => Theme.of(context).textTheme.bodyText2,
           getTitles: (value) =>
               widget.transcript[value.toInt()].session.substring(2),
         ),
@@ -202,7 +202,7 @@ class _GpaChartState extends State<_GpaChart> {
           reservedSize: 20,
           margin: 5,
           interval: 0.5,
-          getTextStyles: (_) => Theme.of(context).textTheme.subtitle1!,
+          getTextStyles: (context, v) => Theme.of(context).textTheme.subtitle1,
           getTitles: (value) => value.toStringAsPrecision(2),
         ),
       ),
