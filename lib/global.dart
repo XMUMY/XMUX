@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:moodle/moodle.dart';
 import 'package:redux/redux.dart';
 import 'package:xmus_client/xmus_client.dart';
@@ -33,3 +34,6 @@ final moodle = MoodleApi(moodleAddress);
 
 /// Remote configs.
 final remoteConfigs = RemoteConfigs();
+
+/// Firebase Analytics.
+final firebaseAnalytics = FirebaseAnalytics();

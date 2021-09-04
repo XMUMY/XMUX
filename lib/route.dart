@@ -25,3 +25,11 @@ final namedRoutes = <String, WidgetBuilder>{
   '/Campus/EPayment': (_) => const EPaymentPage(),
   '/Campus/LostAndFound': (_) => const LostAndFoundPage(),
 };
+
+const calendarPageNames = [
+  '/Calendar/Timetable',
+  '/Calendar/Exam',
+  '/Calendar/Assignment',
+  '/Calendar/UpcomingEvent',
+  '/Calendar/MoodleNotification',
+];

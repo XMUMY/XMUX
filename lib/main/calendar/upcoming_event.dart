@@ -8,14 +8,14 @@ import '../../component/floating_card.dart';
 import '../../global.dart';
 import '../../util/screen.dart';
 
-class UpcomingEventsPage extends StatefulWidget {
-  const UpcomingEventsPage({Key? key}) : super(key: key);
+class UpcomingEventPage extends StatefulWidget {
+  const UpcomingEventPage({Key? key}) : super(key: key);
 
   @override
-  _UpcomingEventsPageState createState() => _UpcomingEventsPageState();
+  _UpcomingEventPageState createState() => _UpcomingEventPageState();
 }
 
-class _UpcomingEventsPageState extends State<UpcomingEventsPage>
+class _UpcomingEventPageState extends State<UpcomingEventPage>
     with AutomaticKeepAliveClientMixin {
   var events = <UpcomingEvent>[];
 

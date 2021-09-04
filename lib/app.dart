@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:tuple/tuple.dart';
 
+import 'global.dart';
 import 'init/init_page.dart';
 import 'init/login_page.dart';
 import 'main/main_page.dart';
@@ -44,7 +44,7 @@ class App extends StatelessWidget {
       routes: namedRoutes,
       navigatorObservers: [
         if (kReleaseMode && (isMobile || isWeb))
-          FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
+          FirebaseAnalyticsObserver(analytics: firebaseAnalytics),
       ],
       home: Scaffold(
         body: StoreConnector<AppState, Tuple2<bool, bool>>(
