@@ -19,7 +19,7 @@ jobs:
           flutter config --enable-windows-desktop && flutter build windows --release
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2
         with:
           name: XMUX-Windows
           path: build/windows/runner/Release
