@@ -160,7 +160,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
                   return;
                 }
                 final imageFile =
-                    await ImagePicker().getImage(source: ImageSource.camera);
+                    await ImagePicker().pickImage(source: ImageSource.camera);
                 if (imageFile != null) form.file = File(imageFile.path);
               },
               onLongPress: () async {
@@ -169,7 +169,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
                   return;
                 }
                 final imageFile =
-                    await ImagePicker().getImage(source: ImageSource.gallery);
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
                 if (imageFile != null) form.file = File(imageFile.path);
               },
             ),
@@ -197,7 +197,10 @@ class _RequestFormPageState extends State<RequestFormPage> {
         actions: [
           FloatingActionButton(
             mini: true,
-            child: const Icon(Icons.check),
+            child: Icon(
+              Icons.check,
+              color: Theme.of(context).iconTheme.color,
+            ),
             elevation: 0,
             backgroundColor: Theme.of(context).canvasColor,
             onPressed: form == null

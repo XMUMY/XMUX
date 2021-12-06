@@ -98,7 +98,7 @@ class _WolframPageState extends State<WolframPage> {
         title: const Text('Wolfram Engine'),
         actions: [
           IconButton(
-            icon: Text('AC', style: Theme.of(context).textTheme.headline5!),
+            icon: Text('C', style: Theme.of(context).textTheme.headline5!),
             onPressed: _inputTextController.clear,
           ),
           IconButton(

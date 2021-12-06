@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart' hide Notification;
-import 'package:flutter/rendering.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:html/parser.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';

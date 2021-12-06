@@ -2,7 +2,6 @@ import 'package:device_calendar/device_calendar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart';
 import 'package:xmus_client/generated/aaos.pb.dart';
 
