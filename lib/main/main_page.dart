@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
     CampusPage(),
   ];
 
-  int _index = 0;
+  var _index = 0;
 
   void navigateTo(int index) {
     if (!mounted || index == _index) return;
@@ -99,11 +99,10 @@ class _MainPageState extends State<MainPage> {
             const VerticalDivider(thickness: 1, width: 1),
             Expanded(
               child: PageTransitionSwitcher(
+                duration: const Duration(milliseconds: 200),
                 transitionBuilder: (child, animation, secondaryAnimation) {
-                  return SharedAxisTransition(
-                    animation: animation,
-                    secondaryAnimation: secondaryAnimation,
-                    transitionType: SharedAxisTransitionType.scaled,
+                  return FadeTransition(
+                    opacity: animation,
                     child: child,
                   );
                 },

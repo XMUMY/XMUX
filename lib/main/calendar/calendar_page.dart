@@ -1,11 +1,15 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../global.dart';
+import '../../redux/state/state.dart';
 import '../../route.dart';
 import '../../util/platform.dart';
+import '../../util/screen.dart';
 import '../main_page.dart';
 import 'assignment.dart';
 import 'exam.dart';
@@ -79,6 +83,18 @@ class _CalendarPageState extends State<CalendarPage>
               color: Theme.of(context).colorScheme.surface,
               child: Row(
                 children: [
+                  if (context.isBetween(Breakpoint.extraSmall))
+                    StoreConnector<AppState, String>(
+                      distinct: true,
+                      converter: (s) =>
+                          store.state.user.profile.avatar.isNotEmpty
+                              ? store.state.user.profile.avatar
+                              : remoteConfigs.staticResources.defaultAvatar,
+                      builder: (_, s) => IconButton(
+                        onPressed: () => Scaffold.of(context).openDrawer(),
+                        icon: ExtendedImage.network(s, shape: BoxShape.circle),
+                      ),
+                    ),
                   Expanded(
                     child: TabBar(
                       isScrollable: true,
