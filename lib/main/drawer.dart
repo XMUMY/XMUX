@@ -2,6 +2,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../config.dart';
 import '../global.dart';
@@ -50,6 +51,10 @@ class MainDrawer extends StatelessWidget {
                   onTap: () => store.dispatch(
                     RestoreAction(AppState(isInitialized: true)),
                   ),
+                ),
+                ListTile(
+                  title: Text(LocaleKeys.About.tr()),
+                  onTap: () => launch('https://docs.xmux.xdea.io/app/about'),
                 ),
               ],
             ),
