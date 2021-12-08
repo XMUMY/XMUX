@@ -92,10 +92,7 @@ class _MainPageState extends State<MainPage> {
       body: SafeArea(
         child: Row(
           children: [
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: navigationRail,
-            ),
+            navigationRail,
             const VerticalDivider(thickness: 1, width: 1),
             Expanded(
               child: PageTransitionSwitcher(
@@ -113,7 +110,7 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
       bottomNavigationBar: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 200),
         child: bottomNavigationBar,
       ),
       drawer: const MainDrawer(),

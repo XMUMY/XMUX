@@ -23,14 +23,14 @@
     "ErrorFormat": "格式不正确。"
   },
   "SignOut": "登出",
-  "About": "于",
+  "About": "关于",
   "Calendar": {
     "Calendar": "日程",
     "CalendarCardCode": "代号",
     "CalendarCardTime": "时间",
     "CalendarCardRoom": "教室",
     "CalendarCardLecturer": "讲师",
-    "CalendarCardAddToSystem":"添加到系统日程",
+    "CalendarCardAddToSystem": "添加到系统日程",
     "Classes": "课程",
     "Exams": "考试",
     "Assignments": "作业",
