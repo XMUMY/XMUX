@@ -6,14 +6,13 @@ part of 'upcoming_event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UpcomingEvent _$UpcomingEventFromJson(Map<String, dynamic> json) {
-  return UpcomingEvent(
-    json['id'] as int,
-    json['name'] as String,
-    json['description'] as String,
-    timestampToDateTime(json['timestart'] as int),
-  );
-}
+UpcomingEvent _$UpcomingEventFromJson(Map<String, dynamic> json) =>
+    UpcomingEvent(
+      json['id'] as int,
+      json['name'] as String,
+      json['description'] as String,
+      timestampToDateTime(json['timestart'] as int),
+    );
 
 Map<String, dynamic> _$UpcomingEventToJson(UpcomingEvent instance) =>
     <String, dynamic>{

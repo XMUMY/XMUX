@@ -1,4 +1,5 @@
 import 'package:extended_image/extended_image.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -44,7 +45,7 @@ class _CalendarPageState extends State<CalendarPage>
     // Track tab pages.
     if (kReleaseMode && (isMobile || isWeb)) {
       _controller.addListener(
-        () => firebaseAnalytics.setCurrentScreen(
+        () => FirebaseAnalytics.instance.setCurrentScreen(
           screenName: calendarPageNames[_controller.index],
         ),
       );

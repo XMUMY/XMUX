@@ -6,16 +6,15 @@ part of 'assignment.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AssignmentCourse _$AssignmentCourseFromJson(Map<String, dynamic> json) {
-  return AssignmentCourse(
-    json['id'] as int,
-    json['fullname'] as String,
-    json['shortname'] as String,
-    (json['assignments'] as List<dynamic>)
-        .map((e) => Assignment.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  );
-}
+AssignmentCourse _$AssignmentCourseFromJson(Map<String, dynamic> json) =>
+    AssignmentCourse(
+      json['id'] as int,
+      json['fullname'] as String,
+      json['shortname'] as String,
+      (json['assignments'] as List<dynamic>)
+          .map((e) => Assignment.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$AssignmentCourseToJson(AssignmentCourse instance) =>
     <String, dynamic>{
@@ -25,18 +24,16 @@ Map<String, dynamic> _$AssignmentCourseToJson(AssignmentCourse instance) =>
       'assignments': instance.assignments,
     };
 
-Assignment _$AssignmentFromJson(Map<String, dynamic> json) {
-  return Assignment(
-    json['id'] as int,
-    json['name'] as String,
-    timestampToDateTime(json['duedate'] as int),
-    timestampToDateTime(json['allowsubmissionsfromdate'] as int),
-    json['intro'] as String,
-    (json['introattachments'] as List<dynamic>)
-        .map((e) => IntroAttachment.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  );
-}
+Assignment _$AssignmentFromJson(Map<String, dynamic> json) => Assignment(
+      json['id'] as int,
+      json['name'] as String,
+      timestampToDateTime(json['duedate'] as int),
+      timestampToDateTime(json['allowsubmissionsfromdate'] as int),
+      json['intro'] as String,
+      (json['introattachments'] as List<dynamic>)
+          .map((e) => IntroAttachment.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$AssignmentToJson(Assignment instance) =>
     <String, dynamic>{
@@ -49,12 +46,11 @@ Map<String, dynamic> _$AssignmentToJson(Assignment instance) =>
       'introattachments': instance.introAttachments,
     };
 
-IntroAttachment _$IntroAttachmentFromJson(Map<String, dynamic> json) {
-  return IntroAttachment(
-    json['filename'] as String,
-    json['fileurl'] as String,
-  );
-}
+IntroAttachment _$IntroAttachmentFromJson(Map<String, dynamic> json) =>
+    IntroAttachment(
+      json['filename'] as String,
+      json['fileurl'] as String,
+    );
 
 Map<String, dynamic> _$IntroAttachmentToJson(IntroAttachment instance) =>
     <String, dynamic>{

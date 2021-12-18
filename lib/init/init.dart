@@ -15,6 +15,7 @@ Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
     final stateStr = prefs.getString('app_state');
     final state = AppState.fromJson(jsonDecode(stateStr!));
+    if (!state.user.isSignedIn) throw Exception('NotSignedIn');
     store.dispatch(RestoreAction(state));
   } catch (_) {
     // Failed to restore app state.
