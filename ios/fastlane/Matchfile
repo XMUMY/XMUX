@@ -2,9 +2,9 @@ git_url("git@github.com:XMUMY/certs.git")
 
 storage_mode("git")
 
-type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
+type("development") # The default type, can be: appstore, adhoc, enterprise or development
 
-# app_identifier(["tools.fastlane.app", "tools.fastlane.app2"])
+app_identifier(["org.ctbeta.xmux"])
 username("ctrysbita@outlook.com") # Your Apple Developer Portal username
 
 # For all available options run `fastlane match --help`

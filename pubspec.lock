@@ -207,10 +207,12 @@ packages:
   device_calendar:
     dependency: "direct main"
     description:
-      name: device_calendar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.1"
+      path: "."
+      ref: develop
+      resolved-ref: "33f97e7231e0fae1ef6f952e67c1189a3a2472ed"
+      url: "https://github.com/builttoroam/device_calendar.git"
+    source: git
+    version: "4.1.0"
   dio:
     dependency: transitive
     description:
@@ -638,7 +640,7 @@ packages:
       name: material_color_utilities
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2"
+    version: "0.1.3"
   meta:
     dependency: transitive
     description:
