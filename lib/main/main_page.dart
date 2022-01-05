@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:xmux/main/community/community_page.dart';
+import 'package:xmux/main/forum/forum_page.dart';
 
 import '../global.dart';
 import '../redux/state/state.dart';
@@ -30,7 +30,7 @@ class _MainPageState extends State<MainPage> {
   static const pages = <TopLevelPage>[
     CalendarPage(),
     CampusPage(),
-    CommunityPage(),
+    ForumPage(),
   ];
 
   var _index = 0;
