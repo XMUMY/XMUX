@@ -14,6 +14,7 @@ import 'package:xmux/util/screen.dart';
 
 import '../../global.dart';
 import '../main_page.dart';
+import 'thread.dart';
 
 
 class ForumPage extends StatefulWidget implements TopLevelPage {
@@ -168,6 +169,16 @@ class _PostBriefCard extends StatelessWidget {
 
     return FloatingCard(
       onTap: () async {
+        final shouldRefresh = await Navigator.of(context).push<bool>(
+          MaterialPageRoute(
+              builder: (context) => ThreadPage(postDetails: postDetails)),
+        );
+        if (shouldRefresh ?? false) {
+          context
+              .findAncestorStateOfType<_ForumPageState>()
+              ?._pagingController
+              .refresh();
+        }
       },
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: const EdgeInsets.all(5),
