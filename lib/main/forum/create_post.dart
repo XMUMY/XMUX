@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 import 'package:xmus_client/generated/post.pb.dart';
 
 import '../../../global.dart';
 import '../../../util/screen.dart';
-
 
 class PostForm {
   var title = '';
@@ -42,15 +39,11 @@ class _NewPostPageState extends State<NewPostPage> {
   @override
   Widget build(BuildContext context) {
     final formWidgets = <Widget>[
-      Observer(
-        builder: (context) => TextFormField(
-          decoration: InputDecoration(
-            labelText: 'Title'.tr()
-          ),
-          maxLength: 70,
-          onChanged: (v) => form.title = v,
-          validator: (v) => v != null && v.isNotEmpty ? null : '',
-        ),
+      TextFormField(
+        decoration: InputDecoration(labelText: 'Title'.tr()),
+        maxLength: 70,
+        onChanged: (v) => form.title = v,
+        validator: (v) => v != null && v.isNotEmpty ? null : '',
       ),
       const Divider(color: Colors.transparent),
       TextFormField(

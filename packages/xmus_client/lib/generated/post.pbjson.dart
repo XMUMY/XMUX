@@ -71,13 +71,14 @@ const PostDetails$json = const {
     const {'1': 'body', '3': 3, '4': 1, '5': 9, '10': 'body'},
     const {'1': 'vote', '3': 4, '4': 1, '5': 5, '10': 'vote'},
     const {'1': 'createTime', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createTime'},
-    const {'1': 'updateTime', '3': 10, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updateTime'},
     const {'1': 'uid', '3': 6, '4': 1, '5': 9, '10': 'uid'},
     const {'1': 'groupId', '3': 7, '4': 1, '5': 5, '10': 'groupId'},
     const {'1': 'topped', '3': 8, '4': 1, '5': 8, '10': 'topped'},
     const {'1': 'best', '3': 9, '4': 1, '5': 8, '10': 'best'},
+    const {'1': 'updateTime', '3': 10, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updateTime'},
+    const {'1': 'groupName', '3': 11, '4': 1, '5': 9, '10': 'groupName'},
   ],
 };
 
 /// Descriptor for `PostDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List postDetailsDescriptor = $convert.base64Decode('CgtQb3N0RGV0YWlscxIOCgJpZBgBIAEoBVICaWQSFAoFdGl0bGUYAiABKAlSBXRpdGxlEhIKBGJvZHkYAyABKAlSBGJvZHkSEgoEdm90ZRgEIAEoBVIEdm90ZRI6CgpjcmVhdGVUaW1lGAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIKY3JlYXRlVGltZRI6Cgp1cGRhdGVUaW1lGAogASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIKdXBkYXRlVGltZRIQCgN1aWQYBiABKAlSA3VpZBIYCgdncm91cElkGAcgASgFUgdncm91cElkEhYKBnRvcHBlZBgIIAEoCFIGdG9wcGVkEhIKBGJlc3QYCSABKAhSBGJlc3Q=');
+final $typed_data.Uint8List postDetailsDescriptor = $convert.base64Decode('CgtQb3N0RGV0YWlscxIOCgJpZBgBIAEoBVICaWQSFAoFdGl0bGUYAiABKAlSBXRpdGxlEhIKBGJvZHkYAyABKAlSBGJvZHkSEgoEdm90ZRgEIAEoBVIEdm90ZRI6CgpjcmVhdGVUaW1lGAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIKY3JlYXRlVGltZRIQCgN1aWQYBiABKAlSA3VpZBIYCgdncm91cElkGAcgASgFUgdncm91cElkEhYKBnRvcHBlZBgIIAEoCFIGdG9wcGVkEhIKBGJlc3QYCSABKAhSBGJlc3QSOgoKdXBkYXRlVGltZRgKIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCnVwZGF0ZVRpbWUSHAoJZ3JvdXBOYW1lGAsgASgJUglncm91cE5hbWU=');

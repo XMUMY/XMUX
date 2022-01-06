@@ -8,6 +8,7 @@ import 'package:xmus_client/generated/post.pb.dart';
 import '../../../component/user_profile.dart';
 import '../../../global.dart';
 import '../../../util/screen.dart';
+import 'forum_page.dart';
 
 class ThreadPage extends StatefulWidget {
   final PostDetails postDetails;
@@ -57,7 +58,7 @@ class _ThreadPageState extends State<ThreadPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Placeholder'),
+        title: Text(groupNameDecoration(widget.postDetails.groupName)),
         actions: <Widget>[
           if (widget.postDetails.uid == store.state.user.campusId)
             IconButton(

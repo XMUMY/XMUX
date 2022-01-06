@@ -302,6 +302,7 @@ class PostDetails extends $pb.GeneratedMessage {
     ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'topped')
     ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'best')
     ..aOM<$3.Timestamp>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime', subBuilder: $3.Timestamp.create)
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupName', protoName: 'groupName')
     ..hasRequiredFields = false
   ;
 
@@ -317,6 +318,7 @@ class PostDetails extends $pb.GeneratedMessage {
     $core.bool? topped,
     $core.bool? best,
     $3.Timestamp? updateTime,
+    $core.String? groupName,
   }) {
     final _result = create();
     if (id != null) {
@@ -348,6 +350,9 @@ class PostDetails extends $pb.GeneratedMessage {
     }
     if (updateTime != null) {
       _result.updateTime = updateTime;
+    }
+    if (groupName != null) {
+      _result.groupName = groupName;
     }
     return _result;
   }
@@ -465,5 +470,14 @@ class PostDetails extends $pb.GeneratedMessage {
   void clearUpdateTime() => clearField(10);
   @$pb.TagNumber(10)
   $3.Timestamp ensureUpdateTime() => $_ensure(9);
+
+  @$pb.TagNumber(11)
+  $core.String get groupName => $_getSZ(10);
+  @$pb.TagNumber(11)
+  set groupName($core.String v) { $_setString(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasGroupName() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearGroupName() => clearField(11);
 }
 

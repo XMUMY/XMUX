@@ -7,14 +7,12 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:xmus_client/generated/post.pb.dart';
 import 'package:xmux/component/floating_card.dart';
 import 'package:xmux/component/user_profile.dart';
-import 'package:xmux/main/campus/lost_and_found/create.dart';
 import 'package:xmux/util/screen.dart';
 
 import '../../global.dart';
 import '../main_page.dart';
 import 'create_post.dart';
 import 'thread.dart';
-
 
 class ForumPage extends StatefulWidget implements TopLevelPage {
   const ForumPage({Key? key}) : super(key: key);
@@ -34,7 +32,6 @@ class ForumPage extends StatefulWidget implements TopLevelPage {
 
 class _ForumPageState extends State<ForumPage>
     with SingleTickerProviderStateMixin {
-
   @override
   void initState() {
     _pagingController.addPageRequestListener(_fetchPage);
@@ -52,12 +49,13 @@ class _ForumPageState extends State<ForumPage>
 
   Future<void> _fetchPage(int pageKey) async {
     // TODO: Change this API to personal feed
-    final resp = await rpc.forumClient.getPost(GetPostReq(pageNo: pageKey, pageSize: 10, groupIds: <int>[1]));
+    final resp = await rpc.forumClient
+        .getPost(GetPostReq(pageNo: pageKey, pageSize: 10, groupIds: <int>[1]));
     final pd = resp.pd;
     if (pd.isNotEmpty) {
       _pagingController.appendPage(pd, pageKey + 1);
     } else {
-      _pagingController.appendLastPage([]);
+      _pagingController.appendLastPage([PostDetails(id: -14514)]);
     }
   }
 
@@ -71,7 +69,16 @@ class _ForumPageState extends State<ForumPage>
         pagingController: _pagingController,
         padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
         builderDelegate: PagedChildBuilderDelegate<PostDetails>(
-          itemBuilder: (context, item, index) => _PostBriefCard(postDetails: item),
+          itemBuilder: (context, item, index) {
+            if (item.id == -14514) {
+              return Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text('-----END-----',
+                      style: Theme.of(context).textTheme.caption,
+                      textAlign: TextAlign.center));
+            }
+            return _PostBriefCard(postDetails: item);
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -79,8 +86,7 @@ class _ForumPageState extends State<ForumPage>
         tooltip: 'Create post'.tr(),
         onPressed: () async {
           final shouldRefresh = await Navigator.of(context).push<bool>(
-            MaterialPageRoute(
-                builder: (context) => const NewPostPage()),
+            MaterialPageRoute(builder: (context) => const NewPostPage()),
           );
           if (shouldRefresh ?? false) {
             _pagingController.refresh();
@@ -128,12 +134,11 @@ class _PostBriefCard extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(profile.displayName),
                       Text(
-                        '${DateFormat.yMMMEd().format(postDetails.createTime.toDateTime().toLocal())} '
-                            '${DateFormat.Hm().format(postDetails.createTime.toDateTime().toLocal())}',
+                        profile.displayName),
+                      Text(groupNameDecoration(postDetails.groupName),
                         style: Theme.of(context).textTheme.caption,
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -144,12 +149,13 @@ class _PostBriefCard extends StatelessWidget {
             // Special attributes of post.
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(
-                postDetails.best && postDetails.topped ? 'Best & Top'
-                    : postDetails.best ? 'Best'
-                    : postDetails.topped ? 'Top'
-                    : ''
-              ),
+              child: Text(postDetails.best && postDetails.topped
+                  ? 'Best & Top'
+                  : postDetails.best
+                      ? 'Best'
+                      : postDetails.topped
+                          ? 'Top'
+                          : ''),
             ),
           ],
         ),
@@ -157,10 +163,8 @@ class _PostBriefCard extends StatelessWidget {
         // Build title.
         Padding(
           padding: const EdgeInsets.all(8),
-          child: Text(
-            '${postDetails.title}',
-              style: Theme.of(context).textTheme.titleMedium
-          ),
+          child: Text(postDetails.title,
+              style: Theme.of(context).textTheme.titleMedium),
         ),
       ],
     );
@@ -183,4 +187,8 @@ class _PostBriefCard extends StatelessWidget {
       child: content,
     );
   }
+}
+
+String groupNameDecoration(String groupName) {
+  return 'g/$groupName';
 }
