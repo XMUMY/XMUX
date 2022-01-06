@@ -4,16 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:xmus_client/generated/lost_found.pb.dart';
 import 'package:xmus_client/generated/post.pb.dart';
 import 'package:xmux/component/floating_card.dart';
 import 'package:xmux/component/user_profile.dart';
 import 'package:xmux/main/campus/lost_and_found/create.dart';
-import 'package:xmux/main/campus/lost_and_found/detail.dart';
 import 'package:xmux/util/screen.dart';
 
 import '../../global.dart';
 import '../main_page.dart';
+import 'create_post.dart';
 import 'thread.dart';
 
 
@@ -77,12 +76,11 @@ class _ForumPageState extends State<ForumPage>
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        // TODO: translation
         tooltip: 'Create post'.tr(),
         onPressed: () async {
           final shouldRefresh = await Navigator.of(context).push<bool>(
             MaterialPageRoute(
-                builder: (context) => const NewLostAndFoundPage()),
+                builder: (context) => const NewPostPage()),
           );
           if (shouldRefresh ?? false) {
             _pagingController.refresh();
@@ -160,7 +158,7 @@ class _PostBriefCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8),
           child: Text(
-            '${postDetails.title}\n',
+            '${postDetails.title}',
               style: Theme.of(context).textTheme.titleMedium
           ),
         ),
