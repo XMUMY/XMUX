@@ -1,5 +1,6 @@
 import 'package:grpc/service_api.dart';
 import 'package:xmus_client/generated/forum_service.pbgrpc.dart';
+import 'package:grpc/grpc.dart' as grpc;
 
 import 'authorization.dart';
 import 'client_channel.dart' if (dart.library.html) 'client_channel_web.dart';
@@ -17,6 +18,9 @@ class XmuxRpc {
 
   factory XmuxRpc(String address) {
     var clientChannel = createClientChannel(address);
+    // TODO: remove this after testing
+    var forumTestChannel = grpc.ClientChannel('158.132.9.120',
+        port: 9999, options: const grpc.ChannelOptions(credentials: grpc.ChannelCredentials.insecure()));
     var authorization = Authorization();
 
     return XmuxRpc._(
@@ -43,7 +47,7 @@ class XmuxRpc {
         ),
       ),
       ForumClient(
-        clientChannel,
+        forumTestChannel,
         options: CallOptions(
           timeout: const Duration(seconds: 30),
           providers: [authorization.provider],

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:extended_image/extended_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -45,16 +46,16 @@ class _ForumPageState extends State<ForumPage>
     super.dispose();
   }
 
-  final _pagingController = PagingController<int, LostAndFoundBrief>(
-    firstPageKey: 1,
+  final _pagingController = PagingController<int, PostDetails>(
+    firstPageKey: 0,
   );
 
   Future<void> _fetchPage(int pageKey) async {
-    final resp = await rpc.lostAndFoundClient
-        .getBriefs(GetBriefsReq(before: _pagingController.itemList?.last.time));
-    final briefs = resp.briefs;
-    if (briefs.isNotEmpty) {
-      _pagingController.appendPage(briefs, pageKey + briefs.length);
+    // TODO: Change this API to personal feed
+    final resp = await rpc.forumClient.getPost(GetPostReq(pageNo: pageKey, pageSize: 10, groupIds: <int>[1]));
+    final pd = resp.pd;
+    if (pd.isNotEmpty) {
+      _pagingController.appendPage(pd, pageKey + 1);
     } else {
       _pagingController.appendLastPage([]);
     }
@@ -64,18 +65,19 @@ class _ForumPageState extends State<ForumPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.Campus_LaF.tr()),
+        title: Text('Forum.Forum'.tr()),
       ),
-      body: PagedListView<int, LostAndFoundBrief>(
+      body: PagedListView<int, PostDetails>(
         pagingController: _pagingController,
         padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
-        builderDelegate: PagedChildBuilderDelegate<LostAndFoundBrief>(
-          itemBuilder: (context, item, index) => _ItemBriefCard(brief: item),
+        builderDelegate: PagedChildBuilderDelegate<PostDetails>(
+          itemBuilder: (context, item, index) => _PostBriefCard(postDetails: item),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        tooltip: LocaleKeys.Campus_LaFNew.tr(),
+        // TODO: translation
+        tooltip: 'Create post'.tr(),
         onPressed: () async {
           final shouldRefresh = await Navigator.of(context).push<bool>(
             MaterialPageRoute(
@@ -90,10 +92,10 @@ class _ForumPageState extends State<ForumPage>
   }
 }
 
-class _ItemBriefCard extends StatelessWidget {
-  final LostAndFoundBrief brief;
+class _PostBriefCard extends StatelessWidget {
+  final PostDetails postDetails;
 
-  const _ItemBriefCard({Key? key, required this.brief}) : super(key: key);
+  const _PostBriefCard({Key? key, required this.postDetails}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +106,7 @@ class _ItemBriefCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             UserProfileBuilder(
-              uid: brief.uid,
+              uid: postDetails.uid,
               builder: (context, profile) => Row(
                 key: ValueKey(profile),
                 children: <Widget>[
@@ -112,7 +114,7 @@ class _ItemBriefCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: Hero(
-                      tag: brief.hashCode,
+                      tag: postDetails.hashCode,
                       child: CircleAvatar(
                         child: ExtendedImage.network(
                           profile.avatar,
@@ -129,8 +131,8 @@ class _ItemBriefCard extends StatelessWidget {
                     children: <Widget>[
                       Text(profile.displayName),
                       Text(
-                        '${DateFormat.yMMMEd().format(brief.time.toDateTime().toLocal())} '
-                            '${DateFormat.Hm().format(brief.time.toDateTime().toLocal())}',
+                        '${DateFormat.yMMMEd().format(postDetails.createTime.toDateTime().toLocal())} '
+                            '${DateFormat.Hm().format(postDetails.createTime.toDateTime().toLocal())}',
                         style: Theme.of(context).textTheme.caption,
                       )
                     ],
@@ -140,13 +142,14 @@ class _ItemBriefCard extends StatelessWidget {
               placeholder: (context) => const Text('  ...  '),
             ),
 
-            // Build price.
+            // Special attributes of post.
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                brief.type == LostAndFoundType.Lost
-                    ? LocaleKeys.Campus_LaFLost.tr()
-                    : LocaleKeys.Campus_LaFFound.tr(),
+                postDetails.best && postDetails.topped ? 'Best & Top'
+                    : postDetails.best ? 'Best'
+                    : postDetails.topped ? 'Top'
+                    : ''
               ),
             ),
           ],
@@ -156,8 +159,8 @@ class _ItemBriefCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8),
           child: Text(
-            '${brief.name}\n'
-                '${LocaleKeys.Campus_LaFLocation.tr()} ${brief.location}',
+            '${postDetails.title}\n',
+              style: Theme.of(context).textTheme.titleMedium
           ),
         ),
       ],
@@ -165,16 +168,6 @@ class _ItemBriefCard extends StatelessWidget {
 
     return FloatingCard(
       onTap: () async {
-        final shouldRefresh = await Navigator.of(context).push<bool>(
-          MaterialPageRoute(
-              builder: (context) => LostAndFoundDetailPage(brief: brief)),
-        );
-        if (shouldRefresh ?? false) {
-          context
-              .findAncestorStateOfType<_ForumPageState>()
-              ?._pagingController
-              .refresh();
-        }
       },
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: const EdgeInsets.all(5),
