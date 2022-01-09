@@ -65,65 +65,81 @@ class _ThreadPageState extends State<ThreadPage> {
     var locale = Localizations.localeOf(context).toString();
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(groupNameDecorationUtil(widget.postDetails.groupName)),
-          actions: <Widget>[
-            if (widget.postDetails.uid == store.state.user.campusId)
-              IconButton(
-                icon: const Icon(Icons.delete_outline),
-                onPressed: () async {
-                  await rpc.forumClient.removePost(
-                    UpdatePostReq(postId: widget.postDetails.id),
-                  );
-                  Navigator.of(context).pop(true);
-                },
-              ),
-          ],
-        ),
-        body: RefreshIndicator(
-          onRefresh: handleRefresh,
-          child: Padding(
-            padding:
-                EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      _PostDetailsCard(
-                          postDetails: widget.postDetails, locale: locale),
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text(
-                          'Comments'.tr(),
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                PagedSliverList<int, Reply>(
-                  pagingController: _pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<Reply>(
-                    itemBuilder: (context, item, index) {
-                      if (item.id == -14514) {
-                        return Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text('-----END-----',
-                                style: Theme.of(context).textTheme.caption,
-                                textAlign: TextAlign.center));
-                      }
-                      return _ReplyCard(
-                        reply: item,
-                        locale: locale,
-                      );
-                    },
-                  ),
-                ),
-              ],
+      appBar: AppBar(
+        title: Text(groupNameDecorationUtil(widget.postDetails.groupName)),
+        actions: <Widget>[
+          if (widget.postDetails.uid == store.state.user.campusId)
+            IconButton(
+              icon: const Icon(Icons.delete_outline),
+              onPressed: () async {
+                await rpc.forumClient.removePost(
+                  UpdatePostReq(postId: widget.postDetails.id),
+                );
+                Navigator.of(context).pop(true);
+              },
             ),
+        ],
+      ),
+      body: RefreshIndicator(
+        onRefresh: handleRefresh,
+        child: Padding(
+          padding:
+              EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    _PostDetailsCard(
+                        postDetails: widget.postDetails, locale: locale),
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Text(
+                        'Comments'.tr(),
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              PagedSliverList<int, Reply>(
+                pagingController: _pagingController,
+                builderDelegate: PagedChildBuilderDelegate<Reply>(
+                  itemBuilder: (context, item, index) {
+                    if (item.id == -14514) {
+                      return Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text('-----END-----',
+                              style: Theme.of(context).textTheme.caption,
+                              textAlign: TextAlign.center));
+                    }
+                    return _ReplyCard(
+                      reply: item,
+                      locale: locale,
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+      bottomSheet: BottomSheet(
+        onClosing: () {},
+        builder: (BuildContext context) {
+          return Container(
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+            child: TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Your comment here'.tr(),
+                  suffixIcon: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.send))),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
 
