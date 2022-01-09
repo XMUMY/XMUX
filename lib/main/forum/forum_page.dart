@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -118,15 +119,12 @@ class _PostBriefCard extends StatelessWidget {
                   // Build user avatar.
                   Padding(
                     padding: const EdgeInsets.all(10),
-                    child: Hero(
-                      tag: postDetails.hashCode,
-                      child: CircleAvatar(
-                        child: ExtendedImage.network(
-                          profile.avatar,
-                          shape: BoxShape.circle,
-                        ),
-                        radius: 20,
+                    child: CircleAvatar(
+                      child: ExtendedImage.network(
+                        profile.avatar,
+                        shape: BoxShape.circle,
                       ),
+                      radius: 20,
                     ),
                   ),
 
@@ -134,9 +132,9 @@ class _PostBriefCard extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      Text(profile.displayName),
                       Text(
-                        profile.displayName),
-                      Text(groupNameDecoration(postDetails.groupName),
+                        groupNameDecorationUtil(postDetails.groupName),
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ],
@@ -189,6 +187,11 @@ class _PostBriefCard extends StatelessWidget {
   }
 }
 
-String groupNameDecoration(String groupName) {
+String groupNameDecorationUtil(String groupName) {
   return 'g/$groupName';
+}
+
+String timeUtil(DateTime date, String locale) {
+  locale = locale.substring(0, 2);
+  return timeago.format(date, locale: locale, allowFromNow: true);
 }

@@ -73,6 +73,7 @@ dependencies:
   url_launcher: ^6.0.0
   waterfall_flow: ^3.0.0
   webview_flutter: ^3.0.0
+  timeago: ^3.1.0
 
 dependency_overrides:
   # For grpc web (allow missing trailer).

@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -10,6 +11,7 @@ import 'global.dart';
 import 'init/init.dart';
 
 void main() {
+  timeago.setLocaleMessages('zh', timeago.ZhCnMessages());
   // Wrap by sentry client.
   if (kReleaseMode) {
     Sentry.init(
