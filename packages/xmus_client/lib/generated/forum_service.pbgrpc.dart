@@ -13,6 +13,7 @@ import 'package:grpc/service_api.dart' as $grpc;
 import 'group.pb.dart' as $0;
 import 'google/protobuf/empty.pb.dart' as $1;
 import 'post.pb.dart' as $2;
+import 'reply.pb.dart' as $3;
 export 'forum_service.pb.dart';
 
 class ForumClient extends $grpc.Client {
@@ -69,6 +70,29 @@ class ForumClient extends $grpc.Client {
       '/xdea.xmux.forum.Forum/toggleTopPost',
       ($2.UpdatePostReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$createReply =
+      $grpc.ClientMethod<$3.CreateReplyReq, $3.CreateReplyResp>(
+          '/xdea.xmux.forum.Forum/CreateReply',
+          ($3.CreateReplyReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $3.CreateReplyResp.fromBuffer(value));
+  static final _$getReply = $grpc.ClientMethod<$3.GetReplyReq, $3.GetReplyResp>(
+      '/xdea.xmux.forum.Forum/GetReply',
+      ($3.GetReplyReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $3.GetReplyResp.fromBuffer(value));
+  static final _$removeReply = $grpc.ClientMethod<$3.UpdateReplyReq, $1.Empty>(
+      '/xdea.xmux.forum.Forum/RemoveReply',
+      ($3.UpdateReplyReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$upvoteReply = $grpc.ClientMethod<$3.UpdateReplyReq, $1.Empty>(
+      '/xdea.xmux.forum.Forum/UpvoteReply',
+      ($3.UpdateReplyReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$downvoteReply =
+      $grpc.ClientMethod<$3.UpdateReplyReq, $1.Empty>(
+          '/xdea.xmux.forum.Forum/DownvoteReply',
+          ($3.UpdateReplyReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
 
   ForumClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -134,6 +158,32 @@ class ForumClient extends $grpc.Client {
   $grpc.ResponseFuture<$1.Empty> toggleTopPost($2.UpdatePostReq request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$toggleTopPost, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$3.CreateReplyResp> createReply(
+      $3.CreateReplyReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$createReply, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$3.GetReplyResp> getReply($3.GetReplyReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getReply, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> removeReply($3.UpdateReplyReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$removeReply, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> upvoteReply($3.UpdateReplyReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$upvoteReply, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> downvoteReply($3.UpdateReplyReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$downvoteReply, request, options: options);
   }
 }
 
@@ -225,6 +275,41 @@ abstract class ForumServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $2.UpdatePostReq.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.CreateReplyReq, $3.CreateReplyResp>(
+        'CreateReply',
+        createReply_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $3.CreateReplyReq.fromBuffer(value),
+        ($3.CreateReplyResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.GetReplyReq, $3.GetReplyResp>(
+        'GetReply',
+        getReply_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $3.GetReplyReq.fromBuffer(value),
+        ($3.GetReplyResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.UpdateReplyReq, $1.Empty>(
+        'RemoveReply',
+        removeReply_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $3.UpdateReplyReq.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.UpdateReplyReq, $1.Empty>(
+        'UpvoteReply',
+        upvoteReply_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $3.UpdateReplyReq.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.UpdateReplyReq, $1.Empty>(
+        'DownvoteReply',
+        downvoteReply_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $3.UpdateReplyReq.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.CreateGroupResp> createGroup_Pre(
@@ -287,6 +372,31 @@ abstract class ForumServiceBase extends $grpc.Service {
     return toggleTopPost(call, await request);
   }
 
+  $async.Future<$3.CreateReplyResp> createReply_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.CreateReplyReq> request) async {
+    return createReply(call, await request);
+  }
+
+  $async.Future<$3.GetReplyResp> getReply_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.GetReplyReq> request) async {
+    return getReply(call, await request);
+  }
+
+  $async.Future<$1.Empty> removeReply_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.UpdateReplyReq> request) async {
+    return removeReply(call, await request);
+  }
+
+  $async.Future<$1.Empty> upvoteReply_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.UpdateReplyReq> request) async {
+    return upvoteReply(call, await request);
+  }
+
+  $async.Future<$1.Empty> downvoteReply_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.UpdateReplyReq> request) async {
+    return downvoteReply(call, await request);
+  }
+
   $async.Future<$0.CreateGroupResp> createGroup(
       $grpc.ServiceCall call, $0.CreateGroupReq request);
   $async.Future<$1.Empty> removeGroup(
@@ -311,4 +421,14 @@ abstract class ForumServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $2.UpdatePostReq request);
   $async.Future<$1.Empty> toggleTopPost(
       $grpc.ServiceCall call, $2.UpdatePostReq request);
+  $async.Future<$3.CreateReplyResp> createReply(
+      $grpc.ServiceCall call, $3.CreateReplyReq request);
+  $async.Future<$3.GetReplyResp> getReply(
+      $grpc.ServiceCall call, $3.GetReplyReq request);
+  $async.Future<$1.Empty> removeReply(
+      $grpc.ServiceCall call, $3.UpdateReplyReq request);
+  $async.Future<$1.Empty> upvoteReply(
+      $grpc.ServiceCall call, $3.UpdateReplyReq request);
+  $async.Future<$1.Empty> downvoteReply(
+      $grpc.ServiceCall call, $3.UpdateReplyReq request);
 }

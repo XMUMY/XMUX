@@ -9,7 +9,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $3;
+import 'google/protobuf/timestamp.pb.dart' as $4;
 
 class CreateGroupReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateGroupReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xdea.xmux.forum'), createEmptyInstance: create)
@@ -335,7 +335,7 @@ class Group extends $pb.GeneratedMessage {
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'creatorUid', protoName: 'creatorUid')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
-    ..aOM<$3.Timestamp>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime', subBuilder: $3.Timestamp.create)
+    ..aOM<$4.Timestamp>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime', subBuilder: $4.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -345,7 +345,7 @@ class Group extends $pb.GeneratedMessage {
     $core.String? creatorUid,
     $core.String? title,
     $core.String? description,
-    $3.Timestamp? createTime,
+    $4.Timestamp? createTime,
   }) {
     final _result = create();
     if (id != null) {
@@ -423,14 +423,14 @@ class Group extends $pb.GeneratedMessage {
   void clearDescription() => clearField(4);
 
   @$pb.TagNumber(5)
-  $3.Timestamp get createTime => $_getN(4);
+  $4.Timestamp get createTime => $_getN(4);
   @$pb.TagNumber(5)
-  set createTime($3.Timestamp v) { setField(5, v); }
+  set createTime($4.Timestamp v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasCreateTime() => $_has(4);
   @$pb.TagNumber(5)
   void clearCreateTime() => clearField(5);
   @$pb.TagNumber(5)
-  $3.Timestamp ensureCreateTime() => $_ensure(4);
+  $4.Timestamp ensureCreateTime() => $_ensure(4);
 }
 
