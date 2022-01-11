@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:xmus_client/generated/post.pb.dart';
 import 'package:xmus_client/generated/reply.pb.dart';
@@ -24,8 +25,9 @@ class _ThreadPageState extends State<ThreadPage> {
   final _pagingController = PagingController<int, Reply>(
     firstPageKey: 0,
   );
-
-  // TODO: add replies
+  final TextEditingController _replyController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  var _isSubmitting = false;
 
   Future<void> _fetchPage(int pageKey) async {
     final resp = await rpc.forumClient.getReply(GetReplyReq(
@@ -42,15 +44,30 @@ class _ThreadPageState extends State<ThreadPage> {
     }
   }
 
-  Future<void> handleRefresh() async {
+  Future<void> _handleRefresh() async {
     _pagingController.refresh();
     if (mounted) setState(() {});
+  }
+
+  Future<void> _handleReplySubmit() async {
+    if (_isSubmitting || !_formKey.currentState!.validate()) return;
+    setState(() => _isSubmitting = true);
+    try {
+      await rpc.forumClient.createReply(CreateReplyReq(
+          content: _replyController.text,
+          refId: widget.postDetails.id,
+          refType: RefType.POST));
+      _handleRefresh();
+    } catch (e) {
+      // TODO: Show error.
+      setState(() => _isSubmitting = false);
+    }
   }
 
   @override
   void initState() {
     _pagingController.addPageRequestListener(_fetchPage);
-    handleRefresh();
+    _handleRefresh();
     super.initState();
   }
 
@@ -81,7 +98,7 @@ class _ThreadPageState extends State<ThreadPage> {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: handleRefresh,
+        onRefresh: _handleRefresh,
         child: Padding(
           padding:
               EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
@@ -128,15 +145,28 @@ class _ThreadPageState extends State<ThreadPage> {
         onClosing: () {},
         builder: (BuildContext context) {
           return Container(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Your comment here'.tr(),
-                  suffixIcon: IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.send))),
-            ),
-          );
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+              child: Form(
+                key: _formKey,
+                child: TextFormField(
+                  controller: _replyController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  maxLength: 500,
+                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Your comment here'.tr(),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            _handleReplySubmit();
+                            FocusScope.of(context).unfocus();
+                            _replyController.clear();
+                          },
+                          icon: const Icon(Icons.send))),
+                  validator: (v) => v != null && v.isNotEmpty ? null : '',
+                ),
+              ));
         },
       ),
     );
