@@ -87,7 +87,7 @@ class _ForumPageState extends State<ForumPage>
         tooltip: 'Create post'.tr(),
         onPressed: () async {
           final shouldRefresh = await Navigator.of(context).push<bool>(
-            MaterialPageRoute(builder: (context) => const NewPostPage()),
+            MaterialPageRoute(builder: (context) => const SelectGroupPage()),
           );
           if (shouldRefresh ?? false) {
             _pagingController.refresh();
