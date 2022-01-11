@@ -58,6 +58,7 @@ class _ThreadPageState extends State<ThreadPage> {
           refId: widget.postDetails.id,
           refType: RefType.POST));
       _handleRefresh();
+      setState(() => _isSubmitting = false);
     } catch (e) {
       // TODO: Show error.
       setState(() => _isSubmitting = false);
@@ -183,84 +184,91 @@ class _PostDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var content = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            UserProfileBuilder(
-              uid: postDetails.uid,
-              builder: (context, profile) => Row(
-                key: ValueKey(profile),
-                children: <Widget>[
-                  // Build user avatar.
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: CircleAvatar(
-                      child: ExtendedImage.network(
-                        profile.avatar,
-                        shape: BoxShape.circle,
+    var expansibleContent = Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+            initiallyExpanded: true,
+            title:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    UserProfileBuilder(
+                      uid: postDetails.uid,
+                      builder: (context, profile) => Row(
+                        key: ValueKey(profile),
+                        children: <Widget>[
+                          // Build user avatar.
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: CircleAvatar(
+                              child: ExtendedImage.network(
+                                profile.avatar,
+                                shape: BoxShape.circle,
+                              ),
+                              radius: 20,
+                            ),
+                          ),
+
+                          // Build user name and timestamp.
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(profile.displayName),
+                              Text(
+                                timeUtil(postDetails.createTime.toDateTime(),
+                                    locale),
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      radius: 20,
+                      placeholder: (context) => const Text('  ...  '),
                     ),
-                  ),
 
-                  // Build user name and timestamp.
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(profile.displayName),
-                      Text(
-                        timeUtil(postDetails.createTime.toDateTime(), locale),
-                        style: Theme.of(context).textTheme.caption,
+                    // Special attributes of post.
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(postDetails.best && postDetails.topped
+                          ? 'Best & Top'
+                          : postDetails.best
+                              ? 'Best'
+                              : postDetails.topped
+                                  ? 'Top'
+                                  : ''),
+                    ),
+                  ]),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 3),
+                child: Text(
+                  postDetails.title,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              )
+            ]),
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 15, top: 5, right: 15, bottom: 3),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        postDetails.body,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              placeholder: (context) => const Text('  ...  '),
-            ),
-
-            // Special attributes of post.
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(postDetails.best && postDetails.topped
-                  ? 'Best & Top'
-                  : postDetails.best
-                      ? 'Best'
-                      : postDetails.topped
-                          ? 'Top'
-                          : ''),
-            ),
-          ],
-        ),
-
-        // Build post.
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                postDetails.title,
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              const Divider(color: Colors.transparent),
-              Text(
-                postDetails.body,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+                    )
+                  ],
+                ),
+              )
+            ]));
 
     return FloatingCard(
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      padding: const EdgeInsets.all(5),
-      child: content,
+      margin: const EdgeInsets.symmetric(vertical: 0),
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: expansibleContent,
     );
   }
 }

@@ -41,7 +41,7 @@ class _NewPostPageState extends State<NewPostPage> {
     final formWidgets = <Widget>[
       TextFormField(
         decoration: InputDecoration(labelText: 'Title'.tr()),
-        maxLength: 50,
+        maxLength: 70,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         onChanged: (v) => form.title = v,
         validator: (v) => v != null && v.isNotEmpty ? null : '',
