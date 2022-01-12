@@ -80,7 +80,10 @@ class _ForumPageState extends State<ForumPage>
                       style: Theme.of(context).textTheme.caption,
                       textAlign: TextAlign.center));
             }
-            return _PostBriefCard(postDetails: item, locale: locale,);
+            return _PostBriefCard(
+              postDetails: item,
+              locale: locale,
+            );
           },
         ),
       ),
@@ -104,7 +107,9 @@ class _PostBriefCard extends StatelessWidget {
   final PostDetails postDetails;
   final String locale;
 
-  const _PostBriefCard({Key? key, required this.postDetails, required this.locale}) : super(key: key);
+  const _PostBriefCard(
+      {Key? key, required this.postDetails, required this.locale})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -148,16 +153,22 @@ class _PostBriefCard extends StatelessWidget {
             ),
 
             // Special attributes of post.
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(postDetails.best && postDetails.topped
-                  ? 'Best & Top'
-                  : postDetails.best
-                      ? 'Best'
-                      : postDetails.topped
-                          ? 'Top'
-                          : ''),
-            ),
+            if (postDetails.topped)
+              const Padding(
+                padding: EdgeInsets.all(5),
+                child: Icon(
+                  Icons.push_pin_rounded,
+                  color: Colors.lightGreen,
+                ),
+              ),
+            if (postDetails.best && !postDetails.topped)
+              const Padding(
+                padding: EdgeInsets.all(5),
+                child: Icon(
+                  Icons.star,
+                  color: Colors.lightBlueAccent,
+                ),
+              ),
           ],
         ),
 
