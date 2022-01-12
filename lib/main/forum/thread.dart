@@ -25,9 +25,6 @@ class _ThreadPageState extends State<ThreadPage> {
   final _pagingController = PagingController<int, Reply>(
     firstPageKey: 0,
   );
-  final TextEditingController _replyController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-  var _isSubmitting = false;
   double _bottomSheetHeight = 0;
   final _bottomSheetKey = GlobalKey();
 
@@ -50,19 +47,13 @@ class _ThreadPageState extends State<ThreadPage> {
     if (mounted) setState(() {});
   }
 
-  Future<void> _handleReplySubmit() async {
-    if (_isSubmitting || !_formKey.currentState!.validate()) return;
-    setState(() => _isSubmitting = true);
+  Future<void> _handleReplySubmit(String content, int refReplyId) async {
     try {
       await rpc.forumClient.createReply(CreateReplyReq(
-          content: _replyController.text,
-          refPostId: widget.postDetails.id,
-          refReplyId: -1));
+          content: content, refPostId: widget.postDetails.id, refReplyId: -1));
       _handleRefresh();
-      setState(() => _isSubmitting = false);
     } catch (e) {
       // TODO: Show error.
-      setState(() => _isSubmitting = false);
     }
   }
 
@@ -146,6 +137,31 @@ class _ThreadPageState extends State<ThreadPage> {
                     return _ReplyCard(
                       reply: item,
                       locale: locale,
+                      replyOnClick: () {
+                        showModalBottomSheet<void>(
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return UserProfileBuilder(
+                                uid: item.uid,
+                                builder: (context, profile) => Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom: MediaQuery.of(context)
+                                            .viewInsets
+                                            .bottom),
+                                    child: _ReplyForm(
+                                      autoFocus: true,
+                                      onSubmit: (content, id) {
+                                        _handleReplySubmit(content, id);
+                                        Navigator.pop(context);
+                                      },
+                                      refReplyId: item.id,
+                                      hintText:
+                                          '${'Reply to'.tr()} ${profile.displayName}: ',
+                                    )));
+                          },
+                        );
+                      },
                     );
                   },
                 ),
@@ -158,32 +174,70 @@ class _ThreadPageState extends State<ThreadPage> {
         key: _bottomSheetKey,
         onClosing: () {},
         builder: (BuildContext context) {
-          return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
-              child: Form(
-                key: _formKey,
-                child: TextFormField(
-                  controller: _replyController,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  maxLength: 500,
-                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Your comment here'.tr(),
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            _handleReplySubmit();
-                            FocusScope.of(context).unfocus();
-                            _replyController.clear();
-                          },
-                          icon: const Icon(Icons.send))),
-                  validator: (v) => v != null && v.isNotEmpty ? null : '',
-                ),
-              ));
+          return _ReplyForm(
+            onSubmit: _handleReplySubmit,
+            refReplyId: -1,
+            hintText: 'Your comment here'.tr(),
+          );
         },
       ),
     );
+  }
+}
+
+class _ReplyForm extends StatefulWidget {
+  final void Function(String, int) onSubmit;
+  final int refReplyId;
+  final String hintText;
+  final bool autoFocus;
+
+  const _ReplyForm(
+      {Key? key,
+      required this.onSubmit,
+      required this.refReplyId,
+      required this.hintText,
+      this.autoFocus = false})
+      : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _ReplyFormState();
+}
+
+class _ReplyFormState extends State<_ReplyForm> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _fieldController = TextEditingController();
+  bool _isSubmitting = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+        child: Form(
+          key: _formKey,
+          child: TextFormField(
+            autofocus: widget.autoFocus,
+            controller: _fieldController,
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            maxLength: 500,
+            maxLengthEnforcement: MaxLengthEnforcement.enforced,
+            decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                hintText: widget.hintText,
+                suffixIcon: IconButton(
+                    onPressed: () {
+                      if (_isSubmitting || !_formKey.currentState!.validate())
+                        return;
+                      setState(() => _isSubmitting = true);
+                      widget.onSubmit(_fieldController.text, widget.refReplyId);
+                      FocusScope.of(context).unfocus();
+                      _fieldController.clear();
+                      setState(() => _isSubmitting = false);
+                    },
+                    icon: const Icon(Icons.send))),
+            validator: (v) => v != null && v.isNotEmpty ? null : '',
+          ),
+        ));
   }
 }
 
@@ -295,8 +349,13 @@ class _PostDetailsCard extends StatelessWidget {
 class _ReplyCard extends StatelessWidget {
   final Reply reply;
   final String locale;
+  final void Function() replyOnClick;
 
-  const _ReplyCard({Key? key, required this.reply, required this.locale})
+  const _ReplyCard(
+      {Key? key,
+      required this.reply,
+      required this.locale,
+      required this.replyOnClick})
       : super(key: key);
 
   @override
@@ -355,7 +414,7 @@ class _ReplyCard extends StatelessWidget {
                     ],
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: replyOnClick,
                     icon: const Icon(Icons.add_comment_rounded),
                     color: Theme.of(context).hintColor,
                   )
