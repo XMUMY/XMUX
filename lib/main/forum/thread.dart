@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:extended_image/extended_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:xmus_client/generated/post.pb.dart';
 import 'package:xmus_client/generated/reply.pb.dart';
@@ -50,7 +52,9 @@ class _ThreadPageState extends State<ThreadPage> {
   Future<void> _handleReplySubmit(String content, int refReplyId) async {
     try {
       await rpc.forumClient.createReply(CreateReplyReq(
-          content: content, refPostId: widget.postDetails.id, refReplyId: -1));
+          content: content,
+          refPostId: widget.postDetails.id,
+          refReplyId: refReplyId));
       _handleRefresh();
     } catch (e) {
       // TODO: Show error.
@@ -349,7 +353,7 @@ class _PostDetailsCard extends StatelessWidget {
 class _ReplyCard extends StatelessWidget {
   final Reply reply;
   final String locale;
-  final void Function() replyOnClick;
+  final void Function()? replyOnClick;
 
   const _ReplyCard(
       {Key? key,
@@ -357,6 +361,25 @@ class _ReplyCard extends StatelessWidget {
       required this.locale,
       required this.replyOnClick})
       : super(key: key);
+
+  Future<void> _showReplySheet(BuildContext context) async {
+
+    return showModalBottomSheet<void>(
+        builder: (BuildContext context) => Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      child: Text(
+                        'Refered comment'.tr(),
+                        style: Theme.of(context).textTheme.titleLarge,
+                      )),
+                  _ReplyCard(reply: reply, locale: locale, replyOnClick: null)
+                ]),
+        context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -413,11 +436,12 @@ class _ReplyCard extends StatelessWidget {
                         )
                     ],
                   ),
-                  IconButton(
-                    onPressed: replyOnClick,
-                    icon: const Icon(Icons.add_comment_rounded),
-                    color: Theme.of(context).hintColor,
-                  )
+                  if (replyOnClick != null)
+                    IconButton(
+                      onPressed: replyOnClick,
+                      icon: const Icon(Icons.add_comment_rounded),
+                      color: Theme.of(context).hintColor,
+                    )
                 ]),
             children: [
               Padding(
@@ -427,11 +451,37 @@ class _ReplyCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Flexible(
-                      child: Text(
-                        reply.content,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                    )
+                        child: reply.refReplyId == -1
+                            ? Text(
+                                reply.content,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              )
+                            : UserProfileBuilder(
+                                uid: reply.refUid,
+                                builder: (context, profile) => RichText(
+                                    text: TextSpan(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                        children: [
+                                      TextSpan(
+                                        text: '@${profile.displayName} ',
+                                        style:
+                                            const TextStyle(color: Colors.blue),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            _showReplySheet(context);
+                                          },
+                                      ),
+                                      TextSpan(
+                                        text: reply.content,
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            print(reply.refUid);
+                                          },
+                                      )
+                                    ])),
+                              ))
                   ],
                 ),
               )

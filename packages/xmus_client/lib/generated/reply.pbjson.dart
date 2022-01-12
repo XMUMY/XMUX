@@ -86,8 +86,9 @@ const Reply$json = const {
     const {'1': 'topped', '3': 5, '4': 1, '5': 8, '10': 'topped'},
     const {'1': 'createTime', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createTime'},
     const {'1': 'refReplyId', '3': 7, '4': 1, '5': 5, '10': 'refReplyId'},
+    const {'1': 'refUid', '3': 8, '4': 1, '5': 9, '10': 'refUid'},
   ],
 };
 
 /// Descriptor for `Reply`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List replyDescriptor = $convert.base64Decode('CgVSZXBseRIOCgJpZBgBIAEoBVICaWQSGAoHY29udGVudBgCIAEoCVIHY29udGVudBISCgR2b3RlGAMgASgFUgR2b3RlEhAKA3VpZBgEIAEoCVIDdWlkEhYKBnRvcHBlZBgFIAEoCFIGdG9wcGVkEjoKCmNyZWF0ZVRpbWUYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgpjcmVhdGVUaW1lEh4KCnJlZlJlcGx5SWQYByABKAVSCnJlZlJlcGx5SWQ=');
+final $typed_data.Uint8List replyDescriptor = $convert.base64Decode('CgVSZXBseRIOCgJpZBgBIAEoBVICaWQSGAoHY29udGVudBgCIAEoCVIHY29udGVudBISCgR2b3RlGAMgASgFUgR2b3RlEhAKA3VpZBgEIAEoCVIDdWlkEhYKBnRvcHBlZBgFIAEoCFIGdG9wcGVkEjoKCmNyZWF0ZVRpbWUYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgpjcmVhdGVUaW1lEh4KCnJlZlJlcGx5SWQYByABKAVSCnJlZlJlcGx5SWQSFgoGcmVmVWlkGAggASgJUgZyZWZVaWQ=');

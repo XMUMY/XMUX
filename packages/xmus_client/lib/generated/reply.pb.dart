@@ -323,6 +323,7 @@ class Reply extends $pb.GeneratedMessage {
     ..aOB(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'topped')
     ..aOM<$4.Timestamp>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime', subBuilder: $4.Timestamp.create)
     ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refReplyId', $pb.PbFieldType.O3, protoName: 'refReplyId')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refUid', protoName: 'refUid')
     ..hasRequiredFields = false
   ;
 
@@ -335,6 +336,7 @@ class Reply extends $pb.GeneratedMessage {
     $core.bool? topped,
     $4.Timestamp? createTime,
     $core.int? refReplyId,
+    $core.String? refUid,
   }) {
     final _result = create();
     if (id != null) {
@@ -357,6 +359,9 @@ class Reply extends $pb.GeneratedMessage {
     }
     if (refReplyId != null) {
       _result.refReplyId = refReplyId;
+    }
+    if (refUid != null) {
+      _result.refUid = refUid;
     }
     return _result;
   }
@@ -445,5 +450,14 @@ class Reply extends $pb.GeneratedMessage {
   $core.bool hasRefReplyId() => $_has(6);
   @$pb.TagNumber(7)
   void clearRefReplyId() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get refUid => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set refUid($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasRefUid() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearRefUid() => clearField(8);
 }
 
