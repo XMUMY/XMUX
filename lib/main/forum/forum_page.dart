@@ -35,12 +35,13 @@ class _ForumPageState extends State<ForumPage>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    _pagingController.addPageRequestListener(_fetchPage);
     super.initState();
+    _pagingController.addPageRequestListener(_fetchPage);
   }
 
   @override
   void dispose() {
+    _pagingController.dispose();
     super.dispose();
   }
 
@@ -49,7 +50,7 @@ class _ForumPageState extends State<ForumPage>
   );
 
   Future<void> _fetchPage(int pageKey) async {
-    // TODO: Change this API to personal feed
+    // The default forum group has id 1
     final resp = await rpc.forumClient
         .getPost(GetPostReq(pageNo: pageKey, pageSize: 10, groupIds: <int>[1]));
     final pd = resp.pd;
@@ -60,6 +61,11 @@ class _ForumPageState extends State<ForumPage>
     }
   }
 
+  Future<void> _handleRefresh() async {
+    _pagingController.refresh();
+    if (mounted) setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     var locale = Localizations.localeOf(context).toString();
@@ -68,23 +74,27 @@ class _ForumPageState extends State<ForumPage>
       appBar: AppBar(
         title: Text('Forum.Forum'.tr()),
       ),
-      body: PagedListView<int, PostDetails>(
-        pagingController: _pagingController,
-        padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
-        builderDelegate: PagedChildBuilderDelegate<PostDetails>(
-          itemBuilder: (context, item, index) {
-            if (item.id == -14514) {
-              return Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text('-----END-----',
-                      style: Theme.of(context).textTheme.caption,
-                      textAlign: TextAlign.center));
-            }
-            return _PostBriefCard(
-              postDetails: item,
-              locale: locale,
-            );
-          },
+      body: RefreshIndicator(
+        onRefresh: _handleRefresh,
+        child: PagedListView<int, PostDetails>(
+          pagingController: _pagingController,
+          padding:
+              EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
+          builderDelegate: PagedChildBuilderDelegate<PostDetails>(
+            itemBuilder: (context, item, index) {
+              if (item.id == -14514) {
+                return Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Text('-----END-----',
+                        style: Theme.of(context).textTheme.caption,
+                        textAlign: TextAlign.center));
+              }
+              return _PostBriefCard(
+                postDetails: item,
+                locale: locale,
+              );
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

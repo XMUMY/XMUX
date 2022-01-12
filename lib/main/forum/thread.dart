@@ -356,7 +356,7 @@ class _ReplyCard extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: const Icon(Icons.comment_rounded),
+                    icon: const Icon(Icons.add_comment_rounded),
                     color: Theme.of(context).hintColor,
                   )
                 ]),
