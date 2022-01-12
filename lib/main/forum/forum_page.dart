@@ -62,6 +62,8 @@ class _ForumPageState extends State<ForumPage>
 
   @override
   Widget build(BuildContext context) {
+    var locale = Localizations.localeOf(context).toString();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Forum.Forum'.tr()),
@@ -78,7 +80,7 @@ class _ForumPageState extends State<ForumPage>
                       style: Theme.of(context).textTheme.caption,
                       textAlign: TextAlign.center));
             }
-            return _PostBriefCard(postDetails: item);
+            return _PostBriefCard(postDetails: item, locale: locale,);
           },
         ),
       ),
@@ -87,7 +89,7 @@ class _ForumPageState extends State<ForumPage>
         tooltip: 'Create post'.tr(),
         onPressed: () async {
           final shouldRefresh = await Navigator.of(context).push<bool>(
-            MaterialPageRoute(builder: (context) => const SelectGroupPage()),
+            MaterialPageRoute(builder: (context) => const NewPostPage()),
           );
           if (shouldRefresh ?? false) {
             _pagingController.refresh();
@@ -100,8 +102,9 @@ class _ForumPageState extends State<ForumPage>
 
 class _PostBriefCard extends StatelessWidget {
   final PostDetails postDetails;
+  final String locale;
 
-  const _PostBriefCard({Key? key, required this.postDetails}) : super(key: key);
+  const _PostBriefCard({Key? key, required this.postDetails, required this.locale}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +137,7 @@ class _PostBriefCard extends StatelessWidget {
                     children: <Widget>[
                       Text(profile.displayName),
                       Text(
-                        groupNameDecorationUtil(postDetails.groupName),
+                        '${'Updated'.tr()} ${timeUtil(postDetails.updateTime.toDateTime(), locale)}',
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ],

@@ -40,6 +40,12 @@ class ForumClient extends $grpc.Client {
           '/xdea.xmux.forum.Forum/GetGroups',
           ($0.GetGroupsReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.GetGroupsResp.fromBuffer(value));
+  static final _$getUserGroups =
+      $grpc.ClientMethod<$1.Empty, $0.GetUserGroupsResp>(
+          '/xdea.xmux.forum.Forum/GetUserGroups',
+          ($1.Empty value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.GetUserGroupsResp.fromBuffer(value));
   static final _$createPost =
       $grpc.ClientMethod<$2.CreatePostReq, $2.CreatePostResp>(
           '/xdea.xmux.forum.Forum/CreatePost',
@@ -123,6 +129,11 @@ class ForumClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.GetGroupsResp> getGroups($0.GetGroupsReq request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getGroups, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.GetUserGroupsResp> getUserGroups($1.Empty request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getUserGroups, request, options: options);
   }
 
   $grpc.ResponseFuture<$2.CreatePostResp> createPost($2.CreatePostReq request,
@@ -226,6 +237,13 @@ abstract class ForumServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.GetGroupsReq.fromBuffer(value),
         ($0.GetGroupsResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.Empty, $0.GetUserGroupsResp>(
+        'GetUserGroups',
+        getUserGroups_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $1.Empty.fromBuffer(value),
+        ($0.GetUserGroupsResp value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$2.CreatePostReq, $2.CreatePostResp>(
         'CreatePost',
         createPost_Pre,
@@ -337,6 +355,11 @@ abstract class ForumServiceBase extends $grpc.Service {
     return getGroups(call, await request);
   }
 
+  $async.Future<$0.GetUserGroupsResp> getUserGroups_Pre(
+      $grpc.ServiceCall call, $async.Future<$1.Empty> request) async {
+    return getUserGroups(call, await request);
+  }
+
   $async.Future<$2.CreatePostResp> createPost_Pre(
       $grpc.ServiceCall call, $async.Future<$2.CreatePostReq> request) async {
     return createPost(call, await request);
@@ -407,6 +430,8 @@ abstract class ForumServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.MembershipMsg request);
   $async.Future<$0.GetGroupsResp> getGroups(
       $grpc.ServiceCall call, $0.GetGroupsReq request);
+  $async.Future<$0.GetUserGroupsResp> getUserGroups(
+      $grpc.ServiceCall call, $1.Empty request);
   $async.Future<$2.CreatePostResp> createPost(
       $grpc.ServiceCall call, $2.CreatePostReq request);
   $async.Future<$1.Empty> removePost(

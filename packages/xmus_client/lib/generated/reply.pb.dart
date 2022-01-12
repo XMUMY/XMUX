@@ -18,26 +18,26 @@ export 'reply.pbenum.dart';
 class CreateReplyReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateReplyReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xdea.xmux.forum'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content')
-    ..e<RefType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refType', $pb.PbFieldType.OE, protoName: 'refType', defaultOrMaker: RefType.POST, valueOf: RefType.valueOf, enumValues: RefType.values)
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refId', $pb.PbFieldType.O3, protoName: 'refId')
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refReplyId', $pb.PbFieldType.O3, protoName: 'refReplyId')
+    ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refPostId', $pb.PbFieldType.O3, protoName: 'refPostId')
     ..hasRequiredFields = false
   ;
 
   CreateReplyReq._() : super();
   factory CreateReplyReq({
     $core.String? content,
-    RefType? refType,
-    $core.int? refId,
+    $core.int? refReplyId,
+    $core.int? refPostId,
   }) {
     final _result = create();
     if (content != null) {
       _result.content = content;
     }
-    if (refType != null) {
-      _result.refType = refType;
+    if (refReplyId != null) {
+      _result.refReplyId = refReplyId;
     }
-    if (refId != null) {
-      _result.refId = refId;
+    if (refPostId != null) {
+      _result.refPostId = refPostId;
     }
     return _result;
   }
@@ -71,23 +71,23 @@ class CreateReplyReq extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   void clearContent() => clearField(1);
 
-  @$pb.TagNumber(2)
-  RefType get refType => $_getN(1);
-  @$pb.TagNumber(2)
-  set refType(RefType v) { setField(2, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasRefType() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearRefType() => clearField(2);
+  @$pb.TagNumber(3)
+  $core.int get refReplyId => $_getIZ(1);
+  @$pb.TagNumber(3)
+  set refReplyId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasRefReplyId() => $_has(1);
+  @$pb.TagNumber(3)
+  void clearRefReplyId() => clearField(3);
 
-  @$pb.TagNumber(3)
-  $core.int get refId => $_getIZ(2);
-  @$pb.TagNumber(3)
-  set refId($core.int v) { $_setSignedInt32(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasRefId() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearRefId() => clearField(3);
+  @$pb.TagNumber(4)
+  $core.int get refPostId => $_getIZ(2);
+  @$pb.TagNumber(4)
+  set refPostId($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasRefPostId() => $_has(2);
+  @$pb.TagNumber(4)
+  void clearRefPostId() => clearField(4);
 }
 
 class CreateReplyResp extends $pb.GeneratedMessage {
@@ -141,9 +141,8 @@ class GetReplyReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetReplyReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xdea.xmux.forum'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageNo', $pb.PbFieldType.O3, protoName: 'pageNo')
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageSize', $pb.PbFieldType.O3, protoName: 'pageSize')
-    ..e<RefType>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refType', $pb.PbFieldType.OE, protoName: 'refType', defaultOrMaker: RefType.POST, valueOf: RefType.valueOf, enumValues: RefType.values)
-    ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refId', $pb.PbFieldType.O3, protoName: 'refId')
-    ..e<SortingMethod>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sort', $pb.PbFieldType.OE, defaultOrMaker: SortingMethod.NEWEST, valueOf: SortingMethod.valueOf, enumValues: SortingMethod.values)
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refPostId', $pb.PbFieldType.O3, protoName: 'refPostId')
+    ..e<SortingMethod>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sort', $pb.PbFieldType.OE, defaultOrMaker: SortingMethod.NEWEST, valueOf: SortingMethod.valueOf, enumValues: SortingMethod.values)
     ..hasRequiredFields = false
   ;
 
@@ -151,8 +150,7 @@ class GetReplyReq extends $pb.GeneratedMessage {
   factory GetReplyReq({
     $core.int? pageNo,
     $core.int? pageSize,
-    RefType? refType,
-    $core.int? refId,
+    $core.int? refPostId,
     SortingMethod? sort,
   }) {
     final _result = create();
@@ -162,11 +160,8 @@ class GetReplyReq extends $pb.GeneratedMessage {
     if (pageSize != null) {
       _result.pageSize = pageSize;
     }
-    if (refType != null) {
-      _result.refType = refType;
-    }
-    if (refId != null) {
-      _result.refId = refId;
+    if (refPostId != null) {
+      _result.refPostId = refPostId;
     }
     if (sort != null) {
       _result.sort = sort;
@@ -213,31 +208,22 @@ class GetReplyReq extends $pb.GeneratedMessage {
   void clearPageSize() => clearField(2);
 
   @$pb.TagNumber(3)
-  RefType get refType => $_getN(2);
+  $core.int get refPostId => $_getIZ(2);
   @$pb.TagNumber(3)
-  set refType(RefType v) { setField(3, v); }
+  set refPostId($core.int v) { $_setSignedInt32(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasRefType() => $_has(2);
+  $core.bool hasRefPostId() => $_has(2);
   @$pb.TagNumber(3)
-  void clearRefType() => clearField(3);
+  void clearRefPostId() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.int get refId => $_getIZ(3);
+  SortingMethod get sort => $_getN(3);
   @$pb.TagNumber(4)
-  set refId($core.int v) { $_setSignedInt32(3, v); }
+  set sort(SortingMethod v) { setField(4, v); }
   @$pb.TagNumber(4)
-  $core.bool hasRefId() => $_has(3);
+  $core.bool hasSort() => $_has(3);
   @$pb.TagNumber(4)
-  void clearRefId() => clearField(4);
-
-  @$pb.TagNumber(5)
-  SortingMethod get sort => $_getN(4);
-  @$pb.TagNumber(5)
-  set sort(SortingMethod v) { setField(5, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasSort() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearSort() => clearField(5);
+  void clearSort() => clearField(4);
 }
 
 class GetReplyResp extends $pb.GeneratedMessage {
@@ -336,6 +322,7 @@ class Reply extends $pb.GeneratedMessage {
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'uid')
     ..aOB(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'topped')
     ..aOM<$4.Timestamp>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime', subBuilder: $4.Timestamp.create)
+    ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refReplyId', $pb.PbFieldType.O3, protoName: 'refReplyId')
     ..hasRequiredFields = false
   ;
 
@@ -347,6 +334,7 @@ class Reply extends $pb.GeneratedMessage {
     $core.String? uid,
     $core.bool? topped,
     $4.Timestamp? createTime,
+    $core.int? refReplyId,
   }) {
     final _result = create();
     if (id != null) {
@@ -366,6 +354,9 @@ class Reply extends $pb.GeneratedMessage {
     }
     if (createTime != null) {
       _result.createTime = createTime;
+    }
+    if (refReplyId != null) {
+      _result.refReplyId = refReplyId;
     }
     return _result;
   }
@@ -445,5 +436,14 @@ class Reply extends $pb.GeneratedMessage {
   void clearCreateTime() => clearField(6);
   @$pb.TagNumber(6)
   $4.Timestamp ensureCreateTime() => $_ensure(5);
+
+  @$pb.TagNumber(7)
+  $core.int get refReplyId => $_getIZ(6);
+  @$pb.TagNumber(7)
+  set refReplyId($core.int v) { $_setSignedInt32(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasRefReplyId() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearRefReplyId() => clearField(7);
 }
 

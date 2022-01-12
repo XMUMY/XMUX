@@ -169,21 +169,16 @@ class GroupIdMsg extends $pb.GeneratedMessage {
 class MembershipMsg extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MembershipMsg', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xdea.xmux.forum'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId', $pb.PbFieldType.O3, protoName: 'groupId')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'uid')
     ..hasRequiredFields = false
   ;
 
   MembershipMsg._() : super();
   factory MembershipMsg({
     $core.int? groupId,
-    $core.String? uid,
   }) {
     final _result = create();
     if (groupId != null) {
       _result.groupId = groupId;
-    }
-    if (uid != null) {
-      _result.uid = uid;
     }
     return _result;
   }
@@ -216,15 +211,6 @@ class MembershipMsg extends $pb.GeneratedMessage {
   $core.bool hasGroupId() => $_has(0);
   @$pb.TagNumber(1)
   void clearGroupId() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get uid => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set uid($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasUid() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearUid() => clearField(2);
 }
 
 class GetGroupsReq extends $pb.GeneratedMessage {
@@ -327,6 +313,47 @@ class GetGroupsResp extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<Group> get groups => $_getList(0);
+}
+
+class GetUserGroupsResp extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetUserGroupsResp', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xdea.xmux.forum'), createEmptyInstance: create)
+    ..pc<GroupBrief>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groups', $pb.PbFieldType.PM, subBuilder: GroupBrief.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetUserGroupsResp._() : super();
+  factory GetUserGroupsResp({
+    $core.Iterable<GroupBrief>? groups,
+  }) {
+    final _result = create();
+    if (groups != null) {
+      _result.groups.addAll(groups);
+    }
+    return _result;
+  }
+  factory GetUserGroupsResp.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetUserGroupsResp.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetUserGroupsResp clone() => GetUserGroupsResp()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetUserGroupsResp copyWith(void Function(GetUserGroupsResp) updates) => super.copyWith((message) => updates(message as GetUserGroupsResp)) as GetUserGroupsResp; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetUserGroupsResp create() => GetUserGroupsResp._();
+  GetUserGroupsResp createEmptyInstance() => create();
+  static $pb.PbList<GetUserGroupsResp> createRepeated() => $pb.PbList<GetUserGroupsResp>();
+  @$core.pragma('dart2js:noInline')
+  static GetUserGroupsResp getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetUserGroupsResp>(create);
+  static GetUserGroupsResp? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<GroupBrief> get groups => $_getList(0);
 }
 
 class Group extends $pb.GeneratedMessage {
@@ -432,5 +459,66 @@ class Group extends $pb.GeneratedMessage {
   void clearCreateTime() => clearField(5);
   @$pb.TagNumber(5)
   $4.Timestamp ensureCreateTime() => $_ensure(4);
+}
+
+class GroupBrief extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GroupBrief', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xdea.xmux.forum'), createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
+    ..hasRequiredFields = false
+  ;
+
+  GroupBrief._() : super();
+  factory GroupBrief({
+    $core.int? id,
+    $core.String? title,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    if (title != null) {
+      _result.title = title;
+    }
+    return _result;
+  }
+  factory GroupBrief.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GroupBrief.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GroupBrief clone() => GroupBrief()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GroupBrief copyWith(void Function(GroupBrief) updates) => super.copyWith((message) => updates(message as GroupBrief)) as GroupBrief; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GroupBrief create() => GroupBrief._();
+  GroupBrief createEmptyInstance() => create();
+  static $pb.PbList<GroupBrief> createRepeated() => $pb.PbList<GroupBrief>();
+  @$core.pragma('dart2js:noInline')
+  static GroupBrief getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GroupBrief>(create);
+  static GroupBrief? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get id => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set id($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get title => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set title($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasTitle() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTitle() => clearField(2);
 }
 

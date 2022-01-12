@@ -44,12 +44,11 @@ const MembershipMsg$json = const {
   '1': 'MembershipMsg',
   '2': const [
     const {'1': 'groupId', '3': 1, '4': 1, '5': 5, '10': 'groupId'},
-    const {'1': 'uid', '3': 2, '4': 1, '5': 9, '10': 'uid'},
   ],
 };
 
 /// Descriptor for `MembershipMsg`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List membershipMsgDescriptor = $convert.base64Decode('Cg1NZW1iZXJzaGlwTXNnEhgKB2dyb3VwSWQYASABKAVSB2dyb3VwSWQSEAoDdWlkGAIgASgJUgN1aWQ=');
+final $typed_data.Uint8List membershipMsgDescriptor = $convert.base64Decode('Cg1NZW1iZXJzaGlwTXNnEhgKB2dyb3VwSWQYASABKAVSB2dyb3VwSWQ=');
 @$core.Deprecated('Use getGroupsReqDescriptor instead')
 const GetGroupsReq$json = const {
   '1': 'GetGroupsReq',
@@ -71,6 +70,16 @@ const GetGroupsResp$json = const {
 
 /// Descriptor for `GetGroupsResp`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getGroupsRespDescriptor = $convert.base64Decode('Cg1HZXRHcm91cHNSZXNwEi4KBmdyb3VwcxgBIAMoCzIWLnhkZWEueG11eC5mb3J1bS5Hcm91cFIGZ3JvdXBz');
+@$core.Deprecated('Use getUserGroupsRespDescriptor instead')
+const GetUserGroupsResp$json = const {
+  '1': 'GetUserGroupsResp',
+  '2': const [
+    const {'1': 'groups', '3': 1, '4': 3, '5': 11, '6': '.xdea.xmux.forum.GroupBrief', '10': 'groups'},
+  ],
+};
+
+/// Descriptor for `GetUserGroupsResp`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getUserGroupsRespDescriptor = $convert.base64Decode('ChFHZXRVc2VyR3JvdXBzUmVzcBIzCgZncm91cHMYASADKAsyGy54ZGVhLnhtdXguZm9ydW0uR3JvdXBCcmllZlIGZ3JvdXBz');
 @$core.Deprecated('Use groupDescriptor instead')
 const Group$json = const {
   '1': 'Group',
@@ -85,3 +94,14 @@ const Group$json = const {
 
 /// Descriptor for `Group`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List groupDescriptor = $convert.base64Decode('CgVHcm91cBIOCgJpZBgBIAEoBVICaWQSHgoKY3JlYXRvclVpZBgCIAEoCVIKY3JlYXRvclVpZBIUCgV0aXRsZRgDIAEoCVIFdGl0bGUSIAoLZGVzY3JpcHRpb24YBCABKAlSC2Rlc2NyaXB0aW9uEjoKCmNyZWF0ZVRpbWUYBSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgpjcmVhdGVUaW1l');
+@$core.Deprecated('Use groupBriefDescriptor instead')
+const GroupBrief$json = const {
+  '1': 'GroupBrief',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 5, '10': 'id'},
+    const {'1': 'title', '3': 2, '4': 1, '5': 9, '10': 'title'},
+  ],
+};
+
+/// Descriptor for `GroupBrief`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List groupBriefDescriptor = $convert.base64Decode('CgpHcm91cEJyaWVmEg4KAmlkGAEgASgFUgJpZBIUCgV0aXRsZRgCIAEoCVIFdGl0bGU=');

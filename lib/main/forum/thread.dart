@@ -28,13 +28,14 @@ class _ThreadPageState extends State<ThreadPage> {
   final TextEditingController _replyController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var _isSubmitting = false;
+  double _bottomSheetHeight = 0;
+  final _bottomSheetKey = GlobalKey();
 
   Future<void> _fetchPage(int pageKey) async {
     final resp = await rpc.forumClient.getReply(GetReplyReq(
         pageNo: pageKey,
         pageSize: 10,
-        refId: widget.postDetails.id,
-        refType: RefType.POST,
+        refPostId: widget.postDetails.id,
         sort: SortingMethod.NEWEST));
     final replies = resp.replies;
     if (replies.isNotEmpty) {
@@ -55,8 +56,8 @@ class _ThreadPageState extends State<ThreadPage> {
     try {
       await rpc.forumClient.createReply(CreateReplyReq(
           content: _replyController.text,
-          refId: widget.postDetails.id,
-          refType: RefType.POST));
+          refPostId: widget.postDetails.id,
+          refReplyId: -1));
       _handleRefresh();
       setState(() => _isSubmitting = false);
     } catch (e) {
@@ -67,9 +68,17 @@ class _ThreadPageState extends State<ThreadPage> {
 
   @override
   void initState() {
+    super.initState();
     _pagingController.addPageRequestListener(_fetchPage);
     _handleRefresh();
-    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      final bottomSheetHeight =
+          _bottomSheetKey.currentContext?.size?.height ?? 0;
+      if (_bottomSheetHeight != bottomSheetHeight) {
+        _bottomSheetHeight = bottomSheetHeight;
+        setState(() {});
+      }
+    });
   }
 
   @override
@@ -84,7 +93,7 @@ class _ThreadPageState extends State<ThreadPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(groupNameDecorationUtil(widget.postDetails.groupName)),
+        title: Text('Thread'.tr()),
         actions: <Widget>[
           if (widget.postDetails.uid == store.state.user.campusId)
             IconButton(
@@ -101,8 +110,11 @@ class _ThreadPageState extends State<ThreadPage> {
       body: RefreshIndicator(
         onRefresh: _handleRefresh,
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
+          padding: EdgeInsets.only(
+              top: 4,
+              left: context.padBody,
+              right: context.padBody,
+              bottom: _bottomSheetHeight + 4),
           child: CustomScrollView(
             slivers: <Widget>[
               SliverList(
@@ -143,9 +155,10 @@ class _ThreadPageState extends State<ThreadPage> {
         ),
       ),
       bottomSheet: BottomSheet(
+        key: _bottomSheetKey,
         onClosing: () {},
         builder: (BuildContext context) {
-          return Container(
+          return Padding(
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
               child: Form(
                 key: _formKey,
@@ -289,44 +302,56 @@ class _ReplyCard extends StatelessWidget {
             title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  UserProfileBuilder(
-                    uid: reply.uid,
-                    builder: (context, profile) => Row(
-                      key: ValueKey(profile),
-                      children: <Widget>[
-                        // Build user avatar.
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: CircleAvatar(
-                            child: ExtendedImage.network(
-                              profile.avatar,
-                              shape: BoxShape.circle,
-                            ),
-                            radius: 20,
-                          ),
-                        ),
-
-                        // Build user name and timestamp.
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      UserProfileBuilder(
+                        uid: reply.uid,
+                        builder: (context, profile) => Row(
+                          key: ValueKey(profile),
                           children: <Widget>[
-                            Text(profile.displayName),
-                            Text(
-                              timeUtil(reply.createTime.toDateTime(), locale),
-                              style: Theme.of(context).textTheme.caption,
+                            // Build user avatar.
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: CircleAvatar(
+                                child: ExtendedImage.network(
+                                  profile.avatar,
+                                  shape: BoxShape.circle,
+                                ),
+                                radius: 20,
+                              ),
+                            ),
+
+                            // Build user name and timestamp.
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(profile.displayName),
+                                Text(
+                                  timeUtil(
+                                      reply.createTime.toDateTime(), locale),
+                                  style: Theme.of(context).textTheme.caption,
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                    placeholder: (context) => const Text('  ...  '),
+                        placeholder: (context) => const Text('  ...  '),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Icon(
+                          Icons.push_pin_rounded,
+                          color: Colors.lightGreen,
+                        ),
+                      )
+                    ],
                   ),
-
-                  // Special attributes of reply.
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Text(reply.topped ? 'Top' : ''),
-                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.comment_rounded),
+                    color: Theme.of(context).hintColor,
+                  )
                 ]),
             children: [
               Padding(
