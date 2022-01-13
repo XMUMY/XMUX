@@ -29,13 +29,15 @@ class _ThreadPageState extends State<ThreadPage> {
   );
   double _bottomSheetHeight = 0;
   final _bottomSheetKey = GlobalKey();
+  int _sortMethodIdx = 1;
+  final _sortMethodStr = ['New'.tr(), 'In order'.tr()];
 
   Future<void> _fetchPage(int pageKey) async {
     final resp = await rpc.forumClient.getReply(GetReplyReq(
         pageNo: pageKey,
         pageSize: 10,
         refPostId: widget.postDetails.id,
-        sort: SortingMethod.NEWEST));
+        sort: SortingMethod.valueOf(_sortMethodIdx)));
     final replies = resp.replies;
     if (replies.isNotEmpty) {
       _pagingController.appendPage(replies, pageKey + 1);
@@ -118,12 +120,37 @@ class _ThreadPageState extends State<ThreadPage> {
                     _PostDetailsCard(
                         postDetails: widget.postDetails, locale: locale),
                     Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Text(
-                        'Comments'.tr(),
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                    ),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Comments'.tr(),
+                                style: Theme.of(context).textTheme.headline6,
+                              ),
+                              DropdownButton<int>(
+                                value: _sortMethodIdx,
+                                icon: const Padding(
+                                    padding: EdgeInsets.only(left: 5),
+                                    child: Icon(Icons.sort)),
+                                onChanged: (int? newValue) {
+                                  if (newValue! != _sortMethodIdx) {
+                                    _sortMethodIdx = newValue;
+                                    _pagingController.refresh();
+                                    setState(() {});
+                                  }
+                                },
+                                items: [
+                                  for (var i = 0;
+                                      i < _sortMethodStr.length;
+                                      ++i)
+                                    DropdownMenuItem<int>(
+                                      value: i,
+                                      child: Text(_sortMethodStr[i]),
+                                    )
+                                ],
+                              )
+                            ])),
                   ],
                 ),
               ),

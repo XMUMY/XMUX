@@ -11,13 +11,13 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 class SortingMethod extends $pb.ProtobufEnum {
   static const SortingMethod NEWEST = SortingMethod._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'NEWEST');
-  static const SortingMethod VOTE = SortingMethod._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'VOTE');
-  static const SortingMethod OLDEST = SortingMethod._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'OLDEST');
+  static const SortingMethod OLDEST = SortingMethod._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'OLDEST');
+  static const SortingMethod VOTE = SortingMethod._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'VOTE');
 
   static const $core.List<SortingMethod> values = <SortingMethod> [
     NEWEST,
-    VOTE,
     OLDEST,
+    VOTE,
   ];
 
   static final $core.Map<$core.int, SortingMethod> _byValue = $pb.ProtobufEnum.initByValue(values);

@@ -13,13 +13,13 @@ const SortingMethod$json = const {
   '1': 'SortingMethod',
   '2': const [
     const {'1': 'NEWEST', '2': 0},
-    const {'1': 'VOTE', '2': 1},
-    const {'1': 'OLDEST', '2': 2},
+    const {'1': 'OLDEST', '2': 1},
+    const {'1': 'VOTE', '2': 2},
   ],
 };
 
 /// Descriptor for `SortingMethod`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List sortingMethodDescriptor = $convert.base64Decode('Cg1Tb3J0aW5nTWV0aG9kEgoKBk5FV0VTVBAAEggKBFZPVEUQARIKCgZPTERFU1QQAg==');
+final $typed_data.Uint8List sortingMethodDescriptor = $convert.base64Decode('Cg1Tb3J0aW5nTWV0aG9kEgoKBk5FV0VTVBAAEgoKBk9MREVTVBABEggKBFZPVEUQAg==');
 @$core.Deprecated('Use createReplyReqDescriptor instead')
 const CreateReplyReq$json = const {
   '1': 'CreateReplyReq',
