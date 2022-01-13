@@ -95,7 +95,7 @@ class _ForumPageState extends State<ForumPage>
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        tooltip: 'Create post'.tr(),
+        tooltip: 'Forum.CreatePost'.tr(),
         onPressed: () async {
           final shouldRefresh = await Navigator.of(context).push<bool>(
             MaterialPageRoute(builder: (context) => const NewPostPage()),
@@ -124,7 +124,7 @@ class _PostBriefCard extends StatelessWidget {
       children: <Widget>[
         ProfileHeadline(
           uid: postDetails.uid,
-          time: postDetails.createTime.toDateTime(),
+          time: postDetails.updateTime.toDateTime(),
           topped: postDetails.topped,
           best: postDetails.best,
         ),

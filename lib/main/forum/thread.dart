@@ -30,7 +30,7 @@ class _ThreadPageState extends State<ThreadPage> {
   double _bottomSheetHeight = 0;
   final _bottomSheetKey = GlobalKey();
   int _sortMethodIdx = 1;
-  final _sortMethodStr = ['New'.tr(), 'In order'.tr()];
+  final _sortMethodStr = ['Forum.OrderNew'.tr(), 'Forum.OrderOld'.tr()];
 
   Future<void> _fetchPage(int pageKey) async {
     final resp = await rpc.forumClient.getReply(GetReplyReq(
@@ -90,7 +90,7 @@ class _ThreadPageState extends State<ThreadPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Thread'.tr()),
+        title: Text('Forum.Thread'.tr()),
         actions: <Widget>[
           if (widget.postDetails.uid == store.state.user.campusId)
             IconButton(
@@ -125,7 +125,7 @@ class _ThreadPageState extends State<ThreadPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Comments'.tr(),
+                                'Forum.Comments'.tr(),
                                 style: Theme.of(context).textTheme.headline6,
                               ),
                               DropdownButton<int>(
@@ -188,7 +188,7 @@ class _ThreadPageState extends State<ThreadPage> {
                                       },
                                       refReplyId: item.id,
                                       hintText:
-                                          '${'Reply to'.tr()} ${profile.displayName}: ',
+                                          '${'Forum.ReplyTo'.tr()} ${profile.displayName}: ',
                                     )));
                           },
                         );
@@ -208,7 +208,7 @@ class _ThreadPageState extends State<ThreadPage> {
           return _ReplyForm(
             onSubmit: _handleReplySubmit,
             refReplyId: -1,
-            hintText: 'Your comment here'.tr(),
+            hintText: 'Forum.CommentHint'.tr(),
           );
         },
       ),
@@ -361,7 +361,7 @@ class _ReplyCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 10),
                       child: Text(
-                        'Refered comment'.tr(),
+                        'Forum.ReferedComment'.tr(),
                         style: Theme.of(context).textTheme.titleLarge,
                       )),
                   _ReplyCard(

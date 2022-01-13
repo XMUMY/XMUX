@@ -40,7 +40,7 @@ class _NewPostPageState extends State<NewPostPage> {
   Widget build(BuildContext context) {
     final formWidgets = <Widget>[
       TextFormField(
-        decoration: InputDecoration(labelText: 'Title'.tr()),
+        decoration: InputDecoration(labelText: 'Forum.CreateTitle'.tr()),
         maxLength: 70,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         onChanged: (v) => form.title = v,
@@ -53,7 +53,7 @@ class _NewPostPageState extends State<NewPostPage> {
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          labelText: 'Post body'.tr(),
+          labelText: 'Forum.CreateBody'.tr(),
         ),
         onChanged: (v) => form.body = v,
         validator: (v) => v != null && v.isNotEmpty ? null : '',
@@ -62,7 +62,7 @@ class _NewPostPageState extends State<NewPostPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('New post'.tr()),
+        title: Text('Forum.CreatePageTitle'.tr()),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.done),

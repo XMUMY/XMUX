@@ -88,6 +88,17 @@
     "LaFContacts": "请通过以下方式与我联系"
   },
   "Forum": {
-    "Forum": "社区"
+    "Forum": "社区",
+    "CreatePost": "新帖子",
+    "OrderNew": "最新",
+    "OrderOld": "顺序",
+    "Thread": "帖子",
+    "Comments": "评论",
+    "ReplyTo": "回复",
+    "CommentHint": "评论",
+    "ReferedComment": "引用的评论",
+    "CreateTitle": "标题",
+    "CreateBody": "内容",
+    "CreatePageTitle": "新帖子"
   }
 }
