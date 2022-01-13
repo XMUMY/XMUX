@@ -86,6 +86,11 @@ class ForumClient extends $grpc.Client {
       '/xdea.xmux.forum.Forum/GetReply',
       ($3.GetReplyReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $3.GetReplyResp.fromBuffer(value));
+  static final _$getReplyById =
+      $grpc.ClientMethod<$3.GetReplyByIdReq, $3.Reply>(
+          '/xdea.xmux.forum.Forum/GetReplyById',
+          ($3.GetReplyByIdReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $3.Reply.fromBuffer(value));
   static final _$removeReply = $grpc.ClientMethod<$3.UpdateReplyReq, $1.Empty>(
       '/xdea.xmux.forum.Forum/RemoveReply',
       ($3.UpdateReplyReq value) => value.writeToBuffer(),
@@ -180,6 +185,11 @@ class ForumClient extends $grpc.Client {
   $grpc.ResponseFuture<$3.GetReplyResp> getReply($3.GetReplyReq request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getReply, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$3.Reply> getReplyById($3.GetReplyByIdReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getReplyById, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.Empty> removeReply($3.UpdateReplyReq request,
@@ -307,6 +317,13 @@ abstract class ForumServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $3.GetReplyReq.fromBuffer(value),
         ($3.GetReplyResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.GetReplyByIdReq, $3.Reply>(
+        'GetReplyById',
+        getReplyById_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $3.GetReplyByIdReq.fromBuffer(value),
+        ($3.Reply value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$3.UpdateReplyReq, $1.Empty>(
         'RemoveReply',
         removeReply_Pre,
@@ -405,6 +422,11 @@ abstract class ForumServiceBase extends $grpc.Service {
     return getReply(call, await request);
   }
 
+  $async.Future<$3.Reply> getReplyById_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.GetReplyByIdReq> request) async {
+    return getReplyById(call, await request);
+  }
+
   $async.Future<$1.Empty> removeReply_Pre(
       $grpc.ServiceCall call, $async.Future<$3.UpdateReplyReq> request) async {
     return removeReply(call, await request);
@@ -450,6 +472,8 @@ abstract class ForumServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $3.CreateReplyReq request);
   $async.Future<$3.GetReplyResp> getReply(
       $grpc.ServiceCall call, $3.GetReplyReq request);
+  $async.Future<$3.Reply> getReplyById(
+      $grpc.ServiceCall call, $3.GetReplyByIdReq request);
   $async.Future<$1.Empty> removeReply(
       $grpc.ServiceCall call, $3.UpdateReplyReq request);
   $async.Future<$1.Empty> upvoteReply(

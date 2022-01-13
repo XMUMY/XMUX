@@ -226,6 +226,53 @@ class GetReplyReq extends $pb.GeneratedMessage {
   void clearSort() => clearField(4);
 }
 
+class GetReplyByIdReq extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetReplyByIdReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xdea.xmux.forum'), createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'replyId', $pb.PbFieldType.O3, protoName: 'replyId')
+    ..hasRequiredFields = false
+  ;
+
+  GetReplyByIdReq._() : super();
+  factory GetReplyByIdReq({
+    $core.int? replyId,
+  }) {
+    final _result = create();
+    if (replyId != null) {
+      _result.replyId = replyId;
+    }
+    return _result;
+  }
+  factory GetReplyByIdReq.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetReplyByIdReq.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetReplyByIdReq clone() => GetReplyByIdReq()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetReplyByIdReq copyWith(void Function(GetReplyByIdReq) updates) => super.copyWith((message) => updates(message as GetReplyByIdReq)) as GetReplyByIdReq; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetReplyByIdReq create() => GetReplyByIdReq._();
+  GetReplyByIdReq createEmptyInstance() => create();
+  static $pb.PbList<GetReplyByIdReq> createRepeated() => $pb.PbList<GetReplyByIdReq>();
+  @$core.pragma('dart2js:noInline')
+  static GetReplyByIdReq getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetReplyByIdReq>(create);
+  static GetReplyByIdReq? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get replyId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set replyId($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasReplyId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearReplyId() => clearField(1);
+}
+
 class GetReplyResp extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetReplyResp', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xdea.xmux.forum'), createEmptyInstance: create)
     ..pc<Reply>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'replies', $pb.PbFieldType.PM, subBuilder: Reply.create)

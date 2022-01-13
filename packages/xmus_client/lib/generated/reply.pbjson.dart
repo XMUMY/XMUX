@@ -55,6 +55,16 @@ const GetReplyReq$json = const {
 
 /// Descriptor for `GetReplyReq`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getReplyReqDescriptor = $convert.base64Decode('CgtHZXRSZXBseVJlcRIWCgZwYWdlTm8YASABKAVSBnBhZ2VObxIaCghwYWdlU2l6ZRgCIAEoBVIIcGFnZVNpemUSHAoJcmVmUG9zdElkGAMgASgFUglyZWZQb3N0SWQSMgoEc29ydBgEIAEoDjIeLnhkZWEueG11eC5mb3J1bS5Tb3J0aW5nTWV0aG9kUgRzb3J0');
+@$core.Deprecated('Use getReplyByIdReqDescriptor instead')
+const GetReplyByIdReq$json = const {
+  '1': 'GetReplyByIdReq',
+  '2': const [
+    const {'1': 'replyId', '3': 1, '4': 1, '5': 5, '10': 'replyId'},
+  ],
+};
+
+/// Descriptor for `GetReplyByIdReq`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getReplyByIdReqDescriptor = $convert.base64Decode('Cg9HZXRSZXBseUJ5SWRSZXESGAoHcmVwbHlJZBgBIAEoBVIHcmVwbHlJZA==');
 @$core.Deprecated('Use getReplyRespDescriptor instead')
 const GetReplyResp$json = const {
   '1': 'GetReplyResp',

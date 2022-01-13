@@ -354,31 +354,46 @@ class _ReplyCard extends StatelessWidget {
   final Reply reply;
   final String locale;
   final void Function()? replyOnClick;
+  final bool inBottomSheet;
 
   const _ReplyCard(
       {Key? key,
       required this.reply,
       required this.locale,
-      required this.replyOnClick})
+      required this.replyOnClick,
+      this.inBottomSheet = false})
       : super(key: key);
 
-  Future<void> _showReplySheet(BuildContext context) async {
-
+  Future<void> _showReplySheet(BuildContext context, int replyId) async {
+    var tracedReply =
+        await rpc.forumClient.getReplyById(GetReplyByIdReq(replyId: replyId));
     return showModalBottomSheet<void>(
         builder: (BuildContext context) => Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
                       child: Text(
                         'Refered comment'.tr(),
                         style: Theme.of(context).textTheme.titleLarge,
                       )),
-                  _ReplyCard(reply: reply, locale: locale, replyOnClick: null)
+                  _ReplyCard(
+                    reply: tracedReply,
+                    locale: locale,
+                    replyOnClick: null,
+                    inBottomSheet: true,
+                  )
                 ]),
         context: context);
+  }
+
+  void _handleOnTap(BuildContext context) {
+    if (inBottomSheet) {
+      Navigator.of(context).pop();
+    }
+    _showReplySheet(context, reply.refReplyId);
   }
 
   @override
@@ -469,16 +484,12 @@ class _ReplyCard extends StatelessWidget {
                                         style:
                                             const TextStyle(color: Colors.blue),
                                         recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                            _showReplySheet(context);
-                                          },
+                                          ..onTap = () => _handleOnTap(context),
                                       ),
                                       TextSpan(
                                         text: reply.content,
                                         recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                            print(reply.refUid);
-                                          },
+                                          ..onTap = () => _handleOnTap(context),
                                       )
                                     ])),
                               ))
