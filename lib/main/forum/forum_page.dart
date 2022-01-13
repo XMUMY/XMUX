@@ -1,19 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:timeago/timeago.dart' as timeago;
-import 'package:extended_image/extended_image.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:xmus_client/generated/post.pb.dart';
 import 'package:xmux/component/floating_card.dart';
-import 'package:xmux/component/user_profile.dart';
 import 'package:xmux/util/screen.dart';
 
 import '../../global.dart';
 import '../main_page.dart';
 import 'create_post.dart';
 import 'thread.dart';
+import 'widgets.dart';
 
 class ForumPage extends StatefulWidget implements TopLevelPage {
   const ForumPage({Key? key}) : super(key: key);
@@ -126,62 +122,12 @@ class _PostBriefCard extends StatelessWidget {
     var content = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            UserProfileBuilder(
-              uid: postDetails.uid,
-              builder: (context, profile) => Row(
-                key: ValueKey(profile),
-                children: <Widget>[
-                  // Build user avatar.
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: CircleAvatar(
-                      child: ExtendedImage.network(
-                        profile.avatar,
-                        shape: BoxShape.circle,
-                      ),
-                      radius: 20,
-                    ),
-                  ),
-
-                  // Build user name and timestamp.
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(profile.displayName),
-                      Text(
-                        '${'Updated'.tr()} ${timeUtil(postDetails.updateTime.toDateTime(), locale)}',
-                        style: Theme.of(context).textTheme.caption,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              placeholder: (context) => const Text('  ...  '),
-            ),
-
-            // Special attributes of post.
-            if (postDetails.topped)
-              const Padding(
-                padding: EdgeInsets.all(5),
-                child: Icon(
-                  Icons.push_pin_rounded,
-                  color: Colors.lightGreen,
-                ),
-              ),
-            if (postDetails.best && !postDetails.topped)
-              const Padding(
-                padding: EdgeInsets.all(5),
-                child: Icon(
-                  Icons.star,
-                  color: Colors.lightBlueAccent,
-                ),
-              ),
-          ],
+        ProfileHeadline(
+          uid: postDetails.uid,
+          time: postDetails.createTime.toDateTime(),
+          topped: postDetails.topped,
+          best: postDetails.best,
         ),
-
         // Build title.
         Padding(
           padding: const EdgeInsets.all(8),
@@ -213,9 +159,4 @@ class _PostBriefCard extends StatelessWidget {
 
 String groupNameDecorationUtil(String groupName) {
   return 'g/$groupName';
-}
-
-String timeUtil(DateTime date, String locale) {
-  locale = locale.substring(0, 2);
-  return timeago.format(date, locale: locale, allowFromNow: true);
 }

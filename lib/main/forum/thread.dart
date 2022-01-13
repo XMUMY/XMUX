@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:extended_image/extended_image.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +12,7 @@ import '../../../component/user_profile.dart';
 import '../../../global.dart';
 import '../../../util/screen.dart';
 import '../../component/floating_card.dart';
-import 'forum_page.dart';
+import 'widgets.dart';
 
 class ThreadPage extends StatefulWidget {
   final PostDetails postDetails;
@@ -255,92 +255,50 @@ class _PostDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var expansibleContent = Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-        child: ExpansionTile(
-            initiallyExpanded: true,
-            title:
+    var expansibleContent = ExpandablePanel(
+        theme: const ExpandableThemeData(hasIcon: false),
+        controller: ExpandableController(initialExpanded: true),
+        header: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+            child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    UserProfileBuilder(
-                      uid: postDetails.uid,
-                      builder: (context, profile) => Row(
-                        key: ValueKey(profile),
-                        children: <Widget>[
-                          // Build user avatar.
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: CircleAvatar(
-                              child: ExtendedImage.network(
-                                profile.avatar,
-                                shape: BoxShape.circle,
-                              ),
-                              radius: 20,
-                            ),
-                          ),
-
-                          // Build user name and timestamp.
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(profile.displayName),
-                              Text(
-                                timeUtil(postDetails.createTime.toDateTime(),
-                                    locale),
-                                style: Theme.of(context).textTheme.caption,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      placeholder: (context) => const Text('  ...  '),
-                    ),
-
-                    // Special attributes of post.
-                    if (postDetails.topped)
-                      const Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Icon(
-                          Icons.push_pin_rounded,
-                          color: Colors.lightGreen,
-                        ),
-                      ),
-                    if (postDetails.best && !postDetails.topped)
-                      const Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Icon(
-                          Icons.star,
-                          color: Colors.lightBlueAccent,
-                        ),
-                      ),
-                  ]),
+              ProfileHeadline(
+                uid: postDetails.uid,
+                time: postDetails.createTime.toDateTime(),
+                topped: postDetails.topped,
+                best: postDetails.best,
+              ),
               Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 3),
+                padding: const EdgeInsets.only(top: 8),
                 child: Text(
                   postDetails.title,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               )
-            ]),
+            ])),
+        collapsed: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Text(
+              postDetails.body,
+              softWrap: true,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyLarge,
+            )),
+        expanded: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15, top: 5, right: 15, bottom: 3),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        postDetails.body,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                    )
-                  ],
+              Flexible(
+                child: Text(
+                  postDetails.body,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               )
-            ]));
+            ],
+          ),
+        ));
 
     return FloatingCard(
       margin: const EdgeInsets.symmetric(vertical: 0),
@@ -398,105 +356,57 @@ class _ReplyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var expansibleContent = Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-        child: ExpansionTile(
-            initiallyExpanded: true,
-            title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      UserProfileBuilder(
-                        uid: reply.uid,
-                        builder: (context, profile) => Row(
-                          key: ValueKey(profile),
-                          children: <Widget>[
-                            // Build user avatar.
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: CircleAvatar(
-                                child: ExtendedImage.network(
-                                  profile.avatar,
-                                  shape: BoxShape.circle,
-                                ),
-                                radius: 20,
-                              ),
-                            ),
-
-                            // Build user name and timestamp.
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(profile.displayName),
-                                Text(
-                                  timeUtil(
-                                      reply.createTime.toDateTime(), locale),
-                                  style: Theme.of(context).textTheme.caption,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        placeholder: (context) => const Text('  ...  '),
-                      ),
-                      if (reply.topped)
-                        const Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Icon(
-                            Icons.push_pin_rounded,
-                            color: Colors.lightGreen,
-                          ),
-                        )
-                    ],
-                  ),
-                  if (replyOnClick != null)
-                    IconButton(
+    var expansibleContent = ExpandablePanel(
+        theme: const ExpandableThemeData(hasIcon: false),
+        controller: ExpandableController(initialExpanded: true),
+        header: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+            child: ProfileHeadline(
+              uid: reply.uid,
+              time: reply.createTime.toDateTime(),
+              topped: reply.topped,
+              sideButton: replyOnClick != null
+                  ? IconButton(
                       onPressed: replyOnClick,
                       icon: const Icon(Icons.add_comment_rounded),
                       color: Theme.of(context).hintColor,
                     )
-                ]),
+                  : null,
+            )),
+        collapsed: Container(),
+        expanded: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15, top: 5, right: 15, bottom: 3),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Flexible(
-                        child: reply.refReplyId == -1
-                            ? Text(
-                                reply.content,
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              )
-                            : UserProfileBuilder(
-                                uid: reply.refUid,
-                                builder: (context, profile) => RichText(
-                                    text: TextSpan(
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
-                                        children: [
-                                      TextSpan(
-                                        text: '@${profile.displayName} ',
-                                        style:
-                                            const TextStyle(color: Colors.blue),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () => _handleOnTap(context),
-                                      ),
-                                      TextSpan(
-                                        text: reply.content,
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () => _handleOnTap(context),
-                                      )
-                                    ])),
-                              ))
-                  ],
-                ),
-              )
-            ]));
+              Flexible(
+                  child: reply.refReplyId == -1
+                      ? Text(
+                          reply.content,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        )
+                      : UserProfileBuilder(
+                          uid: reply.refUid,
+                          builder: (context, profile) => RichText(
+                              text: TextSpan(
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  children: [
+                                TextSpan(
+                                  text: '@${profile.displayName} ',
+                                  style: const TextStyle(color: Colors.blue),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () => _handleOnTap(context),
+                                ),
+                                TextSpan(
+                                  text: reply.content,
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () => _handleOnTap(context),
+                                )
+                              ])),
+                        ))
+            ],
+          ),
+        ));
 
     return FloatingCard(
       margin: const EdgeInsets.symmetric(vertical: 4),

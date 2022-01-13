@@ -12,6 +12,7 @@ import 'init/init.dart';
 
 void main() {
   timeago.setLocaleMessages('zh', timeago.ZhCnMessages());
+  timeago.setLocaleMessages('et', timeago.EnShortMessages());
   // Wrap by sentry client.
   if (kReleaseMode) {
     Sentry.init(
