@@ -19,89 +19,89 @@ export 'forum_service.pb.dart';
 class ForumClient extends $grpc.Client {
   static final _$createGroup =
       $grpc.ClientMethod<$0.CreateGroupReq, $0.CreateGroupResp>(
-          '/xdea.xmux.forum.Forum/CreateGroup',
+          '/xmux.forum.v4.Forum/CreateGroup',
           ($0.CreateGroupReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.CreateGroupResp.fromBuffer(value));
   static final _$removeGroup = $grpc.ClientMethod<$0.GroupIdMsg, $1.Empty>(
-      '/xdea.xmux.forum.Forum/RemoveGroup',
+      '/xmux.forum.v4.Forum/RemoveGroup',
       ($0.GroupIdMsg value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$joinGroup = $grpc.ClientMethod<$0.MembershipMsg, $1.Empty>(
-      '/xdea.xmux.forum.Forum/JoinGroup',
+      '/xmux.forum.v4.Forum/JoinGroup',
       ($0.MembershipMsg value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$leaveGroup = $grpc.ClientMethod<$0.MembershipMsg, $1.Empty>(
-      '/xdea.xmux.forum.Forum/LeaveGroup',
+      '/xmux.forum.v4.Forum/LeaveGroup',
       ($0.MembershipMsg value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$getGroups =
       $grpc.ClientMethod<$0.GetGroupsReq, $0.GetGroupsResp>(
-          '/xdea.xmux.forum.Forum/GetGroups',
+          '/xmux.forum.v4.Forum/GetGroups',
           ($0.GetGroupsReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.GetGroupsResp.fromBuffer(value));
   static final _$getUserGroups =
       $grpc.ClientMethod<$1.Empty, $0.GetUserGroupsResp>(
-          '/xdea.xmux.forum.Forum/GetUserGroups',
+          '/xmux.forum.v4.Forum/GetUserGroups',
           ($1.Empty value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.GetUserGroupsResp.fromBuffer(value));
   static final _$createPost =
       $grpc.ClientMethod<$2.CreatePostReq, $2.CreatePostResp>(
-          '/xdea.xmux.forum.Forum/CreatePost',
+          '/xmux.forum.v4.Forum/CreatePost',
           ($2.CreatePostReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $2.CreatePostResp.fromBuffer(value));
   static final _$removePost = $grpc.ClientMethod<$2.UpdatePostReq, $1.Empty>(
-      '/xdea.xmux.forum.Forum/RemovePost',
+      '/xmux.forum.v4.Forum/RemovePost',
       ($2.UpdatePostReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$getPost = $grpc.ClientMethod<$2.GetPostReq, $2.GetPostResp>(
-      '/xdea.xmux.forum.Forum/GetPost',
+      '/xmux.forum.v4.Forum/GetPost',
       ($2.GetPostReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $2.GetPostResp.fromBuffer(value));
   static final _$upvotePost = $grpc.ClientMethod<$2.UpdatePostReq, $1.Empty>(
-      '/xdea.xmux.forum.Forum/UpvotePost',
+      '/xmux.forum.v4.Forum/UpvotePost',
       ($2.UpdatePostReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$downvotePost = $grpc.ClientMethod<$2.UpdatePostReq, $1.Empty>(
-      '/xdea.xmux.forum.Forum/DownvotePost',
+      '/xmux.forum.v4.Forum/DownvotePost',
       ($2.UpdatePostReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$toggleBestPost =
       $grpc.ClientMethod<$2.UpdatePostReq, $1.Empty>(
-          '/xdea.xmux.forum.Forum/toggleBestPost',
+          '/xmux.forum.v4.Forum/toggleBestPost',
           ($2.UpdatePostReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$toggleTopPost = $grpc.ClientMethod<$2.UpdatePostReq, $1.Empty>(
-      '/xdea.xmux.forum.Forum/toggleTopPost',
+      '/xmux.forum.v4.Forum/toggleTopPost',
       ($2.UpdatePostReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$createReply =
       $grpc.ClientMethod<$3.CreateReplyReq, $3.CreateReplyResp>(
-          '/xdea.xmux.forum.Forum/CreateReply',
+          '/xmux.forum.v4.Forum/CreateReply',
           ($3.CreateReplyReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $3.CreateReplyResp.fromBuffer(value));
   static final _$getReply = $grpc.ClientMethod<$3.GetReplyReq, $3.GetReplyResp>(
-      '/xdea.xmux.forum.Forum/GetReply',
+      '/xmux.forum.v4.Forum/GetReply',
       ($3.GetReplyReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $3.GetReplyResp.fromBuffer(value));
   static final _$getReplyById =
       $grpc.ClientMethod<$3.GetReplyByIdReq, $3.Reply>(
-          '/xdea.xmux.forum.Forum/GetReplyById',
+          '/xmux.forum.v4.Forum/GetReplyById',
           ($3.GetReplyByIdReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $3.Reply.fromBuffer(value));
   static final _$removeReply = $grpc.ClientMethod<$3.UpdateReplyReq, $1.Empty>(
-      '/xdea.xmux.forum.Forum/RemoveReply',
+      '/xmux.forum.v4.Forum/RemoveReply',
       ($3.UpdateReplyReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$upvoteReply = $grpc.ClientMethod<$3.UpdateReplyReq, $1.Empty>(
-      '/xdea.xmux.forum.Forum/UpvoteReply',
+      '/xmux.forum.v4.Forum/UpvoteReply',
       ($3.UpdateReplyReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$downvoteReply =
       $grpc.ClientMethod<$3.UpdateReplyReq, $1.Empty>(
-          '/xdea.xmux.forum.Forum/DownvoteReply',
+          '/xmux.forum.v4.Forum/DownvoteReply',
           ($3.UpdateReplyReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
 
@@ -209,7 +209,7 @@ class ForumClient extends $grpc.Client {
 }
 
 abstract class ForumServiceBase extends $grpc.Service {
-  $core.String get $name => 'xdea.xmux.forum.Forum';
+  $core.String get $name => 'xmux.forum.v4.Forum';
 
   ForumServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.CreateGroupReq, $0.CreateGroupResp>(

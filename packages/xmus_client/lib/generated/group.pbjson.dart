@@ -64,22 +64,22 @@ final $typed_data.Uint8List getGroupsReqDescriptor = $convert.base64Decode('CgxH
 const GetGroupsResp$json = const {
   '1': 'GetGroupsResp',
   '2': const [
-    const {'1': 'groups', '3': 1, '4': 3, '5': 11, '6': '.xdea.xmux.forum.Group', '10': 'groups'},
+    const {'1': 'groups', '3': 1, '4': 3, '5': 11, '6': '.xmux.forum.v4.Group', '10': 'groups'},
   ],
 };
 
 /// Descriptor for `GetGroupsResp`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getGroupsRespDescriptor = $convert.base64Decode('Cg1HZXRHcm91cHNSZXNwEi4KBmdyb3VwcxgBIAMoCzIWLnhkZWEueG11eC5mb3J1bS5Hcm91cFIGZ3JvdXBz');
+final $typed_data.Uint8List getGroupsRespDescriptor = $convert.base64Decode('Cg1HZXRHcm91cHNSZXNwEiwKBmdyb3VwcxgBIAMoCzIULnhtdXguZm9ydW0udjQuR3JvdXBSBmdyb3Vwcw==');
 @$core.Deprecated('Use getUserGroupsRespDescriptor instead')
 const GetUserGroupsResp$json = const {
   '1': 'GetUserGroupsResp',
   '2': const [
-    const {'1': 'groups', '3': 1, '4': 3, '5': 11, '6': '.xdea.xmux.forum.GroupBrief', '10': 'groups'},
+    const {'1': 'groups', '3': 1, '4': 3, '5': 11, '6': '.xmux.forum.v4.GroupBrief', '10': 'groups'},
   ],
 };
 
 /// Descriptor for `GetUserGroupsResp`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getUserGroupsRespDescriptor = $convert.base64Decode('ChFHZXRVc2VyR3JvdXBzUmVzcBIzCgZncm91cHMYASADKAsyGy54ZGVhLnhtdXguZm9ydW0uR3JvdXBCcmllZlIGZ3JvdXBz');
+final $typed_data.Uint8List getUserGroupsRespDescriptor = $convert.base64Decode('ChFHZXRVc2VyR3JvdXBzUmVzcBIxCgZncm91cHMYASADKAsyGS54bXV4LmZvcnVtLnY0Lkdyb3VwQnJpZWZSBmdyb3Vwcw==');
 @$core.Deprecated('Use groupDescriptor instead')
 const Group$json = const {
   '1': 'Group',

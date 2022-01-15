@@ -46,12 +46,12 @@ final $typed_data.Uint8List getPostReqDescriptor = $convert.base64Decode('CgpHZX
 const GetPostResp$json = const {
   '1': 'GetPostResp',
   '2': const [
-    const {'1': 'pd', '3': 1, '4': 3, '5': 11, '6': '.xdea.xmux.forum.PostDetails', '10': 'pd'},
+    const {'1': 'pd', '3': 1, '4': 3, '5': 11, '6': '.xmux.forum.v4.PostDetails', '10': 'pd'},
   ],
 };
 
 /// Descriptor for `GetPostResp`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getPostRespDescriptor = $convert.base64Decode('CgtHZXRQb3N0UmVzcBIsCgJwZBgBIAMoCzIcLnhkZWEueG11eC5mb3J1bS5Qb3N0RGV0YWlsc1ICcGQ=');
+final $typed_data.Uint8List getPostRespDescriptor = $convert.base64Decode('CgtHZXRQb3N0UmVzcBIqCgJwZBgBIAMoCzIaLnhtdXguZm9ydW0udjQuUG9zdERldGFpbHNSAnBk');
 @$core.Deprecated('Use updatePostReqDescriptor instead')
 const UpdatePostReq$json = const {
   '1': 'UpdatePostReq',

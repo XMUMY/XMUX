@@ -92,16 +92,10 @@ class _ThreadPageState extends State<ThreadPage> {
       appBar: AppBar(
         title: Text('Forum.Thread'.tr()),
         actions: <Widget>[
-          if (widget.postDetails.uid == store.state.user.campusId)
-            IconButton(
-              icon: const Icon(Icons.delete_outline),
-              onPressed: () async {
-                await rpc.forumClient.removePost(
-                  UpdatePostReq(postId: widget.postDetails.id),
-                );
-                Navigator.of(context).pop(true);
-              },
-            ),
+          IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () =>
+                  _showPostBottomSheet(context, widget.postDetails)),
         ],
       ),
       body: RefreshIndicator(
@@ -330,6 +324,7 @@ class _PostDetailsCard extends StatelessWidget {
     return FloatingCard(
       margin: const EdgeInsets.symmetric(vertical: 0),
       padding: const EdgeInsets.symmetric(vertical: 5),
+      onLongPress: () => _showPostBottomSheet(context, postDetails),
       child: expansibleContent,
     );
   }
@@ -438,7 +433,91 @@ class _ReplyCard extends StatelessWidget {
     return FloatingCard(
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: const EdgeInsets.all(5),
+      onLongPress: () => _showReplyBottomSheet(context, reply),
       child: expansibleContent,
     );
   }
+}
+
+Future<void> _showPostBottomSheet(
+    BuildContext pageContext, PostDetails postDetails) async {
+  return showModalBottomSheet(
+      isScrollControlled: true,
+      context: pageContext,
+      builder: (context) => Wrap(
+            children: [
+              if (postDetails.uid == store.state.user.campusId)
+                ListTile(
+                  leading: const Icon(Icons.delete),
+                  title: Text('Remove post'.tr()),
+                  onTap: () {
+                    rpc.forumClient.removePost(
+                      UpdatePostReq(postId: postDetails.id),
+                    );
+                    Navigator.of(context).pop(true);
+                    Navigator.of(pageContext).pop(true);
+                  },
+                ),
+              ListTile(
+                leading: const Icon(Icons.star_border_rounded),
+                title: Text('Add to saved'.tr()),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.content_copy),
+                title: Text('Copy post title'.tr()),
+                onTap: () {
+                  Clipboard.setData(ClipboardData(text: postDetails.title));
+                  Navigator.of(context).pop(true);
+                  showSnackbarMsg(Text('Copied'.tr()), context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.content_copy),
+                title: Text('Copy post content'.tr()),
+                onTap: () {
+                  Clipboard.setData(ClipboardData(text: postDetails.body));
+                  Navigator.of(context).pop(true);
+                  showSnackbarMsg(Text('Copied'.tr()), context);
+                },
+              ),
+            ],
+          ));
+}
+
+Future<void> _showReplyBottomSheet(
+    BuildContext pageContext, Reply reply) async {
+  return showModalBottomSheet(
+      isScrollControlled: true,
+      context: pageContext,
+      builder: (context) => Wrap(
+            children: [
+              if (reply.uid == store.state.user.campusId)
+                ListTile(
+                  leading: const Icon(Icons.delete),
+                  title: Text('Remove reply'.tr()),
+                  onTap: () {
+                    rpc.forumClient.removeReply(
+                      UpdateReplyReq(replyId: reply.id),
+                    );
+                    Navigator.of(context).pop(true);
+                    showSnackbarMsg(Text('Removed'.tr()), context);
+                  },
+                ),
+              ListTile(
+                leading: const Icon(Icons.star_border_rounded),
+                title: Text('Add to saved'.tr()),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.content_copy),
+                title: Text('Copy reply'.tr()),
+                onTap: () {
+                  Clipboard.setData(ClipboardData(text: reply.content));
+                  Navigator.of(context).pop(true);
+                  showSnackbarMsg(Text('Copied'.tr()), context);
+                },
+              ),
+            ],
+          ));
 }

@@ -14,6 +14,8 @@ class FloatingCard extends StatefulWidget {
 
   final VoidCallback? onTap;
 
+  final VoidCallback? onLongPress;
+
   final Widget child;
 
   const FloatingCard({
@@ -23,6 +25,7 @@ class FloatingCard extends StatefulWidget {
     this.shape,
     this.onTap,
     required this.child,
+    this.onLongPress,
   }) : super(key: key);
 
   @override
@@ -39,6 +42,7 @@ class _FloatingCardState extends State<FloatingCard> {
     if (Theme.of(context).brightness == Brightness.dark) {
       child = InkWell(
         onTap: widget.onTap,
+        onLongPress: widget.onLongPress,
         child: child,
       );
     } else {
@@ -47,6 +51,7 @@ class _FloatingCardState extends State<FloatingCard> {
         onTapDown: (_) => setState(() => _elevation = 4),
         onTapUp: (_) => setState(() => _elevation = 1),
         onTapCancel: () => setState(() => _elevation = 1),
+        onLongPress: widget.onLongPress,
         child: child,
         behavior: HitTestBehavior.opaque,
       );

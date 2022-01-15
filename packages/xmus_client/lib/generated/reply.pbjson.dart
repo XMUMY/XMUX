@@ -49,12 +49,12 @@ const GetReplyReq$json = const {
     const {'1': 'pageNo', '3': 1, '4': 1, '5': 5, '10': 'pageNo'},
     const {'1': 'pageSize', '3': 2, '4': 1, '5': 5, '10': 'pageSize'},
     const {'1': 'refPostId', '3': 3, '4': 1, '5': 5, '10': 'refPostId'},
-    const {'1': 'sort', '3': 4, '4': 1, '5': 14, '6': '.xdea.xmux.forum.SortingMethod', '10': 'sort'},
+    const {'1': 'sort', '3': 4, '4': 1, '5': 14, '6': '.xmux.forum.v4.SortingMethod', '10': 'sort'},
   ],
 };
 
 /// Descriptor for `GetReplyReq`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getReplyReqDescriptor = $convert.base64Decode('CgtHZXRSZXBseVJlcRIWCgZwYWdlTm8YASABKAVSBnBhZ2VObxIaCghwYWdlU2l6ZRgCIAEoBVIIcGFnZVNpemUSHAoJcmVmUG9zdElkGAMgASgFUglyZWZQb3N0SWQSMgoEc29ydBgEIAEoDjIeLnhkZWEueG11eC5mb3J1bS5Tb3J0aW5nTWV0aG9kUgRzb3J0');
+final $typed_data.Uint8List getReplyReqDescriptor = $convert.base64Decode('CgtHZXRSZXBseVJlcRIWCgZwYWdlTm8YASABKAVSBnBhZ2VObxIaCghwYWdlU2l6ZRgCIAEoBVIIcGFnZVNpemUSHAoJcmVmUG9zdElkGAMgASgFUglyZWZQb3N0SWQSMAoEc29ydBgEIAEoDjIcLnhtdXguZm9ydW0udjQuU29ydGluZ01ldGhvZFIEc29ydA==');
 @$core.Deprecated('Use getReplyByIdReqDescriptor instead')
 const GetReplyByIdReq$json = const {
   '1': 'GetReplyByIdReq',
@@ -69,12 +69,12 @@ final $typed_data.Uint8List getReplyByIdReqDescriptor = $convert.base64Decode('C
 const GetReplyResp$json = const {
   '1': 'GetReplyResp',
   '2': const [
-    const {'1': 'replies', '3': 1, '4': 3, '5': 11, '6': '.xdea.xmux.forum.Reply', '10': 'replies'},
+    const {'1': 'replies', '3': 1, '4': 3, '5': 11, '6': '.xmux.forum.v4.Reply', '10': 'replies'},
   ],
 };
 
 /// Descriptor for `GetReplyResp`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getReplyRespDescriptor = $convert.base64Decode('CgxHZXRSZXBseVJlc3ASMAoHcmVwbGllcxgBIAMoCzIWLnhkZWEueG11eC5mb3J1bS5SZXBseVIHcmVwbGllcw==');
+final $typed_data.Uint8List getReplyRespDescriptor = $convert.base64Decode('CgxHZXRSZXBseVJlc3ASLgoHcmVwbGllcxgBIAMoCzIULnhtdXguZm9ydW0udjQuUmVwbHlSB3JlcGxpZXM=');
 @$core.Deprecated('Use updateReplyReqDescriptor instead')
 const UpdateReplyReq$json = const {
   '1': 'UpdateReplyReq',

@@ -91,6 +91,13 @@ class ProfileHeadline extends StatelessWidget {
   }
 }
 
+Future<void> showSnackbarMsg(Widget content, BuildContext context) async {
+  final snackBar = SnackBar(
+    content: content,
+  );
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+}
+
 String timeUtil(DateTime date, String locale) {
   locale = locale.substring(0, 2);
   return timeago.format(date, locale: locale, allowFromNow: true);
