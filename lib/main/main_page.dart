@@ -29,8 +29,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   static const pages = <TopLevelPage>[
     CalendarPage(),
-    CampusPage(),
     ForumPage(),
+    CampusPage(),
   ];
 
   var _index = 0;

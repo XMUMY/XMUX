@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../../component/user_profile.dart';
+import '../../../component/user_profile.dart';
 
 class ProfileHeadline extends StatelessWidget {
   final String uid;

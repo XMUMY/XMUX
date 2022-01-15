@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xmus_client/generated/post.pb.dart';
 import 'package:xmus_client/generated/reply.pb.dart';
-import 'package:xmux/main/forum/widgets.dart';
+import 'package:xmux/main/forum/component/widgets.dart';
 
-import '../../component/floating_card.dart';
-import '../../component/user_profile.dart';
-import '../../global.dart';
+import '../../../component/floating_card.dart';
+import '../../../component/user_profile.dart';
+import '../../../global.dart';
 
 class PostBriefCard extends StatelessWidget {
   final PostDetails postDetails;
@@ -117,13 +117,17 @@ class ReplyCard extends StatelessWidget {
   final String locale;
   final void Function()? replyOnClick;
   final bool inBottomSheet;
+  final Future<void> Function()? onTap;
+  final bool isReplySaved;
 
   const ReplyCard(
       {Key? key,
       required this.reply,
       required this.locale,
-      required this.replyOnClick,
-      this.inBottomSheet = false})
+      this.replyOnClick,
+      this.inBottomSheet = false,
+      this.onTap,
+      this.isReplySaved = false})
       : super(key: key);
 
   Future<void> _showReplySheet(BuildContext context, int replyId) async {
@@ -144,7 +148,6 @@ class ReplyCard extends StatelessWidget {
                   ReplyCard(
                     reply: tracedReply,
                     locale: locale,
-                    replyOnClick: null,
                     inBottomSheet: true,
                   )
                 ]),
@@ -213,9 +216,10 @@ class ReplyCard extends StatelessWidget {
         ));
 
     return FloatingCard(
+      onTap: onTap,
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: const EdgeInsets.all(5),
-      onLongPress: () => _showReplyBottomSheet(context, reply),
+      onLongPress: () => _showReplyBottomSheet(context, reply, isReplySaved),
       child: expansibleContent,
     );
   }
@@ -268,7 +272,7 @@ Future<void> showPostBottomSheet(
 }
 
 Future<void> _showReplyBottomSheet(
-    BuildContext pageContext, Reply reply) async {
+    BuildContext pageContext, Reply reply, bool isReplySaved) async {
   return showModalBottomSheet(
       isScrollControlled: true,
       context: pageContext,
@@ -276,7 +280,7 @@ Future<void> _showReplyBottomSheet(
             children: [
               if (reply.uid == store.state.user.campusId)
                 ListTile(
-                  leading: const Icon(Icons.delete),
+                  leading: const Icon(Icons.delete_outlined),
                   title: Text('Remove reply'.tr()),
                   onTap: () {
                     rpc.forumClient.removeReply(
@@ -286,11 +290,18 @@ Future<void> _showReplyBottomSheet(
                     showSnackbarMsg(Text('Removed'.tr()), context);
                   },
                 ),
-              ListTile(
-                leading: const Icon(Icons.star_border_rounded),
-                title: Text('Add to saved'.tr()),
-                onTap: () {},
-              ),
+              if (!isReplySaved)
+                ListTile(
+                  leading: const Icon(Icons.bookmark_add_outlined),
+                  title: Text('Add to saved'.tr()),
+                  onTap: () {},
+                ),
+              if (isReplySaved)
+                ListTile(
+                  leading: const Icon(Icons.bookmark_remove_outlined),
+                  title: Text('Remove from saved'.tr()),
+                  onTap: () {},
+                ),
               ListTile(
                 leading: const Icon(Icons.content_copy),
                 title: Text('Copy reply'.tr()),

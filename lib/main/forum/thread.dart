@@ -1,9 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:expandable/expandable.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:xmus_client/generated/post.pb.dart';
 import 'package:xmus_client/generated/reply.pb.dart';
@@ -11,9 +7,7 @@ import 'package:xmus_client/generated/reply.pb.dart';
 import '../../../component/user_profile.dart';
 import '../../../global.dart';
 import '../../../util/screen.dart';
-import '../../component/floating_card.dart';
-import 'content_cards.dart';
-import 'widgets.dart';
+import 'component/content_cards.dart';
 
 class ThreadPage extends StatefulWidget {
   final PostDetails postDetails;
@@ -92,7 +86,7 @@ class _ThreadPageState extends State<ThreadPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Forum.Thread'.tr()),
-        actions: <Widget>[
+        actions: [
           IconButton(
               icon: const Icon(Icons.menu),
               onPressed: () =>
