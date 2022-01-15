@@ -1,15 +1,13 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:xmus_client/generated/post.pb.dart';
-import 'package:xmux/component/floating_card.dart';
+import 'package:xmux/main/forum/thread.dart';
 import 'package:xmux/util/screen.dart';
 
 import '../../global.dart';
 import '../main_page.dart';
+import 'content_cards.dart';
 import 'create_post.dart';
-import 'thread.dart';
-import 'widgets.dart';
 
 class ForumPage extends StatefulWidget implements TopLevelPage {
   const ForumPage({Key? key}) : super(key: key);
@@ -85,9 +83,21 @@ class _ForumPageState extends State<ForumPage>
                         style: Theme.of(context).textTheme.caption,
                         textAlign: TextAlign.center));
               }
-              return _PostBriefCard(
+              return PostBriefCard(
                 postDetails: item,
                 locale: locale,
+                onTap: () async {
+                  final shouldRefresh = await Navigator.of(context).push<bool>(
+                    MaterialPageRoute(
+                        builder: (context) => ThreadPage(postDetails: item)),
+                  );
+                  if (shouldRefresh ?? false) {
+                    context
+                        .findAncestorStateOfType<_ForumPageState>()
+                        ?._pagingController
+                        .refresh();
+                  }
+                },
               );
             },
           ),
@@ -105,54 +115,6 @@ class _ForumPageState extends State<ForumPage>
           }
         },
       ),
-    );
-  }
-}
-
-class _PostBriefCard extends StatelessWidget {
-  final PostDetails postDetails;
-  final String locale;
-
-  const _PostBriefCard(
-      {Key? key, required this.postDetails, required this.locale})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var content = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        ProfileHeadline(
-          uid: postDetails.uid,
-          time: postDetails.updateTime.toDateTime(),
-          topped: postDetails.topped,
-          best: postDetails.best,
-        ),
-        // Build title.
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(postDetails.title,
-              style: Theme.of(context).textTheme.titleMedium),
-        ),
-      ],
-    );
-
-    return FloatingCard(
-      onTap: () async {
-        final shouldRefresh = await Navigator.of(context).push<bool>(
-          MaterialPageRoute(
-              builder: (context) => ThreadPage(postDetails: postDetails)),
-        );
-        if (shouldRefresh ?? false) {
-          context
-              .findAncestorStateOfType<_ForumPageState>()
-              ?._pagingController
-              .refresh();
-        }
-      },
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      padding: const EdgeInsets.all(5),
-      child: content,
     );
   }
 }
