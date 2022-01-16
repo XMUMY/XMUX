@@ -37,11 +37,22 @@ const GetPostReq$json = const {
     const {'1': 'pageNo', '3': 1, '4': 1, '5': 5, '10': 'pageNo'},
     const {'1': 'pageSize', '3': 2, '4': 1, '5': 5, '10': 'pageSize'},
     const {'1': 'groupIds', '3': 3, '4': 3, '5': 5, '10': 'groupIds'},
+    const {'1': 'uid', '3': 4, '4': 1, '5': 9, '10': 'uid'},
   ],
 };
 
 /// Descriptor for `GetPostReq`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getPostReqDescriptor = $convert.base64Decode('CgpHZXRQb3N0UmVxEhYKBnBhZ2VObxgBIAEoBVIGcGFnZU5vEhoKCHBhZ2VTaXplGAIgASgFUghwYWdlU2l6ZRIaCghncm91cElkcxgDIAMoBVIIZ3JvdXBJZHM=');
+final $typed_data.Uint8List getPostReqDescriptor = $convert.base64Decode('CgpHZXRQb3N0UmVxEhYKBnBhZ2VObxgBIAEoBVIGcGFnZU5vEhoKCHBhZ2VTaXplGAIgASgFUghwYWdlU2l6ZRIaCghncm91cElkcxgDIAMoBVIIZ3JvdXBJZHMSEAoDdWlkGAQgASgJUgN1aWQ=');
+@$core.Deprecated('Use getPostByIdReqDescriptor instead')
+const GetPostByIdReq$json = const {
+  '1': 'GetPostByIdReq',
+  '2': const [
+    const {'1': 'postId', '3': 1, '4': 1, '5': 5, '10': 'postId'},
+  ],
+};
+
+/// Descriptor for `GetPostByIdReq`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getPostByIdReqDescriptor = $convert.base64Decode('Cg5HZXRQb3N0QnlJZFJlcRIWCgZwb3N0SWQYASABKAVSBnBvc3RJZA==');
 @$core.Deprecated('Use getPostRespDescriptor instead')
 const GetPostResp$json = const {
   '1': 'GetPostResp',
@@ -76,9 +87,8 @@ const PostDetails$json = const {
     const {'1': 'topped', '3': 8, '4': 1, '5': 8, '10': 'topped'},
     const {'1': 'best', '3': 9, '4': 1, '5': 8, '10': 'best'},
     const {'1': 'updateTime', '3': 10, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updateTime'},
-    const {'1': 'groupName', '3': 11, '4': 1, '5': 9, '10': 'groupName'},
   ],
 };
 
 /// Descriptor for `PostDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List postDetailsDescriptor = $convert.base64Decode('CgtQb3N0RGV0YWlscxIOCgJpZBgBIAEoBVICaWQSFAoFdGl0bGUYAiABKAlSBXRpdGxlEhIKBGJvZHkYAyABKAlSBGJvZHkSEgoEdm90ZRgEIAEoBVIEdm90ZRI6CgpjcmVhdGVUaW1lGAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIKY3JlYXRlVGltZRIQCgN1aWQYBiABKAlSA3VpZBIYCgdncm91cElkGAcgASgFUgdncm91cElkEhYKBnRvcHBlZBgIIAEoCFIGdG9wcGVkEhIKBGJlc3QYCSABKAhSBGJlc3QSOgoKdXBkYXRlVGltZRgKIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCnVwZGF0ZVRpbWUSHAoJZ3JvdXBOYW1lGAsgASgJUglncm91cE5hbWU=');
+final $typed_data.Uint8List postDetailsDescriptor = $convert.base64Decode('CgtQb3N0RGV0YWlscxIOCgJpZBgBIAEoBVICaWQSFAoFdGl0bGUYAiABKAlSBXRpdGxlEhIKBGJvZHkYAyABKAlSBGJvZHkSEgoEdm90ZRgEIAEoBVIEdm90ZRI6CgpjcmVhdGVUaW1lGAUgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIKY3JlYXRlVGltZRIQCgN1aWQYBiABKAlSA3VpZBIYCgdncm91cElkGAcgASgFUgdncm91cElkEhYKBnRvcHBlZBgIIAEoCFIGdG9wcGVkEhIKBGJlc3QYCSABKAhSBGJlc3QSOgoKdXBkYXRlVGltZRgKIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCnVwZGF0ZVRpbWU=');

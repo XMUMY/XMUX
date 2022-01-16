@@ -59,6 +59,11 @@ class ForumClient extends $grpc.Client {
       '/xmux.forum.v4.Forum/GetPost',
       ($2.GetPostReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $2.GetPostResp.fromBuffer(value));
+  static final _$getPostById =
+      $grpc.ClientMethod<$2.GetPostByIdReq, $2.PostDetails>(
+          '/xmux.forum.v4.Forum/GetPostById',
+          ($2.GetPostByIdReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $2.PostDetails.fromBuffer(value));
   static final _$upvotePost = $grpc.ClientMethod<$2.UpdatePostReq, $1.Empty>(
       '/xmux.forum.v4.Forum/UpvotePost',
       ($2.UpdatePostReq value) => value.writeToBuffer(),
@@ -86,6 +91,11 @@ class ForumClient extends $grpc.Client {
       '/xmux.forum.v4.Forum/GetReply',
       ($3.GetReplyReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $3.GetReplyResp.fromBuffer(value));
+  static final _$getUserReply =
+      $grpc.ClientMethod<$3.GetUserReplyReq, $3.GetReplyResp>(
+          '/xmux.forum.v4.Forum/GetUserReply',
+          ($3.GetUserReplyReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $3.GetReplyResp.fromBuffer(value));
   static final _$getReplyById =
       $grpc.ClientMethod<$3.GetReplyByIdReq, $3.Reply>(
           '/xmux.forum.v4.Forum/GetReplyById',
@@ -156,6 +166,11 @@ class ForumClient extends $grpc.Client {
     return $createUnaryCall(_$getPost, request, options: options);
   }
 
+  $grpc.ResponseFuture<$2.PostDetails> getPostById($2.GetPostByIdReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getPostById, request, options: options);
+  }
+
   $grpc.ResponseFuture<$1.Empty> upvotePost($2.UpdatePostReq request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$upvotePost, request, options: options);
@@ -185,6 +200,11 @@ class ForumClient extends $grpc.Client {
   $grpc.ResponseFuture<$3.GetReplyResp> getReply($3.GetReplyReq request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getReply, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$3.GetReplyResp> getUserReply($3.GetUserReplyReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getUserReply, request, options: options);
   }
 
   $grpc.ResponseFuture<$3.Reply> getReplyById($3.GetReplyByIdReq request,
@@ -275,6 +295,13 @@ abstract class ForumServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $2.GetPostReq.fromBuffer(value),
         ($2.GetPostResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.GetPostByIdReq, $2.PostDetails>(
+        'GetPostById',
+        getPostById_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.GetPostByIdReq.fromBuffer(value),
+        ($2.PostDetails value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$2.UpdatePostReq, $1.Empty>(
         'UpvotePost',
         upvotePost_Pre,
@@ -316,6 +343,13 @@ abstract class ForumServiceBase extends $grpc.Service {
         false,
         false,
         ($core.List<$core.int> value) => $3.GetReplyReq.fromBuffer(value),
+        ($3.GetReplyResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.GetUserReplyReq, $3.GetReplyResp>(
+        'GetUserReply',
+        getUserReply_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $3.GetUserReplyReq.fromBuffer(value),
         ($3.GetReplyResp value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$3.GetReplyByIdReq, $3.Reply>(
         'GetReplyById',
@@ -392,6 +426,11 @@ abstract class ForumServiceBase extends $grpc.Service {
     return getPost(call, await request);
   }
 
+  $async.Future<$2.PostDetails> getPostById_Pre(
+      $grpc.ServiceCall call, $async.Future<$2.GetPostByIdReq> request) async {
+    return getPostById(call, await request);
+  }
+
   $async.Future<$1.Empty> upvotePost_Pre(
       $grpc.ServiceCall call, $async.Future<$2.UpdatePostReq> request) async {
     return upvotePost(call, await request);
@@ -420,6 +459,11 @@ abstract class ForumServiceBase extends $grpc.Service {
   $async.Future<$3.GetReplyResp> getReply_Pre(
       $grpc.ServiceCall call, $async.Future<$3.GetReplyReq> request) async {
     return getReply(call, await request);
+  }
+
+  $async.Future<$3.GetReplyResp> getUserReply_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.GetUserReplyReq> request) async {
+    return getUserReply(call, await request);
   }
 
   $async.Future<$3.Reply> getReplyById_Pre(
@@ -460,6 +504,8 @@ abstract class ForumServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $2.UpdatePostReq request);
   $async.Future<$2.GetPostResp> getPost(
       $grpc.ServiceCall call, $2.GetPostReq request);
+  $async.Future<$2.PostDetails> getPostById(
+      $grpc.ServiceCall call, $2.GetPostByIdReq request);
   $async.Future<$1.Empty> upvotePost(
       $grpc.ServiceCall call, $2.UpdatePostReq request);
   $async.Future<$1.Empty> downvotePost(
@@ -472,6 +518,8 @@ abstract class ForumServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $3.CreateReplyReq request);
   $async.Future<$3.GetReplyResp> getReply(
       $grpc.ServiceCall call, $3.GetReplyReq request);
+  $async.Future<$3.GetReplyResp> getUserReply(
+      $grpc.ServiceCall call, $3.GetUserReplyReq request);
   $async.Future<$3.Reply> getReplyById(
       $grpc.ServiceCall call, $3.GetReplyByIdReq request);
   $async.Future<$1.Empty> removeReply(

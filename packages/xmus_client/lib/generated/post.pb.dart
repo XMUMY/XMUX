@@ -138,6 +138,7 @@ class GetPostReq extends $pb.GeneratedMessage {
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageNo', $pb.PbFieldType.O3, protoName: 'pageNo')
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageSize', $pb.PbFieldType.O3, protoName: 'pageSize')
     ..p<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupIds', $pb.PbFieldType.P3, protoName: 'groupIds')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'uid')
     ..hasRequiredFields = false
   ;
 
@@ -146,6 +147,7 @@ class GetPostReq extends $pb.GeneratedMessage {
     $core.int? pageNo,
     $core.int? pageSize,
     $core.Iterable<$core.int>? groupIds,
+    $core.String? uid,
   }) {
     final _result = create();
     if (pageNo != null) {
@@ -156,6 +158,9 @@ class GetPostReq extends $pb.GeneratedMessage {
     }
     if (groupIds != null) {
       _result.groupIds.addAll(groupIds);
+    }
+    if (uid != null) {
+      _result.uid = uid;
     }
     return _result;
   }
@@ -200,6 +205,62 @@ class GetPostReq extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(3)
   $core.List<$core.int> get groupIds => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.String get uid => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set uid($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasUid() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearUid() => clearField(4);
+}
+
+class GetPostByIdReq extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPostByIdReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'postId', $pb.PbFieldType.O3, protoName: 'postId')
+    ..hasRequiredFields = false
+  ;
+
+  GetPostByIdReq._() : super();
+  factory GetPostByIdReq({
+    $core.int? postId,
+  }) {
+    final _result = create();
+    if (postId != null) {
+      _result.postId = postId;
+    }
+    return _result;
+  }
+  factory GetPostByIdReq.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetPostByIdReq.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetPostByIdReq clone() => GetPostByIdReq()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetPostByIdReq copyWith(void Function(GetPostByIdReq) updates) => super.copyWith((message) => updates(message as GetPostByIdReq)) as GetPostByIdReq; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetPostByIdReq create() => GetPostByIdReq._();
+  GetPostByIdReq createEmptyInstance() => create();
+  static $pb.PbList<GetPostByIdReq> createRepeated() => $pb.PbList<GetPostByIdReq>();
+  @$core.pragma('dart2js:noInline')
+  static GetPostByIdReq getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetPostByIdReq>(create);
+  static GetPostByIdReq? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get postId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set postId($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPostId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPostId() => clearField(1);
 }
 
 class GetPostResp extends $pb.GeneratedMessage {
@@ -302,7 +363,6 @@ class PostDetails extends $pb.GeneratedMessage {
     ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'topped')
     ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'best')
     ..aOM<$4.Timestamp>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime', subBuilder: $4.Timestamp.create)
-    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupName', protoName: 'groupName')
     ..hasRequiredFields = false
   ;
 
@@ -318,7 +378,6 @@ class PostDetails extends $pb.GeneratedMessage {
     $core.bool? topped,
     $core.bool? best,
     $4.Timestamp? updateTime,
-    $core.String? groupName,
   }) {
     final _result = create();
     if (id != null) {
@@ -350,9 +409,6 @@ class PostDetails extends $pb.GeneratedMessage {
     }
     if (updateTime != null) {
       _result.updateTime = updateTime;
-    }
-    if (groupName != null) {
-      _result.groupName = groupName;
     }
     return _result;
   }
@@ -470,14 +526,5 @@ class PostDetails extends $pb.GeneratedMessage {
   void clearUpdateTime() => clearField(10);
   @$pb.TagNumber(10)
   $4.Timestamp ensureUpdateTime() => $_ensure(9);
-
-  @$pb.TagNumber(11)
-  $core.String get groupName => $_getSZ(10);
-  @$pb.TagNumber(11)
-  set groupName($core.String v) { $_setString(10, v); }
-  @$pb.TagNumber(11)
-  $core.bool hasGroupName() => $_has(10);
-  @$pb.TagNumber(11)
-  void clearGroupName() => clearField(11);
 }
 

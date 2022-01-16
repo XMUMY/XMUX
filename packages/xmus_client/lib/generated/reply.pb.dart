@@ -226,6 +226,81 @@ class GetReplyReq extends $pb.GeneratedMessage {
   void clearSort() => clearField(4);
 }
 
+class GetUserReplyReq extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetUserReplyReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageNo', $pb.PbFieldType.O3, protoName: 'pageNo')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageSize', $pb.PbFieldType.O3, protoName: 'pageSize')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'uid')
+    ..hasRequiredFields = false
+  ;
+
+  GetUserReplyReq._() : super();
+  factory GetUserReplyReq({
+    $core.int? pageNo,
+    $core.int? pageSize,
+    $core.String? uid,
+  }) {
+    final _result = create();
+    if (pageNo != null) {
+      _result.pageNo = pageNo;
+    }
+    if (pageSize != null) {
+      _result.pageSize = pageSize;
+    }
+    if (uid != null) {
+      _result.uid = uid;
+    }
+    return _result;
+  }
+  factory GetUserReplyReq.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetUserReplyReq.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetUserReplyReq clone() => GetUserReplyReq()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetUserReplyReq copyWith(void Function(GetUserReplyReq) updates) => super.copyWith((message) => updates(message as GetUserReplyReq)) as GetUserReplyReq; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetUserReplyReq create() => GetUserReplyReq._();
+  GetUserReplyReq createEmptyInstance() => create();
+  static $pb.PbList<GetUserReplyReq> createRepeated() => $pb.PbList<GetUserReplyReq>();
+  @$core.pragma('dart2js:noInline')
+  static GetUserReplyReq getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetUserReplyReq>(create);
+  static GetUserReplyReq? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get pageNo => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set pageNo($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPageNo() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPageNo() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get pageSize => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set pageSize($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPageSize() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPageSize() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get uid => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set uid($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasUid() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearUid() => clearField(3);
+}
+
 class GetReplyByIdReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetReplyByIdReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'replyId', $pb.PbFieldType.O3, protoName: 'replyId')
@@ -371,6 +446,7 @@ class Reply extends $pb.GeneratedMessage {
     ..aOM<$4.Timestamp>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime', subBuilder: $4.Timestamp.create)
     ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refReplyId', $pb.PbFieldType.O3, protoName: 'refReplyId')
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refUid', protoName: 'refUid')
+    ..a<$core.int>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refPostId', $pb.PbFieldType.O3, protoName: 'refPostId')
     ..hasRequiredFields = false
   ;
 
@@ -384,6 +460,7 @@ class Reply extends $pb.GeneratedMessage {
     $4.Timestamp? createTime,
     $core.int? refReplyId,
     $core.String? refUid,
+    $core.int? refPostId,
   }) {
     final _result = create();
     if (id != null) {
@@ -409,6 +486,9 @@ class Reply extends $pb.GeneratedMessage {
     }
     if (refUid != null) {
       _result.refUid = refUid;
+    }
+    if (refPostId != null) {
+      _result.refPostId = refPostId;
     }
     return _result;
   }
@@ -506,5 +586,14 @@ class Reply extends $pb.GeneratedMessage {
   $core.bool hasRefUid() => $_has(7);
   @$pb.TagNumber(8)
   void clearRefUid() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.int get refPostId => $_getIZ(8);
+  @$pb.TagNumber(9)
+  set refPostId($core.int v) { $_setSignedInt32(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasRefPostId() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearRefPostId() => clearField(9);
 }
 

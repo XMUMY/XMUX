@@ -6,16 +6,20 @@ import 'package:xmux/main/forum/component/post_brief_list.dart';
 import 'package:xmux/main/forum/component/reply_list.dart';
 import 'package:xmux/main/forum/thread.dart';
 
+import '../../../global.dart';
+
 class PostReplyCollectionPage extends StatefulWidget {
   final String pageTitle;
   final Future<List<PostDetails>> Function(int pageKey) fetchPostPage;
   final Future<List<Reply>> Function(int pageKey) fetchReplyPage;
+  final Future<void> Function(PostDetails postDetails)? postOnTap;
+  final Future<void> Function(Reply reply)? replyOnTap;
 
   const PostReplyCollectionPage(
       {Key? key,
       required this.pageTitle,
       required this.fetchPostPage,
-      required this.fetchReplyPage})
+      required this.fetchReplyPage, this.postOnTap, this.replyOnTap})
       : super(key: key);
 
   @override
@@ -28,13 +32,22 @@ class _PostReplyCollectionPageState extends State<PostReplyCollectionPage>
   late final TabController _tabController;
   late final _postBriefList = PostBriefList(
     getPostFunc: widget.fetchPostPage,
-    onTap: _postOnTap,
+    onTap: widget.postOnTap ?? _defaultPostOnTap
   );
   late final _replyList = ReplyList(
     getReplyFunc: widget.fetchReplyPage,
+    onTap: widget.replyOnTap ?? _defaultReplyOnTap,
   );
 
-  Future<void> _postOnTap(PostDetails postDetails) async {
+  Future<void> _defaultPostOnTap(PostDetails postDetails) async {
+    await Navigator.of(context).push<bool>(
+      MaterialPageRoute(
+          builder: (context) => ThreadPage(postDetails: postDetails)),
+    );
+  }
+
+  Future<void> _defaultReplyOnTap(Reply reply) async {
+   final postDetails = await rpc.forumClient.getPostById(GetPostByIdReq(postId: reply.refPostId));
     await Navigator.of(context).push<bool>(
       MaterialPageRoute(
           builder: (context) => ThreadPage(postDetails: postDetails)),

@@ -89,10 +89,29 @@ class _ForumPageState extends State<ForumPage> {
                                       .then((resp) => resp.pd),
                               fetchReplyPage: (page) => rpc.forumClient
                                   .getReply(GetReplyReq(
-                                    pageNo: page,
-                                    pageSize: 10,
-                                refPostId: 20
-                                  ))
+                                      pageNo: page,
+                                      pageSize: 10,
+                                      refPostId: 20))
+                                  .then((resp) => resp.replies))),
+                    );
+                    break;
+                  case 1:
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PostReplyCollectionPage(
+                              pageTitle: 'My activity'.tr(),
+                              fetchPostPage: (page) => rpc.forumClient
+                                  .getPost(GetPostReq(
+                                      pageNo: page,
+                                      pageSize: 10,
+                                      uid: store.state.user.campusId))
+                                  .then((resp) => resp.pd),
+                              fetchReplyPage: (page) => rpc.forumClient
+                                  .getUserReply(GetUserReplyReq(
+                                      pageNo: page,
+                                      pageSize: 10,
+                                      uid: store.state.user.campusId))
                                   .then((resp) => resp.replies))),
                     );
                     break;
