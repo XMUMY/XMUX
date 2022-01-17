@@ -12,8 +12,9 @@ class ReplyList extends StatelessWidget {
   );
   final Future<List<Reply>> Function(int pageKey) getReplyFunc;
   final Future<void> Function(Reply)? onTap;
+  final bool isSaved;
 
-  ReplyList({Key? key, required this.getReplyFunc, this.onTap})
+  ReplyList({Key? key, required this.getReplyFunc, this.onTap, this.isSaved = false})
       : super(key: key) {
     _pagingController.addPageRequestListener(_fetchPage);
   }
@@ -56,6 +57,7 @@ class ReplyList extends StatelessWidget {
                 await onTap!(item);
               }
             },
+            isSaved: isSaved,
           );
         },
       ),

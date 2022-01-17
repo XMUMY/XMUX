@@ -9,7 +9,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $4;
+import 'google/protobuf/timestamp.pb.dart' as $5;
 
 import 'reply.pbenum.dart';
 
@@ -443,7 +443,7 @@ class Reply extends $pb.GeneratedMessage {
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'vote', $pb.PbFieldType.O3)
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'uid')
     ..aOB(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'topped')
-    ..aOM<$4.Timestamp>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime', subBuilder: $4.Timestamp.create)
+    ..aOM<$5.Timestamp>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime', subBuilder: $5.Timestamp.create)
     ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refReplyId', $pb.PbFieldType.O3, protoName: 'refReplyId')
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refUid', protoName: 'refUid')
     ..a<$core.int>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refPostId', $pb.PbFieldType.O3, protoName: 'refPostId')
@@ -457,7 +457,7 @@ class Reply extends $pb.GeneratedMessage {
     $core.int? vote,
     $core.String? uid,
     $core.bool? topped,
-    $4.Timestamp? createTime,
+    $5.Timestamp? createTime,
     $core.int? refReplyId,
     $core.String? refUid,
     $core.int? refPostId,
@@ -559,15 +559,15 @@ class Reply extends $pb.GeneratedMessage {
   void clearTopped() => clearField(5);
 
   @$pb.TagNumber(6)
-  $4.Timestamp get createTime => $_getN(5);
+  $5.Timestamp get createTime => $_getN(5);
   @$pb.TagNumber(6)
-  set createTime($4.Timestamp v) { setField(6, v); }
+  set createTime($5.Timestamp v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasCreateTime() => $_has(5);
   @$pb.TagNumber(6)
   void clearCreateTime() => clearField(6);
   @$pb.TagNumber(6)
-  $4.Timestamp ensureCreateTime() => $_ensure(5);
+  $5.Timestamp ensureCreateTime() => $_ensure(5);
 
   @$pb.TagNumber(7)
   $core.int get refReplyId => $_getIZ(6);

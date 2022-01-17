@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xmus_client/generated/post.pb.dart';
 import 'package:xmus_client/generated/reply.pb.dart';
+import 'package:xmus_client/generated/saved.pb.dart';
 import 'package:xmux/main/forum/component/widgets.dart';
 
 import '../../../component/floating_card.dart';
@@ -14,9 +15,10 @@ class PostBriefCard extends StatelessWidget {
   final PostDetails postDetails;
   final String locale;
   final Future<void> Function()? onTap;
+  final Future<void> Function()? onLongPress;
 
   const PostBriefCard(
-      {Key? key, required this.postDetails, required this.locale, this.onTap})
+      {Key? key, required this.postDetails, required this.locale, this.onTap, this.onLongPress})
       : super(key: key);
 
   @override
@@ -41,6 +43,7 @@ class PostBriefCard extends StatelessWidget {
 
     return FloatingCard(
       onTap: onTap,
+      onLongPress: onLongPress,
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: const EdgeInsets.all(5),
       child: content,
@@ -118,7 +121,7 @@ class ReplyCard extends StatelessWidget {
   final void Function()? replyOnClick;
   final bool inBottomSheet;
   final Future<void> Function()? onTap;
-  final bool isReplySaved;
+  final bool isSaved;
 
   const ReplyCard(
       {Key? key,
@@ -127,7 +130,7 @@ class ReplyCard extends StatelessWidget {
       this.replyOnClick,
       this.inBottomSheet = false,
       this.onTap,
-      this.isReplySaved = false})
+      this.isSaved = false})
       : super(key: key);
 
   Future<void> _showReplySheet(BuildContext context, int replyId) async {
@@ -219,7 +222,7 @@ class ReplyCard extends StatelessWidget {
       onTap: onTap,
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: const EdgeInsets.all(5),
-      onLongPress: () => _showReplyBottomSheet(context, reply, isReplySaved),
+      onLongPress: () => _showReplyBottomSheet(context, reply, isSaved),
       child: expansibleContent,
     );
   }
@@ -247,7 +250,15 @@ Future<void> showPostBottomSheet(
               ListTile(
                 leading: const Icon(Icons.star_border_rounded),
                 title: Text('Add to saved'.tr()),
-                onTap: () {},
+                onTap: () async {
+                  var res = await rpc.forumClient.savePost(SaveReq(refId: postDetails.id));
+                  if (res.alreadySaved) {
+                    showSnackbarMsg(Text('Already saved'.tr()), context);
+                  } else {
+                    showSnackbarMsg(Text('Saved'.tr()), context);
+                  }
+                  Navigator.of(context).pop(true);
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.content_copy),
@@ -294,13 +305,25 @@ Future<void> _showReplyBottomSheet(
                 ListTile(
                   leading: const Icon(Icons.bookmark_add_outlined),
                   title: Text('Add to saved'.tr()),
-                  onTap: () {},
+                  onTap: () async {
+                    var res = await rpc.forumClient.saveReply(SaveReq(refId: reply.id));
+                    if (res.alreadySaved) {
+                      showSnackbarMsg(Text('Already saved'.tr()), context);
+                    } else {
+                      showSnackbarMsg(Text('Saved'.tr()), context);
+                    }
+                    Navigator.of(context).pop(true);
+                  },
                 ),
               if (isReplySaved)
                 ListTile(
                   leading: const Icon(Icons.bookmark_remove_outlined),
                   title: Text('Remove from saved'.tr()),
-                  onTap: () {},
+                  onTap: () async {
+                    await rpc.forumClient.removeSavedReply(SaveReq(refId: reply.id));
+                    showSnackbarMsg(Text('Removed'.tr()), context);
+                    Navigator.of(context).pop(true);
+                  },
                 ),
               ListTile(
                 leading: const Icon(Icons.content_copy),

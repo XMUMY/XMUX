@@ -14,6 +14,7 @@ import 'group.pb.dart' as $0;
 import 'google/protobuf/empty.pb.dart' as $1;
 import 'post.pb.dart' as $2;
 import 'reply.pb.dart' as $3;
+import 'saved.pb.dart' as $4;
 export 'forum_service.pb.dart';
 
 class ForumClient extends $grpc.Client {
@@ -114,6 +115,32 @@ class ForumClient extends $grpc.Client {
           '/xmux.forum.v4.Forum/DownvoteReply',
           ($3.UpdateReplyReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$savePost = $grpc.ClientMethod<$4.SaveReq, $4.SaveResp>(
+      '/xmux.forum.v4.Forum/SavePost',
+      ($4.SaveReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $4.SaveResp.fromBuffer(value));
+  static final _$saveReply = $grpc.ClientMethod<$4.SaveReq, $4.SaveResp>(
+      '/xmux.forum.v4.Forum/SaveReply',
+      ($4.SaveReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $4.SaveResp.fromBuffer(value));
+  static final _$removeSavedPost = $grpc.ClientMethod<$4.SaveReq, $1.Empty>(
+      '/xmux.forum.v4.Forum/RemoveSavedPost',
+      ($4.SaveReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$removeSavedReply = $grpc.ClientMethod<$4.SaveReq, $1.Empty>(
+      '/xmux.forum.v4.Forum/RemoveSavedReply',
+      ($4.SaveReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$getSavedPost =
+      $grpc.ClientMethod<$4.GetSavedReq, $2.GetPostResp>(
+          '/xmux.forum.v4.Forum/GetSavedPost',
+          ($4.GetSavedReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $2.GetPostResp.fromBuffer(value));
+  static final _$getSavedReply =
+      $grpc.ClientMethod<$4.GetSavedReq, $3.GetReplyResp>(
+          '/xmux.forum.v4.Forum/GetSavedReply',
+          ($4.GetSavedReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $3.GetReplyResp.fromBuffer(value));
 
   ForumClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -225,6 +252,36 @@ class ForumClient extends $grpc.Client {
   $grpc.ResponseFuture<$1.Empty> downvoteReply($3.UpdateReplyReq request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$downvoteReply, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$4.SaveResp> savePost($4.SaveReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$savePost, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$4.SaveResp> saveReply($4.SaveReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$saveReply, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> removeSavedPost($4.SaveReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$removeSavedPost, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> removeSavedReply($4.SaveReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$removeSavedReply, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$2.GetPostResp> getSavedPost($4.GetSavedReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getSavedPost, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$3.GetReplyResp> getSavedReply($4.GetSavedReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getSavedReply, request, options: options);
   }
 }
 
@@ -379,6 +436,48 @@ abstract class ForumServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $3.UpdateReplyReq.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$4.SaveReq, $4.SaveResp>(
+        'SavePost',
+        savePost_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $4.SaveReq.fromBuffer(value),
+        ($4.SaveResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$4.SaveReq, $4.SaveResp>(
+        'SaveReply',
+        saveReply_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $4.SaveReq.fromBuffer(value),
+        ($4.SaveResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$4.SaveReq, $1.Empty>(
+        'RemoveSavedPost',
+        removeSavedPost_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $4.SaveReq.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$4.SaveReq, $1.Empty>(
+        'RemoveSavedReply',
+        removeSavedReply_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $4.SaveReq.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$4.GetSavedReq, $2.GetPostResp>(
+        'GetSavedPost',
+        getSavedPost_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $4.GetSavedReq.fromBuffer(value),
+        ($2.GetPostResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$4.GetSavedReq, $3.GetReplyResp>(
+        'GetSavedReply',
+        getSavedReply_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $4.GetSavedReq.fromBuffer(value),
+        ($3.GetReplyResp value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.CreateGroupResp> createGroup_Pre(
@@ -486,6 +585,36 @@ abstract class ForumServiceBase extends $grpc.Service {
     return downvoteReply(call, await request);
   }
 
+  $async.Future<$4.SaveResp> savePost_Pre(
+      $grpc.ServiceCall call, $async.Future<$4.SaveReq> request) async {
+    return savePost(call, await request);
+  }
+
+  $async.Future<$4.SaveResp> saveReply_Pre(
+      $grpc.ServiceCall call, $async.Future<$4.SaveReq> request) async {
+    return saveReply(call, await request);
+  }
+
+  $async.Future<$1.Empty> removeSavedPost_Pre(
+      $grpc.ServiceCall call, $async.Future<$4.SaveReq> request) async {
+    return removeSavedPost(call, await request);
+  }
+
+  $async.Future<$1.Empty> removeSavedReply_Pre(
+      $grpc.ServiceCall call, $async.Future<$4.SaveReq> request) async {
+    return removeSavedReply(call, await request);
+  }
+
+  $async.Future<$2.GetPostResp> getSavedPost_Pre(
+      $grpc.ServiceCall call, $async.Future<$4.GetSavedReq> request) async {
+    return getSavedPost(call, await request);
+  }
+
+  $async.Future<$3.GetReplyResp> getSavedReply_Pre(
+      $grpc.ServiceCall call, $async.Future<$4.GetSavedReq> request) async {
+    return getSavedReply(call, await request);
+  }
+
   $async.Future<$0.CreateGroupResp> createGroup(
       $grpc.ServiceCall call, $0.CreateGroupReq request);
   $async.Future<$1.Empty> removeGroup(
@@ -528,4 +657,16 @@ abstract class ForumServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $3.UpdateReplyReq request);
   $async.Future<$1.Empty> downvoteReply(
       $grpc.ServiceCall call, $3.UpdateReplyReq request);
+  $async.Future<$4.SaveResp> savePost(
+      $grpc.ServiceCall call, $4.SaveReq request);
+  $async.Future<$4.SaveResp> saveReply(
+      $grpc.ServiceCall call, $4.SaveReq request);
+  $async.Future<$1.Empty> removeSavedPost(
+      $grpc.ServiceCall call, $4.SaveReq request);
+  $async.Future<$1.Empty> removeSavedReply(
+      $grpc.ServiceCall call, $4.SaveReq request);
+  $async.Future<$2.GetPostResp> getSavedPost(
+      $grpc.ServiceCall call, $4.GetSavedReq request);
+  $async.Future<$3.GetReplyResp> getSavedReply(
+      $grpc.ServiceCall call, $4.GetSavedReq request);
 }

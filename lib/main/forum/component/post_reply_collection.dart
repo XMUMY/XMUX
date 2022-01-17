@@ -13,13 +13,18 @@ class PostReplyCollectionPage extends StatefulWidget {
   final Future<List<PostDetails>> Function(int pageKey) fetchPostPage;
   final Future<List<Reply>> Function(int pageKey) fetchReplyPage;
   final Future<void> Function(PostDetails postDetails)? postOnTap;
+  final Future<void> Function(PostDetails postDetails)? postOnLongPress;
   final Future<void> Function(Reply reply)? replyOnTap;
+  final bool isReplySaved;
 
   const PostReplyCollectionPage(
       {Key? key,
       required this.pageTitle,
       required this.fetchPostPage,
-      required this.fetchReplyPage, this.postOnTap, this.replyOnTap})
+      required this.fetchReplyPage,
+      this.postOnTap,
+      this.replyOnTap,
+      this.postOnLongPress, this.isReplySaved = false})
       : super(key: key);
 
   @override
@@ -32,11 +37,13 @@ class _PostReplyCollectionPageState extends State<PostReplyCollectionPage>
   late final TabController _tabController;
   late final _postBriefList = PostBriefList(
     getPostFunc: widget.fetchPostPage,
-    onTap: widget.postOnTap ?? _defaultPostOnTap
+    onTap: widget.postOnTap ?? _defaultPostOnTap,
+    onLongPress: widget.postOnLongPress,
   );
   late final _replyList = ReplyList(
     getReplyFunc: widget.fetchReplyPage,
     onTap: widget.replyOnTap ?? _defaultReplyOnTap,
+    isSaved: widget.isReplySaved,
   );
 
   Future<void> _defaultPostOnTap(PostDetails postDetails) async {
@@ -47,7 +54,8 @@ class _PostReplyCollectionPageState extends State<PostReplyCollectionPage>
   }
 
   Future<void> _defaultReplyOnTap(Reply reply) async {
-   final postDetails = await rpc.forumClient.getPostById(GetPostByIdReq(postId: reply.refPostId));
+    final postDetails = await rpc.forumClient
+        .getPostById(GetPostByIdReq(postId: reply.refPostId));
     await Navigator.of(context).push<bool>(
       MaterialPageRoute(
           builder: (context) => ThreadPage(postDetails: postDetails)),

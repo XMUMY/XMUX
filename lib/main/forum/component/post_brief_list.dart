@@ -11,8 +11,10 @@ class PostBriefList extends StatelessWidget {
   );
   final Future<List<PostDetails>> Function(int pageKey) getPostFunc;
   final Future<void> Function(PostDetails)? onTap;
+  final Future<void> Function(PostDetails)? onLongPress;
 
-  PostBriefList({Key? key, required this.getPostFunc, this.onTap})
+  PostBriefList(
+      {Key? key, required this.getPostFunc, this.onTap, this.onLongPress})
       : super(key: key) {
     _pagingController.addPageRequestListener(_fetchPage);
   }
@@ -44,10 +46,7 @@ class PostBriefList extends StatelessWidget {
             return Padding(
                 padding: const EdgeInsets.all(10),
                 child: Text('-----END-----',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .caption,
+                    style: Theme.of(context).textTheme.caption,
                     textAlign: TextAlign.center));
           }
           return PostBriefCard(
@@ -56,6 +55,11 @@ class PostBriefList extends StatelessWidget {
             onTap: () async {
               if (onTap != null) {
                 await onTap!(item);
+              }
+            },
+            onLongPress: () async {
+              if (onLongPress != null) {
+                await onLongPress!(item);
               }
             },
           );

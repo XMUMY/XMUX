@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:xmus_client/generated/post.pb.dart';
 import 'package:xmus_client/generated/reply.pb.dart';
+import 'package:xmus_client/generated/saved.pb.dart';
 import 'package:xmux/main/forum/thread.dart';
 
 import '../../global.dart';
 import '../main_page.dart';
+import 'component/widgets.dart';
 import 'create_post.dart';
 import 'component/post_brief_list.dart';
 import 'component/post_reply_collection.dart';
@@ -79,19 +81,36 @@ class _ForumPageState extends State<ForumPage> {
                       MaterialPageRoute(
                           builder: (context) => PostReplyCollectionPage(
                               pageTitle: 'Saved'.tr(),
-                              fetchPostPage: (page) =>
-                                  // TODO: Change API to saved posts
-                                  rpc.forumClient
-                                      .getPost(GetPostReq(
-                                          pageNo: page,
-                                          pageSize: 10,
-                                          groupIds: <int>[1]))
-                                      .then((resp) => resp.pd),
+                              isReplySaved: true,
+                              postOnLongPress: (pd) => showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (context) => Wrap(
+                                        children: [
+                                          ListTile(
+                                            leading: const Icon(
+                                                Icons.bookmark_remove_outlined),
+                                            title:
+                                                Text('Remove from saved'.tr()),
+                                            onTap: () async {
+                                              await rpc.forumClient
+                                                  .removeSavedPost(
+                                                      SaveReq(refId: pd.id));
+                                              showSnackbarMsg(
+                                                  Text('Removed'.tr()),
+                                                  context);
+                                              Navigator.of(context).pop(true);
+                                            },
+                                          ),
+                                        ],
+                                      )),
+                              fetchPostPage: (page) => rpc.forumClient
+                                  .getSavedPost(
+                                      GetSavedReq(pageNo: page, pageSize: 10))
+                                  .then((resp) => resp.pd),
                               fetchReplyPage: (page) => rpc.forumClient
-                                  .getReply(GetReplyReq(
-                                      pageNo: page,
-                                      pageSize: 10,
-                                      refPostId: 20))
+                                  .getSavedReply(
+                                      GetSavedReq(pageNo: page, pageSize: 10))
                                   .then((resp) => resp.replies))),
                     );
                     break;
