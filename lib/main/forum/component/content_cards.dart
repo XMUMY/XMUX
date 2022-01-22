@@ -2,6 +2,9 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:linkify/linkify.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:xmus_client/generated/post.pb.dart';
 import 'package:xmus_client/generated/reply.pb.dart';
 import 'package:xmus_client/generated/saved.pb.dart';
@@ -18,7 +21,11 @@ class PostBriefCard extends StatelessWidget {
   final Future<void> Function()? onLongPress;
 
   const PostBriefCard(
-      {Key? key, required this.postDetails, required this.locale, this.onTap, this.onLongPress})
+      {Key? key,
+      required this.postDetails,
+      required this.locale,
+      this.onTap,
+      this.onLongPress})
       : super(key: key);
 
   @override
@@ -97,9 +104,10 @@ class PostDetailsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Flexible(
-                child: Text(
-                  postDetails.body,
+                child: Linkify(
+                  text: postDetails.body,
                   style: Theme.of(context).textTheme.bodyLarge,
+                  onOpen: (link) => launch(link.url),
                 ),
               )
             ],
@@ -191,28 +199,36 @@ class ReplyCard extends StatelessWidget {
             children: [
               Flexible(
                   child: reply.refReplyId == -1
-                      ? Text(
-                          reply.content,
+                      ? Linkify(
+                          text: reply.content,
                           style: Theme.of(context).textTheme.bodyLarge,
+                          onOpen: (link) => launch(link.url),
                         )
                       : UserProfileBuilder(
                           uid: reply.refUid,
-                          builder: (context, profile) => RichText(
-                              text: TextSpan(
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                  children: [
+                          builder: (context, profile) {
+                            final linkSpan = buildTextSpan(
+                                linkify(reply.content),
+                                onOpen: (link) => launch(link.url),
+                                style: Theme.of(context).textTheme.bodyLarge,
+                                linkStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                      color: Colors.blueAccent,
+                                      decoration: TextDecoration.underline,
+                                    ));
+                            linkSpan.children?.insert(
+                                0,
                                 TextSpan(
                                   text: '@${profile.displayName} ',
                                   style: const TextStyle(color: Colors.blue),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () => _handleOnTap(context),
-                                ),
-                                TextSpan(
-                                  text: reply.content,
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () => _handleOnTap(context),
-                                )
-                              ])),
+                                ));
+
+                            return RichText(text: linkSpan);
+                          },
                         ))
             ],
           ),
@@ -237,7 +253,7 @@ Future<void> showPostBottomSheet(
             children: [
               if (postDetails.uid == store.state.user.campusId)
                 ListTile(
-                  leading: const Icon(Icons.delete),
+                  leading: const Icon(Icons.delete_outlined),
                   title: Text('Remove post'.tr()),
                   onTap: () {
                     rpc.forumClient.removePost(
@@ -251,7 +267,8 @@ Future<void> showPostBottomSheet(
                 leading: const Icon(Icons.star_border_rounded),
                 title: Text('Add to saved'.tr()),
                 onTap: () async {
-                  var res = await rpc.forumClient.savePost(SaveReq(refId: postDetails.id));
+                  var res = await rpc.forumClient
+                      .savePost(SaveReq(refId: postDetails.id));
                   if (res.alreadySaved) {
                     showSnackbarMsg(Text('Already saved'.tr()), context);
                   } else {
@@ -306,7 +323,8 @@ Future<void> _showReplyBottomSheet(
                   leading: const Icon(Icons.bookmark_add_outlined),
                   title: Text('Add to saved'.tr()),
                   onTap: () async {
-                    var res = await rpc.forumClient.saveReply(SaveReq(refId: reply.id));
+                    var res = await rpc.forumClient
+                        .saveReply(SaveReq(refId: reply.id));
                     if (res.alreadySaved) {
                       showSnackbarMsg(Text('Already saved'.tr()), context);
                     } else {
@@ -320,7 +338,8 @@ Future<void> _showReplyBottomSheet(
                   leading: const Icon(Icons.bookmark_remove_outlined),
                   title: Text('Remove from saved'.tr()),
                   onTap: () async {
-                    await rpc.forumClient.removeSavedReply(SaveReq(refId: reply.id));
+                    await rpc.forumClient
+                        .removeSavedReply(SaveReq(refId: reply.id));
                     showSnackbarMsg(Text('Removed'.tr()), context);
                     Navigator.of(context).pop(true);
                   },
