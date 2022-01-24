@@ -13,6 +13,7 @@ import 'component/widgets.dart';
 import 'create_post.dart';
 import 'component/post_brief_list.dart';
 import 'component/post_reply_collection.dart';
+import 'notifs.dart';
 
 class ForumPage extends StatefulWidget implements TopLevelPage {
   const ForumPage({Key? key}) : super(key: key);
@@ -42,10 +43,7 @@ class _ForumPageState extends State<ForumPage> {
     super.initState();
     timeago.setLocaleMessages('zh', timeago.ZhCnMessages());
     timeago.setLocaleMessages('et', timeago.EnShortMessages());
-    rpc.forumClient.getNotifNum(Empty()).then((resp) {
-      notifNum = resp.num;
-      setState(() {});
-    });
+    _refreshNotifNum();
   }
 
   @override
@@ -59,6 +57,11 @@ class _ForumPageState extends State<ForumPage> {
     final resp = await rpc.forumClient
         .getPost(GetPostReq(pageNo: pageKey, pageSize: 10, groupIds: <int>[1]));
     return resp.pd;
+  }
+
+  Future<void> _refreshNotifNum() async {
+    notifNum = (await rpc.forumClient.getNotifNum(Empty())).num;
+    if (mounted) setState(() {});
   }
 
   Future<void> _postOnTap(PostDetails postDetails) async {
@@ -76,6 +79,7 @@ class _ForumPageState extends State<ForumPage> {
 
   Future<void> _handleRefresh() async {
     _postBriefList.refresh();
+    _refreshNotifNum();
     if (mounted) setState(() {});
   }
 
@@ -89,12 +93,17 @@ class _ForumPageState extends State<ForumPage> {
         actions: [
           Badge(
             badgeContent: Text(notifNum.toString()),
+            showBadge: notifNum != 0,
             animationType: BadgeAnimationType.fade,
             position: BadgePosition.topEnd(top: 4, end: 4),
             child: IconButton(
               tooltip: 'forum.notif'.tr(),
               icon: const Icon(Icons.notifications_outlined),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const NotifPage()));
+                _refreshNotifNum();
+              },
             ),
           ),
           PopupMenuButton(

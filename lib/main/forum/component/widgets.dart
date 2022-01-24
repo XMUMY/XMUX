@@ -10,7 +10,9 @@ class ProfileHeadline extends StatelessWidget {
   final DateTime time;
   final bool topped;
   final bool best;
+  final bool hasRead;
   final Widget? sideButton;
+  final String? middleMessage;
 
   const ProfileHeadline(
       {Key? key,
@@ -18,7 +20,9 @@ class ProfileHeadline extends StatelessWidget {
       required this.time,
       this.topped = false,
       this.best = false,
-      this.sideButton})
+      this.hasRead = true,
+      this.sideButton,
+      this.middleMessage})
       : super(key: key);
 
   @override
@@ -52,6 +56,8 @@ class ProfileHeadline extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyLarge,
                           children: [
                         TextSpan(text: profile.displayName),
+                        if (middleMessage != null)
+                          TextSpan(text: ' $middleMessage'),
                         TextSpan(
                             text: ' · ${timeUtil(time, 'et')}',
                             style: Theme.of(context).textTheme.caption)
@@ -83,7 +89,19 @@ class ProfileHeadline extends StatelessWidget {
                     Icons.star,
                     color: Colors.lightBlueAccent,
                   )),
-            if (sideButton != null) sideButton!
+            if (sideButton != null) sideButton!,
+            if (!hasRead)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Container(
+                  width: 8,
+                  height: 8,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.orangeAccent,
+                  ),
+                ),
+              )
           ],
         ),
       ],

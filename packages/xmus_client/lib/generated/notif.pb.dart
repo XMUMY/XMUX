@@ -215,6 +215,7 @@ class Notif extends $pb.GeneratedMessage {
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'objContent', protoName: 'objContent')
     ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'hasRead', protoName: 'hasRead')
     ..aOM<$6.Timestamp>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime', subBuilder: $6.Timestamp.create)
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'senderUid', protoName: 'senderUid')
     ..hasRequiredFields = false
   ;
 
@@ -228,6 +229,7 @@ class Notif extends $pb.GeneratedMessage {
     $core.String? objContent,
     $core.bool? hasRead,
     $6.Timestamp? createTime,
+    $core.String? senderUid,
   }) {
     final _result = create();
     if (id != null) {
@@ -253,6 +255,9 @@ class Notif extends $pb.GeneratedMessage {
     }
     if (createTime != null) {
       _result.createTime = createTime;
+    }
+    if (senderUid != null) {
+      _result.senderUid = senderUid;
     }
     return _result;
   }
@@ -350,5 +355,14 @@ class Notif extends $pb.GeneratedMessage {
   void clearCreateTime() => clearField(8);
   @$pb.TagNumber(8)
   $6.Timestamp ensureCreateTime() => $_ensure(7);
+
+  @$pb.TagNumber(9)
+  $core.String get senderUid => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set senderUid($core.String v) { $_setString(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasSenderUid() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearSenderUid() => clearField(9);
 }
 

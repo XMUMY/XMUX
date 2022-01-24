@@ -77,6 +77,7 @@ dependencies:
   expandable: ^5.0.1
   flutter_linkify: ^5.0.2
   badges: ^2.0.2
+  visibility_detector: ^0.2.2
 
 dependency_overrides:
   # For grpc web (allow missing trailer).

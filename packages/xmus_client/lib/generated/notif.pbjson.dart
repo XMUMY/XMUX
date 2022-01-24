@@ -72,8 +72,9 @@ const Notif$json = const {
     const {'1': 'objContent', '3': 6, '4': 1, '5': 9, '10': 'objContent'},
     const {'1': 'hasRead', '3': 7, '4': 1, '5': 8, '10': 'hasRead'},
     const {'1': 'createTime', '3': 8, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createTime'},
+    const {'1': 'senderUid', '3': 9, '4': 1, '5': 9, '10': 'senderUid'},
   ],
 };
 
 /// Descriptor for `Notif`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List notifDescriptor = $convert.base64Decode('CgVOb3RpZhIOCgJpZBgBIAEoBVICaWQSLAoEdHlwZRgCIAEoDjIYLnhtdXguZm9ydW0udjQuTm90aWZUeXBlUgR0eXBlEhQKBXJlZklkGAMgASgFUgVyZWZJZBIUCgVvYmpJZBgEIAEoBVIFb2JqSWQSHgoKcmVmQ29udGVudBgFIAEoCVIKcmVmQ29udGVudBIeCgpvYmpDb250ZW50GAYgASgJUgpvYmpDb250ZW50EhgKB2hhc1JlYWQYByABKAhSB2hhc1JlYWQSOgoKY3JlYXRlVGltZRgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCmNyZWF0ZVRpbWU=');
+final $typed_data.Uint8List notifDescriptor = $convert.base64Decode('CgVOb3RpZhIOCgJpZBgBIAEoBVICaWQSLAoEdHlwZRgCIAEoDjIYLnhtdXguZm9ydW0udjQuTm90aWZUeXBlUgR0eXBlEhQKBXJlZklkGAMgASgFUgVyZWZJZBIUCgVvYmpJZBgEIAEoBVIFb2JqSWQSHgoKcmVmQ29udGVudBgFIAEoCVIKcmVmQ29udGVudBIeCgpvYmpDb250ZW50GAYgASgJUgpvYmpDb250ZW50EhgKB2hhc1JlYWQYByABKAhSB2hhc1JlYWQSOgoKY3JlYXRlVGltZRgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCmNyZWF0ZVRpbWUSHAoJc2VuZGVyVWlkGAkgASgJUglzZW5kZXJVaWQ=');
