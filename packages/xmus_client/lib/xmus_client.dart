@@ -19,7 +19,7 @@ class XmuxRpc {
   factory XmuxRpc(String address) {
     var clientChannel = createClientChannel(address);
     // TODO: remove this after testing
-    var forumTestChannel = grpc.ClientChannel('158.132.9.120',
+    var forumTestChannel = grpc.ClientChannel('10.0.2.2',
         port: 9999, options: const grpc.ChannelOptions(credentials: grpc.ChannelCredentials.insecure()));
     var authorization = Authorization();
 

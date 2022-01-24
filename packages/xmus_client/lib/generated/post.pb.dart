@@ -9,7 +9,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $5;
+import 'google/protobuf/timestamp.pb.dart' as $6;
 
 class CreatePostReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreatePostReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
@@ -357,12 +357,12 @@ class PostDetails extends $pb.GeneratedMessage {
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'body')
     ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'vote', $pb.PbFieldType.O3)
-    ..aOM<$5.Timestamp>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime', subBuilder: $5.Timestamp.create)
+    ..aOM<$6.Timestamp>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime', subBuilder: $6.Timestamp.create)
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'uid')
     ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'groupId', $pb.PbFieldType.O3, protoName: 'groupId')
     ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'topped')
     ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'best')
-    ..aOM<$5.Timestamp>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime', subBuilder: $5.Timestamp.create)
+    ..aOM<$6.Timestamp>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime', subBuilder: $6.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -372,12 +372,12 @@ class PostDetails extends $pb.GeneratedMessage {
     $core.String? title,
     $core.String? body,
     $core.int? vote,
-    $5.Timestamp? createTime,
+    $6.Timestamp? createTime,
     $core.String? uid,
     $core.int? groupId,
     $core.bool? topped,
     $core.bool? best,
-    $5.Timestamp? updateTime,
+    $6.Timestamp? updateTime,
   }) {
     final _result = create();
     if (id != null) {
@@ -470,15 +470,15 @@ class PostDetails extends $pb.GeneratedMessage {
   void clearVote() => clearField(4);
 
   @$pb.TagNumber(5)
-  $5.Timestamp get createTime => $_getN(4);
+  $6.Timestamp get createTime => $_getN(4);
   @$pb.TagNumber(5)
-  set createTime($5.Timestamp v) { setField(5, v); }
+  set createTime($6.Timestamp v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasCreateTime() => $_has(4);
   @$pb.TagNumber(5)
   void clearCreateTime() => clearField(5);
   @$pb.TagNumber(5)
-  $5.Timestamp ensureCreateTime() => $_ensure(4);
+  $6.Timestamp ensureCreateTime() => $_ensure(4);
 
   @$pb.TagNumber(6)
   $core.String get uid => $_getSZ(5);
@@ -517,14 +517,14 @@ class PostDetails extends $pb.GeneratedMessage {
   void clearBest() => clearField(9);
 
   @$pb.TagNumber(10)
-  $5.Timestamp get updateTime => $_getN(9);
+  $6.Timestamp get updateTime => $_getN(9);
   @$pb.TagNumber(10)
-  set updateTime($5.Timestamp v) { setField(10, v); }
+  set updateTime($6.Timestamp v) { setField(10, v); }
   @$pb.TagNumber(10)
   $core.bool hasUpdateTime() => $_has(9);
   @$pb.TagNumber(10)
   void clearUpdateTime() => clearField(10);
   @$pb.TagNumber(10)
-  $5.Timestamp ensureUpdateTime() => $_ensure(9);
+  $6.Timestamp ensureUpdateTime() => $_ensure(9);
 }
 

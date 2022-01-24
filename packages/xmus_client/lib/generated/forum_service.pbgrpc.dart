@@ -15,6 +15,7 @@ import 'google/protobuf/empty.pb.dart' as $1;
 import 'post.pb.dart' as $2;
 import 'reply.pb.dart' as $3;
 import 'saved.pb.dart' as $4;
+import 'notif.pb.dart' as $5;
 export 'forum_service.pb.dart';
 
 class ForumClient extends $grpc.Client {
@@ -141,6 +142,19 @@ class ForumClient extends $grpc.Client {
           '/xmux.forum.v4.Forum/GetSavedReply',
           ($4.GetSavedReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $3.GetReplyResp.fromBuffer(value));
+  static final _$getNotifNum = $grpc.ClientMethod<$1.Empty, $5.GetNotifNumResp>(
+      '/xmux.forum.v4.Forum/GetNotifNum',
+      ($1.Empty value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $5.GetNotifNumResp.fromBuffer(value));
+  static final _$getNotif = $grpc.ClientMethod<$5.GetNotifReq, $5.GetNotifResp>(
+      '/xmux.forum.v4.Forum/GetNotif',
+      ($5.GetNotifReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $5.GetNotifResp.fromBuffer(value));
+  static final _$notifMarkAsRead =
+      $grpc.ClientMethod<$5.NotifMarkAsReadReq, $1.Empty>(
+          '/xmux.forum.v4.Forum/NotifMarkAsRead',
+          ($5.NotifMarkAsReadReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
 
   ForumClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -282,6 +296,21 @@ class ForumClient extends $grpc.Client {
   $grpc.ResponseFuture<$3.GetReplyResp> getSavedReply($4.GetSavedReq request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getSavedReply, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$5.GetNotifNumResp> getNotifNum($1.Empty request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getNotifNum, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$5.GetNotifResp> getNotif($5.GetNotifReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getNotif, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> notifMarkAsRead($5.NotifMarkAsReadReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$notifMarkAsRead, request, options: options);
   }
 }
 
@@ -478,6 +507,28 @@ abstract class ForumServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $4.GetSavedReq.fromBuffer(value),
         ($3.GetReplyResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.Empty, $5.GetNotifNumResp>(
+        'GetNotifNum',
+        getNotifNum_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $1.Empty.fromBuffer(value),
+        ($5.GetNotifNumResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$5.GetNotifReq, $5.GetNotifResp>(
+        'GetNotif',
+        getNotif_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $5.GetNotifReq.fromBuffer(value),
+        ($5.GetNotifResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$5.NotifMarkAsReadReq, $1.Empty>(
+        'NotifMarkAsRead',
+        notifMarkAsRead_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $5.NotifMarkAsReadReq.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.CreateGroupResp> createGroup_Pre(
@@ -615,6 +666,21 @@ abstract class ForumServiceBase extends $grpc.Service {
     return getSavedReply(call, await request);
   }
 
+  $async.Future<$5.GetNotifNumResp> getNotifNum_Pre(
+      $grpc.ServiceCall call, $async.Future<$1.Empty> request) async {
+    return getNotifNum(call, await request);
+  }
+
+  $async.Future<$5.GetNotifResp> getNotif_Pre(
+      $grpc.ServiceCall call, $async.Future<$5.GetNotifReq> request) async {
+    return getNotif(call, await request);
+  }
+
+  $async.Future<$1.Empty> notifMarkAsRead_Pre($grpc.ServiceCall call,
+      $async.Future<$5.NotifMarkAsReadReq> request) async {
+    return notifMarkAsRead(call, await request);
+  }
+
   $async.Future<$0.CreateGroupResp> createGroup(
       $grpc.ServiceCall call, $0.CreateGroupReq request);
   $async.Future<$1.Empty> removeGroup(
@@ -669,4 +735,10 @@ abstract class ForumServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $4.GetSavedReq request);
   $async.Future<$3.GetReplyResp> getSavedReply(
       $grpc.ServiceCall call, $4.GetSavedReq request);
+  $async.Future<$5.GetNotifNumResp> getNotifNum(
+      $grpc.ServiceCall call, $1.Empty request);
+  $async.Future<$5.GetNotifResp> getNotif(
+      $grpc.ServiceCall call, $5.GetNotifReq request);
+  $async.Future<$1.Empty> notifMarkAsRead(
+      $grpc.ServiceCall call, $5.NotifMarkAsReadReq request);
 }

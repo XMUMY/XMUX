@@ -1,4 +1,7 @@
+import 'package:badges/badges.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter/material.dart';
+import 'package:xmus_client/generated/google/protobuf/empty.pb.dart';
 import 'package:xmus_client/generated/post.pb.dart';
 import 'package:xmus_client/generated/reply.pb.dart';
 import 'package:xmus_client/generated/saved.pb.dart';
@@ -32,6 +35,18 @@ class _ForumPageState extends State<ForumPage> {
     getPostFunc: _fetchPage,
     onTap: _postOnTap,
   );
+  var notifNum = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    timeago.setLocaleMessages('zh', timeago.ZhCnMessages());
+    timeago.setLocaleMessages('et', timeago.EnShortMessages());
+    rpc.forumClient.getNotifNum(Empty()).then((resp) {
+      notifNum = resp.num;
+      setState(() {});
+    });
+  }
 
   @override
   void dispose() {
@@ -72,7 +87,18 @@ class _ForumPageState extends State<ForumPage> {
       appBar: AppBar(
         title: Text('Forum.Forum'.tr()),
         actions: [
+          Badge(
+            badgeContent: Text(notifNum.toString()),
+            animationType: BadgeAnimationType.fade,
+            position: BadgePosition.topEnd(top: 4, end: 4),
+            child: IconButton(
+              tooltip: 'forum.notif'.tr(),
+              icon: const Icon(Icons.notifications_outlined),
+              onPressed: () {},
+            ),
+          ),
           PopupMenuButton(
+              tooltip: 'forum.more'.tr(),
               onSelected: (result) {
                 switch (result) {
                   case 0:
