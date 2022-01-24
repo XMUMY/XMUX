@@ -1,10 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:xmus_client/generated/notif.pb.dart';
+import 'package:xmus_client/generated/post.pb.dart';
+import 'package:xmus_client/generated/reply.pb.dart';
 import 'package:xmux/component/floating_card.dart';
+import 'package:xmux/main/forum/thread.dart';
 
 import '../../global.dart';
 import '../../util/screen.dart';
@@ -66,9 +67,9 @@ class _NotifPageState extends State<NotifPage> {
               return VisibilityDetector(
                 child: NotifCard(notif: item),
                 onVisibilityChanged: (visibilityInfo) {
-                  if (visibilityInfo.visibleFraction >= 0.8) {
-                    rpc.forumClient
-                        .notifMarkAsRead(NotifMarkAsReadReq(ids: <int>[item.id]));
+                  if (!item.hasRead && visibilityInfo.visibleFraction >= 0.8) {
+                    rpc.forumClient.notifMarkAsRead(
+                        NotifMarkAsReadReq(ids: <int>[item.id]));
                   }
                 },
                 key: Key(item.id.toString()),
@@ -111,6 +112,20 @@ class NotifCard extends StatelessWidget {
       ),
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: const EdgeInsets.all(5),
+      onTap: () async {
+        int postId = notif.refId;
+        Reply? reply;
+        reply = await rpc.forumClient
+            .getReplyById(GetReplyByIdReq(replyId: notif.objId));
+        postId = reply.refPostId;
+        var pd =
+            await rpc.forumClient.getPostById(GetPostByIdReq(postId: postId));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ThreadPage(
+                  postDetails: pd,
+                  highlightReply: reply,
+                )));
+      },
     );
   }
 }

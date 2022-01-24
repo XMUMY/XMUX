@@ -24,7 +24,8 @@ class PostReplyCollectionPage extends StatefulWidget {
       required this.fetchReplyPage,
       this.postOnTap,
       this.replyOnTap,
-      this.postOnLongPress, this.isReplySaved = false})
+      this.postOnLongPress,
+      this.isReplySaved = false})
       : super(key: key);
 
   @override
@@ -58,7 +59,8 @@ class _PostReplyCollectionPageState extends State<PostReplyCollectionPage>
         .getPostById(GetPostByIdReq(postId: reply.refPostId));
     await Navigator.of(context).push<bool>(
       MaterialPageRoute(
-          builder: (context) => ThreadPage(postDetails: postDetails)),
+          builder: (context) =>
+              ThreadPage(postDetails: postDetails, highlightReply: reply)),
     );
   }
 

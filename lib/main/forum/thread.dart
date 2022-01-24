@@ -11,8 +11,9 @@ import 'component/content_cards.dart';
 
 class ThreadPage extends StatefulWidget {
   final PostDetails postDetails;
+  final Reply? highlightReply;
 
-  const ThreadPage({Key? key, required this.postDetails}) : super(key: key);
+  const ThreadPage({Key? key, required this.postDetails, this.highlightReply}) : super(key: key);
 
   @override
   State<ThreadPage> createState() => _ThreadPageState();
@@ -26,8 +27,14 @@ class _ThreadPageState extends State<ThreadPage> {
   final _bottomSheetKey = GlobalKey();
   int _sortMethodIdx = 1;
   final _sortMethodStr = ['Forum.OrderNew'.tr(), 'Forum.OrderOld'.tr()];
+  Reply? _highlightReply;
 
   Future<void> _fetchPage(int pageKey) async {
+    if (_highlightReply!= null) {
+      _pagingController.appendPage([_highlightReply!], 0);
+      _highlightReply = null;
+      return;
+    }
     final resp = await rpc.forumClient.getReply(GetReplyReq(
         pageNo: pageKey,
         pageSize: 10,
@@ -61,6 +68,7 @@ class _ThreadPageState extends State<ThreadPage> {
   @override
   void initState() {
     super.initState();
+    _highlightReply = widget.highlightReply;
     _pagingController.addPageRequestListener(_fetchPage);
     _handleRefresh();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
