@@ -61,7 +61,6 @@ class _ForumPageState extends State<ForumPage> {
 
   Future<void> _refreshNotifNum() async {
     notifNum = (await rpc.forumClient.getNotifNum(Empty())).num;
-    if (mounted) setState(() {});
   }
 
   Future<void> _postOnTap(PostDetails postDetails) async {
@@ -79,7 +78,7 @@ class _ForumPageState extends State<ForumPage> {
 
   Future<void> _handleRefresh() async {
     _postBriefList.refresh();
-    _refreshNotifNum();
+    await _refreshNotifNum();
     if (mounted) setState(() {});
   }
 
@@ -99,10 +98,11 @@ class _ForumPageState extends State<ForumPage> {
             child: IconButton(
               tooltip: 'forum.notif'.tr(),
               icon: const Icon(Icons.notifications_outlined),
-              onPressed: () {
-                Navigator.push(context,
+              onPressed: () async {
+                await Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const NotifPage()));
-                _refreshNotifNum();
+                await _refreshNotifNum();
+                setState(() {});
               },
             ),
           ),
