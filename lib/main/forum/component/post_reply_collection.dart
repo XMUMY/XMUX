@@ -87,10 +87,10 @@ class _PostReplyCollectionPageState extends State<PostReplyCollectionPage>
             controller: _tabController,
             tabs: [
               Tab(
-                text: 'Post'.tr(),
+                text: 'Forum.Post'.tr(),
               ),
               Tab(
-                text: 'Reply'.tr(),
+                text: 'Forum.Reply'.tr(),
               )
             ],
           )),

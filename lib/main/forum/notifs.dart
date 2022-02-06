@@ -49,7 +49,7 @@ class _NotifPageState extends State<NotifPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Notifications'.tr()),
+          title: Text('Forum.Notif'.tr()),
         ),
         body: PagedListView(
           pagingController: _pagingController,
@@ -83,8 +83,8 @@ class _NotifPageState extends State<NotifPage> {
 class NotifCard extends StatelessWidget {
   final Notif notif;
   late final middleMessage = notif.type == NotifType.POST_REPLY
-      ? 'commented on your post'
-      : 'replied to you';
+      ? 'Forum.CommentNotif'.tr()
+      : 'Forum.ReplyNotif'.tr();
 
   NotifCard({Key? key, required this.notif}) : super(key: key);
 
@@ -105,7 +105,8 @@ class NotifCard extends StatelessWidget {
               child: Text(
                 notif.objContent,
                 softWrap: true,
-                maxLines: 2,
+                maxLines: 3,
+                overflow: TextOverflow.fade,
                 style: Theme.of(context).textTheme.bodyLarge,
               ))
         ],

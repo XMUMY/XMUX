@@ -99,6 +99,14 @@
     "ReferedComment": "引用的评论",
     "CreateTitle": "标题",
     "CreateBody": "内容",
-    "CreatePageTitle": "新帖子"
+    "CreatePageTitle": "新帖子",
+    "Notif": "通知",
+    "More":  "更多",
+    "Saved": "收藏",
+    "MyActivity": "我的活动",
+    "Post": "帖子",
+    "Reply": "评论",
+    "CommentNotif": "评论了你的帖子",
+    "ReplyNotif": "回复了你"
   }
 }

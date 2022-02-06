@@ -99,6 +99,14 @@
     "ReferedComment": "Refered comment",
     "CreateTitle": "Title",
     "CreateBody": "Post body",
-    "CreatePageTitle": "New post"
+    "CreatePageTitle": "New post",
+    "Notif": "Notification",
+    "More":  "More",
+    "Saved": "Saved",
+    "MyActivity": "My Activity",
+    "Post": "Post",
+    "Reply": "Comment",
+    "CommentNotif": "commented on your post",
+    "ReplyNotif": "replied to you"
   }
 }

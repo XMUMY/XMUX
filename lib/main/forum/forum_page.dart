@@ -96,7 +96,7 @@ class _ForumPageState extends State<ForumPage> {
             animationType: BadgeAnimationType.fade,
             position: BadgePosition.topEnd(top: 4, end: 4),
             child: IconButton(
-              tooltip: 'forum.notif'.tr(),
+              tooltip: 'Forum.Notif'.tr(),
               icon: const Icon(Icons.notifications_outlined),
               onPressed: () async {
                 await Navigator.push(context,
@@ -107,7 +107,7 @@ class _ForumPageState extends State<ForumPage> {
             ),
           ),
           PopupMenuButton(
-              tooltip: 'forum.more'.tr(),
+              tooltip: 'Forum.More'.tr(),
               onSelected: (result) {
                 switch (result) {
                   case 0:
@@ -115,7 +115,7 @@ class _ForumPageState extends State<ForumPage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => PostReplyCollectionPage(
-                              pageTitle: 'Saved'.tr(),
+                              pageTitle: 'Forum.Saved'.tr(),
                               isReplySaved: true,
                               postOnLongPress: (pd) => showModalBottomSheet(
                                   isScrollControlled: true,
@@ -154,7 +154,7 @@ class _ForumPageState extends State<ForumPage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => PostReplyCollectionPage(
-                              pageTitle: 'My activity'.tr(),
+                              pageTitle: 'Forum.MyActivity'.tr(),
                               fetchPostPage: (page) => rpc.forumClient
                                   .getPost(GetPostReq(
                                       pageNo: page,
@@ -173,11 +173,11 @@ class _ForumPageState extends State<ForumPage> {
               },
               itemBuilder: (context) => [
                     PopupMenuItem(
-                      child: Text('Saved'.tr()),
+                      child: Text('Forum.Saved'.tr()),
                       value: 0,
                     ),
                     PopupMenuItem(
-                      child: Text('My Activity'.tr()),
+                      child: Text('Forum.MyActivity'.tr()),
                       value: 1,
                     ),
                   ])
