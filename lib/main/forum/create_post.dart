@@ -4,6 +4,7 @@ import 'package:xmus_client/generated/post.pb.dart';
 
 import '../../../global.dart';
 import '../../../util/screen.dart';
+import 'component/widgets.dart';
 
 class PostForm {
   var title = '';
@@ -26,14 +27,9 @@ class _NewPostPageState extends State<NewPostPage> {
   Future<void> _handleSubmit() async {
     if (_isSubmitting || !formKey.currentState!.validate()) return;
     setState(() => _isSubmitting = true);
-    try {
-      await rpc.forumClient.createPost(CreatePostReq(
-          title: form.title, body: form.body, groupId: form.groupId));
-      Navigator.of(context).maybePop(true);
-    } catch (e) {
-      // TODO: Show error.
-      setState(() => _isSubmitting = false);
-    }
+    await rpc.forumClient.createPost(CreatePostReq(
+        title: form.title, body: form.body, groupId: form.groupId));
+    Navigator.of(context).maybePop(true);
   }
 
   @override
@@ -66,7 +62,19 @@ class _NewPostPageState extends State<NewPostPage> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.done),
-            onPressed: _handleSubmit,
+            onPressed: () {
+              _handleSubmit().catchError((e) {
+                setState(() => _isSubmitting = false);
+                showSnackbarMsg(
+                    Text(
+                      e.toString(),
+                      softWrap: true,
+                      maxLines: 3,
+                      overflow: TextOverflow.fade,
+                    ),
+                    context);
+              });
+            },
           ),
         ],
       ),
