@@ -47,7 +47,7 @@ class XmuxRpc {
         ),
       ),
       ForumClient(
-        forumTestChannel,
+        clientChannel,
         options: CallOptions(
           timeout: const Duration(seconds: 30),
           providers: [authorization.provider],

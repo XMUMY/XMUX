@@ -43,7 +43,9 @@ class _ForumPageState extends State<ForumPage> {
     super.initState();
     timeago.setLocaleMessages('zh', timeago.ZhCnMessages());
     timeago.setLocaleMessages('et', timeago.EnShortMessages());
-    _refreshNotifNum();
+    _refreshNotifNum().then((value) => {
+          if (mounted) {setState(() {})}
+        });
   }
 
   @override

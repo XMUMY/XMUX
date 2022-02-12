@@ -254,7 +254,7 @@ Future<void> showPostBottomSheet(
               if (postDetails.uid == store.state.user.campusId)
                 ListTile(
                   leading: const Icon(Icons.delete_outlined),
-                  title: Text('Remove post'.tr()),
+                  title: Text('Forum.RemovePost'.tr()),
                   onTap: () {
                     rpc.forumClient.removePost(
                       UpdatePostReq(postId: postDetails.id),
@@ -265,34 +265,34 @@ Future<void> showPostBottomSheet(
                 ),
               ListTile(
                 leading: const Icon(Icons.star_border_rounded),
-                title: Text('Add to saved'.tr()),
+                title: Text('Forum.AddToSaved'.tr()),
                 onTap: () async {
                   var res = await rpc.forumClient
                       .savePost(SaveReq(refId: postDetails.id));
                   if (res.alreadySaved) {
-                    showSnackbarMsg(Text('Already saved'.tr()), context);
+                    showSnackbarMsg(Text('Forum.AlreadySaved'.tr()), context);
                   } else {
-                    showSnackbarMsg(Text('Saved'.tr()), context);
+                    showSnackbarMsg(Text('Forum.SaveSuccess'.tr()), context);
                   }
                   Navigator.of(context).pop(true);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.content_copy),
-                title: Text('Copy post title'.tr()),
+                title: Text('Forum.CopyPostTitle'.tr()),
                 onTap: () {
                   Clipboard.setData(ClipboardData(text: postDetails.title));
                   Navigator.of(context).pop(true);
-                  showSnackbarMsg(Text('Copied'.tr()), context);
+                  showSnackbarMsg(Text('Forum.CopySuccess'.tr()), context);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.content_copy),
-                title: Text('Copy post content'.tr()),
+                title: Text('Forum.CopyPostContent'.tr()),
                 onTap: () {
                   Clipboard.setData(ClipboardData(text: postDetails.body));
                   Navigator.of(context).pop(true);
-                  showSnackbarMsg(Text('Copied'.tr()), context);
+                  showSnackbarMsg(Text('Forum.CopySuccess'.tr()), context);
                 },
               ),
             ],
@@ -309,26 +309,26 @@ Future<void> _showReplyBottomSheet(
               if (reply.uid == store.state.user.campusId)
                 ListTile(
                   leading: const Icon(Icons.delete_outlined),
-                  title: Text('Remove reply'.tr()),
+                  title: Text('Forum.RemoveReply'.tr()),
                   onTap: () {
                     rpc.forumClient.removeReply(
                       UpdateReplyReq(replyId: reply.id),
                     );
                     Navigator.of(context).pop(true);
-                    showSnackbarMsg(Text('Removed'.tr()), context);
+                    showSnackbarMsg(Text('Forum.RemoveSuccess'.tr()), context);
                   },
                 ),
               if (!isReplySaved)
                 ListTile(
                   leading: const Icon(Icons.bookmark_add_outlined),
-                  title: Text('Add to saved'.tr()),
+                  title: Text('Forum.AddToSaved'.tr()),
                   onTap: () async {
                     var res = await rpc.forumClient
                         .saveReply(SaveReq(refId: reply.id));
                     if (res.alreadySaved) {
-                      showSnackbarMsg(Text('Already saved'.tr()), context);
+                      showSnackbarMsg(Text('Forum.AlreadySaved'.tr()), context);
                     } else {
-                      showSnackbarMsg(Text('Saved'.tr()), context);
+                      showSnackbarMsg(Text('Forum.SaveSuccess'.tr()), context);
                     }
                     Navigator.of(context).pop(true);
                   },
@@ -336,21 +336,21 @@ Future<void> _showReplyBottomSheet(
               if (isReplySaved)
                 ListTile(
                   leading: const Icon(Icons.bookmark_remove_outlined),
-                  title: Text('Remove from saved'.tr()),
+                  title: Text('Forum.RemoveFromSaved'.tr()),
                   onTap: () async {
                     await rpc.forumClient
                         .removeSavedReply(SaveReq(refId: reply.id));
-                    showSnackbarMsg(Text('Removed'.tr()), context);
+                    showSnackbarMsg(Text('Forum.RemoveSuccess'.tr()), context);
                     Navigator.of(context).pop(true);
                   },
                 ),
               ListTile(
                 leading: const Icon(Icons.content_copy),
-                title: Text('Copy reply'.tr()),
+                title: Text('Forum.CopyReply'.tr()),
                 onTap: () {
                   Clipboard.setData(ClipboardData(text: reply.content));
                   Navigator.of(context).pop(true);
-                  showSnackbarMsg(Text('Copied'.tr()), context);
+                  showSnackbarMsg(Text('Forum.CopySuccess'.tr()), context);
                 },
               ),
             ],

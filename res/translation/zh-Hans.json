@@ -107,6 +107,17 @@
     "Post": "帖子",
     "Reply": "评论",
     "CommentNotif": "评论了你的帖子",
-    "ReplyNotif": "回复了你"
+    "ReplyNotif": "回复了你",
+    "RemovePost": "删除帖子",
+    "AddToSaved": "添加至收藏",
+    "AlreadySaved": "收藏过了",
+    "SaveSuccess": "已收藏",
+    "CopyPostTitle": "复制帖子标题",
+    "CopySuccess": "已复制",
+    "CopyPostContent": "复制帖子内容",
+    "RemoveFromSaved": "从收藏中移除",
+    "RemoveSuccess": "已移除",
+    "CopyReply": "复制评论",
+    "RemoveReply": "删除评论"
   }
 }
