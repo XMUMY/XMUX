@@ -10,307 +10,246 @@ import 'dart:async' as $async;
 import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
-import 'group.pb.dart' as $0;
+import 'forum.pb.dart' as $0;
 import 'google/protobuf/empty.pb.dart' as $1;
-import 'post.pb.dart' as $2;
-import 'reply.pb.dart' as $3;
-import 'saved.pb.dart' as $4;
-import 'notif.pb.dart' as $5;
+import 'forum_thread.pb.dart' as $2;
+import 'forum_post.pb.dart' as $3;
+import 'forum_saved.pb.dart' as $4;
 export 'forum_service.pb.dart';
 
 class ForumClient extends $grpc.Client {
-  static final _$createGroup =
-      $grpc.ClientMethod<$0.CreateGroupReq, $0.CreateGroupResp>(
-          '/xmux.forum.v4.Forum/CreateGroup',
-          ($0.CreateGroupReq value) => value.writeToBuffer(),
+  static final _$createForum =
+      $grpc.ClientMethod<$0.CreateForumReq, $0.CreateForumResp>(
+          '/xmux.forum.v4.Forum/CreateForum',
+          ($0.CreateForumReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
-              $0.CreateGroupResp.fromBuffer(value));
-  static final _$removeGroup = $grpc.ClientMethod<$0.GroupIdMsg, $1.Empty>(
-      '/xmux.forum.v4.Forum/RemoveGroup',
-      ($0.GroupIdMsg value) => value.writeToBuffer(),
+              $0.CreateForumResp.fromBuffer(value));
+  static final _$removeForum = $grpc.ClientMethod<$0.RemoveForumReq, $1.Empty>(
+      '/xmux.forum.v4.Forum/RemoveForum',
+      ($0.RemoveForumReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$joinGroup = $grpc.ClientMethod<$0.MembershipMsg, $1.Empty>(
-      '/xmux.forum.v4.Forum/JoinGroup',
-      ($0.MembershipMsg value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$leaveGroup = $grpc.ClientMethod<$0.MembershipMsg, $1.Empty>(
-      '/xmux.forum.v4.Forum/LeaveGroup',
-      ($0.MembershipMsg value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$getGroups =
-      $grpc.ClientMethod<$0.GetGroupsReq, $0.GetGroupsResp>(
-          '/xmux.forum.v4.Forum/GetGroups',
-          ($0.GetGroupsReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $0.GetGroupsResp.fromBuffer(value));
-  static final _$getUserGroups =
-      $grpc.ClientMethod<$1.Empty, $0.GetUserGroupsResp>(
-          '/xmux.forum.v4.Forum/GetUserGroups',
-          ($1.Empty value) => value.writeToBuffer(),
+  static final _$getForums =
+      $grpc.ClientMethod<$0.GetForumsReq, $0.GetForumsResp>(
+          '/xmux.forum.v4.Forum/GetForums',
+          ($0.GetForumsReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.GetForumsResp.fromBuffer(value));
+  static final _$createThread =
+      $grpc.ClientMethod<$2.CreateThreadReq, $2.CreateThreadResp>(
+          '/xmux.forum.v4.Forum/CreateThread',
+          ($2.CreateThreadReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
-              $0.GetUserGroupsResp.fromBuffer(value));
+              $2.CreateThreadResp.fromBuffer(value));
+  static final _$removeThread =
+      $grpc.ClientMethod<$2.RemoveThreadReq, $1.Empty>(
+          '/xmux.forum.v4.Forum/RemoveThread',
+          ($2.RemoveThreadReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$updateThread =
+      $grpc.ClientMethod<$2.UpdateThreadReq, $1.Empty>(
+          '/xmux.forum.v4.Forum/UpdateThread',
+          ($2.UpdateThreadReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$getThreads =
+      $grpc.ClientMethod<$2.GetThreadsReq, $2.GetThreadsResp>(
+          '/xmux.forum.v4.Forum/GetThreads',
+          ($2.GetThreadsReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $2.GetThreadsResp.fromBuffer(value));
+  static final _$likeThread = $grpc.ClientMethod<$2.LikeThreadReq, $1.Empty>(
+      '/xmux.forum.v4.Forum/LikeThread',
+      ($2.LikeThreadReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$pinThread = $grpc.ClientMethod<$2.PinThreadReq, $1.Empty>(
+      '/xmux.forum.v4.Forum/PinThread',
+      ($2.PinThreadReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$digestThread =
+      $grpc.ClientMethod<$2.DigestThreadReq, $1.Empty>(
+          '/xmux.forum.v4.Forum/DigestThread',
+          ($2.DigestThreadReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$createPost =
-      $grpc.ClientMethod<$2.CreatePostReq, $2.CreatePostResp>(
+      $grpc.ClientMethod<$3.CreatePostReq, $3.CreatePostResp>(
           '/xmux.forum.v4.Forum/CreatePost',
-          ($2.CreatePostReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $2.CreatePostResp.fromBuffer(value));
-  static final _$removePost = $grpc.ClientMethod<$2.UpdatePostReq, $1.Empty>(
+          ($3.CreatePostReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $3.CreatePostResp.fromBuffer(value));
+  static final _$removePost = $grpc.ClientMethod<$3.RemovePostReq, $1.Empty>(
       '/xmux.forum.v4.Forum/RemovePost',
-      ($2.UpdatePostReq value) => value.writeToBuffer(),
+      ($3.RemovePostReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$getPost = $grpc.ClientMethod<$2.GetPostReq, $2.GetPostResp>(
-      '/xmux.forum.v4.Forum/GetPost',
-      ($2.GetPostReq value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $2.GetPostResp.fromBuffer(value));
-  static final _$getPostById =
-      $grpc.ClientMethod<$2.GetPostByIdReq, $2.PostDetails>(
-          '/xmux.forum.v4.Forum/GetPostById',
-          ($2.GetPostByIdReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $2.PostDetails.fromBuffer(value));
-  static final _$upvotePost = $grpc.ClientMethod<$2.UpdatePostReq, $1.Empty>(
-      '/xmux.forum.v4.Forum/UpvotePost',
-      ($2.UpdatePostReq value) => value.writeToBuffer(),
+  static final _$getPosts = $grpc.ClientMethod<$3.GetPostsReq, $3.GetPostsResp>(
+      '/xmux.forum.v4.Forum/GetPosts',
+      ($3.GetPostsReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $3.GetPostsResp.fromBuffer(value));
+  static final _$getPostsByUid =
+      $grpc.ClientMethod<$3.GetPostsByUidReq, $3.GetPostsResp>(
+          '/xmux.forum.v4.Forum/GetPostsByUid',
+          ($3.GetPostsByUidReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $3.GetPostsResp.fromBuffer(value));
+  static final _$getPostsByParent =
+      $grpc.ClientMethod<$3.GetPostsByParentReq, $3.GetPostsResp>(
+          '/xmux.forum.v4.Forum/GetPostsByParent',
+          ($3.GetPostsByParentReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $3.GetPostsResp.fromBuffer(value));
+  static final _$likePost = $grpc.ClientMethod<$3.LikePostReq, $1.Empty>(
+      '/xmux.forum.v4.Forum/LikePost',
+      ($3.LikePostReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$downvotePost = $grpc.ClientMethod<$2.UpdatePostReq, $1.Empty>(
-      '/xmux.forum.v4.Forum/DownvotePost',
-      ($2.UpdatePostReq value) => value.writeToBuffer(),
+  static final _$pinPost = $grpc.ClientMethod<$3.PinPostReq, $1.Empty>(
+      '/xmux.forum.v4.Forum/PinPost',
+      ($3.PinPostReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$toggleBestPost =
-      $grpc.ClientMethod<$2.UpdatePostReq, $1.Empty>(
-          '/xmux.forum.v4.Forum/toggleBestPost',
-          ($2.UpdatePostReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$toggleTopPost = $grpc.ClientMethod<$2.UpdatePostReq, $1.Empty>(
-      '/xmux.forum.v4.Forum/toggleTopPost',
-      ($2.UpdatePostReq value) => value.writeToBuffer(),
+  static final _$saveThread = $grpc.ClientMethod<$4.SaveThreadReq, $1.Empty>(
+      '/xmux.forum.v4.Forum/SaveThread',
+      ($4.SaveThreadReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$createReply =
-      $grpc.ClientMethod<$3.CreateReplyReq, $3.CreateReplyResp>(
-          '/xmux.forum.v4.Forum/CreateReply',
-          ($3.CreateReplyReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $3.CreateReplyResp.fromBuffer(value));
-  static final _$getReply = $grpc.ClientMethod<$3.GetReplyReq, $3.GetReplyResp>(
-      '/xmux.forum.v4.Forum/GetReply',
-      ($3.GetReplyReq value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $3.GetReplyResp.fromBuffer(value));
-  static final _$getUserReply =
-      $grpc.ClientMethod<$3.GetUserReplyReq, $3.GetReplyResp>(
-          '/xmux.forum.v4.Forum/GetUserReply',
-          ($3.GetUserReplyReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $3.GetReplyResp.fromBuffer(value));
-  static final _$getReplyById =
-      $grpc.ClientMethod<$3.GetReplyByIdReq, $3.Reply>(
-          '/xmux.forum.v4.Forum/GetReplyById',
-          ($3.GetReplyByIdReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $3.Reply.fromBuffer(value));
-  static final _$removeReply = $grpc.ClientMethod<$3.UpdateReplyReq, $1.Empty>(
-      '/xmux.forum.v4.Forum/RemoveReply',
-      ($3.UpdateReplyReq value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$upvoteReply = $grpc.ClientMethod<$3.UpdateReplyReq, $1.Empty>(
-      '/xmux.forum.v4.Forum/UpvoteReply',
-      ($3.UpdateReplyReq value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$downvoteReply =
-      $grpc.ClientMethod<$3.UpdateReplyReq, $1.Empty>(
-          '/xmux.forum.v4.Forum/DownvoteReply',
-          ($3.UpdateReplyReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$savePost = $grpc.ClientMethod<$4.SaveReq, $4.SaveResp>(
+  static final _$savePost = $grpc.ClientMethod<$4.SavePostReq, $1.Empty>(
       '/xmux.forum.v4.Forum/SavePost',
-      ($4.SaveReq value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $4.SaveResp.fromBuffer(value));
-  static final _$saveReply = $grpc.ClientMethod<$4.SaveReq, $4.SaveResp>(
-      '/xmux.forum.v4.Forum/SaveReply',
-      ($4.SaveReq value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $4.SaveResp.fromBuffer(value));
-  static final _$removeSavedPost = $grpc.ClientMethod<$4.SaveReq, $1.Empty>(
-      '/xmux.forum.v4.Forum/RemoveSavedPost',
-      ($4.SaveReq value) => value.writeToBuffer(),
+      ($4.SavePostReq value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$removeSavedReply = $grpc.ClientMethod<$4.SaveReq, $1.Empty>(
-      '/xmux.forum.v4.Forum/RemoveSavedReply',
-      ($4.SaveReq value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$getSavedPost =
-      $grpc.ClientMethod<$4.GetSavedReq, $2.GetPostResp>(
-          '/xmux.forum.v4.Forum/GetSavedPost',
-          ($4.GetSavedReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $2.GetPostResp.fromBuffer(value));
-  static final _$getSavedReply =
-      $grpc.ClientMethod<$4.GetSavedReq, $3.GetReplyResp>(
-          '/xmux.forum.v4.Forum/GetSavedReply',
-          ($4.GetSavedReq value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $3.GetReplyResp.fromBuffer(value));
-  static final _$getNotifNum = $grpc.ClientMethod<$1.Empty, $5.GetNotifNumResp>(
-      '/xmux.forum.v4.Forum/GetNotifNum',
-      ($1.Empty value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $5.GetNotifNumResp.fromBuffer(value));
-  static final _$getNotif = $grpc.ClientMethod<$5.GetNotifReq, $5.GetNotifResp>(
-      '/xmux.forum.v4.Forum/GetNotif',
-      ($5.GetNotifReq value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $5.GetNotifResp.fromBuffer(value));
-  static final _$notifMarkAsRead =
-      $grpc.ClientMethod<$5.NotifMarkAsReadReq, $1.Empty>(
-          '/xmux.forum.v4.Forum/NotifMarkAsRead',
-          ($5.NotifMarkAsReadReq value) => value.writeToBuffer(),
+  static final _$unsaveThread =
+      $grpc.ClientMethod<$4.UnsaveThreadReq, $1.Empty>(
+          '/xmux.forum.v4.Forum/UnsaveThread',
+          ($4.UnsaveThreadReq value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$unsavePost = $grpc.ClientMethod<$4.UnsavePostReq, $1.Empty>(
+      '/xmux.forum.v4.Forum/UnsavePost',
+      ($4.UnsavePostReq value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$getSavedThreads =
+      $grpc.ClientMethod<$4.GetSavedThreadsReq, $2.GetThreadsResp>(
+          '/xmux.forum.v4.Forum/GetSavedThreads',
+          ($4.GetSavedThreadsReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $2.GetThreadsResp.fromBuffer(value));
+  static final _$getSavedPosts =
+      $grpc.ClientMethod<$4.GetSavedPostsReq, $3.GetPostsResp>(
+          '/xmux.forum.v4.Forum/GetSavedPosts',
+          ($4.GetSavedPostsReq value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $3.GetPostsResp.fromBuffer(value));
 
   ForumClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
       $core.Iterable<$grpc.ClientInterceptor>? interceptors})
       : super(channel, options: options, interceptors: interceptors);
 
-  $grpc.ResponseFuture<$0.CreateGroupResp> createGroup(
-      $0.CreateGroupReq request,
+  $grpc.ResponseFuture<$0.CreateForumResp> createForum(
+      $0.CreateForumReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$createGroup, request, options: options);
+    return $createUnaryCall(_$createForum, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Empty> removeGroup($0.GroupIdMsg request,
+  $grpc.ResponseFuture<$1.Empty> removeForum($0.RemoveForumReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$removeGroup, request, options: options);
+    return $createUnaryCall(_$removeForum, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Empty> joinGroup($0.MembershipMsg request,
+  $grpc.ResponseFuture<$0.GetForumsResp> getForums($0.GetForumsReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$joinGroup, request, options: options);
+    return $createUnaryCall(_$getForums, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Empty> leaveGroup($0.MembershipMsg request,
+  $grpc.ResponseFuture<$2.CreateThreadResp> createThread(
+      $2.CreateThreadReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$leaveGroup, request, options: options);
+    return $createUnaryCall(_$createThread, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.GetGroupsResp> getGroups($0.GetGroupsReq request,
+  $grpc.ResponseFuture<$1.Empty> removeThread($2.RemoveThreadReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getGroups, request, options: options);
+    return $createUnaryCall(_$removeThread, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.GetUserGroupsResp> getUserGroups($1.Empty request,
+  $grpc.ResponseFuture<$1.Empty> updateThread($2.UpdateThreadReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getUserGroups, request, options: options);
+    return $createUnaryCall(_$updateThread, request, options: options);
   }
 
-  $grpc.ResponseFuture<$2.CreatePostResp> createPost($2.CreatePostReq request,
+  $grpc.ResponseFuture<$2.GetThreadsResp> getThreads($2.GetThreadsReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getThreads, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> likeThread($2.LikeThreadReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$likeThread, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> pinThread($2.PinThreadReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$pinThread, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> digestThread($2.DigestThreadReq request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$digestThread, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$3.CreatePostResp> createPost($3.CreatePostReq request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createPost, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Empty> removePost($2.UpdatePostReq request,
+  $grpc.ResponseFuture<$1.Empty> removePost($3.RemovePostReq request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$removePost, request, options: options);
   }
 
-  $grpc.ResponseFuture<$2.GetPostResp> getPost($2.GetPostReq request,
+  $grpc.ResponseFuture<$3.GetPostsResp> getPosts($3.GetPostsReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getPost, request, options: options);
+    return $createUnaryCall(_$getPosts, request, options: options);
   }
 
-  $grpc.ResponseFuture<$2.PostDetails> getPostById($2.GetPostByIdReq request,
+  $grpc.ResponseFuture<$3.GetPostsResp> getPostsByUid(
+      $3.GetPostsByUidReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getPostById, request, options: options);
+    return $createUnaryCall(_$getPostsByUid, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Empty> upvotePost($2.UpdatePostReq request,
+  $grpc.ResponseFuture<$3.GetPostsResp> getPostsByParent(
+      $3.GetPostsByParentReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$upvotePost, request, options: options);
+    return $createUnaryCall(_$getPostsByParent, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Empty> downvotePost($2.UpdatePostReq request,
+  $grpc.ResponseFuture<$1.Empty> likePost($3.LikePostReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$downvotePost, request, options: options);
+    return $createUnaryCall(_$likePost, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Empty> toggleBestPost($2.UpdatePostReq request,
+  $grpc.ResponseFuture<$1.Empty> pinPost($3.PinPostReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$toggleBestPost, request, options: options);
+    return $createUnaryCall(_$pinPost, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Empty> toggleTopPost($2.UpdatePostReq request,
+  $grpc.ResponseFuture<$1.Empty> saveThread($4.SaveThreadReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$toggleTopPost, request, options: options);
+    return $createUnaryCall(_$saveThread, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.CreateReplyResp> createReply(
-      $3.CreateReplyReq request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$createReply, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$3.GetReplyResp> getReply($3.GetReplyReq request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getReply, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$3.GetReplyResp> getUserReply($3.GetUserReplyReq request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getUserReply, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$3.Reply> getReplyById($3.GetReplyByIdReq request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getReplyById, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$1.Empty> removeReply($3.UpdateReplyReq request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$removeReply, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$1.Empty> upvoteReply($3.UpdateReplyReq request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$upvoteReply, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$1.Empty> downvoteReply($3.UpdateReplyReq request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$downvoteReply, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$4.SaveResp> savePost($4.SaveReq request,
+  $grpc.ResponseFuture<$1.Empty> savePost($4.SavePostReq request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$savePost, request, options: options);
   }
 
-  $grpc.ResponseFuture<$4.SaveResp> saveReply($4.SaveReq request,
+  $grpc.ResponseFuture<$1.Empty> unsaveThread($4.UnsaveThreadReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$saveReply, request, options: options);
+    return $createUnaryCall(_$unsaveThread, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Empty> removeSavedPost($4.SaveReq request,
+  $grpc.ResponseFuture<$1.Empty> unsavePost($4.UnsavePostReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$removeSavedPost, request, options: options);
+    return $createUnaryCall(_$unsavePost, request, options: options);
   }
 
-  $grpc.ResponseFuture<$1.Empty> removeSavedReply($4.SaveReq request,
+  $grpc.ResponseFuture<$2.GetThreadsResp> getSavedThreads(
+      $4.GetSavedThreadsReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$removeSavedReply, request, options: options);
+    return $createUnaryCall(_$getSavedThreads, request, options: options);
   }
 
-  $grpc.ResponseFuture<$2.GetPostResp> getSavedPost($4.GetSavedReq request,
+  $grpc.ResponseFuture<$3.GetPostsResp> getSavedPosts(
+      $4.GetSavedPostsReq request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getSavedPost, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$3.GetReplyResp> getSavedReply($4.GetSavedReq request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getSavedReply, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$5.GetNotifNumResp> getNotifNum($1.Empty request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getNotifNum, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$5.GetNotifResp> getNotif($5.GetNotifReq request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getNotif, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$1.Empty> notifMarkAsRead($5.NotifMarkAsReadReq request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$notifMarkAsRead, request, options: options);
+    return $createUnaryCall(_$getSavedPosts, request, options: options);
   }
 }
 
@@ -318,427 +257,330 @@ abstract class ForumServiceBase extends $grpc.Service {
   $core.String get $name => 'xmux.forum.v4.Forum';
 
   ForumServiceBase() {
-    $addMethod($grpc.ServiceMethod<$0.CreateGroupReq, $0.CreateGroupResp>(
-        'CreateGroup',
-        createGroup_Pre,
+    $addMethod($grpc.ServiceMethod<$0.CreateForumReq, $0.CreateForumResp>(
+        'CreateForum',
+        createForum_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.CreateGroupReq.fromBuffer(value),
-        ($0.CreateGroupResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.GroupIdMsg, $1.Empty>(
-        'RemoveGroup',
-        removeGroup_Pre,
+        ($core.List<$core.int> value) => $0.CreateForumReq.fromBuffer(value),
+        ($0.CreateForumResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.RemoveForumReq, $1.Empty>(
+        'RemoveForum',
+        removeForum_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.GroupIdMsg.fromBuffer(value),
+        ($core.List<$core.int> value) => $0.RemoveForumReq.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.MembershipMsg, $1.Empty>(
-        'JoinGroup',
-        joinGroup_Pre,
+    $addMethod($grpc.ServiceMethod<$0.GetForumsReq, $0.GetForumsResp>(
+        'GetForums',
+        getForums_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.MembershipMsg.fromBuffer(value),
+        ($core.List<$core.int> value) => $0.GetForumsReq.fromBuffer(value),
+        ($0.GetForumsResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.CreateThreadReq, $2.CreateThreadResp>(
+        'CreateThread',
+        createThread_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.CreateThreadReq.fromBuffer(value),
+        ($2.CreateThreadResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.RemoveThreadReq, $1.Empty>(
+        'RemoveThread',
+        removeThread_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.RemoveThreadReq.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.MembershipMsg, $1.Empty>(
-        'LeaveGroup',
-        leaveGroup_Pre,
+    $addMethod($grpc.ServiceMethod<$2.UpdateThreadReq, $1.Empty>(
+        'UpdateThread',
+        updateThread_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.MembershipMsg.fromBuffer(value),
+        ($core.List<$core.int> value) => $2.UpdateThreadReq.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.GetGroupsReq, $0.GetGroupsResp>(
-        'GetGroups',
-        getGroups_Pre,
+    $addMethod($grpc.ServiceMethod<$2.GetThreadsReq, $2.GetThreadsResp>(
+        'GetThreads',
+        getThreads_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.GetGroupsReq.fromBuffer(value),
-        ($0.GetGroupsResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$1.Empty, $0.GetUserGroupsResp>(
-        'GetUserGroups',
-        getUserGroups_Pre,
+        ($core.List<$core.int> value) => $2.GetThreadsReq.fromBuffer(value),
+        ($2.GetThreadsResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.LikeThreadReq, $1.Empty>(
+        'LikeThread',
+        likeThread_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $1.Empty.fromBuffer(value),
-        ($0.GetUserGroupsResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.CreatePostReq, $2.CreatePostResp>(
+        ($core.List<$core.int> value) => $2.LikeThreadReq.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.PinThreadReq, $1.Empty>(
+        'PinThread',
+        pinThread_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.PinThreadReq.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.DigestThreadReq, $1.Empty>(
+        'DigestThread',
+        digestThread_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.DigestThreadReq.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.CreatePostReq, $3.CreatePostResp>(
         'CreatePost',
         createPost_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $2.CreatePostReq.fromBuffer(value),
-        ($2.CreatePostResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.UpdatePostReq, $1.Empty>(
+        ($core.List<$core.int> value) => $3.CreatePostReq.fromBuffer(value),
+        ($3.CreatePostResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.RemovePostReq, $1.Empty>(
         'RemovePost',
         removePost_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $2.UpdatePostReq.fromBuffer(value),
+        ($core.List<$core.int> value) => $3.RemovePostReq.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.GetPostReq, $2.GetPostResp>(
-        'GetPost',
-        getPost_Pre,
+    $addMethod($grpc.ServiceMethod<$3.GetPostsReq, $3.GetPostsResp>(
+        'GetPosts',
+        getPosts_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $2.GetPostReq.fromBuffer(value),
-        ($2.GetPostResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.GetPostByIdReq, $2.PostDetails>(
-        'GetPostById',
-        getPostById_Pre,
+        ($core.List<$core.int> value) => $3.GetPostsReq.fromBuffer(value),
+        ($3.GetPostsResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.GetPostsByUidReq, $3.GetPostsResp>(
+        'GetPostsByUid',
+        getPostsByUid_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $2.GetPostByIdReq.fromBuffer(value),
-        ($2.PostDetails value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.UpdatePostReq, $1.Empty>(
-        'UpvotePost',
-        upvotePost_Pre,
+        ($core.List<$core.int> value) => $3.GetPostsByUidReq.fromBuffer(value),
+        ($3.GetPostsResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.GetPostsByParentReq, $3.GetPostsResp>(
+        'GetPostsByParent',
+        getPostsByParent_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $2.UpdatePostReq.fromBuffer(value),
+        ($core.List<$core.int> value) =>
+            $3.GetPostsByParentReq.fromBuffer(value),
+        ($3.GetPostsResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$3.LikePostReq, $1.Empty>(
+        'LikePost',
+        likePost_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $3.LikePostReq.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.UpdatePostReq, $1.Empty>(
-        'DownvotePost',
-        downvotePost_Pre,
+    $addMethod($grpc.ServiceMethod<$3.PinPostReq, $1.Empty>(
+        'PinPost',
+        pinPost_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $2.UpdatePostReq.fromBuffer(value),
+        ($core.List<$core.int> value) => $3.PinPostReq.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.UpdatePostReq, $1.Empty>(
-        'toggleBestPost',
-        toggleBestPost_Pre,
+    $addMethod($grpc.ServiceMethod<$4.SaveThreadReq, $1.Empty>(
+        'SaveThread',
+        saveThread_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $2.UpdatePostReq.fromBuffer(value),
+        ($core.List<$core.int> value) => $4.SaveThreadReq.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$2.UpdatePostReq, $1.Empty>(
-        'toggleTopPost',
-        toggleTopPost_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $2.UpdatePostReq.fromBuffer(value),
-        ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$3.CreateReplyReq, $3.CreateReplyResp>(
-        'CreateReply',
-        createReply_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $3.CreateReplyReq.fromBuffer(value),
-        ($3.CreateReplyResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$3.GetReplyReq, $3.GetReplyResp>(
-        'GetReply',
-        getReply_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $3.GetReplyReq.fromBuffer(value),
-        ($3.GetReplyResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$3.GetUserReplyReq, $3.GetReplyResp>(
-        'GetUserReply',
-        getUserReply_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $3.GetUserReplyReq.fromBuffer(value),
-        ($3.GetReplyResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$3.GetReplyByIdReq, $3.Reply>(
-        'GetReplyById',
-        getReplyById_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $3.GetReplyByIdReq.fromBuffer(value),
-        ($3.Reply value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$3.UpdateReplyReq, $1.Empty>(
-        'RemoveReply',
-        removeReply_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $3.UpdateReplyReq.fromBuffer(value),
-        ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$3.UpdateReplyReq, $1.Empty>(
-        'UpvoteReply',
-        upvoteReply_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $3.UpdateReplyReq.fromBuffer(value),
-        ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$3.UpdateReplyReq, $1.Empty>(
-        'DownvoteReply',
-        downvoteReply_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $3.UpdateReplyReq.fromBuffer(value),
-        ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$4.SaveReq, $4.SaveResp>(
+    $addMethod($grpc.ServiceMethod<$4.SavePostReq, $1.Empty>(
         'SavePost',
         savePost_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $4.SaveReq.fromBuffer(value),
-        ($4.SaveResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$4.SaveReq, $4.SaveResp>(
-        'SaveReply',
-        saveReply_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $4.SaveReq.fromBuffer(value),
-        ($4.SaveResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$4.SaveReq, $1.Empty>(
-        'RemoveSavedPost',
-        removeSavedPost_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $4.SaveReq.fromBuffer(value),
+        ($core.List<$core.int> value) => $4.SavePostReq.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$4.SaveReq, $1.Empty>(
-        'RemoveSavedReply',
-        removeSavedReply_Pre,
+    $addMethod($grpc.ServiceMethod<$4.UnsaveThreadReq, $1.Empty>(
+        'UnsaveThread',
+        unsaveThread_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $4.SaveReq.fromBuffer(value),
+        ($core.List<$core.int> value) => $4.UnsaveThreadReq.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$4.GetSavedReq, $2.GetPostResp>(
-        'GetSavedPost',
-        getSavedPost_Pre,
+    $addMethod($grpc.ServiceMethod<$4.UnsavePostReq, $1.Empty>(
+        'UnsavePost',
+        unsavePost_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $4.GetSavedReq.fromBuffer(value),
-        ($2.GetPostResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$4.GetSavedReq, $3.GetReplyResp>(
-        'GetSavedReply',
-        getSavedReply_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $4.GetSavedReq.fromBuffer(value),
-        ($3.GetReplyResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$1.Empty, $5.GetNotifNumResp>(
-        'GetNotifNum',
-        getNotifNum_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $1.Empty.fromBuffer(value),
-        ($5.GetNotifNumResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$5.GetNotifReq, $5.GetNotifResp>(
-        'GetNotif',
-        getNotif_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $5.GetNotifReq.fromBuffer(value),
-        ($5.GetNotifResp value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$5.NotifMarkAsReadReq, $1.Empty>(
-        'NotifMarkAsRead',
-        notifMarkAsRead_Pre,
+        ($core.List<$core.int> value) => $4.UnsavePostReq.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$4.GetSavedThreadsReq, $2.GetThreadsResp>(
+        'GetSavedThreads',
+        getSavedThreads_Pre,
         false,
         false,
         ($core.List<$core.int> value) =>
-            $5.NotifMarkAsReadReq.fromBuffer(value),
-        ($1.Empty value) => value.writeToBuffer()));
+            $4.GetSavedThreadsReq.fromBuffer(value),
+        ($2.GetThreadsResp value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$4.GetSavedPostsReq, $3.GetPostsResp>(
+        'GetSavedPosts',
+        getSavedPosts_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $4.GetSavedPostsReq.fromBuffer(value),
+        ($3.GetPostsResp value) => value.writeToBuffer()));
   }
 
-  $async.Future<$0.CreateGroupResp> createGroup_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.CreateGroupReq> request) async {
-    return createGroup(call, await request);
+  $async.Future<$0.CreateForumResp> createForum_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.CreateForumReq> request) async {
+    return createForum(call, await request);
   }
 
-  $async.Future<$1.Empty> removeGroup_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.GroupIdMsg> request) async {
-    return removeGroup(call, await request);
+  $async.Future<$1.Empty> removeForum_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.RemoveForumReq> request) async {
+    return removeForum(call, await request);
   }
 
-  $async.Future<$1.Empty> joinGroup_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.MembershipMsg> request) async {
-    return joinGroup(call, await request);
+  $async.Future<$0.GetForumsResp> getForums_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.GetForumsReq> request) async {
+    return getForums(call, await request);
   }
 
-  $async.Future<$1.Empty> leaveGroup_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.MembershipMsg> request) async {
-    return leaveGroup(call, await request);
+  $async.Future<$2.CreateThreadResp> createThread_Pre(
+      $grpc.ServiceCall call, $async.Future<$2.CreateThreadReq> request) async {
+    return createThread(call, await request);
   }
 
-  $async.Future<$0.GetGroupsResp> getGroups_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.GetGroupsReq> request) async {
-    return getGroups(call, await request);
+  $async.Future<$1.Empty> removeThread_Pre(
+      $grpc.ServiceCall call, $async.Future<$2.RemoveThreadReq> request) async {
+    return removeThread(call, await request);
   }
 
-  $async.Future<$0.GetUserGroupsResp> getUserGroups_Pre(
-      $grpc.ServiceCall call, $async.Future<$1.Empty> request) async {
-    return getUserGroups(call, await request);
+  $async.Future<$1.Empty> updateThread_Pre(
+      $grpc.ServiceCall call, $async.Future<$2.UpdateThreadReq> request) async {
+    return updateThread(call, await request);
   }
 
-  $async.Future<$2.CreatePostResp> createPost_Pre(
-      $grpc.ServiceCall call, $async.Future<$2.CreatePostReq> request) async {
+  $async.Future<$2.GetThreadsResp> getThreads_Pre(
+      $grpc.ServiceCall call, $async.Future<$2.GetThreadsReq> request) async {
+    return getThreads(call, await request);
+  }
+
+  $async.Future<$1.Empty> likeThread_Pre(
+      $grpc.ServiceCall call, $async.Future<$2.LikeThreadReq> request) async {
+    return likeThread(call, await request);
+  }
+
+  $async.Future<$1.Empty> pinThread_Pre(
+      $grpc.ServiceCall call, $async.Future<$2.PinThreadReq> request) async {
+    return pinThread(call, await request);
+  }
+
+  $async.Future<$1.Empty> digestThread_Pre(
+      $grpc.ServiceCall call, $async.Future<$2.DigestThreadReq> request) async {
+    return digestThread(call, await request);
+  }
+
+  $async.Future<$3.CreatePostResp> createPost_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.CreatePostReq> request) async {
     return createPost(call, await request);
   }
 
   $async.Future<$1.Empty> removePost_Pre(
-      $grpc.ServiceCall call, $async.Future<$2.UpdatePostReq> request) async {
+      $grpc.ServiceCall call, $async.Future<$3.RemovePostReq> request) async {
     return removePost(call, await request);
   }
 
-  $async.Future<$2.GetPostResp> getPost_Pre(
-      $grpc.ServiceCall call, $async.Future<$2.GetPostReq> request) async {
-    return getPost(call, await request);
+  $async.Future<$3.GetPostsResp> getPosts_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.GetPostsReq> request) async {
+    return getPosts(call, await request);
   }
 
-  $async.Future<$2.PostDetails> getPostById_Pre(
-      $grpc.ServiceCall call, $async.Future<$2.GetPostByIdReq> request) async {
-    return getPostById(call, await request);
+  $async.Future<$3.GetPostsResp> getPostsByUid_Pre($grpc.ServiceCall call,
+      $async.Future<$3.GetPostsByUidReq> request) async {
+    return getPostsByUid(call, await request);
   }
 
-  $async.Future<$1.Empty> upvotePost_Pre(
-      $grpc.ServiceCall call, $async.Future<$2.UpdatePostReq> request) async {
-    return upvotePost(call, await request);
+  $async.Future<$3.GetPostsResp> getPostsByParent_Pre($grpc.ServiceCall call,
+      $async.Future<$3.GetPostsByParentReq> request) async {
+    return getPostsByParent(call, await request);
   }
 
-  $async.Future<$1.Empty> downvotePost_Pre(
-      $grpc.ServiceCall call, $async.Future<$2.UpdatePostReq> request) async {
-    return downvotePost(call, await request);
+  $async.Future<$1.Empty> likePost_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.LikePostReq> request) async {
+    return likePost(call, await request);
   }
 
-  $async.Future<$1.Empty> toggleBestPost_Pre(
-      $grpc.ServiceCall call, $async.Future<$2.UpdatePostReq> request) async {
-    return toggleBestPost(call, await request);
+  $async.Future<$1.Empty> pinPost_Pre(
+      $grpc.ServiceCall call, $async.Future<$3.PinPostReq> request) async {
+    return pinPost(call, await request);
   }
 
-  $async.Future<$1.Empty> toggleTopPost_Pre(
-      $grpc.ServiceCall call, $async.Future<$2.UpdatePostReq> request) async {
-    return toggleTopPost(call, await request);
+  $async.Future<$1.Empty> saveThread_Pre(
+      $grpc.ServiceCall call, $async.Future<$4.SaveThreadReq> request) async {
+    return saveThread(call, await request);
   }
 
-  $async.Future<$3.CreateReplyResp> createReply_Pre(
-      $grpc.ServiceCall call, $async.Future<$3.CreateReplyReq> request) async {
-    return createReply(call, await request);
-  }
-
-  $async.Future<$3.GetReplyResp> getReply_Pre(
-      $grpc.ServiceCall call, $async.Future<$3.GetReplyReq> request) async {
-    return getReply(call, await request);
-  }
-
-  $async.Future<$3.GetReplyResp> getUserReply_Pre(
-      $grpc.ServiceCall call, $async.Future<$3.GetUserReplyReq> request) async {
-    return getUserReply(call, await request);
-  }
-
-  $async.Future<$3.Reply> getReplyById_Pre(
-      $grpc.ServiceCall call, $async.Future<$3.GetReplyByIdReq> request) async {
-    return getReplyById(call, await request);
-  }
-
-  $async.Future<$1.Empty> removeReply_Pre(
-      $grpc.ServiceCall call, $async.Future<$3.UpdateReplyReq> request) async {
-    return removeReply(call, await request);
-  }
-
-  $async.Future<$1.Empty> upvoteReply_Pre(
-      $grpc.ServiceCall call, $async.Future<$3.UpdateReplyReq> request) async {
-    return upvoteReply(call, await request);
-  }
-
-  $async.Future<$1.Empty> downvoteReply_Pre(
-      $grpc.ServiceCall call, $async.Future<$3.UpdateReplyReq> request) async {
-    return downvoteReply(call, await request);
-  }
-
-  $async.Future<$4.SaveResp> savePost_Pre(
-      $grpc.ServiceCall call, $async.Future<$4.SaveReq> request) async {
+  $async.Future<$1.Empty> savePost_Pre(
+      $grpc.ServiceCall call, $async.Future<$4.SavePostReq> request) async {
     return savePost(call, await request);
   }
 
-  $async.Future<$4.SaveResp> saveReply_Pre(
-      $grpc.ServiceCall call, $async.Future<$4.SaveReq> request) async {
-    return saveReply(call, await request);
+  $async.Future<$1.Empty> unsaveThread_Pre(
+      $grpc.ServiceCall call, $async.Future<$4.UnsaveThreadReq> request) async {
+    return unsaveThread(call, await request);
   }
 
-  $async.Future<$1.Empty> removeSavedPost_Pre(
-      $grpc.ServiceCall call, $async.Future<$4.SaveReq> request) async {
-    return removeSavedPost(call, await request);
+  $async.Future<$1.Empty> unsavePost_Pre(
+      $grpc.ServiceCall call, $async.Future<$4.UnsavePostReq> request) async {
+    return unsavePost(call, await request);
   }
 
-  $async.Future<$1.Empty> removeSavedReply_Pre(
-      $grpc.ServiceCall call, $async.Future<$4.SaveReq> request) async {
-    return removeSavedReply(call, await request);
+  $async.Future<$2.GetThreadsResp> getSavedThreads_Pre($grpc.ServiceCall call,
+      $async.Future<$4.GetSavedThreadsReq> request) async {
+    return getSavedThreads(call, await request);
   }
 
-  $async.Future<$2.GetPostResp> getSavedPost_Pre(
-      $grpc.ServiceCall call, $async.Future<$4.GetSavedReq> request) async {
-    return getSavedPost(call, await request);
+  $async.Future<$3.GetPostsResp> getSavedPosts_Pre($grpc.ServiceCall call,
+      $async.Future<$4.GetSavedPostsReq> request) async {
+    return getSavedPosts(call, await request);
   }
 
-  $async.Future<$3.GetReplyResp> getSavedReply_Pre(
-      $grpc.ServiceCall call, $async.Future<$4.GetSavedReq> request) async {
-    return getSavedReply(call, await request);
-  }
-
-  $async.Future<$5.GetNotifNumResp> getNotifNum_Pre(
-      $grpc.ServiceCall call, $async.Future<$1.Empty> request) async {
-    return getNotifNum(call, await request);
-  }
-
-  $async.Future<$5.GetNotifResp> getNotif_Pre(
-      $grpc.ServiceCall call, $async.Future<$5.GetNotifReq> request) async {
-    return getNotif(call, await request);
-  }
-
-  $async.Future<$1.Empty> notifMarkAsRead_Pre($grpc.ServiceCall call,
-      $async.Future<$5.NotifMarkAsReadReq> request) async {
-    return notifMarkAsRead(call, await request);
-  }
-
-  $async.Future<$0.CreateGroupResp> createGroup(
-      $grpc.ServiceCall call, $0.CreateGroupReq request);
-  $async.Future<$1.Empty> removeGroup(
-      $grpc.ServiceCall call, $0.GroupIdMsg request);
-  $async.Future<$1.Empty> joinGroup(
-      $grpc.ServiceCall call, $0.MembershipMsg request);
-  $async.Future<$1.Empty> leaveGroup(
-      $grpc.ServiceCall call, $0.MembershipMsg request);
-  $async.Future<$0.GetGroupsResp> getGroups(
-      $grpc.ServiceCall call, $0.GetGroupsReq request);
-  $async.Future<$0.GetUserGroupsResp> getUserGroups(
-      $grpc.ServiceCall call, $1.Empty request);
-  $async.Future<$2.CreatePostResp> createPost(
-      $grpc.ServiceCall call, $2.CreatePostReq request);
+  $async.Future<$0.CreateForumResp> createForum(
+      $grpc.ServiceCall call, $0.CreateForumReq request);
+  $async.Future<$1.Empty> removeForum(
+      $grpc.ServiceCall call, $0.RemoveForumReq request);
+  $async.Future<$0.GetForumsResp> getForums(
+      $grpc.ServiceCall call, $0.GetForumsReq request);
+  $async.Future<$2.CreateThreadResp> createThread(
+      $grpc.ServiceCall call, $2.CreateThreadReq request);
+  $async.Future<$1.Empty> removeThread(
+      $grpc.ServiceCall call, $2.RemoveThreadReq request);
+  $async.Future<$1.Empty> updateThread(
+      $grpc.ServiceCall call, $2.UpdateThreadReq request);
+  $async.Future<$2.GetThreadsResp> getThreads(
+      $grpc.ServiceCall call, $2.GetThreadsReq request);
+  $async.Future<$1.Empty> likeThread(
+      $grpc.ServiceCall call, $2.LikeThreadReq request);
+  $async.Future<$1.Empty> pinThread(
+      $grpc.ServiceCall call, $2.PinThreadReq request);
+  $async.Future<$1.Empty> digestThread(
+      $grpc.ServiceCall call, $2.DigestThreadReq request);
+  $async.Future<$3.CreatePostResp> createPost(
+      $grpc.ServiceCall call, $3.CreatePostReq request);
   $async.Future<$1.Empty> removePost(
-      $grpc.ServiceCall call, $2.UpdatePostReq request);
-  $async.Future<$2.GetPostResp> getPost(
-      $grpc.ServiceCall call, $2.GetPostReq request);
-  $async.Future<$2.PostDetails> getPostById(
-      $grpc.ServiceCall call, $2.GetPostByIdReq request);
-  $async.Future<$1.Empty> upvotePost(
-      $grpc.ServiceCall call, $2.UpdatePostReq request);
-  $async.Future<$1.Empty> downvotePost(
-      $grpc.ServiceCall call, $2.UpdatePostReq request);
-  $async.Future<$1.Empty> toggleBestPost(
-      $grpc.ServiceCall call, $2.UpdatePostReq request);
-  $async.Future<$1.Empty> toggleTopPost(
-      $grpc.ServiceCall call, $2.UpdatePostReq request);
-  $async.Future<$3.CreateReplyResp> createReply(
-      $grpc.ServiceCall call, $3.CreateReplyReq request);
-  $async.Future<$3.GetReplyResp> getReply(
-      $grpc.ServiceCall call, $3.GetReplyReq request);
-  $async.Future<$3.GetReplyResp> getUserReply(
-      $grpc.ServiceCall call, $3.GetUserReplyReq request);
-  $async.Future<$3.Reply> getReplyById(
-      $grpc.ServiceCall call, $3.GetReplyByIdReq request);
-  $async.Future<$1.Empty> removeReply(
-      $grpc.ServiceCall call, $3.UpdateReplyReq request);
-  $async.Future<$1.Empty> upvoteReply(
-      $grpc.ServiceCall call, $3.UpdateReplyReq request);
-  $async.Future<$1.Empty> downvoteReply(
-      $grpc.ServiceCall call, $3.UpdateReplyReq request);
-  $async.Future<$4.SaveResp> savePost(
-      $grpc.ServiceCall call, $4.SaveReq request);
-  $async.Future<$4.SaveResp> saveReply(
-      $grpc.ServiceCall call, $4.SaveReq request);
-  $async.Future<$1.Empty> removeSavedPost(
-      $grpc.ServiceCall call, $4.SaveReq request);
-  $async.Future<$1.Empty> removeSavedReply(
-      $grpc.ServiceCall call, $4.SaveReq request);
-  $async.Future<$2.GetPostResp> getSavedPost(
-      $grpc.ServiceCall call, $4.GetSavedReq request);
-  $async.Future<$3.GetReplyResp> getSavedReply(
-      $grpc.ServiceCall call, $4.GetSavedReq request);
-  $async.Future<$5.GetNotifNumResp> getNotifNum(
-      $grpc.ServiceCall call, $1.Empty request);
-  $async.Future<$5.GetNotifResp> getNotif(
-      $grpc.ServiceCall call, $5.GetNotifReq request);
-  $async.Future<$1.Empty> notifMarkAsRead(
-      $grpc.ServiceCall call, $5.NotifMarkAsReadReq request);
+      $grpc.ServiceCall call, $3.RemovePostReq request);
+  $async.Future<$3.GetPostsResp> getPosts(
+      $grpc.ServiceCall call, $3.GetPostsReq request);
+  $async.Future<$3.GetPostsResp> getPostsByUid(
+      $grpc.ServiceCall call, $3.GetPostsByUidReq request);
+  $async.Future<$3.GetPostsResp> getPostsByParent(
+      $grpc.ServiceCall call, $3.GetPostsByParentReq request);
+  $async.Future<$1.Empty> likePost(
+      $grpc.ServiceCall call, $3.LikePostReq request);
+  $async.Future<$1.Empty> pinPost(
+      $grpc.ServiceCall call, $3.PinPostReq request);
+  $async.Future<$1.Empty> saveThread(
+      $grpc.ServiceCall call, $4.SaveThreadReq request);
+  $async.Future<$1.Empty> savePost(
+      $grpc.ServiceCall call, $4.SavePostReq request);
+  $async.Future<$1.Empty> unsaveThread(
+      $grpc.ServiceCall call, $4.UnsaveThreadReq request);
+  $async.Future<$1.Empty> unsavePost(
+      $grpc.ServiceCall call, $4.UnsavePostReq request);
+  $async.Future<$2.GetThreadsResp> getSavedThreads(
+      $grpc.ServiceCall call, $4.GetSavedThreadsReq request);
+  $async.Future<$3.GetPostsResp> getSavedPosts(
+      $grpc.ServiceCall call, $4.GetSavedPostsReq request);
 }
