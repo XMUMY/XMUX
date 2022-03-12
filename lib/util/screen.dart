@@ -2,24 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 
-extension BreakpointExtension on BuildContext {
-  bool isBetween(Breakpoint breakpoint) {
-    final width = MediaQuery.of(this).size.width;
-    return breakpoint.minWidth <= width && width <= breakpoint.maxWidth;
-  }
-
-  double get padBody {
-    final width = MediaQuery.of(this).size.width;
-    if (isBetween(Breakpoint.extraSmall)) return Breakpoint.extraSmall.margin!;
-    if (isBetween(Breakpoint.small1)) return Breakpoint.small1.margin!;
-    if (isBetween(Breakpoint.small2)) {
-      return max((width - Breakpoint.small2.body!) / 2, 0);
-    }
-    if (isBetween(Breakpoint.medium)) return Breakpoint.medium.margin!;
-    return max((width - Breakpoint.large.body!) / 2, 0);
-  }
-}
-
 class Breakpoint {
   final double minWidth;
   final double maxWidth;
@@ -32,6 +14,22 @@ class Breakpoint {
     this.margin,
     this.body,
   });
+
+  bool isIn(double width) {
+    return minWidth <= width && width <= maxWidth;
+  }
+
+  // Get horizontal padding.
+  static double getPadding(double width) {
+    width = width.roundToDouble();
+    if (Breakpoint.extraSmall.isIn(width)) return Breakpoint.extraSmall.margin!;
+    if (Breakpoint.small1.isIn(width)) return Breakpoint.small1.margin!;
+    if (Breakpoint.small2.isIn(width)) {
+      return max((width - Breakpoint.small2.body!) / 2, 0);
+    }
+    if (Breakpoint.medium.isIn(width)) return Breakpoint.medium.margin!;
+    return max((width - Breakpoint.large.body!) / 2, 0);
+  }
 
   static const extraSmall = Breakpoint(
     minWidth: 0,
@@ -69,4 +67,28 @@ class Breakpoint {
     margin: 0,
     body: 1040,
   );
+}
+
+extension BreakpointExtension on BuildContext {
+  bool isBetween(Breakpoint breakpoint) {
+    return breakpoint.isIn(MediaQuery.of(this).size.width);
+  }
+
+  double get padBody {
+    return Breakpoint.getPadding(MediaQuery.of(this).size.width);
+  }
+}
+
+class BodyPaddingBuilder extends StatelessWidget {
+  final Widget Function(BuildContext, double) builder;
+
+  const BodyPaddingBuilder({Key? key, required this.builder}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      final padding = Breakpoint.getPadding(constraints.maxWidth);
+      return builder(context, padding);
+    });
+  }
 }

@@ -57,8 +57,8 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget navigationRail = const SizedBox();
-    Widget bottomNavigationBar = const SizedBox.shrink();
+    Widget? navigationRail;
+    Widget? bottomNavigationBar;
     if (context.isBetween(Breakpoint.extraSmall)) {
       bottomNavigationBar = BottomNavigationBar(
         currentIndex: _index,
@@ -110,8 +110,10 @@ class _MainPageState extends State<MainPage> {
       body: SafeArea(
         child: Row(
           children: [
-            navigationRail,
-            const VerticalDivider(thickness: 1, width: 1),
+            if (navigationRail != null) ...[
+              navigationRail,
+              const VerticalDivider(thickness: 1, width: 1),
+            ],
             Expanded(
               child: PageTransitionSwitcher(
                 duration: const Duration(milliseconds: 200),
