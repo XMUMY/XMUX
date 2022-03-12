@@ -61,9 +61,9 @@ class _MainPageState extends State<MainPage> {
     Widget bottomNavigationBar = const SizedBox.shrink();
     if (context.isBetween(Breakpoint.extraSmall)) {
       bottomNavigationBar = BottomNavigationBar(
-        enableFeedback: true,
         currentIndex: _index,
         onTap: navigateTo,
+        enableFeedback: true,
         items: [
           for (var page in mainPages)
             BottomNavigationBarItem(
@@ -75,11 +75,10 @@ class _MainPageState extends State<MainPage> {
       );
     } else {
       navigationRail = NavigationRail(
-        groupAlignment: -0.95,
-        extended: context.isBetween(Breakpoint.medium) ||
-            context.isBetween(Breakpoint.large),
         selectedIndex: _index,
         onDestinationSelected: navigateTo,
+        extended: context.isBetween(Breakpoint.medium) ||
+            context.isBetween(Breakpoint.large),
         labelType: context.isBetween(Breakpoint.small)
             ? NavigationRailLabelType.selected
             : NavigationRailLabelType.none,
@@ -88,9 +87,11 @@ class _MainPageState extends State<MainPage> {
           converter: (s) => store.state.user.profile.avatar.isNotEmpty
               ? store.state.user.profile.avatar
               : remoteConfigs.staticResources.defaultAvatar,
-          builder: (context, s) => IconButton(
+          builder: (context, url) => IconButton(
             onPressed: () => Scaffold.of(context).openDrawer(),
-            icon: ExtendedImage.network(s, shape: BoxShape.circle),
+            icon: CircleAvatar(
+              foregroundImage: ExtendedNetworkImageProvider(url, cache: true),
+            ),
             iconSize: 40,
           ),
         ),
@@ -126,10 +127,7 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
       ),
-      bottomNavigationBar: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 200),
-        child: bottomNavigationBar,
-      ),
+      bottomNavigationBar: bottomNavigationBar,
       drawer: const MainDrawer(),
     );
   }

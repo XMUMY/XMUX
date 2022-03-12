@@ -95,9 +95,15 @@ class _CalendarPageState extends State<CalendarPage>
                           store.state.user.profile.avatar.isNotEmpty
                               ? store.state.user.profile.avatar
                               : remoteConfigs.staticResources.defaultAvatar,
-                      builder: (_, s) => IconButton(
+                      builder: (_, url) => IconButton(
                         onPressed: () => Scaffold.of(context).openDrawer(),
-                        icon: ExtendedImage.network(s, shape: BoxShape.circle),
+                        icon: CircleAvatar(
+                          foregroundImage: ExtendedNetworkImageProvider(
+                            url,
+                            cache: true,
+                          ),
+                        ),
+                        iconSize: 30,
                       ),
                     ),
                   Expanded(

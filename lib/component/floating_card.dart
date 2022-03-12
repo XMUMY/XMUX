@@ -46,28 +46,26 @@ class _FloatingCardState extends State<FloatingCard> {
         child: child,
       );
     } else {
-      child = GestureDetector(
-        onTap: widget.onTap,
-        onTapDown: (_) => setState(() => _elevation = 4),
-        onTapUp: (_) => setState(() => _elevation = 1),
-        onTapCancel: () => setState(() => _elevation = 1),
-        onLongPress: widget.onLongPress,
-        child: child,
-        behavior: HitTestBehavior.opaque,
+      child = MouseRegion(
+        onEnter: (_) => setState(() => _elevation = 4),
+        onExit: (_) => setState(() => _elevation = 1),
+        child: GestureDetector(
+          onTap: widget.onTap,
+          onTapDown: (_) => setState(() => _elevation = 4),
+          onTapUp: (_) => setState(() => _elevation = 1),
+          onTapCancel: () => setState(() => _elevation = 1),
+          onLongPress: widget.onLongPress,
+          child: child,
+          behavior: HitTestBehavior.opaque,
+        ),
       );
     }
 
-    child = Card(
+    return Card(
       margin: widget.margin,
       shape: widget.shape,
       elevation: _elevation,
       clipBehavior: Clip.hardEdge,
-      child: child,
-    );
-
-    return MouseRegion(
-      onEnter: (_) => setState(() => _elevation = 4),
-      onExit: (_) => setState(() => _elevation = 1),
       child: child,
     );
   }

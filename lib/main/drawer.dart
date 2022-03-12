@@ -27,8 +27,11 @@ class MainDrawer extends StatelessWidget {
                     converter: (s) => store.state.user.profile.avatar.isNotEmpty
                         ? store.state.user.profile.avatar
                         : remoteConfigs.staticResources.defaultAvatar,
-                    builder: (context, s) => CircleAvatar(
-                      foregroundImage: ExtendedNetworkImageProvider(s),
+                    builder: (context, url) => CircleAvatar(
+                      foregroundImage: ExtendedNetworkImageProvider(
+                        url,
+                        cache: true,
+                      ),
                       radius: 30,
                     ),
                   ),
