@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../global.dart';
@@ -12,6 +13,9 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
   const CampusPage({Key? key}) : super(key: key);
 
   @override
+  String get path => 'Campus';
+
+  @override
   String get label => LocaleKeys.Campus_Campus.tr();
 
   @override
@@ -21,7 +25,7 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
   Widget get activeIcon => const Icon(FontAwesomeIcons.university);
 
   VoidCallback _push(BuildContext context, String page) {
-    return () => Navigator.of(context).pushNamed(page);
+    return () => context.go(page);
   }
 
   @override
@@ -45,23 +49,23 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                 _Button(
                   title: 'Wolfram Engine',
                   svg: 'res/campus/wolfram.svg',
-                  onPressed: _push(context, '/Campus/WolframEngine'),
+                  onPressed: _push(context, '/M/Campus/WolframEngine'),
                 ),
               if (isMobile) // WebView limit.
                 _Button(
                   title: 'GeoGebra',
                   svg: 'res/campus/geogebra.svg',
-                  onPressed: _push(context, '/Campus/GeoGebra'),
+                  onPressed: _push(context, '/M/Campus/GeoGebra'),
                 ),
               _Button(
                 title: LocaleKeys.Campus_AcademicTranscript.tr(),
                 svg: 'res/campus/transcript.svg',
-                onPressed: _push(context, '/Campus/Transcript'),
+                onPressed: _push(context, '/M/Campus/Transcript'),
               ),
               _Button(
                 title: LocaleKeys.Campus_GPACalculator.tr(),
                 svg: 'res/campus/gpa_calculator.svg',
-                onPressed: _push(context, '/Campus/GPACalculator'),
+                onPressed: _push(context, '/M/Campus/GPACalculator'),
               ),
               _Button(
                 title: 'VPN',
@@ -88,13 +92,13 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                     Icons.directions_bus,
                     color: Color(0xFF5DC3F1),
                   ),
-                  onPressed: _push(context, '/Campus/BusSchedule'),
+                  onPressed: _push(context, '/M/Campus/BusSchedule'),
                 ),
               if (isVM) // CORS
                 _Button(
                   title: LocaleKeys.Campus_KliaExpress.tr(),
                   svg: 'res/campus/klia_express.svg',
-                  onPressed: _push(context, '/Campus/KliaExpress'),
+                  onPressed: _push(context, '/M/Campus/KliaExpress'),
                 ),
               if (isVM) // CORS
                 _Button(
@@ -104,7 +108,7 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                     color: Color(0xFF5DC3F1),
                     size: 50,
                   ),
-                  onPressed: _push(context, '/Campus/Emgs'),
+                  onPressed: _push(context, '/M/Campus/Emgs'),
                 ),
               if (isVM) // CORS
                 _Button(
@@ -114,7 +118,7 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                     color: Color(0xFF5DC3F1),
                     size: 50,
                   ),
-                  onPressed: _push(context, '/Campus/Maintenance'),
+                  onPressed: _push(context, '/M/Campus/Maintenance'),
                 ),
               if (isVM) // CORS
                 _Button(
@@ -123,7 +127,7 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                     Icons.account_balance_wallet_outlined,
                     color: Color(0xFF5DC3F1),
                   ),
-                  onPressed: _push(context, '/Campus/EPayment'),
+                  onPressed: _push(context, '/M/Campus/EPayment'),
                 ),
               _Button(
                 title: LocaleKeys.Campus_LaF.tr(),
@@ -131,7 +135,7 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                   Icons.find_in_page,
                   color: Color(0xFF5DC3F1),
                 ),
-                onPressed: _push(context, '/Campus/LostAndFound'),
+                onPressed: _push(context, '/M/Campus/LostAndFound'),
               ),
             ],
           ),

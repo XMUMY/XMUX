@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../global.dart';
@@ -20,6 +21,9 @@ import 'upcoming_event.dart';
 
 class CalendarPage extends StatefulWidget implements TopLevelPage {
   const CalendarPage({Key? key}) : super(key: key);
+
+  @override
+  String get path => 'Calendar';
 
   @override
   String get label => LocaleKeys.Calendar_Calendar.tr();
@@ -116,8 +120,7 @@ class _CalendarPageState extends State<CalendarPage>
                       if (isWeb) {
                         launch('http://www.xmu.edu.my/14702/list.htm');
                       } else {
-                        Navigator.of(context)
-                            .pushNamed('/Calendar/AcademicCalendar');
+                        context.go('/M/Calendar/AcademicCalendar');
                       }
                     },
                   ),

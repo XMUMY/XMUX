@@ -1,23 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:tuple/tuple.dart';
 
-import 'init/init_page.dart';
-import 'init/login_page.dart';
-import 'main/main_page.dart';
-import 'redux/state/state.dart';
-import 'route.dart';
-import 'util/platform.dart';
+import 'global.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'XMUX',
       theme: ThemeData(
         primarySwatch: Colors.cyan,
@@ -40,28 +31,8 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
-      routes: namedRoutes,
-      navigatorObservers: [
-        if (kReleaseMode && (isMobile || isWeb))
-          FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
-      ],
-      home: Scaffold(
-        body: StoreConnector<AppState, Tuple2<bool, bool>>(
-          distinct: true,
-          converter: (s) => Tuple2(
-            s.state.isInitialized,
-            s.state.user.isSignedIn,
-          ),
-          builder: (context, s) => AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: !s.item1
-                ? const InitPage()
-                : s.item2
-                    ? const MainPage()
-                    : const LoginPage(),
-          ),
-        ),
-      ),
+      routerDelegate: router.routerDelegate,
+      routeInformationParser: router.routeInformationParser,
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:xmux/main/forum/forum_page.dart';
+import 'package:go_router/go_router.dart';
 
 import '../global.dart';
 import '../redux/state/state.dart';
@@ -11,7 +11,14 @@ import 'calendar/calendar_page.dart';
 import 'campus/campus_page.dart';
 import 'drawer.dart';
 
+const mainPages = <TopLevelPage>[
+  CalendarPage(),
+  CampusPage(),
+];
+
 abstract class TopLevelPage implements Widget {
+  String get path;
+
   String get label;
 
   Widget get icon;
@@ -20,24 +27,32 @@ abstract class TopLevelPage implements Widget {
 }
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  final int index;
+
+  const MainPage({Key? key, this.index = 0}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  static const pages = <TopLevelPage>[
-    CalendarPage(),
-    ForumPage(),
-    CampusPage(),
-  ];
-
   var _index = 0;
 
   void navigateTo(int index) {
     if (!mounted || index == _index) return;
-    setState(() => _index = index);
+    context.go('/M/${mainPages[index].path}');
+  }
+
+  @override
+  void initState() {
+    _index = widget.index;
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant MainPage oldWidget) {
+    _index = widget.index;
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -50,7 +65,7 @@ class _MainPageState extends State<MainPage> {
         currentIndex: _index,
         onTap: navigateTo,
         items: [
-          for (var page in pages)
+          for (var page in mainPages)
             BottomNavigationBarItem(
               icon: page.icon,
               activeIcon: page.activeIcon,
@@ -80,7 +95,7 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
         destinations: [
-          for (var page in pages)
+          for (var page in mainPages)
             NavigationRailDestination(
               icon: page.icon,
               selectedIcon: page.activeIcon,
@@ -105,7 +120,7 @@ class _MainPageState extends State<MainPage> {
                     child: child,
                   );
                 },
-                child: pages[_index],
+                child: mainPages[_index],
               ),
             )
           ],

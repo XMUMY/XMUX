@@ -24,39 +24,41 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData.dark(),
-      child: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          // Background image.
-          const BackgroundImage(),
+      child: Scaffold(
+        body: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            // Background image.
+            const BackgroundImage(),
 
-          // Login area.
-          const Center(
-            child: _LoginArea(),
-          ),
-
-          // Bottom buttons.
-          Material(
-            type: MaterialType.transparency,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.privacy_tip),
-                  onPressed: () =>
-                      launch('https://docs.xmux.xdea.io/app/privacy/'),
-                  tooltip: LocaleKeys.SignIn_Privacy.tr(),
-                ),
-                IconButton(
-                  icon: const Icon(FontAwesomeIcons.question),
-                  onPressed: () => launch('https://docs.xmux.xdea.io'),
-                  tooltip: LocaleKeys.SignIn_Docs.tr(),
-                ),
-              ],
+            // Login area.
+            const Center(
+              child: _LoginArea(),
             ),
-          ),
-        ],
+
+            // Bottom buttons.
+            Material(
+              type: MaterialType.transparency,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.privacy_tip),
+                    onPressed: () =>
+                        launch('https://docs.xmux.xdea.io/app/privacy/'),
+                    tooltip: LocaleKeys.SignIn_Privacy.tr(),
+                  ),
+                  IconButton(
+                    icon: const Icon(FontAwesomeIcons.question),
+                    onPressed: () => launch('https://docs.xmux.xdea.io'),
+                    tooltip: LocaleKeys.SignIn_Docs.tr(),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
