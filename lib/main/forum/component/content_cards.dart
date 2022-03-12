@@ -69,9 +69,10 @@ class PostDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var expansibleContent = ExpandablePanel(
-        theme: const ExpandableThemeData(hasIcon: false),
+        theme: const ExpandableThemeData(hasIcon: false, useInkWell: false),
         controller: ExpandableController(initialExpanded: true),
-        header: Padding(
+        header: Container(
+            color: Colors.transparent,
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

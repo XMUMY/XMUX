@@ -24,8 +24,8 @@ class FloatingCard extends StatefulWidget {
     this.padding = const EdgeInsets.all(0),
     this.shape,
     this.onTap,
-    required this.child,
     this.onLongPress,
+    required this.child,
   }) : super(key: key);
 
   @override
