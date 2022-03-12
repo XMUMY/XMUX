@@ -35,6 +35,7 @@ class MainDrawer extends StatelessWidget {
                 ),
                 Expanded(
                   child: StoreConnector<AppState, String>(
+                    distinct: true,
                     converter: (s) => s.state.user.profile.displayName,
                     builder: (context, s) =>
                         Text(s, textAlign: TextAlign.center),
@@ -48,9 +49,7 @@ class MainDrawer extends StatelessWidget {
               children: [
                 ListTile(
                   title: Text(LocaleKeys.SignOut.tr()),
-                  onTap: () => store.dispatch(
-                    RestoreAction(AppState(isInitialized: true)),
-                  ),
+                  onTap: () => store.dispatch(LogoutAction()),
                 ),
                 ListTile(
                   title: Text(LocaleKeys.About.tr()),
@@ -64,9 +63,7 @@ class MainDrawer extends StatelessWidget {
             child: FutureBuilder<PackageInfo>(
               future: PackageInfo.fromPlatform(),
               builder: (context, snapshot) =>
-                  snapshot.connectionState == ConnectionState.done
-                      ? Text(snapshot.data!.version)
-                      : const Text(fallbackVersionName),
+                  Text(snapshot.data?.version ?? fallbackVersionName),
             ),
           ),
         ],

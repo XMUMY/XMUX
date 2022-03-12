@@ -4,6 +4,7 @@ import 'package:xmus_client/xmus_client.dart';
 
 import 'config.dart';
 import 'redux/middleware/api_request.dart';
+import 'redux/middleware/redirect.dart';
 import 'redux/middleware/save.dart';
 import 'redux/reducer/reducer.dart';
 import 'redux/state/state.dart';
@@ -19,6 +20,7 @@ final store = Store(
   appReducer,
   initialState: AppState(),
   middleware: [
+    redirectMiddleware,
     apiRequestMiddleware,
     saveMiddleware,
   ],

@@ -26,11 +26,18 @@ abstract class AppAction {
   String toString() => 'AppAction: $runtimeType';
 }
 
-abstract class ApiRequestAction extends AppAction {
-  /// A [Future] of API request process.
-  /// It is [null] by default and will be assign by [apiRequestMiddleware].
-  Future<void>? future;
+mixin AwaitableActionMixin<T> on AppAction {
+  /// A [Future] of awaitable process.
+  Future<T>? future;
+}
 
+mixin RedirectableActionMixin on AppAction {
+  // Redirect to url after action is done.
+  String? redirectTo;
+}
+
+abstract class ApiRequestAction extends AppAction
+    with AwaitableActionMixin<void> {
   /// Parameters for API request.
   final Map<String, String> params;
 
@@ -45,7 +52,10 @@ abstract class ApiRequestAction extends AppAction {
   Future<void> call(Store<AppState> store);
 }
 
-class InitializedAction extends AppAction {
+class InitializedAction extends AppAction with RedirectableActionMixin {
+  @override
+  String? get redirectTo => '/';
+
   @override
   bool get needSave => false;
 }
@@ -59,10 +69,26 @@ class RestoreAction extends AppAction {
   bool get needSave => false;
 }
 
-class LoginAction extends AppAction {
+class LoginAction extends AppAction with RedirectableActionMixin {
   final String campusId, password;
 
-  const LoginAction(this.campusId, this.password);
+  LoginAction(this.campusId, this.password);
+
+  @override
+  String? get redirectTo => '/';
+
+  @override
+  bool get syncSave => true;
+}
+
+class LogoutAction extends RestoreAction with RedirectableActionMixin {
+  LogoutAction() : super(AppState(isInitialized: true));
+
+  @override
+  String? get redirectTo => '/';
+
+  @override
+  bool get needSave => true;
 
   @override
   bool get syncSave => true;
