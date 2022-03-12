@@ -46,15 +46,18 @@ dependencies:
 
   # External packages.
   animations: ^2.0.0
+  badges: ^2.0.0
   device_calendar: ^4.0.0
   easy_localization: ^3.0.0
+  expandable: ^5.0.0
   extended_image: ^6.0.0
   firebase_analytics: ^9.0.0
   firebase_core: ^1.2.0
   firebase_remote_config: ^1.0.0
   fl_chart: ^0.40.0
+  flutter_linkify: ^5.0.0
   flutter_mobx: ^2.0.0
-  flutter_redux: ^0.8.2
+  flutter_redux: ^0.8.0
   flutter_spinkit: ^5.0.0
   flutter_svg: ^1.0.0
   flutter_widget_from_html_core: ^0.8.0
@@ -69,8 +72,10 @@ dependencies:
   sentry: ^6.0.0
   shared_preferences: ^2.0.0
   taskflow: ^0.1.2
+  timeago: ^3.1.0
   tuple: ^2.0.0
   url_launcher: ^6.0.0
+  visibility_detector: ^0.2.0
   waterfall_flow: ^3.0.0
   webview_flutter: ^3.0.0
 

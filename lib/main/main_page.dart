@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:xmux/main/forum/forum_page.dart';
 
 import '../global.dart';
 import '../redux/state/state.dart';
@@ -28,6 +29,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   static const pages = <TopLevelPage>[
     CalendarPage(),
+    ForumPage(),
     CampusPage(),
   ];
 
