@@ -47,14 +47,14 @@ dependencies:
   # External packages.
   animations: ^2.0.0
   badges: ^2.0.0
-  device_calendar: ^4.0.0
+  device_calendar: ^4.2.0
   easy_localization: ^3.0.0
   expandable: ^5.0.0
   extended_image: ^6.0.0
   firebase_analytics: ^9.0.0
   firebase_core: ^1.2.0
-  firebase_remote_config: ^1.0.0
-  fl_chart: ^0.40.0
+  firebase_remote_config: ^2.0.0
+  fl_chart: ^0.46.0
   flutter_linkify: ^5.0.0
   flutter_mobx: ^2.0.0
   flutter_redux: ^0.8.0
@@ -85,11 +85,6 @@ dependency_overrides:
     git:
       url: https://github.com/XMUMY/grpc-dart.git
       ref: allow-missing-trailer
-  # https://github.com/builttoroam/device_calendar/issues/383
-  device_calendar:
-    git:
-      url: https://github.com/builttoroam/device_calendar.git
-      ref: develop
 
 dev_dependencies:
   flutter_test:
@@ -105,7 +100,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

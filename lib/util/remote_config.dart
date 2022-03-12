@@ -19,9 +19,9 @@ final fetchRemoteConfigsTask = Task.when(
   () async => isMobile || isMacOS,
   (ctx) async {
     try {
-      if (await RemoteConfig.instance.fetchAndActivate()) {
+      if (await FirebaseRemoteConfig.instance.fetchAndActivate()) {
         final fetchedStatic =
-            RemoteConfig.instance.getString('static_resources');
+            FirebaseRemoteConfig.instance.getString('static_resources');
         remoteConfigs.updateStaticResources(fetchedStatic);
       }
     } on Exception catch (_) {}
