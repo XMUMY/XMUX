@@ -5,8 +5,8 @@ class DateTimePicker extends StatelessWidget {
   /// Text used for label of picker.
   final String? labelText;
 
-  final DateTime initialDate;
-  final TimeOfDay initialTime;
+  final DateTime date;
+  final TimeOfDay time;
   final DateTime firstDate;
   final DateTime lastDate;
 
@@ -19,30 +19,30 @@ class DateTimePicker extends StatelessWidget {
   DateTimePicker({
     Key? key,
     this.labelText,
-    required this.initialDate,
+    required this.date,
     required this.firstDate,
     required this.lastDate,
     this.onDateChanged,
     this.onTimeChanged,
-  })  : initialTime = TimeOfDay.fromDateTime(initialDate),
+  })  : time = TimeOfDay.fromDateTime(date),
         super(key: key);
 
   Future<void> _pickDate(BuildContext context) async {
     final picked = await showDatePicker(
       context: context,
-      initialDate: initialDate,
+      initialDate: date,
       firstDate: firstDate,
       lastDate: lastDate,
     );
-    if (picked != null && picked != initialDate) onDateChanged?.call(picked);
+    if (picked != null && picked != date) onDateChanged?.call(picked);
   }
 
   Future<void> _pickTime(BuildContext context) async {
     final picked = await showTimePicker(
       context: context,
-      initialTime: initialTime,
+      initialTime: time,
     );
-    if (picked != null && picked != initialTime) onTimeChanged?.call(picked);
+    if (picked != null && picked != time) onTimeChanged?.call(picked);
   }
 
   @override
@@ -63,7 +63,7 @@ class DateTimePicker extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
-                    DateFormat.yMMMd().format(initialDate),
+                    DateFormat.yMMMd().format(date),
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                   Icon(
@@ -89,7 +89,7 @@ class DateTimePicker extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
-                    initialTime.format(context),
+                    time.format(context),
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                   Icon(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
+import 'package:xmus_client/error.dart';
 import 'package:xmus_client/generated/google/protobuf/timestamp.pb.dart';
 import 'package:xmus_client/generated/lost_found.pb.dart';
 
@@ -48,7 +49,7 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
 
   Future<void> _handleSubmit() async {
     if (_isSubmitting || !formKey.currentState!.validate()) return;
-    setState(() => _isSubmitting = true);
+    _isSubmitting = true;
     try {
       await rpc.lostAndFoundClient.addItem(AddItemReq()
         ..type = form.type
@@ -59,9 +60,12 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
         ..contacts.clear()
         ..contacts.addAll(form.contacts));
       Navigator.of(context).maybePop(true);
-    } catch (e) {
-      // TODO: Show error.
-      setState(() => _isSubmitting = false);
+    } on XmuxRpcError catch (e) {
+      ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+        SnackBar(content: Text(e.message)),
+      );
+    } finally {
+      _isSubmitting = false;
     }
   }
 
@@ -103,7 +107,7 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
       Observer(
         builder: (context) => DateTimePicker(
           labelText: LocaleKeys.Campus_LaFTime.tr(),
-          initialDate: form.time,
+          date: form.time,
           firstDate: DateTime(2017, 12, 22),
           lastDate: DateTime.now(),
           onDateChanged: (date) => form.time = date,
@@ -158,20 +162,30 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
       appBar: AppBar(
         title: Text(LocaleKeys.Campus_LaFNew.tr()),
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.done),
+          FloatingActionButton(
+            mini: true,
+            child: Icon(
+              Icons.check,
+              color: Theme.of(context).iconTheme.color,
+            ),
+            elevation: 0,
+            backgroundColor: Theme.of(context).brightness == Brightness.light
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.surface,
             onPressed: _handleSubmit,
           ),
         ],
       ),
       body: Form(
         key: formKey,
-        child: ListView(
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
             vertical: 8,
             horizontal: context.padBody,
           ),
-          children: formWidgets,
+          child: Column(
+            children: formWidgets,
+          ),
         ),
       ),
     );

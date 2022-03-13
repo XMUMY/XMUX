@@ -32,6 +32,17 @@ class _RequestFormPageState extends State<RequestFormPage> {
     if (mounted) setState(() {});
   }
 
+  Future<void> _handleSubmit() async {
+    if (_isSubmitting || !formKey.currentState!.validate()) return;
+    _isSubmitting = true;
+    try {
+      await widget.maintenanceApi.submitForm(form!);
+      Navigator.of(context).maybePop();
+    } finally {
+      _isSubmitting = false;
+    }
+  }
+
   @override
   void initState() {
     _fetchForm();
@@ -48,7 +59,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
         child: CircularProgressIndicator(),
       );
     } else {
-      final forms = <Widget>[
+      final fields = <Widget>[
         TextFormField(
           maxLines: 4,
           maxLength: 200,
@@ -178,12 +189,14 @@ class _RequestFormPageState extends State<RequestFormPage> {
 
       child = Form(
         key: formKey,
-        child: ListView(
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
             vertical: 4,
             horizontal: context.padBody,
           ),
-          children: forms,
+          child: Column(
+            children: fields,
+          ),
         ),
       );
     }
@@ -203,35 +216,26 @@ class _RequestFormPageState extends State<RequestFormPage> {
             ),
             elevation: 0,
             backgroundColor: Theme.of(context).canvasColor,
-            onPressed: form == null
-                ? null
-                : () async {
-                    if (!formKey.currentState!.validate() || _isSubmitting) {
-                      return;
-                    }
-                    _isSubmitting = true;
-                    await widget.maintenanceApi.submitForm(form);
-                    Navigator.of(context).maybePop();
-                  },
+            onPressed: form != null ? _handleSubmit : null,
           )
         ],
       ),
       body: Stack(
         children: [
           // Hide when keyboard appears.
-          // TODO: Platform
-          // TODO: Overlap
           if (MediaQuery.of(context).viewInsets.bottom == 0 &&
-              MediaQuery.of(context).size.height > 450)
+              MediaQuery.of(context).size.height > 700)
             Positioned(
               right: 5,
               bottom: 10,
               child: SvgPicture.asset(
                 'res/campus/maintenance.svg',
-                width: MediaQuery.of(context).size.width / 3.3,
+                width: Breakpoint.extraSmall.maxWidth / 4,
               ),
             ),
-          child,
+          SizedBox.expand(
+            child: child,
+          )
         ],
       ),
     );

@@ -5,9 +5,6 @@ import 'package:flutter/foundation.dart';
 const isWeb = kIsWeb;
 const isVM = !kIsWeb;
 
-// TODO: Analyzer bug.
-// ignore_for_file: prefer_const_declarations
-
 final isAndroid = isVM && Platform.isAndroid;
 final isIOS = isVM && Platform.isIOS;
 final isMobile = isVM && (isAndroid || isIOS);
