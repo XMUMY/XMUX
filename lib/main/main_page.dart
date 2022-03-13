@@ -10,10 +10,12 @@ import '../util/screen.dart';
 import 'calendar/calendar_page.dart';
 import 'campus/campus_page.dart';
 import 'drawer.dart';
+import 'forum/forum_page.dart';
 
 const mainPages = <TopLevelPage>[
   CalendarPage(),
   CampusPage(),
+  ForumPage(),
 ];
 
 abstract class TopLevelPage implements Widget {
@@ -107,27 +109,25 @@ class _MainPageState extends State<MainPage> {
     }
 
     return Scaffold(
-      body: SafeArea(
-        child: Row(
-          children: [
-            if (navigationRail != null) ...[
-              navigationRail,
-              const VerticalDivider(thickness: 1, width: 1),
-            ],
-            Expanded(
-              child: PageTransitionSwitcher(
-                duration: const Duration(milliseconds: 200),
-                transitionBuilder: (child, animation, secondaryAnimation) {
-                  return FadeTransition(
-                    opacity: animation,
-                    child: child,
-                  );
-                },
-                child: mainPages[_index],
-              ),
-            )
+      body: Row(
+        children: [
+          if (navigationRail != null) ...[
+            navigationRail,
+            const VerticalDivider(thickness: 1, width: 1),
           ],
-        ),
+          Expanded(
+            child: PageTransitionSwitcher(
+              duration: const Duration(milliseconds: 200),
+              transitionBuilder: (child, animation, secondaryAnimation) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
+              child: mainPages[_index],
+            ),
+          )
+        ],
       ),
       bottomNavigationBar: bottomNavigationBar,
       drawer: const MainDrawer(),

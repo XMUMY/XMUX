@@ -85,5 +85,37 @@ abstract class  LocaleKeys {
   static const Campus_LaFDescription = 'Campus.LaFDescription';
   static const Campus_LaFContacts = 'Campus.LaFContacts';
   static const Campus = 'Campus';
+  static const Forum_Forum = 'Forum.Forum';
+  static const Forum_CreatePost = 'Forum.CreatePost';
+  static const Forum_OrderNew = 'Forum.OrderNew';
+  static const Forum_OrderOld = 'Forum.OrderOld';
+  static const Forum_Thread = 'Forum.Thread';
+  static const Forum_Comments = 'Forum.Comments';
+  static const Forum_ReplyTo = 'Forum.ReplyTo';
+  static const Forum_CommentHint = 'Forum.CommentHint';
+  static const Forum_ReferedComment = 'Forum.ReferedComment';
+  static const Forum_CreateTitle = 'Forum.CreateTitle';
+  static const Forum_CreateBody = 'Forum.CreateBody';
+  static const Forum_CreatePageTitle = 'Forum.CreatePageTitle';
+  static const Forum_Notif = 'Forum.Notif';
+  static const Forum_More = 'Forum.More';
+  static const Forum_Saved = 'Forum.Saved';
+  static const Forum_MyActivity = 'Forum.MyActivity';
+  static const Forum_Post = 'Forum.Post';
+  static const Forum_Reply = 'Forum.Reply';
+  static const Forum_CommentNotif = 'Forum.CommentNotif';
+  static const Forum_ReplyNotif = 'Forum.ReplyNotif';
+  static const Forum_RemovePost = 'Forum.RemovePost';
+  static const Forum_AddToSaved = 'Forum.AddToSaved';
+  static const Forum_AlreadySaved = 'Forum.AlreadySaved';
+  static const Forum_SaveSuccess = 'Forum.SaveSuccess';
+  static const Forum_CopyPostTitle = 'Forum.CopyPostTitle';
+  static const Forum_CopySuccess = 'Forum.CopySuccess';
+  static const Forum_CopyPostContent = 'Forum.CopyPostContent';
+  static const Forum_RemoveFromSaved = 'Forum.RemoveFromSaved';
+  static const Forum_RemoveSuccess = 'Forum.RemoveSuccess';
+  static const Forum_CopyReply = 'Forum.CopyReply';
+  static const Forum_RemoveReply = 'Forum.RemoveReply';
+  static const Forum = 'Forum';
 
 }

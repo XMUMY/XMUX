@@ -66,82 +66,70 @@ class _CalendarPageState extends State<CalendarPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: PhysicalModel(
-          elevation: 1,
-          color: Theme.of(context).shadowColor,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(context).colorScheme.surface,
-                  offset: const Offset(-1, 0),
+    return SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Material(
+            elevation: 1,
+            color: Theme.of(context).colorScheme.surface,
+            child: Row(
+              children: [
+                if (context.isBetween(Breakpoint.extraSmall))
+                  StoreConnector<AppState, String>(
+                    distinct: true,
+                    converter: (s) => store.state.user.profile.avatar.isNotEmpty
+                        ? store.state.user.profile.avatar
+                        : remoteConfigs.staticResources.defaultAvatar,
+                    builder: (_, url) => IconButton(
+                      onPressed: () => Scaffold.of(context).openDrawer(),
+                      icon: CircleAvatar(
+                        foregroundImage: ExtendedNetworkImageProvider(
+                          url,
+                          cache: true,
+                        ),
+                      ),
+                      iconSize: 30,
+                    ),
+                  ),
+                Expanded(
+                  child: TabBar(
+                    isScrollable: true,
+                    controller: _controller,
+                    tabs: [
+                      Tab(text: LocaleKeys.Calendar_Classes.tr()),
+                      Tab(text: LocaleKeys.Calendar_Exams.tr()),
+                      Tab(text: LocaleKeys.Calendar_Assignments.tr()),
+                      Tab(text: LocaleKeys.Calendar_UpcomingEvents.tr()),
+                      Tab(text: LocaleKeys.Calendar_Notifications.tr()),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(FontAwesomeIcons.calendarAlt),
+                  tooltip: LocaleKeys.Calendar_Academic.tr(),
+                  onPressed: () {
+                    if (isWeb) {
+                      launch('http://www.xmu.edu.my/14702/list.htm');
+                    } else {
+                      context.go('/M/Calendar/AcademicCalendar');
+                    }
+                  },
                 ),
               ],
             ),
-            child: Material(
-              color: Theme.of(context).colorScheme.surface,
-              child: Row(
-                children: [
-                  if (context.isBetween(Breakpoint.extraSmall))
-                    StoreConnector<AppState, String>(
-                      distinct: true,
-                      converter: (s) =>
-                          store.state.user.profile.avatar.isNotEmpty
-                              ? store.state.user.profile.avatar
-                              : remoteConfigs.staticResources.defaultAvatar,
-                      builder: (_, url) => IconButton(
-                        onPressed: () => Scaffold.of(context).openDrawer(),
-                        icon: CircleAvatar(
-                          foregroundImage: ExtendedNetworkImageProvider(
-                            url,
-                            cache: true,
-                          ),
-                        ),
-                        iconSize: 30,
-                      ),
-                    ),
-                  Expanded(
-                    child: TabBar(
-                      isScrollable: true,
-                      controller: _controller,
-                      tabs: [
-                        Tab(text: LocaleKeys.Calendar_Classes.tr()),
-                        Tab(text: LocaleKeys.Calendar_Exams.tr()),
-                        Tab(text: LocaleKeys.Calendar_Assignments.tr()),
-                        Tab(text: LocaleKeys.Calendar_UpcomingEvents.tr()),
-                        Tab(text: LocaleKeys.Calendar_Notifications.tr()),
-                      ],
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(FontAwesomeIcons.calendarAlt),
-                    tooltip: LocaleKeys.Calendar_Academic.tr(),
-                    onPressed: () {
-                      if (isWeb) {
-                        launch('http://www.xmu.edu.my/14702/list.htm');
-                      } else {
-                        context.go('/M/Calendar/AcademicCalendar');
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
           ),
         ),
-      ),
-      body: TabBarView(
-        controller: _controller,
-        children: const [
-          TimetablePage(),
-          ExamPage(),
-          AssignmentPage(),
-          UpcomingEventPage(),
-          MoodleNotificationPage()
-        ],
+        body: TabBarView(
+          controller: _controller,
+          children: const [
+            TimetablePage(),
+            ExamPage(),
+            AssignmentPage(),
+            UpcomingEventPage(),
+            MoodleNotificationPage()
+          ],
+        ),
       ),
     );
   }

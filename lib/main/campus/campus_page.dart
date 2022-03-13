@@ -30,8 +30,8 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
+    return SafeArea(
+      child: ListView(
         padding: EdgeInsets.symmetric(horizontal: context.padBody),
         children: [
           Padding(
