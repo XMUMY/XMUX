@@ -106,38 +106,37 @@ class _FloatingOpenContainerState extends State<FloatingOpenContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _elevation = 4),
-      onExit: (_) => setState(() => _elevation = 1),
-      child: Padding(
-        padding: widget.margin,
-        child: OpenContainer(
-          tappable: false,
-          closedColor: Theme.of(context).cardColor,
-          openColor: Theme.of(context).cardColor,
-          closedBuilder: (context, open) {
-            Widget child =
-                Padding(padding: widget.padding, child: widget.child);
+    return Padding(
+      padding: widget.margin,
+      child: OpenContainer(
+        tappable: false,
+        closedColor: Theme.of(context).cardColor,
+        closedShape: widget.shape,
+        closedElevation: _elevation,
+        closedBuilder: (context, open) {
+          Widget child = Padding(padding: widget.padding, child: widget.child);
 
-            if (Theme.of(context).brightness == Brightness.dark) {
-              child = InkWell(onTap: open, child: child);
-            } else {
-              child = GestureDetector(
+          if (Theme.of(context).brightness == Brightness.dark) {
+            child = InkWell(onTap: open, child: child);
+          } else {
+            child = MouseRegion(
+              onEnter: (_) => setState(() => _elevation = 4),
+              onExit: (_) => setState(() => _elevation = 1),
+              child: GestureDetector(
                 onTap: open,
                 onTapDown: (_) => setState(() => _elevation = 4),
                 onTapUp: (_) => setState(() => _elevation = 1),
                 onTapCancel: () => setState(() => _elevation = 1),
                 child: child,
                 behavior: HitTestBehavior.opaque,
-              );
-            }
+              ),
+            );
+          }
 
-            return child;
-          },
-          openBuilder: widget.openBuilder,
-          closedShape: widget.shape,
-          closedElevation: _elevation,
-        ),
+          return child;
+        },
+        openColor: Theme.of(context).canvasColor,
+        openBuilder: widget.openBuilder,
       ),
     );
   }

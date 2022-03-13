@@ -75,13 +75,10 @@ class _CalendarPageState extends State<CalendarPage>
           child: DecoratedBox(
             decoration: BoxDecoration(
               boxShadow: [
-                // Overlap elevation.
-                // TODO: Breaks hit test on web.
-                if (!isWeb)
-                  BoxShadow(
-                    color: Theme.of(context).colorScheme.surface,
-                    offset: const Offset(-1, 0),
-                  ),
+                BoxShadow(
+                  color: Theme.of(context).colorScheme.surface,
+                  offset: const Offset(-1, 0),
+                ),
               ],
             ),
             child: Material(

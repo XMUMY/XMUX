@@ -1,12 +1,13 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart' hide Notification;
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:html/parser.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:moodle/model/notification.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../component/catalogue_content_layout.dart';
 import '../../component/floating_card.dart';
 import '../../global.dart';
 import '../../util/screen.dart';
@@ -25,6 +26,7 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage>
   );
 
   Notification? _selectedNotification;
+  bool _isNarrow = false;
 
   Future<void> _fetchPage(int pageKey) async {
     final resp = await moodle.getPopupNotifications(offset: pageKey);
@@ -46,7 +48,7 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage>
 
   Widget _buildListItem(BuildContext context, Notification notification) {
     final languageCode = Localizations.localeOf(context).languageCode;
-    var content = Column(
+    final content = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
@@ -64,8 +66,7 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage>
     );
 
     Widget child;
-    if (!(context.isBetween(Breakpoint.extraSmall) ||
-        context.isBetween(Breakpoint.small1))) {
+    if (!_isNarrow) {
       child = FloatingCard(
         margin: const EdgeInsets.symmetric(vertical: 4),
         padding: const EdgeInsets.all(16),
@@ -91,39 +92,30 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage>
   Widget build(BuildContext context) {
     super.build(context);
     final list = PagedListView<int, Notification>(
+      primary: _isNarrow,
+      padding: EdgeInsets.symmetric(
+        vertical: 4,
+        horizontal: Breakpoint.extraSmall.margin!,
+      ),
       pagingController: _pagingController,
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       builderDelegate: PagedChildBuilderDelegate<Notification>(
         itemBuilder: (context, item, index) => _buildListItem(context, item),
       ),
     );
 
-    if (!(context.isBetween(Breakpoint.extraSmall) ||
-        context.isBetween(Breakpoint.small1))) {
-      return Row(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: list,
-          ),
-          Expanded(
-            flex: max(MediaQuery.of(context).size.width ~/ 400 - 1, 1),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: _selectedNotification == null
-                  ? Container()
-                  : _MoodleNotificationDetail(
-                      key: ValueKey(_selectedNotification),
-                      notification: _selectedNotification!,
-                      isPage: false,
-                    ),
-            ),
-          ),
-        ],
-      );
-    }
-
-    return list;
+    return CatalogueContentLayout(
+      catalogueBuilder: (context, isNarrow) {
+        _isNarrow = isNarrow;
+        return list;
+      },
+      content: _selectedNotification != null
+          ? _MoodleNotificationDetail(
+              key: ValueKey(_selectedNotification),
+              notification: _selectedNotification!,
+              isPage: false,
+            )
+          : null,
+    );
   }
 }
 
@@ -144,8 +136,8 @@ class _MoodleNotificationDetail extends StatelessWidget {
     final doc = parse(notification.fullMessageHtml).querySelector('.content')
       ?..querySelector('.commands')?.remove()
       ..querySelector('.link')?.remove();
-    var content = doc?.innerHtml;
 
+    var content = doc?.innerHtml;
     if (content == null) {
       try {
         content = notification.fullMessage.split('-' * 69)[1];
@@ -154,12 +146,34 @@ class _MoodleNotificationDetail extends StatelessWidget {
       }
     }
 
-    final detail = ListView(
-      padding: EdgeInsets.fromLTRB(
-          isPage ? context.padBody : 0, 4, isPage ? context.padBody : 16, 4),
-      children: <Widget>[
-        doc != null ? HtmlWidget(content) : Text(content),
-      ],
+    final contentWidget = doc != null
+        ? HtmlWidget(
+            content,
+            onTapUrl: (url) {
+              if (url.startsWith('http://') || url.startsWith('https://')) {
+                launch(url);
+              }
+              return true;
+            },
+          )
+        : Linkify(
+            text: content,
+            onOpen: (link) {
+              if (link.url.startsWith('http://') ||
+                  link.url.startsWith('https://')) {
+                launch(link.url);
+              }
+            },
+          );
+
+    final detail = BodyPaddingBuilder(
+      builder: (context, hPadding) => ListView(
+        padding: EdgeInsets.symmetric(
+          vertical: 4,
+          horizontal: hPadding,
+        ),
+        children: [contentWidget],
+      ),
     );
 
     if (isPage) {

@@ -396,7 +396,7 @@ class _Dialog extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       title: title,
       titlePadding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-      contentPadding: const EdgeInsets.all(8),
+      contentPadding: const EdgeInsets.all(12),
       children: <Widget>[
         info,
         if (isMobile)

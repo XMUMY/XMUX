@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +6,7 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:moodle/model/assignment.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../component/catalogue_content_layout.dart';
 import '../../component/empty_error.dart';
 import '../../global.dart';
 import '../../redux/action/action.dart';
@@ -43,9 +42,11 @@ class AssignmentList extends StatefulWidget {
 
 class _AssignmentListState extends State<AssignmentList>
     with AutomaticKeepAliveClientMixin {
-  Assignment? _selectedAssignment;
   final _doing = <ExpansionPanelRadio>[];
   final _expired = <ExpansionPanelRadio>[];
+
+  Assignment? _selectedAssignment;
+  bool _isNarrow = false;
 
   Future<void> _handleUpdate() async {
     var action = UpdateAssignmentsAction();
@@ -112,15 +113,14 @@ class _AssignmentListState extends State<AssignmentList>
                   '${DateFormat.Hms(languageCode).format(assignment.dueDate)}',
                 ),
                 onTap: () {
-                  _selectedAssignment = assignment;
-                  if (context.isBetween(Breakpoint.extraSmall) ||
-                      context.isBetween(Breakpoint.small1)) {
+                  if (_isNarrow) {
                     open();
                   } else {
-                    setState(() {});
+                    setState(() => _selectedAssignment = assignment);
                   }
                 },
               ),
+              openColor: Theme.of(context).canvasColor,
               openBuilder: (context, _) =>
                   AssignmentDetail(assignment: assignment),
             ),
@@ -148,10 +148,14 @@ class _AssignmentListState extends State<AssignmentList>
   Widget build(BuildContext context) {
     super.build(context);
 
-    Widget child;
+    Widget list;
     if (widget.assignments.isNotEmpty) {
-      child = ListView(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      list = ListView(
+        primary: _isNarrow,
+        padding: EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: Breakpoint.extraSmall.margin!,
+        ),
         children: <Widget>[
           Text(
             LocaleKeys.Calendar_AssignmentsDoing.tr(),
@@ -169,38 +173,26 @@ class _AssignmentListState extends State<AssignmentList>
         ],
       );
     } else {
-      child = const EmptyErrorList();
+      list = const EmptyErrorList();
     }
 
-    if (!(context.isBetween(Breakpoint.extraSmall) ||
-        context.isBetween(Breakpoint.small1) ||
-        widget.assignments.isEmpty)) {
-      child = Row(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: child,
-          ),
-          Expanded(
-            flex: max(MediaQuery.of(context).size.width ~/ 400 - 1, 1),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: _selectedAssignment == null
-                  ? Container()
-                  : AssignmentDetail(
-                      key: ValueKey(_selectedAssignment),
-                      assignment: _selectedAssignment!,
-                      isPage: false,
-                    ),
-            ),
-          ),
-        ],
-      );
-    }
-
-    return RefreshIndicator(
+    list = RefreshIndicator(
       onRefresh: _handleUpdate,
-      child: child,
+      child: list,
+    );
+
+    return CatalogueContentLayout(
+      catalogueBuilder: (_, isNarrow) {
+        _isNarrow = isNarrow;
+        return list;
+      },
+      content: _selectedAssignment != null
+          ? AssignmentDetail(
+              key: ValueKey(_selectedAssignment),
+              assignment: _selectedAssignment!,
+              isPage: false,
+            )
+          : null,
     );
   }
 }
@@ -221,89 +213,94 @@ class AssignmentDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final languageCode = Localizations.localeOf(context).languageCode;
 
-    final detail = ListView(
-      padding: EdgeInsets.fromLTRB(
-          isPage ? context.padBody : 0, 4, isPage ? context.padBody : 16, 4),
-      children: <Widget>[
-        if (!isPage)
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              assignment.name,
-              style: Theme.of(context).textTheme.headline6,
+    final detail = BodyPaddingBuilder(
+      builder: (context, hPadding) => ListView(
+        primary: isPage,
+        padding: EdgeInsets.symmetric(
+          vertical: 4,
+          horizontal: hPadding - 4, // -4px card margin.
+        ),
+        children: [
+          if (!isPage)
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Text(
+                assignment.name,
+                style: Theme.of(context).textTheme.headline6,
+              ),
             ),
-          ),
-        if (assignment.intro.isNotEmpty ||
-            assignment.introAttachments.isNotEmpty)
+          if (assignment.intro.isNotEmpty ||
+              assignment.introAttachments.isNotEmpty)
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      'Introduction',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+
+                    HtmlWidget(assignment.intro),
+
+                    // Intro attachments.
+                    Wrap(
+                      children: <Widget>[
+                        for (var attachment in assignment.introAttachments)
+                          SizedBox(
+                            width: 80,
+                            child: Column(
+                              children: <Widget>[
+                                IconButton(
+                                  icon: const Icon(Icons.insert_drive_file),
+                                  iconSize: 50,
+                                  onPressed: () =>
+                                      launch(moodle.withToken(attachment.url)),
+                                ),
+                                Text(
+                                  attachment.name,
+                                  style: Theme.of(context).textTheme.caption,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
           Card(
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: <Widget>[
                   Text(
-                    'Introduction',
+                    LocaleKeys.Calendar_AssignmentsDueDate.tr(),
                     style: Theme.of(context).textTheme.headline6,
                   ),
-
-                  HtmlWidget(assignment.intro),
-
-                  // Intro attachments.
-                  Wrap(
-                    children: <Widget>[
-                      for (var attachment in assignment.introAttachments)
-                        SizedBox(
-                          width: 80,
-                          child: Column(
-                            children: <Widget>[
-                              IconButton(
-                                icon: const Icon(Icons.insert_drive_file),
-                                iconSize: 50,
-                                onPressed: () =>
-                                    launch(moodle.withToken(attachment.url)),
-                              ),
-                              Text(
-                                attachment.name,
-                                style: Theme.of(context).textTheme.caption,
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                    ],
-                  )
+                  const Divider(height: 5, color: Colors.transparent),
+                  Text(
+                    '${DateFormat.yMMMEd(languageCode).format(assignment.dueDate)} '
+                    '${DateFormat.Hms(languageCode).format(assignment.dueDate)}',
+                  ),
+                  const Divider(color: Colors.transparent),
+                  Text(
+                    'Allow Submission From',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  const Divider(height: 5, color: Colors.transparent),
+                  Text(
+                    '${DateFormat.yMMMEd(languageCode).format(assignment.allowSubmissionFromDate)} '
+                    '${DateFormat.Hms(languageCode).format(assignment.allowSubmissionFromDate)}',
+                  ),
                 ],
               ),
             ),
-          ),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  LocaleKeys.Calendar_AssignmentsDueDate.tr(),
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                const Divider(height: 5, color: Colors.transparent),
-                Text(
-                  '${DateFormat.yMMMEd(languageCode).format(assignment.dueDate)} '
-                  '${DateFormat.Hms(languageCode).format(assignment.dueDate)}',
-                ),
-                const Divider(color: Colors.transparent),
-                Text(
-                  'Allow Submission From',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                const Divider(height: 5, color: Colors.transparent),
-                Text(
-                  '${DateFormat.yMMMEd(languageCode).format(assignment.allowSubmissionFromDate)} '
-                  '${DateFormat.Hms(languageCode).format(assignment.allowSubmissionFromDate)}',
-                ),
-              ],
-            ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
 
     if (isPage) {
