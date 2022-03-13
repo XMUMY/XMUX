@@ -101,31 +101,37 @@ class Maintenance {
 
     final myRequests = <MyRequest>[];
     for (var i = 0; i < myRequestPage.length; i += 2) {
+      final id = myRequestPage[i]
+          .nodes
+          .first
+          .text!
+          .replaceAll(RegExp(r'^\s+|\s+$|\n|\.'), '');
+
       final titles = myRequestPage[i]
           .nodes[1]
           .text!
           .replaceAll(RegExp(r'^\s+|\s+$|\n'), '')
           .split(' - ');
 
+      final date = myRequestPage[i]
+          .nodes
+          .last
+          .text!
+          .replaceAll(RegExp(r'^\s+|\s+$|\n'), '');
+
+      final answer = myRequestPage[i + 1]
+          .children
+          .map((e) => e.text)
+          .join('\n')
+          .replaceAll(RegExp(r'^\s+|\s+$'), '');
+
       myRequests.add(MyRequest(
-        id: myRequestPage[i]
-            .nodes[0]
-            .text!
-            .replaceAll(RegExp(r'^\s+|\s+$|\n|\.'), ''),
-        date: DateFormat('yyyy/MM/dd HH:mm:ss').parse(
-          myRequestPage[i]
-              .nodes[2]
-              .text!
-              .replaceAll(RegExp(r'^\s+|\s+$|\n'), ''),
-        ),
+        id: id,
+        date: DateFormat('yyyy/MM/dd HH:mm:ss').parse(date),
         title: titles[2],
         category: titles[1],
         usage: titles[0],
-        answer: myRequestPage[i + 1]
-            .children
-            .map((e) => e.text)
-            .join('\n')
-            .replaceAll(RegExp(r'^\s+|\s+$'), ''),
+        answer: answer,
       ));
     }
 
@@ -143,7 +149,7 @@ class Maintenance {
             .querySelectorAll('option')
             .map((e) => e.text)
             .toList()
-              ..removeAt(0))
+          ..removeAt(0))
         .toList();
 
     return RequestForm(
