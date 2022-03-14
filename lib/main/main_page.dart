@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -14,8 +13,8 @@ import 'forum/forum_page.dart';
 
 const mainPages = <TopLevelPage>[
   CalendarPage(),
-  CampusPage(),
   ForumPage(),
+  CampusPage(),
 ];
 
 abstract class TopLevelPage implements Widget {
@@ -116,14 +115,8 @@ class _MainPageState extends State<MainPage> {
             const VerticalDivider(thickness: 1, width: 1),
           ],
           Expanded(
-            child: PageTransitionSwitcher(
+            child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
-              transitionBuilder: (child, animation, secondaryAnimation) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
               child: mainPages[_index],
             ),
           )

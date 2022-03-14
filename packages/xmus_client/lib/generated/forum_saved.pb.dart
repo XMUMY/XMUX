@@ -199,19 +199,19 @@ class UnsavePostReq extends $pb.GeneratedMessage {
 
 class GetSavedThreadsReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetSavedThreadsReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cursor', $pb.PbFieldType.O3)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'offset', $pb.PbFieldType.O3)
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'count', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
   GetSavedThreadsReq._() : super();
   factory GetSavedThreadsReq({
-    $core.int? cursor,
+    $core.int? offset,
     $core.int? count,
   }) {
     final _result = create();
-    if (cursor != null) {
-      _result.cursor = cursor;
+    if (offset != null) {
+      _result.offset = offset;
     }
     if (count != null) {
       _result.count = count;
@@ -240,13 +240,13 @@ class GetSavedThreadsReq extends $pb.GeneratedMessage {
   static GetSavedThreadsReq? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get cursor => $_getIZ(0);
+  $core.int get offset => $_getIZ(0);
   @$pb.TagNumber(1)
-  set cursor($core.int v) { $_setSignedInt32(0, v); }
+  set offset($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasCursor() => $_has(0);
+  $core.bool hasOffset() => $_has(0);
   @$pb.TagNumber(1)
-  void clearCursor() => clearField(1);
+  void clearOffset() => clearField(1);
 
   @$pb.TagNumber(2)
   $core.int get count => $_getIZ(1);
@@ -260,19 +260,19 @@ class GetSavedThreadsReq extends $pb.GeneratedMessage {
 
 class GetSavedPostsReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetSavedPostsReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cursor', $pb.PbFieldType.O3)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'offset', $pb.PbFieldType.O3)
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'count', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
   GetSavedPostsReq._() : super();
   factory GetSavedPostsReq({
-    $core.int? cursor,
+    $core.int? offset,
     $core.int? count,
   }) {
     final _result = create();
-    if (cursor != null) {
-      _result.cursor = cursor;
+    if (offset != null) {
+      _result.offset = offset;
     }
     if (count != null) {
       _result.count = count;
@@ -301,13 +301,13 @@ class GetSavedPostsReq extends $pb.GeneratedMessage {
   static GetSavedPostsReq? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.int get cursor => $_getIZ(0);
+  $core.int get offset => $_getIZ(0);
   @$pb.TagNumber(1)
-  set cursor($core.int v) { $_setSignedInt32(0, v); }
+  set offset($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasCursor() => $_has(0);
+  $core.bool hasOffset() => $_has(0);
   @$pb.TagNumber(1)
-  void clearCursor() => clearField(1);
+  void clearOffset() => clearField(1);
 
   @$pb.TagNumber(2)
   $core.int get count => $_getIZ(1);

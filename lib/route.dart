@@ -93,9 +93,9 @@ final routes = [
 ];
 
 const calendarPageNames = [
-  '/Calendar/Timetable',
-  '/Calendar/Exam',
-  '/Calendar/Assignment',
-  '/Calendar/UpcomingEvent',
-  '/Calendar/MoodleNotification',
+  '/M/Calendar/Timetable',
+  '/M/Calendar/Exam',
+  '/M/Calendar/Assignment',
+  '/M/Calendar/UpcomingEvent',
+  '/M/Calendar/MoodleNotification',
 ];

@@ -58,13 +58,13 @@ const GetThreadsReq$json = const {
   '2': const [
     const {'1': 'forumId', '3': 1, '4': 1, '5': 5, '10': 'forumId'},
     const {'1': 'ordering', '3': 2, '4': 1, '5': 14, '6': '.xmux.forum.v4.Ordering', '10': 'ordering'},
-    const {'1': 'cursor', '3': 3, '4': 1, '5': 5, '10': 'cursor'},
+    const {'1': 'offset', '3': 3, '4': 1, '5': 5, '10': 'offset'},
     const {'1': 'count', '3': 4, '4': 1, '5': 5, '10': 'count'},
   ],
 };
 
 /// Descriptor for `GetThreadsReq`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getThreadsReqDescriptor = $convert.base64Decode('Cg1HZXRUaHJlYWRzUmVxEhgKB2ZvcnVtSWQYASABKAVSB2ZvcnVtSWQSMwoIb3JkZXJpbmcYAiABKA4yFy54bXV4LmZvcnVtLnY0Lk9yZGVyaW5nUghvcmRlcmluZxIWCgZjdXJzb3IYAyABKAVSBmN1cnNvchIUCgVjb3VudBgEIAEoBVIFY291bnQ=');
+final $typed_data.Uint8List getThreadsReqDescriptor = $convert.base64Decode('Cg1HZXRUaHJlYWRzUmVxEhgKB2ZvcnVtSWQYASABKAVSB2ZvcnVtSWQSMwoIb3JkZXJpbmcYAiABKA4yFy54bXV4LmZvcnVtLnY0Lk9yZGVyaW5nUghvcmRlcmluZxIWCgZvZmZzZXQYAyABKAVSBm9mZnNldBIUCgVjb3VudBgEIAEoBVIFY291bnQ=');
 @$core.Deprecated('Use getThreadsRespDescriptor instead')
 const GetThreadsResp$json = const {
   '1': 'GetThreadsResp',

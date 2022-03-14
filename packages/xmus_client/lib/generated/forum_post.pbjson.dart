@@ -48,39 +48,39 @@ const GetPostsReq$json = const {
   '2': const [
     const {'1': 'threadId', '3': 1, '4': 1, '5': 5, '10': 'threadId'},
     const {'1': 'ordering', '3': 2, '4': 1, '5': 14, '6': '.xmux.forum.v4.Ordering', '10': 'ordering'},
-    const {'1': 'cursor', '3': 3, '4': 1, '5': 5, '10': 'cursor'},
+    const {'1': 'offset', '3': 3, '4': 1, '5': 5, '10': 'offset'},
     const {'1': 'count', '3': 4, '4': 1, '5': 5, '10': 'count'},
   ],
 };
 
 /// Descriptor for `GetPostsReq`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getPostsReqDescriptor = $convert.base64Decode('CgtHZXRQb3N0c1JlcRIaCgh0aHJlYWRJZBgBIAEoBVIIdGhyZWFkSWQSMwoIb3JkZXJpbmcYAiABKA4yFy54bXV4LmZvcnVtLnY0Lk9yZGVyaW5nUghvcmRlcmluZxIWCgZjdXJzb3IYAyABKAVSBmN1cnNvchIUCgVjb3VudBgEIAEoBVIFY291bnQ=');
+final $typed_data.Uint8List getPostsReqDescriptor = $convert.base64Decode('CgtHZXRQb3N0c1JlcRIaCgh0aHJlYWRJZBgBIAEoBVIIdGhyZWFkSWQSMwoIb3JkZXJpbmcYAiABKA4yFy54bXV4LmZvcnVtLnY0Lk9yZGVyaW5nUghvcmRlcmluZxIWCgZvZmZzZXQYAyABKAVSBm9mZnNldBIUCgVjb3VudBgEIAEoBVIFY291bnQ=');
 @$core.Deprecated('Use getPostsByUidReqDescriptor instead')
 const GetPostsByUidReq$json = const {
   '1': 'GetPostsByUidReq',
   '2': const [
     const {'1': 'uid', '3': 1, '4': 1, '5': 9, '10': 'uid'},
     const {'1': 'ordering', '3': 2, '4': 1, '5': 14, '6': '.xmux.forum.v4.Ordering', '10': 'ordering'},
-    const {'1': 'cursor', '3': 3, '4': 1, '5': 5, '10': 'cursor'},
+    const {'1': 'offset', '3': 3, '4': 1, '5': 5, '10': 'offset'},
     const {'1': 'count', '3': 4, '4': 1, '5': 5, '10': 'count'},
   ],
 };
 
 /// Descriptor for `GetPostsByUidReq`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getPostsByUidReqDescriptor = $convert.base64Decode('ChBHZXRQb3N0c0J5VWlkUmVxEhAKA3VpZBgBIAEoCVIDdWlkEjMKCG9yZGVyaW5nGAIgASgOMhcueG11eC5mb3J1bS52NC5PcmRlcmluZ1IIb3JkZXJpbmcSFgoGY3Vyc29yGAMgASgFUgZjdXJzb3ISFAoFY291bnQYBCABKAVSBWNvdW50');
+final $typed_data.Uint8List getPostsByUidReqDescriptor = $convert.base64Decode('ChBHZXRQb3N0c0J5VWlkUmVxEhAKA3VpZBgBIAEoCVIDdWlkEjMKCG9yZGVyaW5nGAIgASgOMhcueG11eC5mb3J1bS52NC5PcmRlcmluZ1IIb3JkZXJpbmcSFgoGb2Zmc2V0GAMgASgFUgZvZmZzZXQSFAoFY291bnQYBCABKAVSBWNvdW50');
 @$core.Deprecated('Use getPostsByParentReqDescriptor instead')
 const GetPostsByParentReq$json = const {
   '1': 'GetPostsByParentReq',
   '2': const [
     const {'1': 'parentId', '3': 1, '4': 1, '5': 5, '10': 'parentId'},
     const {'1': 'ordering', '3': 2, '4': 1, '5': 14, '6': '.xmux.forum.v4.Ordering', '10': 'ordering'},
-    const {'1': 'cursor', '3': 3, '4': 1, '5': 5, '10': 'cursor'},
+    const {'1': 'offset', '3': 3, '4': 1, '5': 5, '10': 'offset'},
     const {'1': 'count', '3': 4, '4': 1, '5': 5, '10': 'count'},
   ],
 };
 
 /// Descriptor for `GetPostsByParentReq`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getPostsByParentReqDescriptor = $convert.base64Decode('ChNHZXRQb3N0c0J5UGFyZW50UmVxEhoKCHBhcmVudElkGAEgASgFUghwYXJlbnRJZBIzCghvcmRlcmluZxgCIAEoDjIXLnhtdXguZm9ydW0udjQuT3JkZXJpbmdSCG9yZGVyaW5nEhYKBmN1cnNvchgDIAEoBVIGY3Vyc29yEhQKBWNvdW50GAQgASgFUgVjb3VudA==');
+final $typed_data.Uint8List getPostsByParentReqDescriptor = $convert.base64Decode('ChNHZXRQb3N0c0J5UGFyZW50UmVxEhoKCHBhcmVudElkGAEgASgFUghwYXJlbnRJZBIzCghvcmRlcmluZxgCIAEoDjIXLnhtdXguZm9ydW0udjQuT3JkZXJpbmdSCG9yZGVyaW5nEhYKBm9mZnNldBgDIAEoBVIGb2Zmc2V0EhQKBWNvdW50GAQgASgFUgVjb3VudA==');
 @$core.Deprecated('Use getPostsRespDescriptor instead')
 const GetPostsResp$json = const {
   '1': 'GetPostsResp',

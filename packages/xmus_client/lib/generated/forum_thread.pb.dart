@@ -261,7 +261,7 @@ class GetThreadsReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetThreadsReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'forumId', $pb.PbFieldType.O3, protoName: 'forumId')
     ..e<$6.Ordering>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ordering', $pb.PbFieldType.OE, defaultOrMaker: $6.Ordering.update, valueOf: $6.Ordering.valueOf, enumValues: $6.Ordering.values)
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cursor', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'offset', $pb.PbFieldType.O3)
     ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'count', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
@@ -270,7 +270,7 @@ class GetThreadsReq extends $pb.GeneratedMessage {
   factory GetThreadsReq({
     $core.int? forumId,
     $6.Ordering? ordering,
-    $core.int? cursor,
+    $core.int? offset,
     $core.int? count,
   }) {
     final _result = create();
@@ -280,8 +280,8 @@ class GetThreadsReq extends $pb.GeneratedMessage {
     if (ordering != null) {
       _result.ordering = ordering;
     }
-    if (cursor != null) {
-      _result.cursor = cursor;
+    if (offset != null) {
+      _result.offset = offset;
     }
     if (count != null) {
       _result.count = count;
@@ -328,13 +328,13 @@ class GetThreadsReq extends $pb.GeneratedMessage {
   void clearOrdering() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.int get cursor => $_getIZ(2);
+  $core.int get offset => $_getIZ(2);
   @$pb.TagNumber(3)
-  set cursor($core.int v) { $_setSignedInt32(2, v); }
+  set offset($core.int v) { $_setSignedInt32(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasCursor() => $_has(2);
+  $core.bool hasOffset() => $_has(2);
   @$pb.TagNumber(3)
-  void clearCursor() => clearField(3);
+  void clearOffset() => clearField(3);
 
   @$pb.TagNumber(4)
   $core.int get count => $_getIZ(3);

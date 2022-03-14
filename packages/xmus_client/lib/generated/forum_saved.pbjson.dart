@@ -52,21 +52,21 @@ final $typed_data.Uint8List unsavePostReqDescriptor = $convert.base64Decode('Cg1
 const GetSavedThreadsReq$json = const {
   '1': 'GetSavedThreadsReq',
   '2': const [
-    const {'1': 'cursor', '3': 1, '4': 1, '5': 5, '10': 'cursor'},
+    const {'1': 'offset', '3': 1, '4': 1, '5': 5, '10': 'offset'},
     const {'1': 'count', '3': 2, '4': 1, '5': 5, '10': 'count'},
   ],
 };
 
 /// Descriptor for `GetSavedThreadsReq`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getSavedThreadsReqDescriptor = $convert.base64Decode('ChJHZXRTYXZlZFRocmVhZHNSZXESFgoGY3Vyc29yGAEgASgFUgZjdXJzb3ISFAoFY291bnQYAiABKAVSBWNvdW50');
+final $typed_data.Uint8List getSavedThreadsReqDescriptor = $convert.base64Decode('ChJHZXRTYXZlZFRocmVhZHNSZXESFgoGb2Zmc2V0GAEgASgFUgZvZmZzZXQSFAoFY291bnQYAiABKAVSBWNvdW50');
 @$core.Deprecated('Use getSavedPostsReqDescriptor instead')
 const GetSavedPostsReq$json = const {
   '1': 'GetSavedPostsReq',
   '2': const [
-    const {'1': 'cursor', '3': 1, '4': 1, '5': 5, '10': 'cursor'},
+    const {'1': 'offset', '3': 1, '4': 1, '5': 5, '10': 'offset'},
     const {'1': 'count', '3': 2, '4': 1, '5': 5, '10': 'count'},
   ],
 };
 
 /// Descriptor for `GetSavedPostsReq`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getSavedPostsReqDescriptor = $convert.base64Decode('ChBHZXRTYXZlZFBvc3RzUmVxEhYKBmN1cnNvchgBIAEoBVIGY3Vyc29yEhQKBWNvdW50GAIgASgFUgVjb3VudA==');
+final $typed_data.Uint8List getSavedPostsReqDescriptor = $convert.base64Decode('ChBHZXRTYXZlZFBvc3RzUmVxEhYKBm9mZnNldBgBIAEoBVIGb2Zmc2V0EhQKBWNvdW50GAIgASgFUgVjb3VudA==');
