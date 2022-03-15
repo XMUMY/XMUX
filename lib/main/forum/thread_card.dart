@@ -34,7 +34,6 @@ class ThreadCard extends StatefulWidget {
 
 class _ThreadCardState extends State<ThreadCard> {
   late ExpandableController _expandableController;
-  bool liked = false;
 
   @override
   void initState() {
@@ -138,16 +137,33 @@ class _ThreadCardState extends State<ThreadCard> {
     final footer = Row(
       children: [
         IconButton(
-          icon: LikeIcon(liked: liked),
+          icon: LikeIcon(liked: widget.thread.liked > 0),
           iconSize: 35,
           padding: EdgeInsets.zero,
           onPressed: () {
             // TODO: Real like.
-            widget.thread.likes += liked ? -1 : 1;
-            setState(() => liked = !liked);
+            final liked = widget.thread.liked > 0 ? 0 : 1;
+            widget.thread.likes += liked > 0 ? 1 : -1;
+            setState(() => widget.thread.liked = liked);
           },
         ),
         Text('${max(0, widget.thread.likes)}'),
+        IconButton(
+          icon: AnimatedCrossFade(
+            duration: const Duration(milliseconds: 200),
+            firstChild: const Icon(Icons.bookmark_border),
+            secondChild: const Icon(Icons.bookmark),
+            crossFadeState: widget.thread.saved
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
+          ),
+          iconSize: 28,
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            // TODO: Real save.
+            setState(() => widget.thread.saved = !widget.thread.saved);
+          },
+        ),
       ],
     );
 
@@ -165,6 +181,7 @@ class _ThreadCardState extends State<ThreadCard> {
             theme: ExpandableThemeData(
               tapHeaderToExpand: false,
               hasIcon: widget.exbandable,
+              iconColor: Theme.of(context).iconTheme.color,
             ),
             controller: _expandableController,
             header: header,

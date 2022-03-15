@@ -530,6 +530,8 @@ class Post extends $pb.GeneratedMessage {
     ..a<$core.int>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'likes', $pb.PbFieldType.O3)
     ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pinned')
     ..aOM<$5.Timestamp>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createAt', protoName: 'createAt', subBuilder: $5.Timestamp.create)
+    ..a<$core.int>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'liked', $pb.PbFieldType.O3)
+    ..aOB(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'saved')
     ..hasRequiredFields = false
   ;
 
@@ -545,6 +547,8 @@ class Post extends $pb.GeneratedMessage {
     $core.int? likes,
     $core.bool? pinned,
     $5.Timestamp? createAt,
+    $core.int? liked,
+    $core.bool? saved,
   }) {
     final _result = create();
     if (id != null) {
@@ -576,6 +580,12 @@ class Post extends $pb.GeneratedMessage {
     }
     if (createAt != null) {
       _result.createAt = createAt;
+    }
+    if (liked != null) {
+      _result.liked = liked;
+    }
+    if (saved != null) {
+      _result.saved = saved;
     }
     return _result;
   }
@@ -691,6 +701,24 @@ class Post extends $pb.GeneratedMessage {
   void clearCreateAt() => clearField(10);
   @$pb.TagNumber(10)
   $5.Timestamp ensureCreateAt() => $_ensure(9);
+
+  @$pb.TagNumber(11)
+  $core.int get liked => $_getIZ(10);
+  @$pb.TagNumber(11)
+  set liked($core.int v) { $_setSignedInt32(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasLiked() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearLiked() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.bool get saved => $_getBF(11);
+  @$pb.TagNumber(12)
+  set saved($core.bool v) { $_setBool(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasSaved() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearSaved() => clearField(12);
 }
 
 class LikePostReq extends $pb.GeneratedMessage {

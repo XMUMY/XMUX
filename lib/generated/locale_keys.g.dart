@@ -88,6 +88,7 @@ abstract class  LocaleKeys {
   static const Community_Community = 'Community.Community';
   static const Community_Discover = 'Community.Discover';
   static const Community_Forums = 'Community.Forums';
+  static const Community_Favorites = 'Community.Favorites';
   static const Community_CreateThreadTitle = 'Community.CreateThreadTitle';
   static const Community_CreateTitle = 'Community.CreateTitle';
   static const Community_CreatePost = 'Community.CreatePost';
@@ -100,7 +101,6 @@ abstract class  LocaleKeys {
   static const Community_ReferedComment = 'Community.ReferedComment';
   static const Community_Notif = 'Community.Notif';
   static const Community_More = 'Community.More';
-  static const Community_Saved = 'Community.Saved';
   static const Community_MyActivity = 'Community.MyActivity';
   static const Community_Post = 'Community.Post';
   static const Community_Reply = 'Community.Reply';

@@ -397,8 +397,10 @@ class Thread extends $pb.GeneratedMessage {
     ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pinned')
     ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'digest')
     ..aOM<$5.Timestamp>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createAt', protoName: 'createAt', subBuilder: $5.Timestamp.create)
-    ..aOM<$5.Timestamp>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastUpdate', protoName: 'lastUpdate', subBuilder: $5.Timestamp.create)
-    ..aOM<$5.Timestamp>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateAt', protoName: 'updateAt', subBuilder: $5.Timestamp.create)
+    ..aOM<$5.Timestamp>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateAt', protoName: 'updateAt', subBuilder: $5.Timestamp.create)
+    ..aOM<$5.Timestamp>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastUpdate', protoName: 'lastUpdate', subBuilder: $5.Timestamp.create)
+    ..a<$core.int>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'liked', $pb.PbFieldType.O3)
+    ..aOB(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'saved')
     ..hasRequiredFields = false
   ;
 
@@ -412,8 +414,10 @@ class Thread extends $pb.GeneratedMessage {
     $core.bool? pinned,
     $core.bool? digest,
     $5.Timestamp? createAt,
-    $5.Timestamp? lastUpdate,
     $5.Timestamp? updateAt,
+    $5.Timestamp? lastUpdate,
+    $core.int? liked,
+    $core.bool? saved,
   }) {
     final _result = create();
     if (id != null) {
@@ -440,11 +444,17 @@ class Thread extends $pb.GeneratedMessage {
     if (createAt != null) {
       _result.createAt = createAt;
     }
+    if (updateAt != null) {
+      _result.updateAt = updateAt;
+    }
     if (lastUpdate != null) {
       _result.lastUpdate = lastUpdate;
     }
-    if (updateAt != null) {
-      _result.updateAt = updateAt;
+    if (liked != null) {
+      _result.liked = liked;
+    }
+    if (saved != null) {
+      _result.saved = saved;
     }
     return _result;
   }
@@ -544,26 +554,44 @@ class Thread extends $pb.GeneratedMessage {
   $5.Timestamp ensureCreateAt() => $_ensure(7);
 
   @$pb.TagNumber(9)
-  $5.Timestamp get lastUpdate => $_getN(8);
+  $5.Timestamp get updateAt => $_getN(8);
   @$pb.TagNumber(9)
-  set lastUpdate($5.Timestamp v) { setField(9, v); }
+  set updateAt($5.Timestamp v) { setField(9, v); }
   @$pb.TagNumber(9)
-  $core.bool hasLastUpdate() => $_has(8);
+  $core.bool hasUpdateAt() => $_has(8);
   @$pb.TagNumber(9)
-  void clearLastUpdate() => clearField(9);
+  void clearUpdateAt() => clearField(9);
   @$pb.TagNumber(9)
-  $5.Timestamp ensureLastUpdate() => $_ensure(8);
+  $5.Timestamp ensureUpdateAt() => $_ensure(8);
 
   @$pb.TagNumber(10)
-  $5.Timestamp get updateAt => $_getN(9);
+  $5.Timestamp get lastUpdate => $_getN(9);
   @$pb.TagNumber(10)
-  set updateAt($5.Timestamp v) { setField(10, v); }
+  set lastUpdate($5.Timestamp v) { setField(10, v); }
   @$pb.TagNumber(10)
-  $core.bool hasUpdateAt() => $_has(9);
+  $core.bool hasLastUpdate() => $_has(9);
   @$pb.TagNumber(10)
-  void clearUpdateAt() => clearField(10);
+  void clearLastUpdate() => clearField(10);
   @$pb.TagNumber(10)
-  $5.Timestamp ensureUpdateAt() => $_ensure(9);
+  $5.Timestamp ensureLastUpdate() => $_ensure(9);
+
+  @$pb.TagNumber(11)
+  $core.int get liked => $_getIZ(10);
+  @$pb.TagNumber(11)
+  set liked($core.int v) { $_setSignedInt32(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasLiked() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearLiked() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.bool get saved => $_getBF(11);
+  @$pb.TagNumber(12)
+  set saved($core.bool v) { $_setBool(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasSaved() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearSaved() => clearField(12);
 }
 
 class LikeThreadReq extends $pb.GeneratedMessage {

@@ -87,13 +87,15 @@ const Thread$json = const {
     const {'1': 'pinned', '3': 6, '4': 1, '5': 8, '10': 'pinned'},
     const {'1': 'digest', '3': 7, '4': 1, '5': 8, '10': 'digest'},
     const {'1': 'createAt', '3': 8, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createAt'},
-    const {'1': 'updateAt', '3': 10, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updateAt'},
-    const {'1': 'lastUpdate', '3': 9, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'lastUpdate'},
+    const {'1': 'updateAt', '3': 9, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'updateAt'},
+    const {'1': 'lastUpdate', '3': 10, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'lastUpdate'},
+    const {'1': 'liked', '3': 11, '4': 1, '5': 5, '10': 'liked'},
+    const {'1': 'saved', '3': 12, '4': 1, '5': 8, '10': 'saved'},
   ],
 };
 
 /// Descriptor for `Thread`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List threadDescriptor = $convert.base64Decode('CgZUaHJlYWQSDgoCaWQYASABKAVSAmlkEhAKA3VpZBgCIAEoCVIDdWlkEhQKBXRpdGxlGAMgASgJUgV0aXRsZRISCgRib2R5GAQgASgJUgRib2R5EhQKBWxpa2VzGAUgASgFUgVsaWtlcxIWCgZwaW5uZWQYBiABKAhSBnBpbm5lZBIWCgZkaWdlc3QYByABKAhSBmRpZ2VzdBI2CghjcmVhdGVBdBgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCGNyZWF0ZUF0EjYKCHVwZGF0ZUF0GAogASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIIdXBkYXRlQXQSOgoKbGFzdFVwZGF0ZRgJIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCmxhc3RVcGRhdGU=');
+final $typed_data.Uint8List threadDescriptor = $convert.base64Decode('CgZUaHJlYWQSDgoCaWQYASABKAVSAmlkEhAKA3VpZBgCIAEoCVIDdWlkEhQKBXRpdGxlGAMgASgJUgV0aXRsZRISCgRib2R5GAQgASgJUgRib2R5EhQKBWxpa2VzGAUgASgFUgVsaWtlcxIWCgZwaW5uZWQYBiABKAhSBnBpbm5lZBIWCgZkaWdlc3QYByABKAhSBmRpZ2VzdBI2CghjcmVhdGVBdBgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCGNyZWF0ZUF0EjYKCHVwZGF0ZUF0GAkgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIIdXBkYXRlQXQSOgoKbGFzdFVwZGF0ZRgKIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCmxhc3RVcGRhdGUSFAoFbGlrZWQYCyABKAVSBWxpa2VkEhQKBXNhdmVkGAwgASgIUgVzYXZlZA==');
 @$core.Deprecated('Use likeThreadReqDescriptor instead')
 const LikeThreadReq$json = const {
   '1': 'LikeThreadReq',

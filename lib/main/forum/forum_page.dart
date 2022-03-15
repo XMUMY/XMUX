@@ -101,7 +101,7 @@ class _ForumPageState extends State<ForumPage>
                 ),
                 IconButton(
                   icon: const Icon(Icons.bookmark_border),
-                  tooltip: 'Favorites',
+                  tooltip: LocaleKeys.Community_Favorites.tr(),
                   onPressed: () {},
                 ),
               ],

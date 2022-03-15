@@ -105,11 +105,13 @@ const Post$json = const {
     const {'1': 'likes', '3': 8, '4': 1, '5': 5, '10': 'likes'},
     const {'1': 'pinned', '3': 9, '4': 1, '5': 8, '10': 'pinned'},
     const {'1': 'createAt', '3': 10, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createAt'},
+    const {'1': 'liked', '3': 11, '4': 1, '5': 5, '10': 'liked'},
+    const {'1': 'saved', '3': 12, '4': 1, '5': 8, '10': 'saved'},
   ],
 };
 
 /// Descriptor for `Post`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List postDescriptor = $convert.base64Decode('CgRQb3N0Eg4KAmlkGAEgASgFUgJpZBIQCgN1aWQYAiABKAlSA3VpZBIaCgh0aHJlYWRJZBgDIAEoBVIIdGhyZWFkSWQSGgoIcGFyZW50SWQYBCABKAVSCHBhcmVudElkEhwKCXJlZlBvc3RJZBgFIAEoBVIJcmVmUG9zdElkEh4KCnJlZlBvc3RVaWQYBiABKAlSCnJlZlBvc3RVaWQSGAoHY29udGVudBgHIAEoCVIHY29udGVudBIUCgVsaWtlcxgIIAEoBVIFbGlrZXMSFgoGcGlubmVkGAkgASgIUgZwaW5uZWQSNgoIY3JlYXRlQXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUghjcmVhdGVBdA==');
+final $typed_data.Uint8List postDescriptor = $convert.base64Decode('CgRQb3N0Eg4KAmlkGAEgASgFUgJpZBIQCgN1aWQYAiABKAlSA3VpZBIaCgh0aHJlYWRJZBgDIAEoBVIIdGhyZWFkSWQSGgoIcGFyZW50SWQYBCABKAVSCHBhcmVudElkEhwKCXJlZlBvc3RJZBgFIAEoBVIJcmVmUG9zdElkEh4KCnJlZlBvc3RVaWQYBiABKAlSCnJlZlBvc3RVaWQSGAoHY29udGVudBgHIAEoCVIHY29udGVudBIUCgVsaWtlcxgIIAEoBVIFbGlrZXMSFgoGcGlubmVkGAkgASgIUgZwaW5uZWQSNgoIY3JlYXRlQXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUghjcmVhdGVBdBIUCgVsaWtlZBgLIAEoBVIFbGlrZWQSFAoFc2F2ZWQYDCABKAhSBXNhdmVk');
 @$core.Deprecated('Use likePostReqDescriptor instead')
 const LikePostReq$json = const {
   '1': 'LikePostReq',

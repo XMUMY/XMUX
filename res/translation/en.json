@@ -87,8 +87,13 @@
     "LaFDescription": "Description",
     "LaFContacts": "Please contact me by"
   },
-  "Forum": {
-    "Forum": "Forum",
+  "Community": {
+    "Community": "Community",
+    "Discover": "Discover",
+    "Forums": "Forums",
+    "Favorites": "Favorites",
+    "CreateThreadTitle": "New Thread",
+    "CreateTitle": "Title",
     "CreatePost": "Create post",
     "OrderNew": "New",
     "OrderOld": "In order",
@@ -97,12 +102,8 @@
     "ReplyTo": "Reply to",
     "CommentHint": "Comment",
     "ReferedComment": "Refered comment",
-    "CreateTitle": "Title",
-    "CreateBody": "Post body",
-    "CreatePageTitle": "New post",
     "Notif": "Notification",
     "More": "More",
-    "Saved": "Saved",
     "MyActivity": "My Activity",
     "Post": "Post",
     "Reply": "Comment",
