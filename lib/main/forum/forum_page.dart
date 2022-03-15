@@ -17,7 +17,7 @@ class ForumPage extends StatefulWidget implements TopLevelPage {
   const ForumPage({Key? key}) : super(key: key);
 
   @override
-  String get path => 'Forum';
+  String get path => 'Community';
 
   @override
   String get label => LocaleKeys.Community_Community.tr();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:xmus_client/generated/forum_thread.pb.dart';
 
 import 'init/init_page.dart';
 import 'init/login_page.dart';
@@ -14,6 +15,7 @@ import 'main/campus/lost_and_found/lost_and_found.dart';
 import 'main/campus/maintenance/maintenance.dart';
 import 'main/campus/transcript.dart';
 import 'main/campus/wolfram.dart';
+import 'main/forum/thread_detail.dart';
 import 'main/main_page.dart';
 
 Page<T> _fade<T>(BuildContext context, GoRouterState state, Widget child) =>
@@ -47,6 +49,10 @@ final routes = [
       GoRoute(
         path: 'AcademicCalendar',
         builder: (_, s) => AcademicCalendarPage(),
+      ),
+      GoRoute(
+        path: 'Thread/:tid',
+        builder: (_, s) => ThreadDetailPage(thread: s.extra as Thread),
       ),
       GoRoute(
         path: 'WolframEngine',
