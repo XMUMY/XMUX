@@ -8,17 +8,17 @@ import '../redux/action/action.dart';
 import '../util/platform.dart';
 import '../util/remote_config.dart';
 
-final preInitTask = initRemoteConfigsTask;
+final preInitTask = ParallelTask([
+  initRemoteConfigsTask,
+  initFirebaseTask,
+]);
 
 final postInitTask = ParallelTask([
   SequentialTask([
     syncCredentialTask,
     refreshQueriesTask,
   ]),
-  SequentialTask([
-    initFirebaseTask,
-    fetchRemoteConfigsTask,
-  ])
+  fetchRemoteConfigsTask,
 ]);
 
 /// Initialize Firebase if available.

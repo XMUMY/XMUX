@@ -3,6 +3,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:timeago/timeago.dart';
 
 import '../../global.dart';
 import '../../redux/state/state.dart';
@@ -10,6 +11,7 @@ import '../../route.dart';
 import '../../util/platform.dart';
 import '../../util/screen.dart';
 import '../main_page.dart';
+import 'discover.dart';
 
 class ForumPage extends StatefulWidget implements TopLevelPage {
   const ForumPage({Key? key}) : super(key: key);
@@ -46,6 +48,9 @@ class _ForumPageState extends State<ForumPage>
         ),
       );
     }
+
+    // Necessary messages for timeago.
+    setLocaleMessages('zh', ZhCnMessages());
 
     super.initState();
   }
@@ -106,7 +111,7 @@ class _ForumPageState extends State<ForumPage>
         body: TabBarView(
           controller: _controller,
           children: [
-            Container(),
+            const DiscoverTab(),
             Container(),
           ],
         ),
