@@ -394,13 +394,14 @@ class Thread extends $pb.GeneratedMessage {
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'body')
     ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'likes', $pb.PbFieldType.O3)
-    ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pinned')
-    ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'digest')
-    ..aOM<$5.Timestamp>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createAt', protoName: 'createAt', subBuilder: $5.Timestamp.create)
-    ..aOM<$5.Timestamp>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateAt', protoName: 'updateAt', subBuilder: $5.Timestamp.create)
-    ..aOM<$5.Timestamp>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastUpdate', protoName: 'lastUpdate', subBuilder: $5.Timestamp.create)
-    ..a<$core.int>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'liked', $pb.PbFieldType.O3)
-    ..aOB(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'saved')
+    ..a<$core.int>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'posts', $pb.PbFieldType.O3)
+    ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pinned')
+    ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'digest')
+    ..aOM<$5.Timestamp>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createAt', protoName: 'createAt', subBuilder: $5.Timestamp.create)
+    ..aOM<$5.Timestamp>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateAt', protoName: 'updateAt', subBuilder: $5.Timestamp.create)
+    ..aOM<$5.Timestamp>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastUpdate', protoName: 'lastUpdate', subBuilder: $5.Timestamp.create)
+    ..a<$core.int>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'liked', $pb.PbFieldType.O3)
+    ..aOB(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'saved')
     ..hasRequiredFields = false
   ;
 
@@ -411,6 +412,7 @@ class Thread extends $pb.GeneratedMessage {
     $core.String? title,
     $core.String? body,
     $core.int? likes,
+    $core.int? posts,
     $core.bool? pinned,
     $core.bool? digest,
     $5.Timestamp? createAt,
@@ -434,6 +436,9 @@ class Thread extends $pb.GeneratedMessage {
     }
     if (likes != null) {
       _result.likes = likes;
+    }
+    if (posts != null) {
+      _result.posts = posts;
     }
     if (pinned != null) {
       _result.pinned = pinned;
@@ -525,73 +530,82 @@ class Thread extends $pb.GeneratedMessage {
   void clearLikes() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.bool get pinned => $_getBF(5);
+  $core.int get posts => $_getIZ(5);
   @$pb.TagNumber(6)
-  set pinned($core.bool v) { $_setBool(5, v); }
+  set posts($core.int v) { $_setSignedInt32(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasPinned() => $_has(5);
+  $core.bool hasPosts() => $_has(5);
   @$pb.TagNumber(6)
-  void clearPinned() => clearField(6);
+  void clearPosts() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.bool get digest => $_getBF(6);
+  $core.bool get pinned => $_getBF(6);
   @$pb.TagNumber(7)
-  set digest($core.bool v) { $_setBool(6, v); }
+  set pinned($core.bool v) { $_setBool(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasDigest() => $_has(6);
+  $core.bool hasPinned() => $_has(6);
   @$pb.TagNumber(7)
-  void clearDigest() => clearField(7);
+  void clearPinned() => clearField(7);
 
   @$pb.TagNumber(8)
-  $5.Timestamp get createAt => $_getN(7);
+  $core.bool get digest => $_getBF(7);
   @$pb.TagNumber(8)
-  set createAt($5.Timestamp v) { setField(8, v); }
+  set digest($core.bool v) { $_setBool(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasCreateAt() => $_has(7);
+  $core.bool hasDigest() => $_has(7);
   @$pb.TagNumber(8)
-  void clearCreateAt() => clearField(8);
-  @$pb.TagNumber(8)
-  $5.Timestamp ensureCreateAt() => $_ensure(7);
+  void clearDigest() => clearField(8);
 
   @$pb.TagNumber(9)
-  $5.Timestamp get updateAt => $_getN(8);
+  $5.Timestamp get createAt => $_getN(8);
   @$pb.TagNumber(9)
-  set updateAt($5.Timestamp v) { setField(9, v); }
+  set createAt($5.Timestamp v) { setField(9, v); }
   @$pb.TagNumber(9)
-  $core.bool hasUpdateAt() => $_has(8);
+  $core.bool hasCreateAt() => $_has(8);
   @$pb.TagNumber(9)
-  void clearUpdateAt() => clearField(9);
+  void clearCreateAt() => clearField(9);
   @$pb.TagNumber(9)
-  $5.Timestamp ensureUpdateAt() => $_ensure(8);
+  $5.Timestamp ensureCreateAt() => $_ensure(8);
 
   @$pb.TagNumber(10)
-  $5.Timestamp get lastUpdate => $_getN(9);
+  $5.Timestamp get updateAt => $_getN(9);
   @$pb.TagNumber(10)
-  set lastUpdate($5.Timestamp v) { setField(10, v); }
+  set updateAt($5.Timestamp v) { setField(10, v); }
   @$pb.TagNumber(10)
-  $core.bool hasLastUpdate() => $_has(9);
+  $core.bool hasUpdateAt() => $_has(9);
   @$pb.TagNumber(10)
-  void clearLastUpdate() => clearField(10);
+  void clearUpdateAt() => clearField(10);
   @$pb.TagNumber(10)
-  $5.Timestamp ensureLastUpdate() => $_ensure(9);
+  $5.Timestamp ensureUpdateAt() => $_ensure(9);
 
   @$pb.TagNumber(11)
-  $core.int get liked => $_getIZ(10);
+  $5.Timestamp get lastUpdate => $_getN(10);
   @$pb.TagNumber(11)
-  set liked($core.int v) { $_setSignedInt32(10, v); }
+  set lastUpdate($5.Timestamp v) { setField(11, v); }
   @$pb.TagNumber(11)
-  $core.bool hasLiked() => $_has(10);
+  $core.bool hasLastUpdate() => $_has(10);
   @$pb.TagNumber(11)
-  void clearLiked() => clearField(11);
+  void clearLastUpdate() => clearField(11);
+  @$pb.TagNumber(11)
+  $5.Timestamp ensureLastUpdate() => $_ensure(10);
 
   @$pb.TagNumber(12)
-  $core.bool get saved => $_getBF(11);
+  $core.int get liked => $_getIZ(11);
   @$pb.TagNumber(12)
-  set saved($core.bool v) { $_setBool(11, v); }
+  set liked($core.int v) { $_setSignedInt32(11, v); }
   @$pb.TagNumber(12)
-  $core.bool hasSaved() => $_has(11);
+  $core.bool hasLiked() => $_has(11);
   @$pb.TagNumber(12)
-  void clearSaved() => clearField(12);
+  void clearLiked() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.bool get saved => $_getBF(12);
+  @$pb.TagNumber(13)
+  set saved($core.bool v) { $_setBool(12, v); }
+  @$pb.TagNumber(13)
+  $core.bool hasSaved() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearSaved() => clearField(13);
 }
 
 class LikeThreadReq extends $pb.GeneratedMessage {

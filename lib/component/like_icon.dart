@@ -47,10 +47,18 @@ class _LikeIconState extends State<LikeIcon>
   Widget build(BuildContext context) {
     return LottieBuilder.network(
       'https://assets10.lottiefiles.com/private_files/lf30_huml8m4r.json',
+      repeat: false,
       controller: _controller,
       width: widget.size,
       height: widget.size,
-      repeat: false,
+      delegates: LottieDelegates(
+        values: [
+          ValueDelegate.color(
+            const ['Empty', 'Group 1', 'Fill 1'],
+            value: Theme.of(context).colorScheme.onSurface,
+          ),
+        ],
+      ),
     );
   }
 }

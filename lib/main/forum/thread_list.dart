@@ -43,6 +43,12 @@ class _ThreadListState extends State<ThreadList> {
   }
 
   @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PagedListView<int, Thread>(

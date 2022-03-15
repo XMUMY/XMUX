@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:expandable/expandable.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:timeago/timeago.dart';
 import 'package:xmus_client/generated/forum_thread.pb.dart';
@@ -11,6 +12,7 @@ import '../../../component/floating_card.dart';
 import '../../../component/user_profile.dart';
 import '../../component/like_icon.dart';
 import '../../global.dart';
+import 'post_dialog.dart';
 
 class ThreadCard extends StatefulWidget {
   final Thread thread;
@@ -141,13 +143,34 @@ class _ThreadCardState extends State<ThreadCard> {
           iconSize: 35,
           padding: EdgeInsets.zero,
           onPressed: () {
-            // TODO: Real like.
             final liked = widget.thread.liked > 0 ? 0 : 1;
             widget.thread.likes += liked > 0 ? 1 : -1;
             setState(() => widget.thread.liked = liked);
+            rpc.forumClient.likeThread(LikeThreadReq(
+              threadId: widget.thread.id,
+              like: liked,
+            ));
           },
         ),
         Text('${max(0, widget.thread.likes)}'),
+        const VerticalDivider(color: Colors.transparent),
+        Transform.translate(
+          offset: const Offset(0, -1),
+          child: IconButton(
+            icon: const Icon(FontAwesomeIcons.commentDots),
+            iconSize: 23,
+            padding: EdgeInsets.zero,
+            onPressed: () async {
+              final r = await NewPostDialog.show(
+                context,
+                thread: widget.thread,
+              );
+              if (r == true) setState(() => widget.thread.posts++);
+            },
+          ),
+        ),
+        Text(widget.thread.posts.toString()),
+        const VerticalDivider(color: Colors.transparent),
         IconButton(
           icon: AnimatedCrossFade(
             duration: const Duration(milliseconds: 200),
@@ -157,7 +180,7 @@ class _ThreadCardState extends State<ThreadCard> {
                 ? CrossFadeState.showSecond
                 : CrossFadeState.showFirst,
           ),
-          iconSize: 28,
+          iconSize: 25,
           padding: EdgeInsets.zero,
           onPressed: () {
             // TODO: Real save.
