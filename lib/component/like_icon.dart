@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../util/platform.dart';
+
 class LikeIcon extends StatefulWidget {
   final double size;
   final bool liked;
@@ -45,20 +47,33 @@ class _LikeIconState extends State<LikeIcon>
 
   @override
   Widget build(BuildContext context) {
-    return LottieBuilder.network(
-      'https://assets10.lottiefiles.com/private_files/lf30_huml8m4r.json',
-      repeat: false,
-      controller: _controller,
-      width: widget.size,
-      height: widget.size,
-      delegates: LottieDelegates(
-        values: [
-          ValueDelegate.color(
-            const ['Empty', 'Group 1', 'Fill 1'],
-            value: Theme.of(context).colorScheme.onSurface,
-          ),
-        ],
-      ),
+    final delegates = LottieDelegates(
+      values: [
+        ValueDelegate.color(
+          const ['Empty', 'Group 1', 'Fill 1'],
+          value: Theme.of(context).colorScheme.onSurface,
+        ),
+      ],
     );
+
+    if (isWeb) {
+      return LottieBuilder.network(
+        'https://assets10.lottiefiles.com/private_files/lf30_huml8m4r.json',
+        repeat: false,
+        controller: _controller,
+        width: widget.size,
+        height: widget.size,
+        delegates: delegates,
+      );
+    } else {
+      return LottieBuilder.asset(
+        'res/animation/like.json',
+        repeat: false,
+        controller: _controller,
+        width: widget.size,
+        height: widget.size,
+        delegates: delegates,
+      );
+    }
   }
 }
