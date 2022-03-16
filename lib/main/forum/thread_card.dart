@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:timeago/timeago.dart';
+import 'package:xmus_client/generated/forum_saved.pb.dart';
 import 'package:xmus_client/generated/forum_thread.pb.dart';
 
 import '../../../component/floating_card.dart';
@@ -140,7 +141,7 @@ class _ThreadCardState extends State<ThreadCard> {
       children: [
         IconButton(
           icon: LikeIcon(liked: widget.thread.liked > 0),
-          iconSize: 35,
+          iconSize: 25,
           padding: EdgeInsets.zero,
           onPressed: () {
             final liked = widget.thread.liked > 0 ? 0 : 1;
@@ -183,7 +184,9 @@ class _ThreadCardState extends State<ThreadCard> {
           iconSize: 25,
           padding: EdgeInsets.zero,
           onPressed: () {
-            // TODO: Real save.
+            rpc.forumClient.saveThread(SaveThreadReq(
+              threadId: widget.thread.id,
+            ));
             setState(() => widget.thread.saved = !widget.thread.saved);
           },
         ),

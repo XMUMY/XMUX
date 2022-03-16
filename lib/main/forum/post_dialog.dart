@@ -69,35 +69,38 @@ class _NewPostDialogState extends State<NewPostDialog> {
       ),
     );
 
-    final child = Row(
-      children: [
-        Expanded(child: inputField),
-        IconButton(
-          icon: const Icon(Icons.send),
-          onPressed: _handleSubmit,
-        )
-      ],
+    final child = Padding(
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        children: [
+          Expanded(child: inputField),
+          IconButton(
+            icon: const Icon(Icons.send),
+            onPressed: _handleSubmit,
+          )
+        ],
+      ),
     );
 
-    if (MediaQuery.of(context).viewInsets.bottom == 0) {
+    final bottomPadding = MediaQuery.of(context).viewInsets.bottom;
+    if (bottomPadding != 0) {
       // Keyboard is not visible
       return Dialog(
         insetPadding: EdgeInsets.symmetric(horizontal: context.padBody),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: child,
-        ),
+        child: child,
       );
     }
 
+    final horizontalPadding = context.padBody;
     return Align(
       alignment: Alignment.bottomCenter,
       child: Material(
         color: Theme.of(context).colorScheme.surface,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: context.padBody,
+          padding: EdgeInsets.only(
+            left: horizontalPadding,
+            right: horizontalPadding,
+            bottom: bottomPadding,
           ),
           child: child,
         ),

@@ -3,21 +3,41 @@ import 'package:lottie/lottie.dart';
 
 import '../util/platform.dart';
 
-class LikeIcon extends StatefulWidget {
-  final double size;
+class LikeIcon extends StatelessWidget {
   final bool liked;
 
   const LikeIcon({
+    Key? key,
+    this.liked = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedCrossFade(
+      duration: const Duration(milliseconds: 200),
+      firstChild: const Icon(Icons.favorite_border),
+      secondChild: const Icon(Icons.favorite, color: Colors.red),
+      crossFadeState:
+          liked ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+    );
+  }
+}
+
+class LottieLikeIcon extends StatefulWidget {
+  final double size;
+  final bool liked;
+
+  const LottieLikeIcon({
     Key? key,
     this.size = 35,
     this.liked = false,
   }) : super(key: key);
 
   @override
-  State<LikeIcon> createState() => _LikeIconState();
+  State<LottieLikeIcon> createState() => _LottieLikeIconState();
 }
 
-class _LikeIconState extends State<LikeIcon>
+class _LottieLikeIconState extends State<LottieLikeIcon>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -32,7 +52,7 @@ class _LikeIconState extends State<LikeIcon>
   }
 
   @override
-  void didUpdateWidget(covariant LikeIcon oldWidget) {
+  void didUpdateWidget(covariant LottieLikeIcon oldWidget) {
     if (widget.liked != oldWidget.liked) {
       _controller.animateTo(widget.liked ? 0.4 : 0.13);
     }
