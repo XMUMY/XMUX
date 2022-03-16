@@ -41,55 +41,73 @@ class _PostCardState extends State<PostCard> {
       allowFromNow: true,
     );
 
-    final header = UserProfileBuilder(
-      uid: widget.post.uid,
-      builder: (context, profile) => Row(
-        key: ValueKey(profile),
-        children: <Widget>[
-          // Build user avatar.
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            child: CircleAvatar(
-              child: ExtendedImage.network(
-                profile.avatar,
-                shape: BoxShape.circle,
+    final header = Row(children: [
+      Expanded(
+        child: UserProfileBuilder(
+          uid: widget.post.uid,
+          builder: (context, profile) => Row(
+            key: ValueKey(profile),
+            children: <Widget>[
+              // Build user avatar.
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                child: CircleAvatar(
+                  child: ExtendedImage.network(
+                    profile.avatar,
+                    shape: BoxShape.circle,
+                  ),
+                  radius: 18,
+                ),
               ),
-              radius: 18,
-            ),
-          ),
 
-          // Build user name and timestamp.
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(profile.displayName),
-              Text(ts, style: Theme.of(context).textTheme.caption)
-            ],
-          ),
-        ],
-      ),
-      placeholder: (context) => Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            child: CircleAvatar(
-              child: ExtendedImage.network(
-                remoteConfigs.staticResources.defaultAvatar,
-                shape: BoxShape.circle,
+              // Build user name and timestamp.
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(profile.displayName),
+                  Text(ts, style: Theme.of(context).textTheme.caption)
+                ],
               ),
-              radius: 18,
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('  ...  '),
-              Text(ts, style: Theme.of(context).textTheme.caption)
             ],
           ),
-        ],
+          placeholder: (context) => Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                child: CircleAvatar(
+                  child: ExtendedImage.network(
+                    remoteConfigs.staticResources.defaultAvatar,
+                    shape: BoxShape.circle,
+                  ),
+                  radius: 18,
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('  ...  '),
+                  Text(ts, style: Theme.of(context).textTheme.caption)
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
-    );
+      PopupMenuButton<VoidCallback>(
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            child: Text(LocaleKeys.Community_Delete.tr()),
+            value: () async {
+              await rpc.forumClient.removePost(RemovePostReq(
+                postId: widget.post.id,
+              ));
+              widget.onPostComment?.call();
+            },
+          ),
+        ],
+        onSelected: (v) => v(),
+      ),
+    ]);
 
     final content = Padding(
       padding: const EdgeInsets.only(left: 52, right: 8),
@@ -99,6 +117,7 @@ class _PostCardState extends State<PostCard> {
     final footer = Row(
       children: [
         IconButton(
+          tooltip: LocaleKeys.Community_Like.tr(),
           icon: LikeIcon(liked: widget.post.liked > 0),
           iconSize: 25,
           padding: EdgeInsets.zero,
@@ -117,6 +136,7 @@ class _PostCardState extends State<PostCard> {
         Transform.translate(
           offset: const Offset(0, -1),
           child: IconButton(
+            tooltip: LocaleKeys.Community_Comment.tr(),
             icon: const Icon(FontAwesomeIcons.commentDots),
             iconSize: 23,
             padding: EdgeInsets.zero,
@@ -165,15 +185,12 @@ class _PostCardState extends State<PostCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             for (final c in widget.children)
-              Row(
-                children: [
-                  UserProfileBuilder(
-                    uid: c.uid,
-                    builder: (context, profile) =>
-                        Text(profile.displayName + ': '),
-                  ),
-                  Text(c.content),
-                ],
+              UserProfileBuilder(
+                uid: c.uid,
+                builder: (context, profile) => Text(
+                  '${profile.displayName}: ${c.content}',
+                ),
+                placeholder: (context) => Text('...: ${c.content}'),
               )
           ],
         ),

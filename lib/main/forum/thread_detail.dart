@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:xmus_client/generated/forum_common.pb.dart';
 import 'package:xmus_client/generated/forum_post.pb.dart';
@@ -45,6 +46,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
   }
 
   void _refreshComments() {
+    if (!mounted) return;
     _childrens.clear();
     _pagingController.refresh();
   }
@@ -66,6 +68,22 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.thread.title),
+        actions: [
+          PopupMenuButton<VoidCallback>(
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Text(LocaleKeys.Community_Delete.tr()),
+                value: () async {
+                  await rpc.forumClient.removeThread(RemoveThreadReq(
+                    threadId: widget.thread.id,
+                  ));
+                  context.pop();
+                },
+              ),
+            ],
+            onSelected: (v) => v(),
+          ),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),

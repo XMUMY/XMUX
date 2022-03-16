@@ -143,6 +143,7 @@ class _ThreadCardState extends State<ThreadCard> {
     final footer = Row(
       children: [
         IconButton(
+          tooltip: LocaleKeys.Community_Like.tr(),
           icon: LikeIcon(liked: widget.thread.liked > 0),
           iconSize: 25,
           padding: EdgeInsets.zero,
@@ -161,6 +162,7 @@ class _ThreadCardState extends State<ThreadCard> {
         Transform.translate(
           offset: const Offset(0, -1),
           child: IconButton(
+            tooltip: LocaleKeys.Community_Comment.tr(),
             icon: const Icon(FontAwesomeIcons.commentDots),
             iconSize: 23,
             padding: EdgeInsets.zero,

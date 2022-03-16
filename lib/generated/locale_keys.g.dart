@@ -92,31 +92,9 @@ abstract class  LocaleKeys {
   static const Community_CreateThreadTitle = 'Community.CreateThreadTitle';
   static const Community_CreateTitle = 'Community.CreateTitle';
   static const Community_CreatePost = 'Community.CreatePost';
-  static const Community_OrderNew = 'Community.OrderNew';
-  static const Community_OrderOld = 'Community.OrderOld';
-  static const Community_Thread = 'Community.Thread';
-  static const Community_Comments = 'Community.Comments';
-  static const Community_ReplyTo = 'Community.ReplyTo';
-  static const Community_CommentHint = 'Community.CommentHint';
-  static const Community_ReferedComment = 'Community.ReferedComment';
-  static const Community_Notif = 'Community.Notif';
-  static const Community_More = 'Community.More';
-  static const Community_MyActivity = 'Community.MyActivity';
-  static const Community_Post = 'Community.Post';
-  static const Community_Reply = 'Community.Reply';
-  static const Community_CommentNotif = 'Community.CommentNotif';
-  static const Community_ReplyNotif = 'Community.ReplyNotif';
-  static const Community_RemovePost = 'Community.RemovePost';
-  static const Community_AddToSaved = 'Community.AddToSaved';
-  static const Community_AlreadySaved = 'Community.AlreadySaved';
-  static const Community_SaveSuccess = 'Community.SaveSuccess';
-  static const Community_CopyPostTitle = 'Community.CopyPostTitle';
-  static const Community_CopySuccess = 'Community.CopySuccess';
-  static const Community_CopyPostContent = 'Community.CopyPostContent';
-  static const Community_RemoveFromSaved = 'Community.RemoveFromSaved';
-  static const Community_RemoveSuccess = 'Community.RemoveSuccess';
-  static const Community_CopyReply = 'Community.CopyReply';
-  static const Community_RemoveReply = 'Community.RemoveReply';
+  static const Community_Like = 'Community.Like';
+  static const Community_Comment = 'Community.Comment';
+  static const Community_Delete = 'Community.Delete';
   static const Community = 'Community';
 
 }
