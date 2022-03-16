@@ -1,65 +1,48 @@
 import 'dart:math';
 
-import 'package:expandable/expandable.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 import 'package:timeago/timeago.dart';
+import 'package:xmus_client/generated/forum_post.pb.dart';
 import 'package:xmus_client/generated/forum_saved.pb.dart';
 import 'package:xmus_client/generated/forum_thread.pb.dart';
 
-import '../../../component/floating_card.dart';
 import '../../../component/user_profile.dart';
 import '../../component/like_icon.dart';
 import '../../global.dart';
 import 'post_dialog.dart';
 
-class ThreadCard extends StatefulWidget {
+class PostCard extends StatefulWidget {
   final Thread thread;
-
-  /// Expanded by default.
-  final bool expanded;
-
-  /// Whether the body of the thread is expandable.
-  final bool exbandable;
-
+  final Post post;
+  final List<Post> children;
   final VoidCallback? onPostComment;
 
-  const ThreadCard({
+  const PostCard({
     Key? key,
     required this.thread,
-    this.expanded = false,
-    this.exbandable = false,
+    required this.post,
+    this.children = const [],
     this.onPostComment,
   }) : super(key: key);
 
   @override
-  State<ThreadCard> createState() => _ThreadCardState();
+  State<PostCard> createState() => _PostCardState();
 }
 
-class _ThreadCardState extends State<ThreadCard> {
-  late ExpandableController _expandableController;
-
-  @override
-  void initState() {
-    _expandableController = ExpandableController(
-      initialExpanded: widget.expanded,
-    );
-    super.initState();
-  }
-
+class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     final lang = Localizations.localeOf(context).languageCode;
     final ts = format(
-      widget.thread.createAt.toDateTime(),
+      widget.post.createAt.toDateTime(),
       locale: lang,
       allowFromNow: true,
     );
 
     final header = UserProfileBuilder(
-      uid: widget.thread.uid,
+      uid: widget.post.uid,
       builder: (context, profile) => Row(
         key: ValueKey(profile),
         children: <Widget>[
@@ -108,55 +91,28 @@ class _ThreadCardState extends State<ThreadCard> {
       ),
     );
 
-    final collapsed = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.thread.title,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          Text(
-            widget.thread.body,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
-      ),
-    );
-
-    final expanded = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            widget.thread.title,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          SelectableText(widget.thread.body),
-        ],
-      ),
+    final content = Padding(
+      padding: const EdgeInsets.only(left: 52, right: 8),
+      child: SelectableText(widget.post.content),
     );
 
     final footer = Row(
       children: [
         IconButton(
-          icon: LikeIcon(liked: widget.thread.liked > 0),
+          icon: LikeIcon(liked: widget.post.liked > 0),
           iconSize: 25,
           padding: EdgeInsets.zero,
           onPressed: () {
-            final liked = widget.thread.liked > 0 ? 0 : 1;
-            widget.thread.likes += liked > 0 ? 1 : -1;
-            setState(() => widget.thread.liked = liked);
-            rpc.forumClient.likeThread(LikeThreadReq(
-              threadId: widget.thread.id,
+            final liked = widget.post.liked > 0 ? 0 : 1;
+            widget.post.likes += liked > 0 ? 1 : -1;
+            setState(() => widget.post.liked = liked);
+            rpc.forumClient.likePost(LikePostReq(
+              postId: widget.post.id,
               like: liked,
             ));
           },
         ),
-        Text('${max(0, widget.thread.likes)}'),
+        Text('${max(0, widget.post.likes)}'),
         const VerticalDivider(color: Colors.transparent),
         Transform.translate(
           offset: const Offset(0, -1),
@@ -168,62 +124,78 @@ class _ThreadCardState extends State<ThreadCard> {
               final r = await NewPostDialog.show(
                 context,
                 thread: widget.thread,
+                parentPost: widget.post,
               );
-              if (r == true) {
-                setState(() => widget.thread.posts++);
-                widget.onPostComment?.call();
-              }
+              if (r == true) widget.onPostComment?.call();
             },
           ),
         ),
-        Text(widget.thread.posts.toString()),
         const VerticalDivider(color: Colors.transparent),
         IconButton(
           icon: AnimatedCrossFade(
             duration: const Duration(milliseconds: 200),
             firstChild: const Icon(Icons.bookmark_border),
             secondChild: const Icon(Icons.bookmark),
-            crossFadeState: widget.thread.saved
+            crossFadeState: widget.post.saved
                 ? CrossFadeState.showSecond
                 : CrossFadeState.showFirst,
           ),
           iconSize: 25,
           padding: EdgeInsets.zero,
           onPressed: () {
-            rpc.forumClient.saveThread(SaveThreadReq(
-              threadId: widget.thread.id,
+            rpc.forumClient.savePost(SavePostReq(
+              postId: widget.post.id,
             ));
-            setState(() => widget.thread.saved = !widget.thread.saved);
+            setState(() => widget.post.saved = !widget.post.saved);
           },
         ),
       ],
     );
 
-    return FloatingCard(
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      padding: const EdgeInsets.all(5),
-      onTap: () => context.go(
-        '/M/Community/Thread/${widget.thread.id}',
-        extra: widget.thread,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ExpandablePanel(
-            theme: ExpandableThemeData(
-              tapHeaderToExpand: false,
-              hasIcon: widget.exbandable,
-              iconColor: Theme.of(context).iconTheme.color,
-            ),
-            controller: _expandableController,
-            header: header,
-            collapsed: collapsed,
-            expanded: expanded,
+    Widget? children;
+    if (widget.children.isNotEmpty) {
+      children = Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(7),
+          color: Theme.of(context).cardColor,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (final c in widget.children)
+              Row(
+                children: [
+                  UserProfileBuilder(
+                    uid: c.uid,
+                    builder: (context, profile) =>
+                        Text(profile.displayName + ': '),
+                  ),
+                  Text(c.content),
+                ],
+              )
+          ],
+        ),
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        header,
+        content,
+        Padding(
+          padding: const EdgeInsets.only(left: 46),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              footer,
+              if (children != null) children,
+            ],
           ),
-          const Divider(height: 12),
-          footer,
-        ],
-      ),
+        )
+      ],
     );
   }
 }

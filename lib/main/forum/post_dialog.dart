@@ -7,19 +7,25 @@ import '../../util/screen.dart';
 
 class NewPostDialog extends StatefulWidget {
   final Thread thread;
+  final Post? parentPost;
 
   const NewPostDialog({
     Key? key,
     required this.thread,
+    this.parentPost,
   }) : super(key: key);
 
   static Future<bool?> show(
     BuildContext context, {
     required Thread thread,
+    Post? parentPost,
   }) async {
     return showDialog<bool>(
       context: context,
-      builder: (context) => NewPostDialog(thread: thread),
+      builder: (context) => NewPostDialog(
+        thread: thread,
+        parentPost: parentPost,
+      ),
       barrierColor: Colors.black26,
     );
   }
@@ -39,6 +45,7 @@ class _NewPostDialogState extends State<NewPostDialog> {
       await rpc.forumClient.createPost(CreatePostReq(
         threadId: widget.thread.id,
         content: _controller.text,
+        parentId: widget.parentPost?.id ?? 0,
       ));
       Navigator.of(context).maybePop(true);
     } finally {
@@ -83,7 +90,7 @@ class _NewPostDialogState extends State<NewPostDialog> {
     );
 
     final bottomPadding = MediaQuery.of(context).viewInsets.bottom;
-    if (bottomPadding != 0) {
+    if (bottomPadding == 0) {
       // Keyboard is not visible
       return Dialog(
         insetPadding: EdgeInsets.symmetric(horizontal: context.padBody),

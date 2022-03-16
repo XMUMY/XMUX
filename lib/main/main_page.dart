@@ -111,7 +111,7 @@ class _MainPageState extends State<MainPage> {
       body: Row(
         children: [
           if (navigationRail != null) ...[
-            navigationRail,
+            SafeArea(child: navigationRail),
             const VerticalDivider(thickness: 1, width: 1),
           ],
           Expanded(
