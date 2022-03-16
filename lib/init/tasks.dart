@@ -1,4 +1,6 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sentry/sentry.dart';
 import 'package:taskflow/taskflow.dart';
 import 'package:xmus_client/authorization.dart';
@@ -8,23 +10,32 @@ import '../redux/action/action.dart';
 import '../util/platform.dart';
 import '../util/remote_config.dart';
 
-final preInitTask = ParallelTask([
-  initRemoteConfigsTask,
-  initFirebaseTask,
-]);
+final preInitTask = initRemoteConfigsTask;
 
 final postInitTask = ParallelTask([
   SequentialTask([
     syncCredentialTask,
     refreshQueriesTask,
   ]),
-  fetchRemoteConfigsTask,
+  SequentialTask([
+    initFirebaseTask,
+    injectFirebaseAnalyticsObserverTask,
+    fetchRemoteConfigsTask,
+  ])
 ]);
 
 /// Initialize Firebase if available.
 final initFirebaseTask = Task.when(
   () async => isMobile || isWeb || isMacOS,
   (ctx) async => await Firebase.initializeApp(),
+);
+
+/// Inject [FirebaseAnalyticsObserver] to global router.
+final injectFirebaseAnalyticsObserverTask = Task.when(
+  () async => kReleaseMode && (isMobile || isWeb || isMacOS),
+  (ctx) async => router.routerDelegate.observers.add(FirebaseAnalyticsObserver(
+    analytics: FirebaseAnalytics.instance,
+  )),
 );
 
 final syncCredentialTask = ParallelTask.fromFunc([
