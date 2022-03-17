@@ -52,10 +52,17 @@ class _PostCardState extends State<PostCard> {
   }
 
   Future<void> _save() async {
-    rpc.forumClient.savePost(SavePostReq(
-      postId: widget.post.id,
-    ));
-    setState(() => widget.post.saved = !widget.post.saved);
+    final post = widget.post;
+    if (post.saved) {
+      rpc.forumClient.unsavePost(UnsavePostReq(
+        postId: post.id,
+      ));
+    } else {
+      rpc.forumClient.savePost(SavePostReq(
+        postId: post.id,
+      ));
+    }
+    setState(() => post.saved = !post.saved);
   }
 
   Future<void> _remove() async {

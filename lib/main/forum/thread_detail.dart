@@ -33,16 +33,17 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
 
     final posts = resp.posts;
     final tops = posts.where((p) => p.parentId <= 0).toList();
-    if (tops.isNotEmpty) {
-      for (final post in posts) {
-        if (post.parentId > 0) {
-          _childrens[post.parentId] ??= [];
-          _childrens[post.parentId]!.add(post);
-        }
+    for (final post in posts) {
+      if (post.parentId > 0) {
+        _childrens[post.parentId] ??= [];
+        _childrens[post.parentId]!.add(post);
       }
+    }
+
+    if (tops.isNotEmpty && tops.length >= 10) {
       _pagingController.appendPage(tops, pageKey + tops.length);
     } else {
-      _pagingController.appendLastPage([]);
+      _pagingController.appendLastPage(tops);
     }
   }
 

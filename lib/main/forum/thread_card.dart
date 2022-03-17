@@ -63,10 +63,17 @@ class _ThreadCardState extends State<ThreadCard> {
   }
 
   Future<void> _save() async {
-    rpc.forumClient.saveThread(SaveThreadReq(
-      threadId: widget.thread.id,
-    ));
-    setState(() => widget.thread.saved = !widget.thread.saved);
+    final thread = widget.thread;
+    if (thread.saved) {
+      rpc.forumClient.unsaveThread(UnsaveThreadReq(
+        threadId: thread.id,
+      ));
+    } else {
+      rpc.forumClient.saveThread(SaveThreadReq(
+        threadId: thread.id,
+      ));
+    }
+    setState(() => thread.saved = !thread.saved);
   }
 
   @override
