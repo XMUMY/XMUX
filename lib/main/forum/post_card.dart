@@ -32,11 +32,45 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
+  Future<void> _like() async {
+    final liked = widget.post.liked > 0 ? 0 : 1;
+    widget.post.likes += liked > 0 ? 1 : -1;
+    setState(() => widget.post.liked = liked);
+    rpc.forumClient.likePost(LikePostReq(
+      postId: widget.post.id,
+      like: liked,
+    ));
+  }
+
+  Future<void> _comment() async {
+    final r = await NewPostDialog.show(
+      context,
+      thread: widget.thread,
+      toPost: widget.post,
+    );
+    if (r == true) widget.onPostComment?.call();
+  }
+
+  Future<void> _save() async {
+    rpc.forumClient.savePost(SavePostReq(
+      postId: widget.post.id,
+    ));
+    setState(() => widget.post.saved = !widget.post.saved);
+  }
+
+  Future<void> _remove() async {
+    await rpc.forumClient.removePost(RemovePostReq(
+      postId: widget.post.id,
+    ));
+    widget.onPostComment?.call();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final post = widget.post;
     final lang = Localizations.localeOf(context).languageCode;
     final ts = format(
-      widget.post.createAt.toDateTime(),
+      post.createAt.toDateTime(),
       locale: lang,
       allowFromNow: true,
     );
@@ -44,7 +78,7 @@ class _PostCardState extends State<PostCard> {
     final header = Row(children: [
       Expanded(
         child: UserProfileBuilder(
-          uid: widget.post.uid,
+          uid: post.uid,
           builder: (context, profile) => Row(
             key: ValueKey(profile),
             children: <Widget>[
@@ -97,12 +131,7 @@ class _PostCardState extends State<PostCard> {
         itemBuilder: (context) => [
           PopupMenuItem(
             child: Text(LocaleKeys.Community_Delete.tr()),
-            value: () async {
-              await rpc.forumClient.removePost(RemovePostReq(
-                postId: widget.post.id,
-              ));
-              widget.onPostComment?.call();
-            },
+            value: _remove,
           ),
         ],
         onSelected: (v) => v(),
@@ -111,27 +140,19 @@ class _PostCardState extends State<PostCard> {
 
     final content = Padding(
       padding: const EdgeInsets.only(left: 52, right: 8),
-      child: SelectableText(widget.post.content),
+      child: SelectableText(post.content),
     );
 
     final footer = Row(
       children: [
         IconButton(
           tooltip: LocaleKeys.Community_Like.tr(),
-          icon: LikeIcon(liked: widget.post.liked > 0),
+          icon: LikeIcon(liked: post.liked > 0),
           iconSize: 25,
           padding: EdgeInsets.zero,
-          onPressed: () {
-            final liked = widget.post.liked > 0 ? 0 : 1;
-            widget.post.likes += liked > 0 ? 1 : -1;
-            setState(() => widget.post.liked = liked);
-            rpc.forumClient.likePost(LikePostReq(
-              postId: widget.post.id,
-              like: liked,
-            ));
-          },
+          onPressed: _like,
         ),
-        Text('${max(0, widget.post.likes)}'),
+        Text('${max(0, post.likes)}'),
         const VerticalDivider(color: Colors.transparent),
         Transform.translate(
           offset: const Offset(0, -1),
@@ -140,14 +161,7 @@ class _PostCardState extends State<PostCard> {
             icon: const Icon(FontAwesomeIcons.commentDots),
             iconSize: 23,
             padding: EdgeInsets.zero,
-            onPressed: () async {
-              final r = await NewPostDialog.show(
-                context,
-                thread: widget.thread,
-                parentPost: widget.post,
-              );
-              if (r == true) widget.onPostComment?.call();
-            },
+            onPressed: _comment,
           ),
         ),
         const VerticalDivider(color: Colors.transparent),
@@ -156,18 +170,13 @@ class _PostCardState extends State<PostCard> {
             duration: const Duration(milliseconds: 200),
             firstChild: const Icon(Icons.bookmark_border),
             secondChild: const Icon(Icons.bookmark),
-            crossFadeState: widget.post.saved
+            crossFadeState: post.saved
                 ? CrossFadeState.showSecond
                 : CrossFadeState.showFirst,
           ),
           iconSize: 25,
           padding: EdgeInsets.zero,
-          onPressed: () {
-            rpc.forumClient.savePost(SavePostReq(
-              postId: widget.post.id,
-            ));
-            setState(() => widget.post.saved = !widget.post.saved);
-          },
+          onPressed: _save,
         ),
       ],
     );

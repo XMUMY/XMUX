@@ -30,11 +30,12 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
       offset: pageKey,
       count: 10,
     ));
-    if (resp.posts.isNotEmpty) {
-      final posts = resp.posts;
-      final tops = posts.where((p) => p.parentId >= 0).toList();
+
+    final posts = resp.posts;
+    final tops = posts.where((p) => p.parentId <= 0).toList();
+    if (tops.isNotEmpty) {
       for (final post in posts) {
-        if (post.parentId != -1) {
+        if (post.parentId > 0) {
           _childrens[post.parentId] ??= [];
           _childrens[post.parentId]!.add(post);
         }
@@ -43,6 +44,13 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
     } else {
       _pagingController.appendLastPage([]);
     }
+  }
+
+  Future<void> _remove() async {
+    await rpc.forumClient.removeThread(RemoveThreadReq(
+      threadId: widget.thread.id,
+    ));
+    context.pop();
   }
 
   void _refreshComments() {
@@ -73,12 +81,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
             itemBuilder: (context) => [
               PopupMenuItem(
                 child: Text(LocaleKeys.Community_Delete.tr()),
-                value: () async {
-                  await rpc.forumClient.removeThread(RemoveThreadReq(
-                    threadId: widget.thread.id,
-                  ));
-                  context.pop();
-                },
+                value: _remove,
               ),
             ],
             onSelected: (v) => v(),

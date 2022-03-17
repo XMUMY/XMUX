@@ -7,24 +7,24 @@ import '../../util/screen.dart';
 
 class NewPostDialog extends StatefulWidget {
   final Thread thread;
-  final Post? parentPost;
+  final Post? toPost;
 
   const NewPostDialog({
     Key? key,
     required this.thread,
-    this.parentPost,
+    this.toPost,
   }) : super(key: key);
 
   static Future<bool?> show(
     BuildContext context, {
     required Thread thread,
-    Post? parentPost,
+    Post? toPost,
   }) async {
     return showDialog<bool>(
       context: context,
       builder: (context) => NewPostDialog(
         thread: thread,
-        parentPost: parentPost,
+        toPost: toPost,
       ),
       barrierColor: Colors.black26,
     );
@@ -42,10 +42,18 @@ class _NewPostDialogState extends State<NewPostDialog> {
     if (_isSubmitting || _controller.text.isEmpty) return;
     _isSubmitting = true;
     try {
+      final toPost = widget.toPost;
+      var parentId = 0; // Reply to thread.
+      if (toPost != null) {
+        parentId = toPost.parentId == 0
+            ? toPost.id // Reply to top level post.
+            : toPost.parentId; // Reply to second level post.
+      }
+
       await rpc.forumClient.createPost(CreatePostReq(
         threadId: widget.thread.id,
         content: _controller.text,
-        parentId: widget.parentPost?.id ?? 0,
+        parentId: parentId,
       ));
       Navigator.of(context).maybePop(true);
     } finally {

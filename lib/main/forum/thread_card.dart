@@ -41,6 +41,34 @@ class ThreadCard extends StatefulWidget {
 class _ThreadCardState extends State<ThreadCard> {
   late ExpandableController _expandableController;
 
+  Future<void> _like() async {
+    final liked = widget.thread.liked > 0 ? 0 : 1;
+    widget.thread.likes += liked > 0 ? 1 : -1;
+    setState(() => widget.thread.liked = liked);
+    rpc.forumClient.likeThread(LikeThreadReq(
+      threadId: widget.thread.id,
+      like: liked,
+    ));
+  }
+
+  Future<void> _comment() async {
+    final r = await NewPostDialog.show(
+      context,
+      thread: widget.thread,
+    );
+    if (r == true) {
+      setState(() => widget.thread.posts++);
+      widget.onPostComment?.call();
+    }
+  }
+
+  Future<void> _save() async {
+    rpc.forumClient.saveThread(SaveThreadReq(
+      threadId: widget.thread.id,
+    ));
+    setState(() => widget.thread.saved = !widget.thread.saved);
+  }
+
   @override
   void initState() {
     _expandableController = ExpandableController(
@@ -147,15 +175,7 @@ class _ThreadCardState extends State<ThreadCard> {
           icon: LikeIcon(liked: widget.thread.liked > 0),
           iconSize: 25,
           padding: EdgeInsets.zero,
-          onPressed: () {
-            final liked = widget.thread.liked > 0 ? 0 : 1;
-            widget.thread.likes += liked > 0 ? 1 : -1;
-            setState(() => widget.thread.liked = liked);
-            rpc.forumClient.likeThread(LikeThreadReq(
-              threadId: widget.thread.id,
-              like: liked,
-            ));
-          },
+          onPressed: _like,
         ),
         Text('${max(0, widget.thread.likes)}'),
         const VerticalDivider(color: Colors.transparent),
@@ -166,16 +186,7 @@ class _ThreadCardState extends State<ThreadCard> {
             icon: const Icon(FontAwesomeIcons.commentDots),
             iconSize: 23,
             padding: EdgeInsets.zero,
-            onPressed: () async {
-              final r = await NewPostDialog.show(
-                context,
-                thread: widget.thread,
-              );
-              if (r == true) {
-                setState(() => widget.thread.posts++);
-                widget.onPostComment?.call();
-              }
-            },
+            onPressed: _comment,
           ),
         ),
         Text(widget.thread.posts.toString()),
@@ -191,12 +202,7 @@ class _ThreadCardState extends State<ThreadCard> {
           ),
           iconSize: 25,
           padding: EdgeInsets.zero,
-          onPressed: () {
-            rpc.forumClient.saveThread(SaveThreadReq(
-              threadId: widget.thread.id,
-            ));
-            setState(() => widget.thread.saved = !widget.thread.saved);
-          },
+          onPressed: _save,
         ),
       ],
     );
