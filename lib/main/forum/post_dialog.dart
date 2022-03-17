@@ -36,7 +36,7 @@ class NewPostDialog extends StatefulWidget {
 
 class _NewPostDialogState extends State<NewPostDialog> {
   final _controller = TextEditingController();
-  bool _isSubmitting = false;
+  var _isSubmitting = false;
 
   Future<void> _handleSubmit() async {
     if (_isSubmitting || _controller.text.isEmpty) return;
@@ -97,15 +97,6 @@ class _NewPostDialogState extends State<NewPostDialog> {
       ),
     );
 
-    final bottomPadding = MediaQuery.of(context).viewInsets.bottom;
-    if (bottomPadding == 0) {
-      // Keyboard is not visible
-      return Dialog(
-        insetPadding: EdgeInsets.symmetric(horizontal: context.padBody),
-        child: child,
-      );
-    }
-
     final horizontalPadding = context.padBody;
     return Align(
       alignment: Alignment.bottomCenter,
@@ -115,7 +106,7 @@ class _NewPostDialogState extends State<NewPostDialog> {
           padding: EdgeInsets.only(
             left: horizontalPadding,
             right: horizontalPadding,
-            bottom: bottomPadding,
+            bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           child: child,
         ),
