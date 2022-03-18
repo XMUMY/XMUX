@@ -7,7 +7,7 @@ A powerful application for everyone in Xiamen University Malaysia.
 | Mobile | Desktop | Web |
 | ------ | ------- | --- |
 | ![XMUX-Android Internal](https://github.com/XMUMY/XMUX/workflows/XMUX-Android%20Internal/badge.svg) | ![XMUX-Windows](https://github.com/XMUMY/XMUX/workflows/XMUX-Windows/badge.svg) | ![XMUX-Web](https://github.com/XMUMY/XMUX/workflows/XMUX-Web/badge.svg) |
-| ![XMUX-iOS](https://github.com/XMUMY/XMUX/workflows/XMUX-iOS/badge.svg) |   |   |
+| ![XMUX-iOS](https://github.com/XMUMY/XMUX/workflows/XMUX-iOS/badge.svg) | ![XMUX-macOS](https://github.com/XMUMY/XMUX/workflows/XMUX-macOS/badge.svg) |   |
 
 ## Main Functions
 
