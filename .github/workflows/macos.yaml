@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - master
+    paths:
+      - lib/**
+      - macos/**
+      - pubspec.yaml
+      - pubspec.lock
 
 jobs:
   Archive:
@@ -19,10 +24,10 @@ jobs:
         run: |
           echo $CONFIG_FILE | base64 -d > lib/config.dart
           echo $GOOGLE_SERVICES_IOS > ./macos/GoogleService-Info.plist
-          flutter build macos \
+          flutter config --enable-macos-desktop && flutter build macos \
             --release \
             --build-name=`cat ./lib/config.sample.dart | grep fallbackVersionName | sed -e "s/[A-z=;' ]//g" | sed "s/-//g"` \
-            --build-number=`git rev-list HEAD --count` \
+            --build-number=`git rev-list HEAD --count`
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
           GOOGLE_SERVICES_IOS: ${{ secrets.GOOGLE_SERVICES_IOS }}

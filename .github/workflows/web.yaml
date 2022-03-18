@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - master
+    paths:
+      - lib/**
+      - web/**
+      - pubspec.yaml
+      - pubspec.lock
 
 jobs:
   Build:
