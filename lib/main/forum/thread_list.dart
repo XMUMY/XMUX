@@ -59,6 +59,7 @@ class _ThreadListState extends State<ThreadList> {
             tag: thread.id,
             child: ThreadCard(thread: thread),
           ),
+          noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
         ),
       ),
       floatingActionButton: FloatingActionButton(

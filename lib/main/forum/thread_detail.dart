@@ -26,7 +26,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
   Future<void> _fetchPage(int pageKey) async {
     final resp = await rpc.forumClient.getPosts(GetPostsReq(
       threadId: widget.thread.id,
-      ordering: Ordering.oldest,
+      ordering: Ordering.latest,
       offset: pageKey,
       count: 10,
     ));
@@ -40,7 +40,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
       }
     }
 
-    if (tops.isNotEmpty && tops.length >= 10) {
+    if (tops.length >= 10) {
       _pagingController.appendPage(tops, pageKey + tops.length);
     } else {
       _pagingController.appendLastPage(tops);
@@ -113,6 +113,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
                   children: _childrens[post.id] ?? [],
                   onPostComment: _refreshComments,
                 ),
+                noItemsFoundIndicatorBuilder: (_) => const SizedBox(),
               ),
               separatorBuilder: (context, index) => const Divider(),
             ),

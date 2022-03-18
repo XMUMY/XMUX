@@ -84,6 +84,23 @@ extension BreakpointExtension on BuildContext {
   }
 }
 
+class BodyPadding extends StatelessWidget {
+  final Widget child;
+
+  const BodyPadding({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: context.padBody),
+      child: child,
+    );
+  }
+}
+
 class BodyPaddingBuilder extends StatelessWidget {
   final Widget Function(BuildContext context, double horizontalPadding) builder;
 

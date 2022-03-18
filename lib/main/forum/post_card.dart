@@ -12,6 +12,7 @@ import '../../../component/user_profile.dart';
 import '../../component/like_icon.dart';
 import '../../global.dart';
 import 'post_dialog.dart';
+import 'post_list.dart';
 
 class PostCard extends StatefulWidget {
   final Thread thread;
@@ -70,6 +71,22 @@ class _PostCardState extends State<PostCard> {
       postId: widget.post.id,
     ));
     widget.onPostComment?.call();
+  }
+
+  Future<void> _showChildren() async {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.73,
+        builder: (context, controller) => PostList(
+          thread: widget.thread,
+          parentPost: widget.post,
+          scrollController: controller,
+        ),
+      ),
+    );
   }
 
   @override
@@ -190,25 +207,29 @@ class _PostCardState extends State<PostCard> {
 
     Widget? children;
     if (widget.children.isNotEmpty) {
-      children = Container(
+      children = Card(
+        elevation: 0,
         margin: const EdgeInsets.symmetric(horizontal: 8),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7),
-          color: Theme.of(context).cardColor,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            for (final c in widget.children)
-              UserProfileBuilder(
-                uid: c.uid,
-                builder: (context, profile) => Text(
-                  '${profile.displayName}: ${c.content}',
-                ),
-                placeholder: (context) => Text('...: ${c.content}'),
-              )
-          ],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+        clipBehavior: Clip.hardEdge,
+        child: InkWell(
+          onTap: _showChildren,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (final c in widget.children)
+                  UserProfileBuilder(
+                    uid: c.uid,
+                    builder: (context, profile) => Text(
+                      '${profile.displayName}: ${c.content}',
+                    ),
+                    placeholder: (context) => Text('...: ${c.content}'),
+                  )
+              ],
+            ),
+          ),
         ),
       );
     }
