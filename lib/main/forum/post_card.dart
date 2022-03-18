@@ -79,7 +79,10 @@ class _PostCardState extends State<PostCard> {
       isScrollControlled: true,
       builder: (context) => DraggableScrollableSheet(
         expand: false,
-        initialChildSize: 0.73,
+        maxChildSize: 0.73,
+        initialChildSize: 0.6,
+        snap: true,
+        snapSizes: const [0.73],
         builder: (context, controller) => PostList(
           thread: widget.thread,
           parentPost: widget.post,
@@ -162,10 +165,17 @@ class _PostCardState extends State<PostCard> {
       ),
     ]);
 
-    final content = Padding(
-      padding: const EdgeInsets.only(left: 52, right: 8),
-      child: SelectableText(post.content),
-    );
+    Widget content;
+    if (post.refPostId == 0) {
+      content = SelectableText(post.content);
+    } else {
+      content = UserProfileBuilder(
+        uid: post.refPostUid,
+        builder: (context, profile) =>
+            SelectableText('Re ${profile.displayName}: ${post.content}'),
+        placeholder: (context) => SelectableText(post.content),
+      );
+    }
 
     final footer = Row(
       children: [
@@ -238,9 +248,12 @@ class _PostCardState extends State<PostCard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         header,
-        content,
         Padding(
-          padding: const EdgeInsets.only(left: 46),
+          padding: const EdgeInsets.only(left: 52, right: 8),
+          child: content,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 42),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

@@ -43,18 +43,22 @@ class _NewPostDialogState extends State<NewPostDialog> {
     _isSubmitting = true;
     try {
       final toPost = widget.toPost;
-      var parentId = 0; // Reply to thread.
+      final req = CreatePostReq(
+        threadId: widget.thread.id,
+        content: _controller.text,
+      );
+
       if (toPost != null) {
-        parentId = toPost.parentId == 0
+        req.parentId = toPost.parentId == 0
             ? toPost.id // Reply to top level post.
             : toPost.parentId; // Reply to second level post.
       }
+      if (toPost != null && toPost.parentId != 0) {
+        req.refPostId = toPost.id;
+        req.refPostUid = toPost.uid;
+      }
 
-      await rpc.forumClient.createPost(CreatePostReq(
-        threadId: widget.thread.id,
-        content: _controller.text,
-        parentId: parentId,
-      ));
+      await rpc.forumClient.createPost(req);
       Navigator.of(context).maybePop(true);
     } finally {
       _isSubmitting = false;
