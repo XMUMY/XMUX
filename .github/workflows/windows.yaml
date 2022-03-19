@@ -21,6 +21,7 @@ jobs:
       - name: Build
         run: |
           [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(${env:CONFIG_FILE})) > lib/config.dart
+          git config --global core.longpaths true
           flutter config --enable-windows-desktop && flutter build windows --release
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}

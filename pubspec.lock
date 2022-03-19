@@ -752,11 +752,13 @@ packages:
     source: hosted
     version: "1.0.4"
   package_info_plus_windows:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: package_info_plus_windows
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "packages/package_info_plus/package_info_plus_windows"
+      ref: main
+      resolved-ref: f19dc2a55f5ce5921af0c7daa18f9ba8a23aaae7
+      url: "https://github.com/fluttercommunity/plus_plugins.git"
+    source: git
     version: "1.0.4"
   path:
     dependency: transitive

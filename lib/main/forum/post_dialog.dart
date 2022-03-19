@@ -81,7 +81,7 @@ class _NewPostDialogState extends State<NewPostDialog> {
         maxLines: 2,
         minLines: 1,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
+          contentPadding: const EdgeInsets.fromLTRB(4, 4, 4, 6),
           isDense: true,
           border: InputBorder.none,
           hintText: LocaleKeys.Community_CreatePost.tr(),

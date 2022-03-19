@@ -87,6 +87,13 @@ dependency_overrides:
     git:
       url: https://github.com/XMUMY/grpc-dart.git
       ref: allow-missing-trailer
+  # Use main branch until next release.
+  # https://github.com/fluttercommunity/plus_plugins/issues/773
+  package_info_plus_windows:
+    git:
+      url: https://github.com/fluttercommunity/plus_plugins.git
+      ref: main
+      path: packages/package_info_plus/package_info_plus_windows
 
 dev_dependencies:
   flutter_test:
