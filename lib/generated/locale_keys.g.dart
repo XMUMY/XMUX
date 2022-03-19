@@ -95,6 +95,7 @@ abstract class  LocaleKeys {
   static const Community_Like = 'Community.Like';
   static const Community_Comment = 'Community.Comment';
   static const Community_Delete = 'Community.Delete';
+  static const Community_Re = 'Community.Re';
   static const Community = 'Community';
 
 }

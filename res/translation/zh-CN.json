@@ -97,6 +97,7 @@
     "CreatePost": "新评论",
     "Like": "赞",
     "Comment": "评论",
-    "Delete": "删除"
+    "Delete": "删除",
+    "Re": "回复"
   }
 }

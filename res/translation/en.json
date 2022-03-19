@@ -97,6 +97,7 @@
     "CreatePost": "Post a comment",
     "Like": "Like",
     "Comment": "Comment",
-    "Delete": "Delete"
+    "Delete": "Delete",
+    "Re": "Re"
   }
 }

@@ -79,10 +79,10 @@ class _PostCardState extends State<PostCard> {
       isScrollControlled: true,
       builder: (context) => DraggableScrollableSheet(
         expand: false,
-        maxChildSize: 0.73,
-        initialChildSize: 0.6,
+        maxChildSize: 0.9,
+        initialChildSize: 0.73,
         snap: true,
-        snapSizes: const [0.73],
+        snapSizes: const [0.9],
         builder: (context, controller) => PostList(
           thread: widget.thread,
           parentPost: widget.post,
@@ -171,8 +171,9 @@ class _PostCardState extends State<PostCard> {
     } else {
       content = UserProfileBuilder(
         uid: post.refPostUid,
-        builder: (context, profile) =>
-            SelectableText('Re ${profile.displayName}: ${post.content}'),
+        builder: (context, profile) => SelectableText(
+          '${LocaleKeys.Community_Re.tr()} ${profile.displayName}: ${post.content}',
+        ),
         placeholder: (context) => SelectableText(post.content),
       );
     }

@@ -8,6 +8,8 @@ import '../../global.dart';
 import '../../util/screen.dart';
 import 'post_card.dart';
 
+/// Display a post list under specific parent post.
+/// Used in bottom sheet to show 2nd level posts.
 class PostList extends StatefulWidget {
   final Thread thread;
   final Post parentPost;
@@ -31,7 +33,7 @@ class _PostListState extends State<PostList> {
     final parentPost = widget.parentPost;
     final resp = await rpc.forumClient.getPostsByParent(GetPostsByParentReq(
       parentId: parentPost.id,
-      ordering: Ordering.latest,
+      ordering: Ordering.oldest,
       offset: pageKey,
       count: 10,
     ));
@@ -70,6 +72,7 @@ class _PostListState extends State<PostList> {
               child: PostCard(
                 thread: thread,
                 post: parentPost,
+                onPostComment: _pagingController.refresh,
               ),
             ),
           ),
@@ -81,6 +84,7 @@ class _PostListState extends State<PostList> {
               child: PostCard(
                 thread: widget.thread,
                 post: post,
+                onPostComment: _pagingController.refresh,
               ),
             ),
           ),

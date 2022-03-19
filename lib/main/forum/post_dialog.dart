@@ -5,6 +5,7 @@ import 'package:xmus_client/generated/forum_thread.pb.dart';
 import '../../global.dart';
 import '../../util/screen.dart';
 
+/// Dialog to create new post.
 class NewPostDialog extends StatefulWidget {
   final Thread thread;
   final Post? toPost;
