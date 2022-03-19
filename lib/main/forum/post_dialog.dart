@@ -69,9 +69,8 @@ class _NewPostDialogState extends State<NewPostDialog> {
   @override
   Widget build(BuildContext context) {
     final inputField = Container(
-      margin: const EdgeInsets.only(right: 8),
+      margin: const EdgeInsets.only(right: 6),
       padding: const EdgeInsets.symmetric(horizontal: 8),
-      height: 45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7),
         color: Theme.of(context).canvasColor,
@@ -79,11 +78,13 @@ class _NewPostDialogState extends State<NewPostDialog> {
       child: TextField(
         autofocus: true,
         controller: _controller,
-        decoration: const InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 4),
+        maxLines: 2,
+        minLines: 1,
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.fromLTRB(4, 4, 4, 8),
           isDense: true,
           border: InputBorder.none,
-          hintText: 'Post a comment',
+          hintText: LocaleKeys.Community_CreatePost.tr(),
         ),
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 18),
       ),
