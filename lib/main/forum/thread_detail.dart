@@ -90,32 +90,38 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
+        padding: const EdgeInsets.symmetric(vertical: 4),
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
-              child: Hero(
-                tag: widget.thread.id,
-                child: ThreadCard(
-                  thread: widget.thread,
-                  expanded: true,
-                  exbandable: true,
-                  onPostComment: _refreshComments,
+              child: BodyPadding(
+                child: Hero(
+                  tag: widget.thread.id,
+                  child: ThreadCard(
+                    thread: widget.thread,
+                    expanded: true,
+                    exbandable: true,
+                    onPostComment: _refreshComments,
+                  ),
                 ),
               ),
             ),
             PagedSliverList.separated(
               pagingController: _pagingController,
               builderDelegate: PagedChildBuilderDelegate<Post>(
-                itemBuilder: (context, post, index) => PostCard(
-                  thread: widget.thread,
-                  post: post,
-                  children: _childrens[post.id] ?? [],
-                  onPostComment: _refreshComments,
+                itemBuilder: (context, post, index) => BodyPadding(
+                  child: PostCard(
+                    thread: widget.thread,
+                    post: post,
+                    children: _childrens[post.id] ?? [],
+                    onPostComment: _refreshComments,
+                  ),
                 ),
                 noItemsFoundIndicatorBuilder: (_) => const SizedBox(),
               ),
-              separatorBuilder: (context, index) => const Divider(),
+              separatorBuilder: (context, index) => const BodyPadding(
+                child: Divider(),
+              ),
             ),
           ],
         ),

@@ -8,6 +8,7 @@ import '../config.dart';
 import '../global.dart';
 import '../redux/action/action.dart';
 import '../redux/state/state.dart';
+import '../util/platform.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key}) : super(key: key);
@@ -108,10 +109,11 @@ class _ServerStatus extends StatelessWidget {
           name: 'Moodle',
           url: moodleAddress,
         ),
-        _buildTile(
-          name: 'Media Site',
-          url: 'https://mymedia.xmu.edu.cn/Mediasite/',
-        ),
+        if (isVM)
+          _buildTile(
+            name: 'Media Site',
+            url: 'https://mymedia.xmu.edu.cn/Mediasite/',
+          ),
         _buildTile(
           name: 'Media Site Video',
           url: 'https://myv.xmu.edu.cn/MediasiteDeliver/',
