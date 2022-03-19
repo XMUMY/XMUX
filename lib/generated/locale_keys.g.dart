@@ -1,6 +1,10 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
 abstract class  LocaleKeys {
+  static const About = 'About';
+  static const More = 'More';
+  static const ServiceStatus = 'ServiceStatus';
+  static const SignOut = 'SignOut';
   static const Weekdays_1 = 'Weekdays.1';
   static const Weekdays_2 = 'Weekdays.2';
   static const Weekdays_3 = 'Weekdays.3';
@@ -22,9 +26,6 @@ abstract class  LocaleKeys {
   static const SignIn_RegisterEmail = 'SignIn.RegisterEmail';
   static const SignIn_ErrorFormat = 'SignIn.ErrorFormat';
   static const SignIn = 'SignIn';
-  static const SignOut = 'SignOut';
-  static const About = 'About';
-  static const More = 'More';
   static const Calendar_Calendar = 'Calendar.Calendar';
   static const Calendar_CalendarCardCode = 'Calendar.CalendarCardCode';
   static const Calendar_CalendarCardTime = 'Calendar.CalendarCardTime';

@@ -49,8 +49,15 @@ class MainDrawer extends StatelessWidget {
           ),
           Expanded(
             child: ListView(
-              children: const [
-                AboutTile(),
+              children: [
+                ListTile(
+                  title: Text(LocaleKeys.ServiceStatus.tr()),
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (context) => const _ServerStatus(),
+                  ),
+                ),
+                const _AboutTile(),
               ],
             ),
           ),
@@ -65,14 +72,63 @@ class MainDrawer extends StatelessWidget {
   }
 }
 
-class AboutTile extends StatefulWidget {
-  const AboutTile({Key? key}) : super(key: key);
+class _ServerStatus extends StatelessWidget {
+  const _ServerStatus({Key? key}) : super(key: key);
+
+  Widget _buildTile({required String name, required String url}) {
+    return FutureBuilder(
+      future: get(Uri.parse(url)).timeout(
+        const Duration(seconds: 10),
+        onTimeout: () => throw Exception(),
+      ),
+      builder: (context, snapshot) {
+        return ListTile(
+          title: Text(name),
+          trailing: snapshot.connectionState == ConnectionState.waiting
+              ? const Icon(Icons.more_horiz)
+              : snapshot.connectionState == ConnectionState.done &&
+                      !snapshot.hasError
+                  ? const Icon(Icons.check, color: Colors.green)
+                  : const Icon(Icons.close, color: Colors.red),
+        );
+      },
+    );
+  }
 
   @override
-  State<AboutTile> createState() => _AboutTileState();
+  Widget build(BuildContext context) {
+    return SimpleDialog(
+      title: Text(LocaleKeys.ServiceStatus.tr()),
+      children: [
+        _buildTile(
+          name: 'XMUX',
+          url: apiAddress,
+        ),
+        _buildTile(
+          name: 'Moodle',
+          url: moodleAddress,
+        ),
+        _buildTile(
+          name: 'Media Site',
+          url: 'https://mymedia.xmu.edu.cn/Mediasite/',
+        ),
+        _buildTile(
+          name: 'Media Site Video',
+          url: 'https://myv.xmu.edu.cn/MediasiteDeliver/',
+        ),
+      ],
+    );
+  }
 }
 
-class _AboutTileState extends State<AboutTile> {
+class _AboutTile extends StatefulWidget {
+  const _AboutTile({Key? key}) : super(key: key);
+
+  @override
+  State<_AboutTile> createState() => _AboutTileState();
+}
+
+class _AboutTileState extends State<_AboutTile> {
   Future<void> _showAbout() async {
     PackageInfo? info;
     try {
@@ -86,15 +142,15 @@ class _AboutTileState extends State<AboutTile> {
       children: [
         ListTile(
           title: Text(LocaleKeys.SignIn_Docs.tr()),
-          onTap: () => launch('https://docs.xmux.xdea.io'),
+          onTap: () => launch(docsAddress),
         ),
         ListTile(
           title: Text(LocaleKeys.SignIn_Privacy.tr()),
-          onTap: () => launch('https://docs.xmux.xdea.io/app/privacy/'),
+          onTap: () => launch('$docsAddress/app/privacy/'),
         ),
         ListTile(
           title: Text(LocaleKeys.More.tr()),
-          onTap: () => launch('https://docs.xmux.xdea.io/app/about'),
+          onTap: () => launch('$docsAddress/app/about/'),
         ),
       ],
     );

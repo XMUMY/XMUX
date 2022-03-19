@@ -12,6 +12,7 @@ import 'package:xmus_client/error.dart';
 import 'package:xmus_client/generated/google/protobuf/empty.pb.dart';
 import 'package:xmus_client/generated/user.pb.dart';
 
+import '../config.dart';
 import '../global.dart';
 import '../redux/action/action.dart';
 import 'background.dart';
@@ -45,13 +46,12 @@ class LoginPage extends StatelessWidget {
                 children: <Widget>[
                   IconButton(
                     icon: const Icon(Icons.privacy_tip),
-                    onPressed: () =>
-                        launch('https://docs.xmux.xdea.io/app/privacy/'),
+                    onPressed: () => launch('$docsAddress/app/privacy/'),
                     tooltip: LocaleKeys.SignIn_Privacy.tr(),
                   ),
                   IconButton(
                     icon: const Icon(FontAwesomeIcons.question),
-                    onPressed: () => launch('https://docs.xmux.xdea.io'),
+                    onPressed: () => launch(docsAddress),
                     tooltip: LocaleKeys.SignIn_Docs.tr(),
                   ),
                 ],

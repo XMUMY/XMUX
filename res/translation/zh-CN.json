@@ -1,4 +1,8 @@
 {
+  "About": "关于",
+  "More": "更多",
+  "ServiceStatus": "服务状态",
+  "SignOut": "登出",
   "Weekdays": {
     "1": "周一",
     "2": "周二",
@@ -22,9 +26,6 @@
     "RegisterEmail": "邮箱",
     "ErrorFormat": "格式不正确。"
   },
-  "SignOut": "登出",
-  "About": "关于",
-  "More": "更多",
   "Calendar": {
     "Calendar": "日程",
     "CalendarCardCode": "代号",
