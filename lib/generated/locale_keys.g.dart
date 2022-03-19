@@ -24,6 +24,7 @@ abstract class  LocaleKeys {
   static const SignIn = 'SignIn';
   static const SignOut = 'SignOut';
   static const About = 'About';
+  static const More = 'More';
   static const Calendar_Calendar = 'Calendar.Calendar';
   static const Calendar_CalendarCardCode = 'Calendar.CalendarCardCode';
   static const Calendar_CalendarCardTime = 'Calendar.CalendarCardTime';

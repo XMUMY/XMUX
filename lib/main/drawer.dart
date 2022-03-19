@@ -49,28 +49,62 @@ class MainDrawer extends StatelessWidget {
           ),
           Expanded(
             child: ListView(
-              children: [
-                ListTile(
-                  title: Text(LocaleKeys.SignOut.tr()),
-                  onTap: () => store.dispatch(LogoutAction()),
-                ),
-                ListTile(
-                  title: Text(LocaleKeys.About.tr()),
-                  onTap: () => launch('https://docs.xmux.xdea.io/app/about'),
-                ),
+              children: const [
+                AboutTile(),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(3),
-            child: FutureBuilder<PackageInfo>(
-              future: PackageInfo.fromPlatform(),
-              builder: (context, snapshot) =>
-                  Text(snapshot.data?.version ?? fallbackVersionName),
-            ),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app),
+            title: Text(LocaleKeys.SignOut.tr()),
+            onTap: () => store.dispatch(LogoutAction()),
           ),
         ],
       ),
+    );
+  }
+}
+
+class AboutTile extends StatefulWidget {
+  const AboutTile({Key? key}) : super(key: key);
+
+  @override
+  State<AboutTile> createState() => _AboutTileState();
+}
+
+class _AboutTileState extends State<AboutTile> {
+  Future<void> _showAbout() async {
+    PackageInfo? info;
+    try {
+      info = await PackageInfo.fromPlatform();
+    } catch (_) {}
+    if (!mounted) return;
+    showAboutDialog(
+      context: context,
+      applicationVersion:
+          '${info?.version ?? fallbackVersionName} (${info?.buildNumber ?? fallbackVersionCode})',
+      children: [
+        ListTile(
+          title: Text(LocaleKeys.SignIn_Docs.tr()),
+          onTap: () => launch('https://docs.xmux.xdea.io'),
+        ),
+        ListTile(
+          title: Text(LocaleKeys.SignIn_Privacy.tr()),
+          onTap: () => launch('https://docs.xmux.xdea.io/app/privacy/'),
+        ),
+        ListTile(
+          title: Text(LocaleKeys.More.tr()),
+          onTap: () => launch('https://docs.xmux.xdea.io/app/about'),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(LocaleKeys.About.tr()),
+      onTap: () => _showAbout(),
     );
   }
 }
