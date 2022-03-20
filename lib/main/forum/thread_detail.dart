@@ -112,7 +112,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
               builderDelegate: PagedChildBuilderDelegate<Post>(
                 itemBuilder: (context, post, index) => BodyPadding(
                   child: PostCard(
-                    thread: widget.thread,
+                    threadId: widget.thread.id,
                     post: post,
                     children: _childrens[post.id] ?? [],
                     onPostComment: _refreshComments,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:xmus_client/generated/forum_common.pb.dart';
 import 'package:xmus_client/generated/forum_post.pb.dart';
-import 'package:xmus_client/generated/forum_thread.pb.dart';
 
 import '../../global.dart';
 import '../../util/screen.dart';
@@ -11,13 +10,11 @@ import 'post_card.dart';
 /// Display a post list under specific parent post.
 /// Used in bottom sheet to show 2nd level posts.
 class PostList extends StatefulWidget {
-  final Thread thread;
   final Post parentPost;
   final ScrollController? scrollController;
 
   const PostList({
     Key? key,
-    required this.thread,
     required this.parentPost,
     this.scrollController,
   }) : super(key: key);
@@ -60,7 +57,6 @@ class _PostListState extends State<PostList> {
 
   @override
   Widget build(BuildContext context) {
-    final thread = widget.thread;
     final parentPost = widget.parentPost;
     return CustomScrollView(
       controller: widget.scrollController,
@@ -70,7 +66,7 @@ class _PostListState extends State<PostList> {
             child: Card(
               margin: const EdgeInsets.symmetric(vertical: 10),
               child: PostCard(
-                thread: thread,
+                threadId: parentPost.threadId,
                 post: parentPost,
                 onPostComment: _pagingController.refresh,
               ),
@@ -82,7 +78,7 @@ class _PostListState extends State<PostList> {
           builderDelegate: PagedChildBuilderDelegate<Post>(
             itemBuilder: (context, post, index) => BodyPadding(
               child: PostCard(
-                thread: widget.thread,
+                threadId: post.threadId,
                 post: post,
                 onPostComment: _pagingController.refresh,
               ),

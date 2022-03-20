@@ -54,7 +54,7 @@ class _ThreadCardState extends State<ThreadCard> {
   Future<void> _comment() async {
     final r = await NewPostDialog.show(
       context,
-      thread: widget.thread,
+      threadId: widget.thread.id,
     );
     if (r == true) {
       setState(() => widget.thread.posts++);
@@ -217,7 +217,7 @@ class _ThreadCardState extends State<ThreadCard> {
     return FloatingCard(
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: const EdgeInsets.all(5),
-      onTap: () => context.go(
+      onTap: () => context.push(
         '/Community/Thread/${widget.thread.id}',
         extra: widget.thread,
       ),

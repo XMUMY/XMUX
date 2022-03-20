@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:timeago/timeago.dart';
 import 'package:xmus_client/generated/forum_post.pb.dart';
 import 'package:xmus_client/generated/forum_saved.pb.dart';
-import 'package:xmus_client/generated/forum_thread.pb.dart';
 
 import '../../../component/user_profile.dart';
 import '../../component/like_icon.dart';
@@ -15,14 +14,14 @@ import 'post_dialog.dart';
 import 'post_list.dart';
 
 class PostCard extends StatefulWidget {
-  final Thread thread;
+  final int threadId;
   final Post post;
   final List<Post> children;
   final VoidCallback? onPostComment;
 
   const PostCard({
     Key? key,
-    required this.thread,
+    required this.threadId,
     required this.post,
     this.children = const [],
     this.onPostComment,
@@ -46,7 +45,7 @@ class _PostCardState extends State<PostCard> {
   Future<void> _comment() async {
     final r = await NewPostDialog.show(
       context,
-      thread: widget.thread,
+      threadId: widget.threadId,
       toPost: widget.post,
     );
     if (r == true) widget.onPostComment?.call();
@@ -84,7 +83,6 @@ class _PostCardState extends State<PostCard> {
         snap: true,
         snapSizes: const [0.9],
         builder: (context, controller) => PostList(
-          thread: widget.thread,
           parentPost: widget.post,
           scrollController: controller,
         ),

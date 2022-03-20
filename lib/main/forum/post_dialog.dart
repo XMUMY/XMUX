@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:xmus_client/generated/forum_post.pb.dart';
-import 'package:xmus_client/generated/forum_thread.pb.dart';
 
 import '../../global.dart';
 import '../../util/screen.dart';
 
 /// Dialog to create new post.
 class NewPostDialog extends StatefulWidget {
-  final Thread thread;
+  final int threadId;
   final Post? toPost;
 
   const NewPostDialog({
     Key? key,
-    required this.thread,
+    required this.threadId,
     this.toPost,
   }) : super(key: key);
 
   static Future<bool?> show(
     BuildContext context, {
-    required Thread thread,
+    required int threadId,
     Post? toPost,
   }) async {
     return showDialog<bool>(
       context: context,
       builder: (context) => NewPostDialog(
-        thread: thread,
+        threadId: threadId,
         toPost: toPost,
       ),
       barrierColor: Colors.black26,
@@ -45,7 +44,7 @@ class _NewPostDialogState extends State<NewPostDialog> {
     try {
       final toPost = widget.toPost;
       final req = CreatePostReq(
-        threadId: widget.thread.id,
+        threadId: widget.threadId,
         content: _controller.text,
       );
 

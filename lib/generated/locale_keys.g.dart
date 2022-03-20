@@ -91,6 +91,7 @@ abstract class  LocaleKeys {
   static const Community_Discover = 'Community.Discover';
   static const Community_Forums = 'Community.Forums';
   static const Community_Favorites = 'Community.Favorites';
+  static const Community_Threads = 'Community.Threads';
   static const Community_CreateThreadTitle = 'Community.CreateThreadTitle';
   static const Community_CreateTitle = 'Community.CreateTitle';
   static const Community_CreatePost = 'Community.CreatePost';
