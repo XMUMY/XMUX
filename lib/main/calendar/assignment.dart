@@ -12,8 +12,15 @@ import '../../global.dart';
 import '../../redux/action/action.dart';
 import '../../redux/state/state.dart';
 import '../../util/screen.dart';
+import '../../util/tab.dart';
 
-class AssignmentPage extends StatelessWidget {
+class AssignmentPage extends StatelessWidget implements TabEntry {
+  @override
+  String get path => 'Assignment';
+
+  @override
+  String get label => LocaleKeys.Calendar_Assignments.tr();
+
   const AssignmentPage({Key? key}) : super(key: key);
 
   @override

@@ -1,5 +1,4 @@
 import 'package:extended_image/extended_image.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -9,9 +8,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../global.dart';
 import '../../redux/state/state.dart';
-import '../../route.dart';
 import '../../util/platform.dart';
 import '../../util/screen.dart';
+import '../../util/tab.dart';
+import '../../util/tracker.dart';
 import '../main_page.dart';
 import 'assignment.dart';
 import 'exam.dart';
@@ -34,6 +34,14 @@ class CalendarPage extends StatefulWidget implements TopLevelPage {
   @override
   Widget get activeIcon => const Icon(Icons.calendar_today);
 
+  static const tabs = <TabEntry>[
+    TimetablePage(),
+    ExamPage(),
+    AssignmentPage(),
+    UpcomingEventPage(),
+    MoodleNotificationPage(),
+  ];
+
   @override
   State<CalendarPage> createState() => _CalendarPageState();
 }
@@ -41,19 +49,24 @@ class CalendarPage extends StatefulWidget implements TopLevelPage {
 class _CalendarPageState extends State<CalendarPage>
     with SingleTickerProviderStateMixin {
   late final TabController _controller;
+  var currentIndex = -1;
+
+  void _onTabChanged() {
+    if (_controller.index == currentIndex) return;
+    currentIndex = _controller.index;
+
+    // Track tab pages.
+    setCurrentScreen(
+      screenName: '/Calendar/${CalendarPage.tabs[currentIndex].path}',
+    );
+  }
 
   @override
   void initState() {
-    _controller = TabController(length: 5, vsync: this);
+    _controller = TabController(length: CalendarPage.tabs.length, vsync: this);
 
-    // Track tab pages.
-    if (kReleaseMode && (isMobile || isWeb)) {
-      _controller.addListener(
-        () => FirebaseAnalytics.instance.setCurrentScreen(
-          screenName: calendarPageNames[_controller.index],
-        ),
-      );
-    }
+    _controller.addListener(_onTabChanged);
+    _onTabChanged();
 
     super.initState();
   }
@@ -96,13 +109,9 @@ class _CalendarPageState extends State<CalendarPage>
                   child: TabBar(
                     isScrollable: true,
                     controller: _controller,
-                    tabs: [
-                      Tab(text: LocaleKeys.Calendar_Classes.tr()),
-                      Tab(text: LocaleKeys.Calendar_Exams.tr()),
-                      Tab(text: LocaleKeys.Calendar_Assignments.tr()),
-                      Tab(text: LocaleKeys.Calendar_UpcomingEvents.tr()),
-                      Tab(text: LocaleKeys.Calendar_Notifications.tr()),
-                    ],
+                    tabs: CalendarPage.tabs
+                        .map((e) => Tab(text: e.label))
+                        .toList(),
                   ),
                 ),
                 IconButton(
@@ -112,7 +121,7 @@ class _CalendarPageState extends State<CalendarPage>
                     if (isWeb) {
                       launch('http://www.xmu.edu.my/14702/list.htm');
                     } else {
-                      context.go('/M/Calendar/AcademicCalendar');
+                      context.go('/Calendar/AcademicCalendar');
                     }
                   },
                 ),
@@ -122,13 +131,7 @@ class _CalendarPageState extends State<CalendarPage>
         ),
         body: TabBarView(
           controller: _controller,
-          children: const [
-            TimetablePage(),
-            ExamPage(),
-            AssignmentPage(),
-            UpcomingEventPage(),
-            MoodleNotificationPage()
-          ],
+          children: CalendarPage.tabs,
         ),
       ),
     );

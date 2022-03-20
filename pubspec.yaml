@@ -68,6 +68,7 @@ dependencies:
   infinite_scroll_pagination: ^3.0.0
   intl: ^0.17.0
   json_annotation: ^4.4.0
+  logger: ^1.1.0
   lottie: ^1.2.0
   package_info_plus: ^1.0.0
   redux: ^5.0.0
@@ -94,6 +95,13 @@ dependency_overrides:
       url: https://github.com/fluttercommunity/plus_plugins.git
       ref: main
       path: packages/package_info_plus/package_info_plus_windows
+  # Use first match if multiple route matched.
+  # https://github.com/flutter/flutter/issues/99833
+  go_router:
+    git:
+      url: https://github.com/XMUMY/packages.git
+      ref: main
+      path: packages/go_router
 
 dev_dependencies:
   flutter_test:

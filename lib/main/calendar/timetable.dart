@@ -13,8 +13,15 @@ import '../../redux/action/action.dart';
 import '../../redux/state/state.dart';
 import '../../util/platform.dart';
 import '../../util/screen.dart';
+import '../../util/tab.dart';
 
-class TimetablePage extends StatelessWidget {
+class TimetablePage extends StatelessWidget implements TabEntry {
+  @override
+  String get path => 'Timetable';
+
+  @override
+  String get label => LocaleKeys.Calendar_Classes.tr();
+
   const TimetablePage({Key? key}) : super(key: key);
 
   @override

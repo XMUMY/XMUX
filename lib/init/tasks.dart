@@ -9,6 +9,7 @@ import '../global.dart';
 import '../redux/action/action.dart';
 import '../util/platform.dart';
 import '../util/remote_config.dart';
+import '../util/tracker.dart';
 
 final preInitTask = initRemoteConfigsTask;
 
@@ -35,6 +36,7 @@ final injectFirebaseAnalyticsObserverTask = Task.when(
   () async => kReleaseMode && (isMobile || isWeb),
   (ctx) async => router.routerDelegate.observers.add(FirebaseAnalyticsObserver(
     analytics: FirebaseAnalytics.instance,
+    nameExtractor: RouterObserver.nameExtractor,
   )),
 );
 

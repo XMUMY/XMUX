@@ -7,8 +7,15 @@ import '../../component/empty_error.dart';
 import '../../component/floating_card.dart';
 import '../../global.dart';
 import '../../util/screen.dart';
+import '../../util/tab.dart';
 
-class UpcomingEventPage extends StatefulWidget {
+class UpcomingEventPage extends StatefulWidget implements TabEntry {
+  @override
+  String get path => 'UpcomingEvent';
+
+  @override
+  String get label => LocaleKeys.Calendar_UpcomingEvents.tr();
+
   const UpcomingEventPage({Key? key}) : super(key: key);
 
   @override

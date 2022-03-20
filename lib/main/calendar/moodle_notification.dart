@@ -11,8 +11,15 @@ import '../../component/catalogue_content_layout.dart';
 import '../../component/floating_card.dart';
 import '../../global.dart';
 import '../../util/screen.dart';
+import '../../util/tab.dart';
 
-class MoodleNotificationPage extends StatefulWidget {
+class MoodleNotificationPage extends StatefulWidget implements TabEntry {
+  @override
+  String get path => 'MoodleNotification';
+
+  @override
+  String get label => LocaleKeys.Calendar_Notifications.tr();
+
   const MoodleNotificationPage({Key? key}) : super(key: key);
 
   @override

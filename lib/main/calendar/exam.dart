@@ -11,8 +11,15 @@ import '../../global.dart';
 import '../../redux/action/action.dart';
 import '../../redux/state/state.dart';
 import '../../util/screen.dart';
+import '../../util/tab.dart';
 
-class ExamPage extends StatelessWidget {
+class ExamPage extends StatelessWidget implements TabEntry {
+  @override
+  String get path => 'Exam';
+
+  @override
+  String get label => LocaleKeys.Calendar_Exams.tr();
+
   const ExamPage({Key? key}) : super(key: key);
 
   @override
