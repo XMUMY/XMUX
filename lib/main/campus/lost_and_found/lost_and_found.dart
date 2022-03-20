@@ -7,6 +7,7 @@ import 'package:xmus_client/generated/lost_found.pb.dart';
 import '../../../component/floating_card.dart';
 import '../../../component/user_profile.dart';
 import '../../../global.dart';
+import '../../../util/avatar.dart';
 import '../../../util/screen.dart';
 import 'create.dart';
 import 'detail.dart';
@@ -102,7 +103,7 @@ class _ItemBriefCard extends StatelessWidget {
                       tag: brief.hashCode,
                       child: CircleAvatar(
                         child: ExtendedImage.network(
-                          profile.avatar,
+                          profile.avatar.toGravatarCdn,
                           shape: BoxShape.circle,
                         ),
                         radius: 20,

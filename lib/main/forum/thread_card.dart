@@ -13,6 +13,7 @@ import '../../../component/floating_card.dart';
 import '../../../component/user_profile.dart';
 import '../../component/like_icon.dart';
 import '../../global.dart';
+import '../../util/avatar.dart';
 import 'post_dialog.dart';
 
 class ThreadCard extends StatefulWidget {
@@ -103,7 +104,7 @@ class _ThreadCardState extends State<ThreadCard> {
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
             child: CircleAvatar(
               child: ExtendedImage.network(
-                profile.avatar,
+                profile.avatar.toGravatarCdn,
                 shape: BoxShape.circle,
               ),
               radius: 18,

@@ -10,6 +10,7 @@ import 'package:xmus_client/generated/forum_saved.pb.dart';
 import '../../../component/user_profile.dart';
 import '../../component/like_icon.dart';
 import '../../global.dart';
+import '../../util/avatar.dart';
 import 'post_dialog.dart';
 import 'post_list.dart';
 
@@ -79,7 +80,7 @@ class _PostCardState extends State<PostCard> {
       builder: (context) => DraggableScrollableSheet(
         expand: false,
         maxChildSize: 0.9,
-        minChildSize: 0.6,
+        minChildSize: 0.65,
         initialChildSize: 0.73,
         snap: true,
         snapSizes: const [0.9],
@@ -113,7 +114,7 @@ class _PostCardState extends State<PostCard> {
                 padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
                 child: CircleAvatar(
                   child: ExtendedImage.network(
-                    profile.avatar,
+                    profile.avatar.toGravatarCdn,
                     shape: BoxShape.circle,
                   ),
                   radius: 18,
@@ -155,10 +156,11 @@ class _PostCardState extends State<PostCard> {
       ),
       PopupMenuButton<VoidCallback>(
         itemBuilder: (context) => [
-          PopupMenuItem(
-            child: Text(LocaleKeys.Community_Delete.tr()),
-            value: _remove,
-          ),
+          if (post.uid == store.state.user.campusId)
+            PopupMenuItem(
+              child: Text(LocaleKeys.Community_Delete.tr()),
+              value: _remove,
+            ),
         ],
         onSelected: (v) => v(),
       ),

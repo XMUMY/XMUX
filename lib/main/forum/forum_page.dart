@@ -7,6 +7,7 @@ import 'package:timeago/timeago.dart';
 
 import '../../global.dart';
 import '../../redux/state/state.dart';
+import '../../util/avatar.dart';
 import '../../util/screen.dart';
 import '../../util/tab.dart';
 import '../../util/tracker.dart';
@@ -104,7 +105,7 @@ class _ForumPageState extends State<ForumPage>
                       onPressed: () => Scaffold.of(context).openDrawer(),
                       icon: CircleAvatar(
                         foregroundImage: ExtendedNetworkImageProvider(
-                          url,
+                          url.toGravatarCdn,
                           cache: true,
                         ),
                       ),

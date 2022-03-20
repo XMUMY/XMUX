@@ -7,6 +7,7 @@ import 'package:xmus_client/authorization.dart';
 
 import '../global.dart';
 import '../redux/action/action.dart';
+import '../util/avatar.dart';
 import '../util/platform.dart';
 import '../util/remote_config.dart';
 import '../util/tracker.dart';
@@ -14,6 +15,7 @@ import '../util/tracker.dart';
 final preInitTask = ParallelTask([
   initRemoteConfigsTask,
   initFirebaseTask,
+  Gravatar.cdnTestTask,
 ]);
 
 final postInitTask = ParallelTask([

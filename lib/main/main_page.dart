@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../global.dart';
 import '../redux/state/state.dart';
+import '../util/avatar.dart';
 import '../util/screen.dart';
 import '../util/tracker.dart';
 import 'calendar/calendar_page.dart';
@@ -98,7 +99,10 @@ class _MainPageState extends State<MainPage> {
           builder: (context, url) => IconButton(
             onPressed: () => Scaffold.of(context).openDrawer(),
             icon: CircleAvatar(
-              foregroundImage: ExtendedNetworkImageProvider(url, cache: true),
+              foregroundImage: ExtendedNetworkImageProvider(
+                url.toGravatarCdn,
+                cache: true,
+              ),
             ),
             iconSize: 40,
           ),

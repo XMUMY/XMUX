@@ -6,6 +6,7 @@ import 'package:xmus_client/generated/lost_found.pb.dart';
 
 import '../../../component/user_profile.dart';
 import '../../../global.dart';
+import '../../../util/avatar.dart';
 import '../../../util/screen.dart';
 
 class LostAndFoundDetailPage extends StatefulWidget {
@@ -139,7 +140,7 @@ class _LostAndFoundDetailPageState extends State<LostAndFoundDetailPage> {
                       tag: widget.brief.hashCode,
                       child: CircleAvatar(
                         child: ExtendedImage.network(
-                          profile.avatar,
+                          profile.avatar.toGravatarCdn,
                           shape: BoxShape.circle,
                         ),
                         radius: 20,

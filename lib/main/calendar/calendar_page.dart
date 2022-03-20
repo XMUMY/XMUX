@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../global.dart';
 import '../../redux/state/state.dart';
+import '../../util/avatar.dart';
 import '../../util/platform.dart';
 import '../../util/screen.dart';
 import '../../util/tab.dart';
@@ -111,7 +112,7 @@ class _CalendarPageState extends State<CalendarPage>
                       onPressed: () => Scaffold.of(context).openDrawer(),
                       icon: CircleAvatar(
                         foregroundImage: ExtendedNetworkImageProvider(
-                          url,
+                          url.toGravatarCdn,
                           cache: true,
                         ),
                       ),

@@ -8,6 +8,7 @@ import '../config.dart';
 import '../global.dart';
 import '../redux/action/action.dart';
 import '../redux/state/state.dart';
+import '../util/avatar.dart';
 import '../util/platform.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -30,7 +31,7 @@ class MainDrawer extends StatelessWidget {
                         : remoteConfigs.staticResources.defaultAvatar,
                     builder: (context, url) => CircleAvatar(
                       foregroundImage: ExtendedNetworkImageProvider(
-                        url,
+                        url.toGravatarCdn,
                         cache: true,
                       ),
                       radius: 30,
