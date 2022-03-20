@@ -14,13 +14,13 @@ import '../../util/screen.dart';
 import '../../util/tab.dart';
 
 class ExamPage extends StatelessWidget implements TabEntry {
+  const ExamPage({Key? key}) : super(key: key);
+
   @override
   String get path => 'Exam';
 
   @override
   String get label => LocaleKeys.Calendar_Exams.tr();
-
-  const ExamPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

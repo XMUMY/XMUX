@@ -14,13 +14,13 @@ import '../../util/screen.dart';
 import '../../util/tab.dart';
 
 class MoodleNotificationPage extends StatefulWidget implements TabEntry {
+  const MoodleNotificationPage({Key? key}) : super(key: key);
+
   @override
   String get path => 'MoodleNotification';
 
   @override
   String get label => LocaleKeys.Calendar_Notifications.tr();
-
-  const MoodleNotificationPage({Key? key}) : super(key: key);
 
   @override
   _MoodleNotificationPageState createState() => _MoodleNotificationPageState();

@@ -15,13 +15,13 @@ import '../../util/screen.dart';
 import '../../util/tab.dart';
 
 class AssignmentPage extends StatelessWidget implements TabEntry {
+  const AssignmentPage({Key? key}) : super(key: key);
+
   @override
   String get path => 'Assignment';
 
   @override
   String get label => LocaleKeys.Calendar_Assignments.tr();
-
-  const AssignmentPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

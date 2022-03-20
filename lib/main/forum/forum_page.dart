@@ -1,15 +1,15 @@
 import 'package:extended_image/extended_image.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:go_router/go_router.dart';
 import 'package:timeago/timeago.dart';
 
 import '../../global.dart';
 import '../../redux/state/state.dart';
-import '../../route.dart';
-import '../../util/platform.dart';
 import '../../util/screen.dart';
+import '../../util/tab.dart';
+import '../../util/tracker.dart';
 import '../main_page.dart';
 import 'discover.dart';
 
@@ -28,26 +28,47 @@ class ForumPage extends StatefulWidget implements TopLevelPage {
   @override
   Widget get activeIcon => const Icon(Icons.chat);
 
+  static const tabs = <TabEntry>[
+    DiscoverTab(),
+  ];
+
   @override
   State<ForumPage> createState() => _ForumPageState();
 }
 
 class _ForumPageState extends State<ForumPage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, RouteAware {
   late final TabController _controller;
+  var currentIndex = -1;
+
+  String get currentTabScreenName =>
+      '/Community/${ForumPage.tabs[currentIndex].path}';
+
+  void _onTabChanged() {
+    if (_controller.index == currentIndex) return;
+    currentIndex = _controller.index;
+    // Track tab screen.
+    setCurrentScreen(screenName: currentTabScreenName);
+  }
+
+  @override
+  void didPopNext() {
+    super.didPopNext();
+    // Restore tab screen.
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => setCurrentScreen(screenName: currentTabScreenName),
+    );
+  }
 
   @override
   void initState() {
-    _controller = TabController(length: 2, vsync: this);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => routeObserver.subscribe(this, ModalRoute.of(context)!),
+    );
 
-    // Track tab pages.
-    if (kReleaseMode && (isMobile || isWeb)) {
-      _controller.addListener(
-        () => FirebaseAnalytics.instance.setCurrentScreen(
-          screenName: calendarPageNames[_controller.index],
-        ),
-      );
-    }
+    _controller = TabController(length: ForumPage.tabs.length, vsync: this)
+      ..addListener(_onTabChanged);
+    _onTabChanged(); // Initial tab.
 
     // Necessary messages for timeago.
     setLocaleMessages('zh', ZhCnMessages());
@@ -57,6 +78,7 @@ class _ForumPageState extends State<ForumPage>
 
   @override
   void dispose() {
+    routeObserver.unsubscribe(this);
     _controller.dispose();
     super.dispose();
   }
@@ -93,16 +115,14 @@ class _ForumPageState extends State<ForumPage>
                   child: TabBar(
                     isScrollable: true,
                     controller: _controller,
-                    tabs: [
-                      Tab(text: LocaleKeys.Community_Discover.tr()),
-                      Tab(text: LocaleKeys.Community_Forums.tr()),
-                    ],
+                    tabs:
+                        ForumPage.tabs.map((e) => Tab(text: e.label)).toList(),
                   ),
                 ),
                 IconButton(
                   icon: const Icon(Icons.bookmark_border),
                   tooltip: LocaleKeys.Community_Favorites.tr(),
-                  onPressed: () {},
+                  onPressed: () => context.go('/Community/Favorite'),
                 ),
               ],
             ),
@@ -110,10 +130,7 @@ class _ForumPageState extends State<ForumPage>
         ),
         body: TabBarView(
           controller: _controller,
-          children: [
-            const DiscoverTab(),
-            Container(),
-          ],
+          children: ForumPage.tabs,
         ),
       ),
     );

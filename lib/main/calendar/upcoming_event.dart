@@ -10,13 +10,13 @@ import '../../util/screen.dart';
 import '../../util/tab.dart';
 
 class UpcomingEventPage extends StatefulWidget implements TabEntry {
+  const UpcomingEventPage({Key? key}) : super(key: key);
+
   @override
   String get path => 'UpcomingEvent';
 
   @override
   String get label => LocaleKeys.Calendar_UpcomingEvents.tr();
-
-  const UpcomingEventPage({Key? key}) : super(key: key);
 
   @override
   _UpcomingEventPageState createState() => _UpcomingEventPageState();

@@ -16,13 +16,13 @@ import '../../util/screen.dart';
 import '../../util/tab.dart';
 
 class TimetablePage extends StatelessWidget implements TabEntry {
+  const TimetablePage({Key? key}) : super(key: key);
+
   @override
   String get path => 'Timetable';
 
   @override
   String get label => LocaleKeys.Calendar_Classes.tr();
-
-  const TimetablePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
