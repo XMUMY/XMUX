@@ -107,7 +107,7 @@ class _ServerStatus extends StatelessWidget {
         ),
         _buildTile(
           name: 'Moodle',
-          url: moodleAddress,
+          url: '$moodleAddress/webservice/rest/server.php',
         ),
         if (isVM)
           _buildTile(

@@ -49,7 +49,7 @@ class RouterObserver extends RouteObserver<ModalRoute<dynamic>> {
 
 void setCurrentScreen({required String screenName}) {
   log.d('screenName: $screenName');
-  if (kReleaseMode && (isMobile || isWeb)) {
+  if (kReleaseMode && (isMobile || isWeb || isMacOS)) {
     FirebaseAnalytics.instance.setCurrentScreen(screenName: screenName);
   }
 }

@@ -79,6 +79,7 @@ class _PostCardState extends State<PostCard> {
       builder: (context) => DraggableScrollableSheet(
         expand: false,
         maxChildSize: 0.9,
+        minChildSize: 0.6,
         initialChildSize: 0.73,
         snap: true,
         snapSizes: const [0.9],

@@ -29,13 +29,13 @@ final postInitTask = ParallelTask([
 
 /// Initialize Firebase if available.
 final initFirebaseTask = Task.when(
-  () async => isMobile || isWeb,
+  () async => isMobile || isWeb || isMacOS,
   (ctx) async => await Firebase.initializeApp(),
 );
 
 /// Inject [FirebaseAnalyticsObserver] to global router.
 final injectFirebaseAnalyticsObserverTask = Task.when(
-  () async => kReleaseMode && (isMobile || isWeb),
+  () async => kReleaseMode && (isMobile || isWeb || isMacOS),
   (ctx) async => router.routerDelegate.observers.add(FirebaseAnalyticsObserver(
     analytics: FirebaseAnalytics.instance,
     nameExtractor: RouterObserver.nameExtractor,
