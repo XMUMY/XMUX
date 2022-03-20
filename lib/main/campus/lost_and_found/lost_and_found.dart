@@ -27,6 +27,7 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
     final resp = await rpc.lostAndFoundClient
         .getBriefs(GetBriefsReq(before: _pagingController.itemList?.last.time));
     final briefs = resp.briefs;
+    if (!mounted) return;
     if (briefs.isNotEmpty) {
       _pagingController.appendPage(briefs, pageKey + briefs.length);
     } else {
@@ -38,6 +39,12 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
   void initState() {
     _pagingController.addPageRequestListener(_fetchPage);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
   }
 
   @override

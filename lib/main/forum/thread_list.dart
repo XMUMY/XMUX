@@ -29,6 +29,7 @@ class _ThreadListState extends State<ThreadList> {
       offset: pageKey,
       count: 10,
     ));
+    if (!mounted) return;
     if (resp.threads.isNotEmpty && resp.threads.length >= 10) {
       _pagingController.appendPage(resp.threads, pageKey + resp.threads.length);
     } else {

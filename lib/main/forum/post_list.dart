@@ -37,7 +37,7 @@ class _PostListState extends State<PostList> {
       offset: pageKey,
       count: 10,
     ));
-
+    if (!mounted) return;
     final posts = resp.posts;
     if (posts.length >= 10) {
       _pagingController.appendPage(posts, pageKey + posts.length);

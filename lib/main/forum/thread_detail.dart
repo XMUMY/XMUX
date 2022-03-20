@@ -40,6 +40,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
       }
     }
 
+    if (!mounted) return;
     if (tops.length >= 10) {
       _pagingController.appendPage(tops, pageKey + tops.length);
     } else {

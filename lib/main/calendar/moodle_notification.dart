@@ -37,6 +37,7 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage>
 
   Future<void> _fetchPage(int pageKey) async {
     final resp = await moodle.getPopupNotifications(offset: pageKey);
+    if (!mounted) return;
     if (resp.isNotEmpty) {
       _pagingController.appendPage(resp, pageKey + resp.length);
     } else {
@@ -51,6 +52,12 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage>
   void initState() {
     _pagingController.addPageRequestListener(_fetchPage);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
   }
 
   Widget _buildListItem(BuildContext context, Notification notification) {

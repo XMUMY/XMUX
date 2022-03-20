@@ -218,7 +218,7 @@ class _ThreadCardState extends State<ThreadCard> {
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: const EdgeInsets.all(5),
       onTap: () => context.go(
-        '/M/Community/Thread/${widget.thread.id}',
+        '/Community/Thread/${widget.thread.id}',
         extra: widget.thread,
       ),
       child: Column(

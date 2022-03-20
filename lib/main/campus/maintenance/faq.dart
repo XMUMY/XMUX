@@ -20,6 +20,7 @@ class _FaqListState extends State<FaqList> with AutomaticKeepAliveClientMixin {
 
   Future<void> _fetchPage(int pageKey) async {
     final resp = await Maintenance.getFaq(page: pageKey);
+    if (!mounted) return;
     if (resp.isNotEmpty) {
       _pagingController.appendPage(resp, pageKey + 1);
     } else {
@@ -34,6 +35,12 @@ class _FaqListState extends State<FaqList> with AutomaticKeepAliveClientMixin {
   void initState() {
     _pagingController.addPageRequestListener(_fetchPage);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
   }
 
   @override
