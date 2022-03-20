@@ -15,6 +15,7 @@ import 'main/campus/lost_and_found/lost_and_found.dart';
 import 'main/campus/maintenance/maintenance.dart';
 import 'main/campus/transcript.dart';
 import 'main/campus/wolfram.dart';
+import 'main/forum/favorites.dart';
 import 'main/forum/thread_detail.dart';
 import 'main/main_page.dart';
 
@@ -41,7 +42,7 @@ final routes = [
   ),
   GoRoute(
     path: '/:rootPage',
-    builder: (context, state) => MainPage.fromPage(state.params['rootPage']),
+    builder: (_, state) => MainPage.fromPage(state.params['rootPage']),
     routes: [
       // Calendar
       GoRoute(
@@ -53,6 +54,15 @@ final routes = [
       GoRoute(
         path: 'Thread/:tid',
         builder: (_, s) => ThreadDetailPage(thread: s.extra as Thread),
+      ),
+      GoRoute(
+        path: 'Favorite',
+        redirect: (_) => '/Community/Favorite/Thread',
+      ),
+      GoRoute(
+        path: 'Favorite/:favoriteTab',
+        builder: (_, state) =>
+            FavoritePage.fromTab(state.params['favoriteTab']),
       ),
 
       // Campus

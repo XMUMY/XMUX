@@ -217,10 +217,12 @@ class _ThreadCardState extends State<ThreadCard> {
     return FloatingCard(
       margin: const EdgeInsets.symmetric(vertical: 4),
       padding: const EdgeInsets.all(5),
-      onTap: () => context.push(
-        '/Community/Thread/${widget.thread.id}',
-        extra: widget.thread,
-      ),
+      onTap: widget.exbandable
+          ? null // Already in detail page.
+          : () => context.push(
+                '/Community/Thread/${widget.thread.id}',
+                extra: widget.thread,
+              ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
