@@ -11,15 +11,17 @@ import '../util/platform.dart';
 import '../util/remote_config.dart';
 import '../util/tracker.dart';
 
-final preInitTask = initRemoteConfigsTask;
+final preInitTask = ParallelTask([
+  initRemoteConfigsTask,
+  initFirebaseTask,
+]);
 
 final postInitTask = ParallelTask([
   SequentialTask([
     syncCredentialTask,
     refreshQueriesTask,
   ]),
-  SequentialTask([
-    initFirebaseTask,
+  ParallelTask([
     injectFirebaseAnalyticsObserverTask,
     fetchRemoteConfigsTask,
   ])
