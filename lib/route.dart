@@ -29,7 +29,7 @@ Page<T> _fade<T>(BuildContext context, GoRouterState state, Widget child) =>
 final routes = [
   GoRoute(
     path: '/',
-    redirect: (_) => '/M/Calendar',
+    redirect: (_) => '/Calendar',
   ),
   GoRoute(
     path: '/Init',
@@ -40,20 +40,22 @@ final routes = [
     pageBuilder: (context, state) => _fade(context, state, const LoginPage()),
   ),
   GoRoute(
-    path: '/M/:page',
-    builder: (context, state) {
-      final page = state.params['page'];
-      return MainPage(index: mainPages.indexWhere((e) => e.path == page));
-    },
+    path: '/:rootPage',
+    builder: (context, state) => MainPage.fromPage(state.params['rootPage']),
     routes: [
+      // Calendar
       GoRoute(
         path: 'AcademicCalendar',
         builder: (_, s) => AcademicCalendarPage(),
       ),
+
+      // Community
       GoRoute(
         path: 'Thread/:tid',
         builder: (_, s) => ThreadDetailPage(thread: s.extra as Thread),
       ),
+
+      // Campus
       GoRoute(
         path: 'WolframEngine',
         builder: (_, s) => const WolframPage(),
@@ -96,12 +98,4 @@ final routes = [
       ),
     ],
   ),
-];
-
-const calendarPageNames = [
-  '/M/Calendar/Timetable',
-  '/M/Calendar/Exam',
-  '/M/Calendar/Assignment',
-  '/M/Calendar/UpcomingEvent',
-  '/M/Calendar/MoodleNotification',
 ];

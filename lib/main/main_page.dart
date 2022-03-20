@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../global.dart';
 import '../redux/state/state.dart';
 import '../util/screen.dart';
+import '../util/tracker.dart';
 import 'calendar/calendar_page.dart';
 import 'campus/campus_page.dart';
 import 'drawer.dart';
@@ -32,6 +33,9 @@ class MainPage extends StatefulWidget {
 
   const MainPage({Key? key, this.index = 0}) : super(key: key);
 
+  factory MainPage.fromPage(String? page) =>
+      MainPage(index: mainPages.indexWhere((e) => e.path == page));
+
   @override
   State<MainPage> createState() => _MainPageState();
 }
@@ -41,7 +45,7 @@ class _MainPageState extends State<MainPage> {
 
   void navigateTo(int index) {
     if (!mounted || index == _index) return;
-    context.go('/M/${mainPages[index].path}');
+    context.go('/${mainPages[index].path}');
   }
 
   @override
@@ -52,7 +56,10 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void didUpdateWidget(covariant MainPage oldWidget) {
-    _index = widget.index;
+    if (_index != widget.index) {
+      _index = widget.index;
+      setCurrentScreen(screenName: '/${mainPages[_index].path}');
+    }
     super.didUpdateWidget(oldWidget);
   }
 
