@@ -13,6 +13,7 @@ class RouterObserver extends RouteObserver<ModalRoute<dynamic>> {
     final args = settings.arguments;
     if (args is Map<String, String>) {
       for (final entry in args.entries) {
+        if (entry.key.toLowerCase().endsWith('id')) continue;
         name = name?.replaceFirst(':${entry.key}', entry.value);
       }
     }

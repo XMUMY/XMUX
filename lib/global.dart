@@ -45,8 +45,10 @@ final router = GoRouter(
 
     return null;
   },
-  observers: [RouterObserver()],
+  observers: [routeObserver],
 );
+
+final routeObserver = RouterObserver();
 
 /// RPC client.
 final rpc = XmuxRpc(apiAddress);

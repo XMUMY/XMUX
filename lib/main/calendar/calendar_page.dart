@@ -47,32 +47,45 @@ class CalendarPage extends StatefulWidget implements TopLevelPage {
 }
 
 class _CalendarPageState extends State<CalendarPage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, RouteAware {
   late final TabController _controller;
   var currentIndex = -1;
+
+  String get currentTabScreenName =>
+      '/Calendar/${CalendarPage.tabs[currentIndex].path}';
 
   void _onTabChanged() {
     if (_controller.index == currentIndex) return;
     currentIndex = _controller.index;
+    // Track tab screen.
+    setCurrentScreen(screenName: currentTabScreenName);
+  }
 
-    // Track tab pages.
-    setCurrentScreen(
-      screenName: '/Calendar/${CalendarPage.tabs[currentIndex].path}',
+  @override
+  void didPopNext() {
+    super.didPopNext();
+    // Restore tab screen.
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => setCurrentScreen(screenName: currentTabScreenName),
     );
   }
 
   @override
   void initState() {
-    _controller = TabController(length: CalendarPage.tabs.length, vsync: this);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => routeObserver.subscribe(this, ModalRoute.of(context)!),
+    );
 
-    _controller.addListener(_onTabChanged);
-    _onTabChanged();
+    _controller = TabController(length: CalendarPage.tabs.length, vsync: this)
+      ..addListener(_onTabChanged);
+    _onTabChanged(); // Initial tab.
 
     super.initState();
   }
 
   @override
   void dispose() {
+    routeObserver.unsubscribe(this);
     _controller.dispose();
     super.dispose();
   }
