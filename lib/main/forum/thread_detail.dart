@@ -75,9 +75,10 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final thread = widget.thread;
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.thread.title),
+        title: Text(thread.title),
         actions: [
           PopupMenuButton<VoidCallback>(
             itemBuilder: (context) => [
@@ -97,9 +98,9 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
             SliverToBoxAdapter(
               child: BodyPadding(
                 child: Hero(
-                  tag: widget.thread.id,
+                  tag: thread.id,
                   child: ThreadCard(
-                    thread: widget.thread,
+                    thread: thread,
                     expanded: true,
                     exbandable: true,
                     onPostComment: _refreshComments,
@@ -112,9 +113,10 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
               builderDelegate: PagedChildBuilderDelegate<Post>(
                 itemBuilder: (context, post, index) => BodyPadding(
                   child: PostCard(
-                    threadId: widget.thread.id,
+                    threadId: thread.id,
                     post: post,
                     children: _childrens[post.id] ?? [],
+                    thread: thread,
                     onPostComment: _refreshComments,
                   ),
                 ),

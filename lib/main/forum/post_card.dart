@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:timeago/timeago.dart';
 import 'package:xmus_client/generated/forum_post.pb.dart';
 import 'package:xmus_client/generated/forum_saved.pb.dart';
+import 'package:xmus_client/generated/forum_thread.pb.dart';
 
 import '../../../component/user_profile.dart';
 import '../../component/gravatar.dart';
@@ -17,6 +18,7 @@ class PostCard extends StatefulWidget {
   final int threadId;
   final Post post;
   final List<Post> children;
+  final Thread? thread;
   final VoidCallback? onPostComment;
 
   const PostCard({
@@ -24,6 +26,7 @@ class PostCard extends StatefulWidget {
     required this.threadId,
     required this.post,
     this.children = const [],
+    this.thread,
     this.onPostComment,
   }) : super(key: key);
 
@@ -70,6 +73,17 @@ class _PostCardState extends State<PostCard> {
       postId: widget.post.id,
     ));
     widget.onPostComment?.call();
+  }
+
+  Future<void> _pin() async {
+    final post = widget.post;
+
+    rpc.forumClient.pinPost(PinPostReq(
+      postId: post.id,
+      pinned: !post.pinned,
+    ));
+
+    setState(() => post.pinned = !post.pinned);
   }
 
   Future<void> _showChildren() async {
@@ -145,8 +159,25 @@ class _PostCardState extends State<PostCard> {
           ),
         ),
       ),
+      if (post.pinned)
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Transform.rotate(
+            angle: pi / 6,
+            child: const Icon(Icons.push_pin),
+          ),
+        ),
       PopupMenuButton<VoidCallback>(
         itemBuilder: (context) => [
+          if (widget.thread?.uid == store.state.user.campusId)
+            PopupMenuItem(
+              child: Text(
+                post.pinned
+                    ? LocaleKeys.Community_Unpin.tr()
+                    : LocaleKeys.Community_Pin.tr(),
+              ),
+              value: _pin,
+            ),
           if (post.uid == store.state.user.campusId)
             PopupMenuItem(
               child: Text(LocaleKeys.Community_Delete.tr()),

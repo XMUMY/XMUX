@@ -101,6 +101,8 @@
     "Like": "Like",
     "Comment": "Comment",
     "Delete": "Delete",
+    "Pin": "Pin",
+    "Unpin": "Unpin",
     "Re": "Re"
   }
 }
