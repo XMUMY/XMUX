@@ -5,9 +5,9 @@ import 'package:sentry/sentry.dart';
 import 'package:taskflow/taskflow.dart';
 import 'package:xmus_client/authorization.dart';
 
+import '../component/gravatar.dart';
 import '../global.dart';
 import '../redux/action/action.dart';
-import '../util/avatar.dart';
 import '../util/platform.dart';
 import '../util/remote_config.dart';
 import '../util/tracker.dart';

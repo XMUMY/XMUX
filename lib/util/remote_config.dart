@@ -37,14 +37,12 @@ class RemoteConfigs {
 
 @JsonSerializable(createToJson: false)
 class StaticResources {
-  final String defaultAvatar;
   final AcademicCalendarImages academicCalendarImages;
   final String busScheduleImage;
   final String kliaTransitScheduleImage;
   final String kliaExpressScheduleImage;
 
   StaticResources({
-    required this.defaultAvatar,
     required this.academicCalendarImages,
     required this.busScheduleImage,
     required this.kliaTransitScheduleImage,

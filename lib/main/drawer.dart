@@ -4,11 +4,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../component/gravatar.dart';
 import '../config.dart';
 import '../global.dart';
 import '../redux/action/action.dart';
 import '../redux/state/state.dart';
-import '../util/avatar.dart';
 import '../util/platform.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -26,14 +26,9 @@ class MainDrawer extends StatelessWidget {
                   padding: const EdgeInsets.all(15),
                   child: StoreConnector<AppState, String>(
                     distinct: true,
-                    converter: (s) => store.state.user.profile.avatar.isNotEmpty
-                        ? store.state.user.profile.avatar
-                        : remoteConfigs.staticResources.defaultAvatar,
-                    builder: (context, url) => CircleAvatar(
-                      foregroundImage: ExtendedNetworkImageProvider(
-                        url.toGravatarCdn,
-                        cache: true,
-                      ),
+                    converter: (s) => store.state.user.profile.avatar,
+                    builder: (context, url) => Gravatar(
+                      url: url,
                       radius: 30,
                     ),
                   ),

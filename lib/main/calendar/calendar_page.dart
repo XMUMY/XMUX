@@ -1,14 +1,13 @@
-import 'package:extended_image/extended_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xmus_client/generated/user.pb.dart';
 
+import '../../component/gravatar.dart';
 import '../../global.dart';
 import '../../redux/state/state.dart';
-import '../../util/avatar.dart';
 import '../../util/platform.dart';
 import '../../util/screen.dart';
 import '../../util/tab.dart';
@@ -103,21 +102,17 @@ class _CalendarPageState extends State<CalendarPage>
             child: Row(
               children: [
                 if (context.isBetween(Breakpoint.extraSmall))
-                  StoreConnector<AppState, String>(
-                    distinct: true,
-                    converter: (s) => store.state.user.profile.avatar.isNotEmpty
-                        ? store.state.user.profile.avatar
-                        : remoteConfigs.staticResources.defaultAvatar,
-                    builder: (_, url) => IconButton(
-                      onPressed: () => Scaffold.of(context).openDrawer(),
-                      icon: CircleAvatar(
-                        foregroundImage: ExtendedNetworkImageProvider(
-                          url.toGravatarCdn,
-                          cache: true,
-                        ),
+                  IconButton(
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                    icon: StoreConnector<AppState, Profile>(
+                      distinct: true,
+                      converter: (s) => store.state.user.profile,
+                      builder: (_, profile) => Gravatar(
+                        url: profile.avatar,
+                        fallbackName: profile.displayName,
                       ),
-                      iconSize: 30,
                     ),
+                    iconSize: 30,
                   ),
                 Expanded(
                   child: TabBar(

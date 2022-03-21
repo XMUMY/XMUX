@@ -8,7 +8,6 @@ part of 'remote_config.dart';
 
 StaticResources _$StaticResourcesFromJson(Map<String, dynamic> json) =>
     StaticResources(
-      defaultAvatar: json['defaultAvatar'] as String,
       academicCalendarImages: AcademicCalendarImages.fromJson(
           json['academicCalendarImages'] as Map<String, dynamic>),
       busScheduleImage: json['busScheduleImage'] as String,

@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:expandable/expandable.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -11,9 +10,9 @@ import 'package:xmus_client/generated/forum_thread.pb.dart';
 
 import '../../../component/floating_card.dart';
 import '../../../component/user_profile.dart';
+import '../../component/gravatar.dart';
 import '../../component/like_icon.dart';
 import '../../global.dart';
-import '../../util/avatar.dart';
 import 'post_dialog.dart';
 
 class ThreadCard extends StatefulWidget {
@@ -102,11 +101,9 @@ class _ThreadCardState extends State<ThreadCard> {
           // Build user avatar.
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            child: CircleAvatar(
-              child: ExtendedImage.network(
-                profile.avatar.toGravatarCdn,
-                shape: BoxShape.circle,
-              ),
+            child: Gravatar(
+              url: profile.avatar,
+              fallbackName: profile.displayName,
               radius: 18,
             ),
           ),
@@ -123,15 +120,9 @@ class _ThreadCardState extends State<ThreadCard> {
       ),
       placeholder: (context) => Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            child: CircleAvatar(
-              child: ExtendedImage.network(
-                remoteConfigs.staticResources.defaultAvatar,
-                shape: BoxShape.circle,
-              ),
-              radius: 18,
-            ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+            child: Gravatar(radius: 18),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

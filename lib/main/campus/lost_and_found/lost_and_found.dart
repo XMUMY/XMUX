@@ -1,13 +1,12 @@
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:xmus_client/generated/lost_found.pb.dart';
 
 import '../../../component/floating_card.dart';
+import '../../../component/gravatar.dart';
 import '../../../component/user_profile.dart';
 import '../../../global.dart';
-import '../../../util/avatar.dart';
 import '../../../util/screen.dart';
 import 'create.dart';
 import 'detail.dart';
@@ -101,11 +100,9 @@ class _ItemBriefCard extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     child: Hero(
                       tag: brief.hashCode,
-                      child: CircleAvatar(
-                        child: ExtendedImage.network(
-                          profile.avatar.toGravatarCdn,
-                          shape: BoxShape.circle,
-                        ),
+                      child: Gravatar(
+                        url: profile.avatar,
+                        fallbackName: profile.displayName,
                         radius: 20,
                       ),
                     ),
