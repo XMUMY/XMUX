@@ -5,6 +5,7 @@ on:
     branches:
       - master
     paths:
+      - .github/workflows/web.yaml
       - lib/**
       - web/**
       - pubspec.yaml
@@ -26,7 +27,7 @@ jobs:
           export BUILD_NAME=`cat ./lib/config.sample.dart | grep fallbackVersionName | sed -e "s/[A-z=;' ]//g" | sed "s/-//g"` \
           export BUILD_NUMBER=`git rev-list HEAD --count`
           echo "version: $BUILD_NAME+$BUILD_NUMBER" >> pubspec.yaml
-          flutter config --enable-web && flutter build web --release
+          flutter config --enable-web && flutter build web --release --source-maps
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
       - uses: actions/upload-artifact@v3
