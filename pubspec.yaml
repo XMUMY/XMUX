@@ -33,6 +33,8 @@ dependencies:
     sdk: flutter
 
   # Internal packages.
+  aaos:
+    path: packages/aaos
   barracuda_campus:
     path: packages/barracuda_campus
   emgs:

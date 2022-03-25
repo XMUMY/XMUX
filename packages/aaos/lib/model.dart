@@ -1,43 +1,86 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:xmux/modules/common/period_of_date.dart';
 
-part 'models.g.dart';
+part 'model.g.dart';
+
+class PeriodOfDate {
+  final DateTime start;
+  final DateTime end;
+
+  PeriodOfDate({required this.start, required this.end});
+
+  factory PeriodOfDate.fromJson(String deadline) => PeriodOfDate(
+        start: DateTime.parse(deadline.substring(0, 16)),
+        end: DateTime.parse(deadline.substring(16)),
+      );
+}
 
 @JsonSerializable(createToJson: false)
-class ElectiveCourse {
+class ElectiveSession {
   @JsonKey(name: 'Classification')
   final String classification;
   @JsonKey(name: 'Credits(max)', fromJson: int.parse)
   final int maxCredit;
+  @JsonKey(name: 'CourseRegistered')
+  final String registered;
   @JsonKey(name: 'Round')
   final String round;
-  @JsonKey(name: 'Deadline', fromJson: _periodFromJson)
+  @JsonKey(name: 'Deadline')
   final PeriodOfDate period;
   @JsonKey(name: 'Entry')
   final String entry;
 
-  ElectiveCourse(
-      this.classification, this.maxCredit, this.round, this.period, this.entry);
+  ElectiveSession({
+    required this.classification,
+    required this.maxCredit,
+    required this.registered,
+    required this.round,
+    required this.period,
+    required this.entry,
+  });
 
-  static ElectiveCourse fromJson(Map<String, dynamic> json) =>
-      _$ElectiveCourseFromJson(json);
-
-  static PeriodOfDate _periodFromJson(String deadline) => PeriodOfDate(
-      start: DateTime.parse(deadline.substring(0, 16)),
-      end: DateTime.parse(deadline.substring(16)));
+  static ElectiveSession fromJson(Map<String, dynamic> json) =>
+      _$ElectiveSessionFromJson(json);
 }
 
 @JsonSerializable(createToJson: false)
-class ElectiveCourseFormData {
+class CourseRegistered {
+  @JsonKey(name: 'Course Information (by group)')
+  final String name;
+  @JsonKey(name: 'Credit', fromJson: int.parse)
+  final int credit;
+  @JsonKey(name: 'Teaching Week')
+  final String week;
+  @JsonKey(name: 'Lecturer')
+  final String lecturer;
+  @JsonKey(name: 'Time & Venue')
+  final String timeAndVenue;
+
+  CourseRegistered({
+    required this.name,
+    required this.credit,
+    required this.week,
+    required this.lecturer,
+    required this.timeAndVenue,
+  });
+
+  static CourseRegistered fromJson(Map<String, dynamic> json) =>
+      _$CourseRegisteredFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class ElectiveSessionFormData {
   final FormGeneralInfo formGeneralInfo;
   final List<CourseSelected> coursesSelected;
   final List<CourseUnselected> coursesList;
 
-  ElectiveCourseFormData(
-      this.formGeneralInfo, this.coursesSelected, this.coursesList);
+  ElectiveSessionFormData({
+    required this.formGeneralInfo,
+    required this.coursesSelected,
+    required this.coursesList,
+  });
 
-  static ElectiveCourseFormData fromJson(Map<String, dynamic> json) =>
-      _$ElectiveCourseFormDataFromJson(json);
+  static ElectiveSessionFormData fromJson(Map<String, dynamic> json) =>
+      _$ElectiveSessionFormDataFromJson(json);
 }
 
 @JsonSerializable(createToJson: false)
@@ -51,7 +94,12 @@ class FormGeneralInfo {
   @JsonKey(name: 'Credits Chosen', fromJson: int.parse)
   final int chosenCredit;
 
-  FormGeneralInfo(this.round, this.stage, this.maxCredit, this.chosenCredit);
+  FormGeneralInfo({
+    required this.round,
+    required this.stage,
+    required this.maxCredit,
+    required this.chosenCredit,
+  });
 
   static FormGeneralInfo fromJson(Map<String, dynamic> json) =>
       _$FormGeneralInfoFromJson(json);
@@ -76,8 +124,16 @@ class CourseSelected {
   @JsonKey(name: 'Cancel')
   final String cancel;
 
-  CourseSelected(this.name, this.credit, this.week, this.lecturer,
-      this.timeAndVenue, this.quota, this.numChosen, this.cancel);
+  CourseSelected({
+    required this.name,
+    required this.credit,
+    required this.week,
+    required this.lecturer,
+    required this.timeAndVenue,
+    required this.quota,
+    required this.numChosen,
+    required this.cancel,
+  });
 
   static CourseSelected fromJson(Map<String, dynamic> json) =>
       _$CourseSelectedFromJson(json);
@@ -102,8 +158,16 @@ class CourseUnselected {
   @JsonKey(name: 'Option')
   final String option;
 
-  CourseUnselected(this.name, this.credit, this.week, this.lecturer,
-      this.timeAndVenue, this.quota, this.numChosen, this.option);
+  CourseUnselected({
+    required this.name,
+    required this.credit,
+    required this.week,
+    required this.lecturer,
+    required this.timeAndVenue,
+    required this.quota,
+    required this.numChosen,
+    required this.option,
+  });
 
   static CourseUnselected fromJson(Map<String, dynamic> json) =>
       _$CourseUnselectedFromJson(json);
