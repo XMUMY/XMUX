@@ -72,6 +72,11 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                 svg: 'res/campus/vpn.svg',
                 onPressed: () => launch('https://webvpn.xmu.edu.cn'),
               ),
+              _Button(
+                title: LocaleKeys.Campus_ECR.tr(),
+                svg: 'res/campus/ecr.svg',
+                onPressed: _push(context, '/Campus/ECR'),
+              ),
             ],
           ),
           Padding(

@@ -6,6 +6,7 @@ import 'init/init_page.dart';
 import 'init/login_page.dart';
 import 'main/calendar/academic_calendar.dart';
 import 'main/campus/bus_schedule.dart';
+import 'main/campus/ecr.dart';
 import 'main/campus/emgs.dart';
 import 'main/campus/epayment.dart';
 import 'main/campus/geogebra.dart';
@@ -105,6 +106,10 @@ final routes = [
       GoRoute(
         path: 'LostAndFound',
         builder: (_, s) => const LostAndFoundPage(),
+      ),
+      GoRoute(
+        path: 'ECR',
+        builder: (_, s) => const ElectiveCourseRegistrationPage(),
       ),
     ],
   ),

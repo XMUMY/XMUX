@@ -48,6 +48,11 @@ abstract class  LocaleKeys {
   static const Campus_AcademicTranscriptCourses = 'Campus.AcademicTranscriptCourses';
   static const Campus_AcademicTranscriptCredits = 'Campus.AcademicTranscriptCredits';
   static const Campus_GPACalculator = 'Campus.GPACalculator';
+  static const Campus_ECR = 'Campus.ECR';
+  static const Campus_ECRMaxCredit = 'Campus.ECRMaxCredit';
+  static const Campus_ECRStartTime = 'Campus.ECRStartTime';
+  static const Campus_ECREndTime = 'Campus.ECREndTime';
+  static const Campus_ECRRegisteredCourses = 'Campus.ECRRegisteredCourses';
   static const Campus_Tools = 'Campus.Tools';
   static const Campus_BusSchedule = 'Campus.BusSchedule';
   static const Campus_KliaExpress = 'Campus.KliaExpress';
