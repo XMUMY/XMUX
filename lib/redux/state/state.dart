@@ -6,6 +6,7 @@ import 'package:xmus_client/generated/aaos.pb.dart';
 import 'package:xmus_client/generated/user.pb.dart';
 
 part 'query.dart';
+part 'setting.dart';
 part 'state.g.dart';
 part 'user.dart';
 
@@ -19,12 +20,16 @@ class AppState {
 
   final QueryState queries;
 
+  final SettingState settings;
+
   AppState({
     this.isInitialized = false,
     UserState? user,
     QueryState? queries,
+    SettingState? settings,
   })  : user = user ?? UserState(),
-        queries = queries ?? QueryState();
+        queries = queries ?? QueryState(),
+        settings = settings ?? SettingState();
 
   factory AppState.fromJson(Map<String, dynamic> json) =>
       _$AppStateFromJson(json);
@@ -35,11 +40,13 @@ class AppState {
     bool? isInitialized,
     UserState? user,
     QueryState? queries,
+    SettingState? settings,
   }) =>
       AppState(
         isInitialized: isInitialized ?? this.isInitialized,
         user: user ?? this.user,
         queries: queries ?? this.queries,
+        settings: settings ?? this.settings,
       );
 
   @override
@@ -48,8 +55,13 @@ class AppState {
       other is AppState &&
           isInitialized == other.isInitialized &&
           user == other.user &&
-          queries == other.queries;
+          queries == other.queries &&
+          settings == other.settings;
 
   @override
-  int get hashCode => isInitialized.hashCode ^ user.hashCode ^ queries.hashCode;
+  int get hashCode =>
+      isInitialized.hashCode ^
+      user.hashCode ^
+      queries.hashCode ^
+      settings.hashCode;
 }

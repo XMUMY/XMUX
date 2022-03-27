@@ -94,6 +94,42 @@ class LogoutAction extends RestoreAction with RedirectableActionMixin {
   bool get syncSave => true;
 }
 
+class ShowPerformanceOverlayAction extends AppAction {
+  final bool show;
+
+  ShowPerformanceOverlayAction(this.show);
+
+  @override
+  bool get needSave => false;
+
+  @override
+  bool get syncSave => false;
+}
+
+class ShowSemanticsDebuggerAction extends AppAction {
+  final bool show;
+
+  ShowSemanticsDebuggerAction(this.show);
+
+  @override
+  bool get needSave => false;
+
+  @override
+  bool get syncSave => false;
+}
+
+class EnableDevFunctionsAction extends AppAction {
+  final bool enable;
+
+  EnableDevFunctionsAction(this.enable);
+
+  @override
+  bool get needSave => false;
+
+  @override
+  bool get syncSave => false;
+}
+
 class UpdateEPaymentPasswordAction extends AppAction {
   final String ePaymentPassword;
 

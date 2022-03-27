@@ -12,6 +12,7 @@ final Reducer<AppState> appReducer = combineReducers([
 AppState _appReducer(AppState state, dynamic action) => state.copyWith(
       user: userReducer(state.user, action),
       queries: queriesReducer(state.queries, action),
+      settings: settingsReducer(state.settings, action),
     );
 
 AppState _initializedReducer(AppState state, InitializedAction action) =>
@@ -31,12 +32,18 @@ UserState _loginReducer(UserState state, LoginAction action) => state.copyWith(
     );
 
 UserState _updateEPaymentPasswordReducer(
-        UserState state, UpdateEPaymentPasswordAction action) =>
+  UserState state,
+  UpdateEPaymentPasswordAction action,
+) =>
     state.copyWith(ePaymentPassword: action.ePaymentPassword);
 
 UserState _updateUserProfileReducer(
-        UserState state, UpdateUserProfileAction action) =>
+  UserState state,
+  UpdateUserProfileAction action,
+) =>
     state.copyWith(profile: action.response);
+
+// Queries
 
 final Reducer<QueryState> queriesReducer = combineReducers([
   TypedReducer(_updateTimetableReducer),
@@ -48,24 +55,60 @@ final Reducer<QueryState> queriesReducer = combineReducers([
 ]);
 
 QueryState _updateTimetableReducer(
-        QueryState state, UpdateTimetableAction action) =>
+  QueryState state,
+  UpdateTimetableAction action,
+) =>
     state.copyWith(timetable: action.response);
 
 QueryState _updateCoursesReducer(
-        QueryState state, UpdateCoursesAction action) =>
+  QueryState state,
+  UpdateCoursesAction action,
+) =>
     state.copyWith(courses: action.response);
 
 QueryState _updateExamsReducer(QueryState state, UpdateExamsAction action) =>
     state.copyWith(exams: action.response);
 
 QueryState _updateTranscriptReducer(
-        QueryState state, UpdateTranscriptAction action) =>
+  QueryState state,
+  UpdateTranscriptAction action,
+) =>
     state.copyWith(transcript: action.response);
 
 QueryState _updateAssignmentsReducer(
-        QueryState state, UpdateAssignmentsAction action) =>
+  QueryState state,
+  UpdateAssignmentsAction action,
+) =>
     state.copyWith(assignments: action.response);
 
 QueryState _updateEmgsApplicationResultReducer(
-        QueryState state, UpdateEmgsApplicationResultAction action) =>
+  QueryState state,
+  UpdateEmgsApplicationResultAction action,
+) =>
     state.copyWith(emgsApplicationResult: action.result);
+
+// Settings
+
+final Reducer<SettingState> settingsReducer = combineReducers([
+  TypedReducer(_showPerformanceOverlayReducer),
+  TypedReducer(_showSemanticsDebuggerReducer),
+  TypedReducer(_enableDevFunctionsReducer),
+]);
+
+SettingState _showPerformanceOverlayReducer(
+  SettingState state,
+  ShowPerformanceOverlayAction action,
+) =>
+    state.copyWith(showPerformanceOverlay: action.show);
+
+SettingState _showSemanticsDebuggerReducer(
+  SettingState state,
+  ShowSemanticsDebuggerAction action,
+) =>
+    state.copyWith(showSemanticsDebugger: action.show);
+
+SettingState _enableDevFunctionsReducer(
+  SettingState state,
+  EnableDevFunctionsAction action,
+) =>
+    state.copyWith(enableDevFunctions: action.enable);

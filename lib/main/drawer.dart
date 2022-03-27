@@ -10,6 +10,7 @@ import '../global.dart';
 import '../redux/action/action.dart';
 import '../redux/state/state.dart';
 import '../util/platform.dart';
+import 'dev_options.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key}) : super(key: key);
@@ -161,6 +162,10 @@ class _AboutTileState extends State<_AboutTile> {
     return ListTile(
       title: Text(LocaleKeys.About.tr()),
       onTap: () => _showAbout(),
+      onLongPress: () => showDialog(
+        context: context,
+        builder: (_) => const DeveloperOptions(),
+      ),
     );
   }
 }

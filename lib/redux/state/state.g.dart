@@ -13,11 +13,15 @@ AppState _$AppStateFromJson(Map<String, dynamic> json) => AppState(
       queries: json['queries'] == null
           ? null
           : QueryState.fromJson(json['queries'] as Map<String, dynamic>),
+      settings: json['settings'] == null
+          ? null
+          : SettingState.fromJson(json['settings'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AppStateToJson(AppState instance) => <String, dynamic>{
       'user': instance.user,
       'queries': instance.queries,
+      'settings': instance.settings,
     };
 
 QueryState _$QueryStateFromJson(Map<String, dynamic> json) => QueryState(
@@ -52,6 +56,12 @@ Map<String, dynamic> _$QueryStateToJson(QueryState instance) =>
       'assignments': instance.assignments,
       'emgsApplicationResult': instance.emgsApplicationResult,
     };
+
+SettingState _$SettingStateFromJson(Map<String, dynamic> json) =>
+    SettingState();
+
+Map<String, dynamic> _$SettingStateToJson(SettingState instance) =>
+    <String, dynamic>{};
 
 UserState _$UserStateFromJson(Map<String, dynamic> json) => UserState(
       campusId: json['campusId'] as String? ?? '',
