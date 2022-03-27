@@ -93,9 +93,7 @@ class _ElectiveCourseRegistrationPageState
           children: [
             if (session.registered.isNotEmpty)
               TextButton(
-                child: Text(
-                  LocaleKeys.Campus_ECRRegisteredCourses.tr(),
-                ),
+                child: Text(LocaleKeys.Campus_ECRRegisteredCourses.tr()),
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => RegisteredCoursesPage(

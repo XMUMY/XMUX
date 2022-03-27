@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:html/dom.dart' show Text;
 import 'package:html/parser.dart';
 
 import 'model.dart';
@@ -94,9 +95,19 @@ class ElectiveCourseRegistration {
     final courseList = table
         .querySelectorAll('tbody tr')
         .where((line) => line.children.length == heads.length)
-        .map((line) => line.children
-            .map((cell) => cell.text.replaceAll(RegExp(r'^\s+|\s+$'), ''))
-            .toList())
+        .map(
+          (line) => line.children.map(
+            (cell) => cell.nodes.length < 3
+                // Normal cell.
+                ? cell.text.replaceAll(RegExp(r'^\s+|\s+$'), '')
+                // Multiline cell, keep \n
+                : cell.nodes
+                    .whereType<Text>()
+                    .map((node) =>
+                        node.text.replaceAll(RegExp(r'^\s+|\s+$'), ''))
+                    .join('\n'),
+          ),
+        )
         .map((e) => Map.fromIterables(heads, e))
         .map(CourseRegistered.fromJson)
         .toList();
