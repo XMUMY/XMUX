@@ -105,7 +105,7 @@ class _ElectiveCourseRegistrationPageState
               ),
             if (session.entry.startsWith('/'))
               TextButton(
-                child: Text('Entry'),
+                child: const Text('Entry'),
                 onPressed: () {},
               ),
           ],

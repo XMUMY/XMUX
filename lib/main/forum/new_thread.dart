@@ -96,10 +96,9 @@ class _NewThreadPageState extends State<NewThreadPage> {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         const Divider(),
-        Markdown(
+        MarkdownBody(
           data: _bodyController.text,
           shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
         ),
       ]
     ];

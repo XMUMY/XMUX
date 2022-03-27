@@ -11,11 +11,11 @@ import '../util/tracker.dart';
 import 'calendar/calendar_page.dart';
 import 'campus/campus_page.dart';
 import 'drawer.dart';
-import 'forum/forum_page.dart';
+import 'forum/community_page.dart';
 
 const mainPages = <TopLevelPage>[
   CalendarPage(),
-  ForumPage(),
+  CommunityPage(),
   CampusPage(),
 ];
 

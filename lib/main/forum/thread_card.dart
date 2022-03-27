@@ -176,12 +176,10 @@ class _ThreadCardState extends State<ThreadCard> {
           if (thread.hasPlainContent())
             SelectableText(thread.plainContent.content)
           else if (thread.hasMarkdownContent())
-            Markdown(
+            MarkdownBody(
               data: thread.markdownContent.content,
-              padding: EdgeInsets.zero,
               selectable: true,
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
             )
           else
             Text(LocaleKeys.Community_Unsupported.tr())
