@@ -296,7 +296,8 @@ class _Dialog extends StatelessWidget {
     if (!(await plugin.requestPermissions()).isSuccess) return;
 
     final calendars = await plugin.retrieveCalendars();
-    if (calendars.data == null) return;
+    final calendarsData = calendars.data;
+    if (calendarsData == null) return;
 
     final id = await showDialog<String>(
       context: context,
@@ -305,9 +306,9 @@ class _Dialog extends StatelessWidget {
         title: Text(LocaleKeys.Calendar_CalendarCardAddToSystem.tr()),
         contentPadding: const EdgeInsets.all(8),
         children: <Widget>[
-          for (var c in calendars.data!)
+          for (var c in calendarsData)
             ListTile(
-              title: Text(c.name!),
+              title: Text(c.name ?? ''),
               onTap: () => Navigator.of(context).pop(c.id),
             ),
         ],
@@ -407,7 +408,7 @@ class _Dialog extends StatelessWidget {
       children: <Widget>[
         info,
         if (isMobile)
-          ElevatedButton(
+          TextButton(
             onPressed: () => _addToCalendar(context),
             child: Text(LocaleKeys.Calendar_CalendarCardAddToSystem.tr()),
           ),

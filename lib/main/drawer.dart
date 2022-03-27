@@ -58,10 +58,12 @@ class MainDrawer extends StatelessWidget {
               ],
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.exit_to_app),
-            title: Text(LocaleKeys.SignOut.tr()),
-            onTap: () => store.dispatch(LogoutAction()),
+          SafeArea(
+            child: ListTile(
+              leading: const Icon(Icons.exit_to_app),
+              title: Text(LocaleKeys.SignOut.tr()),
+              onTap: () => store.dispatch(LogoutAction()),
+            ),
           ),
         ],
       ),

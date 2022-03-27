@@ -50,7 +50,7 @@ class _ElectiveCourseRegistrationPageState
             borderRadius: BorderRadius.circular(7),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 6),
             child: _buildCardBody(sessions[index]),
           ),
         ),

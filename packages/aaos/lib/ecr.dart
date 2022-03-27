@@ -80,7 +80,7 @@ class ElectiveCourseRegistration {
 
   /// Get registered courses.
   Future<List<CourseRegistered>?> getRegistered(String entry) async {
-    if (!entry.startsWith('/ac.xmu.edu.my/student/index.php?c=Xk&')) {
+    if (!entry.startsWith('/student/index.php?c=Xk&')) {
       return null;
     }
 
