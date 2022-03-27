@@ -99,6 +99,7 @@ class _NewThreadPageState extends State<NewThreadPage> {
         Markdown(
           data: _bodyController.text,
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
         ),
       ]
     ];

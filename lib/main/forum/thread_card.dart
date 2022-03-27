@@ -181,6 +181,7 @@ class _ThreadCardState extends State<ThreadCard> {
               padding: EdgeInsets.zero,
               selectable: true,
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
             )
           else
             Text(LocaleKeys.Community_Unsupported.tr())
