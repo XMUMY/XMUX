@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:xmus_client/error.dart';
 import 'package:xmus_client/generated/forum_thread.pb.dart';
 
@@ -16,6 +17,7 @@ class NewThreadPage extends StatefulWidget {
 }
 
 class _NewThreadPageState extends State<NewThreadPage> {
+  final _bodyController = TextEditingController();
   var form = CreateThreadReq();
   var formKey = GlobalKey<FormState>();
   var _isSubmitting = false;
@@ -23,6 +25,18 @@ class _NewThreadPageState extends State<NewThreadPage> {
   Future<void> _handleSubmit() async {
     if (_isSubmitting || !formKey.currentState!.validate()) return;
     _isSubmitting = true;
+
+    switch (form.whichBody()) {
+      case CreateThreadReq_Body.plainContent:
+        form.plainContent.content = _bodyController.text;
+        break;
+      case CreateThreadReq_Body.markdownContent:
+        form.markdownContent.content = _bodyController.text;
+        break;
+      default:
+        return;
+    }
+
     try {
       await rpc.forumClient.createThread(form);
       Navigator.of(context).maybePop(true);
@@ -38,6 +52,7 @@ class _NewThreadPageState extends State<NewThreadPage> {
   @override
   void initState() {
     form.forumId = widget.forumId;
+    form.ensurePlainContent();
     super.initState();
   }
 
@@ -58,12 +73,34 @@ class _NewThreadPageState extends State<NewThreadPage> {
         maxLines: 10,
         maxLength: 1000,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
+        controller: _bodyController,
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
         ),
-        onChanged: (v) => form.body = v,
         validator: (v) => v != null && v.isNotEmpty ? null : '',
+        onChanged: (v) {
+          if (form.hasMarkdownContent()) setState(() {}); // Update preview.
+        },
       ),
+      SwitchListTile(
+        title: Text(LocaleKeys.Community_Markdown.tr()),
+        value: form.whichBody() == CreateThreadReq_Body.markdownContent,
+        onChanged: (v) => setState(
+          () => v ? form.ensureMarkdownContent() : form.ensurePlainContent(),
+        ),
+      ),
+      const Divider(color: Colors.transparent),
+      if (form.hasMarkdownContent()) ...[
+        Text(
+          LocaleKeys.Community_Preview.tr(),
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        const Divider(),
+        Markdown(
+          data: _bodyController.text,
+          shrinkWrap: true,
+        ),
+      ]
     ];
 
     return Scaffold(

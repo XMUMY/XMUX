@@ -32,7 +32,7 @@ class DeveloperOptions extends StatelessWidget {
           builder: (context, value) => SwitchListTile.adaptive(
             title: const Text('Enable Dev Functions'),
             value: value,
-            onChanged: (v) => store.dispatch(EnableDevFunctionsAction(!value)),
+            onChanged: (v) => store.dispatch(EnableDevFunctionsAction(v)),
           ),
         ),
         StoreConnector<AppState, bool>(
@@ -41,8 +41,7 @@ class DeveloperOptions extends StatelessWidget {
           builder: (context, value) => SwitchListTile.adaptive(
             title: const Text('Show Performance Overlay'),
             value: value,
-            onChanged: (v) =>
-                store.dispatch(ShowPerformanceOverlayAction(!value)),
+            onChanged: (v) => store.dispatch(ShowPerformanceOverlayAction(v)),
           ),
         ),
         StoreConnector<AppState, bool>(
@@ -51,8 +50,7 @@ class DeveloperOptions extends StatelessWidget {
           builder: (context, value) => SwitchListTile.adaptive(
             title: const Text('Show Semantics Debugger'),
             value: value,
-            onChanged: (v) =>
-                store.dispatch(ShowSemanticsDebuggerAction(!value)),
+            onChanged: (v) => store.dispatch(ShowSemanticsDebuggerAction(v)),
           ),
         ),
       ],

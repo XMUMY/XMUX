@@ -9,17 +9,31 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $5;
+import 'forum_common.pb.dart' as $5;
+import 'google/protobuf/timestamp.pb.dart' as $6;
 
-import 'forum_common.pbenum.dart' as $6;
+import 'forum_common.pbenum.dart' as $5;
+
+enum CreatePostReq_Content {
+  plainContent, 
+  markdownContent, 
+  notSet
+}
 
 class CreatePostReq extends $pb.GeneratedMessage {
+  static const $core.Map<$core.int, CreatePostReq_Content> _CreatePostReq_ContentByTag = {
+    30 : CreatePostReq_Content.plainContent,
+    31 : CreatePostReq_Content.markdownContent,
+    0 : CreatePostReq_Content.notSet
+  };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreatePostReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
+    ..oo(0, [30, 31])
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'threadId', $pb.PbFieldType.O3, protoName: 'threadId')
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'parentId', $pb.PbFieldType.O3, protoName: 'parentId')
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refPostId', $pb.PbFieldType.O3, protoName: 'refPostId')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refPostUid', protoName: 'refPostUid')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content')
+    ..aOM<$5.PlainContent>(30, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'plainContent', protoName: 'plainContent', subBuilder: $5.PlainContent.create)
+    ..aOM<$5.MarkdownContent>(31, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'markdownContent', protoName: 'markdownContent', subBuilder: $5.MarkdownContent.create)
     ..hasRequiredFields = false
   ;
 
@@ -29,7 +43,8 @@ class CreatePostReq extends $pb.GeneratedMessage {
     $core.int? parentId,
     $core.int? refPostId,
     $core.String? refPostUid,
-    $core.String? content,
+    $5.PlainContent? plainContent,
+    $5.MarkdownContent? markdownContent,
   }) {
     final _result = create();
     if (threadId != null) {
@@ -44,8 +59,11 @@ class CreatePostReq extends $pb.GeneratedMessage {
     if (refPostUid != null) {
       _result.refPostUid = refPostUid;
     }
-    if (content != null) {
-      _result.content = content;
+    if (plainContent != null) {
+      _result.plainContent = plainContent;
+    }
+    if (markdownContent != null) {
+      _result.markdownContent = markdownContent;
     }
     return _result;
   }
@@ -69,6 +87,9 @@ class CreatePostReq extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static CreatePostReq getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreatePostReq>(create);
   static CreatePostReq? _defaultInstance;
+
+  CreatePostReq_Content whichContent() => _CreatePostReq_ContentByTag[$_whichOneof(0)]!;
+  void clearContent() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
   $core.int get threadId => $_getIZ(0);
@@ -106,14 +127,27 @@ class CreatePostReq extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   void clearRefPostUid() => clearField(4);
 
-  @$pb.TagNumber(5)
-  $core.String get content => $_getSZ(4);
-  @$pb.TagNumber(5)
-  set content($core.String v) { $_setString(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasContent() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearContent() => clearField(5);
+  @$pb.TagNumber(30)
+  $5.PlainContent get plainContent => $_getN(4);
+  @$pb.TagNumber(30)
+  set plainContent($5.PlainContent v) { setField(30, v); }
+  @$pb.TagNumber(30)
+  $core.bool hasPlainContent() => $_has(4);
+  @$pb.TagNumber(30)
+  void clearPlainContent() => clearField(30);
+  @$pb.TagNumber(30)
+  $5.PlainContent ensurePlainContent() => $_ensure(4);
+
+  @$pb.TagNumber(31)
+  $5.MarkdownContent get markdownContent => $_getN(5);
+  @$pb.TagNumber(31)
+  set markdownContent($5.MarkdownContent v) { setField(31, v); }
+  @$pb.TagNumber(31)
+  $core.bool hasMarkdownContent() => $_has(5);
+  @$pb.TagNumber(31)
+  void clearMarkdownContent() => clearField(31);
+  @$pb.TagNumber(31)
+  $5.MarkdownContent ensureMarkdownContent() => $_ensure(5);
 }
 
 class CreatePostResp extends $pb.GeneratedMessage {
@@ -213,7 +247,7 @@ class RemovePostReq extends $pb.GeneratedMessage {
 class GetPostsReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPostsReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'threadId', $pb.PbFieldType.O3, protoName: 'threadId')
-    ..e<$6.Ordering>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ordering', $pb.PbFieldType.OE, defaultOrMaker: $6.Ordering.update, valueOf: $6.Ordering.valueOf, enumValues: $6.Ordering.values)
+    ..e<$5.Ordering>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ordering', $pb.PbFieldType.OE, defaultOrMaker: $5.Ordering.update, valueOf: $5.Ordering.valueOf, enumValues: $5.Ordering.values)
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'offset', $pb.PbFieldType.O3)
     ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'count', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
@@ -222,7 +256,7 @@ class GetPostsReq extends $pb.GeneratedMessage {
   GetPostsReq._() : super();
   factory GetPostsReq({
     $core.int? threadId,
-    $6.Ordering? ordering,
+    $5.Ordering? ordering,
     $core.int? offset,
     $core.int? count,
   }) {
@@ -272,9 +306,9 @@ class GetPostsReq extends $pb.GeneratedMessage {
   void clearThreadId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $6.Ordering get ordering => $_getN(1);
+  $5.Ordering get ordering => $_getN(1);
   @$pb.TagNumber(2)
-  set ordering($6.Ordering v) { setField(2, v); }
+  set ordering($5.Ordering v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasOrdering() => $_has(1);
   @$pb.TagNumber(2)
@@ -302,7 +336,7 @@ class GetPostsReq extends $pb.GeneratedMessage {
 class GetPostsByUidReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPostsByUidReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'uid')
-    ..e<$6.Ordering>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ordering', $pb.PbFieldType.OE, defaultOrMaker: $6.Ordering.update, valueOf: $6.Ordering.valueOf, enumValues: $6.Ordering.values)
+    ..e<$5.Ordering>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ordering', $pb.PbFieldType.OE, defaultOrMaker: $5.Ordering.update, valueOf: $5.Ordering.valueOf, enumValues: $5.Ordering.values)
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'offset', $pb.PbFieldType.O3)
     ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'count', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
@@ -311,7 +345,7 @@ class GetPostsByUidReq extends $pb.GeneratedMessage {
   GetPostsByUidReq._() : super();
   factory GetPostsByUidReq({
     $core.String? uid,
-    $6.Ordering? ordering,
+    $5.Ordering? ordering,
     $core.int? offset,
     $core.int? count,
   }) {
@@ -361,9 +395,9 @@ class GetPostsByUidReq extends $pb.GeneratedMessage {
   void clearUid() => clearField(1);
 
   @$pb.TagNumber(2)
-  $6.Ordering get ordering => $_getN(1);
+  $5.Ordering get ordering => $_getN(1);
   @$pb.TagNumber(2)
-  set ordering($6.Ordering v) { setField(2, v); }
+  set ordering($5.Ordering v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasOrdering() => $_has(1);
   @$pb.TagNumber(2)
@@ -391,7 +425,7 @@ class GetPostsByUidReq extends $pb.GeneratedMessage {
 class GetPostsByParentReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPostsByParentReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'parentId', $pb.PbFieldType.O3, protoName: 'parentId')
-    ..e<$6.Ordering>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ordering', $pb.PbFieldType.OE, defaultOrMaker: $6.Ordering.update, valueOf: $6.Ordering.valueOf, enumValues: $6.Ordering.values)
+    ..e<$5.Ordering>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ordering', $pb.PbFieldType.OE, defaultOrMaker: $5.Ordering.update, valueOf: $5.Ordering.valueOf, enumValues: $5.Ordering.values)
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'offset', $pb.PbFieldType.O3)
     ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'count', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
@@ -400,7 +434,7 @@ class GetPostsByParentReq extends $pb.GeneratedMessage {
   GetPostsByParentReq._() : super();
   factory GetPostsByParentReq({
     $core.int? parentId,
-    $6.Ordering? ordering,
+    $5.Ordering? ordering,
     $core.int? offset,
     $core.int? count,
   }) {
@@ -450,9 +484,9 @@ class GetPostsByParentReq extends $pb.GeneratedMessage {
   void clearParentId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $6.Ordering get ordering => $_getN(1);
+  $5.Ordering get ordering => $_getN(1);
   @$pb.TagNumber(2)
-  set ordering($6.Ordering v) { setField(2, v); }
+  set ordering($5.Ordering v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasOrdering() => $_has(1);
   @$pb.TagNumber(2)
@@ -518,20 +552,33 @@ class GetPostsResp extends $pb.GeneratedMessage {
   $core.List<Post> get posts => $_getList(0);
 }
 
+enum Post_Content {
+  plainContent, 
+  markdownContent, 
+  notSet
+}
+
 class Post extends $pb.GeneratedMessage {
+  static const $core.Map<$core.int, Post_Content> _Post_ContentByTag = {
+    30 : Post_Content.plainContent,
+    31 : Post_Content.markdownContent,
+    0 : Post_Content.notSet
+  };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Post', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
+    ..oo(0, [30, 31])
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'uid')
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'threadId', $pb.PbFieldType.O3, protoName: 'threadId')
     ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'parentId', $pb.PbFieldType.O3, protoName: 'parentId')
     ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refPostId', $pb.PbFieldType.O3, protoName: 'refPostId')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refPostUid', protoName: 'refPostUid')
-    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content')
-    ..a<$core.int>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'likes', $pb.PbFieldType.O3)
-    ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pinned')
-    ..aOM<$5.Timestamp>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createAt', protoName: 'createAt', subBuilder: $5.Timestamp.create)
-    ..a<$core.int>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'liked', $pb.PbFieldType.O3)
-    ..aOB(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'saved')
+    ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'likes', $pb.PbFieldType.O3)
+    ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pinned')
+    ..aOM<$6.Timestamp>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createAt', protoName: 'createAt', subBuilder: $6.Timestamp.create)
+    ..a<$core.int>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'liked', $pb.PbFieldType.O3)
+    ..aOB(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'saved')
+    ..aOM<$5.PlainContent>(30, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'plainContent', protoName: 'plainContent', subBuilder: $5.PlainContent.create)
+    ..aOM<$5.MarkdownContent>(31, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'markdownContent', protoName: 'markdownContent', subBuilder: $5.MarkdownContent.create)
     ..hasRequiredFields = false
   ;
 
@@ -543,12 +590,13 @@ class Post extends $pb.GeneratedMessage {
     $core.int? parentId,
     $core.int? refPostId,
     $core.String? refPostUid,
-    $core.String? content,
     $core.int? likes,
     $core.bool? pinned,
-    $5.Timestamp? createAt,
+    $6.Timestamp? createAt,
     $core.int? liked,
     $core.bool? saved,
+    $5.PlainContent? plainContent,
+    $5.MarkdownContent? markdownContent,
   }) {
     final _result = create();
     if (id != null) {
@@ -569,9 +617,6 @@ class Post extends $pb.GeneratedMessage {
     if (refPostUid != null) {
       _result.refPostUid = refPostUid;
     }
-    if (content != null) {
-      _result.content = content;
-    }
     if (likes != null) {
       _result.likes = likes;
     }
@@ -586,6 +631,12 @@ class Post extends $pb.GeneratedMessage {
     }
     if (saved != null) {
       _result.saved = saved;
+    }
+    if (plainContent != null) {
+      _result.plainContent = plainContent;
+    }
+    if (markdownContent != null) {
+      _result.markdownContent = markdownContent;
     }
     return _result;
   }
@@ -609,6 +660,9 @@ class Post extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static Post getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Post>(create);
   static Post? _defaultInstance;
+
+  Post_Content whichContent() => _Post_ContentByTag[$_whichOneof(0)]!;
+  void clearContent() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
   $core.int get id => $_getIZ(0);
@@ -665,60 +719,73 @@ class Post extends $pb.GeneratedMessage {
   void clearRefPostUid() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get content => $_getSZ(6);
+  $core.int get likes => $_getIZ(6);
   @$pb.TagNumber(7)
-  set content($core.String v) { $_setString(6, v); }
+  set likes($core.int v) { $_setSignedInt32(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasContent() => $_has(6);
+  $core.bool hasLikes() => $_has(6);
   @$pb.TagNumber(7)
-  void clearContent() => clearField(7);
+  void clearLikes() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.int get likes => $_getIZ(7);
+  $core.bool get pinned => $_getBF(7);
   @$pb.TagNumber(8)
-  set likes($core.int v) { $_setSignedInt32(7, v); }
+  set pinned($core.bool v) { $_setBool(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasLikes() => $_has(7);
+  $core.bool hasPinned() => $_has(7);
   @$pb.TagNumber(8)
-  void clearLikes() => clearField(8);
+  void clearPinned() => clearField(8);
 
   @$pb.TagNumber(9)
-  $core.bool get pinned => $_getBF(8);
+  $6.Timestamp get createAt => $_getN(8);
   @$pb.TagNumber(9)
-  set pinned($core.bool v) { $_setBool(8, v); }
+  set createAt($6.Timestamp v) { setField(9, v); }
   @$pb.TagNumber(9)
-  $core.bool hasPinned() => $_has(8);
+  $core.bool hasCreateAt() => $_has(8);
   @$pb.TagNumber(9)
-  void clearPinned() => clearField(9);
+  void clearCreateAt() => clearField(9);
+  @$pb.TagNumber(9)
+  $6.Timestamp ensureCreateAt() => $_ensure(8);
 
   @$pb.TagNumber(10)
-  $5.Timestamp get createAt => $_getN(9);
+  $core.int get liked => $_getIZ(9);
   @$pb.TagNumber(10)
-  set createAt($5.Timestamp v) { setField(10, v); }
+  set liked($core.int v) { $_setSignedInt32(9, v); }
   @$pb.TagNumber(10)
-  $core.bool hasCreateAt() => $_has(9);
+  $core.bool hasLiked() => $_has(9);
   @$pb.TagNumber(10)
-  void clearCreateAt() => clearField(10);
-  @$pb.TagNumber(10)
-  $5.Timestamp ensureCreateAt() => $_ensure(9);
+  void clearLiked() => clearField(10);
 
   @$pb.TagNumber(11)
-  $core.int get liked => $_getIZ(10);
+  $core.bool get saved => $_getBF(10);
   @$pb.TagNumber(11)
-  set liked($core.int v) { $_setSignedInt32(10, v); }
+  set saved($core.bool v) { $_setBool(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasLiked() => $_has(10);
+  $core.bool hasSaved() => $_has(10);
   @$pb.TagNumber(11)
-  void clearLiked() => clearField(11);
+  void clearSaved() => clearField(11);
 
-  @$pb.TagNumber(12)
-  $core.bool get saved => $_getBF(11);
-  @$pb.TagNumber(12)
-  set saved($core.bool v) { $_setBool(11, v); }
-  @$pb.TagNumber(12)
-  $core.bool hasSaved() => $_has(11);
-  @$pb.TagNumber(12)
-  void clearSaved() => clearField(12);
+  @$pb.TagNumber(30)
+  $5.PlainContent get plainContent => $_getN(11);
+  @$pb.TagNumber(30)
+  set plainContent($5.PlainContent v) { setField(30, v); }
+  @$pb.TagNumber(30)
+  $core.bool hasPlainContent() => $_has(11);
+  @$pb.TagNumber(30)
+  void clearPlainContent() => clearField(30);
+  @$pb.TagNumber(30)
+  $5.PlainContent ensurePlainContent() => $_ensure(11);
+
+  @$pb.TagNumber(31)
+  $5.MarkdownContent get markdownContent => $_getN(12);
+  @$pb.TagNumber(31)
+  set markdownContent($5.MarkdownContent v) { setField(31, v); }
+  @$pb.TagNumber(31)
+  $core.bool hasMarkdownContent() => $_has(12);
+  @$pb.TagNumber(31)
+  void clearMarkdownContent() => clearField(31);
+  @$pb.TagNumber(31)
+  $5.MarkdownContent ensureMarkdownContent() => $_ensure(12);
 }
 
 class LikePostReq extends $pb.GeneratedMessage {

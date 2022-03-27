@@ -99,6 +99,8 @@ abstract class  LocaleKeys {
   static const Community_Threads = 'Community.Threads';
   static const Community_CreateThreadTitle = 'Community.CreateThreadTitle';
   static const Community_CreateTitle = 'Community.CreateTitle';
+  static const Community_Markdown = 'Community.Markdown';
+  static const Community_Preview = 'Community.Preview';
   static const Community_CreatePost = 'Community.CreatePost';
   static const Community_Like = 'Community.Like';
   static const Community_Comment = 'Community.Comment';
@@ -106,6 +108,7 @@ abstract class  LocaleKeys {
   static const Community_Pin = 'Community.Pin';
   static const Community_Unpin = 'Community.Unpin';
   static const Community_Re = 'Community.Re';
+  static const Community_Unsupported = 'Community.Unsupported';
   static const Community = 'Community';
 
 }

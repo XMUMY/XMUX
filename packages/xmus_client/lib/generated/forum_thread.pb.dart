@@ -9,15 +9,29 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $5;
+import 'forum_common.pb.dart' as $5;
+import 'google/protobuf/timestamp.pb.dart' as $6;
 
-import 'forum_common.pbenum.dart' as $6;
+import 'forum_common.pbenum.dart' as $5;
+
+enum CreateThreadReq_Body {
+  plainContent, 
+  markdownContent, 
+  notSet
+}
 
 class CreateThreadReq extends $pb.GeneratedMessage {
+  static const $core.Map<$core.int, CreateThreadReq_Body> _CreateThreadReq_BodyByTag = {
+    30 : CreateThreadReq_Body.plainContent,
+    31 : CreateThreadReq_Body.markdownContent,
+    0 : CreateThreadReq_Body.notSet
+  };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateThreadReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
+    ..oo(0, [30, 31])
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'forumId', $pb.PbFieldType.O3, protoName: 'forumId')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'body')
+    ..aOM<$5.PlainContent>(30, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'plainContent', protoName: 'plainContent', subBuilder: $5.PlainContent.create)
+    ..aOM<$5.MarkdownContent>(31, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'markdownContent', protoName: 'markdownContent', subBuilder: $5.MarkdownContent.create)
     ..hasRequiredFields = false
   ;
 
@@ -25,7 +39,8 @@ class CreateThreadReq extends $pb.GeneratedMessage {
   factory CreateThreadReq({
     $core.int? forumId,
     $core.String? title,
-    $core.String? body,
+    $5.PlainContent? plainContent,
+    $5.MarkdownContent? markdownContent,
   }) {
     final _result = create();
     if (forumId != null) {
@@ -34,8 +49,11 @@ class CreateThreadReq extends $pb.GeneratedMessage {
     if (title != null) {
       _result.title = title;
     }
-    if (body != null) {
-      _result.body = body;
+    if (plainContent != null) {
+      _result.plainContent = plainContent;
+    }
+    if (markdownContent != null) {
+      _result.markdownContent = markdownContent;
     }
     return _result;
   }
@@ -60,6 +78,9 @@ class CreateThreadReq extends $pb.GeneratedMessage {
   static CreateThreadReq getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateThreadReq>(create);
   static CreateThreadReq? _defaultInstance;
 
+  CreateThreadReq_Body whichBody() => _CreateThreadReq_BodyByTag[$_whichOneof(0)]!;
+  void clearBody() => clearField($_whichOneof(0));
+
   @$pb.TagNumber(1)
   $core.int get forumId => $_getIZ(0);
   @$pb.TagNumber(1)
@@ -78,14 +99,27 @@ class CreateThreadReq extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearTitle() => clearField(2);
 
-  @$pb.TagNumber(3)
-  $core.String get body => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set body($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasBody() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearBody() => clearField(3);
+  @$pb.TagNumber(30)
+  $5.PlainContent get plainContent => $_getN(2);
+  @$pb.TagNumber(30)
+  set plainContent($5.PlainContent v) { setField(30, v); }
+  @$pb.TagNumber(30)
+  $core.bool hasPlainContent() => $_has(2);
+  @$pb.TagNumber(30)
+  void clearPlainContent() => clearField(30);
+  @$pb.TagNumber(30)
+  $5.PlainContent ensurePlainContent() => $_ensure(2);
+
+  @$pb.TagNumber(31)
+  $5.MarkdownContent get markdownContent => $_getN(3);
+  @$pb.TagNumber(31)
+  set markdownContent($5.MarkdownContent v) { setField(31, v); }
+  @$pb.TagNumber(31)
+  $core.bool hasMarkdownContent() => $_has(3);
+  @$pb.TagNumber(31)
+  void clearMarkdownContent() => clearField(31);
+  @$pb.TagNumber(31)
+  $5.MarkdownContent ensureMarkdownContent() => $_ensure(3);
 }
 
 class CreateThreadResp extends $pb.GeneratedMessage {
@@ -260,7 +294,7 @@ class UpdateThreadReq extends $pb.GeneratedMessage {
 class GetThreadsReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetThreadsReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'forumId', $pb.PbFieldType.O3, protoName: 'forumId')
-    ..e<$6.Ordering>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ordering', $pb.PbFieldType.OE, defaultOrMaker: $6.Ordering.update, valueOf: $6.Ordering.valueOf, enumValues: $6.Ordering.values)
+    ..e<$5.Ordering>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ordering', $pb.PbFieldType.OE, defaultOrMaker: $5.Ordering.update, valueOf: $5.Ordering.valueOf, enumValues: $5.Ordering.values)
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'offset', $pb.PbFieldType.O3)
     ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'count', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
@@ -269,7 +303,7 @@ class GetThreadsReq extends $pb.GeneratedMessage {
   GetThreadsReq._() : super();
   factory GetThreadsReq({
     $core.int? forumId,
-    $6.Ordering? ordering,
+    $5.Ordering? ordering,
     $core.int? offset,
     $core.int? count,
   }) {
@@ -319,9 +353,9 @@ class GetThreadsReq extends $pb.GeneratedMessage {
   void clearForumId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $6.Ordering get ordering => $_getN(1);
+  $5.Ordering get ordering => $_getN(1);
   @$pb.TagNumber(2)
-  set ordering($6.Ordering v) { setField(2, v); }
+  set ordering($5.Ordering v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasOrdering() => $_has(1);
   @$pb.TagNumber(2)
@@ -387,21 +421,34 @@ class GetThreadsResp extends $pb.GeneratedMessage {
   $core.List<Thread> get threads => $_getList(0);
 }
 
+enum Thread_Body {
+  plainContent, 
+  markdownContent, 
+  notSet
+}
+
 class Thread extends $pb.GeneratedMessage {
+  static const $core.Map<$core.int, Thread_Body> _Thread_BodyByTag = {
+    30 : Thread_Body.plainContent,
+    31 : Thread_Body.markdownContent,
+    0 : Thread_Body.notSet
+  };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Thread', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.forum.v4'), createEmptyInstance: create)
+    ..oo(0, [30, 31])
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'uid')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'body')
-    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'likes', $pb.PbFieldType.O3)
-    ..a<$core.int>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'posts', $pb.PbFieldType.O3)
-    ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pinned')
-    ..aOB(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'digest')
-    ..aOM<$5.Timestamp>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createAt', protoName: 'createAt', subBuilder: $5.Timestamp.create)
-    ..aOM<$5.Timestamp>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateAt', protoName: 'updateAt', subBuilder: $5.Timestamp.create)
-    ..aOM<$5.Timestamp>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastUpdate', protoName: 'lastUpdate', subBuilder: $5.Timestamp.create)
-    ..a<$core.int>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'liked', $pb.PbFieldType.O3)
-    ..aOB(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'saved')
+    ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'likes', $pb.PbFieldType.O3)
+    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'posts', $pb.PbFieldType.O3)
+    ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pinned')
+    ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'digest')
+    ..aOM<$6.Timestamp>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createAt', protoName: 'createAt', subBuilder: $6.Timestamp.create)
+    ..aOM<$6.Timestamp>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateAt', protoName: 'updateAt', subBuilder: $6.Timestamp.create)
+    ..aOM<$6.Timestamp>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastUpdate', protoName: 'lastUpdate', subBuilder: $6.Timestamp.create)
+    ..a<$core.int>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'liked', $pb.PbFieldType.O3)
+    ..aOB(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'saved')
+    ..aOM<$5.PlainContent>(30, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'plainContent', protoName: 'plainContent', subBuilder: $5.PlainContent.create)
+    ..aOM<$5.MarkdownContent>(31, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'markdownContent', protoName: 'markdownContent', subBuilder: $5.MarkdownContent.create)
     ..hasRequiredFields = false
   ;
 
@@ -410,16 +457,17 @@ class Thread extends $pb.GeneratedMessage {
     $core.int? id,
     $core.String? uid,
     $core.String? title,
-    $core.String? body,
     $core.int? likes,
     $core.int? posts,
     $core.bool? pinned,
     $core.bool? digest,
-    $5.Timestamp? createAt,
-    $5.Timestamp? updateAt,
-    $5.Timestamp? lastUpdate,
+    $6.Timestamp? createAt,
+    $6.Timestamp? updateAt,
+    $6.Timestamp? lastUpdate,
     $core.int? liked,
     $core.bool? saved,
+    $5.PlainContent? plainContent,
+    $5.MarkdownContent? markdownContent,
   }) {
     final _result = create();
     if (id != null) {
@@ -430,9 +478,6 @@ class Thread extends $pb.GeneratedMessage {
     }
     if (title != null) {
       _result.title = title;
-    }
-    if (body != null) {
-      _result.body = body;
     }
     if (likes != null) {
       _result.likes = likes;
@@ -461,6 +506,12 @@ class Thread extends $pb.GeneratedMessage {
     if (saved != null) {
       _result.saved = saved;
     }
+    if (plainContent != null) {
+      _result.plainContent = plainContent;
+    }
+    if (markdownContent != null) {
+      _result.markdownContent = markdownContent;
+    }
     return _result;
   }
   factory Thread.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
@@ -483,6 +534,9 @@ class Thread extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static Thread getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Thread>(create);
   static Thread? _defaultInstance;
+
+  Thread_Body whichBody() => _Thread_BodyByTag[$_whichOneof(0)]!;
+  void clearBody() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
   $core.int get id => $_getIZ(0);
@@ -512,100 +566,113 @@ class Thread extends $pb.GeneratedMessage {
   void clearTitle() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get body => $_getSZ(3);
+  $core.int get likes => $_getIZ(3);
   @$pb.TagNumber(4)
-  set body($core.String v) { $_setString(3, v); }
+  set likes($core.int v) { $_setSignedInt32(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasBody() => $_has(3);
+  $core.bool hasLikes() => $_has(3);
   @$pb.TagNumber(4)
-  void clearBody() => clearField(4);
+  void clearLikes() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.int get likes => $_getIZ(4);
+  $core.int get posts => $_getIZ(4);
   @$pb.TagNumber(5)
-  set likes($core.int v) { $_setSignedInt32(4, v); }
+  set posts($core.int v) { $_setSignedInt32(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasLikes() => $_has(4);
+  $core.bool hasPosts() => $_has(4);
   @$pb.TagNumber(5)
-  void clearLikes() => clearField(5);
+  void clearPosts() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.int get posts => $_getIZ(5);
+  $core.bool get pinned => $_getBF(5);
   @$pb.TagNumber(6)
-  set posts($core.int v) { $_setSignedInt32(5, v); }
+  set pinned($core.bool v) { $_setBool(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasPosts() => $_has(5);
+  $core.bool hasPinned() => $_has(5);
   @$pb.TagNumber(6)
-  void clearPosts() => clearField(6);
+  void clearPinned() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.bool get pinned => $_getBF(6);
+  $core.bool get digest => $_getBF(6);
   @$pb.TagNumber(7)
-  set pinned($core.bool v) { $_setBool(6, v); }
+  set digest($core.bool v) { $_setBool(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasPinned() => $_has(6);
+  $core.bool hasDigest() => $_has(6);
   @$pb.TagNumber(7)
-  void clearPinned() => clearField(7);
+  void clearDigest() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.bool get digest => $_getBF(7);
+  $6.Timestamp get createAt => $_getN(7);
   @$pb.TagNumber(8)
-  set digest($core.bool v) { $_setBool(7, v); }
+  set createAt($6.Timestamp v) { setField(8, v); }
   @$pb.TagNumber(8)
-  $core.bool hasDigest() => $_has(7);
+  $core.bool hasCreateAt() => $_has(7);
   @$pb.TagNumber(8)
-  void clearDigest() => clearField(8);
+  void clearCreateAt() => clearField(8);
+  @$pb.TagNumber(8)
+  $6.Timestamp ensureCreateAt() => $_ensure(7);
 
   @$pb.TagNumber(9)
-  $5.Timestamp get createAt => $_getN(8);
+  $6.Timestamp get updateAt => $_getN(8);
   @$pb.TagNumber(9)
-  set createAt($5.Timestamp v) { setField(9, v); }
+  set updateAt($6.Timestamp v) { setField(9, v); }
   @$pb.TagNumber(9)
-  $core.bool hasCreateAt() => $_has(8);
+  $core.bool hasUpdateAt() => $_has(8);
   @$pb.TagNumber(9)
-  void clearCreateAt() => clearField(9);
+  void clearUpdateAt() => clearField(9);
   @$pb.TagNumber(9)
-  $5.Timestamp ensureCreateAt() => $_ensure(8);
+  $6.Timestamp ensureUpdateAt() => $_ensure(8);
 
   @$pb.TagNumber(10)
-  $5.Timestamp get updateAt => $_getN(9);
+  $6.Timestamp get lastUpdate => $_getN(9);
   @$pb.TagNumber(10)
-  set updateAt($5.Timestamp v) { setField(10, v); }
+  set lastUpdate($6.Timestamp v) { setField(10, v); }
   @$pb.TagNumber(10)
-  $core.bool hasUpdateAt() => $_has(9);
+  $core.bool hasLastUpdate() => $_has(9);
   @$pb.TagNumber(10)
-  void clearUpdateAt() => clearField(10);
+  void clearLastUpdate() => clearField(10);
   @$pb.TagNumber(10)
-  $5.Timestamp ensureUpdateAt() => $_ensure(9);
+  $6.Timestamp ensureLastUpdate() => $_ensure(9);
 
   @$pb.TagNumber(11)
-  $5.Timestamp get lastUpdate => $_getN(10);
+  $core.int get liked => $_getIZ(10);
   @$pb.TagNumber(11)
-  set lastUpdate($5.Timestamp v) { setField(11, v); }
+  set liked($core.int v) { $_setSignedInt32(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasLastUpdate() => $_has(10);
+  $core.bool hasLiked() => $_has(10);
   @$pb.TagNumber(11)
-  void clearLastUpdate() => clearField(11);
-  @$pb.TagNumber(11)
-  $5.Timestamp ensureLastUpdate() => $_ensure(10);
+  void clearLiked() => clearField(11);
 
   @$pb.TagNumber(12)
-  $core.int get liked => $_getIZ(11);
+  $core.bool get saved => $_getBF(11);
   @$pb.TagNumber(12)
-  set liked($core.int v) { $_setSignedInt32(11, v); }
+  set saved($core.bool v) { $_setBool(11, v); }
   @$pb.TagNumber(12)
-  $core.bool hasLiked() => $_has(11);
+  $core.bool hasSaved() => $_has(11);
   @$pb.TagNumber(12)
-  void clearLiked() => clearField(12);
+  void clearSaved() => clearField(12);
 
-  @$pb.TagNumber(13)
-  $core.bool get saved => $_getBF(12);
-  @$pb.TagNumber(13)
-  set saved($core.bool v) { $_setBool(12, v); }
-  @$pb.TagNumber(13)
-  $core.bool hasSaved() => $_has(12);
-  @$pb.TagNumber(13)
-  void clearSaved() => clearField(13);
+  @$pb.TagNumber(30)
+  $5.PlainContent get plainContent => $_getN(12);
+  @$pb.TagNumber(30)
+  set plainContent($5.PlainContent v) { setField(30, v); }
+  @$pb.TagNumber(30)
+  $core.bool hasPlainContent() => $_has(12);
+  @$pb.TagNumber(30)
+  void clearPlainContent() => clearField(30);
+  @$pb.TagNumber(30)
+  $5.PlainContent ensurePlainContent() => $_ensure(12);
+
+  @$pb.TagNumber(31)
+  $5.MarkdownContent get markdownContent => $_getN(13);
+  @$pb.TagNumber(31)
+  set markdownContent($5.MarkdownContent v) { setField(31, v); }
+  @$pb.TagNumber(31)
+  $core.bool hasMarkdownContent() => $_has(13);
+  @$pb.TagNumber(31)
+  void clearMarkdownContent() => clearField(31);
+  @$pb.TagNumber(31)
+  $5.MarkdownContent ensureMarkdownContent() => $_ensure(13);
 }
 
 class LikeThreadReq extends $pb.GeneratedMessage {

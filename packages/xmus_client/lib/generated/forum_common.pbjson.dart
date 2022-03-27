@@ -22,3 +22,34 @@ const Ordering$json = const {
 
 /// Descriptor for `Ordering`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List orderingDescriptor = $convert.base64Decode('CghPcmRlcmluZxIKCgZ1cGRhdGUQABIJCgVsaWtlcxABEgkKBXBvc3RzEAISCgoGbGF0ZXN0EAMSCgoGb2xkZXN0EAQ=');
+@$core.Deprecated('Use imageDescriptor instead')
+const Image$json = const {
+  '1': 'Image',
+  '2': const [
+    const {'1': 'url', '3': 1, '4': 1, '5': 9, '10': 'url'},
+  ],
+};
+
+/// Descriptor for `Image`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List imageDescriptor = $convert.base64Decode('CgVJbWFnZRIQCgN1cmwYASABKAlSA3VybA==');
+@$core.Deprecated('Use plainContentDescriptor instead')
+const PlainContent$json = const {
+  '1': 'PlainContent',
+  '2': const [
+    const {'1': 'content', '3': 1, '4': 1, '5': 9, '10': 'content'},
+    const {'1': 'images', '3': 2, '4': 3, '5': 11, '6': '.xmux.forum.v4.Image', '10': 'images'},
+  ],
+};
+
+/// Descriptor for `PlainContent`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List plainContentDescriptor = $convert.base64Decode('CgxQbGFpbkNvbnRlbnQSGAoHY29udGVudBgBIAEoCVIHY29udGVudBIsCgZpbWFnZXMYAiADKAsyFC54bXV4LmZvcnVtLnY0LkltYWdlUgZpbWFnZXM=');
+@$core.Deprecated('Use markdownContentDescriptor instead')
+const MarkdownContent$json = const {
+  '1': 'MarkdownContent',
+  '2': const [
+    const {'1': 'content', '3': 1, '4': 1, '5': 9, '10': 'content'},
+  ],
+};
+
+/// Descriptor for `MarkdownContent`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List markdownContentDescriptor = $convert.base64Decode('Cg9NYXJrZG93bkNvbnRlbnQSGAoHY29udGVudBgBIAEoCVIHY29udGVudA==');

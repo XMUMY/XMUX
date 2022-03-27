@@ -102,12 +102,15 @@
     "Threads": "Threads",
     "CreateThreadTitle": "New Thread",
     "CreateTitle": "Title",
+    "Markdown": "Enable Markdown",
+    "Preview": "Preview",
     "CreatePost": "Post a comment",
     "Like": "Like",
     "Comment": "Comment",
     "Delete": "Delete",
     "Pin": "Pin",
     "Unpin": "Unpin",
-    "Re": "Re"
+    "Re": "Re",
+    "Unsupported": "UNSUPPORTED CONTENT, PLEASE UPGRADE YOUR APP!"
   }
 }

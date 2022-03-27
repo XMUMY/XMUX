@@ -101,6 +101,8 @@
     "Favorites": "收藏",
     "Threads": "帖子",
     "CreateThreadTitle": "新帖子",
+    "Markdown": "启用 Markdown",
+    "Preview": "预览",
     "CreateTitle": "标题",
     "CreatePost": "新评论",
     "Like": "赞",
@@ -108,6 +110,7 @@
     "Delete": "删除",
     "Pin": "置顶",
     "Unpin": "取消置顶",
-    "Re": "回复"
+    "Re": "回复",
+    "Unsupported": "未支持的内容，请尽快升级您的应用！"
   }
 }

@@ -16,12 +16,16 @@ const CreatePostReq$json = const {
     const {'1': 'parentId', '3': 2, '4': 1, '5': 5, '10': 'parentId'},
     const {'1': 'refPostId', '3': 3, '4': 1, '5': 5, '10': 'refPostId'},
     const {'1': 'refPostUid', '3': 4, '4': 1, '5': 9, '10': 'refPostUid'},
-    const {'1': 'content', '3': 5, '4': 1, '5': 9, '10': 'content'},
+    const {'1': 'plainContent', '3': 30, '4': 1, '5': 11, '6': '.xmux.forum.v4.PlainContent', '9': 0, '10': 'plainContent'},
+    const {'1': 'markdownContent', '3': 31, '4': 1, '5': 11, '6': '.xmux.forum.v4.MarkdownContent', '9': 0, '10': 'markdownContent'},
+  ],
+  '8': const [
+    const {'1': 'content'},
   ],
 };
 
 /// Descriptor for `CreatePostReq`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List createPostReqDescriptor = $convert.base64Decode('Cg1DcmVhdGVQb3N0UmVxEhoKCHRocmVhZElkGAEgASgFUgh0aHJlYWRJZBIaCghwYXJlbnRJZBgCIAEoBVIIcGFyZW50SWQSHAoJcmVmUG9zdElkGAMgASgFUglyZWZQb3N0SWQSHgoKcmVmUG9zdFVpZBgEIAEoCVIKcmVmUG9zdFVpZBIYCgdjb250ZW50GAUgASgJUgdjb250ZW50');
+final $typed_data.Uint8List createPostReqDescriptor = $convert.base64Decode('Cg1DcmVhdGVQb3N0UmVxEhoKCHRocmVhZElkGAEgASgFUgh0aHJlYWRJZBIaCghwYXJlbnRJZBgCIAEoBVIIcGFyZW50SWQSHAoJcmVmUG9zdElkGAMgASgFUglyZWZQb3N0SWQSHgoKcmVmUG9zdFVpZBgEIAEoCVIKcmVmUG9zdFVpZBJBCgxwbGFpbkNvbnRlbnQYHiABKAsyGy54bXV4LmZvcnVtLnY0LlBsYWluQ29udGVudEgAUgxwbGFpbkNvbnRlbnQSSgoPbWFya2Rvd25Db250ZW50GB8gASgLMh4ueG11eC5mb3J1bS52NC5NYXJrZG93bkNvbnRlbnRIAFIPbWFya2Rvd25Db250ZW50QgkKB2NvbnRlbnQ=');
 @$core.Deprecated('Use createPostRespDescriptor instead')
 const CreatePostResp$json = const {
   '1': 'CreatePostResp',
@@ -101,17 +105,21 @@ const Post$json = const {
     const {'1': 'parentId', '3': 4, '4': 1, '5': 5, '10': 'parentId'},
     const {'1': 'refPostId', '3': 5, '4': 1, '5': 5, '10': 'refPostId'},
     const {'1': 'refPostUid', '3': 6, '4': 1, '5': 9, '10': 'refPostUid'},
-    const {'1': 'content', '3': 7, '4': 1, '5': 9, '10': 'content'},
-    const {'1': 'likes', '3': 8, '4': 1, '5': 5, '10': 'likes'},
-    const {'1': 'pinned', '3': 9, '4': 1, '5': 8, '10': 'pinned'},
-    const {'1': 'createAt', '3': 10, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createAt'},
-    const {'1': 'liked', '3': 11, '4': 1, '5': 5, '10': 'liked'},
-    const {'1': 'saved', '3': 12, '4': 1, '5': 8, '10': 'saved'},
+    const {'1': 'likes', '3': 7, '4': 1, '5': 5, '10': 'likes'},
+    const {'1': 'pinned', '3': 8, '4': 1, '5': 8, '10': 'pinned'},
+    const {'1': 'createAt', '3': 9, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createAt'},
+    const {'1': 'liked', '3': 10, '4': 1, '5': 5, '10': 'liked'},
+    const {'1': 'saved', '3': 11, '4': 1, '5': 8, '10': 'saved'},
+    const {'1': 'plainContent', '3': 30, '4': 1, '5': 11, '6': '.xmux.forum.v4.PlainContent', '9': 0, '10': 'plainContent'},
+    const {'1': 'markdownContent', '3': 31, '4': 1, '5': 11, '6': '.xmux.forum.v4.MarkdownContent', '9': 0, '10': 'markdownContent'},
+  ],
+  '8': const [
+    const {'1': 'content'},
   ],
 };
 
 /// Descriptor for `Post`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List postDescriptor = $convert.base64Decode('CgRQb3N0Eg4KAmlkGAEgASgFUgJpZBIQCgN1aWQYAiABKAlSA3VpZBIaCgh0aHJlYWRJZBgDIAEoBVIIdGhyZWFkSWQSGgoIcGFyZW50SWQYBCABKAVSCHBhcmVudElkEhwKCXJlZlBvc3RJZBgFIAEoBVIJcmVmUG9zdElkEh4KCnJlZlBvc3RVaWQYBiABKAlSCnJlZlBvc3RVaWQSGAoHY29udGVudBgHIAEoCVIHY29udGVudBIUCgVsaWtlcxgIIAEoBVIFbGlrZXMSFgoGcGlubmVkGAkgASgIUgZwaW5uZWQSNgoIY3JlYXRlQXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUghjcmVhdGVBdBIUCgVsaWtlZBgLIAEoBVIFbGlrZWQSFAoFc2F2ZWQYDCABKAhSBXNhdmVk');
+final $typed_data.Uint8List postDescriptor = $convert.base64Decode('CgRQb3N0Eg4KAmlkGAEgASgFUgJpZBIQCgN1aWQYAiABKAlSA3VpZBIaCgh0aHJlYWRJZBgDIAEoBVIIdGhyZWFkSWQSGgoIcGFyZW50SWQYBCABKAVSCHBhcmVudElkEhwKCXJlZlBvc3RJZBgFIAEoBVIJcmVmUG9zdElkEh4KCnJlZlBvc3RVaWQYBiABKAlSCnJlZlBvc3RVaWQSFAoFbGlrZXMYByABKAVSBWxpa2VzEhYKBnBpbm5lZBgIIAEoCFIGcGlubmVkEjYKCGNyZWF0ZUF0GAkgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcFIIY3JlYXRlQXQSFAoFbGlrZWQYCiABKAVSBWxpa2VkEhQKBXNhdmVkGAsgASgIUgVzYXZlZBJBCgxwbGFpbkNvbnRlbnQYHiABKAsyGy54bXV4LmZvcnVtLnY0LlBsYWluQ29udGVudEgAUgxwbGFpbkNvbnRlbnQSSgoPbWFya2Rvd25Db250ZW50GB8gASgLMh4ueG11eC5mb3J1bS52NC5NYXJrZG93bkNvbnRlbnRIAFIPbWFya2Rvd25Db250ZW50QgkKB2NvbnRlbnQ=');
 @$core.Deprecated('Use likePostReqDescriptor instead')
 const LikePostReq$json = const {
   '1': 'LikePostReq',

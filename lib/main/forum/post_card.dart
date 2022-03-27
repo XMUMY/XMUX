@@ -105,6 +105,16 @@ class _PostCardState extends State<PostCard> {
     );
   }
 
+  String _getText(Post post) {
+    switch (post.whichContent()) {
+      case Post_Content.plainContent:
+        return post.plainContent.content;
+      case Post_Content.markdownContent:
+      default:
+        return LocaleKeys.Community_Unsupported.tr();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final post = widget.post;
@@ -188,17 +198,19 @@ class _PostCardState extends State<PostCard> {
       ),
     ]);
 
-    Widget content;
-    if (post.refPostId == 0) {
-      content = SelectableText(post.content);
-    } else {
-      content = UserProfileBuilder(
-        uid: post.refPostUid,
-        builder: (context, profile) => SelectableText(
-          '${LocaleKeys.Community_Re.tr()} ${profile.displayName}: ${post.content}',
-        ),
-        placeholder: (context) => SelectableText(post.content),
-      );
+    Widget content = Text(LocaleKeys.Community_Unsupported.tr());
+    if (post.hasPlainContent()) {
+      if (post.refPostId == 0) {
+        content = SelectableText(post.plainContent.content);
+      } else {
+        content = UserProfileBuilder(
+          uid: post.refPostUid,
+          builder: (context, profile) => SelectableText(
+            '${LocaleKeys.Community_Re.tr()} ${profile.displayName}: ${post.plainContent.content}',
+          ),
+          placeholder: (context) => SelectableText(post.plainContent.content),
+        );
+      }
     }
 
     final footer = Row(
@@ -257,9 +269,9 @@ class _PostCardState extends State<PostCard> {
                   UserProfileBuilder(
                     uid: c.uid,
                     builder: (context, profile) => Text(
-                      '${profile.displayName}: ${c.content}',
+                      '${profile.displayName}: ${_getText(c)}',
                     ),
-                    placeholder: (context) => Text('...: ${c.content}'),
+                    placeholder: (context) => Text('...: ${_getText(c)}'),
                   )
               ],
             ),

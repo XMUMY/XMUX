@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:timeago/timeago.dart';
@@ -86,15 +87,16 @@ class _ThreadCardState extends State<ThreadCard> {
 
   @override
   Widget build(BuildContext context) {
+    final thread = widget.thread;
     final lang = Localizations.localeOf(context).languageCode;
     final ts = format(
-      widget.thread.createAt.toDateTime(),
+      thread.createAt.toDateTime(),
       locale: lang,
       allowFromNow: true,
     );
 
     final header = UserProfileBuilder(
-      uid: widget.thread.uid,
+      uid: thread.uid,
       builder: (context, profile) => Row(
         key: ValueKey(profile),
         children: <Widget>[
@@ -141,14 +143,23 @@ class _ThreadCardState extends State<ThreadCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.thread.title,
+            thread.title,
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          Text(
-            widget.thread.body,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
+          if (thread.hasPlainContent())
+            Text(
+              thread.plainContent.content,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )
+          else if (thread.hasMarkdownContent())
+            Text(
+              thread.markdownContent.content.replaceAll(RegExp('#| '), ''),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )
+          else
+            Text(LocaleKeys.Community_Unsupported.tr())
         ],
       ),
     );
@@ -159,10 +170,20 @@ class _ThreadCardState extends State<ThreadCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.thread.title,
+            thread.title,
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          SelectableText(widget.thread.body),
+          if (thread.hasPlainContent())
+            SelectableText(thread.plainContent.content)
+          else if (thread.hasMarkdownContent())
+            Markdown(
+              data: thread.markdownContent.content,
+              padding: EdgeInsets.zero,
+              selectable: true,
+              shrinkWrap: true,
+            )
+          else
+            Text(LocaleKeys.Community_Unsupported.tr())
         ],
       ),
     );
@@ -171,12 +192,12 @@ class _ThreadCardState extends State<ThreadCard> {
       children: [
         IconButton(
           tooltip: LocaleKeys.Community_Like.tr(),
-          icon: LikeIcon(liked: widget.thread.liked > 0),
+          icon: LikeIcon(liked: thread.liked > 0),
           iconSize: 25,
           padding: EdgeInsets.zero,
           onPressed: _like,
         ),
-        Text('${max(0, widget.thread.likes)}'),
+        Text('${max(0, thread.likes)}'),
         const VerticalDivider(color: Colors.transparent),
         Transform.translate(
           offset: const Offset(0, -1),
@@ -188,14 +209,14 @@ class _ThreadCardState extends State<ThreadCard> {
             onPressed: _comment,
           ),
         ),
-        Text(widget.thread.posts.toString()),
+        Text(thread.posts.toString()),
         const VerticalDivider(color: Colors.transparent),
         IconButton(
           icon: AnimatedCrossFade(
             duration: const Duration(milliseconds: 200),
             firstChild: const Icon(Icons.bookmark_border),
             secondChild: const Icon(Icons.bookmark),
-            crossFadeState: widget.thread.saved
+            crossFadeState: thread.saved
                 ? CrossFadeState.showSecond
                 : CrossFadeState.showFirst,
           ),
@@ -212,8 +233,8 @@ class _ThreadCardState extends State<ThreadCard> {
       onTap: widget.exbandable
           ? null // Already in detail page.
           : () => context.push(
-                '/Community/Thread/${widget.thread.id}',
-                extra: widget.thread,
+                '/Community/Thread/${thread.id}',
+                extra: thread,
               ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

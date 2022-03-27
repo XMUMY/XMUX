@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xmus_client/generated/forum_common.pb.dart';
 import 'package:xmus_client/generated/forum_post.pb.dart';
 
 import '../../global.dart';
@@ -45,7 +46,7 @@ class _NewPostDialogState extends State<NewPostDialog> {
       final toPost = widget.toPost;
       final req = CreatePostReq(
         threadId: widget.threadId,
-        content: _controller.text,
+        plainContent: PlainContent(content: _controller.text),
       );
 
       if (toPost != null) {
@@ -69,7 +70,7 @@ class _NewPostDialogState extends State<NewPostDialog> {
   Widget build(BuildContext context) {
     final inputField = Container(
       margin: const EdgeInsets.only(right: 6),
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7),
         color: Theme.of(context).canvasColor,

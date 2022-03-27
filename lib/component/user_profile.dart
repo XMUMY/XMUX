@@ -3,7 +3,7 @@ import 'package:xmus_client/generated/user.pb.dart';
 
 import '../global.dart';
 
-var _cached = <String, Profile>{};
+final _cached = <String, Profile>{};
 
 /// A builder for widgets that depend on user profile.
 ///
@@ -36,7 +36,6 @@ class _UserProfileBuilderState extends State<UserProfileBuilder> {
       _profile = _cached[widget.uid];
     } else {
       rpc.userClient.getProfile(GetProfileReq()..uid = widget.uid).then((v) {
-        // TODO: Clear periodically.
         _cached[widget.uid] = v;
         if (mounted) setState(() => _profile = v);
       });
