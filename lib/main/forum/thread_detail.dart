@@ -55,7 +55,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
     context.pop();
   }
 
-  void _refreshComments() {
+  Future<void> _refreshComments() async {
     if (!mounted) return;
     _childrens.clear();
     _pagingController.refresh();
@@ -82,19 +82,21 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
         actions: [
           PopupMenuButton<VoidCallback>(
             itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Text(LocaleKeys.Community_Delete.tr()),
-                value: _remove,
-              ),
+              if (thread.uid == store.state.user.campusId)
+                PopupMenuItem(
+                  child: Text(LocaleKeys.Community_Delete.tr()),
+                  value: _remove,
+                ),
             ],
             onSelected: (v) => v(),
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
+      body: RefreshIndicator(
+        onRefresh: _refreshComments,
         child: CustomScrollView(
           slivers: [
+            const SliverPadding(padding: EdgeInsets.only(top: 4)),
             SliverToBoxAdapter(
               child: BodyPadding(
                 child: Hero(
@@ -124,6 +126,11 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
               ),
               separatorBuilder: (context, index) => const BodyPadding(
                 child: Divider(),
+              ),
+            ),
+            SliverPadding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).padding.bottom,
               ),
             ),
           ],

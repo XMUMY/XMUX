@@ -52,15 +52,21 @@ class _ThreadListState extends State<ThreadList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PagedListView<int, Thread>(
-        padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<Thread>(
-          itemBuilder: (context, thread, index) => Hero(
-            tag: thread.id,
-            child: ThreadCard(thread: thread),
+      body: RefreshIndicator(
+        onRefresh: () async => _pagingController.refresh(),
+        child: PagedListView<int, Thread>(
+          padding: EdgeInsets.symmetric(
+            vertical: 4,
+            horizontal: context.padBody,
           ),
-          noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+          pagingController: _pagingController,
+          builderDelegate: PagedChildBuilderDelegate<Thread>(
+            itemBuilder: (context, thread, index) => Hero(
+              tag: thread.id,
+              child: ThreadCard(thread: thread),
+            ),
+            noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

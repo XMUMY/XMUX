@@ -88,7 +88,7 @@ class _Threads extends StatefulWidget implements TabEntry {
   State<_Threads> createState() => _ThreadsState();
 }
 
-class _ThreadsState extends State<_Threads> {
+class _ThreadsState extends State<_Threads> with AutomaticKeepAliveClientMixin {
   final _pagingController = PagingController<int, Thread>(
     firstPageKey: 0,
   );
@@ -107,6 +107,9 @@ class _ThreadsState extends State<_Threads> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   void initState() {
     _pagingController.addPageRequestListener(_fetchPage);
     super.initState();
@@ -120,15 +123,19 @@ class _ThreadsState extends State<_Threads> {
 
   @override
   Widget build(BuildContext context) {
-    return PagedListView<int, Thread>(
-      padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
-      pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<Thread>(
-        itemBuilder: (context, thread, index) => Hero(
-          tag: thread.id,
-          child: ThreadCard(thread: thread),
+    super.build(context);
+    return RefreshIndicator(
+      onRefresh: () async => _pagingController.refresh(),
+      child: PagedListView<int, Thread>(
+        padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate<Thread>(
+          itemBuilder: (context, thread, index) => Hero(
+            tag: thread.id,
+            child: ThreadCard(thread: thread),
+          ),
+          noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
         ),
-        noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
       ),
     );
   }
@@ -147,7 +154,7 @@ class _Posts extends StatefulWidget implements TabEntry {
   State<_Posts> createState() => _PostsState();
 }
 
-class _PostsState extends State<_Posts> {
+class _PostsState extends State<_Posts> with AutomaticKeepAliveClientMixin {
   final _pagingController = PagingController<int, Post>(
     firstPageKey: 0,
   );
@@ -166,6 +173,9 @@ class _PostsState extends State<_Posts> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   void initState() {
     _pagingController.addPageRequestListener(_fetchPage);
     super.initState();
@@ -179,15 +189,19 @@ class _PostsState extends State<_Posts> {
 
   @override
   Widget build(BuildContext context) {
-    return PagedListView<int, Post>(
-      padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
-      pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<Post>(
-        itemBuilder: (context, post, index) => PostCard(
-          threadId: post.threadId,
-          post: post,
+    super.build(context);
+    return RefreshIndicator(
+      onRefresh: () async => _pagingController.refresh(),
+      child: PagedListView<int, Post>(
+        padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate<Post>(
+          itemBuilder: (context, post, index) => PostCard(
+            threadId: post.threadId,
+            post: post,
+          ),
+          noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
         ),
-        noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
       ),
     );
   }
