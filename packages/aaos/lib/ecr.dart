@@ -63,7 +63,7 @@ class ElectiveCourseRegistration {
                     ?.replaceAll("'", '');
               }
 
-              final text = cell.text.replaceAll(RegExp(r'^\s+|\s+$|\n'), '');
+              final text = cell.text.trim();
 
               // Get link from View's href.
               if (text == 'View') {
@@ -99,12 +99,11 @@ class ElectiveCourseRegistration {
           (line) => line.children.map(
             (cell) => cell.nodes.length < 3
                 // Normal cell.
-                ? cell.text.replaceAll(RegExp(r'^\s+|\s+$'), '')
+                ? cell.text.trim()
                 // Multiline cell, keep \n
                 : cell.nodes
                     .whereType<Text>()
-                    .map((node) =>
-                        node.text.replaceAll(RegExp(r'^\s+|\s+$'), ''))
+                    .map((node) => node.text.trim())
                     .join('\n'),
           ),
         )
@@ -125,124 +124,149 @@ class ElectiveCourseRegistrationForm {
   final Dio _dio;
   final String entry;
 
-//   String currentState;
-//   ElectiveCourseFormData data;
+  String? currentState;
+  ElectiveSessionFormData? data;
 
-//   /// For course listener.
-//   Timer _timer;
+  /// For course listener.
+  Timer? _timer;
 
   ElectiveCourseRegistrationForm(this._dio, this.entry);
 
-//   /// Add course listener. Add automatically when available.
-//   void listen(CourseUnselected course, VoidCallback onRegistered) {
-//     _timer = Timer.periodic(Duration(seconds: 2), (_) async {
-//       try {
-//         await refresh();
-//         var courseUnderListen =
-//             data.coursesList.firstWhere((e) => e.name == course.name);
-//         if (courseUnderListen.canSelect) {
-//           await add(courseUnderListen.option);
-//           onRegistered();
-//         }
-//       } catch (e) {
-//         // If error, cancel directly.
-//         onRegistered();
-//         rethrow;
-//       }
-//     });
-//   }
+  /// Refresh [data].
+  ///
+  /// Will parse without request if `html != null`.
+  Future<void> refresh([String? html]) async {
+    if (html == null) {
+      final resp = await _dio.get(entry);
+      html = resp.data;
+    }
+    final doc = parse(html);
 
-//   /// Cancel course listener.
-//   void cancelListener() => _timer.cancel();
+    currentState =
+        doc.querySelector('input[name="__VIEWSTATE"]')?.attributes['value'];
 
-//   /// Whether listener is listening.
-//   bool get isListening => _timer?.isActive ?? false;
+    final generalInfoTable = doc.querySelector('#content table');
+    if (generalInfoTable == null) return;
+    final infoHead = generalInfoTable.querySelectorAll('th').map((e) => e.text);
+    final infoMap = Map.fromIterables(
+      infoHead,
+      generalInfoTable.querySelectorAll('.odd td').map((e) => e.text.trim()),
+    );
 
-//   /// Refresh `data`.
-//   ///
-//   /// Will parse without request if `html != null`.
-//   Future<Null> refresh({String html}) async {
-//     if (html == null) {
-//       var res = await _dio.get('$entry');
-//       html = res.data;
-//     }
-//     var doc = parse(html);
+    final selectedTable = doc.querySelector('#data_table2');
+    if (selectedTable == null) return;
+    final selectedHead =
+        selectedTable.querySelectorAll('th').map((e) => e.text);
+    final selectedCourses = selectedTable
+        .querySelectorAll('tbody tr')
+        .map((row) => row.children.map((cell) {
+              // Button.
+              if (cell.children.isNotEmpty &&
+                  cell.text.replaceAll(RegExp('\n| '), '').isEmpty) {
+                return RegExp(",'(.*?)'")
+                    .firstMatch(cell.children.first.attributes['onclick']!)
+                    ?.group(0)
+                    ?.replaceAll(RegExp("'|,"), '');
+              }
 
-//     currentState =
-//         doc.querySelector('input[name="__VIEWSTATE"]').attributes['value'];
+              // Multiline cell, keep \n
+              if (cell.nodes.length >= 3) {
+                return cell.nodes
+                    .whereType<Text>()
+                    .map((node) => node.text.trim())
+                    .join('\n');
+              }
 
-//     var generalInfoTable = doc.querySelector('#content table');
-//     var infoHead = generalInfoTable.querySelectorAll('th').map((e) => e.text);
-//     var infoMap = Map.fromIterables(infoHead,
-//         generalInfoTable.querySelectorAll('.odd td').map((e) => e.text));
+              // Normal cell.
+              return cell.text.trim();
+            }))
+        .map((row) =>
+            row.length == 1 ? null : Map.fromIterables(selectedHead, row))
+        .toList()
+      ..removeWhere((c) => c == null);
 
-//     var selectedTable = doc.querySelector('#data_table2');
-//     var selectedHead = selectedTable.querySelectorAll('th').map((e) => e.text);
-//     var selectedCourses = selectedTable
-//         .querySelectorAll('tbody tr')
-//         .map((row) => row.children.map((e) {
-//               if (e.text.replaceAll(RegExp('\n| '), '').isEmpty &&
-//                   e.children.isNotEmpty)
-//                 return RegExp(",'(.*?)'")
-//                     .firstMatch(e.children.first.attributes['onclick'])
-//                     .group(0)
-//                     .replaceAll(RegExp("'|,"), '');
-//               return e.text.replaceAll(RegExp(r'^\s+|\s+$|\n'), '');
-//             }))
-//         .map((row) =>
-//             row.length != 1 ? Map.fromIterables(selectedHead, row) : null)
-//         .toList();
+    var unselectedTable = doc.querySelector('#data_table');
+    if (unselectedTable == null) return;
+    var unselectedHead = unselectedTable
+        .querySelectorAll('#data_table>thead>tr>th')
+        .map((e) => e.text);
+    var unselectedCourses = unselectedTable
+        .querySelectorAll('#data_table>tbody>tr:not([style="display: none"])')
+        .map((row) => row.children.map((cell) {
+              if (cell.text.replaceAll(RegExp('\n| '), '').isEmpty) {
+                return RegExp(",'(.*?)'")
+                    .firstMatch(cell.children.first.attributes['onclick']!)
+                    ?.group(0)
+                    ?.replaceAll(RegExp("'|,"), '');
+              }
 
-//     var unselectedTable = doc.querySelector('#data_table');
-//     var unselectedHead = unselectedTable
-//         .querySelectorAll('#data_table>thead>tr>th')
-//         .map((e) => e.text);
-//     var unselectedCourses = unselectedTable
-//         .querySelectorAll('#data_table>tbody>tr:not([style="display: none"])')
-//         .map((row) => row.children.map((e) {
-//               if (e.text.replaceAll(RegExp('\n| '), '').isEmpty)
-//                 return RegExp(",'(.*?)'")
-//                     .firstMatch(e.children.first.attributes['onclick'])
-//                     .group(0)
-//                     .replaceAll(RegExp("'|,"), '');
-//               return e.text.replaceAll(RegExp(r'^\s+|\s+$|\n'), '');
-//             }))
-//         .map((row) => Map.fromIterables(unselectedHead, row))
-//         .toList();
+              return cell.text.trim();
+            }))
+        .map((row) => Map.fromIterables(unselectedHead, row))
+        .toList();
 
-//     selectedCourses.removeWhere((c) => c == null);
-//     data = ElectiveCourseFormData.fromJson({
-//       'formGeneralInfo': infoMap,
-//       'coursesSelected': selectedCourses,
-//       'coursesList': unselectedCourses
-//     });
-//   }
+    data = ElectiveSessionFormData.fromJson({
+      'formGeneralInfo': infoMap,
+      'coursesSelected': selectedCourses,
+      'coursesList': unselectedCourses
+    });
+  }
 
-//   /// Add course of given ID.
-//   Future<Null> add(String id) async {
-//     var res = await _dio.post(
-//       '$entry',
-//       options: Options(contentType: 'application/x-www-form-urlencoded'),
-//       data: {
-//         '__EVENTTARGET': '\$Add',
-//         '__EVENTARGUMENT': '\$$id',
-//         '__VIEWSTATE': currentState
-//       },
-//     );
-//     await refresh(html: res.data);
-//   }
+  /// Add course of given ID.
+  Future<void> add(String id) async {
+    var resp = await _dio.post(
+      entry,
+      options: Options(contentType: 'application/x-www-form-urlencoded'),
+      data: {
+        '__EVENTTARGET': '\$Add',
+        '__EVENTARGUMENT': '\$$id',
+        '__VIEWSTATE': currentState
+      },
+    );
+    await refresh(resp.data);
+  }
 
-//   /// Cancel course of given ID.
-//   Future<Null> cancel(String id) async {
-//     var res = await _dio.post(
-//       '$entry',
-//       options: Options(contentType: 'application/x-www-form-urlencoded'),
-//       data: {
-//         '__EVENTTARGET': '\$Del',
-//         '__EVENTARGUMENT': '\$$id',
-//         '__VIEWSTATE': currentState
-//       },
-//     );
-//     await refresh(html: res.data);
-//   }
+  /// Drop course of given ID.
+  Future<void> drop(String id) async {
+    var resp = await _dio.post(
+      entry,
+      options: Options(contentType: 'application/x-www-form-urlencoded'),
+      data: {
+        '__EVENTTARGET': '\$Del',
+        '__EVENTARGUMENT': '\$$id',
+        '__VIEWSTATE': currentState
+      },
+    );
+    await refresh(resp.data);
+  }
+
+  /// Whether listener is listening.
+  bool get isListening => _timer?.isActive ?? false;
+
+  /// Add course listener. Add automatically when available.
+  Future<void> listen(CourseUnselected course) async {
+    final completer = Completer<void>();
+    _timer = Timer.periodic(
+      const Duration(seconds: 2),
+      (_) async {
+        try {
+          await refresh();
+          var target = data?.coursesList.firstWhere(
+            (e) => e.name == course.name,
+          );
+          if (target != null && target.canSelect == true) {
+            await add(target.option);
+            completer.complete();
+          }
+        } catch (e) {
+          completer.completeError(e);
+          rethrow;
+        }
+      },
+    );
+    return completer.future;
+  }
+
+  /// Cancel course listener.
+  void cancel() => _timer?.cancel();
 }

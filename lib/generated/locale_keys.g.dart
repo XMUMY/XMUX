@@ -53,6 +53,7 @@ abstract class  LocaleKeys {
   static const Campus_ECRStartTime = 'Campus.ECRStartTime';
   static const Campus_ECREndTime = 'Campus.ECREndTime';
   static const Campus_ECRRegisteredCourses = 'Campus.ECRRegisteredCourses';
+  static const Campus_ECREditRegistration = 'Campus.ECREditRegistration';
   static const Campus_Tools = 'Campus.Tools';
   static const Campus_BusSchedule = 'Campus.BusSchedule';
   static const Campus_KliaExpress = 'Campus.KliaExpress';
