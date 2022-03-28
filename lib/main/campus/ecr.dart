@@ -265,6 +265,7 @@ class _EditRegistrationPageState extends State<_EditRegistrationPage> {
 
   /// Listen for full courses.
   void listen(CourseUnselected course) {
+    if (!store.state.settings.enableDevFunctions) return;
     showDialog(
       context: context,
       barrierDismissible: false,

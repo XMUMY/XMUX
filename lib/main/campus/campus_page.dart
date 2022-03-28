@@ -57,26 +57,29 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                   svg: 'res/campus/geogebra.svg',
                   onPressed: _push(context, '/Campus/GeoGebra'),
                 ),
-              _Button(
-                title: LocaleKeys.Campus_AcademicTranscript.tr(),
-                svg: 'res/campus/transcript.svg',
-                onPressed: _push(context, '/Campus/Transcript'),
-              ),
-              _Button(
-                title: LocaleKeys.Campus_GPACalculator.tr(),
-                svg: 'res/campus/gpa_calculator.svg',
-                onPressed: _push(context, '/Campus/GPACalculator'),
-              ),
+              if (store.state.user.isStudent)
+                _Button(
+                  title: LocaleKeys.Campus_AcademicTranscript.tr(),
+                  svg: 'res/campus/transcript.svg',
+                  onPressed: _push(context, '/Campus/Transcript'),
+                ),
+              if (store.state.user.isStudent)
+                _Button(
+                  title: LocaleKeys.Campus_GPACalculator.tr(),
+                  svg: 'res/campus/gpa_calculator.svg',
+                  onPressed: _push(context, '/Campus/GPACalculator'),
+                ),
               _Button(
                 title: 'VPN',
                 svg: 'res/campus/vpn.svg',
                 onPressed: () => launch('https://webvpn.xmu.edu.cn'),
               ),
-              _Button(
-                title: LocaleKeys.Campus_ECR.tr(),
-                svg: 'res/campus/ecr.svg',
-                onPressed: _push(context, '/Campus/ECR'),
-              ),
+              if (isVM && store.state.user.isStudent)
+                _Button(
+                  title: LocaleKeys.Campus_ECR.tr(),
+                  svg: 'res/campus/ecr.svg',
+                  onPressed: _push(context, '/Campus/ECR'),
+                ),
             ],
           ),
           Padding(
