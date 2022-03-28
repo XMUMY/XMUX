@@ -245,20 +245,23 @@ class ElectiveCourseRegistrationForm {
 
   /// Add course listener. Add automatically when available.
   Future<void> listen(CourseUnselected course) async {
+    _timer?.cancel();
     final completer = Completer<void>();
     _timer = Timer.periodic(
-      const Duration(seconds: 2),
+      const Duration(seconds: 3),
       (_) async {
         try {
           await refresh();
-          var target = data?.coursesList.firstWhere(
+          final target = data?.coursesList.firstWhere(
             (e) => e.name == course.name,
           );
           if (target != null && target.canSelect == true) {
             await add(target.option);
+            _timer?.cancel();
             completer.complete();
           }
         } catch (e) {
+          _timer?.cancel();
           completer.completeError(e);
           rethrow;
         }

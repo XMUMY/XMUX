@@ -221,13 +221,6 @@ class _EditRegistrationPage extends StatefulWidget {
 
 class _EditRegistrationPageState extends State<_EditRegistrationPage> {
   late final ElectiveCourseRegistrationForm form;
-//   final _scrollController = ScrollController();
-
-//   /// Key for info Card.
-//   final _generalInfoKey = GlobalKey();
-
-//   /// Top padding for info card instead of `SafeArea`.
-//   var _infoCardPadding = 0.0;
 
   /// Refresh form.
   Future<void> refresh() async {
@@ -268,36 +261,31 @@ class _EditRegistrationPageState extends State<_EditRegistrationPage> {
     if (mounted) setState(() {});
   }
 
-  /// When listening for full courses.
-  // void onListen(CourseUnselected course) {
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (ctx) {
-  //       if (!widget.ecrForm.isListening) {
-  //         widget.ecrForm.listen(course, () {
-  //           widget.ecrForm.cancelListener();
-  //           Navigator.of(ctx).pop();
-  //         });
-  //       }
-  //       return AlertDialog(
-  //         title: Text(i18n('Campus/AcademicTools/ECR/Form/Listening', context)),
-  //         content: Text(
-  //             i18n('Campus/AcademicTools/ECR/Form/ListeningInfo', context)),
-  //         actions: <Widget>[
-  //           FlatButton(
-  //             onPressed: () {
-  //               widget.ecrForm.cancelListener();
-  //               Navigator.of(ctx).pop();
-  //             },
-  //             child:
-  //                 Text(i18n('Campus/AcademicTools/ECR/Form/Cancel', context)),
-  //           )
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+  /// Listen for full courses.
+  void listen(CourseUnselected course) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) {
+        form.listen(course).then((_) {
+          setState(() {});
+          Navigator.of(ctx).pop();
+        });
+        return AlertDialog(
+          title: const Text('Grabbing...'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                form.cancel();
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('Cancel'),
+            )
+          ],
+        );
+      },
+    );
+  }
 
   @override
   void initState() {
@@ -359,6 +347,7 @@ class _EditRegistrationPageState extends State<_EditRegistrationPage> {
             for (final course in data.coursesList)
               FloatingCard(
                 onTap: () => add(course.option),
+                onLongPress: () => listen(course),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(7),
                 ),
