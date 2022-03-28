@@ -245,11 +245,13 @@ class _EditRegistrationPageState extends State<_EditRegistrationPage> {
             title: Text('Drop $name'),
             actions: <Widget>[
               TextButton(
-                child: const Text('Sure'),
+                child: Text(MaterialLocalizations.of(context).okButtonLabel),
                 onPressed: () => Navigator.of(context).pop(true),
               ),
               TextButton(
-                child: const Text('Cancel'),
+                child: Text(
+                  MaterialLocalizations.of(context).cancelButtonLabel,
+                ),
                 onPressed: () => Navigator.of(context).pop(false),
               ),
             ],
@@ -279,7 +281,7 @@ class _EditRegistrationPageState extends State<_EditRegistrationPage> {
                 form.cancel();
                 Navigator.of(ctx).pop();
               },
-              child: const Text('Cancel'),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
             )
           ],
         );
@@ -330,7 +332,8 @@ class _EditRegistrationPageState extends State<_EditRegistrationPage> {
                     const Divider(height: 8),
                     Text(
                       'Week ${course.week} '
-                      'Credit: ${course.credit}\n'
+                      'Credit: ${course.credit} '
+                      'Quota:${course.numChosen}/${course.quota}\n'
                       'Lecturer: ${course.lecturer}\n'
                       '${course.timeAndVenue}',
                     ),
@@ -362,7 +365,8 @@ class _EditRegistrationPageState extends State<_EditRegistrationPage> {
                     const Divider(height: 8),
                     Text(
                       'Week ${course.week} '
-                      'Credit: ${course.credit}\n'
+                      'Credit: ${course.credit} '
+                      'Quota:${course.numChosen}/${course.quota}\n'
                       'Lecturer: ${course.lecturer}\n'
                       '${course.timeAndVenue}',
                     ),
