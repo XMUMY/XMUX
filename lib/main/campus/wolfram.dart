@@ -137,15 +137,17 @@ class WolframResultPage extends StatelessWidget {
             child: CircularProgressIndicator(),
           ),
           SingleChildScrollView(
-            child: Image.network(
-              Uri.parse('https://api.wolframalpha.com/v1/simple').replace(
-                queryParameters: {
-                  'appid': wolframAppId,
-                  'i': input,
-                  'fontsize': '18',
-                  'width': MediaQuery.of(context).size.width.toString(),
-                },
-              ).toString(),
+            child: Center(
+              child: Image.network(
+                Uri.parse('https://api.wolframalpha.com/v1/simple').replace(
+                  queryParameters: {
+                    'appid': wolframAppId,
+                    'i': input,
+                    'fontsize': '18',
+                    'width': MediaQuery.of(context).size.width.toString(),
+                  },
+                ).toString(),
+              ),
             ),
           ),
         ],
