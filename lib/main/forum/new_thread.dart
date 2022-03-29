@@ -129,6 +129,7 @@ class _NewThreadPageState extends State<NewThreadPage> {
             horizontal: context.padBody,
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: formWidgets,
           ),
         ),
