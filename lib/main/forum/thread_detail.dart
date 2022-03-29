@@ -130,7 +130,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
             ),
             SliverPadding(
               padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).padding.bottom,
+                bottom: MediaQuery.of(context).padding.bottom + 4,
               ),
             ),
           ],

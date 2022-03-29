@@ -75,12 +75,19 @@ class Breakpoint {
 }
 
 extension BreakpointExtension on BuildContext {
-  bool isBetween(Breakpoint breakpoint) {
-    return breakpoint.contains(MediaQuery.of(this).size.width);
-  }
+  bool isBetween(Breakpoint breakpoint) =>
+      breakpoint.contains(MediaQuery.of(this).size.width);
 
-  double get padBody {
-    return Breakpoint.getPadding(MediaQuery.of(this).size.width);
+  double get padBody => Breakpoint.getPadding(MediaQuery.of(this).size.width);
+
+  EdgeInsets get padListView {
+    final horizontalPadding = padBody;
+    return EdgeInsets.fromLTRB(
+      horizontalPadding,
+      4,
+      horizontalPadding,
+      MediaQuery.of(this).padding.bottom,
+    );
   }
 }
 

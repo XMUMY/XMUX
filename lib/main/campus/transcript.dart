@@ -61,7 +61,12 @@ class TranscriptWaterfall extends StatelessWidget {
       child = const EmptyErrorList();
     } else {
       child = WaterfallFlow(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+        padding: EdgeInsets.fromLTRB(
+          16,
+          4,
+          16,
+          MediaQuery.of(context).padding.bottom,
+        ),
         gridDelegate: SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
           crossAxisCount: max(MediaQuery.of(context).size.width ~/ 400, 1),
           crossAxisSpacing: 4,
@@ -268,8 +273,9 @@ class _TranscriptSessionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var list = ListView.separated(
+      padding: EdgeInsets.zero,
       shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: session.courses.length,
       itemBuilder: (context, i) {
         final course = session.courses[i];

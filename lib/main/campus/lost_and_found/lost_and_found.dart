@@ -55,7 +55,7 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
       ),
       body: PagedListView<int, LostAndFoundBrief>(
         pagingController: _pagingController,
-        padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
+        padding: context.padListView,
         builderDelegate: PagedChildBuilderDelegate<LostAndFoundBrief>(
           itemBuilder: (context, item, index) => _ItemBriefCard(brief: item),
         ),

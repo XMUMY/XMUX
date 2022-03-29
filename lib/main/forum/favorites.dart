@@ -127,7 +127,7 @@ class _ThreadsState extends State<_Threads> with AutomaticKeepAliveClientMixin {
     return RefreshIndicator(
       onRefresh: () async => _pagingController.refresh(),
       child: PagedListView<int, Thread>(
-        padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
+        padding: context.padListView,
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<Thread>(
           itemBuilder: (context, thread, index) => Hero(
@@ -193,7 +193,7 @@ class _PostsState extends State<_Posts> with AutomaticKeepAliveClientMixin {
     return RefreshIndicator(
       onRefresh: () async => _pagingController.refresh(),
       child: PagedListView<int, Post>(
-        padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
+        padding: context.padListView,
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<Post>(
           itemBuilder: (context, post, index) => PostCard(

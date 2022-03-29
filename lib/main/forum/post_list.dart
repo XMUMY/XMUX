@@ -88,6 +88,11 @@ class _PostListState extends State<PostList> {
             child: Divider(),
           ),
         ),
+        SliverPadding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).padding.bottom + 4,
+          ),
+        ),
       ],
     );
   }
