@@ -7,7 +7,7 @@ import 'generated/forum_service.pbgrpc.dart';
 import 'generated/lost_found.pbgrpc.dart';
 import 'generated/user.pbgrpc.dart';
 
-class XmuxRpc {
+class XMUXRpc {
   final UserClient userClient;
   final AAOSClient aaosClient;
   final LostAndFoundClient lostAndFoundClient;
@@ -15,11 +15,11 @@ class XmuxRpc {
 
   final Authorization authorization;
 
-  factory XmuxRpc(String address) {
+  factory XMUXRpc(String address) {
     var clientChannel = createClientChannel(address);
     var authorization = Authorization();
 
-    return XmuxRpc._(
+    return XMUXRpc._(
       authorization,
       UserClient(
         clientChannel,
@@ -52,7 +52,7 @@ class XmuxRpc {
     );
   }
 
-  XmuxRpc._(
+  XMUXRpc._(
     this.authorization,
     this.userClient,
     this.aaosClient,

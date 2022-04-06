@@ -51,7 +51,7 @@ final router = GoRouter(
 final routeObserver = RouterObserver();
 
 /// RPC client.
-final rpc = XmuxRpc(apiAddress);
+final rpc = XMUXRpc(apiAddress);
 
 /// Moodle client.
 final moodle = MoodleApi(moodleAddress);
