@@ -91,7 +91,7 @@ class _NewPostDialogState extends State<NewPostDialog> {
     );
 
     final child = Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(8),
       child: Row(
         children: [
           Expanded(child: inputField),

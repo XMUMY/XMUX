@@ -10,6 +10,7 @@ import '../../redux/state/state.dart';
 import '../../util/screen.dart';
 import '../../util/tab.dart';
 import '../../util/tracker.dart';
+import '../chat/chat_tab.dart';
 import '../main_page.dart';
 import 'discover_tab.dart';
 
@@ -28,10 +29,10 @@ class CommunityPage extends StatefulWidget implements TopLevelPage {
   @override
   Widget get activeIcon => const Icon(Icons.chat);
 
-  static const tabs = <TabEntry>[
-    DiscoverTab(),
-    // ForumsTab(),
-  ];
+  static List<TabEntry> get tabs => [
+        const DiscoverTab(),
+        if (store.state.settings.enableDevFunctions) const ChatTab(),
+      ];
 
   @override
   State<CommunityPage> createState() => _CommunityPageState();
