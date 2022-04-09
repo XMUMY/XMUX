@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xmus_client/generated/user.pb.dart';
@@ -124,7 +123,7 @@ class _CalendarPageState extends State<CalendarPage>
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(FontAwesomeIcons.calendarAlt),
+                  icon: const Icon(Icons.calendar_month),
                   tooltip: LocaleKeys.Calendar_Academic.tr(),
                   onPressed: () {
                     if (isWeb) {

@@ -193,25 +193,25 @@ class _GpaChartState extends State<_GpaChart> {
     final chart = LineChart(LineChartData(
       titlesData: FlTitlesData(
         show: true,
-        bottomTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 30,
-          margin: 5,
-          rotateAngle: 85,
-          getTextStyles: (context, v) => Theme.of(context).textTheme.bodyText2,
-          getTitles: (value) =>
-              widget.transcript[value.toInt()].session.substring(2),
+        leftTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 25,
+            getTitlesWidget: (v, _) => Text(v.toStringAsPrecision(2)),
+          ),
         ),
-        leftTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 25,
-          margin: 5,
-          interval: 0.5,
-          getTextStyles: (context, v) => Theme.of(context).textTheme.subtitle1,
-          getTitles: (value) => value.toStringAsPrecision(2),
+        bottomTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 34,
+            getTitlesWidget: (v, _) => Transform(
+              transform: Matrix4.translationValues(-8, 25, 0)..rotateZ(-pi / 4),
+              child: Text(widget.transcript[v.toInt()].session.substring(2)),
+            ),
+          ),
         ),
-        rightTitles: SideTitles(showTitles: false),
-        topTitles: SideTitles(showTitles: false),
+        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
       ),
       borderData: FlBorderData(show: false),
       minY: 1,
@@ -220,12 +220,14 @@ class _GpaChartState extends State<_GpaChart> {
         LineChartBarData(
           spots: spots,
           isCurved: true,
-          colors: colors,
-          barWidth: 4,
+          barWidth: 3,
           dotData: FlDotData(show: false),
+          gradient: LinearGradient(colors: colors),
           belowBarData: BarAreaData(
             show: true,
-            colors: colors.map((color) => color.withOpacity(0.3)).toList(),
+            gradient: LinearGradient(
+              colors: colors.map((color) => color.withOpacity(0.3)).toList(),
+            ),
           ),
         ),
       ],

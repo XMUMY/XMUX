@@ -19,10 +19,10 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
   String get label => LocaleKeys.Campus_Campus.tr();
 
   @override
-  Widget get icon => const Icon(FontAwesomeIcons.university);
+  Widget get icon => const Icon(Icons.school);
 
   @override
-  Widget get activeIcon => const Icon(FontAwesomeIcons.university);
+  Widget get activeIcon => const Icon(Icons.school);
 
   VoidCallback _push(BuildContext context, String page) {
     return () => context.go(page);

@@ -108,7 +108,7 @@ class _P2PChatPageState extends State<P2PChatPage> {
       appBar: AppBar(
         title: UserProfileBuilder(
           uid: widget.uid,
-          builder: (_, profile) => Text(profile.name),
+          builder: (_, profile) => Text(profile.displayName),
         ),
       ),
       body: Column(
