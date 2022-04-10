@@ -41,6 +41,7 @@ class CommunityPage extends StatefulWidget implements TopLevelPage {
 class _CommunityPageState extends State<CommunityPage>
     with SingleTickerProviderStateMixin, RouteAware {
   late final TabController _controller;
+  final _tabs = CommunityPage.tabs;
   var currentIndex = -1;
 
   String get currentTabScreenName =>
@@ -68,7 +69,7 @@ class _CommunityPageState extends State<CommunityPage>
       (_) => routeObserver.subscribe(this, ModalRoute.of(context)!),
     );
 
-    _controller = TabController(length: CommunityPage.tabs.length, vsync: this)
+    _controller = TabController(length: _tabs.length, vsync: this)
       ..addListener(_onTabChanged);
     _onTabChanged(); // Initial tab.
 
@@ -113,9 +114,7 @@ class _CommunityPageState extends State<CommunityPage>
                   child: TabBar(
                     isScrollable: true,
                     controller: _controller,
-                    tabs: CommunityPage.tabs
-                        .map((e) => Tab(text: e.label))
-                        .toList(),
+                    tabs: _tabs.map((e) => Tab(text: e.label)).toList(),
                   ),
                 ),
                 IconButton(
@@ -129,7 +128,7 @@ class _CommunityPageState extends State<CommunityPage>
         ),
         body: TabBarView(
           controller: _controller,
-          children: CommunityPage.tabs,
+          children: _tabs,
         ),
       ),
     );

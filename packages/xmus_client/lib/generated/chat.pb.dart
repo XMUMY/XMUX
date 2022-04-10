@@ -9,85 +9,12 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-class TextMsg extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'TextMsg', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.chat.v1'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'from')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'to')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'msg')
-    ..hasRequiredFields = false
-  ;
-
-  TextMsg._() : super();
-  factory TextMsg({
-    $core.String? from,
-    $core.String? to,
-    $core.String? msg,
-  }) {
-    final _result = create();
-    if (from != null) {
-      _result.from = from;
-    }
-    if (to != null) {
-      _result.to = to;
-    }
-    if (msg != null) {
-      _result.msg = msg;
-    }
-    return _result;
-  }
-  factory TextMsg.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory TextMsg.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  TextMsg clone() => TextMsg()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  TextMsg copyWith(void Function(TextMsg) updates) => super.copyWith((message) => updates(message as TextMsg)) as TextMsg; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static TextMsg create() => TextMsg._();
-  TextMsg createEmptyInstance() => create();
-  static $pb.PbList<TextMsg> createRepeated() => $pb.PbList<TextMsg>();
-  @$core.pragma('dart2js:noInline')
-  static TextMsg getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TextMsg>(create);
-  static TextMsg? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get from => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set from($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasFrom() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearFrom() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get to => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set to($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasTo() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearTo() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.String get msg => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set msg($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasMsg() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearMsg() => clearField(3);
-}
+import 'chat_msg.pb.dart' as $2;
 
 enum ChatReq_Req {
   heartbeat, 
   getOnlineUserReq, 
-  textMsg, 
+  chatMsg, 
   notSet
 }
 
@@ -95,14 +22,14 @@ class ChatReq extends $pb.GeneratedMessage {
   static const $core.Map<$core.int, ChatReq_Req> _ChatReq_ReqByTag = {
     1 : ChatReq_Req.heartbeat,
     2 : ChatReq_Req.getOnlineUserReq,
-    3 : ChatReq_Req.textMsg,
+    3 : ChatReq_Req.chatMsg,
     0 : ChatReq_Req.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChatReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.chat.v1'), createEmptyInstance: create)
     ..oo(0, [1, 2, 3])
     ..aOM<Heartbeat>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'heartbeat', subBuilder: Heartbeat.create)
     ..aOM<GetOnlineUsersReq>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'getOnlineUserReq', protoName: 'getOnlineUserReq', subBuilder: GetOnlineUsersReq.create)
-    ..aOM<TextMsg>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'textMsg', protoName: 'textMsg', subBuilder: TextMsg.create)
+    ..aOM<$2.ChatMsg>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chatMsg', protoName: 'chatMsg', subBuilder: $2.ChatMsg.create)
     ..hasRequiredFields = false
   ;
 
@@ -110,7 +37,7 @@ class ChatReq extends $pb.GeneratedMessage {
   factory ChatReq({
     Heartbeat? heartbeat,
     GetOnlineUsersReq? getOnlineUserReq,
-    TextMsg? textMsg,
+    $2.ChatMsg? chatMsg,
   }) {
     final _result = create();
     if (heartbeat != null) {
@@ -119,8 +46,8 @@ class ChatReq extends $pb.GeneratedMessage {
     if (getOnlineUserReq != null) {
       _result.getOnlineUserReq = getOnlineUserReq;
     }
-    if (textMsg != null) {
-      _result.textMsg = textMsg;
+    if (chatMsg != null) {
+      _result.chatMsg = chatMsg;
     }
     return _result;
   }
@@ -171,15 +98,15 @@ class ChatReq extends $pb.GeneratedMessage {
   GetOnlineUsersReq ensureGetOnlineUserReq() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  TextMsg get textMsg => $_getN(2);
+  $2.ChatMsg get chatMsg => $_getN(2);
   @$pb.TagNumber(3)
-  set textMsg(TextMsg v) { setField(3, v); }
+  set chatMsg($2.ChatMsg v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasTextMsg() => $_has(2);
+  $core.bool hasChatMsg() => $_has(2);
   @$pb.TagNumber(3)
-  void clearTextMsg() => clearField(3);
+  void clearChatMsg() => clearField(3);
   @$pb.TagNumber(3)
-  TextMsg ensureTextMsg() => $_ensure(2);
+  $2.ChatMsg ensureChatMsg() => $_ensure(2);
 }
 
 class Heartbeat extends $pb.GeneratedMessage {
@@ -213,11 +140,20 @@ class Heartbeat extends $pb.GeneratedMessage {
 
 class GetOnlineUsersReq extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetOnlineUsersReq', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.chat.v1'), createEmptyInstance: create)
+    ..pPS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'uids')
     ..hasRequiredFields = false
   ;
 
   GetOnlineUsersReq._() : super();
-  factory GetOnlineUsersReq() => create();
+  factory GetOnlineUsersReq({
+    $core.Iterable<$core.String>? uids,
+  }) {
+    final _result = create();
+    if (uids != null) {
+      _result.uids.addAll(uids);
+    }
+    return _result;
+  }
   factory GetOnlineUsersReq.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory GetOnlineUsersReq.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -238,12 +174,15 @@ class GetOnlineUsersReq extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static GetOnlineUsersReq getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetOnlineUsersReq>(create);
   static GetOnlineUsersReq? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.String> get uids => $_getList(0);
 }
 
 enum ChatResp_Resp {
   heartbeat, 
   getOnlineUserResp, 
-  textMsg, 
+  chatMsg, 
   notSet
 }
 
@@ -251,14 +190,14 @@ class ChatResp extends $pb.GeneratedMessage {
   static const $core.Map<$core.int, ChatResp_Resp> _ChatResp_RespByTag = {
     1 : ChatResp_Resp.heartbeat,
     2 : ChatResp_Resp.getOnlineUserResp,
-    3 : ChatResp_Resp.textMsg,
+    3 : ChatResp_Resp.chatMsg,
     0 : ChatResp_Resp.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ChatResp', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.chat.v1'), createEmptyInstance: create)
     ..oo(0, [1, 2, 3])
     ..aOM<HeartbeatResp>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'heartbeat', subBuilder: HeartbeatResp.create)
     ..aOM<GetOnlineUsersResp>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'getOnlineUserResp', protoName: 'getOnlineUserResp', subBuilder: GetOnlineUsersResp.create)
-    ..aOM<TextMsg>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'textMsg', protoName: 'textMsg', subBuilder: TextMsg.create)
+    ..aOM<$2.ChatMsg>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chatMsg', protoName: 'chatMsg', subBuilder: $2.ChatMsg.create)
     ..hasRequiredFields = false
   ;
 
@@ -266,7 +205,7 @@ class ChatResp extends $pb.GeneratedMessage {
   factory ChatResp({
     HeartbeatResp? heartbeat,
     GetOnlineUsersResp? getOnlineUserResp,
-    TextMsg? textMsg,
+    $2.ChatMsg? chatMsg,
   }) {
     final _result = create();
     if (heartbeat != null) {
@@ -275,8 +214,8 @@ class ChatResp extends $pb.GeneratedMessage {
     if (getOnlineUserResp != null) {
       _result.getOnlineUserResp = getOnlineUserResp;
     }
-    if (textMsg != null) {
-      _result.textMsg = textMsg;
+    if (chatMsg != null) {
+      _result.chatMsg = chatMsg;
     }
     return _result;
   }
@@ -327,15 +266,15 @@ class ChatResp extends $pb.GeneratedMessage {
   GetOnlineUsersResp ensureGetOnlineUserResp() => $_ensure(1);
 
   @$pb.TagNumber(3)
-  TextMsg get textMsg => $_getN(2);
+  $2.ChatMsg get chatMsg => $_getN(2);
   @$pb.TagNumber(3)
-  set textMsg(TextMsg v) { setField(3, v); }
+  set chatMsg($2.ChatMsg v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasTextMsg() => $_has(2);
+  $core.bool hasChatMsg() => $_has(2);
   @$pb.TagNumber(3)
-  void clearTextMsg() => clearField(3);
+  void clearChatMsg() => clearField(3);
   @$pb.TagNumber(3)
-  TextMsg ensureTextMsg() => $_ensure(2);
+  $2.ChatMsg ensureChatMsg() => $_ensure(2);
 }
 
 class HeartbeatResp extends $pb.GeneratedMessage {
@@ -370,16 +309,21 @@ class HeartbeatResp extends $pb.GeneratedMessage {
 class GetOnlineUsersResp extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetOnlineUsersResp', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.chat.v1'), createEmptyInstance: create)
     ..pPS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'onlineUsers', protoName: 'onlineUsers')
+    ..pPS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'offlineUsers', protoName: 'offlineUsers')
     ..hasRequiredFields = false
   ;
 
   GetOnlineUsersResp._() : super();
   factory GetOnlineUsersResp({
     $core.Iterable<$core.String>? onlineUsers,
+    $core.Iterable<$core.String>? offlineUsers,
   }) {
     final _result = create();
     if (onlineUsers != null) {
       _result.onlineUsers.addAll(onlineUsers);
+    }
+    if (offlineUsers != null) {
+      _result.offlineUsers.addAll(offlineUsers);
     }
     return _result;
   }
@@ -406,5 +350,8 @@ class GetOnlineUsersResp extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<$core.String> get onlineUsers => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.String> get offlineUsers => $_getList(1);
 }
 

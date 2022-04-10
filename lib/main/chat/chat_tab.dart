@@ -131,8 +131,8 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
                   uid: uid,
                   sending: sending,
                   receiving: receiving.stream.where((e) =>
-                      e.whichResp() == ChatResp_Resp.textMsg &&
-                      e.textMsg.from == uid),
+                      e.whichResp() == ChatResp_Resp.chatMsg &&
+                      e.chatMsg.from == uid),
                 ),
               ),
             ),

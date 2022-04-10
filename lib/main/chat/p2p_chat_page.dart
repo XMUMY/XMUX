@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:xmus_client/generated/chat.pb.dart';
+import 'package:xmus_client/generated/chat_msg.pb.dart';
 
 import '../../component/floating_card.dart';
 import '../../component/gravatar.dart';
 import '../../component/user_profile.dart';
-import '../../global.dart';
 import '../../util/screen.dart';
 
 class P2PChatPage extends StatefulWidget {
@@ -27,26 +27,13 @@ class P2PChatPage extends StatefulWidget {
 
 class _P2PChatPageState extends State<P2PChatPage> {
   final _controller = TextEditingController();
-  final _list = <TextMsg>[];
+  final _list = <ChatMsg>[];
   final _listKey = GlobalKey<AnimatedListState>();
   late final StreamSubscription<ChatResp> _receivingSubscription;
 
-  void send() {
-    if (_controller.text.isEmpty) return;
-    final msg = TextMsg(
-      from: store.state.user.campusId,
-      to: widget.uid,
-      msg: _controller.text,
-    );
-    _list.add(msg);
-    _listKey.currentState?.insertItem(0);
-    widget.sending.add(ChatReq(textMsg: msg));
-  }
+  void send() {}
 
-  void onReceive(ChatResp resp) {
-    _list.add(resp.textMsg);
-    _listKey.currentState?.insertItem(0);
-  }
+  void onReceive(ChatResp resp) {}
 
   @override
   void initState() {
@@ -60,10 +47,11 @@ class _P2PChatPageState extends State<P2PChatPage> {
     super.dispose();
   }
 
-  Widget _buildMsgCard(TextMsg msg) {
+  Widget _buildMsgCard(ChatMsg msg) {
     return FloatingCard(
       padding: const EdgeInsets.all(10),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           UserProfileBuilder(
             uid: msg.from,
@@ -75,7 +63,7 @@ class _P2PChatPageState extends State<P2PChatPage> {
             placeholder: (context) => const Gravatar(radius: 18),
           ),
           const VerticalDivider(color: Colors.transparent),
-          Text(msg.msg),
+          Text(msg.textMsg),
         ],
       ),
     );
