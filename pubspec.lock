@@ -532,10 +532,10 @@ packages:
     description:
       path: "."
       ref: allow-missing-trailer
-      resolved-ref: "4bd205962799eb0e4e63317a94e5bb2f445f9524"
+      resolved-ref: "0eea4a6ebbe0cb289305c7466d20c4660475c40f"
       url: "https://github.com/XMUMY/grpc-dart.git"
     source: git
-    version: "3.0.1-dev"
+    version: "3.0.2"
   html:
     dependency: transitive
     description:
@@ -1235,7 +1235,7 @@ packages:
     source: hosted
     version: "3.0.2"
   web_socket_channel:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: web_socket_channel
       url: "https://pub.dartlang.org"

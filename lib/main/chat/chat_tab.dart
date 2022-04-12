@@ -1,15 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:grpc/grpc.dart';
-import 'package:xmus_client/generated/chat.pb.dart';
 
 import '../../component/floating_card.dart';
 import '../../component/gravatar.dart';
 import '../../component/user_profile.dart';
-import '../../global.dart';
+import '../../util/screen.dart';
 import '../../util/tab.dart';
-import 'p2p_chat_page.dart';
+import 'manager.dart';
 
 class ChatTab extends StatefulWidget implements TabEntry {
   const ChatTab({Key? key}) : super(key: key);
@@ -25,60 +23,19 @@ class ChatTab extends StatefulWidget implements TabEntry {
 }
 
 class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
-  final sending = StreamController<ChatReq>.broadcast();
-  final receiving = StreamController<ChatResp>.broadcast();
+  final chatManager = ChatManager();
+  var onlineUsers = <String>[];
 
-  List<String> onlineUsers = [];
-  late ResponseStream<ChatResp> responseStream;
-  late Timer heartbeatTimer;
-
-  void setupStream() {
-    responseStream = rpc.chatClient.stream(sending.stream)
-      ..listen(receiving.add, onError: (e) {
-        if (e is GrpcError && e.code == 4) {
-          log.e('Reconnecting stream...');
-          responseStream.cancel();
-          heartbeatTimer.cancel();
-          setupStream();
-        }
-      });
-    heartbeatTimer = Timer.periodic(const Duration(seconds: 30), (_) {
-      sending.add(ChatReq(heartbeat: Heartbeat()));
-      sending.add(ChatReq(getOnlineUserReq: GetOnlineUsersReq()));
-    });
-  }
-
-  Future<void> listenOnlineUsers() async {
-    final onlineUsersStream = receiving.stream
-        .where((e) => e.whichResp() == ChatResp_Resp.getOnlineUserResp)
-        .map((e) => e.getOnlineUserResp);
-    await for (final resp in onlineUsersStream) {
-      setState(() => onlineUsers = resp.onlineUsers);
-    }
+  Future<void> _refresh() async {
+    await chatManager.onlineStatusChanged.firstWhere((e) => e);
+    final resp = await chatManager.getOnlineUsers();
+    if (mounted) setState(() => onlineUsers = resp.onlineUsers);
   }
 
   @override
   void initState() {
-    // Debug message tracing.
-    assert(() {
-      sending.stream.listen((e) => log.v('Sending $e'));
-      receiving.stream.listen((e) => log.v('Receiving $e'));
-      return true;
-    }());
-
-    setupStream();
-    listenOnlineUsers();
-
+    _refresh();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    sending.close();
-    receiving.close();
-    responseStream.cancel();
-    heartbeatTimer.cancel();
-    super.dispose();
   }
 
   @override
@@ -88,10 +45,9 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     super.build(context);
     return RefreshIndicator(
-      onRefresh: () async => sending.add(
-        ChatReq(getOnlineUserReq: GetOnlineUsersReq()),
-      ),
+      onRefresh: _refresh,
       child: ListView.builder(
+        padding: context.padListView,
         itemCount: onlineUsers.length,
         itemBuilder: (context, i) {
           final uid = onlineUsers[i];
@@ -125,17 +81,7 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
                 ],
               ),
             ),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => P2PChatPage(
-                  uid: uid,
-                  sending: sending,
-                  receiving: receiving.stream.where((e) =>
-                      e.whichResp() == ChatResp_Resp.chatMsg &&
-                      e.chatMsg.from == uid),
-                ),
-              ),
-            ),
+            onTap: () {},
           );
         },
       ),
