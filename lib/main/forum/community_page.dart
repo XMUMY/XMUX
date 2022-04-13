@@ -11,6 +11,7 @@ import '../../util/screen.dart';
 import '../../util/tab.dart';
 import '../../util/tracker.dart';
 import '../chat/chat_tab.dart';
+import '../chat/online_tab.dart';
 import '../main_page.dart';
 import 'discover_tab.dart';
 
@@ -32,6 +33,7 @@ class CommunityPage extends StatefulWidget implements TopLevelPage {
   static List<TabEntry> get tabs => [
         const DiscoverTab(),
         if (store.state.settings.enableDevFunctions) const ChatTab(),
+        if (store.state.settings.enableDevFunctions) const OnlineTab(),
       ];
 
   @override

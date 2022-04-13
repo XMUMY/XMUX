@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:grpc/grpc.dart';
 import 'package:xmus_client/generated/chat.pb.dart';
 
-import '../../global.dart';
+import '../../../global.dart';
 import 'client.dart';
 
 class GrpcClient extends ChatClient {

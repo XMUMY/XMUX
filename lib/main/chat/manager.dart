@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:mobx/mobx.dart';
 import 'package:xmus_client/generated/chat.pb.dart';
+import 'package:xmus_client/generated/chat_msg.pb.dart';
 
-import 'client.dart';
+import 'client/client.dart';
 
 class ChatManager {
   static ChatManager? _instance;
@@ -21,6 +23,14 @@ class ChatManager {
   /// Stream to notify when online status changed.
   Stream<bool> get onlineStatusChanged => _onlineStatus.stream;
   final _onlineStatus = StreamController<bool>.broadcast();
+
+  /// Internal storage for messages.
+  ///
+  /// TODO: persistent storage.
+  final _messages = <String, List<ChatMsg>>{};
+
+  /// The latest message for each session.
+  final latestMessage = ObservableMap<String, ChatMsg>();
 
   factory ChatManager() {
     _instance ??= ChatManager._().._client.setupStream();
@@ -43,6 +53,25 @@ class ChatManager {
         _onlineStatus.add(false);
       });
     });
+
+    _client.sending.stream
+        .where((e) => e.whichReq() == ChatReq_Req.chatMsg)
+        .listen((e) => _processOutgoingMsg(e.chatMsg));
+    _client.receiving.stream
+        .where((e) => e.whichResp() == ChatResp_Resp.chatMsg)
+        .listen((e) => _processIncomingMsg(e.chatMsg));
+  }
+
+  void _processOutgoingMsg(ChatMsg msg) {
+    _messages[msg.to] ??= [];
+    _messages[msg.to]?.add(msg);
+    latestMessage[msg.to] = msg;
+  }
+
+  void _processIncomingMsg(ChatMsg msg) {
+    _messages[msg.from] ??= [];
+    _messages[msg.from]?.add(msg);
+    latestMessage[msg.from] = msg;
   }
 
   Future<GetOnlineUsersResp> getOnlineUsers() async {

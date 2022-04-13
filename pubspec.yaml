@@ -73,6 +73,7 @@ dependencies:
   json_annotation: ^4.4.0
   logger: ^1.1.0
   lottie: ^1.2.0
+  mobx: ^2.0.0
   package_info_plus: ^1.0.0
   redux: ^5.0.0
   sentry: ^6.0.0
