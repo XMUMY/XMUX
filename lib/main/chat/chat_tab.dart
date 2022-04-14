@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:timeago/timeago.dart';
 
+import '../../component/gravatar.dart';
+import '../../component/user_profile.dart';
 import '../../util/tab.dart';
 import 'manager.dart';
+import 'p2p_chat_page.dart';
 
 class ChatTab extends StatefulWidget implements TabEntry {
   const ChatTab({Key? key}) : super(key: key);
@@ -19,9 +24,10 @@ class ChatTab extends StatefulWidget implements TabEntry {
 class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
   final chatManager = ChatManager();
 
-  @override
-  void initState() {
-    super.initState();
+  void _openP2PSessionWith(String uid) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (_) => P2PChatPage(uid: uid),
+    ));
   }
 
   @override
@@ -30,6 +36,72 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ListView();
+
+    final lang = Localizations.localeOf(context).languageCode;
+
+    return Observer(builder: (context) {
+      return ListView(
+        children: [
+          for (final entry in chatManager.latestMessage.entries)
+            UserProfileBuilder(
+              uid: entry.key,
+              builder: (context, profile) => ListTile(
+                leading: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 6,
+                  ),
+                  child: Gravatar(
+                    url: profile.avatar,
+                    fallbackName: profile.displayName,
+                    radius: 18,
+                  ),
+                ),
+                title: Row(children: [
+                  Text(profile.displayName),
+                  Expanded(
+                    child: Text(
+                      format(
+                        entry.value.createAt.toDateTime(),
+                        locale: lang,
+                        allowFromNow: true,
+                      ),
+                      textAlign: TextAlign.end,
+                      style: Theme.of(context).textTheme.caption,
+                    ),
+                  )
+                ]),
+                subtitle: Text(
+                  entry.value.textMsg,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                onTap: () => _openP2PSessionWith(entry.key),
+              ),
+              placeholder: (context) => ListTile(
+                title: Row(children: [
+                  const Text('  ...  '),
+                  Expanded(
+                    child: Text(
+                      format(
+                        entry.value.createAt.toDateTime(),
+                        locale: lang,
+                        allowFromNow: true,
+                      ),
+                      textAlign: TextAlign.end,
+                      style: Theme.of(context).textTheme.caption,
+                    ),
+                  )
+                ]),
+                subtitle: Text(
+                  entry.value.textMsg,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                onTap: () => _openP2PSessionWith(entry.key),
+              ),
+            ),
+        ],
+      );
+    });
   }
 }
