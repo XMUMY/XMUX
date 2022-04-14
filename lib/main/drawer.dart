@@ -1,4 +1,5 @@
 import 'package:extended_image/extended_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -63,7 +64,12 @@ class MainDrawer extends StatelessWidget {
             child: ListTile(
               leading: const Icon(Icons.exit_to_app),
               title: Text(LocaleKeys.SignOut.tr()),
-              onTap: () => store.dispatch(LogoutAction()),
+              onTap: () {
+                store.dispatch(LogoutAction());
+                if (isMobile || isWeb || isMacOS) {
+                  FirebaseAuth.instance.signOut().catchError((_) {});
+                }
+              },
             ),
           ),
         ],

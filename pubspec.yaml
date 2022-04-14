@@ -55,6 +55,7 @@ dependencies:
   expandable: ^5.0.0
   extended_image: ^6.0.0
   firebase_analytics: ^9.0.0
+  firebase_auth: ^3.0.0
   firebase_core: ^1.2.0
   firebase_remote_config: ^2.0.0
   fl_chart: ^0.50.0

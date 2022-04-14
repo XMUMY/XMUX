@@ -55,8 +55,13 @@ class Gravatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fallbackChar = fallbackName?.substring(0, 1);
+    final fallbackName = this.fallbackName;
     final u = url.isNotEmpty ? _toCdn(url) : defaultAvatar;
+
+    var fallbackChar = '';
+    if (fallbackName != null && fallbackName.isNotEmpty) {
+      fallbackName.substring(0, 1);
+    }
 
     return CircleAvatar(
       child: fallbackChar == null ? null : Text(fallbackChar),

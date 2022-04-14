@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animations/animations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,6 +16,7 @@ import 'package:xmus_client/generated/user.pb.dart';
 import '../config.dart';
 import '../global.dart';
 import '../redux/action/action.dart';
+import '../util/platform.dart';
 import 'background.dart';
 import 'tasks.dart';
 
@@ -124,7 +126,7 @@ class _LoginAreaState extends State<_LoginArea> {
     }
 
     store.dispatch(LoginAction(_username, _password));
-    // TODO: Firebase
+    tryLoginFirebase();
     postInitTask(TaskFlowContext());
   }
 
@@ -160,8 +162,18 @@ class _LoginAreaState extends State<_LoginArea> {
     }
 
     store.dispatch(LoginAction(_username, _password));
-    // TODO: Firebase
+    tryLoginFirebase();
     postInitTask(TaskFlowContext());
+  }
+
+  Future<void> tryLoginFirebase() async {
+    if (!isMobile && !isWeb && !isMacOS) return;
+    try {
+      final u = await FirebaseAuth.instance.signInWithCustomToken(_customToken);
+      log.i('Login Firebase: ${u.user?.uid} ${u.user?.displayName}');
+    } catch (e) {
+      log.e('Failed to login firebase: $e');
+    }
   }
 
   @override
