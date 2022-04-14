@@ -25,7 +25,7 @@ class _ThreadListState extends State<ThreadList> {
   Future<void> _fetchPage(int pageKey) async {
     final resp = await rpc.forumClient.getThreads(GetThreadsReq(
       forumId: 1,
-      ordering: Ordering.latest,
+      ordering: Ordering.update,
       offset: pageKey,
       count: 10,
     ));

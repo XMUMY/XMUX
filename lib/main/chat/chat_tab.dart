@@ -40,67 +40,73 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
     final lang = Localizations.localeOf(context).languageCode;
 
     return Observer(builder: (context) {
-      return ListView(
-        children: [
-          for (final entry in chatManager.latestMessage.entries)
-            UserProfileBuilder(
-              uid: entry.key,
-              builder: (context, profile) => ListTile(
-                leading: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 6,
-                  ),
-                  child: Gravatar(
-                    url: profile.avatar,
-                    fallbackName: profile.displayName,
-                    radius: 18,
-                  ),
+      final entries = chatManager.latestMessage.entries.toList()
+        ..sort(
+          (a, b) =>
+              a.value.createAt.seconds.compareTo(b.value.createAt.seconds),
+        );
+      return ListView.builder(
+        itemCount: entries.length,
+        itemBuilder: (context, i) {
+          final entry = entries[i];
+          return UserProfileBuilder(
+            uid: entry.key,
+            builder: (context, profile) => ListTile(
+              leading: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 6,
                 ),
-                title: Row(children: [
-                  Text(profile.displayName),
-                  Expanded(
-                    child: Text(
-                      format(
-                        entry.value.createAt.toDateTime(),
-                        locale: lang,
-                        allowFromNow: true,
-                      ),
-                      textAlign: TextAlign.end,
-                      style: Theme.of(context).textTheme.caption,
-                    ),
-                  )
-                ]),
-                subtitle: Text(
-                  entry.value.textMsg,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                child: Gravatar(
+                  url: profile.avatar,
+                  fallbackName: profile.displayName,
+                  radius: 18,
                 ),
-                onTap: () => _openP2PSessionWith(entry.key),
               ),
-              placeholder: (context) => ListTile(
-                title: Row(children: [
-                  const Text('  ...  '),
-                  Expanded(
-                    child: Text(
-                      format(
-                        entry.value.createAt.toDateTime(),
-                        locale: lang,
-                        allowFromNow: true,
-                      ),
-                      textAlign: TextAlign.end,
-                      style: Theme.of(context).textTheme.caption,
+              title: Row(children: [
+                Text(profile.displayName),
+                Expanded(
+                  child: Text(
+                    format(
+                      entry.value.createAt.toDateTime(),
+                      locale: lang,
+                      allowFromNow: true,
                     ),
-                  )
-                ]),
-                subtitle: Text(
-                  entry.value.textMsg,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                onTap: () => _openP2PSessionWith(entry.key),
+                    textAlign: TextAlign.end,
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                )
+              ]),
+              subtitle: Text(
+                entry.value.textMsg,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
+              onTap: () => _openP2PSessionWith(entry.key),
             ),
-        ],
+            placeholder: (context) => ListTile(
+              title: Row(children: [
+                const Text('  ...  '),
+                Expanded(
+                  child: Text(
+                    format(
+                      entry.value.createAt.toDateTime(),
+                      locale: lang,
+                      allowFromNow: true,
+                    ),
+                    textAlign: TextAlign.end,
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                )
+              ]),
+              subtitle: Text(
+                entry.value.textMsg,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              onTap: () => _openP2PSessionWith(entry.key),
+            ),
+          );
+        },
       );
     });
   }
