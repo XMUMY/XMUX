@@ -7,6 +7,7 @@ import '../../component/gravatar.dart';
 import '../../component/user_profile.dart';
 import '../../util/tab.dart';
 import 'manager.dart';
+import 'p2p_chat_page.dart';
 
 class OnlineTab extends StatefulWidget implements TabEntry {
   const OnlineTab({Key? key}) : super(key: key);
@@ -32,7 +33,11 @@ class _OnlineTabState extends State<OnlineTab>
     if (mounted) setState(() => onlineUsers = resp.onlineUsers);
   }
 
-  void _openP2PSessionWith(String uid) {}
+  void _openP2PSessionWith(String uid) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (_) => P2PChatPage(uid: uid),
+    ));
+  }
 
   @override
   void initState() {

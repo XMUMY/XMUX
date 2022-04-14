@@ -1,24 +1,21 @@
-import 'dart:async';
-
+import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:xmus_client/generated/chat.pb.dart';
+import 'package:mobx/mobx.dart';
 import 'package:xmus_client/generated/chat_msg.pb.dart';
 
-import '../../component/floating_card.dart';
 import '../../component/gravatar.dart';
 import '../../component/user_profile.dart';
+import '../../global.dart';
 import '../../util/screen.dart';
+import 'manager.dart';
+import 'p2p_chat_session.dart';
 
 class P2PChatPage extends StatefulWidget {
   final String uid;
-  final StreamController<ChatReq> sending;
-  final Stream<ChatResp> receiving;
 
   const P2PChatPage({
     Key? key,
     required this.uid,
-    required this.sending,
-    required this.receiving,
   }) : super(key: key);
 
   @override
@@ -27,43 +24,63 @@ class P2PChatPage extends StatefulWidget {
 
 class _P2PChatPageState extends State<P2PChatPage> {
   final _controller = TextEditingController();
-  final _list = <ChatMsg>[];
   final _listKey = GlobalKey<AnimatedListState>();
-  late final StreamSubscription<ChatResp> _receivingSubscription;
+  late final Dispose _dispose;
+  late final P2PChatSession session;
 
-  void send() {}
-
-  void onReceive(ChatResp resp) {}
+  void send() {
+    if (_controller.text.isEmpty) return;
+    session.sendText(_controller.text);
+    _controller.clear();
+  }
 
   @override
   void initState() {
-    _receivingSubscription = widget.receiving.listen(onReceive);
+    session = ChatManager().createP2PSession(widget.uid);
+    _dispose = session.messages.observe((change) {
+      _listKey.currentState?.insertItem(0);
+    });
     super.initState();
   }
 
   @override
   void dispose() {
-    _receivingSubscription.cancel();
+    _dispose();
     super.dispose();
   }
 
   Widget _buildMsgCard(ChatMsg msg) {
-    return FloatingCard(
-      padding: const EdgeInsets.all(10),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          UserProfileBuilder(
-            uid: msg.from,
-            builder: (context, profile) => Gravatar(
-              url: profile.avatar,
-              fallbackName: profile.displayName,
-              radius: 18,
+          if (msg.from != store.state.user.campusId)
+            UserProfileBuilder(
+              uid: msg.from,
+              builder: (context, profile) => Gravatar(
+                url: profile.avatar,
+                fallbackName: profile.displayName,
+                radius: 16,
+              ),
+              placeholder: (context) => const Gravatar(radius: 16),
             ),
-            placeholder: (context) => const Gravatar(radius: 18),
+          Expanded(
+            child: BubbleNormal(
+              text: msg.textMsg,
+              isSender: msg.from == store.state.user.campusId,
+            ),
           ),
-          const VerticalDivider(color: Colors.transparent),
-          Text(msg.textMsg),
+          if (msg.from == store.state.user.campusId)
+            UserProfileBuilder(
+              uid: msg.from,
+              builder: (context, profile) => Gravatar(
+                url: profile.avatar,
+                fallbackName: profile.displayName,
+                radius: 16,
+              ),
+              placeholder: (context) => const Gravatar(radius: 16),
+            ),
         ],
       ),
     );
@@ -92,6 +109,7 @@ class _P2PChatPageState extends State<P2PChatPage> {
       ),
     );
 
+    final horizontalPadding = context.padBody;
     return Scaffold(
       appBar: AppBar(
         title: UserProfileBuilder(
@@ -99,39 +117,44 @@ class _P2PChatPageState extends State<P2PChatPage> {
           builder: (_, profile) => Text(profile.displayName),
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: AnimatedList(
-              key: _listKey,
-              reverse: true,
-              padding: context.padListView,
-              itemBuilder: (context, index, animation) {
-                final msg = _list[_list.length - 1 - index];
-                return FadeTransition(
-                  opacity: animation,
-                  child: _buildMsgCard(msg),
-                );
-              },
+      body: Column(children: [
+        Expanded(
+          child: AnimatedList(
+            key: _listKey,
+            reverse: true,
+            padding: context.padListView,
+            initialItemCount: session.messages.length,
+            itemBuilder: (context, index, animation) {
+              final msgs = session.messages;
+              final msg = msgs[msgs.length - 1 - index];
+              return FadeTransition(
+                opacity: animation,
+                child: _buildMsgCard(msg),
+              );
+            },
+          ),
+        ),
+        Material(
+          color: Theme.of(context).colorScheme.surface,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+              horizontalPadding,
+              8,
+              horizontalPadding,
+              8,
+            ),
+            child: Row(
+              children: [
+                Expanded(child: inputField),
+                IconButton(
+                  icon: const Icon(Icons.send),
+                  onPressed: send,
+                )
+              ],
             ),
           ),
-          Material(
-            color: Theme.of(context).colorScheme.surface,
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                children: [
-                  Expanded(child: inputField),
-                  IconButton(
-                    icon: const Icon(Icons.send),
-                    onPressed: send,
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }

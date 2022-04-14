@@ -5,6 +5,7 @@ import 'package:xmus_client/generated/chat.pb.dart';
 import 'package:xmus_client/generated/chat_msg.pb.dart';
 
 import 'client/client.dart';
+import 'p2p_chat_session.dart';
 
 class ChatManager {
   static ChatManager? _instance;
@@ -27,7 +28,7 @@ class ChatManager {
   /// Internal storage for messages.
   ///
   /// TODO: persistent storage.
-  final _messages = <String, List<ChatMsg>>{};
+  final _messages = <String, ObservableList<ChatMsg>>{};
 
   /// The latest message for each session.
   final latestMessage = ObservableMap<String, ChatMsg>();
@@ -63,13 +64,13 @@ class ChatManager {
   }
 
   void _processOutgoingMsg(ChatMsg msg) {
-    _messages[msg.to] ??= [];
+    _messages[msg.to] ??= ObservableList();
     _messages[msg.to]?.add(msg);
     latestMessage[msg.to] = msg;
   }
 
   void _processIncomingMsg(ChatMsg msg) {
-    _messages[msg.from] ??= [];
+    _messages[msg.from] ??= ObservableList();
     _messages[msg.from]?.add(msg);
     latestMessage[msg.from] = msg;
   }
@@ -79,5 +80,14 @@ class ChatManager {
         .firstWhere((e) => e.whichResp() == ChatResp_Resp.getOnlineUserResp);
     _client.sending.add(ChatReq(getOnlineUserReq: GetOnlineUsersReq()));
     return (await future).getOnlineUserResp;
+  }
+
+  P2PChatSession createP2PSession(String uid) {
+    _messages[uid] ??= ObservableList();
+    return P2PChatSession(
+      uid: uid,
+      sendingSink: _client.sending,
+      messages: _messages[uid]!,
+    );
   }
 }

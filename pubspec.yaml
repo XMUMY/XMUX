@@ -50,6 +50,7 @@ dependencies:
   animations: ^2.0.0
   badges: ^2.0.0
   device_calendar: ^4.2.0
+  chat_bubbles: ^1.2.0
   easy_localization: ^3.0.0
   expandable: ^5.0.0
   extended_image: ^6.0.0
