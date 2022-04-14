@@ -22,7 +22,7 @@ jobs:
           distribution: "zulu"
           java-version: "11"
           java-package: jdk
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
           channel: beta
       - name: Build
