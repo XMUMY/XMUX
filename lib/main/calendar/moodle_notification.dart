@@ -4,7 +4,7 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:html/parser.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
-import 'package:moodle/model/notification.dart';
+import 'package:moodle/moodle.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../component/catalogue_content_layout.dart';

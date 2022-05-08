@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:intl/intl.dart';
-import 'package:moodle/model/upcoming_event.dart';
+import 'package:moodle/moodle.dart';
 
 import '../../component/empty_error.dart';
 import '../../component/floating_card.dart';

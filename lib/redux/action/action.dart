@@ -1,5 +1,5 @@
 import 'package:emgs/model.dart';
-import 'package:moodle/model/assignment.dart';
+import 'package:moodle/moodle.dart';
 import 'package:redux/redux.dart';
 import 'package:xmus_client/generated/aaos.pb.dart';
 import 'package:xmus_client/generated/google/protobuf/empty.pb.dart';
