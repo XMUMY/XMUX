@@ -64,7 +64,7 @@ class Gravatar extends StatelessWidget {
     }
 
     return CircleAvatar(
-      child: fallbackChar == null ? null : Text(fallbackChar),
+      child: fallbackChar.isEmpty ? null : Text(fallbackChar),
       foregroundImage: ExtendedNetworkImageProvider(u, cache: true),
       radius: radius,
     );

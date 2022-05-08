@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:maintenance/maintenance.dart';
-import 'package:maintenance/model.dart';
 
 import '../../../global.dart';
 import '../../../util/platform.dart';

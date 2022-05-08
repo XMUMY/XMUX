@@ -1,11 +1,12 @@
-part of 'maintenance.dart';
+import 'dart:io';
 
-class _CookieManager extends Interceptor {
-  /// Cookie manager for http requests。Learn more details about
-  /// CookieJar please refer to [cookie_jar](https://github.com/flutterchina/cookie_jar)
+import 'package:cookie_jar/cookie_jar.dart';
+import 'package:dio/dio.dart';
+
+class CookieManager extends Interceptor {
   final CookieJar cookieJar;
 
-  _CookieManager(this.cookieJar);
+  CookieManager(this.cookieJar);
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
