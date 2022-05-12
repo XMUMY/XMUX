@@ -18,7 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 #version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -84,7 +84,7 @@ dependencies:
   timeago: ^3.1.0
   tuple: ^2.0.0
   url_launcher: ^6.0.0
-  visibility_detector: ^0.2.0
+  visibility_detector: ^0.3.0
   waterfall_flow: ^3.0.0
   web_socket_channel: ^2.0.0
   webview_flutter: ^3.0.0
@@ -108,14 +108,14 @@ dev_dependencies:
     sdk: flutter
 
   build_runner: ^2.0.0
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.0
   json_serializable: ^6.0.0
   mobx_codegen: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
+# The following section is specific to Flutter packages.
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -125,14 +125,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - res/static.json
-    - res/animation/
     - res/translation/
     - res/init_background.jpg
     - res/logo_outlined.png
     - res/campus/
 
   # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
+  # https://flutter.dev/assets-and-images/#resolution-aware
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages

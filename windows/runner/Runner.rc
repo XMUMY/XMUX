@@ -90,7 +90,7 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "io.xdea" "\0"
-            VALUE "FileDescription", "XMUX client." "\0"
+            VALUE "FileDescription", "XMUX Client" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "xmux" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2017-2021 XMUX Authors. All rights reserved." "\0"

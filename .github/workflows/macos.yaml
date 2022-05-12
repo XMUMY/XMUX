@@ -5,6 +5,7 @@ on:
     branches:
       - master
     paths:
+      - .github/workflows/macos.yaml
       - lib/**
       - macos/**
       - pubspec.yaml
@@ -14,7 +15,7 @@ jobs:
   Archive:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - uses: subosito/flutter-action@v2
@@ -31,7 +32,7 @@ jobs:
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
           GOOGLE_SERVICES_IOS: ${{ secrets.GOOGLE_SERVICES_IOS }}
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: XMUX-macOS
           path: build/macos/Build/Products/Release/XMUX.app
