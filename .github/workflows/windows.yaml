@@ -5,6 +5,7 @@ on:
     branches:
       - master
     paths:
+      - .github/workflows/windows.yaml
       - lib/**
       - windows/**
       - pubspec.yaml
