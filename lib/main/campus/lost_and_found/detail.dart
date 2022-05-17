@@ -115,7 +115,7 @@ class _LostAndFoundDetailPageState extends State<LostAndFoundDetailPage> {
                 await rpc.lostAndFoundClient.deleteItem(
                   DeleteItemReq()..id = widget.brief.id,
                 );
-                Navigator.of(context).pop(true);
+                if (mounted) Navigator.of(context).pop(true);
               },
             ),
         ],

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:moodle/moodle.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../component/catalogue_content_layout.dart';
 import '../../component/empty_error.dart';
@@ -44,7 +44,7 @@ class AssignmentList extends StatefulWidget {
   const AssignmentList({Key? key, required this.assignments}) : super(key: key);
 
   @override
-  _AssignmentListState createState() => _AssignmentListState();
+  State<AssignmentList> createState() => _AssignmentListState();
 }
 
 class _AssignmentListState extends State<AssignmentList>
@@ -261,8 +261,9 @@ class AssignmentDetail extends StatelessWidget {
                                 IconButton(
                                   icon: const Icon(Icons.insert_drive_file),
                                   iconSize: 50,
-                                  onPressed: () =>
-                                      launch(moodle.withToken(attachment.url)),
+                                  onPressed: () => launchUrlString(
+                                    moodle.withToken(attachment.url),
+                                  ),
                                 ),
                                 Text(
                                   attachment.name,

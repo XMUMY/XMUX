@@ -29,7 +29,7 @@ class FloatingCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _FloatingCardState createState() => _FloatingCardState();
+  State<FloatingCard> createState() => _FloatingCardState();
 }
 
 class _FloatingCardState extends State<FloatingCard> {
@@ -55,8 +55,8 @@ class _FloatingCardState extends State<FloatingCard> {
           onTapUp: (_) => setState(() => _elevation = 1),
           onTapCancel: () => setState(() => _elevation = 1),
           onLongPress: widget.onLongPress,
-          child: child,
           behavior: HitTestBehavior.opaque,
+          child: child,
         ),
       );
     }
@@ -98,7 +98,7 @@ class FloatingOpenContainer extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _FloatingOpenContainerState createState() => _FloatingOpenContainerState();
+  State<FloatingOpenContainer> createState() => _FloatingOpenContainerState();
 }
 
 class _FloatingOpenContainerState extends State<FloatingOpenContainer> {
@@ -127,8 +127,8 @@ class _FloatingOpenContainerState extends State<FloatingOpenContainer> {
                 onTapDown: (_) => setState(() => _elevation = 4),
                 onTapUp: (_) => setState(() => _elevation = 1),
                 onTapCancel: () => setState(() => _elevation = 1),
-                child: child,
                 behavior: HitTestBehavior.opaque,
+                child: child,
               ),
             );
           }

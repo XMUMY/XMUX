@@ -19,7 +19,7 @@ class UpcomingEventPage extends StatefulWidget implements TabEntry {
   String get label => LocaleKeys.Calendar_UpcomingEvents.tr();
 
   @override
-  _UpcomingEventPageState createState() => _UpcomingEventPageState();
+  State<UpcomingEventPage> createState() => _UpcomingEventPageState();
 }
 
 class _UpcomingEventPageState extends State<UpcomingEventPage>

@@ -18,7 +18,7 @@ class RequestFormPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _RequestFormPageState createState() => _RequestFormPageState();
+  State<RequestFormPage> createState() => _RequestFormPageState();
 }
 
 class _RequestFormPageState extends State<RequestFormPage> {
@@ -36,7 +36,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
     _isSubmitting = true;
     try {
       await widget.maintenanceApi.submitForm(form!);
-      Navigator.of(context).maybePop();
+      if (mounted) Navigator.of(context).maybePop();
     } finally {
       _isSubmitting = false;
     }
@@ -77,7 +77,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
                 builder: (_) => DropdownButtonFormField<String>(
                   hint: Text(LocaleKeys.Campus_MaintenanceNewBlock.tr()),
                   items: form.blocks
-                      .map((u) => DropdownMenuItem(child: Text(u), value: u))
+                      .map((u) => DropdownMenuItem(value: u, child: Text(u)))
                       .toList(),
                   value: form.block,
                   onChanged: (v) => form.block = v,
@@ -92,7 +92,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
                 builder: (_) => DropdownButtonFormField<String>(
                   hint: Text(LocaleKeys.Campus_MaintenanceNewWing.tr()),
                   items: form.wings
-                      .map((u) => DropdownMenuItem(child: Text(u), value: u))
+                      .map((u) => DropdownMenuItem(value: u, child: Text(u)))
                       .toList(),
                   value: form.wing,
                   onChanged: (v) => form.wing = v,
@@ -119,7 +119,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
               labelText: LocaleKeys.Campus_MaintenanceNewUsage.tr(),
             ),
             items: form.usages
-                .map((u) => DropdownMenuItem(child: Text(u), value: u))
+                .map((u) => DropdownMenuItem(value: u, child: Text(u)))
                 .toList(),
             value: form.usage,
             onChanged: (v) => form.usage = v,
@@ -132,7 +132,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
               labelText: LocaleKeys.Campus_MaintenanceNewCategory.tr(),
             ),
             items: form.categories
-                .map((u) => DropdownMenuItem(child: Text(u), value: u))
+                .map((u) => DropdownMenuItem(value: u, child: Text(u)))
                 .toList(),
             value: form.category,
             onChanged: (v) => form.category = v,
@@ -209,13 +209,13 @@ class _RequestFormPageState extends State<RequestFormPage> {
         actions: [
           FloatingActionButton(
             mini: true,
+            elevation: 0,
+            backgroundColor: Theme.of(context).canvasColor,
+            onPressed: form != null ? _handleSubmit : null,
             child: Icon(
               Icons.check,
               color: Theme.of(context).iconTheme.color,
             ),
-            elevation: 0,
-            backgroundColor: Theme.of(context).canvasColor,
-            onPressed: form != null ? _handleSubmit : null,
           )
         ],
       ),

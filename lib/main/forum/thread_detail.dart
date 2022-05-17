@@ -52,7 +52,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
     await rpc.forumClient.removeThread(RemoveThreadReq(
       threadId: widget.thread.id,
     ));
-    context.pop();
+    if (mounted) context.pop();
   }
 
   Future<void> _refreshComments() async {
@@ -84,8 +84,8 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
             itemBuilder: (context) => [
               if (thread.uid == store.state.user.campusId)
                 PopupMenuItem(
-                  child: Text(LocaleKeys.Community_Delete.tr()),
                   value: _remove,
+                  child: Text(LocaleKeys.Community_Delete.tr()),
                 ),
             ],
             onSelected: (v) => v(),

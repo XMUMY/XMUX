@@ -7,7 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grpc/grpc.dart';
 import 'package:taskflow/taskflow.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:xmus_client/authorization.dart';
 import 'package:xmus_client/error.dart';
 import 'package:xmus_client/generated/google/protobuf/empty.pb.dart';
@@ -48,12 +48,13 @@ class LoginPage extends StatelessWidget {
                 children: <Widget>[
                   IconButton(
                     icon: const Icon(Icons.privacy_tip),
-                    onPressed: () => launch('$docsAddress/app/privacy/'),
+                    onPressed: () =>
+                        launchUrlString('$docsAddress/app/privacy/'),
                     tooltip: LocaleKeys.SignIn_Privacy.tr(),
                   ),
                   IconButton(
                     icon: const Icon(FontAwesomeIcons.question),
-                    onPressed: () => launch(docsAddress),
+                    onPressed: () => launchUrlString(docsAddress),
                     tooltip: LocaleKeys.SignIn_Docs.tr(),
                   ),
                 ],
@@ -302,11 +303,11 @@ class _LoginAreaState extends State<_LoginArea> {
     return PageTransitionSwitcher(
       transitionBuilder: (child, animation, secondaryAnimation) {
         return SharedAxisTransition(
-          child: child,
           animation: animation,
           secondaryAnimation: secondaryAnimation,
           transitionType: SharedAxisTransitionType.horizontal,
           fillColor: Colors.transparent,
+          child: child,
         );
       },
       child: child,
@@ -329,6 +330,7 @@ class _Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
+      onPressed: isProcessing ? null : onPressed,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         width: isProcessing ? 40 : 120,
@@ -350,7 +352,6 @@ class _Button extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: isProcessing ? null : onPressed,
     );
   }
 }

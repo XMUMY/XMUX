@@ -70,7 +70,6 @@ class _ThreadListState extends State<ThreadList> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.edit),
         tooltip: LocaleKeys.Community_CreateThreadTitle.tr(),
         onPressed: () async {
           final shouldRefresh = await Navigator.of(context).push(
@@ -80,6 +79,7 @@ class _ThreadListState extends State<ThreadList> {
             _pagingController.refresh();
           }
         },
+        child: const Icon(Icons.edit),
       ),
     );
   }

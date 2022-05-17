@@ -181,17 +181,17 @@ class _PostCardState extends State<PostCard> {
         itemBuilder: (context) => [
           if (widget.thread?.uid == store.state.user.campusId)
             PopupMenuItem(
+              value: _pin,
               child: Text(
                 post.pinned
                     ? LocaleKeys.Community_Unpin.tr()
                     : LocaleKeys.Community_Pin.tr(),
               ),
-              value: _pin,
             ),
           if (post.uid == store.state.user.campusId)
             PopupMenuItem(
-              child: Text(LocaleKeys.Community_Delete.tr()),
               value: _remove,
+              child: Text(LocaleKeys.Community_Delete.tr()),
             ),
         ],
         onSelected: (v) => v(),

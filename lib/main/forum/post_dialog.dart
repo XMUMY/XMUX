@@ -60,7 +60,7 @@ class _NewPostDialogState extends State<NewPostDialog> {
       }
 
       await rpc.forumClient.createPost(req);
-      Navigator.of(context).maybePop(true);
+      if (mounted) Navigator.of(context).maybePop(true);
     } finally {
       _isSubmitting = false;
     }

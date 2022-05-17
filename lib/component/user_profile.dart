@@ -25,7 +25,7 @@ class UserProfileBuilder extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _UserProfileBuilderState createState() => _UserProfileBuilderState();
+  State<UserProfileBuilder> createState() => _UserProfileBuilderState();
 }
 
 class _UserProfileBuilderState extends State<UserProfileBuilder> {
@@ -71,8 +71,8 @@ class _UserProfileBuilderState extends State<UserProfileBuilder> {
     }
 
     return AnimatedSwitcher(
-      child: child,
       duration: const Duration(milliseconds: 300),
+      child: child,
     );
   }
 }

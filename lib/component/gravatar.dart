@@ -37,7 +37,7 @@ class Gravatar extends StatelessWidget {
   static String _toCdn(String url) {
     final uri = Uri.parse(url);
     if (uri.host.endsWith('.gravatar.com')) {
-      return cdn + uri.path + '?d=mp';
+      return '$cdn${uri.path}?d=mp';
     }
     return url;
   }
@@ -64,9 +64,9 @@ class Gravatar extends StatelessWidget {
     }
 
     return CircleAvatar(
-      child: fallbackChar.isEmpty ? null : Text(fallbackChar),
-      foregroundImage: ExtendedNetworkImageProvider(u, cache: true),
       radius: radius,
+      foregroundImage: ExtendedNetworkImageProvider(u, cache: true),
+      child: fallbackChar.isEmpty ? null : Text(fallbackChar),
     );
   }
 }

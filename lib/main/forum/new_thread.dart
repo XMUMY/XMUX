@@ -13,7 +13,7 @@ class NewThreadPage extends StatefulWidget {
   const NewThreadPage({Key? key, required this.forumId}) : super(key: key);
 
   @override
-  _NewThreadPageState createState() => _NewThreadPageState();
+  State<NewThreadPage> createState() => _NewThreadPageState();
 }
 
 class _NewThreadPageState extends State<NewThreadPage> {
@@ -39,7 +39,7 @@ class _NewThreadPageState extends State<NewThreadPage> {
 
     try {
       await rpc.forumClient.createThread(form);
-      Navigator.of(context).maybePop(true);
+      if (mounted) Navigator.of(context).maybePop(true);
     } on XmuxRpcError catch (e) {
       ScaffoldMessenger.maybeOf(context)?.showSnackBar(
         SnackBar(content: Text(e.message)),
@@ -109,15 +109,15 @@ class _NewThreadPageState extends State<NewThreadPage> {
         actions: <Widget>[
           FloatingActionButton(
             mini: true,
-            child: Icon(
-              Icons.check,
-              color: Theme.of(context).iconTheme.color,
-            ),
             elevation: 0,
             backgroundColor: Theme.of(context).brightness == Brightness.light
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.surface,
             onPressed: _handleSubmit,
+            child: Icon(
+              Icons.check,
+              color: Theme.of(context).iconTheme.color,
+            ),
           ),
         ],
       ),

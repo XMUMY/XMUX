@@ -8,7 +8,7 @@ class EmptyErrorPage extends StatefulWidget {
   const EmptyErrorPage({Key? key}) : super(key: key);
 
   @override
-  _EmptyErrorPageState createState() => _EmptyErrorPageState();
+  State<EmptyErrorPage> createState() => _EmptyErrorPageState();
 }
 
 class _EmptyErrorPageState extends State<EmptyErrorPage>

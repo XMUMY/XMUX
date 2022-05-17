@@ -18,7 +18,7 @@ class EPaymentPage extends StatefulWidget {
   const EPaymentPage({Key? key}) : super(key: key);
 
   @override
-  _EPaymentPageState createState() => _EPaymentPageState();
+  State<EPaymentPage> createState() => _EPaymentPageState();
 }
 
 class _EPaymentPageState extends State<EPaymentPage> {

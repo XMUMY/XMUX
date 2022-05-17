@@ -13,7 +13,7 @@ import '../../../util/screen.dart';
 part 'create.g.dart';
 
 /// Form for adding lost & found item.
-class LostAndFoundForm = _LostAndFoundForm with _$LostAndFoundForm;
+class LostAndFoundForm extends _LostAndFoundForm with _$LostAndFoundForm {}
 
 abstract class _LostAndFoundForm with Store {
   @observable
@@ -39,7 +39,7 @@ class NewLostAndFoundPage extends StatefulWidget {
   const NewLostAndFoundPage({Key? key}) : super(key: key);
 
   @override
-  _NewLostAndFoundPageState createState() => _NewLostAndFoundPageState();
+  State<NewLostAndFoundPage> createState() => _NewLostAndFoundPageState();
 }
 
 class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
@@ -59,7 +59,7 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
         ..description = form.description
         ..contacts.clear()
         ..contacts.addAll(form.contacts));
-      Navigator.of(context).maybePop(true);
+      if (mounted) Navigator.of(context).maybePop(true);
     } on XmuxRpcError catch (e) {
       ScaffoldMessenger.maybeOf(context)?.showSnackBar(
         SnackBar(content: Text(e.message)),
@@ -79,12 +79,12 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
             value: form.type,
             items: [
               DropdownMenuItem(
-                child: Text(LocaleKeys.Campus_LaFLost.tr()),
                 value: LostAndFoundType.Lost,
+                child: Text(LocaleKeys.Campus_LaFLost.tr()),
               ),
               DropdownMenuItem(
-                child: Text(LocaleKeys.Campus_LaFFound.tr()),
                 value: LostAndFoundType.Found,
+                child: Text(LocaleKeys.Campus_LaFFound.tr()),
               ),
             ],
             onChanged: (v) => form.type = v!,
@@ -145,7 +145,7 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
         title: Text(LocaleKeys.Campus_LaFContacts.tr()),
         trailing: DropdownButton<String>(
           items: ['QQ', 'WeChat', 'Facebook', 'WhatsApp', 'Telegram']
-              .map((e) => DropdownMenuItem(child: Text(e), value: e))
+              .map((e) => DropdownMenuItem(value: e, child: Text(e)))
               .toList(),
           onChanged: (c) => setState(() => form.contacts[c!] = ''),
         ),
@@ -164,15 +164,15 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
         actions: <Widget>[
           FloatingActionButton(
             mini: true,
-            child: Icon(
-              Icons.check,
-              color: Theme.of(context).iconTheme.color,
-            ),
             elevation: 0,
             backgroundColor: Theme.of(context).brightness == Brightness.light
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.surface,
             onPressed: _handleSubmit,
+            child: Icon(
+              Icons.check,
+              color: Theme.of(context).iconTheme.color,
+            ),
           ),
         ],
       ),

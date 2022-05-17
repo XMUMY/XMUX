@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../global.dart';
 import '../../util/platform.dart';
@@ -72,7 +72,7 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
               _Button(
                 title: 'VPN',
                 svg: 'res/campus/vpn.svg',
-                onPressed: () => launch('https://webvpn.xmu.edu.cn'),
+                onPressed: () => launchUrlString('https://webvpn.xmu.edu.cn'),
               ),
               if (isVM && store.state.user.isStudent)
                 _Button(
@@ -96,11 +96,11 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
               if (isVM) // CORS
                 _Button(
                   title: LocaleKeys.Campus_BusSchedule.tr(),
+                  onPressed: _push(context, '/Campus/BusSchedule'),
                   child: const Icon(
                     Icons.directions_bus,
                     color: Color(0xFF5DC3F1),
                   ),
-                  onPressed: _push(context, '/Campus/BusSchedule'),
                 ),
               if (isVM) // CORS
                 _Button(
@@ -111,39 +111,39 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
               if (isVM) // CORS
                 _Button(
                   title: LocaleKeys.Campus_Emgs.tr(),
+                  onPressed: _push(context, '/Campus/Emgs'),
                   child: const Icon(
                     FontAwesomeIcons.passport,
                     color: Color(0xFF5DC3F1),
                     size: 50,
                   ),
-                  onPressed: _push(context, '/Campus/Emgs'),
                 ),
               if (isVM) // CORS
                 _Button(
                   title: LocaleKeys.Campus_Maintenance.tr(),
+                  onPressed: _push(context, '/Campus/Maintenance'),
                   child: const Icon(
                     FontAwesomeIcons.hammer,
                     color: Color(0xFF5DC3F1),
                     size: 50,
                   ),
-                  onPressed: _push(context, '/Campus/Maintenance'),
                 ),
               if (isVM) // CORS
                 _Button(
                   title: LocaleKeys.Campus_EPayment.tr(),
+                  onPressed: _push(context, '/Campus/EPayment'),
                   child: const Icon(
                     Icons.account_balance_wallet_outlined,
                     color: Color(0xFF5DC3F1),
                   ),
-                  onPressed: _push(context, '/Campus/EPayment'),
                 ),
               _Button(
                 title: LocaleKeys.Campus_LaF.tr(),
+                onPressed: _push(context, '/Campus/LostAndFound'),
                 child: const Icon(
                   Icons.find_in_page,
                   color: Color(0xFF5DC3F1),
                 ),
-                onPressed: _push(context, '/Campus/LostAndFound'),
               ),
             ],
           ),

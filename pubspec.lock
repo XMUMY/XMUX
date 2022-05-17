@@ -572,7 +572,7 @@ packages:
     source: git
     version: "3.0.2"
   html:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: html
       url: "https://pub.dartlang.org"
@@ -1151,7 +1151,7 @@ packages:
     source: hosted
     version: "3.2.2"
   timezone:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: timezone
       url: "https://pub.dartlang.org"

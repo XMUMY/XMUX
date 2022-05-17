@@ -15,7 +15,7 @@ class EmgsPage extends StatefulWidget {
   const EmgsPage({Key? key}) : super(key: key);
 
   @override
-  _EmgsPageState createState() => _EmgsPageState();
+  State<EmgsPage> createState() => _EmgsPageState();
 }
 
 class _EmgsPageState extends State<EmgsPage> {
@@ -108,7 +108,7 @@ class EmgsResultList extends StatefulWidget {
         super(key: key);
 
   @override
-  _EmgsResultListState createState() => _EmgsResultListState();
+  State<EmgsResultList> createState() => _EmgsResultListState();
 }
 
 class _EmgsResultListState extends State<EmgsResultList>

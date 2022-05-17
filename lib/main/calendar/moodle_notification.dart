@@ -5,7 +5,7 @@ import 'package:html/parser.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:moodle/moodle.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../component/catalogue_content_layout.dart';
 import '../../component/floating_card.dart';
@@ -23,7 +23,7 @@ class MoodleNotificationPage extends StatefulWidget implements TabEntry {
   String get label => LocaleKeys.Calendar_Notifications.tr();
 
   @override
-  _MoodleNotificationPageState createState() => _MoodleNotificationPageState();
+  State<MoodleNotificationPage> createState() => _MoodleNotificationPageState();
 }
 
 class _MoodleNotificationPageState extends State<MoodleNotificationPage>
@@ -165,7 +165,7 @@ class _MoodleNotificationDetail extends StatelessWidget {
             content,
             onTapUrl: (url) {
               if (url.startsWith('http://') || url.startsWith('https://')) {
-                launch(url);
+                launchUrlString(url);
               }
               return true;
             },
@@ -175,7 +175,7 @@ class _MoodleNotificationDetail extends StatelessWidget {
             onOpen: (link) {
               if (link.url.startsWith('http://') ||
                   link.url.startsWith('https://')) {
-                launch(link.url);
+                launchUrlString(link.url);
               }
             },
           );

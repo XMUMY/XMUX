@@ -59,17 +59,17 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
         children: <Widget>[
           Card(
             margin: const EdgeInsets.all(15),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(7)),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Text(
-                'GPA: ' + calculateGPA(courses).toStringAsFixed(2),
+                'GPA: ${calculateGPA(courses).toStringAsFixed(2)}',
                 style: Theme.of(context).textTheme.headline4?.copyWith(
                       color: calculateGPA(courses).pointColor,
                     ),
               ),
-            ),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(7)),
             ),
           ),
           Flexible(

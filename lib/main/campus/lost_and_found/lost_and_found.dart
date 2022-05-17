@@ -15,7 +15,7 @@ class LostAndFoundPage extends StatefulWidget {
   const LostAndFoundPage({Key? key}) : super(key: key);
 
   @override
-  _LostAndFoundPageState createState() => _LostAndFoundPageState();
+  State<LostAndFoundPage> createState() => _LostAndFoundPageState();
 }
 
 class _LostAndFoundPageState extends State<LostAndFoundPage> {
@@ -61,7 +61,6 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
         tooltip: LocaleKeys.Campus_LaFNew.tr(),
         onPressed: () async {
           final shouldRefresh = await Navigator.of(context).push<bool>(
@@ -72,6 +71,7 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
             _pagingController.refresh();
           }
         },
+        child: const Icon(Icons.add),
       ),
     );
   }

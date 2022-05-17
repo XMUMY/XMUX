@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../component/gravatar.dart';
 import '../config.dart';
@@ -149,15 +149,15 @@ class _AboutTileState extends State<_AboutTile> {
       children: [
         ListTile(
           title: Text(LocaleKeys.SignIn_Docs.tr()),
-          onTap: () => launch(docsAddress),
+          onTap: () => launchUrlString(docsAddress),
         ),
         ListTile(
           title: Text(LocaleKeys.SignIn_Privacy.tr()),
-          onTap: () => launch('$docsAddress/app/privacy/'),
+          onTap: () => launchUrlString('$docsAddress/app/privacy/'),
         ),
         ListTile(
           title: Text(LocaleKeys.More.tr()),
-          onTap: () => launch('$docsAddress/app/about/'),
+          onTap: () => launchUrlString('$docsAddress/app/about/'),
         ),
       ],
     );

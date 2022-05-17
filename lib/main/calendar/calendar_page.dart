@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:xmus_client/generated/user.pb.dart';
 
 import '../../component/gravatar.dart';
@@ -127,7 +127,7 @@ class _CalendarPageState extends State<CalendarPage>
                   tooltip: LocaleKeys.Calendar_Academic.tr(),
                   onPressed: () {
                     if (isWeb) {
-                      launch('http://www.xmu.edu.my/14702/list.htm');
+                      launchUrlString('http://www.xmu.edu.my/14702/list.htm');
                     } else {
                       context.go('/Calendar/AcademicCalendar');
                     }
