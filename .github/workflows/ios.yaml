@@ -1,4 +1,4 @@
-name: XMUX-iOS
+name: XMUX iOS Internal
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
           echo $CONFIG_FILE | base64 -d > lib/config.dart
           echo $GOOGLE_SERVICES_IOS > ./ios/GoogleService-Info.plist
           echo $APP_STORE_CONNECT_API_KEY_JSON | base64 -d > ./ios/APP_STORE_CONNECT_API_KEY.json
-          export FLUTTER_BUILD_NAME=`cat ./lib/config.sample.dart | grep fallbackVersionName | sed -e "s/[A-z=;' ]//g" | sed "s/-//g"`
+          export FLUTTER_BUILD_NAME=`cat ./lib/config.sample.dart | head -6 | tail -1 | sed -e "s/[A-z:', \-]//g"`
           export FLUTTER_BUILD_NUMBER=`git rev-list HEAD --count`
           flutter pub get
           cd ios

@@ -1,4 +1,4 @@
-name: XMUX-Web
+name: XMUX Web
 
 on:
   push:
@@ -24,9 +24,9 @@ jobs:
       - name: Build
         run: |
           echo $CONFIG_FILE | base64 -d > lib/config.dart
-          export BUILD_NAME=`cat ./lib/config.sample.dart | grep fallbackVersionName | sed -e "s/[A-z=;' ]//g" | sed "s/-//g"` \
-          export BUILD_NUMBER=`git rev-list HEAD --count`
-          echo "version: $BUILD_NAME+$BUILD_NUMBER" >> pubspec.yaml
+          export FLUTTER_BUILD_NAME=`cat ./lib/config.sample.dart | head -6 | tail -1 | sed -e "s/[A-z:', \-]//g"`
+          export FLUTTER_BUILD_NUMBER=`git rev-list HEAD --count`
+          echo "version: $FLUTTER_BUILD_NAME+$FLUTTER_BUILD_NUMBER" >> pubspec.yaml
           flutter build web --release --source-maps
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}

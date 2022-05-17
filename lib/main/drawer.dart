@@ -145,7 +145,7 @@ class _AboutTileState extends State<_AboutTile> {
     showAboutDialog(
       context: context,
       applicationVersion:
-          '${info?.version ?? fallbackVersionName} (${info?.buildNumber ?? fallbackVersionCode})',
+          '${info?.version ?? fallbackBuildName} (${info?.buildNumber ?? fallbackBuildNumber})',
       children: [
         ListTile(
           title: Text(LocaleKeys.SignIn_Docs.tr()),
