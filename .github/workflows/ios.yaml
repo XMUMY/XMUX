@@ -25,15 +25,16 @@ jobs:
         run: |
           echo $CONFIG_FILE | base64 -d > lib/config.dart
           echo $GOOGLE_SERVICES_IOS > ./ios/GoogleService-Info.plist
+          echo $APP_STORE_CONNECT_API_KEY_JSON | base64 -d > ./ios/APP_STORE_CONNECT_API_KEY.json
           export FLUTTER_BUILD_NAME=`cat ./lib/config.sample.dart | grep fallbackVersionName | sed -e "s/[A-z=;' ]//g" | sed "s/-//g"`
           export FLUTTER_BUILD_NUMBER=`git rev-list HEAD --count`
           flutter pub get
           cd ios
-          echo $APP_STORE_CONNECT_API_KEY | base64 -d > APP_STORE_CONNECT_API_KEY.json
           pod install
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
           GOOGLE_SERVICES_IOS: ${{ secrets.GOOGLE_SERVICES_IOS }}
+          APP_STORE_CONNECT_API_KEY_JSON: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
       - name: Archive to TestFlight
         uses: maierj/fastlane-action@v2.2.1
         with:
@@ -43,4 +44,3 @@ jobs:
           FASTLANE_DONT_STORE_PASSWORD: "1"
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.DEPLOY_CERTS }}
           MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
-          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}

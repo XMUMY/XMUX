@@ -13,38 +13,47 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-lane :internal do
-  disable_automatic_code_signing(path: "Runner.xcodeproj")
-  create_keychain(
-    name: "fastlane",
-    password: ENV["MATCH_PASSWORD"],
-    default_keychain: true,
-    unlock: true,
-    timeout: 3600,
-    lock_when_sleeps: false
-  )
-  match(
-    type: "development",
-    readonly: true,
-    keychain_name: "fastlane",
-    keychain_password: ENV["MATCH_PASSWORD"],
-  )
-  match(
-    type: "appstore",
-    readonly: true,
-    keychain_name: "fastlane",
-    keychain_password: ENV["MATCH_PASSWORD"],
-  )
-  update_project_provisioning(
-    xcodeproj: "Runner.xcodeproj",
-    profile: ENV["sigh_org.ctbeta.xmux_development_profile-path"],
-    target_filter: "Runner",
-    build_configuration: "Release"
-  )
-  build_ios_app(
-    workspace: "Runner.xcworkspace",
-    scheme: "Runner",
-    export_method: "app-store"
-  )
-  upload_to_testflight
+default_platform(:ios)
+
+platform :ios do
+  desc "Push a new internal build to TestFlight"
+  lane :internal do
+    update_code_signing_settings(
+      use_automatic_signing: false,
+    )
+    create_keychain(
+      name: "fastlane",
+      password: ENV["MATCH_PASSWORD"],
+      default_keychain: true,
+      unlock: true,
+      timeout: 3600,
+      lock_when_sleeps: false,
+    )
+    sync_code_signing(
+      type: "development",
+      readonly: true,
+      keychain_name: "fastlane",
+      keychain_password: ENV["MATCH_PASSWORD"],
+    )
+    sync_code_signing(
+      type: "appstore",
+      readonly: true,
+      keychain_name: "fastlane",
+      keychain_password: ENV["MATCH_PASSWORD"],
+    )
+    update_project_provisioning(
+      xcodeproj: "Runner.xcodeproj",
+      profile: ENV["sigh_org.ctbeta.xmux_development_profile-path"],
+      target_filter: "Runner",
+      build_configuration: "Release",
+    )
+    build_ios_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+    )
+    upload_to_testflight(
+      api_key_path: "APP_STORE_CONNECT_API_KEY.json",
+      skip_waiting_for_build_processing: true,
+    )
+  end
 end
