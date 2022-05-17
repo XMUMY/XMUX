@@ -31,6 +31,8 @@ jobs:
           flutter pub get
           cd ios
           pod install
+          xcrun agvtool new-marketing-version $FLUTTER_BUILD_NAME
+          xcrun agvtool new-version $FLUTTER_BUILD_NUMBER
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
           GOOGLE_SERVICES_IOS: ${{ secrets.GOOGLE_SERVICES_IOS }}

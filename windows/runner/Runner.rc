@@ -93,7 +93,7 @@ BEGIN
             VALUE "FileDescription", "XMUX Client" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "xmux" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2017-2021 XMUX Authors. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2017-2022 XMUX Authors. All rights reserved." "\0"
             VALUE "OriginalFilename", "xmux.exe" "\0"
             VALUE "ProductName", "XMUX" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
