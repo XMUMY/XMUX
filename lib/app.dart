@@ -11,13 +11,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const pageTransitionsTheme = PageTransitionsTheme(builders: {
-      TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-      TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
-      TargetPlatform.android: ZoomPageTransitionsBuilder(),
-      TargetPlatform.windows: ZoomPageTransitionsBuilder(),
-    });
-
     return StoreConnector<AppState, Tuple2>(
       distinct: true,
       converter: (s) => Tuple2(
@@ -28,11 +21,9 @@ class App extends StatelessWidget {
         title: 'XMUX',
         theme: ThemeData(
           primarySwatch: Colors.cyan,
-          pageTransitionsTheme: pageTransitionsTheme,
         ),
         darkTheme: ThemeData(
           brightness: Brightness.dark,
-          pageTransitionsTheme: pageTransitionsTheme,
         ),
         themeMode: ThemeMode.system,
         localizationsDelegates: context.localizationDelegates,

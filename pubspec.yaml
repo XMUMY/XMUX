@@ -58,11 +58,11 @@ dependencies:
   firebase_auth: ^3.0.0
   firebase_core: ^1.2.0
   firebase_remote_config: ^2.0.0
-  fl_chart: ^0.50.0
+  fl_chart: ^0.51.0
   flutter_linkify: ^5.0.0
   flutter_markdown: ^0.6.0
   flutter_mobx: ^2.0.0
-  flutter_redux: ^0.9.0
+  flutter_redux: ^0.10.0
   flutter_spinkit: ^5.0.0
   flutter_svg: ^1.0.0
   flutter_widget_from_html_core: ^0.8.0
@@ -97,13 +97,8 @@ dependency_overrides:
     git:
       url: https://github.com/XMUMY/grpc-dart.git
       ref: allow-missing-trailer
-  # Use first match if multiple route matched.
-  # https://github.com/flutter/flutter/issues/99833
-  go_router:
-    git:
-      url: https://github.com/XMUMY/packages.git
-      ref: main
-      path: packages/go_router
+  # Flutter beta channel breakchange.
+  fwfh_text_style: 2.13.0-master.1
 
 dev_dependencies:
   flutter_test:

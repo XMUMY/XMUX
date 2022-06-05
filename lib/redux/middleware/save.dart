@@ -1,12 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../action/action.dart';
 import '../state/state.dart';
 
-/// Flag for saving status.
-bool _isSaving = false;
+Timer? _scheduledSave;
 
 /// Redux middleware for state saving.
 ///
@@ -20,15 +21,21 @@ void saveMiddleware(
 ) {
   next(action);
 
-  if (!_isSaving && action.needSave) {
-    _isSaving = true;
-    _saveState(store, action.syncSave).then((n) => _isSaving = false);
+  if (action is AppAction && action.needSave) {
+    if (action.syncSave) {
+      _scheduledSave?.cancel();
+      _scheduledSave = null;
+      _save(store.state);
+    } else {
+      _scheduledSave ??= Timer(const Duration(seconds: 1), () {
+        _scheduledSave = null;
+        _save(store.state);
+      });
+    }
   }
 }
 
-Future<void> _saveState(Store<AppState> store, bool sync) async {
-  if (!sync) await Future.delayed(const Duration(seconds: 1));
-  var prefs = await SharedPreferences.getInstance();
-  var state = jsonEncode(store.state);
-  await prefs.setString('app_state', state);
+Future<void> _save(AppState state) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('app_state', jsonEncode(state));
 }

@@ -18,7 +18,7 @@ abstract class AppAction {
   bool get needSave => true;
 
   /// Flag for sync state saving. (Default to [false])
-  /// If true, app state will be saved sync when dispatch this action.
+  /// If true, app state will be synchronously sync when dispatch this action.
   /// This flag only available when [needSave] is true.
   bool get syncSave => false;
 
