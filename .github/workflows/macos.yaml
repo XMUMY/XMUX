@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
       - uses: subosito/flutter-action@v2
         with:
-          channel: stable
+          channel: beta
       - name: Build App
         run: |
           echo $CONFIG_FILE | base64 -d > lib/config.dart

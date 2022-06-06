@@ -25,7 +25,7 @@ jobs:
           java-package: jdk
       - uses: subosito/flutter-action@v2
         with:
-          channel: stable
+          channel: beta
       - name: Build
         run: |
           echo $CONFIG_FILE | base64 -d > lib/config.dart
