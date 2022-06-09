@@ -27,7 +27,8 @@ jobs:
           export FLUTTER_BUILD_NAME=`cat ./lib/config.sample.dart | head -6 | tail -1 | sed -e "s/[A-z:', \-]//g"`
           export FLUTTER_BUILD_NUMBER=`git rev-list HEAD --count`
           echo "version: $FLUTTER_BUILD_NAME+$FLUTTER_BUILD_NUMBER" >> pubspec.yaml
-          flutter build web --release --source-maps
+          flutter build web --release --source-maps \
+              --dart-define=FLUTTER_WEB_CANVASKIT_URL=https://cdn.jsdelivr.net/npm/canvaskit-wasm@0.33.0/bin/
         env:
           CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
       - uses: actions/upload-artifact@v3
@@ -45,7 +46,7 @@ jobs:
           name: XMUX-Web
           path: XMUX-Web
       - name: Replace main.dart.js to JSDelivr CDN
-        run: sed -i "s#main.dart.js#https://cdn.jsdelivr.net/gh/XMUMY/static@app-web/main.dart.js#" XMUX-Web/index.html
+        run: sed -i 's#"main.dart.js"#"https://cdn.jsdelivr.net/gh/XMUMY/static@app-web/main.dart.js"#' XMUX-Web/flutter.js
       - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -64,7 +65,7 @@ jobs:
           name: XMUX-Web
           path: XMUX-Web
       - name: Replace main.dart.js to JSDelivr CDN
-        run: sed -i "s#main.dart.js#https://cdn.jsdelivr.net/gh/XMUMY/static@app-web/main.dart.js#" XMUX-Web/index.html
+        run: sed -i 's#"main.dart.js"#"https://cdn.jsdelivr.net/gh/XMUMY/static@app-web/main.dart.js"#' XMUX-Web/flutter.js
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@v2.0.0
         with:
