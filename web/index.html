@@ -1,115 +1,142 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <!--
-      If you are serving your web app in a path other than the root, change the
-      href value below to reflect the base path you are serving from.
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
 
-      The path provided below has to start and end with a slash "/" in order for
-      it to work correctly.
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
 
-      For more details:
-      * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
 
-      This is a placeholder for base href that will be replaced by the value of
-      the `--base-href` argument provided to `flutter build`.
-    -->
-    <base href="$FLUTTER_BASE_HREF">
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
 
-    <meta charset="UTF-8">
-    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-    <meta name="description" content="XMUX Client">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="XMUX Client">
 
-    <!-- iOS meta tags & icons -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="XMUX">
-    <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="xmux">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png"/>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
 
-    <title>XMUX</title>
-    <link rel="manifest" href="manifest.json">
+  <title>XMUX</title>
+  <link rel="manifest" href="manifest.json">
 
-    <script>
+  <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
-
-    </script>
-
-    <!-- This script adds the flutter initialization JS code -->
-    <script src="flutter.js" defer></script>
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
 </head>
+
 <body>
-<style>
+  <style>
     .sk-cube-grid {
-        width: 60px;
-        height: 60px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
     .sk-cube-grid .sk-cube {
-        width: 33%;
-        height: 33%;
-        background-color: #00ACC1;
-        float: left;
-        -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-                animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+      width: 33%;
+      height: 33%;
+      background-color: #00ACC1;
+      float: left;
+      -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+      animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
     }
+
     .sk-cube-grid .sk-cube1 {
-        -webkit-animation-delay: 0.2s;
-                animation-delay: 0.2s; }
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
+
     .sk-cube-grid .sk-cube2 {
-        -webkit-animation-delay: 0.3s;
-                animation-delay: 0.3s; }
+      -webkit-animation-delay: 0.3s;
+      animation-delay: 0.3s;
+    }
+
     .sk-cube-grid .sk-cube3 {
-        -webkit-animation-delay: 0.4s;
-                animation-delay: 0.4s; }
+      -webkit-animation-delay: 0.4s;
+      animation-delay: 0.4s;
+    }
+
     .sk-cube-grid .sk-cube4 {
-        -webkit-animation-delay: 0.1s;
-                animation-delay: 0.1s; }
+      -webkit-animation-delay: 0.1s;
+      animation-delay: 0.1s;
+    }
+
     .sk-cube-grid .sk-cube5 {
-        -webkit-animation-delay: 0.2s;
-                animation-delay: 0.2s; }
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
+
     .sk-cube-grid .sk-cube6 {
-        -webkit-animation-delay: 0.3s;
-                animation-delay: 0.3s; }
+      -webkit-animation-delay: 0.3s;
+      animation-delay: 0.3s;
+    }
+
     .sk-cube-grid .sk-cube7 {
-        -webkit-animation-delay: 0s;
-                animation-delay: 0s; }
+      -webkit-animation-delay: 0s;
+      animation-delay: 0s;
+    }
+
     .sk-cube-grid .sk-cube8 {
-        -webkit-animation-delay: 0.1s;
-                animation-delay: 0.1s; }
+      -webkit-animation-delay: 0.1s;
+      animation-delay: 0.1s;
+    }
+
     .sk-cube-grid .sk-cube9 {
-        -webkit-animation-delay: 0.2s;
-                animation-delay: 0.2s; }
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
 
     @-webkit-keyframes sk-cubeGridScaleDelay {
-        0%, 70%, 100% {
+
+      0%,
+      70%,
+      100% {
         -webkit-transform: scale3D(1, 1, 1);
-                transform: scale3D(1, 1, 1);
-        } 35% {
+        transform: scale3D(1, 1, 1);
+      }
+
+      35% {
         -webkit-transform: scale3D(0, 0, 1);
-                transform: scale3D(0, 0, 1);
-        }
+        transform: scale3D(0, 0, 1);
+      }
     }
 
     @keyframes sk-cubeGridScaleDelay {
-        0%, 70%, 100% {
-        -webkit-transform: scale3D(1, 1, 1);
-                transform: scale3D(1, 1, 1);
-        } 35% {
-        -webkit-transform: scale3D(0, 0, 1);
-                transform: scale3D(0, 0, 1);
-        }
-    }
 
-</style>
-<div id="loading" class="sk-cube-grid">
+      0%,
+      70%,
+      100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+      }
+
+      35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+      }
+    }
+  </style>
+  <div id="loading" class="sk-cube-grid">
     <div class="sk-cube sk-cube1"></div>
     <div class="sk-cube sk-cube2"></div>
     <div class="sk-cube sk-cube3"></div>
@@ -119,23 +146,24 @@
     <div class="sk-cube sk-cube7"></div>
     <div class="sk-cube sk-cube8"></div>
     <div class="sk-cube sk-cube9"></div>
-</div>
-<script>
+  </div>
+  <script>
     var loading = document.querySelector('#loading');
     window.addEventListener('load', function (ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function (engineInitializer) {
+          engineInitializer.initializeEngine().then(function (appRunner) {
+            loading.remove();
+            appRunner.runApp();
+          });
         }
-      }).then(function (engineInitializer) {
-        return engineInitializer.initializeEngine();
-      }).then(function (appRunner) {
-        loading.remove();
-        return appRunner.runApp();
       });
     });
-
-</script>
+  </script>
 </body>
+
 </html>

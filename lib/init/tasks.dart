@@ -73,11 +73,13 @@ final syncCredentialTask = ParallelTask.fromFunc([
   },
   // Sentry
   (ctx) async {
-    Sentry.configureScope((scope) {
-      scope.user = SentryUser(
-        id: store.state.user.campusId,
-      );
-    });
+    await Sentry.configureScope(
+      (scope) async => await scope.setUser(
+        SentryUser(
+          id: store.state.user.campusId,
+        ),
+      ),
+    );
   }
 ]);
 
