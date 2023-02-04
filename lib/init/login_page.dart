@@ -4,7 +4,6 @@ import 'package:animations/animations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:grpc/grpc.dart';
 import 'package:taskflow/taskflow.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -47,13 +46,18 @@ class LoginPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   IconButton(
-                    icon: const Icon(Icons.privacy_tip),
+                    icon: const Icon(Icons.gavel),
+                    onPressed: () => launchUrlString('$docsAddress/app/terms/'),
+                    tooltip: LocaleKeys.SignIn_Terms.tr(),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.policy),
                     onPressed: () =>
                         launchUrlString('$docsAddress/app/privacy/'),
                     tooltip: LocaleKeys.SignIn_Privacy.tr(),
                   ),
                   IconButton(
-                    icon: const Icon(FontAwesomeIcons.question),
+                    icon: const Icon(Icons.help_center),
                     onPressed: () => launchUrlString(docsAddress),
                     tooltip: LocaleKeys.SignIn_Docs.tr(),
                   ),

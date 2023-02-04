@@ -152,6 +152,10 @@ class _AboutTileState extends State<_AboutTile> {
           onTap: () => launchUrlString(docsAddress),
         ),
         ListTile(
+          title: Text(LocaleKeys.SignIn_Terms.tr()),
+          onTap: () => launchUrlString('$docsAddress/app/terms/'),
+        ),
+        ListTile(
           title: Text(LocaleKeys.SignIn_Privacy.tr()),
           onTap: () => launchUrlString('$docsAddress/app/privacy/'),
         ),

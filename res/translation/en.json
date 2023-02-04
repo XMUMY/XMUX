@@ -13,12 +13,13 @@
     "7": "Sunday"
   },
   "SignIn": {
+    "Terms": "Terms of Service",
     "Privacy": "Privacy Policy",
     "Docs": "Help Docs",
     "SignIn": "Sign in",
     "CampusID": "Campus ID",
     "Password": "Password",
-    "Read": "By signing in, you agree to our privacy policy & disclaimer.",
+    "Read": "By signing in, you agree to our terms of service & privacy policy.",
     "Register": "Register",
     "RegisterTitle": "Welcome to XMUM!",
     "RegisterCaption": "We still need some information to complete your registration.",

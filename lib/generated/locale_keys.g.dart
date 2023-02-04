@@ -13,6 +13,7 @@ abstract class  LocaleKeys {
   static const Weekdays_6 = 'Weekdays.6';
   static const Weekdays_7 = 'Weekdays.7';
   static const Weekdays = 'Weekdays';
+  static const SignIn_Terms = 'SignIn.Terms';
   static const SignIn_Privacy = 'SignIn.Privacy';
   static const SignIn_Docs = 'SignIn.Docs';
   static const SignIn_SignIn = 'SignIn.SignIn';
@@ -99,9 +100,9 @@ abstract class  LocaleKeys {
   static const Community_Favorites = 'Community.Favorites';
   static const Community_Threads = 'Community.Threads';
   static const Community_CreateThreadTitle = 'Community.CreateThreadTitle';
-  static const Community_CreateTitle = 'Community.CreateTitle';
   static const Community_Markdown = 'Community.Markdown';
   static const Community_Preview = 'Community.Preview';
+  static const Community_CreateTitle = 'Community.CreateTitle';
   static const Community_CreatePost = 'Community.CreatePost';
   static const Community_Like = 'Community.Like';
   static const Community_Comment = 'Community.Comment';
