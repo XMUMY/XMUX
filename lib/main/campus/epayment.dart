@@ -168,12 +168,12 @@ class _PaymentRecordCard extends StatelessWidget {
             children: [
               Text(
                 record.item,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const Divider(height: 5, color: Colors.transparent),
               Text(
                 DateFormat.yMMMMd().format(record.date),
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
           ),

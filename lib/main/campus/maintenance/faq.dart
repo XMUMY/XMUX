@@ -58,11 +58,11 @@ class _FaqListState extends State<FaqList> with AutomaticKeepAliveClientMixin {
               children: <Widget>[
                 Text(
                   faq.title,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 Text(
                   DateFormat.yMMMd().format(faq.date),
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const Divider(),
                 Text(faq.answer)

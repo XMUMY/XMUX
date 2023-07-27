@@ -55,12 +55,12 @@ class _MyRequestsPageState extends State<MyRequestsPage>
                 children: <Widget>[
                   Text(
                     req.title,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(
                     '${req.id} ${DateFormat.yMMMd().format(req.date)} '
                     '${req.usage} ${req.category}',
-                    style: Theme.of(context).textTheme.caption,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const Divider(),
                   Text(req.answer)

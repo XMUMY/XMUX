@@ -38,7 +38,7 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
             padding: const EdgeInsets.all(8),
             child: Text(
               LocaleKeys.Campus_Academic.tr(),
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
           const Divider(height: 3),
@@ -86,7 +86,7 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
             padding: const EdgeInsets.all(8),
             child: Text(
               LocaleKeys.Campus_Tools.tr(),
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
           const Divider(height: 3),
@@ -188,7 +188,7 @@ class _Button extends StatelessWidget {
           ),
           Text(
             title,
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.bodySmall,
             textAlign: TextAlign.center,
           ),
         ],

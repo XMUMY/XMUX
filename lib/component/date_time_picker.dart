@@ -64,7 +64,7 @@ class DateTimePicker extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     DateFormat.yMMMd().format(date),
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Icon(
                     Icons.arrow_drop_down,
@@ -90,7 +90,7 @@ class DateTimePicker extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     time.format(context),
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Icon(
                     Icons.arrow_drop_down,

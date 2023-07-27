@@ -62,7 +62,7 @@ class ExamsList extends StatelessWidget {
         child: Text(
           '${DateFormat.yMMMd(languageCode).format(_lastUpdate)} '
           '${DateFormat.Hms(languageCode).format(_lastUpdate)}',
-          style: Theme.of(context).textTheme.caption,
+          style: Theme.of(context).textTheme.bodySmall,
         ),
       ),
     );
@@ -104,7 +104,7 @@ class _Card extends StatelessWidget {
         children: <Widget>[
           Text(
             exam.courseName,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           const Divider(height: 8, color: Colors.transparent),
           Text(
@@ -112,7 +112,7 @@ class _Card extends StatelessWidget {
             '${'Weekdays.${exam.begin.toDateTime().toLocal().weekday}'.tr()} '
             '${TimeOfDay.fromDateTime(exam.begin.toDateTime().toLocal()).format(context)} - '
             '${TimeOfDay.fromDateTime(exam.end.toDateTime().toLocal()).format(context)} ',
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
           const Divider(height: 5, color: Colors.transparent),
           Text(exam.venue),

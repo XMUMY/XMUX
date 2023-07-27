@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.ctbeta.xmux.xmux">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- For reading/writing academic calendar from/to system calendar.-->
@@ -7,16 +6,16 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
+        android:label="XMUX"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
-        android:label="XMUX">
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name="io.xdea.xmux.MainActivity"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:exported="true"
-            android:hardwareAccelerated="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user

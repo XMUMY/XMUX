@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:moodle/moodle.dart';
@@ -11,6 +13,7 @@ import 'redux/middleware/save.dart';
 import 'redux/reducer/reducer.dart';
 import 'redux/state/state.dart';
 import 'route.dart';
+import 'util/platform.dart';
 import 'util/remote_config.dart';
 import 'util/tracker.dart';
 
@@ -37,7 +40,7 @@ final store = Store(
 // Global router.
 final router = GoRouter(
   routes: routes,
-  redirect: (state) {
+  redirect: (context, state) {
     if (state.location == '/Init' || state.location == '/Login') return null;
 
     if (!store.state.isInitialized) return '/Init';
@@ -45,7 +48,14 @@ final router = GoRouter(
 
     return null;
   },
-  observers: [routeObserver],
+  observers: [
+    routeObserver,
+    if (kReleaseMode && (isMobile || isWeb || isMacOS))
+      FirebaseAnalyticsObserver(
+        analytics: FirebaseAnalytics.instance,
+        nameExtractor: RouterObserver.nameExtractor,
+      )
+  ],
 );
 
 final routeObserver = RouterObserver();

@@ -194,13 +194,13 @@ class _LoginAreaState extends State<_LoginArea> {
           children: <Widget>[
             Text(
               LocaleKeys.SignIn_RegisterTitle.tr(),
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             const Divider(color: Colors.transparent),
             Text(
               LocaleKeys.SignIn_RegisterCaption.tr(),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const Divider(color: Colors.transparent),
             TextFormField(

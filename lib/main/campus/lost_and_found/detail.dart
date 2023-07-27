@@ -62,30 +62,30 @@ class _LostAndFoundDetailPageState extends State<LostAndFoundDetailPage> {
                 detail.type == LostAndFoundType.Lost
                     ? LocaleKeys.Campus_LaFLost.tr()
                     : LocaleKeys.Campus_LaFFound.tr(),
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               Text(
                 detail.name,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const Divider(height: 5, color: Colors.transparent),
               Text(
                 LocaleKeys.Campus_LaFTime.tr(),
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               Text(
                 '${DateFormat.yMMMEd().format(detail.time.toDateTime().toLocal())} '
                 '${DateFormat.Hm().format(detail.time.toDateTime().toLocal())}',
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const Divider(height: 5, color: Colors.transparent),
               Text(
                 LocaleKeys.Campus_LaFLocation.tr(),
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               Text(
                 detail.location,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const Divider(),
               Text(detail.description),
@@ -93,7 +93,7 @@ class _LostAndFoundDetailPageState extends State<LostAndFoundDetailPage> {
                 const Divider(),
                 Text(
                   LocaleKeys.Campus_LaFContacts.tr(),
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 for (var contact in detail.contacts.entries)
                   Text('${contact.key}  ${contact.value}'),

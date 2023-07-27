@@ -66,7 +66,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
               padding: const EdgeInsets.all(15),
               child: Text(
                 'GPA: ${calculateGPA(courses).toStringAsFixed(2)}',
-                style: Theme.of(context).textTheme.headline4?.copyWith(
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       color: calculateGPA(courses).pointColor,
                     ),
               ),

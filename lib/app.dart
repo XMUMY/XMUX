@@ -30,6 +30,7 @@ class App extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         routerDelegate: router.routerDelegate,
         routeInformationParser: router.routeInformationParser,
+        routeInformationProvider: router.routeInformationProvider,
         showPerformanceOverlay: vm.item1,
         showSemanticsDebugger: vm.item2,
       ),

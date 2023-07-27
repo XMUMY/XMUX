@@ -31,7 +31,7 @@ Page<T> _fade<T>(BuildContext context, GoRouterState state, Widget child) =>
 final routes = [
   GoRoute(
     path: '/',
-    redirect: (_) => '/Calendar',
+    redirect: (_, __) => '/Calendar',
   ),
   GoRoute(
     path: '/Init',
@@ -58,7 +58,7 @@ final routes = [
       ),
       GoRoute(
         path: 'Favorite',
-        redirect: (_) => '/Community/Favorite/Thread',
+        redirect: (_, __) => '/Community/Favorite/Thread',
       ),
       GoRoute(
         path: 'Favorite/:favoriteTab',
