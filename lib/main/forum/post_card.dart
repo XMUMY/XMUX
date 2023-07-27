@@ -147,7 +147,7 @@ class _PostCardState extends State<PostCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(profile.displayName),
-                  Text(ts, style: Theme.of(context).textTheme.caption)
+                  Text(ts, style: Theme.of(context).textTheme.bodySmall)
                 ],
               ),
             ],
@@ -162,7 +162,7 @@ class _PostCardState extends State<PostCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('  ...  '),
-                  Text(ts, style: Theme.of(context).textTheme.caption)
+                  Text(ts, style: Theme.of(context).textTheme.bodySmall)
                 ],
               ),
             ],

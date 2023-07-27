@@ -72,7 +72,7 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
                       allowFromNow: true,
                     ),
                     textAlign: TextAlign.end,
-                    style: Theme.of(context).textTheme.caption,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 )
               ]),
@@ -94,7 +94,7 @@ class _ChatTabState extends State<ChatTab> with AutomaticKeepAliveClientMixin {
                       allowFromNow: true,
                     ),
                     textAlign: TextAlign.end,
-                    style: Theme.of(context).textTheme.caption,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 )
               ]),

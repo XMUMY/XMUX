@@ -68,7 +68,7 @@ class _EmgsPageState extends State<EmgsPage> {
                 state.extendedImageLoadState != LoadState.completed
                     ? Text(
                         LocaleKeys.Campus_Emgs.tr(),
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                       )
                     : null,
           ),
@@ -163,7 +163,7 @@ class _EmgsResultListState extends State<EmgsResultList>
         ),
         Text(
           '${(_percentageAnimation.value * 100).toInt()}%',
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
       ],
     );
@@ -175,12 +175,12 @@ class _EmgsResultListState extends State<EmgsResultList>
         child: Column(children: <Widget>[
           Text(
             widget.result.fullName,
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           const Divider(height: 10, color: Colors.transparent),
           Text(
             widget.result.applicationStatus,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
             textAlign: TextAlign.center,
           ),
           const Divider(color: Colors.transparent),
@@ -190,7 +190,7 @@ class _EmgsResultListState extends State<EmgsResultList>
                 children: <Widget>[
                   Text(
                     LocaleKeys.Campus_EmgsNo.tr(),
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const Divider(height: 3, color: Colors.transparent),
                   Text(widget.result.applicationId),
@@ -202,7 +202,7 @@ class _EmgsResultListState extends State<EmgsResultList>
                 children: <Widget>[
                   Text(
                     LocaleKeys.Campus_EmgsType.tr(),
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const Divider(height: 3, color: Colors.transparent),
                   Text(widget.result.applicationType),
@@ -226,7 +226,7 @@ class _EmgsResultListState extends State<EmgsResultList>
         // History.
         Text(
           LocaleKeys.Campus_EmgsHistory.tr(),
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         const Divider(height: 8, color: Colors.transparent),
         ListView.separated(
@@ -241,11 +241,11 @@ class _EmgsResultListState extends State<EmgsResultList>
               children: <Widget>[
                 Text(
                   history.status,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 Text(
                   DateFormat.yMd().format(history.date),
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Text(history.remark)
               ],

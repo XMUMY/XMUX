@@ -28,7 +28,7 @@ class _WolframPageState extends State<WolframPage> {
 
   Widget _toButton(String str) {
     return IconButton(
-      icon: Text(str, style: Theme.of(context).textTheme.headline5),
+      icon: Text(str, style: Theme.of(context).textTheme.headlineSmall),
       onPressed: () => _replace(str),
     );
   }
@@ -98,7 +98,7 @@ class _WolframPageState extends State<WolframPage> {
         title: const Text('Wolfram Engine'),
         actions: [
           IconButton(
-            icon: Text('C', style: Theme.of(context).textTheme.headline5!),
+            icon: Text('C', style: Theme.of(context).textTheme.headlineSmall!),
             onPressed: _inputTextController.clear,
           ),
           IconButton(

@@ -103,7 +103,7 @@ class _AssignmentListState extends State<AssignmentList>
       headerBuilder: (context, isExpanded) => ListTile(
         title: Text(
           course.fullName,
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
       body: Column(
@@ -166,14 +166,14 @@ class _AssignmentListState extends State<AssignmentList>
         children: <Widget>[
           Text(
             LocaleKeys.Calendar_AssignmentsDoing.tr(),
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           const Divider(),
           ExpansionPanelList.radio(children: _doing),
           const Divider(color: Colors.transparent),
           Text(
             LocaleKeys.Calendar_AssignmentsExpired.tr(),
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           const Divider(),
           ExpansionPanelList.radio(children: _expired),
@@ -233,7 +233,7 @@ class AssignmentDetail extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               child: Text(
                 assignment.name,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
           if (assignment.intro.isNotEmpty ||
@@ -245,7 +245,7 @@ class AssignmentDetail extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       'Introduction',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
 
                     HtmlWidget(assignment.intro),
@@ -267,7 +267,7 @@ class AssignmentDetail extends StatelessWidget {
                                 ),
                                 Text(
                                   attachment.name,
-                                  style: Theme.of(context).textTheme.caption,
+                                  style: Theme.of(context).textTheme.bodySmall,
                                   textAlign: TextAlign.center,
                                 ),
                               ],
@@ -286,7 +286,7 @@ class AssignmentDetail extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     LocaleKeys.Calendar_AssignmentsDueDate.tr(),
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const Divider(height: 5, color: Colors.transparent),
                   Text(
@@ -296,7 +296,7 @@ class AssignmentDetail extends StatelessWidget {
                   const Divider(color: Colors.transparent),
                   Text(
                     'Allow Submission From',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const Divider(height: 5, color: Colors.transparent),
                   Text(

@@ -63,12 +63,12 @@ class _UpcomingEventPageState extends State<UpcomingEventPage>
               children: [
                 Text(
                   event.name,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 Text(
                   '${DateFormat.yMMMd(languageCode).format(event.timeStart)} '
                   '${DateFormat.Hms(languageCode).format(event.timeStart)}',
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const Divider(),
                 HtmlWidget(event.description),

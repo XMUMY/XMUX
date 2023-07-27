@@ -116,7 +116,7 @@ class _ItemBriefCard extends StatelessWidget {
                       Text(
                         '${DateFormat.yMMMEd().format(brief.time.toDateTime().toLocal())} '
                         '${DateFormat.Hm().format(brief.time.toDateTime().toLocal())}',
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodySmall,
                       )
                     ],
                   ),

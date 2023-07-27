@@ -67,12 +67,12 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage>
       children: <Widget>[
         Text(
           notification.subject,
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
         Text(
           '${DateFormat.yMMMd(languageCode).format(notification.timeCreated)} '
           '${DateFormat.Hms(languageCode).format(notification.timeCreated)}',
-          style: Theme.of(context).textTheme.caption,
+          style: Theme.of(context).textTheme.bodySmall,
         ),
         const Divider(),
         Text(notification.smallMessage),

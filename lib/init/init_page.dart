@@ -8,14 +8,14 @@ class InitPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
-          const BackgroundImage(color: Colors.transparent),
+          BackgroundImage(color: Colors.transparent),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Text(
                 'χ',
                 style: TextStyle(

@@ -2,7 +2,6 @@ import 'package:device_calendar/device_calendar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:timezone/timezone.dart';
 import 'package:xmus_client/generated/aaos.pb.dart';
 
 import '../../component/empty_error.dart';
@@ -58,7 +57,7 @@ class ListTimetable extends StatelessWidget {
     final now = DateTime.now();
     final currentMinute = now.weekday * 1440 + now.hour * 60 + now.minute;
 
-    int _getClassMinute(Timetable_Class c) =>
+    int getClassMinute(Timetable_Class c) =>
         c.day * 1440 +
         c.end.toDateTime().toLocal().hour * 60 +
         c.end.toDateTime().toLocal().minute;
@@ -66,9 +65,9 @@ class ListTimetable extends StatelessWidget {
     var before = <Timetable_Class>[];
     var after = <Timetable_Class>[];
 
-    timetable.sort((a, b) => _getClassMinute(a) - _getClassMinute(b));
+    timetable.sort((a, b) => getClassMinute(a) - getClassMinute(b));
     for (var i in timetable) {
-      _getClassMinute(i) < currentMinute ? before.add(i) : after.add(i);
+      getClassMinute(i) < currentMinute ? before.add(i) : after.add(i);
     }
 
     return after..addAll(before);
@@ -89,7 +88,7 @@ class ListTimetable extends StatelessWidget {
         child: Text(
           '${DateFormat.yMMMd(languageCode).format(_lastUpdate)} '
           '${DateFormat.Hms(languageCode).format(_lastUpdate)}',
-          style: Theme.of(context).textTheme.caption,
+          style: Theme.of(context).textTheme.bodySmall,
         ),
       ),
     );
@@ -138,7 +137,7 @@ class GridTimetable extends StatelessWidget {
                     child: Center(
                       child: Text(
                         '${i + 8} - ${i + 9}',
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                   ),
@@ -159,7 +158,7 @@ class GridTimetable extends StatelessWidget {
                   child: Center(
                     child: Text(
                       'Weekdays.${i + 1}'.tr(),
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
                 ),
@@ -232,7 +231,7 @@ class _Card extends StatelessWidget {
           '${TimeOfDay.fromDateTime(lesson.begin.toDateTime().toLocal()).format(context)} - '
           '${TimeOfDay.fromDateTime(lesson.end.toDateTime().toLocal()).format(context)} '
           '${lesson.room}',
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.titleMedium,
           textAlign: TextAlign.center,
         ),
       ),
@@ -245,7 +244,7 @@ class _Card extends StatelessWidget {
       children: <Widget>[
         Text(
           lesson.name,
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.titleMedium,
           textAlign: TextAlign.start,
         ),
         const Divider(height: 8, color: Colors.transparent),
@@ -360,7 +359,7 @@ class _Dialog extends StatelessWidget {
   Widget build(BuildContext context) {
     var title = Text(
       lesson.name,
-      style: Theme.of(context).textTheme.headline6,
+      style: Theme.of(context).textTheme.titleLarge,
       textAlign: TextAlign.center,
     );
 

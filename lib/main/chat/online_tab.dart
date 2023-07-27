@@ -66,7 +66,9 @@ class _OnlineTabState extends State<OnlineTab>
                 ),
                 child: Badge(
                   position: BadgePosition.bottomEnd(bottom: 0, end: 0),
-                  badgeColor: Colors.greenAccent,
+                  badgeStyle: const BadgeStyle(
+                    badgeColor: Colors.greenAccent,
+                  ),
                   child: Gravatar(
                     url: profile.avatar,
                     fallbackName: profile.displayName,
@@ -82,7 +84,9 @@ class _OnlineTabState extends State<OnlineTab>
                 padding: const EdgeInsets.symmetric(vertical: 6),
                 child: Badge(
                   position: BadgePosition.center(),
-                  badgeColor: Colors.greenAccent,
+                  badgeStyle: const BadgeStyle(
+                    badgeColor: Colors.greenAccent,
+                  ),
                 ),
               ),
               title: const Text('  ...  '),

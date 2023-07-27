@@ -121,7 +121,7 @@ class _InfoCard extends StatelessWidget {
                 '$finishedCount\n'
                 '${LocaleKeys.Campus_AcademicTranscriptCourses.tr()}',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
             Expanded(
@@ -129,7 +129,7 @@ class _InfoCard extends StatelessWidget {
                 '$creditsCount\n'
                 '${LocaleKeys.Campus_AcademicTranscriptCredits.tr()}',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
           ],
@@ -251,7 +251,7 @@ class _GpaChartState extends State<_GpaChart> {
                 Text(
                   isGpa ? 'GPA' : 'CGPA',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Divider(height: 3, color: Colors.transparent),
                 Expanded(
@@ -289,14 +289,14 @@ class _TranscriptSessionCard extends StatelessWidget {
                   Text(
                     course.name,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const Divider(height: 5, color: Colors.transparent),
                   Text(
                     '${course.code}  '
                     '${course.credit} '
                     '${LocaleKeys.Campus_AcademicTranscriptCredits.tr()}',
-                    style: Theme.of(context).textTheme.caption,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
               ),
@@ -307,7 +307,7 @@ class _TranscriptSessionCard extends StatelessWidget {
                 '${course.grade}'
                 '${course.point.isNaN ? '' : '\n${course.point.toStringAsFixed(2)}'}',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline6!.copyWith(
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       color: course.point.pointColor,
                     ),
               ),
@@ -327,7 +327,7 @@ class _TranscriptSessionCard extends StatelessWidget {
             padding: const EdgeInsets.all(3),
             child: Text(
               session.session,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           list,
