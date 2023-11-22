@@ -60,8 +60,8 @@ class MoodleApi {
   MoodleApi(String baseUrl)
       : _dio = Dio(BaseOptions(
           baseUrl: baseUrl,
-          connectTimeout: 6000,
-          receiveTimeout: 10000,
+          connectTimeout: const Duration(milliseconds: 6000),
+          receiveTimeout: const Duration(milliseconds: 10000),
           contentType: 'application/x-www-form-urlencoded',
         ));
 

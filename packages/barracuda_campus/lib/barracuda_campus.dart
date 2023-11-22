@@ -19,8 +19,11 @@ class _CookieManager extends CookieManager {
       }
       handler.next(options);
     }).catchError((e, stackTrace) {
-      var err = DioError(requestOptions: options, error: e);
-      err.stackTrace = stackTrace;
+      var err = DioException(
+        requestOptions: options,
+        error: e,
+        stackTrace: stackTrace,
+      );
       handler.reject(err, true);
     });
   }
@@ -30,8 +33,8 @@ class _CookieManager extends CookieManager {
 class BCStudent {
   final Dio _dio = Dio(BaseOptions(
     baseUrl: 'https://www.barracudacampus.com/stud/index.php',
-    connectTimeout: 5000,
-    receiveTimeout: 5000,
+    connectTimeout: const Duration(milliseconds: 5000),
+    receiveTimeout: const Duration(milliseconds: 5000),
     contentType: 'application/x-www-form-urlencoded',
   ))
     ..interceptors.add(_CookieManager(CookieJar()));

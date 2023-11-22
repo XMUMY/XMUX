@@ -93,7 +93,7 @@ class _CommunityPageState extends State<CommunityPage>
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
+          preferredSize: const Size.fromHeight(48),
           child: Material(
             elevation: 1,
             color: Theme.of(context).colorScheme.surface,
@@ -116,6 +116,8 @@ class _CommunityPageState extends State<CommunityPage>
                   child: TabBar(
                     isScrollable: true,
                     controller: _controller,
+                    dividerHeight: 0,
+                    tabAlignment: TabAlignment.start,
                     tabs: _tabs.map((e) => Tab(text: e.label)).toList(),
                   ),
                 ),

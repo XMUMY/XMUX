@@ -94,7 +94,7 @@ class _CalendarPageState extends State<CalendarPage>
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
+          preferredSize: const Size.fromHeight(48),
           child: Material(
             elevation: 1,
             color: Theme.of(context).colorScheme.surface,
@@ -117,6 +117,8 @@ class _CalendarPageState extends State<CalendarPage>
                   child: TabBar(
                     isScrollable: true,
                     controller: _controller,
+                    dividerHeight: 0,
+                    tabAlignment: TabAlignment.start,
                     tabs: CalendarPage.tabs
                         .map((e) => Tab(text: e.label))
                         .toList(),

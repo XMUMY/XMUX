@@ -346,8 +346,8 @@ class _Dialog extends StatelessWidget {
       start: begin,
       end: end,
       recurrenceRule: RecurrenceRule(
-        frequency: Frequency.weekly,
-        until: lesson.end.toDateTime(),
+        RecurrenceFrequency.Weekly,
+        endDate: lesson.end.toDateTime(),
       ),
       availability: Availability.Free,
     ));

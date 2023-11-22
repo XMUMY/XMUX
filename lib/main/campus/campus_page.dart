@@ -115,7 +115,7 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                   child: const Icon(
                     FontAwesomeIcons.passport,
                     color: Color(0xFF5DC3F1),
-                    size: 50,
+                    size: 65,
                   ),
                 ),
               if (isVM) // CORS
@@ -125,7 +125,7 @@ class CampusPage extends StatelessWidget implements TopLevelPage {
                   child: const Icon(
                     FontAwesomeIcons.hammer,
                     color: Color(0xFF5DC3F1),
-                    size: 50,
+                    size: 65,
                   ),
                 ),
               if (isVM) // CORS
@@ -181,7 +181,11 @@ class _Button extends StatelessWidget {
       child: Column(
         children: <Widget>[
           IconButton(
-            icon: child ?? SvgPicture.asset(svg!),
+            icon: child ??
+                SvgPicture.asset(
+                  svg!,
+                  height: 65,
+                ),
             onPressed: onPressed,
             tooltip: title,
             iconSize: 65,

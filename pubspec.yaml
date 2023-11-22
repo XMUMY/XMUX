@@ -98,16 +98,6 @@ dependency_overrides:
     git:
       url: https://github.com/XMUMY/grpc-dart.git
       ref: allow-missing-trailer
-  # https://github.com/builttoroam/device_calendar/issues/483
-  device_calendar:
-    git:
-      url: https://github.com/builttoroam/device_calendar.git
-      ref: 4.3.1
-  # https://github.com/fluttercandies/extended_image/issues/581
-  extended_image:
-    git:
-      url: https://github.com/0xManjeet/extended_image.git
-      ref: nex
 
 dev_dependencies:
   flutter_test:
