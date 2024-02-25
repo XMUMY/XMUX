@@ -14,10 +14,10 @@ class PostList extends StatefulWidget {
   final ScrollController? scrollController;
 
   const PostList({
-    Key? key,
+    super.key,
     required this.parentPost,
     this.scrollController,
-  }) : super(key: key);
+  });
 
   @override
   State<PostList> createState() => _PostListState();

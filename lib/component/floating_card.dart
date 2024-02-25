@@ -19,14 +19,14 @@ class FloatingCard extends StatefulWidget {
   final Widget child;
 
   const FloatingCard({
-    Key? key,
+    super.key,
     this.margin = const EdgeInsets.all(4),
     this.padding = const EdgeInsets.all(0),
     this.shape,
     this.onTap,
     this.onLongPress,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   State<FloatingCard> createState() => _FloatingCardState();
@@ -87,7 +87,7 @@ class FloatingOpenContainer extends StatefulWidget {
   final Widget child;
 
   const FloatingOpenContainer({
-    Key? key,
+    super.key,
     this.padding = const EdgeInsets.all(0),
     this.margin = const EdgeInsets.all(4),
     this.shape = const RoundedRectangleBorder(
@@ -95,7 +95,7 @@ class FloatingOpenContainer extends StatefulWidget {
     ),
     required this.child,
     required this.openBuilder,
-  }) : super(key: key);
+  });
 
   @override
   State<FloatingOpenContainer> createState() => _FloatingOpenContainerState();

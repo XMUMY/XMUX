@@ -9,7 +9,7 @@ import '../../global.dart';
 import '../../util/screen.dart';
 
 class ElectiveCourseRegistrationPage extends StatefulWidget {
-  const ElectiveCourseRegistrationPage({Key? key}) : super(key: key);
+  const ElectiveCourseRegistrationPage({super.key});
 
   @override
   State<ElectiveCourseRegistrationPage> createState() =>
@@ -128,10 +128,9 @@ class _RegisteredCoursesPage extends StatefulWidget {
   final String entry;
 
   const _RegisteredCoursesPage({
-    Key? key,
     required this.ecr,
     required this.entry,
-  }) : super(key: key);
+  });
 
   @override
   State<_RegisteredCoursesPage> createState() => _RegisteredCoursesPageState();
@@ -210,10 +209,9 @@ class _EditRegistrationPage extends StatefulWidget {
   final String entry;
 
   const _EditRegistrationPage({
-    Key? key,
     required this.ecr,
     required this.entry,
-  }) : super(key: key);
+  });
 
   @override
   State<_EditRegistrationPage> createState() => _EditRegistrationPageState();

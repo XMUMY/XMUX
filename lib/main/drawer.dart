@@ -14,7 +14,7 @@ import '../util/platform.dart';
 import 'dev_options.dart';
 
 class MainDrawer extends StatelessWidget {
-  const MainDrawer({Key? key}) : super(key: key);
+  const MainDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class MainDrawer extends StatelessWidget {
 }
 
 class _ServerStatus extends StatelessWidget {
-  const _ServerStatus({Key? key}) : super(key: key);
+  const _ServerStatus();
 
   Widget _buildTile({required String name, required String url}) {
     return FutureBuilder(
@@ -129,7 +129,7 @@ class _ServerStatus extends StatelessWidget {
 }
 
 class _AboutTile extends StatefulWidget {
-  const _AboutTile({Key? key}) : super(key: key);
+  const _AboutTile();
 
   @override
   State<_AboutTile> createState() => _AboutTileState();

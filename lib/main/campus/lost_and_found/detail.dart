@@ -11,8 +11,7 @@ import '../../../util/screen.dart';
 class LostAndFoundDetailPage extends StatefulWidget {
   final LostAndFoundBrief brief;
 
-  const LostAndFoundDetailPage({Key? key, required this.brief})
-      : super(key: key);
+  const LostAndFoundDetailPage({super.key, required this.brief});
 
   @override
   State<LostAndFoundDetailPage> createState() => _LostAndFoundDetailPageState();

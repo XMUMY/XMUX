@@ -18,7 +18,7 @@ class GPACalculatorPage extends StatefulWidget {
     'F': 0.0,
   };
 
-  const GPACalculatorPage({Key? key}) : super(key: key);
+  const GPACalculatorPage({super.key});
 
   @override
   State<StatefulWidget> createState() => _GPACalculatorPageState();

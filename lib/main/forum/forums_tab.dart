@@ -8,7 +8,7 @@ import '../../util/screen.dart';
 import '../../util/tab.dart';
 
 class ForumsTab extends StatefulWidget implements TabEntry {
-  const ForumsTab({Key? key}) : super(key: key);
+  const ForumsTab({super.key});
 
   @override
   String get path => 'Forums';

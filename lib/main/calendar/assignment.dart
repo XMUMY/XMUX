@@ -15,7 +15,7 @@ import '../../util/screen.dart';
 import '../../util/tab.dart';
 
 class AssignmentPage extends StatelessWidget implements TabEntry {
-  const AssignmentPage({Key? key}) : super(key: key);
+  const AssignmentPage({super.key});
 
   @override
   String get path => 'Assignment';
@@ -41,7 +41,7 @@ class AssignmentPage extends StatelessWidget implements TabEntry {
 class AssignmentList extends StatefulWidget {
   final List<AssignmentCourse> assignments;
 
-  const AssignmentList({Key? key, required this.assignments}) : super(key: key);
+  const AssignmentList({super.key, required this.assignments});
 
   @override
   State<AssignmentList> createState() => _AssignmentListState();
@@ -211,10 +211,10 @@ class AssignmentDetail extends StatelessWidget {
   final bool isPage;
 
   const AssignmentDetail({
-    Key? key,
+    super.key,
     required this.assignment,
     this.isPage = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

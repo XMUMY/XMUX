@@ -18,11 +18,11 @@ class UserProfileBuilder extends StatefulWidget {
   final WidgetBuilder? placeholder;
 
   const UserProfileBuilder({
-    Key? key,
+    super.key,
     required this.uid,
     required this.builder,
     this.placeholder,
-  }) : super(key: key);
+  });
 
   @override
   State<UserProfileBuilder> createState() => _UserProfileBuilderState();

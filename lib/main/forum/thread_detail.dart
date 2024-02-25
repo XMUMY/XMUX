@@ -13,7 +13,7 @@ import 'thread_card.dart';
 class ThreadDetailPage extends StatefulWidget {
   final Thread thread;
 
-  const ThreadDetailPage({Key? key, required this.thread}) : super(key: key);
+  const ThreadDetailPage({super.key, required this.thread});
 
   @override
   State<ThreadDetailPage> createState() => _ThreadDetailPageState();

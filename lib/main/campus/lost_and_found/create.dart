@@ -36,7 +36,7 @@ abstract class _LostAndFoundForm with Store {
 }
 
 class NewLostAndFoundPage extends StatefulWidget {
-  const NewLostAndFoundPage({Key? key}) : super(key: key);
+  const NewLostAndFoundPage({super.key});
 
   @override
   State<NewLostAndFoundPage> createState() => _NewLostAndFoundPageState();

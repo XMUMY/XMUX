@@ -47,11 +47,11 @@ class Gravatar extends StatelessWidget {
   final String? fallbackName;
 
   const Gravatar({
-    Key? key,
+    super.key,
     this.url = '',
     this.radius,
     this.fallbackName,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

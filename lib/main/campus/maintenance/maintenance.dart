@@ -12,7 +12,7 @@ class MaintenancePage extends StatelessWidget {
     store.state.user.password,
   );
 
-  MaintenancePage({Key? key}) : super(key: key);
+  MaintenancePage({super.key});
 
   @override
   Widget build(BuildContext context) {

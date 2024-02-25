@@ -7,8 +7,7 @@ import '../../../util/screen.dart';
 class MyRequestsPage extends StatefulWidget {
   final Maintenance maintenanceApi;
 
-  const MyRequestsPage({Key? key, required this.maintenanceApi})
-      : super(key: key);
+  const MyRequestsPage({super.key, required this.maintenanceApi});
 
   @override
   State<MyRequestsPage> createState() => _MyRequestsPageState();

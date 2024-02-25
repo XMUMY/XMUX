@@ -6,7 +6,7 @@ import 'package:maintenance/maintenance.dart';
 import '../../../util/screen.dart';
 
 class FaqList extends StatefulWidget {
-  const FaqList({Key? key}) : super(key: key);
+  const FaqList({super.key});
 
   @override
   State<FaqList> createState() => _FaqListState();

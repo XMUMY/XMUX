@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../global.dart';
 
 class KliaExpressPage extends StatelessWidget {
-  const KliaExpressPage({Key? key}) : super(key: key);
+  const KliaExpressPage({super.key});
 
   @override
   Widget build(BuildContext context) {

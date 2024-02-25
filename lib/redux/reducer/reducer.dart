@@ -5,8 +5,8 @@ import '../state/state.dart';
 
 final Reducer<AppState> appReducer = combineReducers([
   _appReducer,
-  TypedReducer(_initializedReducer),
-  TypedReducer(_restoreReducer),
+  TypedReducer(_initializedReducer).call,
+  TypedReducer(_restoreReducer).call,
 ]);
 
 AppState _appReducer(AppState state, dynamic action) => state.copyWith(
@@ -21,9 +21,9 @@ AppState _initializedReducer(AppState state, InitializedAction action) =>
 AppState _restoreReducer(AppState state, RestoreAction action) => action.state;
 
 final Reducer<UserState> userReducer = combineReducers([
-  TypedReducer(_loginReducer),
-  TypedReducer(_updateEPaymentPasswordReducer),
-  TypedReducer(_updateUserProfileReducer),
+  TypedReducer(_loginReducer).call,
+  TypedReducer(_updateEPaymentPasswordReducer).call,
+  TypedReducer(_updateUserProfileReducer).call,
 ]);
 
 UserState _loginReducer(UserState state, LoginAction action) => state.copyWith(
@@ -46,12 +46,12 @@ UserState _updateUserProfileReducer(
 // Queries
 
 final Reducer<QueryState> queriesReducer = combineReducers([
-  TypedReducer(_updateTimetableReducer),
-  TypedReducer(_updateCoursesReducer),
-  TypedReducer(_updateExamsReducer),
-  TypedReducer(_updateTranscriptReducer),
-  TypedReducer(_updateAssignmentsReducer),
-  TypedReducer(_updateEmgsApplicationResultReducer),
+  TypedReducer(_updateTimetableReducer).call,
+  TypedReducer(_updateCoursesReducer).call,
+  TypedReducer(_updateExamsReducer).call,
+  TypedReducer(_updateTranscriptReducer).call,
+  TypedReducer(_updateAssignmentsReducer).call,
+  TypedReducer(_updateEmgsApplicationResultReducer).call,
 ]);
 
 QueryState _updateTimetableReducer(
@@ -90,9 +90,9 @@ QueryState _updateEmgsApplicationResultReducer(
 // Settings
 
 final Reducer<SettingState> settingsReducer = combineReducers([
-  TypedReducer(_showPerformanceOverlayReducer),
-  TypedReducer(_showSemanticsDebuggerReducer),
-  TypedReducer(_enableDevFunctionsReducer),
+  TypedReducer(_showPerformanceOverlayReducer).call,
+  TypedReducer(_showSemanticsDebuggerReducer).call,
+  TypedReducer(_enableDevFunctionsReducer).call,
 ]);
 
 SettingState _showPerformanceOverlayReducer(

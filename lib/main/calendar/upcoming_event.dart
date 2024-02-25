@@ -10,7 +10,7 @@ import '../../util/screen.dart';
 import '../../util/tab.dart';
 
 class UpcomingEventPage extends StatefulWidget implements TabEntry {
-  const UpcomingEventPage({Key? key}) : super(key: key);
+  const UpcomingEventPage({super.key});
 
   @override
   String get path => 'UpcomingEvent';

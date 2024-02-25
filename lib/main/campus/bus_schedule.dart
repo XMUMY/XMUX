@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../global.dart';
 
 class BusSchedulePage extends StatelessWidget {
-  const BusSchedulePage({Key? key}) : super(key: key);
+  const BusSchedulePage({super.key});
 
   @override
   Widget build(BuildContext context) {

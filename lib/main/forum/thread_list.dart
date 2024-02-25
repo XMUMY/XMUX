@@ -11,7 +11,7 @@ import 'thread_card.dart';
 class ThreadList extends StatefulWidget {
   final int forumId;
 
-  const ThreadList({Key? key, required this.forumId}) : super(key: key);
+  const ThreadList({super.key, required this.forumId});
 
   @override
   State<ThreadList> createState() => _ThreadListState();

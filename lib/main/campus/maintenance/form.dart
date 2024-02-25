@@ -14,8 +14,7 @@ import '../../../util/screen.dart';
 class RequestFormPage extends StatefulWidget {
   final Maintenance maintenanceApi;
 
-  const RequestFormPage({Key? key, required this.maintenanceApi})
-      : super(key: key);
+  const RequestFormPage({super.key, required this.maintenanceApi});
 
   @override
   State<RequestFormPage> createState() => _RequestFormPageState();

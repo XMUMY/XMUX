@@ -28,12 +28,12 @@ class ThreadCard extends StatefulWidget {
   final VoidCallback? onPostComment;
 
   const ThreadCard({
-    Key? key,
+    super.key,
     required this.thread,
     this.expanded = false,
     this.exbandable = false,
     this.onPostComment,
-  }) : super(key: key);
+  });
 
   @override
   State<ThreadCard> createState() => _ThreadCardState();

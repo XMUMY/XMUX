@@ -19,7 +19,7 @@ import 'timetable.dart';
 import 'upcoming_event.dart';
 
 class CalendarPage extends StatefulWidget implements TopLevelPage {
-  const CalendarPage({Key? key}) : super(key: key);
+  const CalendarPage({super.key});
 
   @override
   String get path => 'Calendar';

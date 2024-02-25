@@ -17,15 +17,14 @@ class DateTimePicker extends StatelessWidget {
   final ValueChanged<TimeOfDay>? onTimeChanged;
 
   DateTimePicker({
-    Key? key,
+    super.key,
     this.labelText,
     required this.date,
     required this.firstDate,
     required this.lastDate,
     this.onDateChanged,
     this.onTimeChanged,
-  })  : time = TimeOfDay.fromDateTime(date),
-        super(key: key);
+  })  : time = TimeOfDay.fromDateTime(date);
 
   Future<void> _pickDate(BuildContext context) async {
     final picked = await showDatePicker(

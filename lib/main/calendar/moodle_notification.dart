@@ -14,7 +14,7 @@ import '../../util/screen.dart';
 import '../../util/tab.dart';
 
 class MoodleNotificationPage extends StatefulWidget implements TabEntry {
-  const MoodleNotificationPage({Key? key}) : super(key: key);
+  const MoodleNotificationPage({super.key});
 
   @override
   String get path => 'MoodleNotification';
@@ -140,10 +140,10 @@ class _MoodleNotificationDetail extends StatelessWidget {
   final bool isPage;
 
   const _MoodleNotificationDetail({
-    Key? key,
+    super.key,
     required this.notification,
     this.isPage = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

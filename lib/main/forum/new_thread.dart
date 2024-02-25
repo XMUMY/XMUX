@@ -10,7 +10,7 @@ import '../../../util/screen.dart';
 class NewThreadPage extends StatefulWidget {
   final int forumId;
 
-  const NewThreadPage({Key? key, required this.forumId}) : super(key: key);
+  const NewThreadPage({super.key, required this.forumId});
 
   @override
   State<NewThreadPage> createState() => _NewThreadPageState();

@@ -10,7 +10,7 @@ import 'manager.dart';
 import 'p2p_chat_page.dart';
 
 class OnlineTab extends StatefulWidget implements TabEntry {
-  const OnlineTab({Key? key}) : super(key: key);
+  const OnlineTab({super.key});
 
   @override
   String get path => 'Online';

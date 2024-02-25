@@ -10,10 +10,10 @@ class CatalogueContentLayout extends StatelessWidget {
   final Widget? content;
 
   const CatalogueContentLayout({
-    Key? key,
+    super.key,
     required this.catalogueBuilder,
     this.content,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

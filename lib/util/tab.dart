@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// An entry abstraction for tabs in [TabBarView].
 abstract class TabEntry extends Widget {
-  const TabEntry({Key? key}) : super(key: key);
+  const TabEntry({super.key});
 
   /// The path of tab that used in tracker and router.
   String get path;

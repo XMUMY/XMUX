@@ -14,9 +14,9 @@ class P2PChatPage extends StatefulWidget {
   final String uid;
 
   const P2PChatPage({
-    Key? key,
+    super.key,
     required this.uid,
-  }) : super(key: key);
+  });
 
   @override
   State<P2PChatPage> createState() => _P2PChatPageState();

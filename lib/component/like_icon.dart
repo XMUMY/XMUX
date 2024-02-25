@@ -7,9 +7,9 @@ class LikeIcon extends StatelessWidget {
   final bool liked;
 
   const LikeIcon({
-    Key? key,
+    super.key,
     this.liked = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,10 @@ class LottieLikeIcon extends StatefulWidget {
   final bool liked;
 
   const LottieLikeIcon({
-    Key? key,
+    super.key,
     this.size = 35,
     this.liked = false,
-  }) : super(key: key);
+  });
 
   @override
   State<LottieLikeIcon> createState() => _LottieLikeIconState();

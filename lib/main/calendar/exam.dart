@@ -14,7 +14,7 @@ import '../../util/screen.dart';
 import '../../util/tab.dart';
 
 class ExamPage extends StatelessWidget implements TabEntry {
-  const ExamPage({Key? key}) : super(key: key);
+  const ExamPage({super.key});
 
   @override
   String get path => 'Exam';
@@ -41,10 +41,9 @@ class ExamsList extends StatelessWidget {
   final List<Exams_Exam> _exams;
   final DateTime _lastUpdate;
 
-  ExamsList({Key? key, required Exams exams})
+  ExamsList({super.key, required Exams exams})
       : _exams = exams.exams,
-        _lastUpdate = exams.lastUpdate.toDateTime().toLocal(),
-        super(key: key);
+        _lastUpdate = exams.lastUpdate.toDateTime().toLocal();
 
   // Handle refresh.
   Future<void> _handleUpdate() async {
@@ -90,7 +89,7 @@ class ExamsList extends StatelessWidget {
 class _Card extends StatelessWidget {
   final Exams_Exam exam;
 
-  const _Card({Key? key, required this.exam}) : super(key: key);
+  const _Card({required this.exam});
 
   @override
   Widget build(BuildContext context) {

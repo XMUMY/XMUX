@@ -12,7 +12,7 @@ import 'create.dart';
 import 'detail.dart';
 
 class LostAndFoundPage extends StatefulWidget {
-  const LostAndFoundPage({Key? key}) : super(key: key);
+  const LostAndFoundPage({super.key});
 
   @override
   State<LostAndFoundPage> createState() => _LostAndFoundPageState();
@@ -80,7 +80,7 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
 class _ItemBriefCard extends StatelessWidget {
   final LostAndFoundBrief brief;
 
-  const _ItemBriefCard({Key? key, required this.brief}) : super(key: key);
+  const _ItemBriefCard({required this.brief});
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'thread_list.dart';
 
 /// The discover tab. Currently use forum 0.
 class DiscoverTab extends StatefulWidget implements TabEntry {
-  const DiscoverTab({Key? key}) : super(key: key);
+  const DiscoverTab({super.key});
 
   @override
   String get path => 'Discover';

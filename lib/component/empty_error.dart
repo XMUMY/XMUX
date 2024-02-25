@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// Display an empty error at the center of viewport.
 /// Use [EmptyErrorList] if you want to use it with a [RefreshIndicator].
 class EmptyErrorPage extends StatefulWidget {
-  const EmptyErrorPage({Key? key}) : super(key: key);
+  const EmptyErrorPage({super.key});
 
   @override
   State<EmptyErrorPage> createState() => _EmptyErrorPageState();
@@ -79,7 +79,7 @@ class _EmptyErrorPageState extends State<EmptyErrorPage>
 
 /// Display an empty error at the center with an empty [ListView].
 class EmptyErrorList extends StatelessWidget {
-  const EmptyErrorList({Key? key}) : super(key: key);
+  const EmptyErrorList({super.key});
 
   @override
   Widget build(BuildContext context) {

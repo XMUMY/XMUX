@@ -20,7 +20,7 @@ import 'background.dart';
 import 'tasks.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class LoginPage extends StatelessWidget {
 }
 
 class _LoginArea extends StatefulWidget {
-  const _LoginArea({Key? key}) : super(key: key);
+  const _LoginArea();
 
   @override
   _LoginAreaState createState() => _LoginAreaState();
@@ -325,11 +325,10 @@ class _Button extends StatelessWidget {
   final VoidCallback onPressed;
 
   const _Button({
-    Key? key,
     this.isProcessing = false,
     required this.label,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

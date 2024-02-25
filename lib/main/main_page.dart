@@ -32,7 +32,7 @@ abstract class TopLevelPage implements Widget {
 class MainPage extends StatefulWidget {
   final int index;
 
-  const MainPage({Key? key, this.index = 0}) : super(key: key);
+  const MainPage({super.key, this.index = 0});
 
   factory MainPage.fromPage(String? page) =>
       MainPage(index: mainPages.indexWhere((e) => e.path == page));

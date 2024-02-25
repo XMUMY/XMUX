@@ -14,7 +14,7 @@ import 'thread_card.dart';
 class FavoritePage extends StatefulWidget {
   final int index;
 
-  const FavoritePage({Key? key, this.index = 0}) : super(key: key);
+  const FavoritePage({super.key, this.index = 0});
 
   factory FavoritePage.fromTab(String? tab) =>
       FavoritePage(index: tabs.indexWhere((e) => e.path == tab));
@@ -82,7 +82,7 @@ class _Threads extends StatefulWidget implements TabEntry {
   @override
   String get label => LocaleKeys.Community_Threads.tr();
 
-  const _Threads({Key? key}) : super(key: key);
+  const _Threads();
 
   @override
   State<_Threads> createState() => _ThreadsState();
@@ -148,7 +148,7 @@ class _Posts extends StatefulWidget implements TabEntry {
   @override
   String get label => LocaleKeys.Community_Comment.tr();
 
-  const _Posts({Key? key}) : super(key: key);
+  const _Posts();
 
   @override
   State<_Posts> createState() => _PostsState();

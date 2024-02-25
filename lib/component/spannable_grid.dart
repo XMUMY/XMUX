@@ -46,12 +46,12 @@ class SpannableGrid extends StatelessWidget {
   final double spacing;
 
   const SpannableGrid({
-    Key? key,
+    super.key,
     required this.cells,
     required this.columns,
     required this.rows,
     this.spacing = 0.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

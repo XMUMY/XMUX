@@ -22,13 +22,13 @@ class PostCard extends StatefulWidget {
   final VoidCallback? onPostComment;
 
   const PostCard({
-    Key? key,
+    super.key,
     required this.threadId,
     required this.post,
     this.children = const [],
     this.thread,
     this.onPostComment,
-  }) : super(key: key);
+  });
 
   @override
   State<PostCard> createState() => _PostCardState();

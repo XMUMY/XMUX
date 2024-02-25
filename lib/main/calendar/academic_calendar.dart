@@ -10,7 +10,7 @@ class AcademicCalendarPage extends StatelessWidget {
   final foundation =
       remoteConfigs.staticResources.academicCalendarImages.foundation;
 
-  AcademicCalendarPage({Key? key}) : super(key: key);
+  AcademicCalendarPage({super.key});
 
   @override
   Widget build(BuildContext context) {

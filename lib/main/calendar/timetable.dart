@@ -15,7 +15,7 @@ import '../../util/screen.dart';
 import '../../util/tab.dart';
 
 class TimetablePage extends StatelessWidget implements TabEntry {
-  const TimetablePage({Key? key}) : super(key: key);
+  const TimetablePage({super.key});
 
   @override
   String get path => 'Timetable';
@@ -46,11 +46,10 @@ class ListTimetable extends StatelessWidget {
   final DateTime _lastUpdate;
 
   ListTimetable({
-    Key? key,
+    super.key,
     required this.timetable,
   })  : _classes = sortTimetable(timetable.classes),
-        _lastUpdate = timetable.lastUpdate.toDateTime().toLocal(),
-        super(key: key);
+        _lastUpdate = timetable.lastUpdate.toDateTime().toLocal();
 
   /// Sort timetable according to the end of class and now.
   static List<Timetable_Class> sortTimetable(List<Timetable_Class> timetable) {
@@ -117,9 +116,9 @@ class GridTimetable extends StatelessWidget {
   final Timetable timetable;
 
   const GridTimetable({
-    Key? key,
+    super.key,
     required this.timetable,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -202,10 +201,9 @@ class _Card extends StatelessWidget {
   final bool isInGrid;
 
   const _Card({
-    Key? key,
     required this.lesson,
     this.isInGrid = false,
-  }) : super(key: key);
+  });
 
   // Colors from monday to sunday.
   static const List<Color> colors = [

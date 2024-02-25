@@ -4,7 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'background.dart';
 
 class InitPage extends StatelessWidget {
-  const InitPage({Key? key}) : super(key: key);
+  const InitPage({super.key});
 
   @override
   Widget build(BuildContext context) {

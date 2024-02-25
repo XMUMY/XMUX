@@ -12,7 +12,7 @@ import '../../redux/state/state.dart';
 import '../../util/screen.dart';
 
 class EmgsPage extends StatefulWidget {
-  const EmgsPage({Key? key}) : super(key: key);
+  const EmgsPage({super.key});
 
   @override
   State<EmgsPage> createState() => _EmgsPageState();
@@ -101,11 +101,10 @@ class EmgsResultList extends StatefulWidget {
   final ScrollController _scrollController;
 
   const EmgsResultList({
-    Key? key,
+    super.key,
     required this.result,
     required ScrollController controller,
-  })  : _scrollController = controller,
-        super(key: key);
+  })  : _scrollController = controller;
 
   @override
   State<EmgsResultList> createState() => _EmgsResultListState();

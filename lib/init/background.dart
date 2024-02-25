@@ -6,10 +6,10 @@ class BackgroundImage extends StatelessWidget {
   final BlendMode colorBlendMode;
 
   const BackgroundImage({
-    Key? key,
+    super.key,
     this.color = Colors.black45,
     this.colorBlendMode = BlendMode.darken,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

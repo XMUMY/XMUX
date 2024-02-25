@@ -11,10 +11,10 @@ class NewPostDialog extends StatefulWidget {
   final Post? toPost;
 
   const NewPostDialog({
-    Key? key,
+    super.key,
     required this.threadId,
     this.toPost,
-  }) : super(key: key);
+  });
 
   static Future<bool?> show(
     BuildContext context, {

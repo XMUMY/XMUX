@@ -24,7 +24,7 @@ extension GPAColorExtension on double {
 }
 
 class TranscriptPage extends StatelessWidget {
-  const TranscriptPage({Key? key}) : super(key: key);
+  const TranscriptPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +45,7 @@ class TranscriptPage extends StatelessWidget {
 class TranscriptWaterfall extends StatelessWidget {
   final List<Transcript_Session> transcript;
 
-  const TranscriptWaterfall({Key? key, required this.transcript})
-      : super(key: key);
+  const TranscriptWaterfall({super.key, required this.transcript});
 
   Future<void> _handleUpdate() async {
     var action = UpdateTranscriptAction();
@@ -96,7 +95,7 @@ class _InfoCard extends StatelessWidget {
   final int finishedCount;
   final int creditsCount;
 
-  _InfoCard({Key? key, required List<Transcript_Session> transcript})
+  _InfoCard({required List<Transcript_Session> transcript})
       : finishedCount = transcript.fold(
           0,
           (count, e) => count + e.courses.length,
@@ -106,8 +105,7 @@ class _InfoCard extends StatelessWidget {
           (count, session) =>
               count +
               session.courses.fold(0, (count, course) => count + course.credit),
-        ),
-        super(key: key);
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +140,7 @@ class _InfoCard extends StatelessWidget {
 class _GpaChart extends StatefulWidget {
   final List<Transcript_Session> transcript;
 
-  const _GpaChart({Key? key, required this.transcript}) : super(key: key);
+  const _GpaChart({required this.transcript});
 
   @override
   _GpaChartState createState() => _GpaChartState();
@@ -210,8 +208,8 @@ class _GpaChartState extends State<_GpaChart> {
             ),
           ),
         ),
-        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
       ),
       borderData: FlBorderData(show: false),
       minY: 1,
@@ -221,7 +219,7 @@ class _GpaChartState extends State<_GpaChart> {
           spots: spots,
           isCurved: true,
           barWidth: 3,
-          dotData: FlDotData(show: false),
+          dotData: const FlDotData(show: false),
           gradient: LinearGradient(colors: colors),
           belowBarData: BarAreaData(
             show: true,
@@ -231,7 +229,7 @@ class _GpaChartState extends State<_GpaChart> {
           ),
         ),
       ],
-      lineTouchData: LineTouchData(
+      lineTouchData: const LineTouchData(
         touchTooltipData: LineTouchTooltipData(
           fitInsideHorizontally: true,
         ),
@@ -269,8 +267,7 @@ class _GpaChartState extends State<_GpaChart> {
 class _TranscriptSessionCard extends StatelessWidget {
   final Transcript_Session session;
 
-  const _TranscriptSessionCard({Key? key, required this.session})
-      : super(key: key);
+  const _TranscriptSessionCard({required this.session});
 
   @override
   Widget build(BuildContext context) {

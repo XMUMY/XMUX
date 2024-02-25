@@ -15,7 +15,7 @@ enum _EPaymentPageStage {
 }
 
 class EPaymentPage extends StatefulWidget {
-  const EPaymentPage({Key? key}) : super(key: key);
+  const EPaymentPage({super.key});
 
   @override
   State<EPaymentPage> createState() => _EPaymentPageState();
@@ -156,7 +156,7 @@ class _EPaymentPageState extends State<EPaymentPage> {
 class _PaymentRecordCard extends StatelessWidget {
   final PaymentRecord record;
 
-  const _PaymentRecordCard({Key? key, required this.record}) : super(key: key);
+  const _PaymentRecordCard({required this.record});
 
   @override
   Widget build(BuildContext context) {

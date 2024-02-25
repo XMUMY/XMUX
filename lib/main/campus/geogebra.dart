@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../../util/platform.dart';
 
 class GeoGebraPage extends StatefulWidget {
-  const GeoGebraPage({Key? key}) : super(key: key);
+  const GeoGebraPage({super.key});
 
   @override
   State<GeoGebraPage> createState() => _GeoGebraPageState();

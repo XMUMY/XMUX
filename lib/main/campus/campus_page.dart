@@ -10,7 +10,7 @@ import '../../util/screen.dart';
 import '../main_page.dart';
 
 class CampusPage extends StatelessWidget implements TopLevelPage {
-  const CampusPage({Key? key}) : super(key: key);
+  const CampusPage({super.key});
 
   @override
   String get path => 'Campus';
@@ -166,13 +166,11 @@ class _Button extends StatelessWidget {
   final VoidCallback onPressed;
 
   const _Button({
-    Key? key,
     this.child,
     this.svg,
     required this.title,
     required this.onPressed,
-  })  : assert(!(child == null && svg == null)),
-        super(key: key);
+  })  : assert(!(child == null && svg == null));
 
   @override
   Widget build(BuildContext context) {

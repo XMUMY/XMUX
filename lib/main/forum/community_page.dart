@@ -16,7 +16,7 @@ import '../main_page.dart';
 import 'discover_tab.dart';
 
 class CommunityPage extends StatefulWidget implements TopLevelPage {
-  const CommunityPage({Key? key}) : super(key: key);
+  const CommunityPage({super.key});
 
   @override
   String get path => 'Community';

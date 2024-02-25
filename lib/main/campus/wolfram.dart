@@ -4,7 +4,7 @@ import '../../config.dart';
 import '../../util/screen.dart';
 
 class WolframPage extends StatefulWidget {
-  const WolframPage({Key? key}) : super(key: key);
+  const WolframPage({super.key});
 
   @override
   State<WolframPage> createState() => _WolframPageState();
@@ -125,7 +125,7 @@ class _WolframPageState extends State<WolframPage> {
 class WolframResultPage extends StatelessWidget {
   final String input;
 
-  const WolframResultPage({Key? key, required this.input}) : super(key: key);
+  const WolframResultPage({super.key, required this.input});
 
   @override
   Widget build(BuildContext context) {

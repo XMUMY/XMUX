@@ -9,7 +9,7 @@ import 'manager.dart';
 import 'p2p_chat_page.dart';
 
 class ChatTab extends StatefulWidget implements TabEntry {
-  const ChatTab({Key? key}) : super(key: key);
+  const ChatTab({super.key});
 
   @override
   String get path => 'Chat';

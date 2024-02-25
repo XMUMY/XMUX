@@ -6,7 +6,7 @@ import '../redux/action/action.dart';
 import '../redux/state/state.dart';
 
 class DeveloperOptions extends StatelessWidget {
-  const DeveloperOptions({Key? key}) : super(key: key);
+  const DeveloperOptions({super.key});
 
   @override
   Widget build(BuildContext context) {
