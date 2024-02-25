@@ -8,7 +8,7 @@
 PRODUCT_NAME = XMUX
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = io.xdea.xmux
+PRODUCT_BUNDLE_IDENTIFIER = org.ctbeta.xmux
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2017-2022 XMUX Authors. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2017-2024 XMUX Authors. All rights reserved.

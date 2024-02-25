@@ -9,7 +9,6 @@ class Gravatar extends StatelessWidget {
   static const cdns = [
     'https://s.gravatar.com',
     'https://cn.gravatar.com',
-    'https://cravatar.cn',
     'https://gravatar.loli.net',
   ];
 

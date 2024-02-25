@@ -2,7 +2,6 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
-    id "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()
@@ -23,17 +22,9 @@ if (flutterVersionName == null) {
     flutterVersionName = "git describe --tags".execute().text.trim().substring(1)
 }
 
-
-// For release signing.
-def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file('app/key.properties')
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-}
-
 android {
     namespace "io.xdea.xmux"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -51,18 +42,18 @@ android {
 
     defaultConfig {
         applicationId "org.ctbeta.xmux.xmux"
-        minSdkVersion 21
-        targetSdkVersion flutter.targetSdkVersion
+        minSdk flutter.minSdkVersion
+        targetSdk flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
 
     signingConfigs {
         release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-            storePassword keystoreProperties['storePassword']
+            storeFile System.getenv('KEYSTORE_FILE') ? file(System.getenv('KEYSTORE_FILE')) : null
+            storePassword System.getenv('KEYSTORE_PASSWORD')
+            keyAlias System.getenv('KEY_ALIAS')
+            keyPassword System.getenv('KEY_PASSWORD')
         }
     }
 

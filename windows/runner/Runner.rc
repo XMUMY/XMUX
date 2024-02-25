@@ -69,7 +69,7 @@ IDI_APP_ICON            ICON                    "resources\\app_icon.ico"
 #if defined(FLUTTER_VERSION)
 #define VERSION_AS_STRING FLUTTER_VERSION
 #else
-#define VERSION_AS_STRING "1.0.0-SNAPSHOT+1"
+#define VERSION_AS_STRING "1.0.0"
 #endif
 
 VS_VERSION_INFO VERSIONINFO
@@ -89,12 +89,12 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "io.xdea" "\0"
+            VALUE "CompanyName", "Xdea" "\0"
             VALUE "FileDescription", "XMUX Client" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "xmux" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2017-2022 XMUX Authors. All rights reserved." "\0"
-            VALUE "OriginalFilename", "xmux.exe" "\0"
+            VALUE "InternalName", "XMUX" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2017-2024 XMUX Authors. All rights reserved." "\0"
+            VALUE "OriginalFilename", "XMUX.exe" "\0"
             VALUE "ProductName", "XMUX" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END

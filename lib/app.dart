@@ -21,9 +21,11 @@ class App extends StatelessWidget {
         title: 'XMUX',
         theme: ThemeData(
           primarySwatch: Colors.cyan,
+          useMaterial3: false,
         ),
         darkTheme: ThemeData(
           brightness: Brightness.dark,
+          useMaterial3: false,
         ),
         themeMode: ThemeMode.system,
         localizationsDelegates: context.localizationDelegates,

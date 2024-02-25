@@ -12,7 +12,6 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
     - packages
-    - lib/config.dart
     - lib/**.g.dart
 
 linter:
@@ -27,8 +26,8 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-     prefer_single_quotes: true
-     prefer_relative_imports: true
-
+    avoid_print: false
+    prefer_single_quotes: true
+    prefer_relative_imports: true
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

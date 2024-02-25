@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../../util/platform.dart';
-
 class GeoGebraPage extends StatefulWidget {
   const GeoGebraPage({super.key});
 
@@ -13,7 +11,7 @@ class GeoGebraPage extends StatefulWidget {
 }
 
 class _GeoGebraPageState extends State<GeoGebraPage> {
-  static const url = 'https://www.geogebra.org/classic';
+  static final uri = Uri.parse('https://www.geogebra.org/classic');
 
   var isLoading = true;
   var hasError = false;
@@ -24,13 +22,26 @@ class _GeoGebraPageState extends State<GeoGebraPage> {
   void _retry(Timer timer) {
     if (hasError) {
       hasError = false;
-      _controller.loadUrl(url);
+      _controller.loadRequest(uri);
     }
   }
 
   @override
   void initState() {
-    if (isAndroid) WebView.platform = SurfaceAndroidWebView();
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageStarted: (e) => setState(() => isLoading = true),
+          onPageFinished: (e) => setState(() => isLoading = false),
+          onWebResourceError: (e) {
+            if (e.errorType == WebResourceErrorType.hostLookup) {
+              setState(() => hasError = true);
+            }
+          },
+        ),
+      )
+      ..loadRequest(uri);
     _retryTimer = Timer.periodic(const Duration(seconds: 5), _retry);
     super.initState();
   }
@@ -53,18 +64,7 @@ class _GeoGebraPageState extends State<GeoGebraPage> {
           const Center(
             child: CircularProgressIndicator(),
           ),
-          WebView(
-            initialUrl: url,
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: (c) => _controller = c,
-            onPageStarted: (e) => setState(() => isLoading = true),
-            onPageFinished: (e) => setState(() => isLoading = false),
-            onWebResourceError: (e) {
-              if (e.errorType == WebResourceErrorType.hostLookup) {
-                setState(() => hasError = true);
-              }
-            },
-          ),
+          WebViewWidget(controller: _controller),
         ],
       ),
     );

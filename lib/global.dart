@@ -41,7 +41,9 @@ final store = Store(
 final router = GoRouter(
   routes: routes,
   redirect: (context, state) {
-    if (state.location == '/Init' || state.location == '/Login') return null;
+    if (state.uri.toString() == '/Init' || state.uri.toString() == '/Login') {
+      return null;
+    }
 
     if (!store.state.isInitialized) return '/Init';
     if (!store.state.user.isSignedIn) return '/Login';

@@ -43,7 +43,7 @@ final routes = [
   ),
   GoRoute(
     path: '/:rootPage',
-    builder: (_, state) => MainPage.fromPage(state.params['rootPage']),
+    builder: (_, state) => MainPage.fromPage(state.pathParameters['rootPage']),
     routes: [
       // Calendar
       GoRoute(
@@ -63,7 +63,7 @@ final routes = [
       GoRoute(
         path: 'Favorite/:favoriteTab',
         builder: (_, state) =>
-            FavoritePage.fromTab(state.params['favoriteTab']),
+            FavoritePage.fromTab(state.pathParameters['favoriteTab']),
       ),
 
       // Campus
