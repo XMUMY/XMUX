@@ -6,8 +6,8 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:timeago/timeago.dart';
-import 'package:xmus_client/generated/forum_saved.pb.dart';
-import 'package:xmus_client/generated/forum_thread.pb.dart';
+import 'package:xmus_client/api/forum_saved.pb.dart';
+import 'package:xmus_client/api/forum_thread.pb.dart';
 
 import '../../../component/floating_card.dart';
 import '../../../component/user_profile.dart';

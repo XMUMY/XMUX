@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:xmus_client/generated/forum_thread.pb.dart';
+import 'package:xmus_client/api/forum_thread.pb.dart';
 
 import 'init/init_page.dart';
 import 'init/login_page.dart';

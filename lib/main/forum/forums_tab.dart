@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:xmus_client/generated/forum.pb.dart';
+import 'package:xmus_client/api/forum.pb.dart';
 
 import '../../component/floating_card.dart';
 import '../../global.dart';

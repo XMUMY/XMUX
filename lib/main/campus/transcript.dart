@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
-import 'package:xmus_client/generated/aaos.pb.dart';
+import 'package:xmus_client/api/aaos/v4/aaos.pb.dart';
 
 import '../../component/empty_error.dart';
 import '../../component/floating_card.dart';
@@ -209,7 +209,8 @@ class _GpaChartState extends State<_GpaChart> {
           ),
         ),
         topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-        rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        rightTitles:
+            const AxisTitles(sideTitles: SideTitles(showTitles: false)),
       ),
       borderData: FlBorderData(show: false),
       minY: 1,

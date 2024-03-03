@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:xmus_client/error.dart';
-import 'package:xmus_client/generated/forum_thread.pb.dart';
+import 'package:xmus_client/api/forum_thread.pb.dart';
 
 import '../../../global.dart';
 import '../../../util/screen.dart';

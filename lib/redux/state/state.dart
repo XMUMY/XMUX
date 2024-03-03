@@ -2,8 +2,8 @@ import 'package:emgs/model.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:moodle/moodle.dart';
-import 'package:xmus_client/generated/aaos.pb.dart';
-import 'package:xmus_client/generated/user.pb.dart';
+import 'package:xmus_client/api/aaos/v4/aaos.pb.dart';
+import 'package:xmus_client/api/user.pb.dart';
 
 part 'query.dart';
 part 'setting.dart';

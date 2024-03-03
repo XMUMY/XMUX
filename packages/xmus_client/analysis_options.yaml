@@ -2,4 +2,4 @@ include: package:lints/recommended.yaml
 
 analyzer:
   exclude:
-    - "lib/generated/*.dart"
+    - "lib/api/*.dart"

@@ -1,9 +1,9 @@
 import 'package:emgs/model.dart';
 import 'package:moodle/moodle.dart';
 import 'package:redux/redux.dart';
-import 'package:xmus_client/generated/aaos.pb.dart';
-import 'package:xmus_client/generated/google/protobuf/empty.pb.dart';
-import 'package:xmus_client/generated/user.pb.dart';
+import 'package:xmus_client/api/aaos/v4/aaos.pb.dart';
+import 'package:xmus_client/api/google/protobuf/empty.pb.dart';
+import 'package:xmus_client/api/user.pb.dart';
 
 import '../../global.dart';
 import '../state/state.dart';

@@ -2,7 +2,7 @@ import 'package:device_calendar/device_calendar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:xmus_client/generated/aaos.pb.dart';
+import 'package:xmus_client/api/aaos/v4/aaos.pb.dart';
 
 import '../../component/empty_error.dart';
 import '../../component/floating_card.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:xmus_client/generated/forum_common.pb.dart';
-import 'package:xmus_client/generated/forum_thread.pb.dart';
+import 'package:xmus_client/api/forum_common.pb.dart';
+import 'package:xmus_client/api/forum_thread.pb.dart';
 
 import '../../global.dart';
 import '../../util/screen.dart';

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:mobx/mobx.dart';
-import 'package:xmus_client/generated/chat.pb.dart';
-import 'package:xmus_client/generated/chat_msg.pb.dart';
+import 'package:xmus_client/api/chat.pb.dart';
+import 'package:xmus_client/api/chat_msg.pb.dart';
 
 import 'client/client.dart';
 import 'p2p_chat_session.dart';

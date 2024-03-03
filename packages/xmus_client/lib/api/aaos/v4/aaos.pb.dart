@@ -1,28 +1,21 @@
-///
+//
 //  Generated code. Do not modify.
-//  source: aaos.proto
+//  source: aaos/v4/aaos.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+
+// ignore_for_file: annotate_overrides, camel_case_types, comment_references
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $2;
+import '../../google/protobuf/timestamp.pb.dart' as $2;
 
 class Info extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Info', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'gender')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'programme')
-    ..aOM<$2.Timestamp>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'intake', subBuilder: $2.Timestamp.create)
-    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nationality')
-    ..hasRequiredFields = false
-  ;
-
-  Info._() : super();
   factory Info({
     $core.String? name,
     $core.String? gender,
@@ -31,30 +24,42 @@ class Info extends $pb.GeneratedMessage {
     $2.Timestamp? intake,
     $core.String? nationality,
   }) {
-    final _result = create();
+    final $result = create();
     if (name != null) {
-      _result.name = name;
+      $result.name = name;
     }
     if (gender != null) {
-      _result.gender = gender;
+      $result.gender = gender;
     }
     if (id != null) {
-      _result.id = id;
+      $result.id = id;
     }
     if (programme != null) {
-      _result.programme = programme;
+      $result.programme = programme;
     }
     if (intake != null) {
-      _result.intake = intake;
+      $result.intake = intake;
     }
     if (nationality != null) {
-      _result.nationality = nationality;
+      $result.nationality = nationality;
     }
-    return _result;
+    return $result;
   }
+  Info._() : super();
   factory Info.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Info.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  factory Info.fromJson($core.Map<$core.String, $core.dynamic> i) => create()..mergeFromProto3Json(i);
   $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Info', package: const $pb.PackageName(_omitMessageNames ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'name')
+    ..aOS(2, _omitFieldNames ? '' : 'gender')
+    ..aOS(3, _omitFieldNames ? '' : 'id')
+    ..aOS(4, _omitFieldNames ? '' : 'programme')
+    ..aOM<$2.Timestamp>(5, _omitFieldNames ? '' : 'intake', subBuilder: $2.Timestamp.create)
+    ..aOS(6, _omitFieldNames ? '' : 'nationality')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -64,8 +69,10 @@ class Info extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Info copyWith(void Function(Info) updates) => super.copyWith((message) => updates(message as Info)) as Info; // ignore: deprecated_member_use
+  Info copyWith(void Function(Info) updates) => super.copyWith((message) => updates(message as Info)) as Info;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Info create() => Info._();
   Info createEmptyInstance() => create();
@@ -132,18 +139,6 @@ class Info extends $pb.GeneratedMessage {
 }
 
 class Timetable_Class extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Timetable.Class', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cid')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lecturer')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'room')
-    ..aOM<$2.Timestamp>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'begin', subBuilder: $2.Timestamp.create)
-    ..aOM<$2.Timestamp>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'end', subBuilder: $2.Timestamp.create)
-    ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'day', $pb.PbFieldType.OU3)
-    ..hasRequiredFields = false
-  ;
-
-  Timetable_Class._() : super();
   factory Timetable_Class({
     $core.String? cid,
     $core.String? name,
@@ -153,33 +148,46 @@ class Timetable_Class extends $pb.GeneratedMessage {
     $2.Timestamp? end,
     $core.int? day,
   }) {
-    final _result = create();
+    final $result = create();
     if (cid != null) {
-      _result.cid = cid;
+      $result.cid = cid;
     }
     if (name != null) {
-      _result.name = name;
+      $result.name = name;
     }
     if (lecturer != null) {
-      _result.lecturer = lecturer;
+      $result.lecturer = lecturer;
     }
     if (room != null) {
-      _result.room = room;
+      $result.room = room;
     }
     if (begin != null) {
-      _result.begin = begin;
+      $result.begin = begin;
     }
     if (end != null) {
-      _result.end = end;
+      $result.end = end;
     }
     if (day != null) {
-      _result.day = day;
+      $result.day = day;
     }
-    return _result;
+    return $result;
   }
+  Timetable_Class._() : super();
   factory Timetable_Class.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Timetable_Class.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  factory Timetable_Class.fromJson($core.Map<$core.String, $core.dynamic> i) => create()..mergeFromProto3Json(i);
   $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Timetable.Class', package: const $pb.PackageName(_omitMessageNames ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'cid')
+    ..aOS(2, _omitFieldNames ? '' : 'name')
+    ..aOS(3, _omitFieldNames ? '' : 'lecturer')
+    ..aOS(4, _omitFieldNames ? '' : 'room')
+    ..aOM<$2.Timestamp>(5, _omitFieldNames ? '' : 'begin', subBuilder: $2.Timestamp.create)
+    ..aOM<$2.Timestamp>(6, _omitFieldNames ? '' : 'end', subBuilder: $2.Timestamp.create)
+    ..a<$core.int>(7, _omitFieldNames ? '' : 'day', $pb.PbFieldType.OU3)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -189,8 +197,10 @@ class Timetable_Class extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Timetable_Class copyWith(void Function(Timetable_Class) updates) => super.copyWith((message) => updates(message as Timetable_Class)) as Timetable_Class; // ignore: deprecated_member_use
+  Timetable_Class copyWith(void Function(Timetable_Class) updates) => super.copyWith((message) => updates(message as Timetable_Class)) as Timetable_Class;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Timetable_Class create() => Timetable_Class._();
   Timetable_Class createEmptyInstance() => create();
@@ -257,6 +267,7 @@ class Timetable_Class extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $2.Timestamp ensureEnd() => $_ensure(5);
 
+  /// Day of week. Start from 1 (Monday).
   @$pb.TagNumber(7)
   $core.int get day => $_getIZ(6);
   @$pb.TagNumber(7)
@@ -268,29 +279,30 @@ class Timetable_Class extends $pb.GeneratedMessage {
 }
 
 class Timetable extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Timetable', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
-    ..pc<Timetable_Class>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'classes', $pb.PbFieldType.PM, subBuilder: Timetable_Class.create)
-    ..aOM<$2.Timestamp>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastUpdate', protoName: 'lastUpdate', subBuilder: $2.Timestamp.create)
-    ..hasRequiredFields = false
-  ;
-
-  Timetable._() : super();
   factory Timetable({
     $core.Iterable<Timetable_Class>? classes,
     $2.Timestamp? lastUpdate,
   }) {
-    final _result = create();
+    final $result = create();
     if (classes != null) {
-      _result.classes.addAll(classes);
+      $result.classes.addAll(classes);
     }
     if (lastUpdate != null) {
-      _result.lastUpdate = lastUpdate;
+      $result.lastUpdate = lastUpdate;
     }
-    return _result;
+    return $result;
   }
+  Timetable._() : super();
   factory Timetable.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Timetable.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  factory Timetable.fromJson($core.Map<$core.String, $core.dynamic> i) => create()..mergeFromProto3Json(i);
   $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Timetable', package: const $pb.PackageName(_omitMessageNames ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
+    ..pc<Timetable_Class>(1, _omitFieldNames ? '' : 'classes', $pb.PbFieldType.PM, subBuilder: Timetable_Class.create)
+    ..aOM<$2.Timestamp>(2, _omitFieldNames ? '' : 'lastUpdate', protoName: 'lastUpdate', subBuilder: $2.Timestamp.create)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -300,8 +312,10 @@ class Timetable extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Timetable copyWith(void Function(Timetable) updates) => super.copyWith((message) => updates(message as Timetable)) as Timetable; // ignore: deprecated_member_use
+  Timetable copyWith(void Function(Timetable) updates) => super.copyWith((message) => updates(message as Timetable)) as Timetable;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Timetable create() => Timetable._();
   Timetable createEmptyInstance() => create();
@@ -326,34 +340,35 @@ class Timetable extends $pb.GeneratedMessage {
 }
 
 class Courses_Course extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Courses.Course', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'credit', $pb.PbFieldType.OU3)
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lecturer')
-    ..hasRequiredFields = false
-  ;
-
-  Courses_Course._() : super();
   factory Courses_Course({
     $core.String? name,
     $core.int? credit,
     $core.String? lecturer,
   }) {
-    final _result = create();
+    final $result = create();
     if (name != null) {
-      _result.name = name;
+      $result.name = name;
     }
     if (credit != null) {
-      _result.credit = credit;
+      $result.credit = credit;
     }
     if (lecturer != null) {
-      _result.lecturer = lecturer;
+      $result.lecturer = lecturer;
     }
-    return _result;
+    return $result;
   }
+  Courses_Course._() : super();
   factory Courses_Course.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Courses_Course.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  factory Courses_Course.fromJson($core.Map<$core.String, $core.dynamic> i) => create()..mergeFromProto3Json(i);
   $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Courses.Course', package: const $pb.PackageName(_omitMessageNames ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'name')
+    ..a<$core.int>(2, _omitFieldNames ? '' : 'credit', $pb.PbFieldType.OU3)
+    ..aOS(3, _omitFieldNames ? '' : 'lecturer')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -363,8 +378,10 @@ class Courses_Course extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Courses_Course copyWith(void Function(Courses_Course) updates) => super.copyWith((message) => updates(message as Courses_Course)) as Courses_Course; // ignore: deprecated_member_use
+  Courses_Course copyWith(void Function(Courses_Course) updates) => super.copyWith((message) => updates(message as Courses_Course)) as Courses_Course;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Courses_Course create() => Courses_Course._();
   Courses_Course createEmptyInstance() => create();
@@ -402,24 +419,25 @@ class Courses_Course extends $pb.GeneratedMessage {
 }
 
 class Courses extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Courses', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
-    ..pc<Courses_Course>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'courses', $pb.PbFieldType.PM, subBuilder: Courses_Course.create)
-    ..hasRequiredFields = false
-  ;
-
-  Courses._() : super();
   factory Courses({
     $core.Iterable<Courses_Course>? courses,
   }) {
-    final _result = create();
+    final $result = create();
     if (courses != null) {
-      _result.courses.addAll(courses);
+      $result.courses.addAll(courses);
     }
-    return _result;
+    return $result;
   }
+  Courses._() : super();
   factory Courses.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Courses.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  factory Courses.fromJson($core.Map<$core.String, $core.dynamic> i) => create()..mergeFromProto3Json(i);
   $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Courses', package: const $pb.PackageName(_omitMessageNames ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
+    ..pc<Courses_Course>(1, _omitFieldNames ? '' : 'courses', $pb.PbFieldType.PM, subBuilder: Courses_Course.create)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -429,8 +447,10 @@ class Courses extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Courses copyWith(void Function(Courses) updates) => super.copyWith((message) => updates(message as Courses)) as Courses; // ignore: deprecated_member_use
+  Courses copyWith(void Function(Courses) updates) => super.copyWith((message) => updates(message as Courses)) as Courses;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Courses create() => Courses._();
   Courses createEmptyInstance() => create();
@@ -444,18 +464,6 @@ class Courses extends $pb.GeneratedMessage {
 }
 
 class Exams_Exam extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Exams.Exam', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'exam')
-    ..aOM<$2.Timestamp>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'begin', subBuilder: $2.Timestamp.create)
-    ..aOM<$2.Timestamp>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'end', subBuilder: $2.Timestamp.create)
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'venue')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'courseName', protoName: 'courseName')
-    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type')
-    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status')
-    ..hasRequiredFields = false
-  ;
-
-  Exams_Exam._() : super();
   factory Exams_Exam({
     $core.String? exam,
     $2.Timestamp? begin,
@@ -465,33 +473,46 @@ class Exams_Exam extends $pb.GeneratedMessage {
     $core.String? type,
     $core.String? status,
   }) {
-    final _result = create();
+    final $result = create();
     if (exam != null) {
-      _result.exam = exam;
+      $result.exam = exam;
     }
     if (begin != null) {
-      _result.begin = begin;
+      $result.begin = begin;
     }
     if (end != null) {
-      _result.end = end;
+      $result.end = end;
     }
     if (venue != null) {
-      _result.venue = venue;
+      $result.venue = venue;
     }
     if (courseName != null) {
-      _result.courseName = courseName;
+      $result.courseName = courseName;
     }
     if (type != null) {
-      _result.type = type;
+      $result.type = type;
     }
     if (status != null) {
-      _result.status = status;
+      $result.status = status;
     }
-    return _result;
+    return $result;
   }
+  Exams_Exam._() : super();
   factory Exams_Exam.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Exams_Exam.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  factory Exams_Exam.fromJson($core.Map<$core.String, $core.dynamic> i) => create()..mergeFromProto3Json(i);
   $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Exams.Exam', package: const $pb.PackageName(_omitMessageNames ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'exam')
+    ..aOM<$2.Timestamp>(2, _omitFieldNames ? '' : 'begin', subBuilder: $2.Timestamp.create)
+    ..aOM<$2.Timestamp>(3, _omitFieldNames ? '' : 'end', subBuilder: $2.Timestamp.create)
+    ..aOS(4, _omitFieldNames ? '' : 'venue')
+    ..aOS(5, _omitFieldNames ? '' : 'courseName', protoName: 'courseName')
+    ..aOS(6, _omitFieldNames ? '' : 'type')
+    ..aOS(7, _omitFieldNames ? '' : 'status')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -501,8 +522,10 @@ class Exams_Exam extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Exams_Exam copyWith(void Function(Exams_Exam) updates) => super.copyWith((message) => updates(message as Exams_Exam)) as Exams_Exam; // ignore: deprecated_member_use
+  Exams_Exam copyWith(void Function(Exams_Exam) updates) => super.copyWith((message) => updates(message as Exams_Exam)) as Exams_Exam;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Exams_Exam create() => Exams_Exam._();
   Exams_Exam createEmptyInstance() => create();
@@ -580,29 +603,30 @@ class Exams_Exam extends $pb.GeneratedMessage {
 }
 
 class Exams extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Exams', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
-    ..pc<Exams_Exam>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'exams', $pb.PbFieldType.PM, subBuilder: Exams_Exam.create)
-    ..aOM<$2.Timestamp>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastUpdate', protoName: 'lastUpdate', subBuilder: $2.Timestamp.create)
-    ..hasRequiredFields = false
-  ;
-
-  Exams._() : super();
   factory Exams({
     $core.Iterable<Exams_Exam>? exams,
     $2.Timestamp? lastUpdate,
   }) {
-    final _result = create();
+    final $result = create();
     if (exams != null) {
-      _result.exams.addAll(exams);
+      $result.exams.addAll(exams);
     }
     if (lastUpdate != null) {
-      _result.lastUpdate = lastUpdate;
+      $result.lastUpdate = lastUpdate;
     }
-    return _result;
+    return $result;
   }
+  Exams._() : super();
   factory Exams.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Exams.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  factory Exams.fromJson($core.Map<$core.String, $core.dynamic> i) => create()..mergeFromProto3Json(i);
   $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Exams', package: const $pb.PackageName(_omitMessageNames ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
+    ..pc<Exams_Exam>(1, _omitFieldNames ? '' : 'exams', $pb.PbFieldType.PM, subBuilder: Exams_Exam.create)
+    ..aOM<$2.Timestamp>(2, _omitFieldNames ? '' : 'lastUpdate', protoName: 'lastUpdate', subBuilder: $2.Timestamp.create)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -612,8 +636,10 @@ class Exams extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Exams copyWith(void Function(Exams) updates) => super.copyWith((message) => updates(message as Exams)) as Exams; // ignore: deprecated_member_use
+  Exams copyWith(void Function(Exams) updates) => super.copyWith((message) => updates(message as Exams)) as Exams;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Exams create() => Exams._();
   Exams createEmptyInstance() => create();
@@ -638,16 +664,6 @@ class Exams extends $pb.GeneratedMessage {
 }
 
 class Transcript_Session_Course extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Transcript.Session.Course', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'credit', $pb.PbFieldType.OU3)
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'grade')
-    ..a<$core.double>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'point', $pb.PbFieldType.OF)
-    ..hasRequiredFields = false
-  ;
-
-  Transcript_Session_Course._() : super();
   factory Transcript_Session_Course({
     $core.String? code,
     $core.String? name,
@@ -655,27 +671,38 @@ class Transcript_Session_Course extends $pb.GeneratedMessage {
     $core.String? grade,
     $core.double? point,
   }) {
-    final _result = create();
+    final $result = create();
     if (code != null) {
-      _result.code = code;
+      $result.code = code;
     }
     if (name != null) {
-      _result.name = name;
+      $result.name = name;
     }
     if (credit != null) {
-      _result.credit = credit;
+      $result.credit = credit;
     }
     if (grade != null) {
-      _result.grade = grade;
+      $result.grade = grade;
     }
     if (point != null) {
-      _result.point = point;
+      $result.point = point;
     }
-    return _result;
+    return $result;
   }
+  Transcript_Session_Course._() : super();
   factory Transcript_Session_Course.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Transcript_Session_Course.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  factory Transcript_Session_Course.fromJson($core.Map<$core.String, $core.dynamic> i) => create()..mergeFromProto3Json(i);
   $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Transcript.Session.Course', package: const $pb.PackageName(_omitMessageNames ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'code')
+    ..aOS(2, _omitFieldNames ? '' : 'name')
+    ..a<$core.int>(3, _omitFieldNames ? '' : 'credit', $pb.PbFieldType.OU3)
+    ..aOS(4, _omitFieldNames ? '' : 'grade')
+    ..a<$core.double>(5, _omitFieldNames ? '' : 'point', $pb.PbFieldType.OF)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -685,8 +712,10 @@ class Transcript_Session_Course extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Transcript_Session_Course copyWith(void Function(Transcript_Session_Course) updates) => super.copyWith((message) => updates(message as Transcript_Session_Course)) as Transcript_Session_Course; // ignore: deprecated_member_use
+  Transcript_Session_Course copyWith(void Function(Transcript_Session_Course) updates) => super.copyWith((message) => updates(message as Transcript_Session_Course)) as Transcript_Session_Course;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Transcript_Session_Course create() => Transcript_Session_Course._();
   Transcript_Session_Course createEmptyInstance() => create();
@@ -742,39 +771,40 @@ class Transcript_Session_Course extends $pb.GeneratedMessage {
 }
 
 class Transcript_Session extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Transcript.Session', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'session')
-    ..pc<Transcript_Session_Course>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'courses', $pb.PbFieldType.PM, subBuilder: Transcript_Session_Course.create)
-    ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'gpa', $pb.PbFieldType.OF)
-    ..a<$core.double>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cGpa', $pb.PbFieldType.OF, protoName: 'cGpa')
-    ..hasRequiredFields = false
-  ;
-
-  Transcript_Session._() : super();
   factory Transcript_Session({
     $core.String? session,
     $core.Iterable<Transcript_Session_Course>? courses,
     $core.double? gpa,
     $core.double? cGpa,
   }) {
-    final _result = create();
+    final $result = create();
     if (session != null) {
-      _result.session = session;
+      $result.session = session;
     }
     if (courses != null) {
-      _result.courses.addAll(courses);
+      $result.courses.addAll(courses);
     }
     if (gpa != null) {
-      _result.gpa = gpa;
+      $result.gpa = gpa;
     }
     if (cGpa != null) {
-      _result.cGpa = cGpa;
+      $result.cGpa = cGpa;
     }
-    return _result;
+    return $result;
   }
+  Transcript_Session._() : super();
   factory Transcript_Session.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Transcript_Session.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  factory Transcript_Session.fromJson($core.Map<$core.String, $core.dynamic> i) => create()..mergeFromProto3Json(i);
   $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Transcript.Session', package: const $pb.PackageName(_omitMessageNames ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'session')
+    ..pc<Transcript_Session_Course>(2, _omitFieldNames ? '' : 'courses', $pb.PbFieldType.PM, subBuilder: Transcript_Session_Course.create)
+    ..a<$core.double>(3, _omitFieldNames ? '' : 'gpa', $pb.PbFieldType.OF)
+    ..a<$core.double>(4, _omitFieldNames ? '' : 'cGpa', $pb.PbFieldType.OF, protoName: 'cGpa')
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -784,8 +814,10 @@ class Transcript_Session extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Transcript_Session copyWith(void Function(Transcript_Session) updates) => super.copyWith((message) => updates(message as Transcript_Session)) as Transcript_Session; // ignore: deprecated_member_use
+  Transcript_Session copyWith(void Function(Transcript_Session) updates) => super.copyWith((message) => updates(message as Transcript_Session)) as Transcript_Session;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Transcript_Session create() => Transcript_Session._();
   Transcript_Session createEmptyInstance() => create();
@@ -826,24 +858,25 @@ class Transcript_Session extends $pb.GeneratedMessage {
 }
 
 class Transcript extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Transcript', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
-    ..pc<Transcript_Session>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessions', $pb.PbFieldType.PM, subBuilder: Transcript_Session.create)
-    ..hasRequiredFields = false
-  ;
-
-  Transcript._() : super();
   factory Transcript({
     $core.Iterable<Transcript_Session>? sessions,
   }) {
-    final _result = create();
+    final $result = create();
     if (sessions != null) {
-      _result.sessions.addAll(sessions);
+      $result.sessions.addAll(sessions);
     }
-    return _result;
+    return $result;
   }
+  Transcript._() : super();
   factory Transcript.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Transcript.fromJson($core.Map<$core.String,$core.dynamic> i) => create()..mergeFromProto3Json(i);
+  factory Transcript.fromJson($core.Map<$core.String, $core.dynamic> i) => create()..mergeFromProto3Json(i);
   $core.Map<$core.String, $core.dynamic> toJson() => toProto3Json() as $core.Map<$core.String, $core.dynamic>;
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Transcript', package: const $pb.PackageName(_omitMessageNames ? '' : 'xmux.core.aaos.v4'), createEmptyInstance: create)
+    ..pc<Transcript_Session>(1, _omitFieldNames ? '' : 'sessions', $pb.PbFieldType.PM, subBuilder: Transcript_Session.create)
+    ..hasRequiredFields = false
+  ;
+
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -853,8 +886,10 @@ class Transcript extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Transcript copyWith(void Function(Transcript) updates) => super.copyWith((message) => updates(message as Transcript)) as Transcript; // ignore: deprecated_member_use
+  Transcript copyWith(void Function(Transcript) updates) => super.copyWith((message) => updates(message as Transcript)) as Transcript;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Transcript create() => Transcript._();
   Transcript createEmptyInstance() => create();
@@ -867,3 +902,6 @@ class Transcript extends $pb.GeneratedMessage {
   $core.List<Transcript_Session> get sessions => $_getList(0);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:xmus_client/error.dart';
-import 'package:xmus_client/generated/google/protobuf/timestamp.pb.dart';
-import 'package:xmus_client/generated/lost_found.pb.dart';
+import 'package:xmus_client/api/google/protobuf/timestamp.pb.dart';
+import 'package:xmus_client/api/lost_found.pb.dart';
 
 import '../../../component/date_time_picker.dart';
 import '../../../global.dart';

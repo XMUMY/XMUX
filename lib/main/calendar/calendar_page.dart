@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:xmus_client/generated/user.pb.dart';
+import 'package:xmus_client/api/user.pb.dart';
 
 import '../../component/gravatar.dart';
 import '../../global.dart';

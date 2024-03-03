@@ -1,12 +1,12 @@
 import 'package:grpc/service_api.dart';
 
+import 'api/aaos/v4/aaos.pbgrpc.dart';
+import 'api/chat.pbgrpc.dart';
+import 'api/forum_service.pbgrpc.dart';
+import 'api/lost_found.pbgrpc.dart';
+import 'api/user.pbgrpc.dart';
 import 'authorization.dart';
 import 'client_channel.dart' if (dart.library.html) 'client_channel_web.dart';
-import 'generated/aaos.pbgrpc.dart';
-import 'generated/chat.pbgrpc.dart';
-import 'generated/forum_service.pbgrpc.dart';
-import 'generated/lost_found.pbgrpc.dart';
-import 'generated/user.pbgrpc.dart';
 
 class XMUXRpc {
   final UserClient userClient;

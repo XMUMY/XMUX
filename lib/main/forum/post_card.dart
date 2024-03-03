@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:timeago/timeago.dart';
-import 'package:xmus_client/generated/forum_post.pb.dart';
-import 'package:xmus_client/generated/forum_saved.pb.dart';
-import 'package:xmus_client/generated/forum_thread.pb.dart';
+import 'package:xmus_client/api/forum_post.pb.dart';
+import 'package:xmus_client/api/forum_saved.pb.dart';
+import 'package:xmus_client/api/forum_thread.pb.dart';
 
 import '../../../component/user_profile.dart';
 import '../../component/gravatar.dart';

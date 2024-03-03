@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:xmus_client/generated/forum_common.pb.dart';
-import 'package:xmus_client/generated/forum_post.pb.dart';
+import 'package:xmus_client/api/forum_common.pb.dart';
+import 'package:xmus_client/api/forum_post.pb.dart';
 
 import '../../global.dart';
 import '../../util/screen.dart';

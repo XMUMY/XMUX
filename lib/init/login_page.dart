@@ -9,8 +9,8 @@ import 'package:taskflow/taskflow.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:xmus_client/authorization.dart';
 import 'package:xmus_client/error.dart';
-import 'package:xmus_client/generated/google/protobuf/empty.pb.dart';
-import 'package:xmus_client/generated/user.pb.dart';
+import 'package:xmus_client/api/google/protobuf/empty.pb.dart';
+import 'package:xmus_client/api/user.pb.dart';
 
 import '../config.dart';
 import '../global.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xmus_client/generated/user.pb.dart';
+import 'package:xmus_client/api/user.pb.dart';
 
 import '../global.dart';
 

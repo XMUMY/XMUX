@@ -1,7 +1,7 @@
 import 'package:mobx/mobx.dart';
-import 'package:xmus_client/generated/chat.pb.dart';
-import 'package:xmus_client/generated/chat_msg.pb.dart';
-import 'package:xmus_client/generated/google/protobuf/timestamp.pb.dart';
+import 'package:xmus_client/api/chat.pb.dart';
+import 'package:xmus_client/api/chat_msg.pb.dart';
+import 'package:xmus_client/api/google/protobuf/timestamp.pb.dart';
 
 import '../../global.dart';
 
