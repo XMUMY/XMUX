@@ -4,6 +4,7 @@ import 'package:taskflow/taskflow.dart';
 import 'package:xmus_client/authorization.dart';
 
 import '../component/gravatar.dart';
+import '../generated/firebase_options.dart';
 import '../global.dart';
 import '../redux/action/action.dart';
 import '../util/platform.dart';
@@ -29,18 +30,7 @@ final postInitTask = ParallelTask([
 final initFirebaseTask = Task.when(
   () async => isMobile || isWeb || isMacOS,
   (ctx) async => await Firebase.initializeApp(
-    options: isWeb
-        ? const FirebaseOptions(
-            apiKey: 'AIzaSyBglRGvbba0G9C99Kq21WFAG5OCp3ZROFw',
-            appId: '1:899332542714:web:cd01bc52aa4cae98c4b943',
-            messagingSenderId: '899332542714',
-            projectId: 'xmux-app',
-            authDomain: 'xmux-app.firebaseapp.com',
-            databaseURL: 'https://xmux-app.firebaseio.com',
-            storageBucket: 'xmux-app.appspot.com',
-            measurementId: 'G-Q22TEK7T9G',
-          )
-        : null,
+    options: DefaultFirebaseOptions.currentPlatform,
   ),
 );
 
