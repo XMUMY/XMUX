@@ -49,10 +49,12 @@ dependencies:
     path: packages/xmus_client
 
   # External packages.
+  flutter_adaptive_scaffold: ^0.1.0
   animations: ^2.0.0
   badges: ^3.0.0
   device_calendar: ^4.3.0
   chat_bubbles: ^1.0.0
+  collection: ^1.0.0
   easy_localization: ^3.0.0
   expandable: ^5.0.0
   extended_image: ^8.0.0
@@ -85,7 +87,6 @@ dependencies:
   shared_preferences: ^2.0.0
   taskflow: ^0.1.2
   timeago: ^3.1.0
-  tuple: ^2.0.0
   url_launcher: ^6.0.0
   visibility_detector: ^0.4.0
   waterfall_flow: ^3.0.0

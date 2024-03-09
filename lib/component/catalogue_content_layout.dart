@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../util/screen.dart';
+import '../screen.dart';
 
 class CatalogueContentLayout extends StatelessWidget {
   /// Builder for catalogue.

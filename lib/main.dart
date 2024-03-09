@@ -1,17 +1,16 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:sentry/sentry.dart';
+import 'package:taskflow/taskflow.dart';
 
 import 'app.dart';
-import 'config.dart';
-import 'global.dart';
-import 'init/init.dart';
+import 'business/init/init_tasks.dart';
+import 'business/init/pre_init_tasks.dart';
+import 'foundation/config/config.dart';
+import 'foundation/platform/environment.dart';
 
 void main() {
-  // Wrap by sentry client.
-  if (kReleaseMode) {
+  // Wrap by sentry client
+  if (isRelease) {
     Sentry.init(
       (options) => options..dsn = sentryDsn,
       appRunner: run,
@@ -22,27 +21,7 @@ void main() {
 }
 
 Future<void> run() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-
-  // Attach Flutter app.
-  runApp(
-    EasyLocalization(
-      path: 'res/translation',
-      supportedLocales: const [
-        Locale('en'),
-        Locale('zh', 'CN'),
-        Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
-      ],
-      fallbackLocale: const Locale('en'),
-      saveLocale: false,
-      child: StoreProvider(
-        store: store,
-        child: const App(),
-      ),
-    ),
-  );
-
-  // Start initialization.
-  init();
+  await preInitTask(TaskFlowContext());
+  runApp(const App());
+  await initTask(TaskFlowContext());
 }

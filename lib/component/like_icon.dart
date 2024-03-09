@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../util/platform.dart';
+import '../foundation/platform/platform.dart';
 
 class LikeIcon extends StatelessWidget {
   final bool liked;

@@ -12,7 +12,7 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
     - packages
-    - lib/**.g.dart
+    - lib/foundation/localization/locale_keys.dart
 
 linter:
   # The lint rules applied to this project can be customized in the
