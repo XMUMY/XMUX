@@ -9,24 +9,44 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../component/catalogue_content_layout.dart';
 import '../../component/empty_error.dart';
 import '../../foundation/localization/locale_keys.dart';
-import '../../foundation/platform/breakpoint.dart';
 import '../../global.dart';
 import '../redux/action/action.dart';
 import '../redux/state/state.dart';
 import '../redux/store.dart';
 
-class AssignmentPage extends StatelessWidget {
+class AssignmentPage extends StatefulWidget {
   const AssignmentPage({super.key});
 
   @override
+  State<AssignmentPage> createState() => _AssignmentPageState();
+}
+
+class _AssignmentPageState extends State<AssignmentPage> {
+  Assignment? _selectedAssignment;
+
+  void onAssignmentSelected(Assignment assignment) {
+    setState(() => _selectedAssignment = assignment);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final selectedAssignment = _selectedAssignment;
+
     return StoreConnector<AppState, List<AssignmentCourse>>(
       distinct: true,
       converter: (s) => s.state.queries.assignments,
       builder: (context, assignments) {
         return AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
-          child: AssignmentList(assignments: assignments),
+          child: CatalogueContentLayout(
+            catalogue: AssignmentList(
+              assignments: assignments,
+              onAssignmentSelected: onAssignmentSelected,
+            ),
+            content: selectedAssignment != null
+                ? AssignmentDetail(assignment: selectedAssignment)
+                : null,
+          ),
         );
       },
     );
@@ -35,23 +55,24 @@ class AssignmentPage extends StatelessWidget {
 
 class AssignmentList extends StatefulWidget {
   final List<AssignmentCourse> assignments;
+  final Function(Assignment)? onAssignmentSelected;
 
-  const AssignmentList({super.key, required this.assignments});
+  const AssignmentList({
+    super.key,
+    required this.assignments,
+    this.onAssignmentSelected,
+  });
 
   @override
   State<AssignmentList> createState() => _AssignmentListState();
 }
 
-class _AssignmentListState extends State<AssignmentList>
-    with AutomaticKeepAliveClientMixin {
+class _AssignmentListState extends State<AssignmentList> {
   final _doing = <ExpansionPanelRadio>[];
   final _expired = <ExpansionPanelRadio>[];
 
-  Assignment? _selectedAssignment;
-  bool _isNarrow = false;
-
   Future<void> _handleUpdate() async {
-    var action = UpdateAssignmentsAction();
+    final action = UpdateAssignmentsAction();
     store.dispatch(action);
     await action.future;
   }
@@ -105,6 +126,7 @@ class _AssignmentListState extends State<AssignmentList>
         children: <Widget>[
           for (var assignment in assignments)
             OpenContainer(
+              useRootNavigator: true,
               closedColor: Theme.of(context).cardColor,
               closedShape: const RoundedRectangleBorder(),
               closedBuilder: (context, open) => ListTile(
@@ -115,10 +137,10 @@ class _AssignmentListState extends State<AssignmentList>
                   '${DateFormat.Hms(languageCode).format(assignment.dueDate)}',
                 ),
                 onTap: () {
-                  if (_isNarrow) {
-                    open();
+                  if (context.isDualPane) {
+                    widget.onAssignmentSelected?.call(assignment);
                   } else {
-                    setState(() => _selectedAssignment = assignment);
+                    open();
                   }
                 },
               ),
@@ -132,9 +154,6 @@ class _AssignmentListState extends State<AssignmentList>
   }
 
   @override
-  bool get wantKeepAlive => true;
-
-  @override
   void didChangeDependencies() {
     _updateExpansionPanelRadio();
     super.didChangeDependencies();
@@ -142,22 +161,20 @@ class _AssignmentListState extends State<AssignmentList>
 
   @override
   void didUpdateWidget(covariant AssignmentList oldWidget) {
-    _updateExpansionPanelRadio();
+    if (oldWidget.assignments != widget.assignments) {
+      _updateExpansionPanelRadio();
+    }
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
     Widget list;
     if (widget.assignments.isNotEmpty) {
       list = ListView(
-        primary: _isNarrow,
-        padding: EdgeInsets.symmetric(
-          vertical: 8,
-          horizontal: Breakpoint.extraSmall.margin!,
-        ),
+        primary: true,
+        padding: CatalogueContentPadding.of(context) +
+            const EdgeInsets.symmetric(vertical: 8),
         children: <Widget>[
           Text(
             LocaleKeys.Calendar_AssignmentsDoing.tr(),
@@ -183,130 +200,113 @@ class _AssignmentListState extends State<AssignmentList>
       child: list,
     );
 
-    return CatalogueContentLayout(
-      catalogueBuilder: (_, isNarrow) {
-        _isNarrow = isNarrow;
-        return list;
-      },
-      content: _selectedAssignment != null
-          ? AssignmentDetail(
-              key: ValueKey(_selectedAssignment),
-              assignment: _selectedAssignment!,
-              isPage: false,
-            )
-          : null,
-    );
+    return list;
   }
 }
 
 class AssignmentDetail extends StatelessWidget {
   final Assignment assignment;
 
-  /// Whether the detail is shown as an independent page.
-  final bool isPage;
-
   const AssignmentDetail({
     super.key,
     required this.assignment,
-    this.isPage = true,
   });
 
   @override
   Widget build(BuildContext context) {
     final languageCode = Localizations.localeOf(context).languageCode;
 
-    final detail = BodyPaddingBuilder(
-      builder: (context, hPadding) => ListView(
-        primary: isPage,
-        padding: EdgeInsets.symmetric(
-          vertical: 4,
-          horizontal: hPadding - 4, // -4px card margin.
-        ),
-        children: [
-          if (!isPage)
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(
-                assignment.name,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+    final detail = ListView(
+      primary: true,
+      padding: CatalogueContentPadding.of(context) +
+          const EdgeInsets.symmetric(
+            vertical: 4,
+            horizontal: -4, // -4px card margin.
+          ),
+      children: [
+        if (context.isUnderCatalogueContentLayout)
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              assignment.name,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-          if (assignment.intro.isNotEmpty ||
-              assignment.introAttachments.isNotEmpty)
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      'Introduction',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-
-                    HtmlWidget(assignment.intro),
-
-                    // Intro attachments.
-                    Wrap(
-                      children: <Widget>[
-                        for (var attachment in assignment.introAttachments)
-                          SizedBox(
-                            width: 80,
-                            child: Column(
-                              children: <Widget>[
-                                IconButton(
-                                  icon: const Icon(Icons.insert_drive_file),
-                                  iconSize: 50,
-                                  onPressed: () => launchUrlString(
-                                    moodle.withToken(attachment.url),
-                                  ),
-                                ),
-                                Text(
-                                  attachment.name,
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
+          ),
+        if (assignment.intro.isNotEmpty ||
+            assignment.introAttachments.isNotEmpty)
           Card(
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: <Widget>[
                   Text(
-                    LocaleKeys.Calendar_AssignmentsDueDate.tr(),
+                    'Introduction',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  const Divider(height: 5, color: Colors.transparent),
-                  Text(
-                    '${DateFormat.yMMMEd(languageCode).format(assignment.dueDate)} '
-                    '${DateFormat.Hms(languageCode).format(assignment.dueDate)}',
-                  ),
-                  const Divider(color: Colors.transparent),
-                  Text(
-                    'Allow Submission From',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const Divider(height: 5, color: Colors.transparent),
-                  Text(
-                    '${DateFormat.yMMMEd(languageCode).format(assignment.allowSubmissionFromDate)} '
-                    '${DateFormat.Hms(languageCode).format(assignment.allowSubmissionFromDate)}',
-                  ),
+
+                  HtmlWidget(assignment.intro),
+
+                  // Intro attachments.
+                  Wrap(
+                    children: <Widget>[
+                      for (var attachment in assignment.introAttachments)
+                        SizedBox(
+                          width: 80,
+                          child: Column(
+                            children: <Widget>[
+                              IconButton(
+                                icon: const Icon(Icons.insert_drive_file),
+                                iconSize: 50,
+                                onPressed: () => launchUrlString(
+                                  moodle.withToken(attachment.url),
+                                ),
+                              ),
+                              Text(
+                                attachment.name,
+                                style: Theme.of(context).textTheme.bodySmall,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  )
                 ],
               ),
             ),
-          )
-        ],
-      ),
+          ),
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  LocaleKeys.Calendar_AssignmentsDueDate.tr(),
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const Divider(height: 5, color: Colors.transparent),
+                Text(
+                  '${DateFormat.yMMMEd(languageCode).format(assignment.dueDate)} '
+                  '${DateFormat.Hms(languageCode).format(assignment.dueDate)}',
+                ),
+                const Divider(color: Colors.transparent),
+                Text(
+                  'Allow Submission From',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const Divider(height: 5, color: Colors.transparent),
+                Text(
+                  '${DateFormat.yMMMEd(languageCode).format(assignment.allowSubmissionFromDate)} '
+                  '${DateFormat.Hms(languageCode).format(assignment.allowSubmissionFromDate)}',
+                ),
+              ],
+            ),
+          ),
+        )
+      ],
     );
 
-    if (isPage) {
+    if (!context.isUnderCatalogueContentLayout) {
       return Scaffold(
         appBar: AppBar(
           title: Text(assignment.name),

@@ -110,7 +110,8 @@ class _FloatingOpenContainerState extends State<FloatingOpenContainer> {
       padding: widget.margin,
       child: OpenContainer(
         tappable: false,
-        closedColor: Theme.of(context).cardColor,
+        useRootNavigator: true,
+        closedColor: Theme.of(context).colorScheme.surfaceContainerLow,
         closedShape: widget.shape,
         closedElevation: _elevation,
         closedBuilder: (context, open) {

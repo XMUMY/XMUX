@@ -1,6 +1,7 @@
 import 'package:device_calendar/device_calendar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:xmus_client/api/aaos/v4/aaos.pb.dart';
 
@@ -25,7 +26,7 @@ class TimetablePage extends StatelessWidget {
       builder: (context, timetable) {
         return AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
-          child: context.isBetween(Breakpoint.extraSmall)
+          child: Breakpoints.small.isActive(context)
               ? ListTimetable(timetable: timetable)
               : GridTimetable(timetable: timetable),
         );
@@ -174,7 +175,7 @@ class GridTimetable extends StatelessWidget {
 
     return SingleChildScrollView(
       child: SizedBox(
-        height: Breakpoint.large.minWidth,
+        height: LegacyBreakpoint.large.minWidth,
         child: SpannableGrid(
           rows: 14,
           columns: 7,

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart' hide Notification;
+import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:html/parser.dart';
@@ -19,14 +20,12 @@ class MoodleNotificationPage extends StatefulWidget {
   State<MoodleNotificationPage> createState() => _MoodleNotificationPageState();
 }
 
-class _MoodleNotificationPageState extends State<MoodleNotificationPage>
-    with AutomaticKeepAliveClientMixin {
+class _MoodleNotificationPageState extends State<MoodleNotificationPage> {
   final _pagingController = PagingController<int, Notification>(
     firstPageKey: 0,
   );
 
   Notification? _selectedNotification;
-  bool _isNarrow = false;
 
   Future<void> _fetchPage(int pageKey) async {
     final resp = await moodle.getPopupNotifications(offset: pageKey);
@@ -37,9 +36,6 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage>
       _pagingController.appendLastPage([]);
     }
   }
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -73,7 +69,7 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage>
     );
 
     Widget child;
-    if (!_isNarrow) {
+    if (!Breakpoints.small.isActive(context)) {
       child = FloatingCard(
         margin: const EdgeInsets.symmetric(vertical: 4),
         padding: const EdgeInsets.all(16),
@@ -97,30 +93,20 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-    final list = PagedListView<int, Notification>(
-      primary: _isNarrow,
-      padding: EdgeInsets.symmetric(
-        vertical: 4,
-        horizontal: Breakpoint.extraSmall.margin!,
-      ),
-      pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<Notification>(
-        itemBuilder: (context, item, index) => _buildListItem(context, item),
-      ),
-    );
-
     return CatalogueContentLayout(
-      catalogueBuilder: (context, isNarrow) {
-        _isNarrow = isNarrow;
-        return list;
-      },
+      catalogue: PagedListView<int, Notification>(
+        primary: true,
+        padding: EdgeInsets.symmetric(
+          vertical: 4,
+          horizontal: LegacyBreakpoint.extraSmall.margin!,
+        ),
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate<Notification>(
+          itemBuilder: (context, item, index) => _buildListItem(context, item),
+        ),
+      ),
       content: _selectedNotification != null
-          ? _MoodleNotificationDetail(
-              key: ValueKey(_selectedNotification),
-              notification: _selectedNotification!,
-              isPage: false,
-            )
+          ? _MoodleNotificationDetail(notification: _selectedNotification!)
           : null,
     );
   }
@@ -129,13 +115,9 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage>
 class _MoodleNotificationDetail extends StatelessWidget {
   final Notification notification;
 
-  /// Whether the detail is shown as an independent page.
-  final bool isPage;
-
   const _MoodleNotificationDetail({
     super.key,
     required this.notification,
-    this.isPage = true,
   });
 
   @override
@@ -173,17 +155,15 @@ class _MoodleNotificationDetail extends StatelessWidget {
             },
           );
 
-    final detail = BodyPaddingBuilder(
-      builder: (context, hPadding) => ListView(
-        padding: EdgeInsets.symmetric(
-          vertical: 4,
-          horizontal: hPadding,
-        ),
-        children: [contentWidget],
+    final detail = ListView(
+      padding: EdgeInsets.symmetric(
+        vertical: 4,
+        horizontal: context.padBody,
       ),
+      children: [contentWidget],
     );
 
-    if (isPage) {
+    if (!context.isUnderCatalogueContentLayout) {
       return Scaffold(
         appBar: AppBar(
           title: Text(notification.subject),
