@@ -229,7 +229,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
               bottom: 10,
               child: SvgPicture.asset(
                 'res/campus/maintenance.svg',
-                width: LegacyBreakpoint.extraSmall.maxWidth / 4,
+                width: 150,
               ),
             ),
           SizedBox.expand(

@@ -175,7 +175,7 @@ class GridTimetable extends StatelessWidget {
 
     return SingleChildScrollView(
       child: SizedBox(
-        height: LegacyBreakpoint.large.minWidth,
+        height: 1440,
         child: SpannableGrid(
           rows: 14,
           columns: 7,

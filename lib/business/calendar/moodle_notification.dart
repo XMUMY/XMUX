@@ -9,8 +9,8 @@ import 'package:moodle/moodle.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../component/catalogue_content_layout.dart';
+import '../../component/empty_error.dart';
 import '../../component/floating_card.dart';
-import '../../foundation/platform/breakpoint.dart';
 import '../../global.dart';
 
 class MoodleNotificationPage extends StatefulWidget {
@@ -94,17 +94,19 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage> {
   @override
   Widget build(BuildContext context) {
     return CatalogueContentLayout(
-      catalogue: PagedListView<int, Notification>(
-        primary: true,
-        padding: EdgeInsets.symmetric(
-          vertical: 4,
-          horizontal: LegacyBreakpoint.extraSmall.margin!,
-        ),
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<Notification>(
-          itemBuilder: (context, item, index) => _buildListItem(context, item),
-        ),
-      ),
+      catalogue: Builder(builder: (context) {
+        return PagedListView<int, Notification>(
+          primary: true,
+          padding: CatalogueContentPadding.of(context) +
+              const EdgeInsets.symmetric(vertical: 4),
+          pagingController: _pagingController,
+          builderDelegate: PagedChildBuilderDelegate<Notification>(
+            itemBuilder: (context, item, index) =>
+                _buildListItem(context, item),
+            noItemsFoundIndicatorBuilder: (context) => const EmptyErrorPage(),
+          ),
+        );
+      }),
       content: _selectedNotification != null
           ? _MoodleNotificationDetail(notification: _selectedNotification!)
           : null,
@@ -156,10 +158,8 @@ class _MoodleNotificationDetail extends StatelessWidget {
           );
 
     final detail = ListView(
-      padding: EdgeInsets.symmetric(
-        vertical: 4,
-        horizontal: context.padBody,
-      ),
+      padding: CatalogueContentPadding.of(context) +
+          const EdgeInsets.symmetric(vertical: 4),
       children: [contentWidget],
     );
 

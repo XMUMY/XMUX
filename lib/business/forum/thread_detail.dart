@@ -101,7 +101,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
           slivers: [
             const SliverPadding(padding: EdgeInsets.only(top: 4)),
             SliverToBoxAdapter(
-              child: BodyPadding(
+              child: SingleBodyLayout(
                 child: Hero(
                   tag: thread.id,
                   child: ThreadCard(
@@ -116,7 +116,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
             PagedSliverList.separated(
               pagingController: _pagingController,
               builderDelegate: PagedChildBuilderDelegate<Post>(
-                itemBuilder: (context, post, index) => BodyPadding(
+                itemBuilder: (context, post, index) => SingleBodyLayout(
                   child: PostCard(
                     threadId: thread.id,
                     post: post,
@@ -127,7 +127,7 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
                 ),
                 noItemsFoundIndicatorBuilder: (_) => const SizedBox(),
               ),
-              separatorBuilder: (context, index) => const BodyPadding(
+              separatorBuilder: (context, index) => const SingleBodyLayout(
                 child: Divider(),
               ),
             ),

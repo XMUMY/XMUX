@@ -62,7 +62,7 @@ class _PostListState extends State<PostList> {
       controller: widget.scrollController,
       slivers: [
         SliverToBoxAdapter(
-          child: BodyPadding(
+          child: SingleBodyLayout(
             child: Card(
               margin: const EdgeInsets.symmetric(vertical: 10),
               child: PostCard(
@@ -76,7 +76,7 @@ class _PostListState extends State<PostList> {
         PagedSliverList.separated(
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate<Post>(
-            itemBuilder: (context, post, index) => BodyPadding(
+            itemBuilder: (context, post, index) => SingleBodyLayout(
               child: PostCard(
                 threadId: post.threadId,
                 post: post,
@@ -84,7 +84,7 @@ class _PostListState extends State<PostList> {
               ),
             ),
           ),
-          separatorBuilder: (context, index) => const BodyPadding(
+          separatorBuilder: (context, index) => const SingleBodyLayout(
             child: Divider(),
           ),
         ),
