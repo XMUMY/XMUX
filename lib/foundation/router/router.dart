@@ -28,6 +28,7 @@ import '../../business/forum/thread_detail.dart';
 import '../../business/init/init_page.dart';
 import '../../business/init/login_page.dart';
 import '../../business/main_page.dart';
+import '../../business/profile/me.dart';
 import '../../business/redux/store.dart';
 import '../../component/tab_shell_container.dart';
 import 'transition.dart';
@@ -217,6 +218,14 @@ final router = GoRouter(
                   builder: (_, s) => const LostAndFoundPage(),
                 ),
               ],
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/profile',
+              builder: (_, s) => const MePage(),
             ),
           ],
         ),

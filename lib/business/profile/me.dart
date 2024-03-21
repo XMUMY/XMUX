@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,21 +6,23 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../component/gravatar.dart';
-import '../config.dart';
-import '../global.dart';
+import '../../component/gravatar.dart';
+import '../../foundation/config/config.dart';
+import '../../foundation/localization/locale_keys.dart';
+import '../../foundation/platform/breakpoint.dart';
+import '../../foundation/platform/platform.dart';
 import '../redux/action/action.dart';
 import '../redux/state/state.dart';
-import '../util/platform.dart';
-import 'dev_options.dart';
+import '../redux/store.dart';
 
-class MainDrawer extends StatelessWidget {
-  const MainDrawer({super.key});
+class MePage extends StatelessWidget {
+  const MePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
+    return SingleBodyLayout(
+      child: ListView(
+        padding: EdgeInsets.symmetric(horizontal: context.padBody),
         children: [
           DrawerHeader(
             child: Row(
@@ -46,31 +49,24 @@ class MainDrawer extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: ListView(
-              children: [
-                ListTile(
-                  title: Text(LocaleKeys.ServiceStatus.tr()),
-                  onTap: () => showDialog(
-                    context: context,
-                    builder: (context) => const _ServerStatus(),
-                  ),
-                ),
-                const _AboutTile(),
-              ],
+          ListTile(
+            leading: const Icon(Icons.dns_outlined),
+            title: Text(LocaleKeys.ServiceStatus.tr()),
+            onTap: () => showDialog(
+              context: context,
+              builder: (context) => const _ServerStatus(),
             ),
           ),
-          SafeArea(
-            child: ListTile(
-              leading: const Icon(Icons.exit_to_app),
-              title: Text(LocaleKeys.SignOut.tr()),
-              onTap: () {
-                store.dispatch(LogoutAction());
-                if (isMobile || isWeb || isMacOS) {
-                  FirebaseAuth.instance.signOut().catchError((_) {});
-                }
-              },
-            ),
+          const _AboutTile(),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app_outlined),
+            title: Text(LocaleKeys.SignOut.tr()),
+            onTap: () {
+              store.dispatch(LogoutAction());
+              if (isMobile || isWeb || isMacOS) {
+                FirebaseAuth.instance.signOut().catchError((_) {});
+              }
+            },
           ),
         ],
       ),
@@ -114,7 +110,7 @@ class _ServerStatus extends StatelessWidget {
           name: 'Moodle',
           url: '$moodleAddress/webservice/rest/server.php',
         ),
-        if (isVM)
+        if (isNative)
           _buildTile(
             name: 'Media Site',
             url: 'https://mymedia.xmu.edu.cn/Mediasite/',
@@ -170,12 +166,66 @@ class _AboutTileState extends State<_AboutTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: const Icon(Icons.info_outline),
       title: Text(LocaleKeys.About.tr()),
       onTap: () => _showAbout(),
       onLongPress: () => showDialog(
         context: context,
         builder: (_) => const DeveloperOptions(),
       ),
+    );
+  }
+}
+
+class DeveloperOptions extends StatelessWidget {
+  const DeveloperOptions({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleDialog(
+      title: const Text('Developer Options'),
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(8),
+          child: Icon(
+            Icons.warning,
+            size: 40,
+            color: Colors.red,
+          ),
+        ),
+        const Text(
+          "LEAVE HERE IF U DON'T KNOW\nWHAT U ARE DOING",
+          textAlign: TextAlign.center,
+        ),
+        const Divider(),
+        StoreConnector<AppState, bool>(
+          distinct: true,
+          converter: (store) => store.state.settings.enableDevFunctions,
+          builder: (context, value) => SwitchListTile(
+            title: const Text('Enable Dev Functions'),
+            value: value,
+            onChanged: (v) => store.dispatch(EnableDevFunctionsAction(v)),
+          ),
+        ),
+        StoreConnector<AppState, bool>(
+          distinct: true,
+          converter: (store) => store.state.settings.showPerformanceOverlay,
+          builder: (context, value) => SwitchListTile(
+            title: const Text('Show Performance Overlay'),
+            value: value,
+            onChanged: (v) => store.dispatch(ShowPerformanceOverlayAction(v)),
+          ),
+        ),
+        StoreConnector<AppState, bool>(
+          distinct: true,
+          converter: (store) => store.state.settings.showSemanticsDebugger,
+          builder: (context, value) => SwitchListTile(
+            title: const Text('Show Semantics Debugger'),
+            value: value,
+            onChanged: (v) => store.dispatch(ShowSemanticsDebuggerAction(v)),
+          ),
+        ),
+      ],
     );
   }
 }

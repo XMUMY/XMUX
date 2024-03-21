@@ -29,6 +29,11 @@ class MainPage extends StatelessWidget {
           selectedIcon: const Icon(Icons.school),
           label: LocaleKeys.Campus_Campus.tr(),
         ),
+        NavigationDestination(
+          icon: const Icon(Icons.person_outline),
+          selectedIcon: const Icon(Icons.person),
+          label: LocaleKeys.Me_Me.tr(),
+        ),
       ],
       body: (_) => navigationShell,
       useDrawer: false,
