@@ -63,7 +63,7 @@ class MePage extends StatelessWidget {
             title: Text(LocaleKeys.SignOut.tr()),
             onTap: () {
               store.dispatch(LogoutAction());
-              if (isMobile || isWeb || isMacOS) {
+              if (isMobileApp || isWeb || isMacOSApp) {
                 FirebaseAuth.instance.signOut().catchError((_) {});
               }
             },

@@ -178,7 +178,7 @@ class _LoginAreaState extends State<_LoginArea> {
   }
 
   Future<void> tryLoginFirebase() async {
-    if (!isMobile && !isWeb && !isMacOS) return;
+    if (!isMobileApp && !isWeb && !isMacOSApp) return;
     try {
       final u = await FirebaseAuth.instance.signInWithCustomToken(_customToken);
       log.i('Login Firebase: ${u.user?.uid} ${u.user?.displayName}');
