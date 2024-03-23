@@ -12,37 +12,72 @@ on:
       - pubspec.lock
 
 jobs:
-  Archive:
+  Build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: subosito/flutter-action@v2
         with:
           channel: beta
-      - name: Prepare Build
+      - name: Match
         run: |
-          echo $CONFIG_FILE | base64 -d > lib/config.dart
-          echo $GOOGLE_SERVICES_IOS > ./ios/GoogleService-Info.plist
-          echo $APP_STORE_CONNECT_API_KEY_JSON | base64 -d > ./ios/APP_STORE_CONNECT_API_KEY.json
-          export FLUTTER_BUILD_NAME=`cat ./lib/config.sample.dart | head -6 | tail -1 | sed -e "s/[A-z:', \-]//g"`
-          export FLUTTER_BUILD_NUMBER=`git rev-list HEAD --count`
-          flutter pub get
-          cd ios
-          pod install
-          xcrun agvtool new-marketing-version $FLUTTER_BUILD_NAME
-          xcrun agvtool new-version $FLUTTER_BUILD_NUMBER
-        env:
-          CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
-          GOOGLE_SERVICES_IOS: ${{ secrets.GOOGLE_SERVICES_IOS }}
-          APP_STORE_CONNECT_API_KEY_JSON: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
-      - name: Archive to TestFlight
-        uses: maierj/fastlane-action@v2.2.1
-        with:
-          lane: "internal"
-          subdirectory: "ios"
+          TEMP_KEYCHAIN_NAME="ci_$(uuidgen)"
+          TEMP_KEYCHAIN_PASSWORD="$(openssl rand -base64 32)"
+          security create-keychain -p "$TEMP_KEYCHAIN_PASSWORD" "$TEMP_KEYCHAIN_NAME.keychain"
+          security unlock-keychain -p "$TEMP_KEYCHAIN_PASSWORD" "$TEMP_KEYCHAIN_NAME.keychain"
+          security set-keychain-settings -t 3600 -u "$TEMP_KEYCHAIN_NAME.keychain"
+          security list-keychains -s "$TEMP_KEYCHAIN_NAME.keychain"
+          security default-keychain -s "$TEMP_KEYCHAIN_NAME.keychain"
+
+          gem install fastlane
+          export MATCH_KEYCHAIN_NAME="$TEMP_KEYCHAIN_NAME"
+          export MATCH_KEYCHAIN_PASSWORD="$TEMP_KEYCHAIN_PASSWORD"
+          fastlane match appstore --readonly
         env:
           FASTLANE_DONT_STORE_PASSWORD: "1"
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.DEPLOY_CERTS }}
           MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
+      - name: Build
+        run: |
+          FLUTTER_BUILD_NUMBER=$(git rev-list --count HEAD)
+          GIT_DESC=$(git describe --tags)
+          if [[ $GIT_DESC =~ v([0-9]+)\.([0-9]+)\.([0-9]+)-([0-9]+)-g[a-f0-9]+ ]]; then
+              FLUTTER_BUILD_NAME="${BASH_REMATCH[1]}.$((BASH_REMATCH[2]+1)).${BASH_REMATCH[3]}"
+          else
+              FLUTTER_BUILD_NAME="0.0.1"
+          fi
+
+          echo $CONFIG_ENV | base64 -d > .env
+
+          flutter build ipa \
+            --release \
+            --build-name=$FLUTTER_BUILD_NAME \
+            --build-number=$FLUTTER_BUILD_NUMBER \
+            --dart-define-from-file=.env \
+            --export-options-plist=ios/ExportOptions.plist
+        env:
+          CONFIG_ENV: ${{ secrets.CONFIG_ENV }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: XMUX-iOS
+          path: build/ios/ipa/XMUX.ipa
+
+  DeployAppStoreConnect:
+    runs-on: macos-latest
+    needs: Build
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: XMUX-iOS
+          path: XMUX-iOS
+      - name: Upload to App Store Connect
+        run: |
+          mkdir ~/private_keys
+          echo $APP_STORE_CONNECT_KEY_FILE | base64 -d > ~/private_keys/AuthKey_$APP_STORE_CONNECT_KEY.p8
+          xcrun altool --upload-app --type ios -f XMUX-iOS/XMUX.ipa --apiKey $APP_STORE_CONNECT_KEY --apiIssuer $APP_STORE_CONNECT_KEY_ISSUER
+        env:
+          APP_STORE_CONNECT_KEY: ${{ secrets.APP_STORE_CONNECT_KEY }}
+          APP_STORE_CONNECT_KEY_FILE: ${{ secrets.APP_STORE_CONNECT_KEY_FILE }}
+          APP_STORE_CONNECT_KEY_ISSUER: ${{ secrets.APP_STORE_CONNECT_KEY_ISSUER }}

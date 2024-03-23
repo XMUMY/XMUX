@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>method</key>
+        <string>app-store</string>
+        <key>teamID</key>
+        <string>987KE67GXS</string>
+        <key>provisioningProfiles</key>
+        <dict>
+            <key>org.ctbeta.xmux</key>
+            <string>match AppStore org.ctbeta.xmux</string>
+        </dict>
+    </dict>
+</plist>

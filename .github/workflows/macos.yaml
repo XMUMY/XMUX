@@ -12,29 +12,34 @@ on:
       - pubspec.lock
 
 jobs:
-  Archive:
+  Build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: subosito/flutter-action@v2
         with:
           channel: beta
-      - name: Build App
+      - name: Build
         run: |
-          echo $CONFIG_FILE | base64 -d > lib/config.dart
-          echo $GOOGLE_SERVICES_IOS > ./macos/GoogleService-Info.plist
-          export FLUTTER_BUILD_NAME=`cat ./lib/config.sample.dart | head -6 | tail -1 | sed -e "s/[A-z:', \-]//g"`
-          export FLUTTER_BUILD_NUMBER=`git rev-list HEAD --count`
+          FLUTTER_BUILD_NUMBER=$(git rev-list --count HEAD)
+          GIT_DESC=$(git describe --tags)
+          if [[ $GIT_DESC =~ v([0-9]+)\.([0-9]+)\.([0-9]+)-([0-9]+)-g[a-f0-9]+ ]]; then
+              FLUTTER_BUILD_NAME="${BASH_REMATCH[1]}.$((BASH_REMATCH[2]+1)).${BASH_REMATCH[3]}"
+          else
+              FLUTTER_BUILD_NAME="0.0.1"
+          fi
+
+          echo $CONFIG_ENV | base64 -d > .env
+
           flutter build macos \
             --release \
             --build-name=$FLUTTER_BUILD_NAME \
             --build-number=$FLUTTER_BUILD_NUMBER
         env:
-          CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
-          GOOGLE_SERVICES_IOS: ${{ secrets.GOOGLE_SERVICES_IOS }}
-      - uses: actions/upload-artifact@v3
+          CONFIG_ENV: ${{ secrets.CONFIG_ENV }}
+      - uses: actions/upload-artifact@v4
         with:
           name: XMUX-macOS
           path: build/macos/Build/Products/Release/XMUX.app

@@ -15,12 +15,12 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
-          distribution: "microsoft"
+          distribution: microsoft
           java-version: "11"
           java-package: jdk
       - uses: subosito/flutter-action@v2
@@ -28,29 +28,33 @@ jobs:
           channel: beta
       - name: Build
         run: |
-          echo $CONFIG_FILE | base64 -d > lib/config.dart
-          echo "${GOOGLE_SERVICES_ANDROID}" > ./android/app/google-services.json
-          echo "${ANDROID_RELEASE_SIGN_KEY}" | base64 -d > ./android/app/x.jks
-          echo "${ANDROID_RELEASE_SIGN_KEY_PROPERTYS}" | base64 -d > ./android/app/key.properties
-          flutter build apk --release --target-platform=android-arm64
+          echo $CONFIG_ENV | base64 -d > .env
+          echo $ANDROID_RELEASE_SIGN_KEY | base64 -d > ./android/app/x.jks
+          flutter build apk \
+            --release \
+            --target-platform=android-arm64 \
+            --dart-define-from-file=.env
         env:
-          CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
-          GOOGLE_SERVICES_ANDROID: ${{ secrets.GOOGLE_SERVICES_ANDROID }}
+          CONFIG_ENV: ${{ secrets.CONFIG_ENV }}
           ANDROID_RELEASE_SIGN_KEY: ${{ secrets.ANDROID_RELEASE_SIGN_KEY }}
-          ANDROID_RELEASE_SIGN_KEY_PROPERTYS: ${{ secrets.ANDROID_RELEASE_SIGN_KEY_PROPERTYS }}
-      - uses: actions/upload-artifact@v3
+          KEYSTORE_FILE: x.jks
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_RELEASE_SIGN_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: xmux
+          KEY_PASSWORD: ${{ secrets.ANDROID_RELEASE_SIGN_KEY_PASSWORD }}
+      - uses: actions/upload-artifact@v4
         with:
           name: XMUX-Android
           path: build/app/outputs/flutter-apk/app-release.apk
-  Deploy:
+
+  DeployGooglePlay:
     runs-on: ubuntu-latest
     needs: Build
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: XMUX-Android
-      - uses: r0adkll/upload-google-play@v1.0.15
+      - uses: r0adkll/upload-google-play@v1.1.3
         with:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_KEY }}
           packageName: org.ctbeta.xmux.xmux

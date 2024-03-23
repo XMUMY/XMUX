@@ -15,18 +15,30 @@ jobs:
   Build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: subosito/flutter-action@v2
         with:
           channel: beta
       - name: Build
         run: |
-          [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(${env:CONFIG_FILE})) > lib/config.dart
           git config --global core.longpaths true
-          flutter build windows --release
+
+          $buildNumber = git rev-list --count HEAD
+          $gitDescribe = git describe --tags
+          if ($gitDescribe -match 'v([0-9]+)\.([0-9]+)\.([0-9]+)-([0-9]+)-g[a-f0-9]+') {
+              $buildName = "$($matches[1]).$($matches[2]).$($matches[3])"
+          } else {
+              $buildName = "0.0.1"
+          }
+
+          [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(${env:CONFIG_ENV})) > .env
+
+          flutter build windows --release --build-name=$buildName --build-number=$buildNumber --dart-define-from-file=.env
         env:
-          CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
-      - uses: actions/upload-artifact@v3
+          CONFIG_ENV: ${{ secrets.CONFIG_ENV }}
+      - uses: actions/upload-artifact@v4
         with:
           name: XMUX-Windows
-          path: build/windows/runner/Release
+          path: build/windows/x64/runner/Release

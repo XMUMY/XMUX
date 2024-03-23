@@ -15,7 +15,7 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: subosito/flutter-action@v2
@@ -23,15 +23,25 @@ jobs:
           channel: beta
       - name: Build
         run: |
-          echo $CONFIG_FILE | base64 -d > lib/config.dart
-          export FLUTTER_BUILD_NAME=`cat ./lib/config.sample.dart | head -6 | tail -1 | sed -e "s/[A-z:', \-]//g"`
-          export FLUTTER_BUILD_NUMBER=`git rev-list HEAD --count`
-          echo "version: $FLUTTER_BUILD_NAME+$FLUTTER_BUILD_NUMBER" >> pubspec.yaml
-          flutter build web --release --source-maps \
-              --dart-define=FLUTTER_WEB_CANVASKIT_URL=https://cdn.jsdelivr.net/npm/canvaskit-wasm@0.33.0/bin/
+          FLUTTER_BUILD_NUMBER=$(git rev-list --count HEAD)
+          GIT_DESC=$(git describe --tags)
+          if [[ $GIT_DESC =~ v([0-9]+)\.([0-9]+)\.([0-9]+)-([0-9]+)-g[a-f0-9]+ ]]; then
+              FLUTTER_BUILD_NAME="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}"
+          else
+              FLUTTER_BUILD_NAME="0.0.1"
+          fi
+
+          echo $CONFIG_ENV | base64 -d > .env
+
+          flutter build web \
+            --release \
+            --build-name=$FLUTTER_BUILD_NAME \
+            --build-number=$FLUTTER_BUILD_NUMBER \
+            --source-maps \
+            --dart-define-from-file=.env
         env:
-          CONFIG_FILE: ${{ secrets.CONFIG_FILE }}
-      - uses: actions/upload-artifact@v3
+          CONFIG_ENV: ${{ secrets.CONFIG_ENV }}
+      - uses: actions/upload-artifact@v4
         with:
           name: XMUX-Web
           path: build/web
@@ -40,13 +50,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: Build
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: XMUX-Web
           path: XMUX-Web
-      - name: Replace main.dart.js to JSDelivr CDN
-        run: sed -i 's#"main.dart.js"#"https://cdn.jsdelivr.net/gh/XMUMY/static@app-web/main.dart.js"#' XMUX-Web/flutter.js
       - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -59,17 +67,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: Build
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: XMUX-Web
           path: XMUX-Web
-      - name: Replace main.dart.js to JSDelivr CDN
-        run: sed -i 's#"main.dart.js"#"https://cdn.jsdelivr.net/gh/XMUMY/static@app-web/main.dart.js"#' XMUX-Web/flutter.js
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@v2.0.0
+        uses: w9jds/firebase-action@v13.4.0
         with:
           args: deploy --only hosting:xmux-web
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_ID: xmux-app
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
