@@ -99,36 +99,41 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
         onRefresh: _refreshComments,
         child: CustomScrollView(
           slivers: [
-            const SliverPadding(padding: EdgeInsets.only(top: 4)),
-            SliverToBoxAdapter(
-              child: SingleBodyLayout(
-                child: Hero(
-                  tag: thread.id,
-                  child: ThreadCard(
-                    thread: thread,
-                    expanded: true,
-                    expandable: true,
-                    onPostComment: _refreshComments,
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: context.padBody),
+              sliver: SliverToBoxAdapter(
+                child: SingleBodyLayout(
+                  child: Hero(
+                    tag: thread.id,
+                    child: ThreadCard(
+                      thread: thread,
+                      expanded: true,
+                      expandable: true,
+                      onPostComment: _refreshComments,
+                    ),
                   ),
                 ),
               ),
             ),
-            PagedSliverList.separated(
-              pagingController: _pagingController,
-              builderDelegate: PagedChildBuilderDelegate<Post>(
-                itemBuilder: (context, post, index) => SingleBodyLayout(
-                  child: PostCard(
-                    threadId: thread.id,
-                    post: post,
-                    children: _childrens[post.id] ?? [],
-                    thread: thread,
-                    onPostComment: _refreshComments,
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: context.padBody),
+              sliver: PagedSliverList.separated(
+                pagingController: _pagingController,
+                builderDelegate: PagedChildBuilderDelegate<Post>(
+                  itemBuilder: (context, post, index) => SingleBodyLayout(
+                    child: PostCard(
+                      threadId: thread.id,
+                      post: post,
+                      children: _childrens[post.id] ?? [],
+                      thread: thread,
+                      onPostComment: _refreshComments,
+                    ),
                   ),
+                  noItemsFoundIndicatorBuilder: (_) => const SizedBox(),
                 ),
-                noItemsFoundIndicatorBuilder: (_) => const SizedBox(),
-              ),
-              separatorBuilder: (context, index) => const SingleBodyLayout(
-                child: Divider(),
+                separatorBuilder: (context, index) => const SingleBodyLayout(
+                  child: Divider(),
+                ),
               ),
             ),
             SliverPadding(

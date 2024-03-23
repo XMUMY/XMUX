@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:emgs/emgs.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -61,18 +60,9 @@ class _EmgsPageState extends State<EmgsPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: SizedBox(
-          height: kToolbarHeight,
-          child: ExtendedImage.network(
-            'https://cdn.educationmalaysia.gov.my/wp-content/uploads/2019/11/08054212/emgs-logo1.png',
-            loadStateChanged: (state) =>
-                state.extendedImageLoadState != LoadState.completed
-                    ? Text(
-                        LocaleKeys.Campus_Emgs.tr(),
-                        style: Theme.of(context).textTheme.titleLarge,
-                      )
-                    : null,
-          ),
+        title: Text(
+          LocaleKeys.Campus_Emgs.tr(),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         backgroundColor: Theme.of(context).canvasColor,
         elevation: _elevation,

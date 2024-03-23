@@ -66,6 +66,16 @@ final router = GoRouter(
       path: '/calendar/academic_calendar',
       builder: (_, s) => AcademicCalendarPage(),
     ),
+    GoRoute(
+      path: '/community/thread/:tid',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (_, s) => ThreadDetailPage(thread: s.extra as Thread),
+    ),
+    GoRoute(
+      path: '/community/favorite/:favorite_tab',
+      builder: (_, state) =>
+          FavoritePage.fromTab(state.pathParameters['favorite_tab']),
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, shell) => MainPage(navigationShell: shell),
       branches: [
@@ -144,15 +154,6 @@ final router = GoRouter(
                   ],
                 ),
               ],
-            ),
-            GoRoute(
-              path: '/community/thread/:tid',
-              builder: (_, s) => ThreadDetailPage(thread: s.extra as Thread),
-            ),
-            GoRoute(
-              path: '/community/favorite/:favorite_tab',
-              builder: (_, state) =>
-                  FavoritePage.fromTab(state.pathParameters['favorite_tab']),
             ),
           ],
         ),
