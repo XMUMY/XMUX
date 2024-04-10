@@ -12,7 +12,7 @@ class GrpcClient extends ChatClient {
 
   @override
   void setupStream() {
-    log.v('GrpcClient.setupStream()');
+    log.t('GrpcClient.setupStream()');
     responseStream = rpc.chatClient.stream(sending.stream)
       ..listen(
         receiving.add,
@@ -29,7 +29,7 @@ class GrpcClient extends ChatClient {
 
   @override
   void disposeStream() {
-    log.v('GrpcClient.disposeStream()');
+    log.t('GrpcClient.disposeStream()');
     responseStream.cancel();
     heartbeatTimer.cancel();
   }

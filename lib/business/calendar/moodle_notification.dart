@@ -118,7 +118,6 @@ class _MoodleNotificationDetail extends StatelessWidget {
   final Notification notification;
 
   const _MoodleNotificationDetail({
-    super.key,
     required this.notification,
   });
 

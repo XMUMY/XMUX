@@ -14,8 +14,8 @@ abstract class ChatClient {
   ChatClient() {
     // Debug message tracing.
     assert(() {
-      sending.stream.listen((e) => log.v('ChatClient Sending $e'));
-      receiving.stream.listen((e) => log.v('ChatClient Receiving $e'));
+      sending.stream.listen((e) => log.t('ChatClient Sending $e'));
+      receiving.stream.listen((e) => log.t('ChatClient Receiving $e'));
       return true;
     }());
   }

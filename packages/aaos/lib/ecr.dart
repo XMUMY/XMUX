@@ -38,7 +38,7 @@ class ElectiveCourseRegistration {
             'password': _password,
             'user_lb': 'Student'
           });
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response?.statusCode == 302) return;
     }
     throw Exception('Login failed');

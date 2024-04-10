@@ -289,7 +289,7 @@ class _Dialog extends StatelessWidget {
 
     final calendars = await plugin.retrieveCalendars();
     final calendarsData = calendars.data;
-    if (calendarsData == null) return;
+    if (calendarsData == null || !context.mounted) return;
 
     final id = await showDialog<String>(
       context: context,
@@ -345,7 +345,9 @@ class _Dialog extends StatelessWidget {
       availability: Availability.Free,
     ));
 
-    Navigator.of(context).pop();
+    if (context.mounted) {
+      Navigator.of(context).pop();
+    }
   }
 
   @override

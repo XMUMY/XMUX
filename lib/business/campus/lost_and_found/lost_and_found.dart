@@ -155,7 +155,7 @@ class _ItemBriefCard extends StatelessWidget {
           MaterialPageRoute(
               builder: (context) => LostAndFoundDetailPage(brief: brief)),
         );
-        if (shouldRefresh ?? false) {
+        if (context.mounted && (shouldRefresh ?? false)) {
           context
               .findAncestorStateOfType<_LostAndFoundPageState>()
               ?._pagingController
