@@ -2,7 +2,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:taskflow/taskflow.dart';
 
-import '../global.dart';
+import '../foundation/logging/logging.dart';
 
 class Gravatar extends StatelessWidget {
   static const _defaultPath = '/avatar/?d=mp';

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:grpc/grpc.dart';
 import 'package:xmus_client/api/chat.pb.dart';
 
+import '../../../foundation/logging/logging.dart';
 import '../../../global.dart';
 import 'client.dart';
 

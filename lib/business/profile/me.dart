@@ -11,6 +11,7 @@ import '../../foundation/config/config.dart';
 import '../../foundation/localization/locale_keys.dart';
 import '../../foundation/platform/breakpoint.dart';
 import '../../foundation/platform/platform.dart';
+import '../../global.dart';
 import '../redux/action/action.dart';
 import '../redux/state/state.dart';
 import '../redux/store.dart';
@@ -63,6 +64,7 @@ class MePage extends StatelessWidget {
             title: Text(LocaleKeys.SignOut.tr()),
             onTap: () {
               store.dispatch(LogoutAction());
+              rpc.authorization.erase();
               if (isMobileApp || isWeb || isMacOSApp) {
                 FirebaseAuth.instance.signOut().catchError((_) {});
               }

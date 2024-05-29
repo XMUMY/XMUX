@@ -15,6 +15,7 @@ import 'package:xmus_client/error.dart';
 
 import '../../foundation/config/config.dart';
 import '../../foundation/localization/locale_keys.dart';
+import '../../foundation/logging/logging.dart';
 import '../../foundation/platform/platform.dart';
 import '../../global.dart';
 import '../redux/action/action.dart';

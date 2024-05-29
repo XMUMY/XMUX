@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:xmus_client/api/chat.pb.dart';
 
-import '../../../global.dart';
+import '../../../foundation/logging/logging.dart';
 import 'grpc_client.dart';
 
 /// Client is used to setup and keep a stable connection between server.

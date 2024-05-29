@@ -1,7 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:taskflow/taskflow.dart';
 
-import '../../global.dart';
+import '../logging/logging.dart';
 import '../platform/environment.dart';
 import '../platform/platform.dart';
 import 'router.dart';
