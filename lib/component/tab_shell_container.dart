@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 
 abstract interface class TabInformationProvider {
   Widget? buildLeading(BuildContext context);
+
   Widget? buildTrailing(BuildContext context);
+
   Iterable<(int, String)> getTabs(Iterable<(int, String)> branches);
 }
 
@@ -56,16 +58,6 @@ class _TabShellContainerState extends State<TabShellContainer>
   void dispose() {
     _tabController.dispose();
     super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(covariant TabShellContainer oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    final shellIndex = widget.navigationShell.currentIndex;
-    final tabIndex = _tabController.index;
-    if (tabIndex != shellIndex) {
-      _tabController.animateTo(shellIndex);
-    }
   }
 
   @override
