@@ -26,7 +26,7 @@ jobs:
           FLUTTER_BUILD_NUMBER=$(git rev-list --count HEAD)
           GIT_DESC=$(git describe --tags)
           if [[ $GIT_DESC =~ v([0-9]+)\.([0-9]+)\.([0-9]+)-([0-9]+)-g[a-f0-9]+ ]]; then
-              FLUTTER_BUILD_NAME="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}"
+              FLUTTER_BUILD_NAME="${BASH_REMATCH[1]}.$((BASH_REMATCH[2]+1)).${BASH_REMATCH[3]}"
           else
               FLUTTER_BUILD_NAME="0.0.1"
           fi
@@ -37,8 +37,8 @@ jobs:
             --release \
             --build-name=$FLUTTER_BUILD_NAME \
             --build-number=$FLUTTER_BUILD_NUMBER \
-            --source-maps \
-            --dart-define-from-file=.env
+            --dart-define-from-file=.env \
+            --source-maps
         env:
           CONFIG_ENV: ${{ secrets.CONFIG_ENV }}
       - uses: actions/upload-artifact@v4

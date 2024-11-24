@@ -1,40 +1,40 @@
 PODS:
   - file_selector_macos (0.0.1):
     - FlutterMacOS
-  - Firebase/Analytics (11.2.0):
+  - Firebase/Analytics (11.4.0):
     - Firebase/Core
-  - Firebase/Auth (11.2.0):
+  - Firebase/Auth (11.4.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 11.2.0)
-  - Firebase/Core (11.2.0):
+    - FirebaseAuth (~> 11.4.0)
+  - Firebase/Core (11.4.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (~> 11.2.0)
-  - Firebase/CoreOnly (11.2.0):
-    - FirebaseCore (= 11.2.0)
-  - Firebase/RemoteConfig (11.2.0):
+    - FirebaseAnalytics (~> 11.4.0)
+  - Firebase/CoreOnly (11.4.0):
+    - FirebaseCore (= 11.4.0)
+  - Firebase/RemoteConfig (11.4.0):
     - Firebase/CoreOnly
-    - FirebaseRemoteConfig (~> 11.2.0)
-  - firebase_analytics (11.3.3):
-    - Firebase/Analytics (= 11.2.0)
+    - FirebaseRemoteConfig (~> 11.4.0)
+  - firebase_analytics (11.3.5):
+    - Firebase/Analytics (= 11.4.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_auth (5.3.1):
-    - Firebase/Auth (~> 11.2.0)
-    - Firebase/CoreOnly (~> 11.2.0)
+  - firebase_auth (5.3.3):
+    - Firebase/Auth (~> 11.4.0)
+    - Firebase/CoreOnly (~> 11.4.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_core (3.6.0):
-    - Firebase/CoreOnly (~> 11.2.0)
+  - firebase_core (3.8.0):
+    - Firebase/CoreOnly (~> 11.4.0)
     - FlutterMacOS
-  - firebase_remote_config (5.1.3):
-    - Firebase/CoreOnly (~> 11.2.0)
-    - Firebase/RemoteConfig (~> 11.2.0)
+  - firebase_remote_config (5.1.5):
+    - Firebase/CoreOnly (~> 11.4.0)
+    - Firebase/RemoteConfig (~> 11.4.0)
     - firebase_core
     - FlutterMacOS
-  - FirebaseABTesting (11.2.0):
+  - FirebaseABTesting (11.4.0):
     - FirebaseCore (~> 11.0)
-  - FirebaseAnalytics (11.2.0):
-    - FirebaseAnalytics/AdIdSupport (= 11.2.0)
+  - FirebaseAnalytics (11.4.0):
+    - FirebaseAnalytics/AdIdSupport (= 11.4.0)
     - FirebaseCore (~> 11.0)
     - FirebaseInstallations (~> 11.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
@@ -42,40 +42,40 @@ PODS:
     - GoogleUtilities/Network (~> 8.0)
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
     - nanopb (~> 3.30910.0)
-  - FirebaseAnalytics/AdIdSupport (11.2.0):
+  - FirebaseAnalytics/AdIdSupport (11.4.0):
     - FirebaseCore (~> 11.0)
     - FirebaseInstallations (~> 11.0)
-    - GoogleAppMeasurement (= 11.2.0)
+    - GoogleAppMeasurement (= 11.4.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/MethodSwizzler (~> 8.0)
     - GoogleUtilities/Network (~> 8.0)
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
     - nanopb (~> 3.30910.0)
-  - FirebaseAppCheckInterop (11.2.0)
-  - FirebaseAuth (11.2.0):
+  - FirebaseAppCheckInterop (11.5.0)
+  - FirebaseAuth (11.4.0):
     - FirebaseAppCheckInterop (~> 11.0)
     - FirebaseAuthInterop (~> 11.0)
-    - FirebaseCore (~> 11.0)
-    - FirebaseCoreExtension (~> 11.0)
+    - FirebaseCore (~> 11.4)
+    - FirebaseCoreExtension (~> 11.4)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/Environment (~> 8.0)
-    - GTMSessionFetcher/Core (~> 3.4)
+    - GTMSessionFetcher/Core (< 5.0, >= 3.4)
     - RecaptchaInterop (~> 100.0)
-  - FirebaseAuthInterop (11.2.0)
-  - FirebaseCore (11.2.0):
+  - FirebaseAuthInterop (11.5.0)
+  - FirebaseCore (11.4.0):
     - FirebaseCoreInternal (~> 11.0)
     - GoogleUtilities/Environment (~> 8.0)
     - GoogleUtilities/Logger (~> 8.0)
-  - FirebaseCoreExtension (11.2.0):
+  - FirebaseCoreExtension (11.4.1):
     - FirebaseCore (~> 11.0)
-  - FirebaseCoreInternal (11.2.0):
+  - FirebaseCoreInternal (11.5.0):
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
-  - FirebaseInstallations (11.2.0):
+  - FirebaseInstallations (11.4.0):
     - FirebaseCore (~> 11.0)
     - GoogleUtilities/Environment (~> 8.0)
     - GoogleUtilities/UserDefaults (~> 8.0)
     - PromisesObjC (~> 2.4)
-  - FirebaseRemoteConfig (11.2.0):
+  - FirebaseRemoteConfig (11.4.0):
     - FirebaseABTesting (~> 11.0)
     - FirebaseCore (~> 11.0)
     - FirebaseInstallations (~> 11.0)
@@ -83,24 +83,24 @@ PODS:
     - FirebaseSharedSwift (~> 11.0)
     - GoogleUtilities/Environment (~> 8.0)
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
-  - FirebaseRemoteConfigInterop (11.2.0)
-  - FirebaseSharedSwift (11.2.0)
+  - FirebaseRemoteConfigInterop (11.5.0)
+  - FirebaseSharedSwift (11.5.0)
   - FlutterMacOS (1.0.0)
-  - GoogleAppMeasurement (11.2.0):
-    - GoogleAppMeasurement/AdIdSupport (= 11.2.0)
+  - GoogleAppMeasurement (11.4.0):
+    - GoogleAppMeasurement/AdIdSupport (= 11.4.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/MethodSwizzler (~> 8.0)
     - GoogleUtilities/Network (~> 8.0)
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
     - nanopb (~> 3.30910.0)
-  - GoogleAppMeasurement/AdIdSupport (11.2.0):
-    - GoogleAppMeasurement/WithoutAdIdSupport (= 11.2.0)
+  - GoogleAppMeasurement/AdIdSupport (11.4.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 11.4.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/MethodSwizzler (~> 8.0)
     - GoogleUtilities/Network (~> 8.0)
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
     - nanopb (~> 3.30910.0)
-  - GoogleAppMeasurement/WithoutAdIdSupport (11.2.0):
+  - GoogleAppMeasurement/WithoutAdIdSupport (11.4.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/MethodSwizzler (~> 8.0)
     - GoogleUtilities/Network (~> 8.0)
@@ -133,7 +133,7 @@ PODS:
   - GoogleUtilities/UserDefaults (8.0.2):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - GTMSessionFetcher/Core (3.5.0)
+  - GTMSessionFetcher/Core (4.1.0)
   - nanopb (3.30910.0):
     - nanopb/decode (= 3.30910.0)
     - nanopb/encode (= 3.30910.0)
@@ -214,29 +214,29 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   file_selector_macos: cc3858c981fe6889f364731200d6232dac1d812d
-  Firebase: 98e6bf5278170668a7983e12971a66b2cd57fc8c
-  firebase_analytics: 30ff72f6d4847ff0b479d8edd92fc8582e719072
-  firebase_auth: 877e19571bf76f0351087020b280e3cefc667b20
-  firebase_core: e88f946a4601cb1854178cb07da241bba5a6508e
-  firebase_remote_config: 19b18db2f246b381ab2a618b932fd377c843d52b
-  FirebaseABTesting: 2104d957ce33888a3d6f3bde298cdee376dde8f1
-  FirebaseAnalytics: c36efd5710c60c17558650fa58c2066eca7e9265
-  FirebaseAppCheckInterop: ea21450529cf0ebd132788dd8916a0269abc684f
-  FirebaseAuth: 2a198b8cdbbbd457f08d74df7040feb0a0e7777a
-  FirebaseAuthInterop: 47c09558af5d1b31f16fb352387c72d4804f4a24
-  FirebaseCore: a282032ae9295c795714ded2ec9c522fc237f8da
-  FirebaseCoreExtension: cda74ddfb001224bd8fd1d6e74698b4ed07803de
-  FirebaseCoreInternal: 0c569513412da9f3b31bd0b340013bbee8f295c5
-  FirebaseInstallations: 771177d89d6c451dc6e50085ec82e2fc77ed0a4a
-  FirebaseRemoteConfig: fca0b2d017fc1de52b28a4e5bcf2007c1a840457
-  FirebaseRemoteConfigInterop: 477b26fdeb8fb5fbaf22fa9db5343b42289dc7db
-  FirebaseSharedSwift: 7a0d78d155ede78407f0fdc89fbc914014c7c540
+  Firebase: cf1b19f21410b029b6786a54e9764a0cacad3c99
+  firebase_analytics: 0b7c895f240587bbc77ed28144c1a599dd4523ff
+  firebase_auth: 85ed6c80b24da60af13391f9cdc0e566440b1963
+  firebase_core: d95c4a2225d7b6ed46bc31fb2a6f421fc7c8285b
+  firebase_remote_config: f9d02042a778ff60dafb906237b1bea7a424c275
+  FirebaseABTesting: aef1719704fade00b200827e7973f352efc4caee
+  FirebaseAnalytics: 3feef9ae8733c567866342a1000691baaa7cad49
+  FirebaseAppCheckInterop: d265d9f4484e7ec1c591086408840fdd383d1213
+  FirebaseAuth: c359af98bd703cbf4293eec107a40de08ede6ce6
+  FirebaseAuthInterop: 1219bee9b23e6ebe84c256a0d95adab53d11c331
+  FirebaseCore: e0510f1523bc0eb21653cac00792e1e2bd6f1771
+  FirebaseCoreExtension: f1bc67a4702931a7caa097d8e4ac0a1b0d16720e
+  FirebaseCoreInternal: f47dd28ae7782e6a4738aad3106071a8fe0af604
+  FirebaseInstallations: 6ef4a1c7eb2a61ee1f74727d7f6ce2e72acf1414
+  FirebaseRemoteConfig: 7655681d02417bc9b287338edb9d721ff79e1a4a
+  FirebaseRemoteConfigInterop: 7a7aebb9342d53913a5c890efa88e289d9e5c1bc
+  FirebaseSharedSwift: 302ac5967857ad7e7388b15382d705b8c8d892aa
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
-  GoogleAppMeasurement: 76d4f8b36b03bd8381fa9a7fe2cc7f99c0a2e93a
+  GoogleAppMeasurement: 987769c4ca6b968f2479fbcc9fe3ce34af454b8e
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
-  GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
+  GTMSessionFetcher: 923b710231ad3d6f3f0495ac1ced35421e07d9a6
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
-  package_info_plus: fa739dd842b393193c5ca93c26798dff6e3d0e0c
+  package_info_plus: 12f1c5c2cfe8727ca46cbd0b26677728972d9a5b
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
@@ -245,4 +245,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 73d0feaa9ca8c9b13bc5b5e21fbe09c71472f86f
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

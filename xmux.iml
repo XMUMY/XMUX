@@ -8,10 +8,6 @@
       <excludeFolder url="file://$MODULE_DIR$/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
-      <excludeFolder url="file://$MODULE_DIR$/.pub" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/xmus_client/.dart_tool" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/xmus_client/.pub" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/xmus_client/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

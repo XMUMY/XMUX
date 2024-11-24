@@ -7,7 +7,7 @@ import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 
 class _CookieManager extends CookieManager {
-  _CookieManager(CookieJar cookieJar) : super(cookieJar);
+  _CookieManager(super.cookieJar);
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -60,7 +60,7 @@ class BCStudent {
           'submit': 'Login',
         },
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response?.statusCode != 302) rethrow;
       final location = e.response?.headers['Location'];
       if (location?.first.contains('/student/login') ?? false) {

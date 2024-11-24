@@ -28,11 +28,21 @@ jobs:
           channel: beta
       - name: Build
         run: |
+          FLUTTER_BUILD_NUMBER=$(git rev-list --count HEAD)
+          GIT_DESC=$(git describe --tags)
+          if [[ $GIT_DESC =~ v([0-9]+)\.([0-9]+)\.([0-9]+)-([0-9]+)-g[a-f0-9]+ ]]; then
+              FLUTTER_BUILD_NAME="${BASH_REMATCH[1]}.$((BASH_REMATCH[2]+1)).${BASH_REMATCH[3]}"
+          else
+              FLUTTER_BUILD_NAME="0.0.1"
+          fi
+
           echo $CONFIG_ENV | base64 -d > .env
           echo $ANDROID_RELEASE_SIGN_KEY | base64 -d > ./android/app/x.jks
+
           flutter build apk \
             --release \
-            --target-platform=android-arm64 \
+            --build-name=$FLUTTER_BUILD_NAME \
+            --build-number=$FLUTTER_BUILD_NUMBER \
             --dart-define-from-file=.env
         env:
           CONFIG_ENV: ${{ secrets.CONFIG_ENV }}

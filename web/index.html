@@ -22,7 +22,7 @@
   <meta name="description" content="XMUX Client">
 
   <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="xmux">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
@@ -32,13 +32,6 @@
 
   <title>XMUX</title>
   <link rel="manifest" href="manifest.json">
-
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = null;
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
 </head>
 
 <body>
@@ -148,21 +141,15 @@
     <div class="sk-cube sk-cube9"></div>
   </div>
   <script>
-    var loading = document.querySelector('#loading');
-    window.addEventListener('load', function (ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        entrypointUrl: 'https://cdn.jsdelivr.net/gh/XMUMY/static@app-web/main.dart.js',
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function (engineInitializer) {
-          engineInitializer.initializeEngine().then(function (appRunner) {
-            loading.remove();
-            appRunner.runApp();
-          });
-        }
-      });
+    {{flutter_js}}
+    {{flutter_build_config}}
+
+    _flutter.loader.load({
+      onEntrypointLoaded: async function (engineInitializer) {
+        const appRunner = await engineInitializer.initializeEngine();
+        document.querySelector('#loading').remove();
+        await appRunner.runApp();
+      }
     });
   </script>
 </body>

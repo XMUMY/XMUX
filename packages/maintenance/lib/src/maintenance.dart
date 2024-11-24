@@ -47,7 +47,7 @@ class Maintenance {
           followRedirects: true,
         ),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       final resp = e.response;
       if (resp == null || resp.statusCode != 302) rethrow;
       if (resp.statusCode == 302) return;

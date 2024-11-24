@@ -41,17 +41,16 @@ class CookieManager extends Interceptor {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     if (err.response != null) {
       _saveCookies(err.response!)
           .then((_) => handler.next(err))
           .catchError((e, stackTrace) {
-        var _err = DioException(
+        handler.next(DioException(
           requestOptions: err.response!.requestOptions,
           error: e,
           stackTrace: stackTrace,
-        );
-        handler.next(_err);
+        ));
       });
     } else {
       handler.next(err);
