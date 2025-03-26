@@ -51,6 +51,7 @@ jobs:
 
           echo $CONFIG_ENV | base64 -d > .env
 
+          flutter config --enable-swift-package-manager
           flutter build ipa \
             --release \
             --build-name=$FLUTTER_BUILD_NAME \

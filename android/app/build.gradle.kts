@@ -1,8 +1,8 @@
 plugins {
-    id "com.android.application"
-    id "kotlin-android"
+    id("com.android.application")
+    id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
-    id "dev.flutter.flutter-gradle-plugin"
+    id("dev.flutter.flutter-gradle-plugin")
 }
 
 android {
@@ -11,12 +11,12 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     defaultConfig {
@@ -28,17 +28,17 @@ android {
     }
 
     signingConfigs {
-        release {
-            storeFile = System.getenv('KEYSTORE_FILE') ? file(System.getenv('KEYSTORE_FILE')) : null
-            storePassword = System.getenv('KEYSTORE_PASSWORD')
-            keyAlias = System.getenv('KEY_ALIAS')
-            keyPassword = System.getenv('KEY_PASSWORD')
+        create("release") {
+            storeFile = file(System.getenv("KEYSTORE_FILE"))
+            storePassword = System.getenv("KEYSTORE_PASSWORD")
+            keyAlias = System.getenv("KEY_ALIAS")
+            keyPassword = System.getenv("KEY_PASSWORD")
         }
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.release
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
