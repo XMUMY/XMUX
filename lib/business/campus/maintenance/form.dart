@@ -228,7 +228,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
               right: 5,
               bottom: 10,
               child: SvgPicture.asset(
-                'res/campus/maintenance.svg',
+                'assets/campus/maintenance.svg',
                 width: 150,
               ),
             ),

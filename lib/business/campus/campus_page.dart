@@ -37,36 +37,36 @@ class CampusPage extends StatelessWidget {
               if (isNative) // CORS
                 _Button(
                   title: 'Wolfram Engine',
-                  svg: 'res/campus/wolfram.svg',
+                  svg: 'assets/campus/wolfram.svg',
                   onPressed: _push(context, '/campus/wolfram_engine'),
                 ),
               if (isMobile) // WebView limit.
                 _Button(
                   title: 'GeoGebra',
-                  svg: 'res/campus/geogebra.svg',
+                  svg: 'assets/campus/geogebra.svg',
                   onPressed: _push(context, '/campus/geogebra'),
                 ),
               if (store.state.user.isStudent)
                 _Button(
                   title: LocaleKeys.Campus_AcademicTranscript.tr(),
-                  svg: 'res/campus/transcript.svg',
+                  svg: 'assets/campus/transcript.svg',
                   onPressed: _push(context, '/campus/transcript'),
                 ),
               if (store.state.user.isStudent)
                 _Button(
                   title: LocaleKeys.Campus_GPACalculator.tr(),
-                  svg: 'res/campus/gpa_calculator.svg',
+                  svg: 'assets/campus/gpa_calculator.svg',
                   onPressed: _push(context, '/campus/gpa_calculator'),
                 ),
               _Button(
                 title: 'VPN',
-                svg: 'res/campus/vpn.svg',
+                svg: 'assets/campus/vpn.svg',
                 onPressed: () => launchUrlString('https://webvpn.xmu.edu.cn'),
               ),
               if (isNative && store.state.user.isStudent)
                 _Button(
                   title: LocaleKeys.Campus_ECR.tr(),
-                  svg: 'res/campus/ecr.svg',
+                  svg: 'assets/campus/ecr.svg',
                   onPressed:
                       _push(context, '/campus/elective_course_registration'),
                 ),
@@ -95,7 +95,7 @@ class CampusPage extends StatelessWidget {
               if (isNative) // CORS
                 _Button(
                   title: LocaleKeys.Campus_KliaExpress.tr(),
-                  svg: 'res/campus/klia_express.svg',
+                  svg: 'assets/campus/klia_express.svg',
                   onPressed: _push(context, '/campus/klia_express'),
                 ),
               if (isNative) // CORS

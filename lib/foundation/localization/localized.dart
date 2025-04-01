@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 // ignore: non_constant_identifier_names
 Widget Localized({required Widget child}) => EasyLocalization(
-      path: 'res/translation',
+      path: 'assets/translation',
       supportedLocales: const [
         Locale('en'),
         Locale('zh', 'CN'),

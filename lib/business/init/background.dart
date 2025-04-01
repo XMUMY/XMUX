@@ -15,7 +15,7 @@ class BackgroundImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => Image.asset(
-        'res/init_background.jpg',
+        'assets/init_background.jpg',
         fit: constraints.maxHeight / constraints.maxWidth > 16 / 9
             ? BoxFit.fitHeight
             : BoxFit.fitWidth,

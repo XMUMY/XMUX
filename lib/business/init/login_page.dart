@@ -259,7 +259,7 @@ class _LoginAreaState extends State<_LoginArea> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'res/logo_outlined.png',
+              'assets/logo_outlined.png',
               height: 100,
               width: 100,
             ),

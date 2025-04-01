@@ -14,7 +14,7 @@ class RemoteConfigs {
   RemoteConfigs._();
 
   Future<void> loadDefaultStaticResources() async {
-    final defaultStatic = await rootBundle.loadString('res/static.json');
+    final defaultStatic = await rootBundle.loadString('assets/static.json');
     staticResources = StaticResources.fromJson(jsonDecode(defaultStatic));
   }
 

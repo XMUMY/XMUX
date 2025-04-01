@@ -87,7 +87,7 @@ class _LottieLikeIconState extends State<LottieLikeIcon>
       );
     } else {
       return LottieBuilder.asset(
-        'res/animation/like.json',
+        'assets/animation/like.json',
         repeat: false,
         controller: _controller,
         width: widget.size,
