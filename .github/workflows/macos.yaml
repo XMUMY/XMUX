@@ -6,10 +6,12 @@ on:
       - master
     paths:
       - .github/workflows/macos.yaml
-      - lib/**
-      - macos/**
       - pubspec.yaml
       - pubspec.lock
+      - packages/**/pubspec.yaml
+      - packages/**/lib/**
+      - packages/xmux/assets/**
+      - packages/xmux/macos/**
 
 jobs:
   Build:
@@ -22,6 +24,7 @@ jobs:
         with:
           channel: beta
       - name: Build
+        working-directory: packages/xmux
         run: |
           FLUTTER_BUILD_NUMBER=$(git rev-list --count HEAD)
           GIT_DESC=$(git describe --tags)
@@ -44,4 +47,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: XMUX-macOS
-          path: build/macos/Build/Products/Release/XMUX.app
+          path: packages/xmux/build/macos/Build/Products/Release/XMUX.app

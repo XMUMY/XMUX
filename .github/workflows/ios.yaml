@@ -6,10 +6,13 @@ on:
       - master
     paths:
       - .github/workflows/ios.yaml
-      - lib/**
-      - ios/**
+      - Matchfile
       - pubspec.yaml
       - pubspec.lock
+      - packages/**/pubspec.yaml
+      - packages/**/lib/**
+      - packages/xmux/assets/**
+      - packages/xmux/ios/**
 
 jobs:
   Build:
@@ -40,6 +43,7 @@ jobs:
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.DEPLOY_CERTS }}
           MATCH_PASSWORD: ${{ secrets.FASTLANE_MATCH_PASSWORD }}
       - name: Build
+        working-directory: packages/xmux
         run: |
           FLUTTER_BUILD_NUMBER=$(git rev-list --count HEAD)
           GIT_DESC=$(git describe --tags)
@@ -63,7 +67,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: XMUX-iOS
-          path: build/ios/ipa/XMUX.ipa
+          path: packages/xmux/build/ios/ipa/XMUX.ipa
 
   DeployAppStoreConnect:
     runs-on: macos-latest

@@ -1,10 +1,11 @@
 name: barracuda_campus
 description: The client of Barracuda Campus.
-version: 0.0.1
-homepage: https://github.com/XMUMY/XMUX
+publish_to: none
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.11.0 <4.0.0"
+
+resolution: workspace
 
 dependencies:
   cookie_jar: ^4.0.0
@@ -14,4 +15,4 @@ dependencies:
   intl: any
 
 dev_dependencies:
-  lints: ^5.0.0
+  lints: ^6.0.0

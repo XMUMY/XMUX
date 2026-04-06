@@ -5,7 +5,20 @@
             "name": "xmux",
             "request": "launch",
             "type": "dart",
+            "cwd": "${workspaceFolder}/packages/xmux",
             "args": [
+                "--dart-define-from-file",
+                ".env"
+            ]
+        },
+        {
+            "name": "xmux (windows)",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "${workspaceFolder}/packages/xmux",
+            "args": [
+                "-d",
+                "windows",
                 "--dart-define-from-file",
                 ".env"
             ]
@@ -15,6 +28,7 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
+            "cwd": "${workspaceFolder}/packages/xmux",
             "args": [
                 "--dart-define-from-file",
                 ".env"
@@ -25,6 +39,7 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
+            "cwd": "${workspaceFolder}/packages/xmux",
             "args": [
                 "--dart-define-from-file",
                 ".env"

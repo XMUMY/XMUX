@@ -10,7 +10,7 @@ class _CookieManager extends CookieManager {
   _CookieManager(super.cookieJar);
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     cookieJar.loadForRequest(options.uri).then((cookies) {
       var cookie =
           CookieManager.getCookies(cookies..add(Cookie('collegecode', 'xmu')));

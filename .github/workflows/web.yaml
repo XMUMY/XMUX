@@ -6,10 +6,12 @@ on:
       - master
     paths:
       - .github/workflows/web.yaml
-      - lib/**
-      - web/**
       - pubspec.yaml
       - pubspec.lock
+      - packages/**/pubspec.yaml
+      - packages/**/lib/**
+      - packages/xmux/assets/**
+      - packages/xmux/web/**
 
 jobs:
   Build:
@@ -22,6 +24,7 @@ jobs:
         with:
           channel: beta
       - name: Build
+        working-directory: packages/xmux
         run: |
           FLUTTER_BUILD_NUMBER=$(git rev-list --count HEAD)
           GIT_DESC=$(git describe --tags)
@@ -44,7 +47,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: XMUX-Web
-          path: build/web
+          path: packages/xmux/build/web
 
   DeployGithubStatic:
     runs-on: ubuntu-latest

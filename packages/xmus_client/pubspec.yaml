@@ -1,14 +1,15 @@
 name: xmus_client
 description: Dart client of XMUS services.
-version: 0.0.1
-homepage: https://github.com/XMUMY/XMUX
+publish_to: none
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.11.0 <4.0.0"
+
+resolution: workspace
 
 dependencies:
   grpc: ^4.0.0
   protobuf: ^3.0.0
 
 dev_dependencies:
-  lints: ^5.0.0
+  lints: ^6.0.0

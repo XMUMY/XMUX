@@ -1,10 +1,11 @@
 name: moodle
 description: A client of moodle web service API.
-version: 0.0.1
-homepage: https://github.com/XMUMY/XMUX
+publish_to: none
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.11.0 <4.0.0"
+
+resolution: workspace
 
 dependencies:
   dio: ^5.0.0
@@ -13,4 +14,4 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.0.0
   json_serializable: ^6.0.0
-  lints: ^5.0.0
+  lints: ^6.0.0

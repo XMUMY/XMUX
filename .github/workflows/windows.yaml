@@ -6,10 +6,12 @@ on:
       - master
     paths:
       - .github/workflows/windows.yaml
-      - lib/**
-      - windows/**
       - pubspec.yaml
       - pubspec.lock
+      - packages/**/pubspec.yaml
+      - packages/**/lib/**
+      - packages/xmux/assets/**
+      - packages/xmux/windows/**
 
 jobs:
   Build:
@@ -22,6 +24,7 @@ jobs:
         with:
           channel: beta
       - name: Build
+        working-directory: packages/xmux
         run: |
           git config --global core.longpaths true
 
@@ -41,4 +44,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: XMUX-Windows
-          path: build/windows/x64/runner/Release
+          path: packages/xmux/build/windows/x64/runner/Release

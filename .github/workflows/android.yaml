@@ -6,10 +6,12 @@ on:
       - master
     paths:
       - .github/workflows/android.yaml
-      - lib/**
-      - android/**
       - pubspec.yaml
       - pubspec.lock
+      - packages/**/pubspec.yaml
+      - packages/**/lib/**
+      - packages/xmux/assets/**
+      - packages/xmux/android/**
 
 jobs:
   Build:
@@ -27,6 +29,7 @@ jobs:
         with:
           channel: beta
       - name: Build
+        working-directory: packages/xmux
         run: |
           FLUTTER_BUILD_NUMBER=$(git rev-list --count HEAD)
           GIT_DESC=$(git describe --tags)
@@ -54,7 +57,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: XMUX-Android
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: packages/xmux/build/app/outputs/flutter-apk/app-release.apk
 
   DeployGooglePlay:
     runs-on: ubuntu-latest
