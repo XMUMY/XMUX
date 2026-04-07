@@ -17,7 +17,7 @@ jobs:
   Build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: subosito/flutter-action@v2
@@ -44,7 +44,7 @@ jobs:
             --dart-define-from-file=.env
         env:
           CONFIG_ENV: ${{ secrets.CONFIG_ENV }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: XMUX-macOS
           path: packages/xmux/build/macos/Build/Products/Release/XMUX.app

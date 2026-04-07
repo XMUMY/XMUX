@@ -17,7 +17,7 @@ jobs:
   Build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: subosito/flutter-action@v2
@@ -41,7 +41,7 @@ jobs:
           flutter build windows --release --build-name=$buildName --build-number=$buildNumber --dart-define-from-file=.env
         env:
           CONFIG_ENV: ${{ secrets.CONFIG_ENV }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: XMUX-Windows
           path: packages/xmux/build/windows/x64/runner/Release
