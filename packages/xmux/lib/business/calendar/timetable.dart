@@ -40,11 +40,9 @@ class ListTimetable extends StatelessWidget {
   final List<Timetable_Class> _classes;
   final DateTime _lastUpdate;
 
-  ListTimetable({
-    super.key,
-    required this.timetable,
-  })  : _classes = sortTimetable(timetable.classes),
-        _lastUpdate = timetable.lastUpdate.toDateTime().toLocal();
+  ListTimetable({super.key, required this.timetable})
+    : _classes = sortTimetable(timetable.classes),
+      _lastUpdate = timetable.lastUpdate.toDateTime().toLocal();
 
   /// Sort timetable according to the end of class and now.
   static List<Timetable_Class> sortTimetable(List<Timetable_Class> timetable) {
@@ -100,48 +98,45 @@ class ListTimetable extends StatelessWidget {
       body = const EmptyErrorList();
     }
 
-    return RefreshIndicator(
-      onRefresh: _handleUpdate,
-      child: body,
-    );
+    return RefreshIndicator(onRefresh: _handleUpdate, child: body);
   }
 }
 
 class GridTimetable extends StatelessWidget {
   final Timetable timetable;
 
-  const GridTimetable({
-    super.key,
-    required this.timetable,
-  });
+  const GridTimetable({super.key, required this.timetable});
 
   @override
   Widget build(BuildContext context) {
     final classes = timetable.classes;
     final periods = Iterable<int>.generate(13)
-        .map((i) => SpannableGridCell(
-              id: i,
-              column: 1,
-              row: i + 2,
-              columnFlex: 1,
-              child: Column(
-                children: <Widget>[
-                  const Divider(height: 1),
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        '${i + 8} - ${i + 9}',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
+        .map(
+          (i) => SpannableGridCell(
+            id: i,
+            column: 1,
+            row: i + 2,
+            columnFlex: 1,
+            child: Column(
+              children: <Widget>[
+                const Divider(height: 1),
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      '${i + 8} - ${i + 9}',
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
-                  const Divider(height: 1),
-                ],
-              ),
-            ))
+                ),
+                const Divider(height: 1),
+              ],
+            ),
+          ),
+        )
         .toList();
     final weekdayCells = Iterable<int>.generate(6)
-        .map((i) => SpannableGridCell(
+        .map(
+          (i) => SpannableGridCell(
             id: i.toString(),
             column: i + 2,
             row: 1,
@@ -158,19 +153,24 @@ class GridTimetable extends StatelessWidget {
                 ),
                 const VerticalDivider(width: 1),
               ],
-            )))
+            ),
+          ),
+        )
         .toList();
     final timetableCells = classes
-        .map((c) => SpannableGridCell(
-              id: c.hashCode,
-              column: c.day + 1,
-              row: c.begin.toDateTime().toLocal().hour - 6,
-              rowSpan: c.end.toDateTime().toLocal().hour -
-                  c.begin.toDateTime().toLocal().hour,
-              columnFlex: 2,
-              rowFlex: 2,
-              child: _Card(lesson: c, isInGrid: true),
-            ))
+        .map(
+          (c) => SpannableGridCell(
+            id: c.hashCode,
+            column: c.day + 1,
+            row: c.begin.toDateTime().toLocal().hour - 6,
+            rowSpan:
+                c.end.toDateTime().toLocal().hour -
+                c.begin.toDateTime().toLocal().hour,
+            columnFlex: 2,
+            rowFlex: 2,
+            child: _Card(lesson: c, isInGrid: true),
+          ),
+        )
         .toList();
 
     return SingleChildScrollView(
@@ -180,11 +180,7 @@ class GridTimetable extends StatelessWidget {
           rows: 14,
           columns: 7,
           spacing: 1,
-          cells: [
-            ...timetableCells,
-            ...weekdayCells,
-            ...periods,
-          ],
+          cells: [...timetableCells, ...weekdayCells, ...periods],
         ),
       ),
     );
@@ -195,10 +191,7 @@ class _Card extends StatelessWidget {
   final Timetable_Class lesson;
   final bool isInGrid;
 
-  const _Card({
-    required this.lesson,
-    this.isInGrid = false,
-  });
+  const _Card({required this.lesson, this.isInGrid = false});
 
   // Colors from monday to sunday.
   static const List<Color> colors = [
@@ -249,10 +242,8 @@ class _Card extends StatelessWidget {
     );
 
     return FloatingCard(
-      onTap: () => showDialog(
-        context: context,
-        builder: (context) => _Dialog(lesson),
-      ),
+      onTap: () =>
+          showDialog(context: context, builder: (context) => _Dialog(lesson)),
       margin: const EdgeInsets.symmetric(vertical: 4),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       child: Column(
@@ -332,18 +323,20 @@ class _Dialog extends StatelessWidget {
     );
 
     // TODO: Avoid add when class is ended.
-    await plugin.createOrUpdateEvent(Event(
-      id,
-      title: lesson.name,
-      description: lesson.room,
-      start: begin,
-      end: end,
-      recurrenceRule: RecurrenceRule(
-        RecurrenceFrequency.Weekly,
-        endDate: lesson.end.toDateTime(),
+    await plugin.createOrUpdateEvent(
+      Event(
+        id,
+        title: lesson.name,
+        description: lesson.room,
+        start: begin,
+        end: end,
+        recurrenceRule: RecurrenceRule(
+          RecurrenceFrequency.Weekly,
+          endDate: lesson.end.toDateTime(),
+        ),
+        availability: Availability.Free,
       ),
-      availability: Availability.Free,
-    ));
+    );
 
     if (context.mounted) {
       Navigator.of(context).pop();

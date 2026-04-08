@@ -74,9 +74,6 @@ class _UpcomingEventPageState extends State<UpcomingEventPage>
       body = const EmptyErrorList();
     }
 
-    return RefreshIndicator(
-      onRefresh: _handleUpdate,
-      child: body,
-    );
+    return RefreshIndicator(onRefresh: _handleUpdate, child: body);
   }
 }

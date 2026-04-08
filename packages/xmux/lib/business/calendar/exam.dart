@@ -35,8 +35,8 @@ class ExamsList extends StatelessWidget {
   final DateTime _lastUpdate;
 
   ExamsList({super.key, required Exams exams})
-      : _exams = exams.exams,
-        _lastUpdate = exams.lastUpdate.toDateTime().toLocal();
+    : _exams = exams.exams,
+      _lastUpdate = exams.lastUpdate.toDateTime().toLocal();
 
   // Handle refresh.
   Future<void> _handleUpdate() async {
@@ -94,10 +94,7 @@ class _Card extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            exam.courseName,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text(exam.courseName, style: Theme.of(context).textTheme.titleMedium),
           const Divider(height: 8, color: Colors.transparent),
           Text(
             '${DateFormat.yMMMd(languageCode).format(exam.begin.toDateTime().toLocal())} '

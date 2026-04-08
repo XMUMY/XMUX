@@ -8,22 +8,16 @@ import '../redux/action/action.dart';
 import '../redux/store.dart';
 
 final postInitTask = ParallelTask([
-  SequentialTask([
-    syncCredentialTask,
-    refreshQueriesTask,
-  ]),
-  ParallelTask([
-    fetchRemoteConfigsTask,
-  ])
+  SequentialTask([syncCredentialTask, refreshQueriesTask]),
+  ParallelTask([fetchRemoteConfigsTask]),
 ]);
 
 final syncCredentialTask = ParallelTask.fromFunc([
   // RPC client.
   (ctx) async {
-    rpc.authorization.mergeFrom(Authorization.basic(
-      store.state.user.campusId,
-      store.state.user.password,
-    ));
+    rpc.authorization.mergeFrom(
+      Authorization.basic(store.state.user.campusId, store.state.user.password),
+    );
   },
   // Moodle client.
   (ctx) async {
@@ -34,13 +28,10 @@ final syncCredentialTask = ParallelTask.fromFunc([
   // Sentry
   (ctx) async {
     await Sentry.configureScope(
-      (scope) async => await scope.setUser(
-        SentryUser(
-          id: store.state.user.campusId,
-        ),
-      ),
+      (scope) async =>
+          await scope.setUser(SentryUser(id: store.state.user.campusId)),
     );
-  }
+  },
 ]);
 
 final refreshQueriesTask = Task((ctx) async {

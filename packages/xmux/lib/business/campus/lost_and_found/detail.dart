@@ -45,10 +45,7 @@ class _LostAndFoundDetailPageState extends State<LostAndFoundDetailPage> {
       details = const Center(
         child: Padding(
           padding: EdgeInsets.all(20),
-          child: SpinKitWave(
-            color: Colors.black38,
-            size: 20,
-          ),
+          child: SpinKitWave(color: Colors.black38, size: 20),
         ),
       );
     } else {
@@ -65,10 +62,7 @@ class _LostAndFoundDetailPageState extends State<LostAndFoundDetailPage> {
                     : LocaleKeys.Campus_LaFFound.tr(),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              Text(
-                detail.name,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+              Text(detail.name, style: Theme.of(context).textTheme.titleMedium),
               const Divider(height: 5, color: Colors.transparent),
               Text(
                 LocaleKeys.Campus_LaFTime.tr(),
@@ -98,7 +92,7 @@ class _LostAndFoundDetailPageState extends State<LostAndFoundDetailPage> {
                 ),
                 for (var contact in detail.contacts.entries)
                   Text('${contact.key}  ${contact.value}'),
-              ]
+              ],
             ],
           ),
         ),

@@ -13,9 +13,7 @@ class FaqList extends StatefulWidget {
 }
 
 class _FaqListState extends State<FaqList> with AutomaticKeepAliveClientMixin {
-  final _pagingController = PagingController<int, FaqEntry>(
-    firstPageKey: 1,
-  );
+  final _pagingController = PagingController<int, FaqEntry>(firstPageKey: 1);
 
   Future<void> _fetchPage(int pageKey) async {
     final resp = await Maintenance.getFaq(page: pageKey);
@@ -56,16 +54,13 @@ class _FaqListState extends State<FaqList> with AutomaticKeepAliveClientMixin {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  faq.title,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
+                Text(faq.title, style: Theme.of(context).textTheme.titleMedium),
                 Text(
                   DateFormat.yMMMd().format(faq.date),
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const Divider(),
-                Text(faq.answer)
+                Text(faq.answer),
               ],
             ),
           ),

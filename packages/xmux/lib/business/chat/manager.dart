@@ -48,12 +48,12 @@ class ChatManager {
     _client.receiving.stream
         .where((e) => e.whichResp() == ChatResp_Resp.heartbeat)
         .listen((e) {
-      _onlineStatus.add(true);
-      _offlineCountdown?.cancel();
-      _offlineCountdown = Timer(const Duration(seconds: 90), () {
-        _onlineStatus.add(false);
-      });
-    });
+          _onlineStatus.add(true);
+          _offlineCountdown?.cancel();
+          _offlineCountdown = Timer(const Duration(seconds: 90), () {
+            _onlineStatus.add(false);
+          });
+        });
 
     _client.sending.stream
         .where((e) => e.whichReq() == ChatReq_Req.chatMsg)
@@ -76,8 +76,9 @@ class ChatManager {
   }
 
   Future<GetOnlineUsersResp> getOnlineUsers() async {
-    final future = _client.receiving.stream
-        .firstWhere((e) => e.whichResp() == ChatResp_Resp.getOnlineUserResp);
+    final future = _client.receiving.stream.firstWhere(
+      (e) => e.whichResp() == ChatResp_Resp.getOnlineUserResp,
+    );
     _client.sending.add(ChatReq(getOnlineUserReq: GetOnlineUsersReq()));
     return (await future).getOnlineUserResp;
   }

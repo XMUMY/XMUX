@@ -7,16 +7,15 @@ import '../../foundation/router/observer.dart';
 
 /// Pre-initialization tasks that should be executed before [runApp].
 final preInitTask = ParallelTask([
-  SequentialTask([
-    initWidgetsFlutterBindingTask,
-    initEasyLocalizationTask,
-  ]),
+  SequentialTask([initWidgetsFlutterBindingTask, initEasyLocalizationTask]),
   initFirebaseTask,
   injectRouterObserverTask,
 ]);
 
-final initWidgetsFlutterBindingTask =
-    Task((ctx) async => WidgetsFlutterBinding.ensureInitialized());
+final initWidgetsFlutterBindingTask = Task(
+  (ctx) async => WidgetsFlutterBinding.ensureInitialized(),
+);
 
-final initEasyLocalizationTask =
-    Task((ctx) async => await EasyLocalization.ensureInitialized());
+final initEasyLocalizationTask = Task(
+  (ctx) async => await EasyLocalization.ensureInitialized(),
+);

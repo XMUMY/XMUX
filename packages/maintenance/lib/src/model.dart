@@ -36,6 +36,7 @@ class MyRequest {
   });
 }
 
+// ignore: library_private_types_in_public_api
 class RequestForm = _RequestForm with _$RequestForm;
 
 abstract class _RequestForm with Store {
@@ -87,6 +88,5 @@ abstract class _RequestForm with Store {
     required this.name,
     required this.email,
     required this.token,
-    this.phoneNumber,
   });
 }

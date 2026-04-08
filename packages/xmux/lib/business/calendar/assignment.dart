@@ -84,10 +84,12 @@ class _AssignmentListState extends State<AssignmentList> {
     for (var course in widget.assignments) {
       for (var assignment in course.assignments) {
         if (assignment.dueDate.isAfter(now)) {
-          _doing.add(_buildExpansionPanelRadio(
-            course,
-            course.assignments.where((a) => a.dueDate.isAfter(now)),
-          ));
+          _doing.add(
+            _buildExpansionPanelRadio(
+              course,
+              course.assignments.where((a) => a.dueDate.isAfter(now)),
+            ),
+          );
           break;
         }
       }
@@ -97,10 +99,12 @@ class _AssignmentListState extends State<AssignmentList> {
     for (var course in widget.assignments) {
       for (var assignment in course.assignments) {
         if (assignment.dueDate.isBefore(now)) {
-          _expired.add(_buildExpansionPanelRadio(
-            course,
-            course.assignments.where((a) => a.dueDate.isBefore(now)),
-          ));
+          _expired.add(
+            _buildExpansionPanelRadio(
+              course,
+              course.assignments.where((a) => a.dueDate.isBefore(now)),
+            ),
+          );
           break;
         }
       }
@@ -173,7 +177,8 @@ class _AssignmentListState extends State<AssignmentList> {
     if (widget.assignments.isNotEmpty) {
       list = ListView(
         primary: true,
-        padding: CatalogueContentPadding.of(context) +
+        padding:
+            CatalogueContentPadding.of(context) +
             const EdgeInsets.symmetric(vertical: 8),
         children: <Widget>[
           Text(
@@ -195,10 +200,7 @@ class _AssignmentListState extends State<AssignmentList> {
       list = const EmptyErrorList();
     }
 
-    list = RefreshIndicator(
-      onRefresh: _handleUpdate,
-      child: list,
-    );
+    list = RefreshIndicator(onRefresh: _handleUpdate, child: list);
 
     return list;
   }
@@ -207,10 +209,7 @@ class _AssignmentListState extends State<AssignmentList> {
 class AssignmentDetail extends StatelessWidget {
   final Assignment assignment;
 
-  const AssignmentDetail({
-    super.key,
-    required this.assignment,
-  });
+  const AssignmentDetail({super.key, required this.assignment});
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +217,8 @@ class AssignmentDetail extends StatelessWidget {
 
     final detail = ListView(
       primary: true,
-      padding: CatalogueContentPadding.of(context) +
+      padding:
+          CatalogueContentPadding.of(context) +
           const EdgeInsets.symmetric(
             vertical: 4,
             horizontal: -4, // -4px card margin.
@@ -270,7 +270,7 @@ class AssignmentDetail extends StatelessWidget {
                           ),
                         ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -302,15 +302,13 @@ class AssignmentDetail extends StatelessWidget {
               ],
             ),
           ),
-        )
+        ),
       ],
     );
 
     if (!context.isUnderCatalogueContentLayout) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(assignment.name),
-        ),
+        appBar: AppBar(title: Text(assignment.name)),
         body: detail,
       );
     }

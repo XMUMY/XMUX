@@ -16,18 +16,9 @@ class InitPage extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'χ',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 120,
-                ),
-              ),
+              Text('χ', style: TextStyle(color: Colors.white, fontSize: 120)),
               Divider(height: 30, color: Colors.transparent),
-              SpinKitThreeBounce(
-                color: Colors.white,
-                size: 30,
-              ),
+              SpinKitThreeBounce(color: Colors.white, size: 30),
             ],
           ),
         ],

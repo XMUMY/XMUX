@@ -24,9 +24,7 @@ class ForumsTab extends StatefulWidget implements TabEntry {
 
 class _ForumsTabState extends State<ForumsTab>
     with AutomaticKeepAliveClientMixin {
-  final _pagingController = PagingController<int, ForumDetail>(
-    firstPageKey: 0,
-  );
+  final _pagingController = PagingController<int, ForumDetail>(firstPageKey: 0);
 
   Future<void> _fetchPage(int pageKey) async {
     final resp = await rpc.forumClient.getForums(GetForumsReq(count: 10));
@@ -55,10 +53,8 @@ class _ForumsTabState extends State<ForumsTab>
       padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<ForumDetail>(
-        itemBuilder: (context, forum, index) => FloatingCard(
-          child: Text(forum.title),
-          onTap: () {},
-        ),
+        itemBuilder: (context, forum, index) =>
+            FloatingCard(child: Text(forum.title), onTap: () {}),
         noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
       ),
     );

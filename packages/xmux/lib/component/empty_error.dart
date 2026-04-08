@@ -55,10 +55,8 @@ class _EmptyErrorPageState extends State<EmptyErrorPage>
             AnimatedBuilder(
               animation: _controller,
               child: const Icon(Icons.hourglass_empty, size: 50),
-              builder: (context, child) => RotationTransition(
-                turns: _controller,
-                child: child,
-              ),
+              builder: (context, child) =>
+                  RotationTransition(turns: _controller, child: child),
             ),
             const Divider(color: Colors.transparent),
             const Text(
@@ -66,10 +64,7 @@ class _EmptyErrorPageState extends State<EmptyErrorPage>
               textAlign: TextAlign.center,
             ),
             const Divider(color: Colors.transparent),
-            const Text(
-              '噢！这里什么也没有！\n请刷新或稍后再来。',
-              textAlign: TextAlign.center,
-            )
+            const Text('噢！这里什么也没有！\n请刷新或稍后再来。', textAlign: TextAlign.center),
           ],
         ),
       ),
@@ -83,11 +78,6 @@ class EmptyErrorList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const EmptyErrorPage(),
-        ListView(),
-      ],
-    );
+    return Stack(children: [const EmptyErrorPage(), ListView()]);
   }
 }

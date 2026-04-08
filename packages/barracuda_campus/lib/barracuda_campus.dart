@@ -10,34 +10,42 @@ class _CookieManager extends CookieManager {
   _CookieManager(super.cookieJar);
 
   @override
-  Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    cookieJar.loadForRequest(options.uri).then((cookies) {
-      var cookie =
-          CookieManager.getCookies(cookies..add(Cookie('collegecode', 'xmu')));
-      if (cookie.isNotEmpty) {
-        options.headers[HttpHeaders.cookieHeader] = cookie;
-      }
-      handler.next(options);
-    }).catchError((e, stackTrace) {
-      var err = DioException(
-        requestOptions: options,
-        error: e,
-        stackTrace: stackTrace,
-      );
-      handler.reject(err, true);
-    });
+  Future<void> onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
+    cookieJar
+        .loadForRequest(options.uri)
+        .then((cookies) {
+          var cookie = CookieManager.getCookies(
+            cookies..add(Cookie('collegecode', 'xmu')),
+          );
+          if (cookie.isNotEmpty) {
+            options.headers[HttpHeaders.cookieHeader] = cookie;
+          }
+          handler.next(options);
+        })
+        .catchError((e, stackTrace) {
+          var err = DioException(
+            requestOptions: options,
+            error: e,
+            stackTrace: stackTrace,
+          );
+          handler.reject(err, true);
+        });
   }
 }
 
 /// A spider for Barracuda Campus student portal.
 class BCStudent {
-  final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'https://www.barracudacampus.com/stud/index.php',
-    connectTimeout: const Duration(milliseconds: 5000),
-    receiveTimeout: const Duration(milliseconds: 5000),
-    contentType: 'application/x-www-form-urlencoded',
-  ))
-    ..interceptors.add(_CookieManager(CookieJar()));
+  final Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: 'https://www.barracudacampus.com/stud/index.php',
+      connectTimeout: const Duration(milliseconds: 5000),
+      receiveTimeout: const Duration(milliseconds: 5000),
+      contentType: 'application/x-www-form-urlencoded',
+    ),
+  )..interceptors.add(_CookieManager(CookieJar()));
 
   /// Login credential.
   String? _username, _password;
@@ -85,14 +93,18 @@ class BCStudent {
     }
 
     return details
-        .map((record) => PaymentRecord(
-              date: DateFormat('d-M-y').parse(record.children.first.text),
-              item: record.children[1].text,
-              amount: double.parse(record.children[2].text.replaceAll(',', '')),
-              paid: double.tryParse(record.children[3].text
-                      .replaceAll(RegExp(r'[(),]'), '')) ??
-                  0,
-            ))
+        .map(
+          (record) => PaymentRecord(
+            date: DateFormat('d-M-y').parse(record.children.first.text),
+            item: record.children[1].text,
+            amount: double.parse(record.children[2].text.replaceAll(',', '')),
+            paid:
+                double.tryParse(
+                  record.children[3].text.replaceAll(RegExp(r'[(),]'), ''),
+                ) ??
+                0,
+          ),
+        )
         .toList();
   }
 }

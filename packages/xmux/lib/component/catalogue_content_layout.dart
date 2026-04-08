@@ -44,33 +44,37 @@ class CatalogueContentLayout extends StatelessWidget {
 
     return AdaptiveLayout(
       bodyRatio: width < 1400 ? null : 600 / (width - 192),
-      body: SlotLayout(config: {
-        Breakpoints.standard: SlotLayout.from(
-          key: const ValueKey('catalogue'),
-          builder: (context) => CatalogueContentPadding(
-            padding: content != null && isLarge
-                ? EdgeInsets.only(right: bodyPadding / 2)
-                : EdgeInsets.symmetric(horizontal: bodyPadding),
-            child: catalogue,
-          ),
-        ),
-      }),
-      secondaryBody: SlotLayout(config: {
-        if (isLarge && content != null)
-          Breakpoints.large: SlotLayout.from(
-            key: const ValueKey('content'),
+      body: SlotLayout(
+        config: {
+          Breakpoints.standard: SlotLayout.from(
+            key: const ValueKey('catalogue'),
             builder: (context) => CatalogueContentPadding(
-              padding: EdgeInsets.only(
-                left: bodyPadding / 2,
-                right: bodyPadding,
-              ),
-              child: PrimaryScrollController(
-                controller: ScrollController(),
-                child: content!,
+              padding: content != null && isLarge
+                  ? EdgeInsets.only(right: bodyPadding / 2)
+                  : EdgeInsets.symmetric(horizontal: bodyPadding),
+              child: catalogue,
+            ),
+          ),
+        },
+      ),
+      secondaryBody: SlotLayout(
+        config: {
+          if (isLarge && content != null)
+            Breakpoints.large: SlotLayout.from(
+              key: const ValueKey('content'),
+              builder: (context) => CatalogueContentPadding(
+                padding: EdgeInsets.only(
+                  left: bodyPadding / 2,
+                  right: bodyPadding,
+                ),
+                child: PrimaryScrollController(
+                  controller: ScrollController(),
+                  child: content!,
+                ),
               ),
             ),
-          )
-      }),
+        },
+      ),
     );
   }
 }

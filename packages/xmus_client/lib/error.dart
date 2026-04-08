@@ -26,16 +26,13 @@ class XmuxRpcError implements Exception {
 
 extension XmuxRpcErrorConverter<T> on ResponseFuture<T> {
   /// Try to convert [GrpcError] to [XmuxRpcError].
-  Future<T> get convertRpcError => catchError(
-        (e) {
-          try {
-            throw XmuxRpcError.parse(e);
-          } on XmuxRpcError catch (_) {
-            rethrow;
-          } catch (_) {
-            throw e;
-          }
-        },
-        test: (e) => e is GrpcError,
-      );
+  Future<T> get convertRpcError => catchError((e) {
+    try {
+      throw XmuxRpcError.parse(e);
+    } on XmuxRpcError catch (_) {
+      rethrow;
+    } catch (_) {
+      throw e;
+    }
+  }, test: (e) => e is GrpcError);
 }

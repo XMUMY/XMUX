@@ -54,16 +54,13 @@ class _WolframPageState extends State<WolframPage> {
               offset: _inputTextController.text.length,
             );
           },
-          items: [
-            'solve',
-            'upper triangular',
-            'row reduce',
-            'integral',
-          ]
-              .map((command) => DropdownMenuItem<String>(
-                    value: command,
-                    child: Text(command),
-                  ))
+          items: ['solve', 'upper triangular', 'row reduce', 'integral']
+              .map(
+                (command) => DropdownMenuItem<String>(
+                  value: command,
+                  child: Text(command),
+                ),
+              )
               .toList(),
         ),
       ),
@@ -90,7 +87,7 @@ class _WolframPageState extends State<WolframPage> {
           'z',
           'f',
         ].map(_toButton).toList(),
-      )
+      ),
     ];
 
     return Scaffold(
@@ -105,11 +102,12 @@ class _WolframPageState extends State<WolframPage> {
             icon: const Icon(Icons.send),
             onPressed: () {
               if (_inputTextController.text.isEmpty) return;
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => WolframResultPage(
-                  input: _inputTextController.text,
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      WolframResultPage(input: _inputTextController.text),
                 ),
-              ));
+              );
             },
           ),
         ],
@@ -133,20 +131,20 @@ class WolframResultPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Wolfram Engine')),
       body: Stack(
         children: <Widget>[
-          const Center(
-            child: CircularProgressIndicator(),
-          ),
+          const Center(child: CircularProgressIndicator()),
           SingleChildScrollView(
             child: Center(
               child: Image.network(
-                Uri.parse('https://api.wolframalpha.com/v1/simple').replace(
-                  queryParameters: {
-                    'appid': wolframAppId,
-                    'i': input,
-                    'fontsize': '18',
-                    'width': MediaQuery.of(context).size.width.toString(),
-                  },
-                ).toString(),
+                Uri.parse('https://api.wolframalpha.com/v1/simple')
+                    .replace(
+                      queryParameters: {
+                        'appid': wolframAppId,
+                        'i': input,
+                        'fontsize': '18',
+                        'width': MediaQuery.of(context).size.width.toString(),
+                      },
+                    )
+                    .toString(),
               ),
             ),
           ),

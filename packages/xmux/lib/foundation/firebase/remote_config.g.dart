@@ -9,21 +9,24 @@ part of 'remote_config.dart';
 StaticResources _$StaticResourcesFromJson(Map<String, dynamic> json) =>
     StaticResources(
       academicCalendarImages: AcademicCalendarImages.fromJson(
-          json['academicCalendarImages'] as Map<String, dynamic>),
+        json['academicCalendarImages'] as Map<String, dynamic>,
+      ),
       busScheduleImage: json['busScheduleImage'] as String,
       kliaTransitScheduleImage: json['kliaTransitScheduleImage'] as String,
       kliaExpressScheduleImage: json['kliaExpressScheduleImage'] as String,
     );
 
 AcademicCalendarImages _$AcademicCalendarImagesFromJson(
-        Map<String, dynamic> json) =>
-    AcademicCalendarImages(
-      undergraduate: (json['undergraduate'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, e as String),
-          ) ??
-          const {},
-      foundation: (json['foundation'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, e as String),
-          ) ??
-          const {},
-    );
+  Map<String, dynamic> json,
+) => AcademicCalendarImages(
+  undergraduate:
+      (json['undergraduate'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ) ??
+      const {},
+  foundation:
+      (json['foundation'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ) ??
+      const {},
+);

@@ -16,10 +16,12 @@ class KliaExpressPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(LocaleKeys.Campus_KliaExpress.tr()),
-          bottom: const TabBar(tabs: <Widget>[
-            Tab(text: 'Transit'),
-            Tab(text: 'Express'),
-          ]),
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(text: 'Transit'),
+              Tab(text: 'Express'),
+            ],
+          ),
         ),
         body: TabBarView(
           physics: const NeverScrollableScrollPhysics(),
@@ -27,18 +29,14 @@ class KliaExpressPage extends StatelessWidget {
             ExtendedImage.network(
               RemoteConfigs.instance.staticResources.kliaTransitScheduleImage,
               mode: ExtendedImageMode.gesture,
-              initGestureConfigHandler: (state) => GestureConfig(
-                maxScale: 2.5,
-                minScale: 0.5,
-              ),
+              initGestureConfigHandler: (state) =>
+                  GestureConfig(maxScale: 2.5, minScale: 0.5),
             ),
             ExtendedImage.network(
               RemoteConfigs.instance.staticResources.kliaExpressScheduleImage,
               mode: ExtendedImageMode.gesture,
-              initGestureConfigHandler: (state) => GestureConfig(
-                maxScale: 2.5,
-                minScale: 0.5,
-              ),
+              initGestureConfigHandler: (state) =>
+                  GestureConfig(maxScale: 2.5, minScale: 0.5),
             ),
           ],
         ),

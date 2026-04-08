@@ -9,8 +9,10 @@ part of 'create.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$LostAndFoundForm on _LostAndFoundForm, Store {
-  late final _$typeAtom =
-      Atom(name: '_LostAndFoundForm.type', context: context);
+  late final _$typeAtom = Atom(
+    name: '_LostAndFoundForm.type',
+    context: context,
+  );
 
   @override
   LostAndFoundType get type {
@@ -25,8 +27,10 @@ mixin _$LostAndFoundForm on _LostAndFoundForm, Store {
     });
   }
 
-  late final _$nameAtom =
-      Atom(name: '_LostAndFoundForm.name', context: context);
+  late final _$nameAtom = Atom(
+    name: '_LostAndFoundForm.name',
+    context: context,
+  );
 
   @override
   String get name {
@@ -41,8 +45,10 @@ mixin _$LostAndFoundForm on _LostAndFoundForm, Store {
     });
   }
 
-  late final _$timeAtom =
-      Atom(name: '_LostAndFoundForm.time', context: context);
+  late final _$timeAtom = Atom(
+    name: '_LostAndFoundForm.time',
+    context: context,
+  );
 
   @override
   DateTime get time {
@@ -57,8 +63,10 @@ mixin _$LostAndFoundForm on _LostAndFoundForm, Store {
     });
   }
 
-  late final _$locationAtom =
-      Atom(name: '_LostAndFoundForm.location', context: context);
+  late final _$locationAtom = Atom(
+    name: '_LostAndFoundForm.location',
+    context: context,
+  );
 
   @override
   String get location {
@@ -73,8 +81,10 @@ mixin _$LostAndFoundForm on _LostAndFoundForm, Store {
     });
   }
 
-  late final _$descriptionAtom =
-      Atom(name: '_LostAndFoundForm.description', context: context);
+  late final _$descriptionAtom = Atom(
+    name: '_LostAndFoundForm.description',
+    context: context,
+  );
 
   @override
   String get description {
@@ -89,8 +99,10 @@ mixin _$LostAndFoundForm on _LostAndFoundForm, Store {
     });
   }
 
-  late final _$contactsAtom =
-      Atom(name: '_LostAndFoundForm.contacts', context: context);
+  late final _$contactsAtom = Atom(
+    name: '_LostAndFoundForm.contacts',
+    context: context,
+  );
 
   @override
   ObservableMap<String, String> get contacts {

@@ -26,17 +26,18 @@ CourseRegistered _$CourseRegisteredFromJson(Map<String, dynamic> json) =>
     );
 
 ElectiveSessionFormData _$ElectiveSessionFormDataFromJson(
-        Map<String, dynamic> json) =>
-    ElectiveSessionFormData(
-      formGeneralInfo: FormGeneralInfo.fromJson(
-          json['formGeneralInfo'] as Map<String, dynamic>),
-      coursesSelected: (json['coursesSelected'] as List<dynamic>)
-          .map((e) => CourseSelected.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      coursesList: (json['coursesList'] as List<dynamic>)
-          .map((e) => CourseUnselected.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  Map<String, dynamic> json,
+) => ElectiveSessionFormData(
+  formGeneralInfo: FormGeneralInfo.fromJson(
+    json['formGeneralInfo'] as Map<String, dynamic>,
+  ),
+  coursesSelected: (json['coursesSelected'] as List<dynamic>)
+      .map((e) => CourseSelected.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  coursesList: (json['coursesList'] as List<dynamic>)
+      .map((e) => CourseUnselected.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 FormGeneralInfo _$FormGeneralInfoFromJson(Map<String, dynamic> json) =>
     FormGeneralInfo(

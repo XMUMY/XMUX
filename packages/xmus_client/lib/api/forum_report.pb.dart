@@ -38,7 +38,8 @@ class ReportPostOrThreadReq extends $pb.GeneratedMessage {
   factory ReportPostOrThreadReq.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory ReportPostOrThreadReq.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory ReportPostOrThreadReq.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -141,7 +142,8 @@ class ReportPostOrThreadResp extends $pb.GeneratedMessage {
   factory ReportPostOrThreadResp.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory ReportPostOrThreadResp.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory ReportPostOrThreadResp.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -207,7 +209,8 @@ class GetReportTypesResp extends $pb.GeneratedMessage {
   factory GetReportTypesResp.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory GetReportTypesResp.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory GetReportTypesResp.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;

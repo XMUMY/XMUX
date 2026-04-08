@@ -20,17 +20,17 @@ class ThreadList extends StatefulWidget {
 }
 
 class _ThreadListState extends State<ThreadList> {
-  final _pagingController = PagingController<int, Thread>(
-    firstPageKey: 0,
-  );
+  final _pagingController = PagingController<int, Thread>(firstPageKey: 0);
 
   Future<void> _fetchPage(int pageKey) async {
-    final resp = await rpc.forumClient.getThreads(GetThreadsReq(
-      forumId: 1,
-      ordering: Ordering.update,
-      offset: pageKey,
-      count: 10,
-    ));
+    final resp = await rpc.forumClient.getThreads(
+      GetThreadsReq(
+        forumId: 1,
+        ordering: Ordering.update,
+        offset: pageKey,
+        count: 10,
+      ),
+    );
     if (!mounted) return;
     if (resp.threads.isNotEmpty && resp.threads.length >= 10) {
       _pagingController.appendPage(resp.threads, pageKey + resp.threads.length);

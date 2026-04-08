@@ -48,10 +48,7 @@ final router = GoRouter(
     return null;
   },
   routes: [
-    GoRoute(
-      path: '/',
-      redirect: (_, __) => '/calendar/timetable',
-    ),
+    GoRoute(path: '/', redirect: (_, _) => '/calendar/timetable'),
     GoRoute(
       path: '/init',
       pageBuilder: (context, state) =>
@@ -85,10 +82,10 @@ final router = GoRouter(
               builder: (context, state, shell) => shell,
               navigatorContainerBuilder: (_, shell, children) =>
                   TabShellContainer(
-                navigationShell: shell,
-                tabInformationProvider: const CalendarTabs(),
-                children: children,
-              ),
+                    navigationShell: shell,
+                    tabInformationProvider: const CalendarTabs(),
+                    children: children,
+                  ),
               branches: [
                 StatefulShellBranch(
                   routes: [
@@ -140,10 +137,10 @@ final router = GoRouter(
               builder: (context, state, shell) => shell,
               navigatorContainerBuilder: (_, shell, children) =>
                   TabShellContainer(
-                navigationShell: shell,
-                tabInformationProvider: const CommunityTabs(),
-                children: children,
-              ),
+                    navigationShell: shell,
+                    tabInformationProvider: const CommunityTabs(),
+                    children: children,
+                  ),
               branches: [
                 StatefulShellBranch(
                   routes: [
@@ -224,10 +221,7 @@ final router = GoRouter(
         ),
         StatefulShellBranch(
           routes: [
-            GoRoute(
-              path: '/profile',
-              builder: (_, s) => const MePage(),
-            ),
+            GoRoute(path: '/profile', builder: (_, s) => const MePage()),
           ],
         ),
       ],

@@ -70,8 +70,10 @@ class DefaultFirebaseOptions {
     projectId: 'xmux-app',
     databaseURL: 'https://xmux-app.firebaseio.com',
     storageBucket: 'xmux-app.appspot.com',
-    androidClientId: '899332542714-krdj4p2q3saldjs033dc43akhcvgj8lr.apps.googleusercontent.com',
-    iosClientId: '899332542714-3tbdio70pe0il4dg5vk40n60cc95krih.apps.googleusercontent.com',
+    androidClientId:
+        '899332542714-krdj4p2q3saldjs033dc43akhcvgj8lr.apps.googleusercontent.com',
+    iosClientId:
+        '899332542714-3tbdio70pe0il4dg5vk40n60cc95krih.apps.googleusercontent.com',
     iosBundleId: 'org.ctbeta.xmux',
   );
 
@@ -82,8 +84,10 @@ class DefaultFirebaseOptions {
     projectId: 'xmux-app',
     databaseURL: 'https://xmux-app.firebaseio.com',
     storageBucket: 'xmux-app.appspot.com',
-    androidClientId: '899332542714-krdj4p2q3saldjs033dc43akhcvgj8lr.apps.googleusercontent.com',
-    iosClientId: '899332542714-3tbdio70pe0il4dg5vk40n60cc95krih.apps.googleusercontent.com',
+    androidClientId:
+        '899332542714-krdj4p2q3saldjs033dc43akhcvgj8lr.apps.googleusercontent.com',
+    iosClientId:
+        '899332542714-3tbdio70pe0il4dg5vk40n60cc95krih.apps.googleusercontent.com',
     iosBundleId: 'org.ctbeta.xmux',
   );
 }

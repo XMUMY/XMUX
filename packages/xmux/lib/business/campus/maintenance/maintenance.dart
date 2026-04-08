@@ -39,10 +39,12 @@ class MaintenancePage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>
-                  RequestFormPage(maintenanceApi: maintenanceApi),
-            ));
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    RequestFormPage(maintenanceApi: maintenanceApi),
+              ),
+            );
           },
         ),
       ),

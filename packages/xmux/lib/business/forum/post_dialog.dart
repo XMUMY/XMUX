@@ -12,11 +12,7 @@ class NewPostDialog extends StatefulWidget {
   final int threadId;
   final Post? toPost;
 
-  const NewPostDialog({
-    super.key,
-    required this.threadId,
-    this.toPost,
-  });
+  const NewPostDialog({super.key, required this.threadId, this.toPost});
 
   static Future<bool?> show(
     BuildContext context, {
@@ -25,10 +21,7 @@ class NewPostDialog extends StatefulWidget {
   }) async {
     return showDialog<bool>(
       context: context,
-      builder: (context) => NewPostDialog(
-        threadId: threadId,
-        toPost: toPost,
-      ),
+      builder: (context) => NewPostDialog(threadId: threadId, toPost: toPost),
       barrierColor: Colors.black26,
     );
   }
@@ -53,7 +46,8 @@ class _NewPostDialogState extends State<NewPostDialog> {
 
       if (toPost != null) {
         req.parentId = toPost.parentId == 0
-            ? toPost.id // Reply to top level post.
+            ? toPost
+                  .id // Reply to top level post.
             : toPost.parentId; // Reply to second level post.
       }
       if (toPost != null && toPost.parentId != 0) {
@@ -97,10 +91,7 @@ class _NewPostDialogState extends State<NewPostDialog> {
       child: Row(
         children: [
           Expanded(child: inputField),
-          IconButton(
-            icon: const Icon(Icons.send),
-            onPressed: _handleSubmit,
-          )
+          IconButton(icon: const Icon(Icons.send), onPressed: _handleSubmit),
         ],
       ),
     );

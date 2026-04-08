@@ -94,19 +94,22 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage> {
   @override
   Widget build(BuildContext context) {
     return CatalogueContentLayout(
-      catalogue: Builder(builder: (context) {
-        return PagedListView<int, Notification>(
-          primary: true,
-          padding: CatalogueContentPadding.of(context) +
-              const EdgeInsets.symmetric(vertical: 4),
-          pagingController: _pagingController,
-          builderDelegate: PagedChildBuilderDelegate<Notification>(
-            itemBuilder: (context, item, index) =>
-                _buildListItem(context, item),
-            noItemsFoundIndicatorBuilder: (context) => const EmptyErrorPage(),
-          ),
-        );
-      }),
+      catalogue: Builder(
+        builder: (context) {
+          return PagedListView<int, Notification>(
+            primary: true,
+            padding:
+                CatalogueContentPadding.of(context) +
+                const EdgeInsets.symmetric(vertical: 4),
+            pagingController: _pagingController,
+            builderDelegate: PagedChildBuilderDelegate<Notification>(
+              itemBuilder: (context, item, index) =>
+                  _buildListItem(context, item),
+              noItemsFoundIndicatorBuilder: (context) => const EmptyErrorPage(),
+            ),
+          );
+        },
+      ),
       content: _selectedNotification != null
           ? _MoodleNotificationDetail(notification: _selectedNotification!)
           : null,
@@ -117,9 +120,7 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage> {
 class _MoodleNotificationDetail extends StatelessWidget {
   final Notification notification;
 
-  const _MoodleNotificationDetail({
-    required this.notification,
-  });
+  const _MoodleNotificationDetail({required this.notification});
 
   @override
   Widget build(BuildContext context) {
@@ -157,16 +158,15 @@ class _MoodleNotificationDetail extends StatelessWidget {
           );
 
     final detail = ListView(
-      padding: CatalogueContentPadding.of(context) +
+      padding:
+          CatalogueContentPadding.of(context) +
           const EdgeInsets.symmetric(vertical: 4),
       children: [contentWidget],
     );
 
     if (!context.isUnderCatalogueContentLayout) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(notification.subject),
-        ),
+        appBar: AppBar(title: Text(notification.subject)),
         body: detail,
       );
     }

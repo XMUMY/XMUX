@@ -36,7 +36,8 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
       totalCredits += i.credits;
     }
     for (var i in courses) {
-      gpa += GPACalculatorPage.gradePoints[i.chosenGrade]! *
+      gpa +=
+          GPACalculatorPage.gradePoints[i.chosenGrade]! *
           i.credits /
           totalCredits;
     }
@@ -69,8 +70,8 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
               child: Text(
                 'GPA: ${calculateGPA(courses).toStringAsFixed(2)}',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: calculateGPA(courses).pointColor,
-                    ),
+                  color: calculateGPA(courses).pointColor,
+                ),
               ),
             ),
           ),
@@ -84,10 +85,12 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
                   value: courses[index].chosenGrade,
                   items: GPACalculatorPage.gradePoints.keys
                       .toList()
-                      .map((point) => DropdownMenuItem<String>(
-                            value: point,
-                            child: Text(point),
-                          ))
+                      .map(
+                        (point) => DropdownMenuItem<String>(
+                          value: point,
+                          child: Text(point),
+                        ),
+                      )
                       .toList(),
                   onChanged: (grade) =>
                       setState(() => courses[index].chosenGrade = grade!),

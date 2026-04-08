@@ -21,10 +21,7 @@ class FavoritePage extends StatefulWidget {
   factory FavoritePage.fromTab(String? tab) =>
       FavoritePage(index: tabs.indexWhere((e) => e.path == tab));
 
-  static const tabs = <TabEntry>[
-    _Threads(),
-    _Posts(),
-  ];
+  static const tabs = <TabEntry>[_Threads(), _Posts()];
 
   @override
   State<FavoritePage> createState() => _FavoritePageState();
@@ -64,14 +61,12 @@ class _FavoritePageState extends State<FavoritePage>
         bottom: TabBar(
           controller: _controller,
           tabs: FavoritePage.tabs.map((e) => Tab(text: e.label)).toList(),
-          onTap: (index) => context
-              .replace('/community/favorite/${FavoritePage.tabs[index].path}'),
+          onTap: (index) => context.replace(
+            '/community/favorite/${FavoritePage.tabs[index].path}',
+          ),
         ),
       ),
-      body: TabBarView(
-        controller: _controller,
-        children: FavoritePage.tabs,
-      ),
+      body: TabBarView(controller: _controller, children: FavoritePage.tabs),
     );
   }
 }
@@ -90,15 +85,12 @@ class _Threads extends StatefulWidget implements TabEntry {
 }
 
 class _ThreadsState extends State<_Threads> with AutomaticKeepAliveClientMixin {
-  final _pagingController = PagingController<int, Thread>(
-    firstPageKey: 0,
-  );
+  final _pagingController = PagingController<int, Thread>(firstPageKey: 0);
 
   Future<void> _fetchPage(int pageKey) async {
-    final resp = await rpc.forumClient.getSavedThreads(GetSavedThreadsReq(
-      offset: pageKey,
-      count: 10,
-    ));
+    final resp = await rpc.forumClient.getSavedThreads(
+      GetSavedThreadsReq(offset: pageKey, count: 10),
+    );
     if (!mounted) return;
     if (resp.threads.isNotEmpty && resp.threads.length >= 10) {
       _pagingController.appendPage(resp.threads, pageKey + resp.threads.length);
@@ -156,15 +148,12 @@ class _Posts extends StatefulWidget implements TabEntry {
 }
 
 class _PostsState extends State<_Posts> with AutomaticKeepAliveClientMixin {
-  final _pagingController = PagingController<int, Post>(
-    firstPageKey: 0,
-  );
+  final _pagingController = PagingController<int, Post>(firstPageKey: 0);
 
   Future<void> _fetchPage(int pageKey) async {
-    final resp = await rpc.forumClient.getSavedPosts(GetSavedPostsReq(
-      offset: pageKey,
-      count: 10,
-    ));
+    final resp = await rpc.forumClient.getSavedPosts(
+      GetSavedPostsReq(offset: pageKey, count: 10),
+    );
     if (!mounted) return;
     if (resp.posts.isNotEmpty && resp.posts.length >= 10) {
       _pagingController.appendPage(resp.posts, pageKey + resp.posts.length);
@@ -197,10 +186,8 @@ class _PostsState extends State<_Posts> with AutomaticKeepAliveClientMixin {
         padding: context.padListView,
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<Post>(
-          itemBuilder: (context, post, index) => PostCard(
-            threadId: post.threadId,
-            post: post,
-          ),
+          itemBuilder: (context, post, index) =>
+              PostCard(threadId: post.threadId, post: post),
           noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
         ),
       ),

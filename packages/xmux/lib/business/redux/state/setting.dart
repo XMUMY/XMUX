@@ -26,14 +26,12 @@ class SettingState {
     bool? showPerformanceOverlay,
     bool? showSemanticsDebugger,
     bool? enableDevFunctions,
-  }) =>
-      SettingState(
-        showPerformanceOverlay:
-            showPerformanceOverlay ?? this.showPerformanceOverlay,
-        showSemanticsDebugger:
-            showSemanticsDebugger ?? this.showSemanticsDebugger,
-        enableDevFunctions: enableDevFunctions ?? this.enableDevFunctions,
-      );
+  }) => SettingState(
+    showPerformanceOverlay:
+        showPerformanceOverlay ?? this.showPerformanceOverlay,
+    showSemanticsDebugger: showSemanticsDebugger ?? this.showSemanticsDebugger,
+    enableDevFunctions: enableDevFunctions ?? this.enableDevFunctions,
+  );
 
   @override
   bool operator ==(Object other) =>

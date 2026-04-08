@@ -67,8 +67,10 @@ class CampusPage extends StatelessWidget {
                 _Button(
                   title: LocaleKeys.Campus_ECR.tr(),
                   svg: 'assets/campus/ecr.svg',
-                  onPressed:
-                      _push(context, '/campus/elective_course_registration'),
+                  onPressed: _push(
+                    context,
+                    '/campus/elective_course_registration',
+                  ),
                 ),
             ],
           ),
@@ -130,10 +132,7 @@ class CampusPage extends StatelessWidget {
               _Button(
                 title: LocaleKeys.Campus_LaF.tr(),
                 onPressed: _push(context, '/campus/lost_and_found'),
-                child: const Icon(
-                  Icons.find_in_page,
-                  color: Color(0xFF5DC3F1),
-                ),
+                child: const Icon(Icons.find_in_page, color: Color(0xFF5DC3F1)),
               ),
             ],
           ),
@@ -169,11 +168,7 @@ class _Button extends StatelessWidget {
       child: Column(
         children: <Widget>[
           IconButton(
-            icon: child ??
-                SvgPicture.asset(
-                  svg!,
-                  height: 65,
-                ),
+            icon: child ?? SvgPicture.asset(svg!, height: 65),
             onPressed: onPressed,
             tooltip: title,
             iconSize: 65,

@@ -18,10 +18,7 @@ extension PaddingExtension on BuildContext {
 class SingleBodyLayout extends StatelessWidget {
   final Widget child;
 
-  const SingleBodyLayout({
-    super.key,
-    required this.child,
-  });
+  const SingleBodyLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

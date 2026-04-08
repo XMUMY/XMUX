@@ -9,9 +9,9 @@ class PeriodOfDate {
   PeriodOfDate({required this.start, required this.end});
 
   factory PeriodOfDate.fromJson(String deadline) => PeriodOfDate(
-        start: DateTime.parse(deadline.substring(0, 16)),
-        end: DateTime.parse(deadline.substring(16)),
-      );
+    start: DateTime.parse(deadline.substring(0, 16)),
+    end: DateTime.parse(deadline.substring(16)),
+  );
 }
 
 @JsonSerializable(createToJson: false)

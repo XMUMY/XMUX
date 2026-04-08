@@ -98,8 +98,9 @@ class _LoginAreaState extends State<_LoginArea> {
   Future<void> handleLogin() async {
     // Validate format.
     if (!_usernameFormKey.currentState!.validate() ||
-        !_passwordFormKey.currentState!.validate())
+        !_passwordFormKey.currentState!.validate()) {
       return;
+    }
 
     // Keep username and password to prevent modifying.
     _username = _usernameFormKey.currentState!.value!.toLowerCase();
@@ -143,8 +144,9 @@ class _LoginAreaState extends State<_LoginArea> {
   Future<void> handleRegister() async {
     // Validate format.
     if (!_displayNameFormKey.currentState!.validate() ||
-        !_emailFormKey.currentState!.validate())
+        !_emailFormKey.currentState!.validate()) {
       return;
+    }
 
     _displayName = _displayNameFormKey.currentState!.value!.toLowerCase();
     _email = _emailFormKey.currentState!.value!;

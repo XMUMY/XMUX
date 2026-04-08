@@ -18,11 +18,11 @@ class Authorization {
   Authorization();
 
   Authorization.basic(String username, String password)
-      : _username = username,
-        _password = password;
+    : _username = username,
+      _password = password;
 
   Authorization.bearer(Future<String> Function() bearerRefresher)
-      : _bearerRefresher = bearerRefresher;
+    : _bearerRefresher = bearerRefresher;
 
   FutureOr<void> provider(Map<String, String> metadata, String uri) async {
     if (!metadata.containsKey('authorization') &&

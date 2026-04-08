@@ -17,10 +17,10 @@ class CommunityTabs implements TabInformationProvider {
 
   @override
   Widget? buildTrailing(BuildContext context) => IconButton(
-        icon: const Icon(Icons.bookmark_border),
-        tooltip: LocaleKeys.Community_Favorites.tr(),
-        onPressed: () => context.push('/community/favorite/thread'),
-      );
+    icon: const Icon(Icons.bookmark_border),
+    tooltip: LocaleKeys.Community_Favorites.tr(),
+    onPressed: () => context.push('/community/favorite/thread'),
+  );
 
   @override
   Iterable<(int, String)> getTabs(Iterable<(int, String)> branches) =>

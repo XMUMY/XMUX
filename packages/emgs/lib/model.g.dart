@@ -7,28 +7,28 @@ part of 'model.dart';
 // **************************************************************************
 
 EmgsApplicationResult _$EmgsApplicationResultFromJson(
-        Map<String, dynamic> json) =>
-    EmgsApplicationResult(
-      fullName: json['applicant_fullname'] as String,
-      travelDocumentNumber: json['applicant_traveldocno'] as String,
-      applicationId: json['applicant_id'] as String,
-      applicationType: json['type'] as String,
-      applicationStatus: json['state'] as String,
-      history: (json['status_historys'] as List<dynamic>)
-          .map((e) => EmgsHistoryRecord.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  Map<String, dynamic> json,
+) => EmgsApplicationResult(
+  fullName: json['applicant_fullname'] as String,
+  travelDocumentNumber: json['applicant_traveldocno'] as String,
+  applicationId: json['applicant_id'] as String,
+  applicationType: json['type'] as String,
+  applicationStatus: json['state'] as String,
+  history: (json['status_historys'] as List<dynamic>)
+      .map((e) => EmgsHistoryRecord.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 Map<String, dynamic> _$EmgsApplicationResultToJson(
-        EmgsApplicationResult instance) =>
-    <String, dynamic>{
-      'applicant_fullname': instance.fullName,
-      'applicant_traveldocno': instance.travelDocumentNumber,
-      'applicant_id': instance.applicationId,
-      'type': instance.applicationType,
-      'state': instance.applicationStatus,
-      'status_historys': instance.history,
-    };
+  EmgsApplicationResult instance,
+) => <String, dynamic>{
+  'applicant_fullname': instance.fullName,
+  'applicant_traveldocno': instance.travelDocumentNumber,
+  'applicant_id': instance.applicationId,
+  'type': instance.applicationType,
+  'state': instance.applicationStatus,
+  'status_historys': instance.history,
+};
 
 EmgsHistoryRecord _$EmgsHistoryRecordFromJson(Map<String, dynamic> json) =>
     EmgsHistoryRecord(

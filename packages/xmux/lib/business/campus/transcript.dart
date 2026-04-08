@@ -31,9 +31,7 @@ class TranscriptPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.Campus_AcademicTranscript.tr()),
-      ),
+      appBar: AppBar(title: Text(LocaleKeys.Campus_AcademicTranscript.tr())),
       body: StoreConnector<AppState, List<Transcript_Session>>(
         distinct: true,
         converter: (s) => s.state.queries.transcript.sessions,
@@ -86,10 +84,7 @@ class TranscriptWaterfall extends StatelessWidget {
       );
     }
 
-    return RefreshIndicator(
-      onRefresh: _handleUpdate,
-      child: child,
-    );
+    return RefreshIndicator(onRefresh: _handleUpdate, child: child);
   }
 }
 
@@ -98,16 +93,16 @@ class _InfoCard extends StatelessWidget {
   final int creditsCount;
 
   _InfoCard({required List<Transcript_Session> transcript})
-      : finishedCount = transcript.fold(
-          0,
-          (count, e) => count + e.courses.length,
-        ),
-        creditsCount = transcript.fold(
-          0,
-          (count, session) =>
-              count +
-              session.courses.fold(0, (count, course) => count + course.credit),
-        );
+    : finishedCount = transcript.fold(
+        0,
+        (count, e) => count + e.courses.length,
+      ),
+      creditsCount = transcript.fold(
+        0,
+        (count, session) =>
+            count +
+            session.courses.fold(0, (count, course) => count + course.credit),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -159,10 +154,9 @@ class _GpaChartState extends State<_GpaChart> {
     transcriptMap = widget.transcript.asMap();
     gpaGradientColors = widget.transcript.map((e) => e.gpa.pointColor).toList()
       ..removeWhere((c) => c == Colors.green); // Remove N/A
-    cGpaGradientColors = widget.transcript
-        .map((e) => e.cGpa.pointColor)
-        .toList()
-      ..removeWhere((c) => c == Colors.green); // Remove N/A
+    cGpaGradientColors =
+        widget.transcript.map((e) => e.cGpa.pointColor).toList()
+          ..removeWhere((c) => c == Colors.green); // Remove N/A
   }
 
   @override
@@ -187,57 +181,62 @@ class _GpaChartState extends State<_GpaChart> {
       if (!val.isNaN) val = (val * 100).round() / 100;
 
       return FlSpot(e.key.toDouble(), val);
-    }).toList()
-      ..removeWhere((e) => e.y.isNaN);
+    }).toList()..removeWhere((e) => e.y.isNaN);
 
-    final chart = LineChart(LineChartData(
-      titlesData: FlTitlesData(
-        show: true,
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 25,
-            getTitlesWidget: (v, _) => Text(v.toStringAsPrecision(2)),
-          ),
-        ),
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 34,
-            getTitlesWidget: (v, _) => Transform(
-              transform: Matrix4.translationValues(-8, 25, 0)..rotateZ(-pi / 4),
-              child: Text(widget.transcript[v.toInt()].session.substring(2)),
+    final chart = LineChart(
+      LineChartData(
+        titlesData: FlTitlesData(
+          show: true,
+          leftTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 25,
+              getTitlesWidget: (v, _) => Text(v.toStringAsPrecision(2)),
             ),
           ),
-        ),
-        topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-        rightTitles:
-            const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-      ),
-      borderData: FlBorderData(show: false),
-      minY: 1,
-      maxY: 4,
-      lineBarsData: [
-        LineChartBarData(
-          spots: spots,
-          isCurved: true,
-          barWidth: 3,
-          dotData: const FlDotData(show: false),
-          gradient: LinearGradient(colors: colors),
-          belowBarData: BarAreaData(
-            show: true,
-            gradient: LinearGradient(
-              colors: colors.map((color) => color.withOpacity(0.3)).toList(),
+          bottomTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 34,
+              getTitlesWidget: (v, _) => Transform(
+                transform: Matrix4.translationValues(-8, 25, 0)
+                  ..rotateZ(-pi / 4),
+                child: Text(widget.transcript[v.toInt()].session.substring(2)),
+              ),
             ),
           ),
+          topTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
+          rightTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
         ),
-      ],
-      lineTouchData: const LineTouchData(
-        touchTooltipData: LineTouchTooltipData(
-          fitInsideHorizontally: true,
+        borderData: FlBorderData(show: false),
+        minY: 1,
+        maxY: 4,
+        lineBarsData: [
+          LineChartBarData(
+            spots: spots,
+            isCurved: true,
+            barWidth: 3,
+            dotData: const FlDotData(show: false),
+            gradient: LinearGradient(colors: colors),
+            belowBarData: BarAreaData(
+              show: true,
+              gradient: LinearGradient(
+                colors: colors
+                    .map((color) => color.withValues(alpha: 0.3))
+                    .toList(),
+              ),
+            ),
+          ),
+        ],
+        lineTouchData: const LineTouchData(
+          touchTooltipData: LineTouchTooltipData(fitInsideHorizontally: true),
         ),
       ),
-    ));
+    );
 
     return Stack(
       children: <Widget>[
@@ -255,9 +254,7 @@ class _GpaChartState extends State<_GpaChart> {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Divider(height: 3, color: Colors.transparent),
-                Expanded(
-                  child: chart,
-                )
+                Expanded(child: chart),
               ],
             ),
           ),
@@ -308,10 +305,10 @@ class _TranscriptSessionCard extends StatelessWidget {
                 '${course.point.isNaN ? '' : '\n${course.point.toStringAsFixed(2)}'}',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: course.point.pointColor,
-                    ),
+                  color: course.point.pointColor,
+                ),
               ),
-            )
+            ),
           ],
         );
       },

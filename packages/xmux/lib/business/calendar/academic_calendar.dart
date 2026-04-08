@@ -9,7 +9,10 @@ import '../redux/store.dart';
 class AcademicCalendarPage extends StatelessWidget {
   final isFoundation = store.state.user.isFoundation;
   final undergraduate = RemoteConfigs
-      .instance.staticResources.academicCalendarImages.undergraduate;
+      .instance
+      .staticResources
+      .academicCalendarImages
+      .undergraduate;
   final foundation =
       RemoteConfigs.instance.staticResources.academicCalendarImages.foundation;
 
@@ -22,10 +25,13 @@ class AcademicCalendarPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(LocaleKeys.Calendar_Academic.tr()),
-          bottom: TabBar(isScrollable: false, tabs: <Tab>[
-            if (isFoundation) ...foundation.keys.map((k) => Tab(text: k)),
-            if (!isFoundation) ...undergraduate.keys.map((k) => Tab(text: k)),
-          ]),
+          bottom: TabBar(
+            isScrollable: false,
+            tabs: <Tab>[
+              if (isFoundation) ...foundation.keys.map((k) => Tab(text: k)),
+              if (!isFoundation) ...undergraduate.keys.map((k) => Tab(text: k)),
+            ],
+          ),
         ),
         body: TabBarView(
           physics: const NeverScrollableScrollPhysics(),
@@ -35,20 +41,16 @@ class AcademicCalendarPage extends StatelessWidget {
                 ExtendedImage.network(
                   v,
                   mode: ExtendedImageMode.gesture,
-                  initGestureConfigHandler: (state) => GestureConfig(
-                    maxScale: 1.8,
-                    minScale: 0.5,
-                  ),
+                  initGestureConfigHandler: (state) =>
+                      GestureConfig(maxScale: 1.8, minScale: 0.5),
                 ),
             if (isFoundation)
               for (var v in foundation.values)
                 ExtendedImage.network(
                   v,
                   mode: ExtendedImageMode.gesture,
-                  initGestureConfigHandler: (state) => GestureConfig(
-                    maxScale: 1.8,
-                    minScale: 0.5,
-                  ),
+                  initGestureConfigHandler: (state) =>
+                      GestureConfig(maxScale: 1.8, minScale: 0.5),
                 ),
           ],
         ),

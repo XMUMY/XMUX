@@ -156,7 +156,8 @@ class LostAndFoundBrief extends $pb.GeneratedMessage {
   factory LostAndFoundBrief.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory LostAndFoundBrief.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory LostAndFoundBrief.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -336,7 +337,8 @@ class LostAndFoundDetail extends $pb.GeneratedMessage {
   factory LostAndFoundDetail.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory LostAndFoundDetail.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory LostAndFoundDetail.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;

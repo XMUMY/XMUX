@@ -42,7 +42,8 @@ class CreateThreadReq extends $pb.GeneratedMessage {
   factory CreateThreadReq.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory CreateThreadReq.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory CreateThreadReq.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -148,7 +149,8 @@ class CreateThreadResp extends $pb.GeneratedMessage {
   factory CreateThreadResp.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory CreateThreadResp.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory CreateThreadResp.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -203,7 +205,8 @@ class RemoveThreadReq extends $pb.GeneratedMessage {
   factory RemoveThreadReq.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory RemoveThreadReq.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory RemoveThreadReq.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -262,7 +265,8 @@ class UpdateThreadReq extends $pb.GeneratedMessage {
   factory UpdateThreadReq.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory UpdateThreadReq.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory UpdateThreadReq.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -429,7 +433,8 @@ class GetThreadsResp extends $pb.GeneratedMessage {
   factory GetThreadsResp.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory GetThreadsResp.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory GetThreadsResp.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -860,7 +865,8 @@ class DigestThreadReq extends $pb.GeneratedMessage {
   factory DigestThreadReq.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory DigestThreadReq.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory DigestThreadReq.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;

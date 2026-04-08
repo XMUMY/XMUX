@@ -27,8 +27,16 @@ class Notification {
   @JsonKey(name: 'timecreated', fromJson: timestampToDateTime)
   final DateTime timeCreated;
 
-  Notification(this.id, this.from, this.to, this.subject, this.smallMessage,
-      this.fullMessage, this.fullMessageHtml, this.timeCreated);
+  Notification(
+    this.id,
+    this.from,
+    this.to,
+    this.subject,
+    this.smallMessage,
+    this.fullMessage,
+    this.fullMessageHtml,
+    this.timeCreated,
+  );
 
   static Notification fromJson(Map<String, dynamic> json) =>
       _$NotificationFromJson(json);

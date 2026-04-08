@@ -13,11 +13,7 @@ class PostList extends StatefulWidget {
   final Post parentPost;
   final ScrollController? scrollController;
 
-  const PostList({
-    super.key,
-    required this.parentPost,
-    this.scrollController,
-  });
+  const PostList({super.key, required this.parentPost, this.scrollController});
 
   @override
   State<PostList> createState() => _PostListState();
@@ -28,12 +24,14 @@ class _PostListState extends State<PostList> {
 
   Future<void> _fetchPage(int pageKey) async {
     final parentPost = widget.parentPost;
-    final resp = await rpc.forumClient.getPostsByParent(GetPostsByParentReq(
-      parentId: parentPost.id,
-      ordering: Ordering.oldest,
-      offset: pageKey,
-      count: 10,
-    ));
+    final resp = await rpc.forumClient.getPostsByParent(
+      GetPostsByParentReq(
+        parentId: parentPost.id,
+        ordering: Ordering.oldest,
+        offset: pageKey,
+        count: 10,
+      ),
+    );
     if (!mounted) return;
     final posts = resp.posts;
     if (posts.length >= 10) {
@@ -84,9 +82,8 @@ class _PostListState extends State<PostList> {
               ),
             ),
           ),
-          separatorBuilder: (context, index) => const SingleBodyLayout(
-            child: Divider(),
-          ),
+          separatorBuilder: (context, index) =>
+              const SingleBodyLayout(child: Divider()),
         ),
         SliverPadding(
           padding: EdgeInsets.only(

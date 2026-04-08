@@ -55,15 +55,11 @@ class _GeoGebraPageState extends State<GeoGebraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('GeoGebra'),
-      ),
+      appBar: AppBar(title: const Text('GeoGebra')),
       body: IndexedStack(
         index: isLoading || hasError ? 0 : 1,
         children: [
-          const Center(
-            child: CircularProgressIndicator(),
-          ),
+          const Center(child: CircularProgressIndicator()),
           WebViewWidget(controller: _controller),
         ],
       ),

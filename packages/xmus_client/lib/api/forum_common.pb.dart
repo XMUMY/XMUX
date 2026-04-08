@@ -147,7 +147,8 @@ class MarkdownContent extends $pb.GeneratedMessage {
   factory MarkdownContent.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory MarkdownContent.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory MarkdownContent.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;

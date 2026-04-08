@@ -29,13 +29,12 @@ class UserState {
     String? password,
     String? ePaymentPassword,
     Profile? profile,
-  }) =>
-      UserState(
-        campusId: campusId ?? this.campusId,
-        password: password ?? this.password,
-        ePaymentPassword: ePaymentPassword ?? this.ePaymentPassword,
-        profile: profile ?? this.profile,
-      );
+  }) => UserState(
+    campusId: campusId ?? this.campusId,
+    password: password ?? this.password,
+    ePaymentPassword: ePaymentPassword ?? this.ePaymentPassword,
+    profile: profile ?? this.profile,
+  );
 
   bool get isSignedIn => campusId.isNotEmpty && password.isNotEmpty;
 

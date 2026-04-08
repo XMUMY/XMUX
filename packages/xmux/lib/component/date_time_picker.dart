@@ -24,7 +24,7 @@ class DateTimePicker extends StatelessWidget {
     required this.lastDate,
     this.onDateChanged,
     this.onTimeChanged,
-  })  : time = TimeOfDay.fromDateTime(date);
+  }) : time = TimeOfDay.fromDateTime(date);
 
   Future<void> _pickDate(BuildContext context) async {
     final picked = await showDatePicker(
@@ -37,10 +37,7 @@ class DateTimePicker extends StatelessWidget {
   }
 
   Future<void> _pickTime(BuildContext context) async {
-    final picked = await showTimePicker(
-      context: context,
-      initialTime: time,
-    );
+    final picked = await showTimePicker(context: context, initialTime: time);
     if (picked != null && picked != time) onTimeChanged?.call(picked);
   }
 
@@ -54,9 +51,7 @@ class DateTimePicker extends StatelessWidget {
           child: InkWell(
             onTap: () => _pickDate(context),
             child: InputDecorator(
-              decoration: InputDecoration(
-                labelText: labelText,
-              ),
+              decoration: InputDecoration(labelText: labelText),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.min,

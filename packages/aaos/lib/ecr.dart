@@ -31,13 +31,11 @@ class ElectiveCourseRegistration {
   /// Throws [Exception] if failed.
   Future<void> login() async {
     try {
-      await _dio.post('/index.php?c=Login&a=login',
-          options: Options(contentType: 'application/x-www-form-urlencoded'),
-          data: {
-            'username': _uid,
-            'password': _password,
-            'user_lb': 'Student'
-          });
+      await _dio.post(
+        '/index.php?c=Login&a=login',
+        options: Options(contentType: 'application/x-www-form-urlencoded'),
+        data: {'username': _uid, 'password': _password, 'user_lb': 'Student'},
+      );
     } on DioException catch (e) {
       if (e.response?.statusCode == 302) return;
     }
@@ -54,24 +52,26 @@ class ElectiveCourseRegistration {
     final heads = table.querySelectorAll('th').map((e) => e.text).toList();
     final courseList = table
         .querySelectorAll('tbody tr')
-        .map((line) => line.children.map((cell) {
-              // Get link from Entry button.
-              if (cell.text.replaceAll(RegExp('\n| '), '').isEmpty) {
-                return RegExp("'(.*?)'")
-                    .firstMatch(cell.children.first.attributes['onclick']!)
-                    ?.group(0)
-                    ?.replaceAll("'", '');
-              }
+        .map(
+          (line) => line.children.map((cell) {
+            // Get link from Entry button.
+            if (cell.text.replaceAll(RegExp('\n| '), '').isEmpty) {
+              return RegExp("'(.*?)'")
+                  .firstMatch(cell.children.first.attributes['onclick']!)
+                  ?.group(0)
+                  ?.replaceAll("'", '');
+            }
 
-              final text = cell.text.trim();
+            final text = cell.text.trim();
 
-              // Get link from View's href.
-              if (text == 'View') {
-                return cell.children.first.attributes['href'];
-              }
+            // Get link from View's href.
+            if (text == 'View') {
+              return cell.children.first.attributes['href'];
+            }
 
-              return text;
-            }).toList())
+            return text;
+          }).toList(),
+        )
         .map((e) => Map.fromIterables(heads, e))
         .map(ElectiveSession.fromJson)
         .toList();
@@ -90,8 +90,10 @@ class ElectiveCourseRegistration {
 
     if (table == null) return [];
 
-    final heads =
-        table.querySelectorAll('thead th').map((e) => e.text).toList();
+    final heads = table
+        .querySelectorAll('thead th')
+        .map((e) => e.text)
+        .toList();
     final courseList = table
         .querySelectorAll('tbody tr')
         .where((line) => line.children.length == heads.length)
@@ -102,9 +104,9 @@ class ElectiveCourseRegistration {
                 ? cell.text.trim()
                 // Multiline cell, keep \n
                 : cell.nodes
-                    .whereType<Text>()
-                    .map((node) => node.text.trim())
-                    .join('\n'),
+                      .whereType<Text>()
+                      .map((node) => node.text.trim())
+                      .join('\n'),
           ),
         )
         .map((e) => Map.fromIterables(heads, e))
@@ -116,8 +118,8 @@ class ElectiveCourseRegistration {
 
   ElectiveCourseRegistrationForm? getForm(String entry) =>
       entry.startsWith('/student/index.php?c=Xk&')
-          ? ElectiveCourseRegistrationForm(_dio, entry)
-          : null;
+      ? ElectiveCourseRegistrationForm(_dio, entry)
+      : null;
 }
 
 class ElectiveCourseRegistrationForm {
@@ -142,8 +144,9 @@ class ElectiveCourseRegistrationForm {
     }
     final doc = parse(html);
 
-    currentState =
-        doc.querySelector('input[name="__VIEWSTATE"]')?.attributes['value'];
+    currentState = doc
+        .querySelector('input[name="__VIEWSTATE"]')
+        ?.attributes['value'];
 
     final generalInfoTable = doc.querySelector('#content table');
     if (generalInfoTable == null) return;
@@ -155,35 +158,41 @@ class ElectiveCourseRegistrationForm {
 
     final selectedTable = doc.querySelector('#data_table2');
     if (selectedTable == null) return;
-    final selectedHead =
-        selectedTable.querySelectorAll('th').map((e) => e.text);
-    final selectedCourses = selectedTable
-        .querySelectorAll('tbody tr')
-        .map((row) => row.children.map((cell) {
-              // Button.
-              if (cell.children.isNotEmpty &&
-                  cell.text.replaceAll(RegExp('\n| '), '').isEmpty) {
-                return RegExp(",'(.*?)'")
-                    .firstMatch(cell.children.first.attributes['onclick']!)
-                    ?.group(0)
-                    ?.replaceAll(RegExp("'|,"), '');
-              }
+    final selectedHead = selectedTable
+        .querySelectorAll('th')
+        .map((e) => e.text);
+    final selectedCourses =
+        selectedTable
+            .querySelectorAll('tbody tr')
+            .map(
+              (row) => row.children.map((cell) {
+                // Button.
+                if (cell.children.isNotEmpty &&
+                    cell.text.replaceAll(RegExp('\n| '), '').isEmpty) {
+                  return RegExp(",'(.*?)'")
+                      .firstMatch(cell.children.first.attributes['onclick']!)
+                      ?.group(0)
+                      ?.replaceAll(RegExp("'|,"), '');
+                }
 
-              // Multiline cell, keep \n
-              if (cell.nodes.length >= 3) {
-                return cell.nodes
-                    .whereType<Text>()
-                    .map((node) => node.text.trim())
-                    .join('\n');
-              }
+                // Multiline cell, keep \n
+                if (cell.nodes.length >= 3) {
+                  return cell.nodes
+                      .whereType<Text>()
+                      .map((node) => node.text.trim())
+                      .join('\n');
+                }
 
-              // Normal cell.
-              return cell.text.trim();
-            }))
-        .map((row) =>
-            row.length == 1 ? null : Map.fromIterables(selectedHead, row))
-        .toList()
-      ..removeWhere((c) => c == null);
+                // Normal cell.
+                return cell.text.trim();
+              }),
+            )
+            .map(
+              (row) =>
+                  row.length == 1 ? null : Map.fromIterables(selectedHead, row),
+            )
+            .toList()
+          ..removeWhere((c) => c == null);
 
     var unselectedTable = doc.querySelector('#data_table');
     if (unselectedTable == null) return;
@@ -192,23 +201,25 @@ class ElectiveCourseRegistrationForm {
         .map((e) => e.text);
     var unselectedCourses = unselectedTable
         .querySelectorAll('#data_table>tbody>tr:not([style="display: none"])')
-        .map((row) => row.children.map((cell) {
-              if (cell.text.replaceAll(RegExp('\n| '), '').isEmpty) {
-                return RegExp(",'(.*?)'")
-                    .firstMatch(cell.children.first.attributes['onclick']!)
-                    ?.group(0)
-                    ?.replaceAll(RegExp("'|,"), '');
-              }
+        .map(
+          (row) => row.children.map((cell) {
+            if (cell.text.replaceAll(RegExp('\n| '), '').isEmpty) {
+              return RegExp(",'(.*?)'")
+                  .firstMatch(cell.children.first.attributes['onclick']!)
+                  ?.group(0)
+                  ?.replaceAll(RegExp("'|,"), '');
+            }
 
-              return cell.text.trim();
-            }))
+            return cell.text.trim();
+          }),
+        )
         .map((row) => Map.fromIterables(unselectedHead, row))
         .toList();
 
     data = ElectiveSessionFormData.fromJson({
       'formGeneralInfo': infoMap,
       'coursesSelected': selectedCourses,
-      'coursesList': unselectedCourses
+      'coursesList': unselectedCourses,
     });
   }
 
@@ -220,7 +231,7 @@ class ElectiveCourseRegistrationForm {
       data: {
         '__EVENTTARGET': '\$Add',
         '__EVENTARGUMENT': '\$$id',
-        '__VIEWSTATE': currentState
+        '__VIEWSTATE': currentState,
       },
     );
     await refresh(resp.data);
@@ -234,7 +245,7 @@ class ElectiveCourseRegistrationForm {
       data: {
         '__EVENTTARGET': '\$Del',
         '__EVENTARGUMENT': '\$$id',
-        '__VIEWSTATE': currentState
+        '__VIEWSTATE': currentState,
       },
     );
     await refresh(resp.data);
@@ -247,26 +258,23 @@ class ElectiveCourseRegistrationForm {
   Future<void> listen(CourseUnselected course) async {
     _timer?.cancel();
     final completer = Completer<void>();
-    _timer = Timer.periodic(
-      const Duration(seconds: 3),
-      (_) async {
-        try {
-          await refresh();
-          final target = data?.coursesList.firstWhere(
-            (e) => e.name == course.name,
-          );
-          if (target != null && target.canSelect == true) {
-            await add(target.option);
-            _timer?.cancel();
-            completer.complete();
-          }
-        } catch (e) {
+    _timer = Timer.periodic(const Duration(seconds: 3), (_) async {
+      try {
+        await refresh();
+        final target = data?.coursesList.firstWhere(
+          (e) => e.name == course.name,
+        );
+        if (target != null && target.canSelect == true) {
+          await add(target.option);
           _timer?.cancel();
-          completer.completeError(e);
-          rethrow;
+          completer.complete();
         }
-      },
-    );
+      } catch (e) {
+        _timer?.cancel();
+        completer.completeError(e);
+        rethrow;
+      }
+    });
     return completer.future;
   }
 

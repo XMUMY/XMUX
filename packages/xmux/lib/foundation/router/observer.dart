@@ -6,8 +6,9 @@ import '../platform/environment.dart';
 import '../platform/platform.dart';
 import 'router.dart';
 
-final injectRouterObserverTask =
-    Task((ctx) async => router.routerDelegate.addListener(_onRouteChange));
+final injectRouterObserverTask = Task(
+  (ctx) async => router.routerDelegate.addListener(_onRouteChange),
+);
 
 String? _previousLocation;
 final _timer = Stopwatch()..start();
@@ -20,9 +21,7 @@ void _onRouteChange() {
 
   log.t('$_previousLocation(${_timer.elapsed}) -> $location');
   if (isRelease && (isWeb || isMobileApp || isMacOSApp)) {
-    FirebaseAnalytics.instance.logScreenView(
-      screenName: location,
-    );
+    FirebaseAnalytics.instance.logScreenView(screenName: location);
   }
 
   _previousLocation = location;

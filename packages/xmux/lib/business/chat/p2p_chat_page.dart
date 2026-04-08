@@ -13,10 +13,7 @@ import 'p2p_chat_session.dart';
 class P2PChatPage extends StatefulWidget {
   final String uid;
 
-  const P2PChatPage({
-    super.key,
-    required this.uid,
-  });
+  const P2PChatPage({super.key, required this.uid});
 
   @override
   State<P2PChatPage> createState() => _P2PChatPageState();
@@ -117,44 +114,43 @@ class _P2PChatPageState extends State<P2PChatPage> {
           builder: (_, profile) => Text(profile.displayName),
         ),
       ),
-      body: Column(children: [
-        Expanded(
-          child: AnimatedList(
-            key: _listKey,
-            reverse: true,
-            padding: context.padListView,
-            initialItemCount: session.messages.length,
-            itemBuilder: (context, index, animation) {
-              final msgs = session.messages;
-              final msg = msgs[msgs.length - 1 - index];
-              return FadeTransition(
-                opacity: animation,
-                child: _buildMsgCard(msg),
-              );
-            },
-          ),
-        ),
-        Material(
-          color: Theme.of(context).colorScheme.surface,
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(
-              horizontalPadding,
-              8,
-              horizontalPadding,
-              8,
-            ),
-            child: Row(
-              children: [
-                Expanded(child: inputField),
-                IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: send,
-                )
-              ],
+      body: Column(
+        children: [
+          Expanded(
+            child: AnimatedList(
+              key: _listKey,
+              reverse: true,
+              padding: context.padListView,
+              initialItemCount: session.messages.length,
+              itemBuilder: (context, index, animation) {
+                final msgs = session.messages;
+                final msg = msgs[msgs.length - 1 - index];
+                return FadeTransition(
+                  opacity: animation,
+                  child: _buildMsgCard(msg),
+                );
+              },
             ),
           ),
-        ),
-      ]),
+          Material(
+            color: Theme.of(context).colorScheme.surface,
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                horizontalPadding,
+                8,
+                horizontalPadding,
+                8,
+              ),
+              child: Row(
+                children: [
+                  Expanded(child: inputField),
+                  IconButton(icon: const Icon(Icons.send), onPressed: send),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

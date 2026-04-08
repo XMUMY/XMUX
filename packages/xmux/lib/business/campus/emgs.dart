@@ -76,10 +76,7 @@ class _EmgsPageState extends State<EmgsPage> {
             if (r == null) {
               return const Center(child: CircularProgressIndicator());
             }
-            return EmgsResultList(
-              result: r,
-              controller: _controller,
-            );
+            return EmgsResultList(result: r, controller: _controller);
           },
         ),
       ),
@@ -162,45 +159,49 @@ class _EmgsResultListState extends State<EmgsResultList>
       elevation: 4,
       child: Padding(
         padding: const EdgeInsets.all(10),
-        child: Column(children: <Widget>[
-          Text(
-            widget.result.fullName,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const Divider(height: 10, color: Colors.transparent),
-          Text(
-            widget.result.applicationStatus,
-            style: Theme.of(context).textTheme.titleMedium,
-            textAlign: TextAlign.center,
-          ),
-          const Divider(color: Colors.transparent),
-          Row(children: <Widget>[
-            Expanded(
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    LocaleKeys.Campus_EmgsNo.tr(),
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  const Divider(height: 3, color: Colors.transparent),
-                  Text(widget.result.applicationId),
-                ],
-              ),
+        child: Column(
+          children: <Widget>[
+            Text(
+              widget.result.fullName,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-            Expanded(
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    LocaleKeys.Campus_EmgsType.tr(),
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  const Divider(height: 3, color: Colors.transparent),
-                  Text(widget.result.applicationType),
-                ],
-              ),
+            const Divider(height: 10, color: Colors.transparent),
+            Text(
+              widget.result.applicationStatus,
+              style: Theme.of(context).textTheme.titleMedium,
+              textAlign: TextAlign.center,
             ),
-          ]),
-        ]),
+            const Divider(color: Colors.transparent),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        LocaleKeys.Campus_EmgsNo.tr(),
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const Divider(height: 3, color: Colors.transparent),
+                      Text(widget.result.applicationId),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        LocaleKeys.Campus_EmgsType.tr(),
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const Divider(height: 3, color: Colors.transparent),
+                      Text(widget.result.applicationType),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
 
@@ -237,12 +238,12 @@ class _EmgsResultListState extends State<EmgsResultList>
                   DateFormat.yMd().format(history.date),
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
-                Text(history.remark)
+                Text(history.remark),
               ],
             );
           },
           separatorBuilder: (context, index) => const Divider(),
-        )
+        ),
       ],
     );
   }

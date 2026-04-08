@@ -58,12 +58,14 @@ class MoodleApi {
   int? _userId;
 
   MoodleApi(String baseUrl)
-      : _dio = Dio(BaseOptions(
+    : _dio = Dio(
+        BaseOptions(
           baseUrl: baseUrl,
           connectTimeout: const Duration(milliseconds: 6000),
           receiveTimeout: const Duration(milliseconds: 10000),
           contentType: 'application/x-www-form-urlencoded',
-        ));
+        ),
+      );
 
   /// Store login credential.
   void setCredential(String username, String password) {
@@ -75,10 +77,9 @@ class MoodleApi {
   String withToken(String url) {
     if (_token == null) return url;
     final uri = Uri.parse(url);
-    return uri.replace(queryParameters: {
-      ...uri.queryParameters,
-      'token': _token,
-    }).toString();
+    return uri
+        .replace(queryParameters: {...uri.queryParameters, 'token': _token})
+        .toString();
   }
 
   Map<String, dynamic> _checkResponse(Response<Map<String, dynamic>> resp) {
@@ -136,7 +137,7 @@ class MoodleApi {
         'moodlewsrestformat': 'json',
         'wstoken': _token,
         'wsfunction': function,
-        if (params != null) ...params,
+        ...?params,
       },
     );
 
@@ -163,24 +164,27 @@ class MoodleApi {
 
   /// Get popup notifications.
   Future<List<Notification>> getPopupNotifications({int offset = 0}) async {
-    var resp = await _invoke('message_popup_get_popup_notifications', params: {
-      'useridto': await userId,
-      'newestfirst': 1,
-      'offset': offset,
-      'limit': 10,
-    });
+    var resp = await _invoke(
+      'message_popup_get_popup_notifications',
+      params: {
+        'useridto': await userId,
+        'newestfirst': 1,
+        'offset': offset,
+        'limit': 10,
+      },
+    );
 
-    return List<Map<String, dynamic>>.from(resp['notifications'])
-        .map((c) => Notification.fromJson(c))
-        .toList();
+    return List<Map<String, dynamic>>.from(
+      resp['notifications'],
+    ).map((c) => Notification.fromJson(c)).toList();
   }
 
   /// Get upcoming events.
   Future<List<UpcomingEvent>> get upcomingEvents async {
     var resp = await _invoke('core_calendar_get_calendar_upcoming_view');
 
-    return List<Map<String, dynamic>>.from(resp['events'])
-        .map((e) => UpcomingEvent.fromJson(e))
-        .toList();
+    return List<Map<String, dynamic>>.from(
+      resp['events'],
+    ).map((e) => UpcomingEvent.fromJson(e)).toList();
   }
 }

@@ -162,7 +162,8 @@ class Timetable_Class extends $pb.GeneratedMessage {
   factory Timetable_Class.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory Timetable_Class.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory Timetable_Class.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -354,7 +355,8 @@ class Courses_Course extends $pb.GeneratedMessage {
   factory Courses_Course.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory Courses_Course.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory Courses_Course.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -686,7 +688,8 @@ class Transcript_Session_Course extends $pb.GeneratedMessage {
   factory Transcript_Session_Course.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory Transcript_Session_Course.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory Transcript_Session_Course.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -789,7 +792,8 @@ class Transcript_Session extends $pb.GeneratedMessage {
   factory Transcript_Session.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory Transcript_Session.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory Transcript_Session.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;

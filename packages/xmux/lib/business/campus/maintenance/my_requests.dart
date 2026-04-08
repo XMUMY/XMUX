@@ -62,7 +62,7 @@ class _MyRequestsPageState extends State<MyRequestsPage>
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const Divider(),
-                  Text(req.answer)
+                  Text(req.answer),
                 ],
               ),
             ),

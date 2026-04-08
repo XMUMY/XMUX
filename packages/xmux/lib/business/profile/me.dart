@@ -33,10 +33,7 @@ class MePage extends StatelessWidget {
                   child: StoreConnector<AppState, String>(
                     distinct: true,
                     converter: (s) => store.state.user.profile.avatar,
-                    builder: (context, url) => Gravatar(
-                      url: url,
-                      radius: 30,
-                    ),
+                    builder: (context, url) => Gravatar(url: url, radius: 30),
                   ),
                 ),
                 Expanded(
@@ -91,9 +88,9 @@ class _ServerStatus extends StatelessWidget {
           trailing: snapshot.connectionState == ConnectionState.waiting
               ? const Icon(Icons.more_horiz)
               : snapshot.connectionState == ConnectionState.done &&
-                      !snapshot.hasError
-                  ? const Icon(Icons.check, color: Colors.green)
-                  : const Icon(Icons.close, color: Colors.red),
+                    !snapshot.hasError
+              ? const Icon(Icons.check, color: Colors.green)
+              : const Icon(Icons.close, color: Colors.red),
         );
       },
     );
@@ -104,10 +101,7 @@ class _ServerStatus extends StatelessWidget {
     return SimpleDialog(
       title: Text(LocaleKeys.ServiceStatus.tr()),
       children: [
-        _buildTile(
-          name: 'XMUX',
-          url: apiAddress,
-        ),
+        _buildTile(name: 'XMUX', url: apiAddress),
         _buildTile(
           name: 'Moodle',
           url: '$moodleAddress/webservice/rest/server.php',
@@ -189,11 +183,7 @@ class DeveloperOptions extends StatelessWidget {
       children: [
         const Padding(
           padding: EdgeInsets.all(8),
-          child: Icon(
-            Icons.warning,
-            size: 40,
-            color: Colors.red,
-          ),
+          child: Icon(Icons.warning, size: 40, color: Colors.red),
         ),
         const Text(
           "LEAVE HERE IF U DON'T KNOW\nWHAT U ARE DOING",

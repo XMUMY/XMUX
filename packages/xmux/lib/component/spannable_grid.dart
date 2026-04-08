@@ -63,10 +63,7 @@ class SpannableGrid extends StatelessWidget {
         spacing: spacing,
       ),
       children: cells
-          .map((cell) => LayoutId(
-                id: cell.id,
-                child: cell.child,
-              ))
+          .map((cell) => LayoutId(id: cell.id, child: cell.child))
           .toList(),
     );
   }
@@ -89,13 +86,17 @@ class _SpannableGridDelegate extends MultiChildLayoutDelegate {
     required this.columns,
     required this.rows,
     required this.spacing,
-  })  : columnFactors = List.filled(columns, 1),
-        rowFactors = List.filled(rows, 1) {
+  }) : columnFactors = List.filled(columns, 1),
+       rowFactors = List.filled(rows, 1) {
     for (var cell in cells) {
-      columnFactors[cell.column - 1] =
-          max(columnFactors[cell.column - 1], cell.columnFlex.toDouble());
-      rowFactors[cell.row - 1] =
-          max(rowFactors[cell.row - 1], cell.rowFlex.toDouble());
+      columnFactors[cell.column - 1] = max(
+        columnFactors[cell.column - 1],
+        cell.columnFlex.toDouble(),
+      );
+      rowFactors[cell.row - 1] = max(
+        rowFactors[cell.row - 1],
+        cell.rowFlex.toDouble(),
+      );
     }
 
     final sumColumnFlexes = columnFactors.reduce((p, c) => p + c);
@@ -124,10 +125,7 @@ class _SpannableGridDelegate extends MultiChildLayoutDelegate {
 
       layoutChild(
         cell.id,
-        BoxConstraints(
-          maxWidth: childWidth,
-          maxHeight: childHeight,
-        ),
+        BoxConstraints(maxWidth: childWidth, maxHeight: childHeight),
       );
 
       var childOffsetX = spacing;
@@ -140,10 +138,7 @@ class _SpannableGridDelegate extends MultiChildLayoutDelegate {
         childOffsetY += size.height * rowFactors[i - 1];
       }
 
-      positionChild(
-        cell.id,
-        Offset(childOffsetX, childOffsetY),
-      );
+      positionChild(cell.id, Offset(childOffsetX, childOffsetY));
     }
   }
 

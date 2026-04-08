@@ -12,8 +12,9 @@ final initFirebaseTask = Task.when(
   ),
 );
 
-final initRemoteConfigsTask =
-    Task((ctx) => RemoteConfigs.instance.loadDefaultStaticResources());
+final initRemoteConfigsTask = Task(
+  (ctx) => RemoteConfigs.instance.loadDefaultStaticResources(),
+);
 
 final fetchRemoteConfigsTask = Task.when(
   () async => isMobileApp || isMacOSApp,

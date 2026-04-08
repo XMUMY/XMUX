@@ -85,7 +85,8 @@ class UnsaveThreadReq extends $pb.GeneratedMessage {
   factory UnsaveThreadReq.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory UnsaveThreadReq.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory UnsaveThreadReq.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -252,7 +253,8 @@ class GetSavedThreadsReq extends $pb.GeneratedMessage {
   factory GetSavedThreadsReq.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory GetSavedThreadsReq.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory GetSavedThreadsReq.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -319,7 +321,8 @@ class GetSavedPostsReq extends $pb.GeneratedMessage {
   factory GetSavedPostsReq.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory GetSavedPostsReq.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory GetSavedPostsReq.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;

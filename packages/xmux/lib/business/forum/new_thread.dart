@@ -44,9 +44,9 @@ class _NewThreadPageState extends State<NewThreadPage> {
       if (mounted) Navigator.of(context).maybePop(true);
     } on XmuxRpcError catch (e) {
       if (mounted) {
-        ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-          SnackBar(content: Text(e.message)),
-        );
+        ScaffoldMessenger.maybeOf(
+          context,
+        )?.showSnackBar(SnackBar(content: Text(e.message)));
       }
     } finally {
       _isSubmitting = false;
@@ -78,9 +78,7 @@ class _NewThreadPageState extends State<NewThreadPage> {
         maxLength: 1000,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         controller: _bodyController,
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-        ),
+        decoration: const InputDecoration(border: OutlineInputBorder()),
         validator: (v) => v != null && v.isNotEmpty ? null : '',
         onChanged: (v) {
           if (form.hasMarkdownContent()) setState(() {}); // Update preview.
@@ -100,11 +98,8 @@ class _NewThreadPageState extends State<NewThreadPage> {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         const Divider(),
-        MarkdownBody(
-          data: _bodyController.text,
-          shrinkWrap: true,
-        ),
-      ]
+        MarkdownBody(data: _bodyController.text, shrinkWrap: true),
+      ],
     ];
 
     return Scaffold(
@@ -118,10 +113,7 @@ class _NewThreadPageState extends State<NewThreadPage> {
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.surface,
             onPressed: _handleSubmit,
-            child: Icon(
-              Icons.check,
-              color: Theme.of(context).iconTheme.color,
-            ),
+            child: Icon(Icons.check, color: Theme.of(context).iconTheme.color),
           ),
         ],
       ),

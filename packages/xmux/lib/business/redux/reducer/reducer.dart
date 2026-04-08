@@ -10,10 +10,10 @@ final Reducer<AppState> appReducer = combineReducers([
 ]);
 
 AppState _appReducer(AppState state, dynamic action) => state.copyWith(
-      user: userReducer(state.user, action),
-      queries: queriesReducer(state.queries, action),
-      settings: settingsReducer(state.settings, action),
-    );
+  user: userReducer(state.user, action),
+  queries: queriesReducer(state.queries, action),
+  settings: settingsReducer(state.settings, action),
+);
 
 AppState _initializedReducer(AppState state, InitializedAction action) =>
     state.copyWith(isInitialized: true);
@@ -26,22 +26,18 @@ final Reducer<UserState> userReducer = combineReducers([
   TypedReducer(_updateUserProfileReducer).call,
 ]);
 
-UserState _loginReducer(UserState state, LoginAction action) => state.copyWith(
-      campusId: action.campusId,
-      password: action.password,
-    );
+UserState _loginReducer(UserState state, LoginAction action) =>
+    state.copyWith(campusId: action.campusId, password: action.password);
 
 UserState _updateEPaymentPasswordReducer(
   UserState state,
   UpdateEPaymentPasswordAction action,
-) =>
-    state.copyWith(ePaymentPassword: action.ePaymentPassword);
+) => state.copyWith(ePaymentPassword: action.ePaymentPassword);
 
 UserState _updateUserProfileReducer(
   UserState state,
   UpdateUserProfileAction action,
-) =>
-    state.copyWith(profile: action.response);
+) => state.copyWith(profile: action.response);
 
 // Queries
 
@@ -57,14 +53,12 @@ final Reducer<QueryState> queriesReducer = combineReducers([
 QueryState _updateTimetableReducer(
   QueryState state,
   UpdateTimetableAction action,
-) =>
-    state.copyWith(timetable: action.response);
+) => state.copyWith(timetable: action.response);
 
 QueryState _updateCoursesReducer(
   QueryState state,
   UpdateCoursesAction action,
-) =>
-    state.copyWith(courses: action.response);
+) => state.copyWith(courses: action.response);
 
 QueryState _updateExamsReducer(QueryState state, UpdateExamsAction action) =>
     state.copyWith(exams: action.response);
@@ -72,20 +66,17 @@ QueryState _updateExamsReducer(QueryState state, UpdateExamsAction action) =>
 QueryState _updateTranscriptReducer(
   QueryState state,
   UpdateTranscriptAction action,
-) =>
-    state.copyWith(transcript: action.response);
+) => state.copyWith(transcript: action.response);
 
 QueryState _updateAssignmentsReducer(
   QueryState state,
   UpdateAssignmentsAction action,
-) =>
-    state.copyWith(assignments: action.response);
+) => state.copyWith(assignments: action.response);
 
 QueryState _updateEmgsApplicationResultReducer(
   QueryState state,
   UpdateEmgsApplicationResultAction action,
-) =>
-    state.copyWith(emgsApplicationResult: action.result);
+) => state.copyWith(emgsApplicationResult: action.result);
 
 // Settings
 
@@ -98,17 +89,14 @@ final Reducer<SettingState> settingsReducer = combineReducers([
 SettingState _showPerformanceOverlayReducer(
   SettingState state,
   ShowPerformanceOverlayAction action,
-) =>
-    state.copyWith(showPerformanceOverlay: action.show);
+) => state.copyWith(showPerformanceOverlay: action.show);
 
 SettingState _showSemanticsDebuggerReducer(
   SettingState state,
   ShowSemanticsDebuggerAction action,
-) =>
-    state.copyWith(showSemanticsDebugger: action.show);
+) => state.copyWith(showSemanticsDebugger: action.show);
 
 SettingState _enableDevFunctionsReducer(
   SettingState state,
   EnableDevFunctionsAction action,
-) =>
-    state.copyWith(enableDevFunctions: action.enable);
+) => state.copyWith(enableDevFunctions: action.enable);

@@ -48,9 +48,7 @@ class _ElectiveCourseRegistrationPageState
         padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
         itemCount: sessions.length,
         itemBuilder: (context, index) => Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(7),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 6),
             child: _buildCardBody(sessions[index]),
@@ -63,10 +61,7 @@ class _ElectiveCourseRegistrationPageState
       appBar: AppBar(title: Text(LocaleKeys.Campus_ECR.tr())),
       body: sessions == null
           ? const Center(child: CircularProgressIndicator())
-          : RefreshIndicator(
-              onRefresh: loadSessions,
-              child: body,
-            ),
+          : RefreshIndicator(onRefresh: loadSessions, child: body),
     );
   }
 
@@ -110,10 +105,8 @@ class _ElectiveCourseRegistrationPageState
                 child: Text(LocaleKeys.Campus_ECREditRegistration.tr()),
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => _EditRegistrationPage(
-                      ecr: ecr,
-                      entry: session.entry,
-                    ),
+                    builder: (context) =>
+                        _EditRegistrationPage(ecr: ecr, entry: session.entry),
                   ),
                 ),
               ),
@@ -128,10 +121,7 @@ class _RegisteredCoursesPage extends StatefulWidget {
   final ElectiveCourseRegistration ecr;
   final String entry;
 
-  const _RegisteredCoursesPage({
-    required this.ecr,
-    required this.entry,
-  });
+  const _RegisteredCoursesPage({required this.ecr, required this.entry});
 
   @override
   State<_RegisteredCoursesPage> createState() => _RegisteredCoursesPageState();
@@ -163,9 +153,7 @@ class _RegisteredCoursesPageState extends State<_RegisteredCoursesPage> {
         padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
         itemCount: courses.length,
         itemBuilder: (context, index) => Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(7),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: _buildCardBody(courses[index]),
@@ -178,10 +166,7 @@ class _RegisteredCoursesPageState extends State<_RegisteredCoursesPage> {
       appBar: AppBar(title: Text(LocaleKeys.Campus_ECRRegisteredCourses.tr())),
       body: courses == null
           ? const Center(child: CircularProgressIndicator())
-          : RefreshIndicator(
-              onRefresh: loadRegistered,
-              child: body,
-            ),
+          : RefreshIndicator(onRefresh: loadRegistered, child: body),
     );
   }
 
@@ -189,10 +174,7 @@ class _RegisteredCoursesPageState extends State<_RegisteredCoursesPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          course.name,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
+        Text(course.name, style: Theme.of(context).textTheme.titleMedium),
         const Divider(height: 8),
         Text(
           'Week ${course.week} '
@@ -209,10 +191,7 @@ class _EditRegistrationPage extends StatefulWidget {
   final ElectiveCourseRegistration ecr;
   final String entry;
 
-  const _EditRegistrationPage({
-    required this.ecr,
-    required this.entry,
-  });
+  const _EditRegistrationPage({required this.ecr, required this.entry});
 
   @override
   State<_EditRegistrationPage> createState() => _EditRegistrationPageState();
@@ -237,25 +216,24 @@ class _EditRegistrationPageState extends State<_EditRegistrationPage> {
   /// Drop course and refresh.
   void drop(String id, {String? name}) async {
     final resp = await showDialog<bool>(
-        context: context,
-        barrierDismissible: false,
-        builder: (ctx) {
-          return AlertDialog(
-            title: Text('Drop $name'),
-            actions: <Widget>[
-              TextButton(
-                child: Text(MaterialLocalizations.of(context).okButtonLabel),
-                onPressed: () => Navigator.of(context).pop(true),
-              ),
-              TextButton(
-                child: Text(
-                  MaterialLocalizations.of(context).cancelButtonLabel,
-                ),
-                onPressed: () => Navigator.of(context).pop(false),
-              ),
-            ],
-          );
-        });
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) {
+        return AlertDialog(
+          title: Text('Drop $name'),
+          actions: <Widget>[
+            TextButton(
+              child: Text(MaterialLocalizations.of(context).okButtonLabel),
+              onPressed: () => Navigator.of(context).pop(true),
+            ),
+            TextButton(
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+              onPressed: () => Navigator.of(context).pop(false),
+            ),
+          ],
+        );
+      },
+    );
     if (resp != true) return;
     setState(() => form.data = null);
     await form.drop(id);
@@ -270,6 +248,7 @@ class _EditRegistrationPageState extends State<_EditRegistrationPage> {
       barrierDismissible: false,
       builder: (ctx) {
         form.listen(course).then((_) {
+          if (!mounted || !ctx.mounted) return;
           setState(() {});
           Navigator.of(ctx).pop();
         });
@@ -282,7 +261,7 @@ class _EditRegistrationPageState extends State<_EditRegistrationPage> {
                 Navigator.of(ctx).pop();
               },
               child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
-            )
+            ),
           ],
         );
       },

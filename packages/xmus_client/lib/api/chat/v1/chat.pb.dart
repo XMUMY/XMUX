@@ -175,7 +175,8 @@ class GetOnlineUsersReq extends $pb.GeneratedMessage {
   factory GetOnlineUsersReq.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory GetOnlineUsersReq.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory GetOnlineUsersReq.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -370,7 +371,8 @@ class GetOnlineUsersResp extends $pb.GeneratedMessage {
   factory GetOnlineUsersResp.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory GetOnlineUsersResp.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory GetOnlineUsersResp.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;

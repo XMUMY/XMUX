@@ -40,7 +40,7 @@ class Maintenance {
         data: {
           '__RequestVerificationToken': token,
           'CampusID': _uid,
-          'Password': _password
+          'Password': _password,
         },
         options: Options(
           contentType: 'application/x-www-form-urlencoded',
@@ -58,29 +58,35 @@ class Maintenance {
   static Future<List<FaqEntry>> getFaq({int page = 1}) async {
     final faqPageResp = await Dio().get('$_maintenanceUrl/?p=$page');
 
-    final faqPage = parse(faqPageResp.data)
-            .querySelector('.table')
-            ?.querySelectorAll('td') ??
+    final faqPage =
+        parse(
+          faqPageResp.data,
+        ).querySelector('.table')?.querySelectorAll('td') ??
         [];
 
     final questionList = <FaqEntry>[];
     for (var i = 0; i < faqPage.length; i += 2) {
-      questionList.add(FaqEntry(
-        id: int.parse(
-          faqPage[i].nodes[0].text!.replaceAll(RegExp(r'^\s+|\s+$|\n|\.'), ''),
+      questionList.add(
+        FaqEntry(
+          id: int.parse(
+            faqPage[i].nodes[0].text!.replaceAll(
+              RegExp(r'^\s+|\s+$|\n|\.'),
+              '',
+            ),
+          ),
+          date: DateFormat('yyyy-MM-dd').parse(
+            faqPage[i].nodes[2].text!.replaceAll(RegExp(r'^\s+|\s+$|\n'), ''),
+          ),
+          title: faqPage[i].nodes[1].text!.replaceAll(
+            RegExp(r'^\s+|\s+$|\n'),
+            '',
+          ),
+          answer: faqPage[i + 1].children[0].children
+              .map((e) => e.text)
+              .join('\n')
+              .replaceAll(RegExp(r'^\s+|\s+$'), ''),
         ),
-        date: DateFormat('yyyy-MM-dd').parse(
-          faqPage[i].nodes[2].text!.replaceAll(RegExp(r'^\s+|\s+$|\n'), ''),
-        ),
-        title:
-            faqPage[i].nodes[1].text!.replaceAll(RegExp(r'^\s+|\s+$|\n'), ''),
-        answer: faqPage[i + 1]
-            .children[0]
-            .children
-            .map((e) => e.text)
-            .join('\n')
-            .replaceAll(RegExp(r'^\s+|\s+$'), ''),
-      ));
+      );
     }
 
     return questionList;
@@ -91,45 +97,43 @@ class Maintenance {
     await ensureSignedIn();
     final myRequestPageResp = await _dio.get('/Reader/Ask');
 
-    final myRequestPage = parse(myRequestPageResp.data)
-            .querySelector('.table')
-            ?.querySelectorAll('td') ??
+    final myRequestPage =
+        parse(
+          myRequestPageResp.data,
+        ).querySelector('.table')?.querySelectorAll('td') ??
         [];
 
     final myRequests = <MyRequest>[];
     for (var i = 0; i < myRequestPage.length; i += 2) {
-      final id = myRequestPage[i]
-          .nodes
-          .first
-          .text!
-          .replaceAll(RegExp(r'^\s+|\s+$|\n|\.'), '');
+      final id = myRequestPage[i].nodes.first.text!.replaceAll(
+        RegExp(r'^\s+|\s+$|\n|\.'),
+        '',
+      );
 
-      final titles = myRequestPage[i]
-          .nodes[1]
-          .text!
+      final titles = myRequestPage[i].nodes[1].text!
           .replaceAll(RegExp(r'^\s+|\s+$|\n'), '')
           .split(' - ');
 
-      final date = myRequestPage[i]
-          .nodes
-          .last
-          .text!
-          .replaceAll(RegExp(r'^\s+|\s+$|\n'), '');
+      final date = myRequestPage[i].nodes.last.text!.replaceAll(
+        RegExp(r'^\s+|\s+$|\n'),
+        '',
+      );
 
-      final answer = myRequestPage[i + 1]
-          .children
+      final answer = myRequestPage[i + 1].children
           .map((e) => e.text)
           .join('\n')
           .replaceAll(RegExp(r'^\s+|\s+$'), '');
 
-      myRequests.add(MyRequest(
-        id: id,
-        date: DateFormat('yyyy/MM/dd HH:mm:ss').parse(date),
-        title: titles[2],
-        category: titles[1],
-        usage: titles[0],
-        answer: answer,
-      ));
+      myRequests.add(
+        MyRequest(
+          id: id,
+          date: DateFormat('yyyy/MM/dd HH:mm:ss').parse(date),
+          title: titles[2],
+          category: titles[1],
+          usage: titles[0],
+          answer: answer,
+        ),
+      );
     }
 
     return myRequests;
@@ -141,12 +145,15 @@ class Maintenance {
     final askPageResp = await _dio.get('/Reader/Ask/Create');
     final askPage = parse(askPageResp.data);
     final selections = ['#RoomUsage', '#Category', '#Block', '#Wing']
-        .map((d) => askPage
-            .querySelector(d)!
-            .querySelectorAll('option')
-            .map((e) => e.text)
-            .toList()
-          ..removeAt(0))
+        .map(
+          (d) =>
+              askPage
+                  .querySelector(d)!
+                  .querySelectorAll('option')
+                  .map((e) => e.text)
+                  .toList()
+                ..removeAt(0),
+        )
         .toList();
 
     return RequestForm(
@@ -160,8 +167,7 @@ class Maintenance {
       token: askPage
           .querySelector('[name="__RequestVerificationToken"]')!
           .attributes['value']!,
-      phoneNumber: askPage.querySelector('#Telephone')?.attributes['value'],
-    );
+    )..phoneNumber = askPage.querySelector('#Telephone')?.attributes['value'];
   }
 
   /// Submit form.
@@ -189,7 +195,7 @@ class Maintenance {
           file.path,
           filename: 'pic.jpg',
           contentType: MediaType.parse('image/jpeg'),
-        )
+        ),
     });
 
     await _dio.post(

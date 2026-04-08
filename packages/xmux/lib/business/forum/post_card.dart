@@ -42,10 +42,7 @@ class _PostCardState extends State<PostCard> {
     final liked = widget.post.liked > 0 ? 0 : 1;
     widget.post.likes += liked > 0 ? 1 : -1;
     setState(() => widget.post.liked = liked);
-    rpc.forumClient.likePost(LikePostReq(
-      postId: widget.post.id,
-      like: liked,
-    ));
+    rpc.forumClient.likePost(LikePostReq(postId: widget.post.id, like: liked));
   }
 
   Future<void> _comment() async {
@@ -60,31 +57,22 @@ class _PostCardState extends State<PostCard> {
   Future<void> _save() async {
     final post = widget.post;
     if (post.saved) {
-      rpc.forumClient.unsavePost(UnsavePostReq(
-        postId: post.id,
-      ));
+      rpc.forumClient.unsavePost(UnsavePostReq(postId: post.id));
     } else {
-      rpc.forumClient.savePost(SavePostReq(
-        postId: post.id,
-      ));
+      rpc.forumClient.savePost(SavePostReq(postId: post.id));
     }
     setState(() => post.saved = !post.saved);
   }
 
   Future<void> _remove() async {
-    await rpc.forumClient.removePost(RemovePostReq(
-      postId: widget.post.id,
-    ));
+    await rpc.forumClient.removePost(RemovePostReq(postId: widget.post.id));
     widget.onPostComment?.call();
   }
 
   Future<void> _pin() async {
     final post = widget.post;
 
-    rpc.forumClient.pinPost(PinPostReq(
-      postId: post.id,
-      pinned: !post.pinned,
-    ));
+    rpc.forumClient.pinPost(PinPostReq(postId: post.id, pinned: !post.pinned));
 
     setState(() => post.pinned = !post.pinned);
   }
@@ -100,10 +88,8 @@ class _PostCardState extends State<PostCard> {
         initialChildSize: 0.73,
         snap: true,
         snapSizes: const [0.9],
-        builder: (context, controller) => PostList(
-          parentPost: widget.post,
-          scrollController: controller,
-        ),
+        builder: (context, controller) =>
+            PostList(parentPost: widget.post, scrollController: controller),
       ),
     );
   }
@@ -128,78 +114,83 @@ class _PostCardState extends State<PostCard> {
       allowFromNow: true,
     );
 
-    final header = Row(children: [
-      Expanded(
-        child: UserProfileBuilder(
-          uid: post.uid,
-          builder: (context, profile) => Row(
-            key: ValueKey(profile),
-            children: <Widget>[
-              // Build user avatar.
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                child: Gravatar(
-                  url: profile.avatar,
-                  fallbackName: profile.displayName,
-                  radius: 18,
+    final header = Row(
+      children: [
+        Expanded(
+          child: UserProfileBuilder(
+            uid: post.uid,
+            builder: (context, profile) => Row(
+              key: ValueKey(profile),
+              children: <Widget>[
+                // Build user avatar.
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 6,
+                    horizontal: 8,
+                  ),
+                  child: Gravatar(
+                    url: profile.avatar,
+                    fallbackName: profile.displayName,
+                    radius: 18,
+                  ),
+                ),
+
+                // Build user name and timestamp.
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(profile.displayName),
+                    Text(ts, style: Theme.of(context).textTheme.bodySmall),
+                  ],
+                ),
+              ],
+            ),
+            placeholder: (context) => Row(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                  child: Gravatar(radius: 18),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('  ...  '),
+                    Text(ts, style: Theme.of(context).textTheme.bodySmall),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        if (post.pinned)
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Transform.rotate(
+              angle: pi / 6,
+              child: const Icon(Icons.push_pin),
+            ),
+          ),
+        PopupMenuButton<VoidCallback>(
+          itemBuilder: (context) => [
+            if (widget.thread?.uid == store.state.user.campusId)
+              PopupMenuItem(
+                value: _pin,
+                child: Text(
+                  post.pinned
+                      ? LocaleKeys.Community_Unpin.tr()
+                      : LocaleKeys.Community_Pin.tr(),
                 ),
               ),
-
-              // Build user name and timestamp.
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(profile.displayName),
-                  Text(ts, style: Theme.of(context).textTheme.bodySmall)
-                ],
+            if (post.uid == store.state.user.campusId)
+              PopupMenuItem(
+                value: _remove,
+                child: Text(LocaleKeys.Community_Delete.tr()),
               ),
-            ],
-          ),
-          placeholder: (context) => Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                child: Gravatar(radius: 18),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('  ...  '),
-                  Text(ts, style: Theme.of(context).textTheme.bodySmall)
-                ],
-              ),
-            ],
-          ),
+          ],
+          onSelected: (v) => v(),
         ),
-      ),
-      if (post.pinned)
-        Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: Transform.rotate(
-            angle: pi / 6,
-            child: const Icon(Icons.push_pin),
-          ),
-        ),
-      PopupMenuButton<VoidCallback>(
-        itemBuilder: (context) => [
-          if (widget.thread?.uid == store.state.user.campusId)
-            PopupMenuItem(
-              value: _pin,
-              child: Text(
-                post.pinned
-                    ? LocaleKeys.Community_Unpin.tr()
-                    : LocaleKeys.Community_Pin.tr(),
-              ),
-            ),
-          if (post.uid == store.state.user.campusId)
-            PopupMenuItem(
-              value: _remove,
-              child: Text(LocaleKeys.Community_Delete.tr()),
-            ),
-        ],
-        onSelected: (v) => v(),
-      ),
-    ]);
+      ],
+    );
 
     Widget content = Text(LocaleKeys.Community_Unsupported.tr());
     if (post.hasPlainContent()) {
@@ -271,11 +262,10 @@ class _PostCardState extends State<PostCard> {
                 for (final c in widget.children)
                   UserProfileBuilder(
                     uid: c.uid,
-                    builder: (context, profile) => Text(
-                      '${profile.displayName}: ${_getText(c)}',
-                    ),
+                    builder: (context, profile) =>
+                        Text('${profile.displayName}: ${_getText(c)}'),
                     placeholder: (context) => Text('...: ${_getText(c)}'),
-                  )
+                  ),
               ],
             ),
           ),
@@ -295,12 +285,9 @@ class _PostCardState extends State<PostCard> {
           padding: const EdgeInsets.only(left: 42),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              footer,
-              if (children != null) children,
-            ],
+            children: [footer, ?children],
           ),
-        )
+        ),
       ],
     );
   }

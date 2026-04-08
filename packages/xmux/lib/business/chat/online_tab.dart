@@ -34,9 +34,9 @@ class _OnlineTabState extends State<OnlineTab>
   }
 
   void _openP2PSessionWith(String uid) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (_) => P2PChatPage(uid: uid),
-    ));
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => P2PChatPage(uid: uid)));
   }
 
   @override
@@ -61,14 +61,10 @@ class _OnlineTabState extends State<OnlineTab>
             uid: uid,
             builder: (context, profile) => ListTile(
               leading: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 6,
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 6),
                 child: Badge(
                   position: BadgePosition.bottomEnd(bottom: 0, end: 0),
-                  badgeStyle: const BadgeStyle(
-                    badgeColor: Colors.greenAccent,
-                  ),
+                  badgeStyle: const BadgeStyle(badgeColor: Colors.greenAccent),
                   child: Gravatar(
                     url: profile.avatar,
                     fallbackName: profile.displayName,
@@ -84,9 +80,7 @@ class _OnlineTabState extends State<OnlineTab>
                 padding: const EdgeInsets.symmetric(vertical: 6),
                 child: Badge(
                   position: BadgePosition.center(),
-                  badgeStyle: const BadgeStyle(
-                    badgeColor: Colors.greenAccent,
-                  ),
+                  badgeStyle: const BadgeStyle(badgeColor: Colors.greenAccent),
                 ),
               ),
               title: const Text('  ...  '),

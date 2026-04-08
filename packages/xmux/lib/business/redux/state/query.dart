@@ -25,10 +25,10 @@ class QueryState {
     Transcript? transcript,
     this.assignments = const [],
     this.emgsApplicationResult,
-  })  : timetable = timetable ?? Timetable(),
-        courses = courses ?? Courses(),
-        exams = exams ?? Exams(),
-        transcript = transcript ?? Transcript();
+  }) : timetable = timetable ?? Timetable(),
+       courses = courses ?? Courses(),
+       exams = exams ?? Exams(),
+       transcript = transcript ?? Transcript();
 
   factory QueryState.fromJson(Map<String, dynamic> json) =>
       _$QueryStateFromJson(json);
@@ -42,16 +42,14 @@ class QueryState {
     Transcript? transcript,
     List<AssignmentCourse>? assignments,
     EmgsApplicationResult? emgsApplicationResult,
-  }) =>
-      QueryState(
-        timetable: timetable ?? this.timetable,
-        courses: courses ?? this.courses,
-        exams: exams ?? this.exams,
-        transcript: transcript ?? this.transcript,
-        assignments: assignments ?? this.assignments,
-        emgsApplicationResult:
-            emgsApplicationResult ?? this.emgsApplicationResult,
-      );
+  }) => QueryState(
+    timetable: timetable ?? this.timetable,
+    courses: courses ?? this.courses,
+    exams: exams ?? this.exams,
+    transcript: transcript ?? this.transcript,
+    assignments: assignments ?? this.assignments,
+    emgsApplicationResult: emgsApplicationResult ?? this.emgsApplicationResult,
+  );
 
   @override
   bool operator ==(Object other) =>

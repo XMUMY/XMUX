@@ -8,12 +8,7 @@ import '../../foundation/platform/breakpoint.dart';
 import '../redux/action/action.dart';
 import '../redux/store.dart';
 
-enum _EPaymentPageStage {
-  initializing,
-  initialized,
-  tos,
-  ok,
-}
+enum _EPaymentPageStage { initializing, initialized, tos, ok }
 
 class EPaymentPage extends StatefulWidget {
   const EPaymentPage({super.key});
@@ -102,9 +97,7 @@ class _EPaymentPageState extends State<EPaymentPage> {
 
     switch (_state) {
       case _EPaymentPageStage.initializing:
-        body = const Center(
-          child: CircularProgressIndicator(),
-        );
+        body = const Center(child: CircularProgressIndicator());
         break;
       case _EPaymentPageStage.initialized:
         body = RefreshIndicator(
@@ -117,10 +110,7 @@ class _EPaymentPageState extends State<EPaymentPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Icon(
-              Icons.warning_amber_outlined,
-              size: 50,
-            ),
+            const Icon(Icons.warning_amber_outlined, size: 50),
             const Divider(color: Colors.transparent),
             Text(
               LocaleKeys.Campus_EPaymentTOS.tr(),
@@ -146,9 +136,7 @@ class _EPaymentPageState extends State<EPaymentPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.Campus_EPayment.tr()),
-      ),
+      appBar: AppBar(title: Text(LocaleKeys.Campus_EPayment.tr())),
       body: body,
     );
   }
@@ -167,10 +155,7 @@ class _PaymentRecordCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                record.item,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+              Text(record.item, style: Theme.of(context).textTheme.titleMedium),
               const Divider(height: 5, color: Colors.transparent),
               Text(
                 DateFormat.yMMMMd().format(record.date),
@@ -185,7 +170,7 @@ class _PaymentRecordCard extends StatelessWidget {
             '${record.paid.toStringAsFixed(2)}\n / ${record.amount.toStringAsFixed(2)}',
             textAlign: TextAlign.end,
           ),
-        )
+        ),
       ],
     );
   }

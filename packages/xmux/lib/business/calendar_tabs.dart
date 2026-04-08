@@ -23,16 +23,16 @@ class CalendarTabs implements TabInformationProvider {
 
   @override
   Widget? buildTrailing(BuildContext context) => IconButton(
-        icon: const Icon(Icons.calendar_month),
-        tooltip: LocaleKeys.Calendar_Academic.tr(),
-        onPressed: () {
-          if (isWeb) {
-            launchUrlString('https://www.xmu.edu.my/14702/list.htm');
-          } else {
-            context.push('/calendar/academic_calendar');
-          }
-        },
-      );
+    icon: const Icon(Icons.calendar_month),
+    tooltip: LocaleKeys.Calendar_Academic.tr(),
+    onPressed: () {
+      if (isWeb) {
+        launchUrlString('https://www.xmu.edu.my/14702/list.htm');
+      } else {
+        context.push('/calendar/academic_calendar');
+      }
+    },
+  );
 
   @override
   Iterable<(int, String)> getTabs(Iterable<(int, String)> branches) =>

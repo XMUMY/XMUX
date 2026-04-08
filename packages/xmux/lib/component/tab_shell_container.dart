@@ -62,8 +62,9 @@ class _TabShellContainerState extends State<TabShellContainer>
 
   @override
   Widget build(BuildContext context) {
-    final branches = widget.navigationShell.route.branches
-        .mapIndexed((i, branch) => (i, (branch.routes.first as GoRoute).path));
+    final branches = widget.navigationShell.route.branches.mapIndexed(
+      (i, branch) => (i, (branch.routes.first as GoRoute).path),
+    );
     final effective = widget.tabInformationProvider.getTabs(branches).toList();
 
     final tabs = effective.map((e) => Tab(text: e.$2)).toList();
@@ -78,7 +79,7 @@ class _TabShellContainerState extends State<TabShellContainer>
           preferredSize: const Size.fromHeight(kMinInteractiveDimension),
           child: Row(
             children: [
-              if (leading != null) leading,
+              ?leading,
               Expanded(
                 child: TabBar(
                   isScrollable: true,
@@ -89,14 +90,11 @@ class _TabShellContainerState extends State<TabShellContainer>
                   onTap: _onTabTap,
                 ),
               ),
-              if (trailing != null) trailing,
+              ?trailing,
             ],
           ),
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: children,
-        ),
+        body: TabBarView(controller: _tabController, children: children),
       ),
     );
   }

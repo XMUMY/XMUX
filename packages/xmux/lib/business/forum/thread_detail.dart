@@ -27,12 +27,14 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
   final _childrens = <int, List<Post>>{};
 
   Future<void> _fetchPage(int pageKey) async {
-    final resp = await rpc.forumClient.getPosts(GetPostsReq(
-      threadId: widget.thread.id,
-      ordering: Ordering.latest,
-      offset: pageKey,
-      count: 10,
-    ));
+    final resp = await rpc.forumClient.getPosts(
+      GetPostsReq(
+        threadId: widget.thread.id,
+        ordering: Ordering.latest,
+        offset: pageKey,
+        count: 10,
+      ),
+    );
 
     final posts = resp.posts;
     final tops = posts.where((p) => p.parentId <= 0).toList();
@@ -52,9 +54,9 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
   }
 
   Future<void> _remove() async {
-    await rpc.forumClient.removeThread(RemoveThreadReq(
-      threadId: widget.thread.id,
-    ));
+    await rpc.forumClient.removeThread(
+      RemoveThreadReq(threadId: widget.thread.id),
+    );
     if (mounted) context.pop();
   }
 
@@ -131,9 +133,8 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
                   ),
                   noItemsFoundIndicatorBuilder: (_) => const SizedBox(),
                 ),
-                separatorBuilder: (context, index) => const SingleBodyLayout(
-                  child: Divider(),
-                ),
+                separatorBuilder: (context, index) =>
+                    const SingleBodyLayout(child: Divider()),
               ),
             ),
             SliverPadding(

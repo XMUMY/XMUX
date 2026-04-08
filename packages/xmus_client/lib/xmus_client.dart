@@ -53,9 +53,7 @@ class XMUXRpc {
       ),
       ChatClient(
         clientChannel,
-        options: CallOptions(
-          providers: [authorization.provider],
-        ),
+        options: CallOptions(providers: [authorization.provider]),
       ),
     );
   }

@@ -14,8 +14,7 @@ class _Logger implements Logger {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      loggerImpl.t(message, time: time, error: error, stackTrace: stackTrace);
+  }) => loggerImpl.t(message, time: time, error: error, stackTrace: stackTrace);
 
   /// Log a message at debug level.
   @override
@@ -24,8 +23,7 @@ class _Logger implements Logger {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      loggerImpl.d(message, time: time, error: error, stackTrace: stackTrace);
+  }) => loggerImpl.d(message, time: time, error: error, stackTrace: stackTrace);
 
   /// Log a message at info level.
   @override
@@ -34,8 +32,7 @@ class _Logger implements Logger {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      loggerImpl.i(message, time: time, error: error, stackTrace: stackTrace);
+  }) => loggerImpl.i(message, time: time, error: error, stackTrace: stackTrace);
 
   /// Log a message at warning level.
   @override
@@ -44,8 +41,7 @@ class _Logger implements Logger {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      loggerImpl.w(message, time: time, error: error, stackTrace: stackTrace);
+  }) => loggerImpl.w(message, time: time, error: error, stackTrace: stackTrace);
 
   /// Log a message at error level.
   @override
@@ -54,8 +50,7 @@ class _Logger implements Logger {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      loggerImpl.e(message, time: time, error: error, stackTrace: stackTrace);
+  }) => loggerImpl.e(message, time: time, error: error, stackTrace: stackTrace);
 
   /// Log a message at fatal level.
   @override
@@ -64,6 +59,5 @@ class _Logger implements Logger {
     DateTime? time,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      loggerImpl.f(message, time: time, error: error, stackTrace: stackTrace);
+  }) => loggerImpl.f(message, time: time, error: error, stackTrace: stackTrace);
 }

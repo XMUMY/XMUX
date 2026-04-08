@@ -54,9 +54,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
 
     Widget child;
     if (form == null) {
-      child = const Center(
-        child: CircularProgressIndicator(),
-      );
+      child = const Center(child: CircularProgressIndicator());
     } else {
       final fields = <Widget>[
         TextFormField(
@@ -79,7 +77,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
                   items: form.blocks
                       .map((u) => DropdownMenuItem(value: u, child: Text(u)))
                       .toList(),
-                  value: form.block,
+                  initialValue: form.block,
                   onChanged: (v) => form.block = v,
                   validator: (v) =>
                       v != null && form.blocks.contains(v) ? null : '',
@@ -94,7 +92,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
                   items: form.wings
                       .map((u) => DropdownMenuItem(value: u, child: Text(u)))
                       .toList(),
-                  value: form.wing,
+                  initialValue: form.wing,
                   onChanged: (v) => form.wing = v,
                   validator: (v) =>
                       v != null && form.wings.contains(v) ? null : '',
@@ -110,7 +108,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
                 onChanged: (v) => form.room = v,
                 validator: (v) => v != null && v.isNotEmpty ? null : '',
               ),
-            )
+            ),
           ],
         ),
         Observer(
@@ -121,7 +119,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
             items: form.usages
                 .map((u) => DropdownMenuItem(value: u, child: Text(u)))
                 .toList(),
-            value: form.usage,
+            initialValue: form.usage,
             onChanged: (v) => form.usage = v,
             validator: (v) => v != null && form.usages.contains(v) ? null : '',
           ),
@@ -134,7 +132,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
             items: form.categories
                 .map((u) => DropdownMenuItem(value: u, child: Text(u)))
                 .toList(),
-            value: form.category,
+            initialValue: form.category,
             onChanged: (v) => form.category = v,
             validator: (v) =>
                 v != null && form.categories.contains(v) ? null : '',
@@ -169,8 +167,9 @@ class _RequestFormPageState extends State<RequestFormPage> {
                   form.file = null;
                   return;
                 }
-                final imageFile =
-                    await ImagePicker().pickImage(source: ImageSource.camera);
+                final imageFile = await ImagePicker().pickImage(
+                  source: ImageSource.camera,
+                );
                 if (imageFile != null) form.file = File(imageFile.path);
               },
               onLongPress: () async {
@@ -178,8 +177,9 @@ class _RequestFormPageState extends State<RequestFormPage> {
                   form.file = null;
                   return;
                 }
-                final imageFile =
-                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                final imageFile = await ImagePicker().pickImage(
+                  source: ImageSource.gallery,
+                );
                 if (imageFile != null) form.file = File(imageFile.path);
               },
             ),
@@ -193,9 +193,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
             vertical: 4,
             horizontal: context.padBody,
           ),
-          child: Column(
-            children: fields,
-          ),
+          child: Column(children: fields),
         ),
       );
     }
@@ -212,11 +210,8 @@ class _RequestFormPageState extends State<RequestFormPage> {
             elevation: 0,
             backgroundColor: Theme.of(context).canvasColor,
             onPressed: form != null ? _handleSubmit : null,
-            child: Icon(
-              Icons.check,
-              color: Theme.of(context).iconTheme.color,
-            ),
-          )
+            child: Icon(Icons.check, color: Theme.of(context).iconTheme.color),
+          ),
         ],
       ),
       body: Stack(
@@ -232,9 +227,7 @@ class _RequestFormPageState extends State<RequestFormPage> {
                 width: 150,
               ),
             ),
-          SizedBox.expand(
-            child: child,
-          )
+          SizedBox.expand(child: child),
         ],
       ),
     );

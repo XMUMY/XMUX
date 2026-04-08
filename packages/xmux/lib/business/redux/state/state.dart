@@ -27,9 +27,9 @@ class AppState {
     UserState? user,
     QueryState? queries,
     SettingState? settings,
-  })  : user = user ?? UserState(),
-        queries = queries ?? QueryState(),
-        settings = settings ?? SettingState();
+  }) : user = user ?? UserState(),
+       queries = queries ?? QueryState(),
+       settings = settings ?? SettingState();
 
   factory AppState.fromJson(Map<String, dynamic> json) =>
       _$AppStateFromJson(json);
@@ -41,13 +41,12 @@ class AppState {
     UserState? user,
     QueryState? queries,
     SettingState? settings,
-  }) =>
-      AppState(
-        isInitialized: isInitialized ?? this.isInitialized,
-        user: user ?? this.user,
-        queries: queries ?? this.queries,
-        settings: settings ?? this.settings,
-      );
+  }) => AppState(
+    isInitialized: isInitialized ?? this.isInitialized,
+    user: user ?? this.user,
+    queries: queries ?? this.queries,
+    settings: settings ?? this.settings,
+  );
 
   @override
   bool operator ==(Object other) =>

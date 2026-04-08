@@ -10,27 +10,31 @@ class CookieManager extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    cookieJar.loadForRequest(options.uri).then((cookies) {
-      var cookie = getCookies(cookies);
-      if (cookie.isNotEmpty) {
-        options.headers[HttpHeaders.cookieHeader] = cookie;
-      }
-      handler.next(options);
-    }).catchError((e, stackTrace) {
-      var err = DioException(
-        requestOptions: options,
-        error: e,
-        stackTrace: stackTrace,
-      );
-      handler.reject(err, true);
-    });
+    cookieJar
+        .loadForRequest(options.uri)
+        .then((cookies) {
+          var cookie = getCookies(cookies);
+          if (cookie.isNotEmpty) {
+            options.headers[HttpHeaders.cookieHeader] = cookie;
+          }
+          handler.next(options);
+        })
+        .catchError((e, stackTrace) {
+          var err = DioException(
+            requestOptions: options,
+            error: e,
+            stackTrace: stackTrace,
+          );
+          handler.reject(err, true);
+        });
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    _saveCookies(response)
-        .then((_) => handler.next(response))
-        .catchError((e, stackTrace) {
+    _saveCookies(response).then((_) => handler.next(response)).catchError((
+      e,
+      stackTrace,
+    ) {
       var err = DioException(
         requestOptions: response.requestOptions,
         error: e,
@@ -43,14 +47,17 @@ class CookieManager extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (err.response != null) {
-      _saveCookies(err.response!)
-          .then((_) => handler.next(err))
-          .catchError((e, stackTrace) {
-        handler.next(DioException(
-          requestOptions: err.response!.requestOptions,
-          error: e,
-          stackTrace: stackTrace,
-        ));
+      _saveCookies(err.response!).then((_) => handler.next(err)).catchError((
+        e,
+        stackTrace,
+      ) {
+        handler.next(
+          DioException(
+            requestOptions: err.response!.requestOptions,
+            error: e,
+            stackTrace: stackTrace,
+          ),
+        );
       });
     } else {
       handler.next(err);

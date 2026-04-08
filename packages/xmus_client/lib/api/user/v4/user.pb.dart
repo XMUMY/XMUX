@@ -351,7 +351,8 @@ class RefreshDeviceReq extends $pb.GeneratedMessage {
   factory RefreshDeviceReq.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory RefreshDeviceReq.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory RefreshDeviceReq.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -457,7 +458,8 @@ class GetDevicesResp_Device extends $pb.GeneratedMessage {
   factory GetDevicesResp_Device.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory GetDevicesResp_Device.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory GetDevicesResp_Device.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;
@@ -547,7 +549,8 @@ class GetDevicesResp extends $pb.GeneratedMessage {
   factory GetDevicesResp.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(data, registry);
-  factory GetDevicesResp.fromJson($core.Map<$core.String, $core.dynamic> json) =>
+  factory GetDevicesResp.fromJson(
+          $core.Map<$core.String, $core.dynamic> json) =>
       create()..mergeFromProto3Json(json);
   $core.Map<$core.String, $core.dynamic> toJson() =>
       toProto3Json() as $core.Map<$core.String, $core.dynamic>;

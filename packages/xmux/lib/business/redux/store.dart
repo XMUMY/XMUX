@@ -10,10 +10,6 @@ import 'state/state.dart';
 final store = Store(
   appReducer,
   initialState: AppState(),
-  middleware: [
-    redirectMiddleware,
-    apiRequestMiddleware,
-    saveMiddleware,
-  ],
+  middleware: [redirectMiddleware, apiRequestMiddleware, saveMiddleware],
   distinct: true,
 );

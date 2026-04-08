@@ -6,10 +6,7 @@ import '../foundation/platform/platform.dart';
 class LikeIcon extends StatelessWidget {
   final bool liked;
 
-  const LikeIcon({
-    super.key,
-    this.liked = false,
-  });
+  const LikeIcon({super.key, this.liked = false});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +14,9 @@ class LikeIcon extends StatelessWidget {
       duration: const Duration(milliseconds: 200),
       firstChild: const Icon(Icons.favorite_border),
       secondChild: const Icon(Icons.favorite, color: Colors.red),
-      crossFadeState:
-          liked ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      crossFadeState: liked
+          ? CrossFadeState.showSecond
+          : CrossFadeState.showFirst,
     );
   }
 }
@@ -27,11 +25,7 @@ class LottieLikeIcon extends StatefulWidget {
   final double size;
   final bool liked;
 
-  const LottieLikeIcon({
-    super.key,
-    this.size = 35,
-    this.liked = false,
-  });
+  const LottieLikeIcon({super.key, this.size = 35, this.liked = false});
 
   @override
   State<LottieLikeIcon> createState() => _LottieLikeIconState();
@@ -69,10 +63,11 @@ class _LottieLikeIconState extends State<LottieLikeIcon>
   Widget build(BuildContext context) {
     final delegates = LottieDelegates(
       values: [
-        ValueDelegate.color(
-          const ['Empty', 'Group 1', 'Fill 1'],
-          value: Theme.of(context).colorScheme.onSurface,
-        ),
+        ValueDelegate.color([
+          'Empty',
+          'Group 1',
+          'Fill 1',
+        ], value: Theme.of(context).colorScheme.onSurface),
       ],
     );
 

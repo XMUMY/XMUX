@@ -11,17 +11,13 @@ class BusSchedulePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.Campus_BusSchedule.tr()),
-      ),
+      appBar: AppBar(title: Text(LocaleKeys.Campus_BusSchedule.tr())),
       body: SizedBox.expand(
         child: ExtendedImage.network(
           RemoteConfigs.instance.staticResources.busScheduleImage,
           mode: ExtendedImageMode.gesture,
-          initGestureConfigHandler: (state) => GestureConfig(
-            maxScale: 2.0,
-            minScale: 0.5,
-          ),
+          initGestureConfigHandler: (state) =>
+              GestureConfig(maxScale: 2.0, minScale: 0.5),
         ),
       ),
     );

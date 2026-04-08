@@ -44,8 +44,14 @@ class Assignment {
   @JsonKey(name: 'introattachments')
   final List<IntroAttachment> introAttachments;
 
-  Assignment(this.id, this.name, this.dueDate, this.allowSubmissionFromDate,
-      this.intro, this.introAttachments);
+  Assignment(
+    this.id,
+    this.name,
+    this.dueDate,
+    this.allowSubmissionFromDate,
+    this.intro,
+    this.introAttachments,
+  );
 
   static Assignment fromJson(Map<String, dynamic> json) =>
       _$AssignmentFromJson(json);

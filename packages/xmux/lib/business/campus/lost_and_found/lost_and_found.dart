@@ -25,8 +25,9 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
   );
 
   Future<void> _fetchPage(int pageKey) async {
-    final resp = await rpc.lostAndFoundClient
-        .getBriefs(GetBriefsReq(before: _pagingController.itemList?.last.time));
+    final resp = await rpc.lostAndFoundClient.getBriefs(
+      GetBriefsReq(before: _pagingController.itemList?.last.time),
+    );
     final briefs = resp.briefs;
     if (!mounted) return;
     if (briefs.isNotEmpty) {
@@ -51,9 +52,7 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.Campus_LaF.tr()),
-      ),
+      appBar: AppBar(title: Text(LocaleKeys.Campus_LaF.tr())),
       body: PagedListView<int, LostAndFoundBrief>(
         pagingController: _pagingController,
         padding: context.padListView,
@@ -66,7 +65,8 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
         onPressed: () async {
           final shouldRefresh = await Navigator.of(context).push<bool>(
             MaterialPageRoute(
-                builder: (context) => const NewLostAndFoundPage()),
+              builder: (context) => const NewLostAndFoundPage(),
+            ),
           );
           if (shouldRefresh ?? false) {
             _pagingController.refresh();
@@ -118,7 +118,7 @@ class _ItemBriefCard extends StatelessWidget {
                         '${DateFormat.yMMMEd().format(brief.time.toDateTime().toLocal())} '
                         '${DateFormat.Hm().format(brief.time.toDateTime().toLocal())}',
                         style: Theme.of(context).textTheme.bodySmall,
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -153,7 +153,8 @@ class _ItemBriefCard extends StatelessWidget {
       onTap: () async {
         final shouldRefresh = await Navigator.of(context).push<bool>(
           MaterialPageRoute(
-              builder: (context) => LostAndFoundDetailPage(brief: brief)),
+            builder: (context) => LostAndFoundDetailPage(brief: brief),
+          ),
         );
         if (context.mounted && (shouldRefresh ?? false)) {
           context

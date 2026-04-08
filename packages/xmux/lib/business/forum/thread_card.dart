@@ -48,17 +48,13 @@ class _ThreadCardState extends State<ThreadCard> {
     final liked = widget.thread.liked > 0 ? 0 : 1;
     widget.thread.likes += liked > 0 ? 1 : -1;
     setState(() => widget.thread.liked = liked);
-    rpc.forumClient.likeThread(LikeThreadReq(
-      threadId: widget.thread.id,
-      like: liked,
-    ));
+    rpc.forumClient.likeThread(
+      LikeThreadReq(threadId: widget.thread.id, like: liked),
+    );
   }
 
   Future<void> _comment() async {
-    final r = await NewPostDialog.show(
-      context,
-      threadId: widget.thread.id,
-    );
+    final r = await NewPostDialog.show(context, threadId: widget.thread.id);
     if (r == true) {
       setState(() => widget.thread.posts++);
       widget.onPostComment?.call();
@@ -68,13 +64,9 @@ class _ThreadCardState extends State<ThreadCard> {
   Future<void> _save() async {
     final thread = widget.thread;
     if (thread.saved) {
-      rpc.forumClient.unsaveThread(UnsaveThreadReq(
-        threadId: thread.id,
-      ));
+      rpc.forumClient.unsaveThread(UnsaveThreadReq(threadId: thread.id));
     } else {
-      rpc.forumClient.saveThread(SaveThreadReq(
-        threadId: thread.id,
-      ));
+      rpc.forumClient.saveThread(SaveThreadReq(threadId: thread.id));
     }
     setState(() => thread.saved = !thread.saved);
   }
@@ -117,7 +109,7 @@ class _ThreadCardState extends State<ThreadCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(profile.displayName),
-              Text(ts, style: Theme.of(context).textTheme.bodySmall)
+              Text(ts, style: Theme.of(context).textTheme.bodySmall),
             ],
           ),
         ],
@@ -132,7 +124,7 @@ class _ThreadCardState extends State<ThreadCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('  ...  '),
-              Text(ts, style: Theme.of(context).textTheme.bodySmall)
+              Text(ts, style: Theme.of(context).textTheme.bodySmall),
             ],
           ),
         ],
@@ -144,10 +136,7 @@ class _ThreadCardState extends State<ThreadCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            thread.title,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text(thread.title, style: Theme.of(context).textTheme.titleMedium),
           if (thread.hasPlainContent())
             Text(
               thread.plainContent.content,
@@ -161,7 +150,7 @@ class _ThreadCardState extends State<ThreadCard> {
               overflow: TextOverflow.ellipsis,
             )
           else
-            Text(LocaleKeys.Community_Unsupported.tr())
+            Text(LocaleKeys.Community_Unsupported.tr()),
         ],
       ),
     );
@@ -171,10 +160,7 @@ class _ThreadCardState extends State<ThreadCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            thread.title,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text(thread.title, style: Theme.of(context).textTheme.titleMedium),
           if (thread.hasPlainContent())
             SelectableText(thread.plainContent.content)
           else if (thread.hasMarkdownContent())
@@ -184,7 +170,7 @@ class _ThreadCardState extends State<ThreadCard> {
               shrinkWrap: true,
             )
           else
-            Text(LocaleKeys.Community_Unsupported.tr())
+            Text(LocaleKeys.Community_Unsupported.tr()),
         ],
       ),
     );
@@ -233,10 +219,7 @@ class _ThreadCardState extends State<ThreadCard> {
       padding: const EdgeInsets.all(5),
       onTap: widget.expandable
           ? null // Already in detail page.
-          : () => context.push(
-                '/community/thread/${thread.id}',
-                extra: thread,
-              ),
+          : () => context.push('/community/thread/${thread.id}', extra: thread),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -11,10 +11,7 @@ import 'foundation/platform/environment.dart';
 void main() {
   // Wrap by sentry client
   if (isRelease) {
-    Sentry.init(
-      (options) => options..dsn = sentryDsn,
-      appRunner: run,
-    );
+    Sentry.init((options) => options..dsn = sentryDsn, appRunner: run);
   } else {
     run();
   }
