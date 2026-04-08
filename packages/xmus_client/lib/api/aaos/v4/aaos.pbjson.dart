@@ -1,13 +1,15 @@
+// This is a generated file - do not edit.
 //
-//  Generated code. Do not modify.
-//  source: aaos/v4/aaos.proto
-//
-// @dart = 2.12
+// Generated from aaos/v4/aaos.proto.
+
+// @dart = 3.3
 
 // ignore_for_file: annotate_overrides, camel_case_types, comment_references
-// ignore_for_file: constant_identifier_names, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_final_fields
-// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
+// ignore_for_file: constant_identifier_names
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_relative_imports
+// ignore_for_file: unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -21,7 +23,14 @@ const Info$json = {
     {'1': 'gender', '3': 2, '4': 1, '5': 9, '10': 'gender'},
     {'1': 'id', '3': 3, '4': 1, '5': 9, '10': 'id'},
     {'1': 'programme', '3': 4, '4': 1, '5': 9, '10': 'programme'},
-    {'1': 'intake', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'intake'},
+    {
+      '1': 'intake',
+      '3': 5,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'intake'
+    },
     {'1': 'nationality', '3': 6, '4': 1, '5': 9, '10': 'nationality'},
   ],
 };
@@ -37,8 +46,22 @@ final $typed_data.Uint8List infoDescriptor = $convert.base64Decode(
 const Timetable$json = {
   '1': 'Timetable',
   '2': [
-    {'1': 'classes', '3': 1, '4': 3, '5': 11, '6': '.xmux.core.aaos.v4.Timetable.Class', '10': 'classes'},
-    {'1': 'lastUpdate', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'lastUpdate'},
+    {
+      '1': 'classes',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.xmux.core.aaos.v4.Timetable.Class',
+      '10': 'classes'
+    },
+    {
+      '1': 'lastUpdate',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'lastUpdate'
+    },
   ],
   '3': [Timetable_Class$json],
 };
@@ -51,8 +74,22 @@ const Timetable_Class$json = {
     {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     {'1': 'lecturer', '3': 3, '4': 1, '5': 9, '10': 'lecturer'},
     {'1': 'room', '3': 4, '4': 1, '5': 9, '10': 'room'},
-    {'1': 'begin', '3': 5, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'begin'},
-    {'1': 'end', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'end'},
+    {
+      '1': 'begin',
+      '3': 5,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'begin'
+    },
+    {
+      '1': 'end',
+      '3': 6,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'end'
+    },
     {'1': 'day', '3': 7, '4': 1, '5': 13, '10': 'day'},
   ],
 };
@@ -71,7 +108,14 @@ final $typed_data.Uint8List timetableDescriptor = $convert.base64Decode(
 const Courses$json = {
   '1': 'Courses',
   '2': [
-    {'1': 'courses', '3': 1, '4': 3, '5': 11, '6': '.xmux.core.aaos.v4.Courses.Course', '10': 'courses'},
+    {
+      '1': 'courses',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.xmux.core.aaos.v4.Courses.Course',
+      '10': 'courses'
+    },
   ],
   '3': [Courses_Course$json],
 };
@@ -96,8 +140,22 @@ final $typed_data.Uint8List coursesDescriptor = $convert.base64Decode(
 const Exams$json = {
   '1': 'Exams',
   '2': [
-    {'1': 'exams', '3': 1, '4': 3, '5': 11, '6': '.xmux.core.aaos.v4.Exams.Exam', '10': 'exams'},
-    {'1': 'lastUpdate', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'lastUpdate'},
+    {
+      '1': 'exams',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.xmux.core.aaos.v4.Exams.Exam',
+      '10': 'exams'
+    },
+    {
+      '1': 'lastUpdate',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'lastUpdate'
+    },
   ],
   '3': [Exams_Exam$json],
 };
@@ -107,8 +165,22 @@ const Exams_Exam$json = {
   '1': 'Exam',
   '2': [
     {'1': 'exam', '3': 1, '4': 1, '5': 9, '10': 'exam'},
-    {'1': 'begin', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'begin'},
-    {'1': 'end', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'end'},
+    {
+      '1': 'begin',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'begin'
+    },
+    {
+      '1': 'end',
+      '3': 3,
+      '4': 1,
+      '5': 11,
+      '6': '.google.protobuf.Timestamp',
+      '10': 'end'
+    },
     {'1': 'venue', '3': 4, '4': 1, '5': 9, '10': 'venue'},
     {'1': 'courseName', '3': 5, '4': 1, '5': 9, '10': 'courseName'},
     {'1': 'type', '3': 6, '4': 1, '5': 9, '10': 'type'},
@@ -130,7 +202,14 @@ final $typed_data.Uint8List examsDescriptor = $convert.base64Decode(
 const Transcript$json = {
   '1': 'Transcript',
   '2': [
-    {'1': 'sessions', '3': 1, '4': 3, '5': 11, '6': '.xmux.core.aaos.v4.Transcript.Session', '10': 'sessions'},
+    {
+      '1': 'sessions',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.xmux.core.aaos.v4.Transcript.Session',
+      '10': 'sessions'
+    },
   ],
   '3': [Transcript_Session$json],
 };
@@ -140,7 +219,14 @@ const Transcript_Session$json = {
   '1': 'Session',
   '2': [
     {'1': 'session', '3': 1, '4': 1, '5': 9, '10': 'session'},
-    {'1': 'courses', '3': 2, '4': 3, '5': 11, '6': '.xmux.core.aaos.v4.Transcript.Session.Course', '10': 'courses'},
+    {
+      '1': 'courses',
+      '3': 2,
+      '4': 3,
+      '5': 11,
+      '6': '.xmux.core.aaos.v4.Transcript.Session.Course',
+      '10': 'courses'
+    },
     {'1': 'gpa', '3': 3, '4': 1, '5': 2, '10': 'gpa'},
     {'1': 'cGpa', '3': 4, '4': 1, '5': 2, '10': 'cGpa'},
   ],
@@ -168,4 +254,3 @@ final $typed_data.Uint8List transcriptDescriptor = $convert.base64Decode(
     'BGNHcGEadAoGQ291cnNlEhIKBGNvZGUYASABKAlSBGNvZGUSEgoEbmFtZRgCIAEoCVIEbmFtZR'
     'IWCgZjcmVkaXQYAyABKA1SBmNyZWRpdBIUCgVncmFkZRgEIAEoCVIFZ3JhZGUSFAoFcG9pbnQY'
     'BSABKAJSBXBvaW50');
-

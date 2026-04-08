@@ -1,7 +1,7 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:xmus_client/api/chat_msg.pb.dart';
+import 'package:xmus_client/api/chat/v1/chat_msg.pb.dart';
 
 import '../../component/gravatar.dart';
 import '../../component/user_profile.dart';

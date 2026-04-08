@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:xmus_client/api/chat.pb.dart';
+import 'package:xmus_client/api/chat/v1/chat.pb.dart';
 
 import '../../../foundation/logging/logging.dart';
 import 'grpc_client.dart';

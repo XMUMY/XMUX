@@ -1,10 +1,10 @@
 import 'package:grpc/service_api.dart';
 
 import 'api/aaos/v4/aaos.pbgrpc.dart';
-import 'api/chat.pbgrpc.dart';
+import 'api/chat/v1/chat.pbgrpc.dart';
 import 'api/forum_service.pbgrpc.dart';
-import 'api/lost_found.pbgrpc.dart';
-import 'api/user.pbgrpc.dart';
+import 'api/lost_found/v4/lost_found.pbgrpc.dart';
+import 'api/user/v4/user.pbgrpc.dart';
 import 'authorization.dart';
 import 'client_channel.dart' if (dart.library.html) 'client_channel_web.dart';
 

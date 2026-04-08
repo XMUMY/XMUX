@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:moodle/moodle.dart';
 import 'package:xmus_client/api/aaos/v4/aaos.pb.dart';
-import 'package:xmus_client/api/user.pb.dart';
+import 'package:xmus_client/api/user/v4/user.pb.dart';
 
 part 'query.dart';
 part 'setting.dart';

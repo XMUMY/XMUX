@@ -6,10 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:grpc/grpc.dart';
+import 'package:protobuf/well_known_types/google/protobuf/empty.pb.dart';
 import 'package:taskflow/taskflow.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:xmus_client/api/google/protobuf/empty.pb.dart';
-import 'package:xmus_client/api/user.pb.dart';
+import 'package:xmus_client/api/user/v4/user.pb.dart';
 import 'package:xmus_client/authorization.dart';
 import 'package:xmus_client/error.dart';
 
@@ -38,9 +38,7 @@ class LoginPage extends StatelessWidget {
             const BackgroundImage(),
 
             // Login area.
-            const Center(
-              child: _LoginArea(),
-            ),
+            const Center(child: _LoginArea()),
 
             // Bottom buttons.
             Material(
@@ -100,7 +98,8 @@ class _LoginAreaState extends State<_LoginArea> {
   Future<void> handleLogin() async {
     // Validate format.
     if (!_usernameFormKey.currentState!.validate() ||
-        !_passwordFormKey.currentState!.validate()) return;
+        !_passwordFormKey.currentState!.validate())
+      return;
 
     // Keep username and password to prevent modifying.
     _username = _usernameFormKey.currentState!.value!.toLowerCase();
@@ -114,9 +113,9 @@ class _LoginAreaState extends State<_LoginArea> {
       final loginResp = await rpc.userClient
           .login(
             Empty(),
-            options: CallOptions(providers: [
-              Authorization.basic(_username, _password).provider,
-            ]),
+            options: CallOptions(
+              providers: [Authorization.basic(_username, _password).provider],
+            ),
           )
           .convertRpcError;
       _customToken = loginResp.customToken;
@@ -129,9 +128,9 @@ class _LoginAreaState extends State<_LoginArea> {
           return;
         }
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(e.message),
-        ));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.message)));
       }
       return;
     }
@@ -144,7 +143,8 @@ class _LoginAreaState extends State<_LoginArea> {
   Future<void> handleRegister() async {
     // Validate format.
     if (!_displayNameFormKey.currentState!.validate() ||
-        !_emailFormKey.currentState!.validate()) return;
+        !_emailFormKey.currentState!.validate())
+      return;
 
     _displayName = _displayNameFormKey.currentState!.value!.toLowerCase();
     _email = _emailFormKey.currentState!.value!;
@@ -157,18 +157,18 @@ class _LoginAreaState extends State<_LoginArea> {
       final loginResp = await rpc.userClient
           .register(
             RegisterReq(displayName: _displayName, email: _email),
-            options: CallOptions(providers: [
-              Authorization.basic(_username, _password).provider,
-            ]),
+            options: CallOptions(
+              providers: [Authorization.basic(_username, _password).provider],
+            ),
           )
           .convertRpcError;
       _customToken = loginResp.customToken;
     } on XmuxRpcError catch (e) {
       if (mounted) {
         setState(() => _isProcessing = _needRegister = false);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(e.message),
-        ));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.message)));
       }
       return;
     }
@@ -216,10 +216,7 @@ class _LoginAreaState extends State<_LoginArea> {
               decoration: InputDecoration(
                 hintText: LocaleKeys.SignIn_RegisterDisplayName.tr(),
                 hintStyle: const TextStyle(color: Colors.white70),
-                icon: const Icon(
-                  Icons.perm_identity,
-                  color: Colors.white,
-                ),
+                icon: const Icon(Icons.perm_identity, color: Colors.white),
               ),
               validator: (s) => s != null && s.isNotEmpty
                   ? null
@@ -232,10 +229,7 @@ class _LoginAreaState extends State<_LoginArea> {
               decoration: InputDecoration(
                 hintText: LocaleKeys.SignIn_RegisterEmail.tr(),
                 hintStyle: const TextStyle(color: Colors.white70),
-                icon: const Icon(
-                  Icons.email,
-                  color: Colors.white,
-                ),
+                icon: const Icon(Icons.email, color: Colors.white),
               ),
               validator: (s) => s != null && s.contains('@')
                   ? null
@@ -258,23 +252,17 @@ class _LoginAreaState extends State<_LoginArea> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/logo_outlined.png',
-              height: 100,
-              width: 100,
-            ),
+            Image.asset('assets/logo_outlined.png', height: 100, width: 100),
             const Divider(color: Colors.transparent),
             TextFormField(
               key: _usernameFormKey,
               decoration: InputDecoration(
                 hintText: LocaleKeys.SignIn_CampusID.tr(),
                 hintStyle: const TextStyle(color: Colors.white70),
-                icon: const Icon(
-                  Icons.account_box,
-                  color: Colors.white,
-                ),
+                icon: const Icon(Icons.account_box, color: Colors.white),
               ),
-              validator: (s) => s != null &&
+              validator: (s) =>
+                  s != null &&
                       RegExp(r'^[A-Za-z]{3}[0-9]{7}$|^[0-9]{7}$').hasMatch(s)
                   ? null
                   : LocaleKeys.SignIn_ErrorFormat.tr(),
@@ -285,10 +273,7 @@ class _LoginAreaState extends State<_LoginArea> {
               decoration: InputDecoration(
                 hintText: LocaleKeys.SignIn_Password.tr(),
                 hintStyle: const TextStyle(color: Colors.white70),
-                icon: const Icon(
-                  Icons.password,
-                  color: Colors.white,
-                ),
+                icon: const Icon(Icons.password, color: Colors.white),
               ),
               validator: (s) => s != null && s.length >= 6
                   ? null
@@ -305,7 +290,7 @@ class _LoginAreaState extends State<_LoginArea> {
               LocaleKeys.SignIn_Read.tr(),
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.redAccent),
-            )
+            ),
           ],
         ),
       );

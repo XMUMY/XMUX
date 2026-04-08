@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-import 'package:xmus_client/api/google/protobuf/timestamp.pb.dart';
-import 'package:xmus_client/api/lost_found.pb.dart';
+import 'package:protobuf/well_known_types/google/protobuf/timestamp.pb.dart';
+import 'package:xmus_client/api/lost_found/v4/lost_found.pb.dart';
 import 'package:xmus_client/error.dart';
 
 import '../../../component/date_time_picker.dart';
@@ -53,20 +53,22 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
     if (_isSubmitting || !formKey.currentState!.validate()) return;
     _isSubmitting = true;
     try {
-      await rpc.lostAndFoundClient.addItem(AddItemReq()
-        ..type = form.type
-        ..name = form.name
-        ..time = Timestamp.fromDateTime(form.time)
-        ..location = form.location
-        ..description = form.description
-        ..contacts.clear()
-        ..contacts.addAll(form.contacts));
+      await rpc.lostAndFoundClient.addItem(
+        AddItemReq()
+          ..type = form.type
+          ..name = form.name
+          ..time = Timestamp.fromDateTime(form.time)
+          ..location = form.location
+          ..description = form.description
+          ..contacts.clear()
+          ..contacts.addAll(form.contacts),
+      );
       if (mounted) Navigator.of(context).maybePop(true);
     } on XmuxRpcError catch (e) {
       if (mounted) {
-        ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-          SnackBar(content: Text(e.message)),
-        );
+        ScaffoldMessenger.maybeOf(
+          context,
+        )?.showSnackBar(SnackBar(content: Text(e.message)));
       }
     } finally {
       _isSubmitting = false;
@@ -148,9 +150,13 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
       ListTile(
         title: Text(LocaleKeys.Campus_LaFContacts.tr()),
         trailing: DropdownButton<String>(
-          items: ['QQ', 'WeChat', 'Facebook', 'WhatsApp', 'Telegram']
-              .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-              .toList(),
+          items: [
+            'QQ',
+            'WeChat',
+            'Facebook',
+            'WhatsApp',
+            'Telegram',
+          ].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
           onChanged: (c) => setState(() => form.contacts[c!] = ''),
         ),
       ),
@@ -173,10 +179,7 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.surface,
             onPressed: _handleSubmit,
-            child: Icon(
-              Icons.check,
-              color: Theme.of(context).iconTheme.color,
-            ),
+            child: Icon(Icons.check, color: Theme.of(context).iconTheme.color),
           ),
         ],
       ),
@@ -187,9 +190,7 @@ class _NewLostAndFoundPageState extends State<NewLostAndFoundPage> {
             vertical: 8,
             horizontal: context.padBody,
           ),
-          child: Column(
-            children: formWidgets,
-          ),
+          child: Column(children: formWidgets),
         ),
       ),
     );

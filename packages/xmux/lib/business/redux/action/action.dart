@@ -1,9 +1,9 @@
 import 'package:emgs/model.dart';
 import 'package:moodle/moodle.dart';
+import 'package:protobuf/well_known_types/google/protobuf/empty.pb.dart';
 import 'package:redux/redux.dart';
 import 'package:xmus_client/api/aaos/v4/aaos.pb.dart';
-import 'package:xmus_client/api/google/protobuf/empty.pb.dart';
-import 'package:xmus_client/api/user.pb.dart';
+import 'package:xmus_client/api/user/v4/user.pb.dart';
 
 import '../../../global.dart';
 import '../state/state.dart';
@@ -44,10 +44,7 @@ abstract class ApiRequestAction extends AppAction
   /// Called when [Exception] is caught.
   final void Function(Exception)? onError;
 
-  ApiRequestAction({
-    this.params = const {},
-    this.onError,
-  });
+  ApiRequestAction({this.params = const {}, this.onError});
 
   Future<void> call(Store<AppState> store);
 }
