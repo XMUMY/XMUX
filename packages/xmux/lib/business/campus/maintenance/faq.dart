@@ -13,26 +13,16 @@ class FaqList extends StatefulWidget {
 }
 
 class _FaqListState extends State<FaqList> with AutomaticKeepAliveClientMixin {
-  final _pagingController = PagingController<int, FaqEntry>(firstPageKey: 1);
-
-  Future<void> _fetchPage(int pageKey) async {
-    final resp = await Maintenance.getFaq(page: pageKey);
-    if (!mounted) return;
-    if (resp.isNotEmpty) {
-      _pagingController.appendPage(resp, pageKey + 1);
-    } else {
-      _pagingController.appendLastPage([]);
-    }
-  }
+  late final _pagingController = PagingController<int, FaqEntry>(
+    getNextPageKey: (state) =>
+        state.lastPageIsEmpty ? null : state.nextIntPageKey,
+    fetchPage: (pageKey) async {
+      return await Maintenance.getFaq(page: pageKey);
+    },
+  );
 
   @override
   bool get wantKeepAlive => true;
-
-  @override
-  void initState() {
-    _pagingController.addPageRequestListener(_fetchPage);
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -43,25 +33,32 @@ class _FaqListState extends State<FaqList> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return PagedListView<int, FaqEntry>(
-      pagingController: _pagingController,
-      padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
-      builderDelegate: PagedChildBuilderDelegate<FaqEntry>(
-        itemBuilder: (context, faq, index) => Card(
-          margin: const EdgeInsets.symmetric(vertical: 4),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(faq.title, style: Theme.of(context).textTheme.titleMedium),
-                Text(
-                  DateFormat.yMMMd().format(faq.date),
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-                const Divider(),
-                Text(faq.answer),
-              ],
+    return PagingListener(
+      controller: _pagingController,
+      builder: (context, state, fetchNextPage) =>
+          PagedListView<int, FaqEntry>(
+        state: state,
+        fetchNextPage: fetchNextPage,
+        padding:
+            EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
+        builderDelegate: PagedChildBuilderDelegate<FaqEntry>(
+          itemBuilder: (context, faq, index) => Card(
+            margin: const EdgeInsets.symmetric(vertical: 4),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(faq.title,
+                      style: Theme.of(context).textTheme.titleMedium),
+                  Text(
+                    DateFormat.yMMMd().format(faq.date),
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  const Divider(),
+                  Text(faq.answer),
+                ],
+              ),
             ),
           ),
         ),

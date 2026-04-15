@@ -85,28 +85,23 @@ class _Threads extends StatefulWidget implements TabEntry {
 }
 
 class _ThreadsState extends State<_Threads> with AutomaticKeepAliveClientMixin {
-  final _pagingController = PagingController<int, Thread>(firstPageKey: 0);
-
-  Future<void> _fetchPage(int pageKey) async {
-    final resp = await rpc.forumClient.getSavedThreads(
-      GetSavedThreadsReq(offset: pageKey, count: 10),
-    );
-    if (!mounted) return;
-    if (resp.threads.isNotEmpty && resp.threads.length >= 10) {
-      _pagingController.appendPage(resp.threads, pageKey + resp.threads.length);
-    } else {
-      _pagingController.appendLastPage(resp.threads);
-    }
-  }
+  late final _pagingController = PagingController<int, Thread>(
+    getNextPageKey: (state) {
+      final pages = state.pages;
+      if (pages == null || pages.isEmpty) return 0;
+      if (pages.last.length < 10) return null;
+      return state.keys!.last + pages.last.length;
+    },
+    fetchPage: (pageKey) async {
+      final resp = await rpc.forumClient.getSavedThreads(
+        GetSavedThreadsReq(offset: pageKey, count: 10),
+      );
+      return resp.threads;
+    },
+  );
 
   @override
   bool get wantKeepAlive => true;
-
-  @override
-  void initState() {
-    _pagingController.addPageRequestListener(_fetchPage);
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -119,15 +114,19 @@ class _ThreadsState extends State<_Threads> with AutomaticKeepAliveClientMixin {
     super.build(context);
     return RefreshIndicator(
       onRefresh: () async => _pagingController.refresh(),
-      child: PagedListView<int, Thread>(
-        padding: context.padListView,
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<Thread>(
-          itemBuilder: (context, thread, index) => Hero(
-            tag: thread.id,
-            child: ThreadCard(thread: thread),
+      child: PagingListener(
+        controller: _pagingController,
+        builder: (context, state, fetchNextPage) => PagedListView<int, Thread>(
+          padding: context.padListView,
+          state: state,
+          fetchNextPage: fetchNextPage,
+          builderDelegate: PagedChildBuilderDelegate<Thread>(
+            itemBuilder: (context, thread, index) => Hero(
+              tag: thread.id,
+              child: ThreadCard(thread: thread),
+            ),
+            noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
           ),
-          noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
         ),
       ),
     );
@@ -148,28 +147,23 @@ class _Posts extends StatefulWidget implements TabEntry {
 }
 
 class _PostsState extends State<_Posts> with AutomaticKeepAliveClientMixin {
-  final _pagingController = PagingController<int, Post>(firstPageKey: 0);
-
-  Future<void> _fetchPage(int pageKey) async {
-    final resp = await rpc.forumClient.getSavedPosts(
-      GetSavedPostsReq(offset: pageKey, count: 10),
-    );
-    if (!mounted) return;
-    if (resp.posts.isNotEmpty && resp.posts.length >= 10) {
-      _pagingController.appendPage(resp.posts, pageKey + resp.posts.length);
-    } else {
-      _pagingController.appendLastPage(resp.posts);
-    }
-  }
+  late final _pagingController = PagingController<int, Post>(
+    getNextPageKey: (state) {
+      final pages = state.pages;
+      if (pages == null || pages.isEmpty) return 0;
+      if (pages.last.length < 10) return null;
+      return state.keys!.last + pages.last.length;
+    },
+    fetchPage: (pageKey) async {
+      final resp = await rpc.forumClient.getSavedPosts(
+        GetSavedPostsReq(offset: pageKey, count: 10),
+      );
+      return resp.posts;
+    },
+  );
 
   @override
   bool get wantKeepAlive => true;
-
-  @override
-  void initState() {
-    _pagingController.addPageRequestListener(_fetchPage);
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -182,13 +176,17 @@ class _PostsState extends State<_Posts> with AutomaticKeepAliveClientMixin {
     super.build(context);
     return RefreshIndicator(
       onRefresh: () async => _pagingController.refresh(),
-      child: PagedListView<int, Post>(
-        padding: context.padListView,
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<Post>(
-          itemBuilder: (context, post, index) =>
-              PostCard(threadId: post.threadId, post: post),
-          noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+      child: PagingListener(
+        controller: _pagingController,
+        builder: (context, state, fetchNextPage) => PagedListView<int, Post>(
+          padding: context.padListView,
+          state: state,
+          fetchNextPage: fetchNextPage,
+          builderDelegate: PagedChildBuilderDelegate<Post>(
+            itemBuilder: (context, post, index) =>
+                PostCard(threadId: post.threadId, post: post),
+            noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+          ),
         ),
       ),
     );

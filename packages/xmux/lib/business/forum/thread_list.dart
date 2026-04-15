@@ -20,30 +20,25 @@ class ThreadList extends StatefulWidget {
 }
 
 class _ThreadListState extends State<ThreadList> {
-  final _pagingController = PagingController<int, Thread>(firstPageKey: 0);
-
-  Future<void> _fetchPage(int pageKey) async {
-    final resp = await rpc.forumClient.getThreads(
-      GetThreadsReq(
-        forumId: 1,
-        ordering: Ordering.update,
-        offset: pageKey,
-        count: 10,
-      ),
-    );
-    if (!mounted) return;
-    if (resp.threads.isNotEmpty && resp.threads.length >= 10) {
-      _pagingController.appendPage(resp.threads, pageKey + resp.threads.length);
-    } else {
-      _pagingController.appendLastPage(resp.threads);
-    }
-  }
-
-  @override
-  void initState() {
-    _pagingController.addPageRequestListener(_fetchPage);
-    super.initState();
-  }
+  late final _pagingController = PagingController<int, Thread>(
+    getNextPageKey: (state) {
+      final pages = state.pages;
+      if (pages == null || pages.isEmpty) return 0;
+      if (pages.last.length < 10) return null;
+      return state.keys!.last + pages.last.length;
+    },
+    fetchPage: (pageKey) async {
+      final resp = await rpc.forumClient.getThreads(
+        GetThreadsReq(
+          forumId: 1,
+          ordering: Ordering.update,
+          offset: pageKey,
+          count: 10,
+        ),
+      );
+      return resp.threads;
+    },
+  );
 
   @override
   void dispose() {
@@ -57,19 +52,24 @@ class _ThreadListState extends State<ThreadList> {
       body: RefreshIndicator(
         onRefresh: () async => _pagingController.refresh(),
         child: SingleBodyLayout(
-          child: PagedListView<int, Thread>(
-            padding: EdgeInsets.symmetric(
-              vertical: 4,
-              horizontal: context.padBody,
-            ),
-            pagingController: _pagingController,
-            builderDelegate: PagedChildBuilderDelegate<Thread>(
-              itemBuilder: (context, thread, index) => Hero(
-                tag: thread.id,
-                child: ThreadCard(thread: thread),
-              ),
-              noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
-            ),
+          child: PagingListener(
+            controller: _pagingController,
+            builder: (context, state, fetchNextPage) =>
+                PagedListView<int, Thread>(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 4,
+                    horizontal: context.padBody,
+                  ),
+                  state: state,
+                  fetchNextPage: fetchNextPage,
+                  builderDelegate: PagedChildBuilderDelegate<Thread>(
+                    itemBuilder: (context, thread, index) => Hero(
+                      tag: thread.id,
+                      child: ThreadCard(thread: thread),
+                    ),
+                    noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+                  ),
+                ),
           ),
         ),
       ),

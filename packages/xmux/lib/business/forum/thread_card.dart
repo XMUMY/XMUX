@@ -190,7 +190,7 @@ class _ThreadCardState extends State<ThreadCard> {
           offset: const Offset(0, -1),
           child: IconButton(
             tooltip: LocaleKeys.Community_Comment.tr(),
-            icon: const Icon(FontAwesomeIcons.commentDots),
+            icon: const FaIcon(FontAwesomeIcons.commentDots),
             iconSize: 23,
             padding: EdgeInsets.zero,
             onPressed: _comment,

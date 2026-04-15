@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:protobuf/well_known_types/google/protobuf/timestamp.pb.dart';
 import 'package:xmus_client/api/lost_found/v4/lost_found.pb.dart';
 
 import '../../../component/floating_card.dart';
@@ -20,28 +21,21 @@ class LostAndFoundPage extends StatefulWidget {
 }
 
 class _LostAndFoundPageState extends State<LostAndFoundPage> {
-  final _pagingController = PagingController<int, LostAndFoundBrief>(
-    firstPageKey: 1,
-  );
-
-  Future<void> _fetchPage(int pageKey) async {
-    final resp = await rpc.lostAndFoundClient.getBriefs(
-      GetBriefsReq(before: _pagingController.itemList?.last.time),
-    );
-    final briefs = resp.briefs;
-    if (!mounted) return;
-    if (briefs.isNotEmpty) {
-      _pagingController.appendPage(briefs, pageKey + briefs.length);
-    } else {
-      _pagingController.appendLastPage([]);
-    }
-  }
-
-  @override
-  void initState() {
-    _pagingController.addPageRequestListener(_fetchPage);
-    super.initState();
-  }
+  late final PagingController<Timestamp, LostAndFoundBrief> _pagingController =
+      PagingController<Timestamp, LostAndFoundBrief>(
+        getNextPageKey: (state) {
+          final pages = state.pages;
+          if (pages == null || pages.isEmpty) return Timestamp();
+          if (pages.last.isEmpty) return null;
+          return pages.last.last.time;
+        },
+        fetchPage: (pageKey) async {
+          final resp = await rpc.lostAndFoundClient.getBriefs(
+            GetBriefsReq(before: pageKey.seconds == 0 ? null : pageKey),
+          );
+          return resp.briefs;
+        },
+      );
 
   @override
   void dispose() {
@@ -53,12 +47,18 @@ class _LostAndFoundPageState extends State<LostAndFoundPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(LocaleKeys.Campus_LaF.tr())),
-      body: PagedListView<int, LostAndFoundBrief>(
-        pagingController: _pagingController,
-        padding: context.padListView,
-        builderDelegate: PagedChildBuilderDelegate<LostAndFoundBrief>(
-          itemBuilder: (context, item, index) => _ItemBriefCard(brief: item),
-        ),
+      body: PagingListener(
+        controller: _pagingController,
+        builder: (context, state, fetchNextPage) =>
+            PagedListView<Timestamp, LostAndFoundBrief>(
+              state: state,
+              fetchNextPage: fetchNextPage,
+              padding: context.padListView,
+              builderDelegate: PagedChildBuilderDelegate<LostAndFoundBrief>(
+                itemBuilder: (context, item, index) =>
+                    _ItemBriefCard(brief: item),
+              ),
+            ),
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: LocaleKeys.Campus_LaFNew.tr(),

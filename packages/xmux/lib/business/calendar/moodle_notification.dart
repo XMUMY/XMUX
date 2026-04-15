@@ -21,27 +21,19 @@ class MoodleNotificationPage extends StatefulWidget {
 }
 
 class _MoodleNotificationPageState extends State<MoodleNotificationPage> {
-  final _pagingController = PagingController<int, Notification>(
-    firstPageKey: 0,
+  late final _pagingController = PagingController<int, Notification>(
+    getNextPageKey: (state) {
+      final pages = state.pages;
+      if (pages == null || pages.isEmpty) return 0;
+      if (pages.last.isEmpty) return null;
+      return state.keys!.last + pages.last.length;
+    },
+    fetchPage: (pageKey) async {
+      return await moodle.getPopupNotifications(offset: pageKey);
+    },
   );
 
   Notification? _selectedNotification;
-
-  Future<void> _fetchPage(int pageKey) async {
-    final resp = await moodle.getPopupNotifications(offset: pageKey);
-    if (!mounted) return;
-    if (resp.isNotEmpty) {
-      _pagingController.appendPage(resp, pageKey + resp.length);
-    } else {
-      _pagingController.appendLastPage([]);
-    }
-  }
-
-  @override
-  void initState() {
-    _pagingController.addPageRequestListener(_fetchPage);
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -96,17 +88,23 @@ class _MoodleNotificationPageState extends State<MoodleNotificationPage> {
     return CatalogueContentLayout(
       catalogue: Builder(
         builder: (context) {
-          return PagedListView<int, Notification>(
-            primary: true,
-            padding:
-                CatalogueContentPadding.of(context) +
-                const EdgeInsets.symmetric(vertical: 4),
-            pagingController: _pagingController,
-            builderDelegate: PagedChildBuilderDelegate<Notification>(
-              itemBuilder: (context, item, index) =>
-                  _buildListItem(context, item),
-              noItemsFoundIndicatorBuilder: (context) => const EmptyErrorPage(),
-            ),
+          return PagingListener(
+            controller: _pagingController,
+            builder: (context, state, fetchNextPage) =>
+                PagedListView<int, Notification>(
+                  primary: true,
+                  padding:
+                      CatalogueContentPadding.of(context) +
+                      const EdgeInsets.symmetric(vertical: 4),
+                  state: state,
+                  fetchNextPage: fetchNextPage,
+                  builderDelegate: PagedChildBuilderDelegate<Notification>(
+                    itemBuilder: (context, item, index) =>
+                        _buildListItem(context, item),
+                    noItemsFoundIndicatorBuilder: (context) =>
+                        const EmptyErrorPage(),
+                  ),
+                ),
           );
         },
       ),

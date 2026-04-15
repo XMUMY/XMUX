@@ -24,39 +24,48 @@ class ForumsTab extends StatefulWidget implements TabEntry {
 
 class _ForumsTabState extends State<ForumsTab>
     with AutomaticKeepAliveClientMixin {
-  final _pagingController = PagingController<int, ForumDetail>(firstPageKey: 0);
-
-  Future<void> _fetchPage(int pageKey) async {
-    final resp = await rpc.forumClient.getForums(GetForumsReq(count: 10));
-    if (!mounted) return;
-    if (resp.forums.isNotEmpty && resp.forums.length >= 10) {
-      _pagingController.appendPage(resp.forums, pageKey + resp.forums.length);
-    } else {
-      _pagingController.appendLastPage(resp.forums);
-    }
-  }
+  late final _pagingController = PagingController<int, ForumDetail>(
+    getNextPageKey: (state) {
+      final pages = state.pages;
+      if (pages == null || pages.isEmpty) return 0;
+      if (pages.last.length < 10) return null;
+      return state.keys!.last + pages.last.length;
+    },
+    fetchPage: (pageKey) async {
+      final resp = await rpc.forumClient.getForums(GetForumsReq(count: 10));
+      return resp.forums;
+    },
+  );
 
   @override
   bool get wantKeepAlive => true;
 
   @override
-  void initState() {
-    _pagingController.addPageRequestListener(_fetchPage);
-    super.initState();
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return PagedListView<int, ForumDetail>(
-      primary: false,
-      padding: EdgeInsets.symmetric(vertical: 4, horizontal: context.padBody),
-      pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<ForumDetail>(
-        itemBuilder: (context, forum, index) =>
-            FloatingCard(child: Text(forum.title), onTap: () {}),
-        noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
-      ),
+    return PagingListener(
+      controller: _pagingController,
+      builder: (context, state, fetchNextPage) =>
+          PagedListView<int, ForumDetail>(
+            primary: false,
+            padding: EdgeInsets.symmetric(
+              vertical: 4,
+              horizontal: context.padBody,
+            ),
+            state: state,
+            fetchNextPage: fetchNextPage,
+            builderDelegate: PagedChildBuilderDelegate<ForumDetail>(
+              itemBuilder: (context, forum, index) =>
+                  FloatingCard(child: Text(forum.title), onTap: () {}),
+              noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+            ),
+          ),
     );
   }
 }

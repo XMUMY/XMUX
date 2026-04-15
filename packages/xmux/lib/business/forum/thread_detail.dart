@@ -23,35 +23,34 @@ class ThreadDetailPage extends StatefulWidget {
 }
 
 class _ThreadDetailPageState extends State<ThreadDetailPage> {
-  final _pagingController = PagingController<int, Post>(firstPageKey: 0);
-  final _childrens = <int, List<Post>>{};
+  late final _pagingController = PagingController<int, Post>(
+    getNextPageKey: (state) {
+      final pages = state.pages;
+      if (pages == null || pages.isEmpty) return 0;
+      if (pages.last.length < 10) return null;
+      return state.keys!.last + pages.last.length;
+    },
+    fetchPage: (pageKey) async {
+      final resp = await rpc.forumClient.getPosts(
+        GetPostsReq(
+          threadId: widget.thread.id,
+          ordering: Ordering.latest,
+          offset: pageKey,
+          count: 10,
+        ),
+      );
 
-  Future<void> _fetchPage(int pageKey) async {
-    final resp = await rpc.forumClient.getPosts(
-      GetPostsReq(
-        threadId: widget.thread.id,
-        ordering: Ordering.latest,
-        offset: pageKey,
-        count: 10,
-      ),
-    );
-
-    final posts = resp.posts;
-    final tops = posts.where((p) => p.parentId <= 0).toList();
-    for (final post in posts) {
-      if (post.parentId > 0) {
-        _childrens[post.parentId] ??= [];
-        _childrens[post.parentId]!.add(post);
+      final posts = resp.posts;
+      for (final post in posts) {
+        if (post.parentId > 0) {
+          _childrens[post.parentId] ??= [];
+          _childrens[post.parentId]!.add(post);
+        }
       }
-    }
-
-    if (!mounted) return;
-    if (tops.length >= 10) {
-      _pagingController.appendPage(tops, pageKey + tops.length);
-    } else {
-      _pagingController.appendLastPage(tops);
-    }
-  }
+      return posts.where((p) => p.parentId <= 0).toList();
+    },
+  );
+  final _childrens = <int, List<Post>>{};
 
   Future<void> _remove() async {
     await rpc.forumClient.removeThread(
@@ -64,12 +63,6 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
     if (!mounted) return;
     _childrens.clear();
     _pagingController.refresh();
-  }
-
-  @override
-  void initState() {
-    _pagingController.addPageRequestListener(_fetchPage);
-    super.initState();
   }
 
   @override
@@ -99,50 +92,54 @@ class _ThreadDetailPageState extends State<ThreadDetailPage> {
       ),
       body: RefreshIndicator(
         onRefresh: _refreshComments,
-        child: CustomScrollView(
-          slivers: [
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: context.padBody),
-              sliver: SliverToBoxAdapter(
-                child: SingleBodyLayout(
-                  child: Hero(
-                    tag: thread.id,
-                    child: ThreadCard(
-                      thread: thread,
-                      expanded: true,
-                      expandable: true,
-                      onPostComment: _refreshComments,
+        child: PagingListener(
+          controller: _pagingController,
+          builder: (context, state, fetchNextPage) => CustomScrollView(
+            slivers: [
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: context.padBody),
+                sliver: SliverToBoxAdapter(
+                  child: SingleBodyLayout(
+                    child: Hero(
+                      tag: thread.id,
+                      child: ThreadCard(
+                        thread: thread,
+                        expanded: true,
+                        expandable: true,
+                        onPostComment: _refreshComments,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: context.padBody),
-              sliver: PagedSliverList.separated(
-                pagingController: _pagingController,
-                builderDelegate: PagedChildBuilderDelegate<Post>(
-                  itemBuilder: (context, post, index) => SingleBodyLayout(
-                    child: PostCard(
-                      threadId: thread.id,
-                      post: post,
-                      children: _childrens[post.id] ?? [],
-                      thread: thread,
-                      onPostComment: _refreshComments,
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: context.padBody),
+                sliver: PagedSliverList.separated(
+                  state: state,
+                  fetchNextPage: fetchNextPage,
+                  builderDelegate: PagedChildBuilderDelegate<Post>(
+                    itemBuilder: (context, post, index) => SingleBodyLayout(
+                      child: PostCard(
+                        threadId: thread.id,
+                        post: post,
+                        children: _childrens[post.id] ?? [],
+                        thread: thread,
+                        onPostComment: _refreshComments,
+                      ),
                     ),
+                    noItemsFoundIndicatorBuilder: (_) => const SizedBox(),
                   ),
-                  noItemsFoundIndicatorBuilder: (_) => const SizedBox(),
+                  separatorBuilder: (context, index) =>
+                      const SingleBodyLayout(child: Divider()),
                 ),
-                separatorBuilder: (context, index) =>
-                    const SingleBodyLayout(child: Divider()),
               ),
-            ),
-            SliverPadding(
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).padding.bottom + 4,
+              SliverPadding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).padding.bottom + 4,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

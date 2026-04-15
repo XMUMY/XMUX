@@ -104,7 +104,7 @@ class CampusPage extends StatelessWidget {
                 _Button(
                   title: LocaleKeys.Campus_Emgs.tr(),
                   onPressed: _push(context, '/campus/emgs'),
-                  child: const Icon(
+                  child: const FaIcon(
                     FontAwesomeIcons.passport,
                     color: Color(0xFF5DC3F1),
                     size: 65,
@@ -114,7 +114,7 @@ class CampusPage extends StatelessWidget {
                 _Button(
                   title: LocaleKeys.Campus_Maintenance.tr(),
                   onPressed: _push(context, '/campus/maintenance'),
-                  child: const Icon(
+                  child: const FaIcon(
                     FontAwesomeIcons.hammer,
                     color: Color(0xFF5DC3F1),
                     size: 65,

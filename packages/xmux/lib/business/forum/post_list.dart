@@ -20,32 +20,25 @@ class PostList extends StatefulWidget {
 }
 
 class _PostListState extends State<PostList> {
-  final _pagingController = PagingController<int, Post>(firstPageKey: 0);
-
-  Future<void> _fetchPage(int pageKey) async {
-    final parentPost = widget.parentPost;
-    final resp = await rpc.forumClient.getPostsByParent(
-      GetPostsByParentReq(
-        parentId: parentPost.id,
-        ordering: Ordering.oldest,
-        offset: pageKey,
-        count: 10,
-      ),
-    );
-    if (!mounted) return;
-    final posts = resp.posts;
-    if (posts.length >= 10) {
-      _pagingController.appendPage(posts, pageKey + posts.length);
-    } else {
-      _pagingController.appendLastPage(posts);
-    }
-  }
-
-  @override
-  void initState() {
-    _pagingController.addPageRequestListener(_fetchPage);
-    super.initState();
-  }
+  late final _pagingController = PagingController<int, Post>(
+    getNextPageKey: (state) {
+      final pages = state.pages;
+      if (pages == null || pages.isEmpty) return 0;
+      if (pages.last.length < 10) return null;
+      return state.keys!.last + pages.last.length;
+    },
+    fetchPage: (pageKey) async {
+      final resp = await rpc.forumClient.getPostsByParent(
+        GetPostsByParentReq(
+          parentId: widget.parentPost.id,
+          ordering: Ordering.oldest,
+          offset: pageKey,
+          count: 10,
+        ),
+      );
+      return resp.posts;
+    },
+  );
 
   @override
   void dispose() {
@@ -56,41 +49,45 @@ class _PostListState extends State<PostList> {
   @override
   Widget build(BuildContext context) {
     final parentPost = widget.parentPost;
-    return CustomScrollView(
-      controller: widget.scrollController,
-      slivers: [
-        SliverToBoxAdapter(
-          child: SingleBodyLayout(
-            child: Card(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: PostCard(
-                threadId: parentPost.threadId,
-                post: parentPost,
-                onPostComment: _pagingController.refresh,
+    return PagingListener(
+      controller: _pagingController,
+      builder: (context, state, fetchNextPage) => CustomScrollView(
+        controller: widget.scrollController,
+        slivers: [
+          SliverToBoxAdapter(
+            child: SingleBodyLayout(
+              child: Card(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                child: PostCard(
+                  threadId: parentPost.threadId,
+                  post: parentPost,
+                  onPostComment: _pagingController.refresh,
+                ),
               ),
             ),
           ),
-        ),
-        PagedSliverList.separated(
-          pagingController: _pagingController,
-          builderDelegate: PagedChildBuilderDelegate<Post>(
-            itemBuilder: (context, post, index) => SingleBodyLayout(
-              child: PostCard(
-                threadId: post.threadId,
-                post: post,
-                onPostComment: _pagingController.refresh,
+          PagedSliverList.separated(
+            state: state,
+            fetchNextPage: fetchNextPage,
+            builderDelegate: PagedChildBuilderDelegate<Post>(
+              itemBuilder: (context, post, index) => SingleBodyLayout(
+                child: PostCard(
+                  threadId: post.threadId,
+                  post: post,
+                  onPostComment: _pagingController.refresh,
+                ),
               ),
             ),
+            separatorBuilder: (context, index) =>
+                const SingleBodyLayout(child: Divider()),
           ),
-          separatorBuilder: (context, index) =>
-              const SingleBodyLayout(child: Divider()),
-        ),
-        SliverPadding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).padding.bottom + 4,
+          SliverPadding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).padding.bottom + 4,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
